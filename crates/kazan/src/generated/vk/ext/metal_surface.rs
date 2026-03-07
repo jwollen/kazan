@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_EXT_metal_surface";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     pub type CAMetalLayer = *const c_void;
 
@@ -47,9 +49,9 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
-                p_layer: core::ptr::null(),
+                p_layer: ptr::null(),
                 _marker: PhantomData,
             }
         }

@@ -1,7 +1,7 @@
 use crate::{
     LengthKind, analysis::Analysis, cdecl::CType, ctype_rust, ctype_to_rust_type,
     ctype_to_rust_type_str, get_len_kind, normalize_name, normalize_setter_param_name,
-    normalize_ty_name, xml,
+    normalize_ty_name, overrides, xml,
 };
 
 #[derive(Debug)]
@@ -36,6 +36,8 @@ struct SetterParamInfo {
     ty: String,
     /// How to assign this param to the struct member when emitting the setter body.
     assignment: SetterAssignmentKind,
+    /// Whether this array member is optional (can be NULL).
+    optional: bool,
 }
 
 /// Describes how to emit the assignment of a setter parameter to a struct member.
@@ -125,6 +127,7 @@ fn analyze_struct<'a>(analysis: &'a Analysis, struct_ty: &'a xml::Structure) -> 
                         member_index,
                         ty: "&'a CStr".to_string(),
                         assignment: SetterAssignmentKind::CStrToPtr,
+                        optional: false,
                     }),
                 });
             } else if is_char_array {
@@ -136,6 +139,7 @@ fn analyze_struct<'a>(analysis: &'a Analysis, struct_ty: &'a xml::Structure) -> 
                         member_index,
                         ty: "&CStr".to_string(),
                         assignment: SetterAssignmentKind::CStrToArray,
+                        optional: false,
                     }),
                 });
 
@@ -189,43 +193,63 @@ fn analyze_struct<'a>(analysis: &'a Analysis, struct_ty: &'a xml::Structure) -> 
                         }
                     }
                     let assignment = setter_assignment_kind(analysis, &array_member.c_decl.ty);
+                    let is_optional = optional.first().copied().unwrap_or(false);
+                    let noautovalidity = array_member.noautovalidity;
 
-                    array_params.push(SetterParamInfo {
-                        name,
-                        member_index: array_member_index,
-                        ty: array_param_ty,
-                        assignment,
-                    });
+                    array_params.push((
+                        SetterParamInfo {
+                            name,
+                            member_index: array_member_index,
+                            ty: array_param_ty,
+                            assignment,
+                            optional: is_optional,
+                        },
+                        noautovalidity,
+                    ));
                 }
             }
 
-            // TODO: Use one setter for all array params need to have the same length and are not optional?
-            let merge_array_setters = false;
             let array_param_groups = if array_params.is_empty() {
                 vec![vec![]]
-            } else if merge_array_setters {
-                vec![array_params]
+            } else if array_params.len() >= 2 {
+                // Merge all array params sharing this length into one setter.
+                // Optional params and noautovalidity params become Option<...> in the signature.
+                vec![
+                    array_params
+                        .into_iter()
+                        .map(|(mut p, noauto)| {
+                            if noauto {
+                                p.optional = true;
+                            }
+                            p
+                        })
+                        .collect(),
+                ]
             } else {
                 array_params
                     .into_iter()
-                    .map(|param| vec![param])
+                    .map(|(mut p, _noauto)| {
+                        p.optional = false;
+                        vec![p]
+                    })
                     .collect::<Vec<_>>()
             };
 
             for array_params in array_param_groups {
                 let setter_name = if array_params.len() == 1 {
                     array_params[0].name.clone()
-                } else if let Some(name) = param_name.strip_suffix("_count")
-                    && !array_params.is_empty()
-                {
-                    name.to_string()
-                } else {
-                    if !array_params.is_empty() {
+                } else if !array_params.is_empty() {
+                    let base = if let Some(name) = param_name.strip_suffix("_count") {
+                        name
+                    } else {
                         println!(
                             "length member that doesn't end in 'count': {}.{}",
                             struct_ty.name, member.c_decl.name
                         );
-                    }
+                        &param_name
+                    };
+                    overrides::merged_setter_name(struct_ty.name, member.c_decl.name, base)
+                } else {
                     param_name.to_string()
                 };
 
@@ -248,6 +272,7 @@ fn analyze_struct<'a>(analysis: &'a Analysis, struct_ty: &'a xml::Structure) -> 
                         member_index,
                         ty: param_ty,
                         assignment: SetterAssignmentKind::CopyFromSlice, // unused for Value
+                        optional: false,
                     })
                 } else {
                     SetterKind::Array {
@@ -412,7 +437,11 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
             }
             SetterKind::Array { params, .. } => {
                 for param in params {
-                    writeln!(file, "{}: {},", param.name, param.ty).unwrap();
+                    if param.optional {
+                        writeln!(file, "{}: Option<{}>,", param.name, param.ty).unwrap();
+                    } else {
+                        writeln!(file, "{}: {},", param.name, param.ty).unwrap();
+                    }
                 }
             }
         }
@@ -459,28 +488,69 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
                 len_member_index,
                 params,
             } => {
-                // Write length checks
-                if params.len() > 1 {
-                    for param in params.iter().skip(1) {
+                // Find the first required (non-optional) param to derive length from.
+                let first_required = params.iter().find(|p| !p.optional);
+                let len_source = first_required.unwrap_or(&params[0]);
+
+                let len_member = &info.members[*len_member_index];
+
+                if first_required.is_none() {
+                    // All params are optional — derive length from first that is Some.
+                    write!(file, "self.{} = None", len_member.name).unwrap();
+                    for param in params {
+                        write!(
+                            file,
+                            ".or_else(|| {}.as_deref().map(|s| s.len()))",
+                            param.name
+                        )
+                        .unwrap();
+                    }
+                    writeln!(file, ".unwrap_or(0).try_into().unwrap();").unwrap();
+                } else {
+                    writeln!(
+                        file,
+                        "self.{} = {}.len().try_into().unwrap();",
+                        len_member.name, len_source.name
+                    )
+                    .unwrap();
+                }
+
+                // Assert matching lengths for all other params.
+                for param in params {
+                    if std::ptr::eq(param, len_source) {
+                        continue;
+                    }
+                    if param.optional {
                         writeln!(
                             file,
-                            "assert_eq!({}.len(), {}.len());",
-                            param.name, params[0].name
+                            "if let Some(s) = &{name} {{ assert_eq!(s.len(), self.{len} as usize); }}",
+                            name = param.name,
+                            len = len_member.name,
+                        )
+                        .unwrap();
+                    } else {
+                        writeln!(
+                            file,
+                            "assert_eq!({}.len(), self.{} as usize);",
+                            param.name, len_member.name
                         )
                         .unwrap();
                     }
                 }
 
-                let len_member = &info.members[*len_member_index];
-                writeln!(
-                    file,
-                    "self.{} = {}.len().try_into().unwrap();",
-                    len_member.name, params[0].name
-                )
-                .unwrap();
+                // Emit assignments.
                 for param in params {
                     let member = &info.members[param.member_index];
-                    emit_setter_assignment(file, &member.name, &param.name, param.assignment);
+                    if param.optional {
+                        emit_optional_setter_assignment(
+                            file,
+                            &member.name,
+                            &param.name,
+                            param.assignment,
+                        );
+                    } else {
+                        emit_setter_assignment(file, &member.name, &param.name, param.assignment);
+                    }
                 }
             }
         }
@@ -600,9 +670,9 @@ fn default_value(analysis: &Analysis, ty: &CType) -> std::borrow::Cow<'static, s
         | ctype_rust::CTypeCategory::CharPointer { is_const }
         | ctype_rust::CTypeCategory::TypedPointer { is_const, .. } => {
             if is_const {
-                "core::ptr::null()".into()
+                "ptr::null()".into()
             } else {
-                "core::ptr::null_mut()".into()
+                "ptr::null_mut()".into()
             }
         }
         _ => "Default::default()".into(),
@@ -678,6 +748,52 @@ fn emit_setter_assignment(
             unreachable!("CStr assignments only used for Value setters")
         }
     }
+}
+
+/// Emit assignment for an optional array param (`Option<&[T]>` → pointer or null).
+fn emit_optional_setter_assignment(
+    file: &mut impl std::io::Write,
+    member_name: &str,
+    param_name: &str,
+    kind: SetterAssignmentKind,
+) {
+    // For optional params, emit: if let Some(s) = param { ptr } else { null }
+    let (map_expr, null_expr) = match kind {
+        SetterAssignmentKind::CopyFromSlice => {
+            // Optional fixed-array copy: copy if Some, leave unchanged if None
+            writeln!(
+                file,
+                "if let Some(s) = {} {{ self.{}[..s.len()].copy_from_slice(s); }}",
+                param_name, member_name
+            )
+            .unwrap();
+            return;
+        }
+        SetterAssignmentKind::PtrFromSlice { is_const }
+        | SetterAssignmentKind::PtrFromRefNested { is_const } => {
+            if is_const {
+                ("|s| s.as_ptr() as _", "ptr::null()")
+            } else {
+                ("|s| s.as_mut_ptr() as _", "ptr::null_mut()")
+            }
+        }
+        SetterAssignmentKind::PtrFromRef { is_const } => {
+            if is_const {
+                ("|s| s.as_ptr()", "ptr::null()")
+            } else {
+                ("|s| s.as_mut_ptr()", "ptr::null_mut()")
+            }
+        }
+        SetterAssignmentKind::CStrToPtr | SetterAssignmentKind::CStrToArray => {
+            unreachable!("CStr assignments only used for Value setters")
+        }
+    };
+    writeln!(
+        file,
+        "self.{} = {}.map_or({}, {});",
+        member_name, param_name, null_expr, map_expr
+    )
+    .unwrap();
 }
 
 pub fn convert_setter_param_type(

@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_ARM_tensors";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     handle_nondispatchable!(
         TensorARM,
@@ -67,12 +69,12 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 tiling: Default::default(),
                 format: Default::default(),
                 dimension_count: Default::default(),
-                p_dimensions: core::ptr::null(),
-                p_strides: core::ptr::null(),
+                p_dimensions: ptr::null(),
+                p_strides: ptr::null(),
                 usage: Default::default(),
                 _marker: PhantomData,
             }
@@ -93,16 +95,13 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn dimensions(mut self, dimensions: &'a [i64]) -> Self {
+        pub fn dimensions(mut self, dimensions: &'a [i64], strides: Option<&'a [i64]>) -> Self {
             self.dimension_count = dimensions.len().try_into().unwrap();
+            if let Some(s) = &strides {
+                assert_eq!(s.len(), self.dimension_count as usize);
+            }
             self.p_dimensions = dimensions.as_ptr();
-            self
-        }
-
-        #[inline]
-        pub fn strides(mut self, strides: &'a [i64]) -> Self {
-            self.dimension_count = strides.len().try_into().unwrap();
-            self.p_strides = strides.as_ptr();
+            self.p_strides = strides.map_or(ptr::null(), |s| s.as_ptr());
             self
         }
 
@@ -151,12 +150,12 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
-                p_description: core::ptr::null(),
+                p_description: ptr::null(),
                 sharing_mode: Default::default(),
                 queue_family_index_count: Default::default(),
-                p_queue_family_indices: core::ptr::null(),
+                p_queue_family_indices: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -223,7 +222,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 tensor: Default::default(),
                 format: Default::default(),
@@ -282,7 +281,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 tensor: Default::default(),
                 _marker: PhantomData,
             }
@@ -331,7 +330,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 tensor: Default::default(),
                 memory: Default::default(),
                 memory_offset: Default::default(),
@@ -394,9 +393,9 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 tensor_view_count: Default::default(),
-                p_tensor_views: core::ptr::null(),
+                p_tensor_views: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -451,7 +450,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 optimal_tiling_tensor_features: Default::default(),
                 linear_tiling_tensor_features: Default::default(),
                 _marker: PhantomData,
@@ -565,7 +564,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 max_tensor_dimension_count: Default::default(),
                 max_tensor_elements: Default::default(),
                 max_per_dimension_tensor_elements: Default::default(),
@@ -736,7 +735,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 src_stage_mask: Default::default(),
                 src_access_mask: Default::default(),
                 dst_stage_mask: Default::default(),
@@ -830,9 +829,9 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 tensor_memory_barrier_count: Default::default(),
-                p_tensor_memory_barriers: core::ptr::null(),
+                p_tensor_memory_barriers: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -907,7 +906,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 tensor_non_packed: Default::default(),
                 shader_tensor_access: Default::default(),
                 shader_storage_tensor_array_dynamic_indexing: Default::default(),
@@ -999,8 +998,8 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
-                p_create_info: core::ptr::null(),
+                p_next: ptr::null(),
+                p_create_info: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -1050,11 +1049,11 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 src_tensor: Default::default(),
                 dst_tensor: Default::default(),
                 region_count: Default::default(),
-                p_regions: core::ptr::null(),
+                p_regions: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -1117,11 +1116,11 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 dimension_count: Default::default(),
-                p_src_offset: core::ptr::null(),
-                p_dst_offset: core::ptr::null(),
-                p_extent: core::ptr::null(),
+                p_src_offset: ptr::null(),
+                p_dst_offset: ptr::null(),
+                p_extent: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -1129,23 +1128,28 @@ pub(super) mod defs {
 
     impl<'a> TensorCopyARM<'a> {
         #[inline]
-        pub fn src_offset(mut self, src_offset: &'a [u64]) -> Self {
-            self.dimension_count = src_offset.len().try_into().unwrap();
-            self.p_src_offset = src_offset.as_ptr();
-            self
-        }
-
-        #[inline]
-        pub fn dst_offset(mut self, dst_offset: &'a [u64]) -> Self {
-            self.dimension_count = dst_offset.len().try_into().unwrap();
-            self.p_dst_offset = dst_offset.as_ptr();
-            self
-        }
-
-        #[inline]
-        pub fn extent(mut self, extent: &'a [u64]) -> Self {
-            self.dimension_count = extent.len().try_into().unwrap();
-            self.p_extent = extent.as_ptr();
+        pub fn dimensions(
+            mut self,
+            src_offset: Option<&'a [u64]>,
+            dst_offset: Option<&'a [u64]>,
+            extent: Option<&'a [u64]>,
+        ) -> Self {
+            self.dimension_count = None
+                .or_else(|| src_offset.as_deref().map(|s| s.len()))
+                .or_else(|| dst_offset.as_deref().map(|s| s.len()))
+                .or_else(|| extent.as_deref().map(|s| s.len()))
+                .unwrap_or(0)
+                .try_into()
+                .unwrap();
+            if let Some(s) = &dst_offset {
+                assert_eq!(s.len(), self.dimension_count as usize);
+            }
+            if let Some(s) = &extent {
+                assert_eq!(s.len(), self.dimension_count as usize);
+            }
+            self.p_src_offset = src_offset.map_or(ptr::null(), |s| s.as_ptr());
+            self.p_dst_offset = dst_offset.map_or(ptr::null(), |s| s.as_ptr());
+            self.p_extent = extent.map_or(ptr::null(), |s| s.as_ptr());
             self
         }
     }
@@ -1183,7 +1187,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 tensor: Default::default(),
                 _marker: PhantomData,
             }
@@ -1244,7 +1248,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 tensor_capture_replay_descriptor_data_size: Default::default(),
                 tensor_view_capture_replay_descriptor_data_size: Default::default(),
                 tensor_descriptor_size: Default::default(),
@@ -1324,7 +1328,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 descriptor_buffer_tensor_descriptors: Default::default(),
                 _marker: PhantomData,
             }
@@ -1373,7 +1377,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 tensor: Default::default(),
                 _marker: PhantomData,
             }
@@ -1419,7 +1423,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 tensor_view: Default::default(),
                 _marker: PhantomData,
             }
@@ -1466,7 +1470,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 tensor_view: Default::default(),
                 _marker: PhantomData,
             }
@@ -1518,9 +1522,9 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 tensor_count: Default::default(),
-                p_tensors: core::ptr::null(),
+                p_tensors: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -1570,9 +1574,9 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
-                p_description: core::ptr::null(),
+                p_description: ptr::null(),
                 handle_type: Default::default(),
                 _marker: PhantomData,
             }
@@ -1632,7 +1636,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 external_memory_properties: Default::default(),
                 _marker: PhantomData,
             }
@@ -1682,7 +1686,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 handle_types: Default::default(),
                 _marker: PhantomData,
             }

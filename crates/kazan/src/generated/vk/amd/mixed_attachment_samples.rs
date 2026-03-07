@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_AMD_mixed_attachment_samples";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentSampleCountInfoAMD.html>
     #[repr(C)]
@@ -56,9 +58,9 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 color_attachment_count: Default::default(),
-                p_color_attachment_samples: core::ptr::null(),
+                p_color_attachment_samples: ptr::null(),
                 depth_stencil_attachment_samples: Default::default(),
                 _marker: PhantomData,
             }

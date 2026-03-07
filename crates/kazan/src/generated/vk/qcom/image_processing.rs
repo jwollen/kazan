@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_QCOM_image_processing";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageViewSampleWeightCreateInfoQCOM.html>
     #[repr(C)]
@@ -50,7 +52,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 filter_center: Default::default(),
                 filter_size: Default::default(),
                 num_phases: Default::default(),
@@ -120,7 +122,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 texture_sample_weighted: Default::default(),
                 texture_box_filter: Default::default(),
                 texture_block_match: Default::default(),
@@ -194,7 +196,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 max_weight_filter_phases: Default::default(),
                 max_weight_filter_dimension: Default::default(),
                 max_block_match_region: Default::default(),

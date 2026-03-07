@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_EXT_debug_utils";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     handle_nondispatchable!(
         DebugUtilsMessengerEXT,
@@ -57,10 +59,10 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 object_type: Default::default(),
                 object_handle: Default::default(),
-                p_object_name: core::ptr::null(),
+                p_object_name: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -124,12 +126,12 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 object_type: Default::default(),
                 object_handle: Default::default(),
                 tag_name: Default::default(),
                 tag_size: Default::default(),
-                p_tag: core::ptr::null(),
+                p_tag: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -194,8 +196,8 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
-                p_label_name: core::ptr::null(),
+                p_next: ptr::null(),
+                p_label_name: ptr::null(),
                 color: [Default::default(); _],
                 _marker: PhantomData,
             }
@@ -259,12 +261,12 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 message_severity: Default::default(),
                 message_type: Default::default(),
                 pfn_user_callback: Default::default(),
-                p_user_data: core::ptr::null_mut(),
+                p_user_data: ptr::null_mut(),
                 _marker: PhantomData,
             }
         }
@@ -359,17 +361,17 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
-                p_message_id_name: core::ptr::null(),
+                p_message_id_name: ptr::null(),
                 message_id_number: Default::default(),
-                p_message: core::ptr::null(),
+                p_message: ptr::null(),
                 queue_label_count: Default::default(),
-                p_queue_labels: core::ptr::null(),
+                p_queue_labels: ptr::null(),
                 cmd_buf_label_count: Default::default(),
-                p_cmd_buf_labels: core::ptr::null(),
+                p_cmd_buf_labels: ptr::null(),
                 object_count: Default::default(),
-                p_objects: core::ptr::null(),
+                p_objects: ptr::null(),
                 _marker: PhantomData,
             }
         }

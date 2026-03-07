@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_ARM_data_graph";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     pub const MAX_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_SET_NAME_SIZE_ARM: u32 = 128;
 
@@ -72,7 +74,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 data_graph: Default::default(),
                 data_graph_update_after_bind: Default::default(),
                 data_graph_specialization_constants: Default::default(),
@@ -160,7 +162,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 dimension: Default::default(),
                 zero_count: Default::default(),
                 group_size: Default::default(),
@@ -221,9 +223,9 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 id: Default::default(),
-                p_constant_data: core::ptr::null(),
+                p_constant_data: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -277,7 +279,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 descriptor_set: Default::default(),
                 binding: Default::default(),
                 array_element: Default::default(),
@@ -344,8 +346,8 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
-                p_vendor_options: core::ptr::null(),
+                p_next: ptr::null(),
+                p_vendor_options: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -395,11 +397,11 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 layout: Default::default(),
                 resource_info_count: Default::default(),
-                p_resource_infos: core::ptr::null(),
+                p_resource_infos: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -473,12 +475,12 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 module: Default::default(),
-                p_name: core::ptr::null(),
-                p_specialization_info: core::ptr::null(),
+                p_name: ptr::null(),
+                p_specialization_info: ptr::null(),
                 constant_count: Default::default(),
-                p_constants: core::ptr::null(),
+                p_constants: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -547,7 +549,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 data_graph_pipeline: Default::default(),
                 _marker: PhantomData,
@@ -600,7 +602,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 session: Default::default(),
                 _marker: PhantomData,
             }
@@ -650,7 +652,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 bind_point: Default::default(),
                 bind_point_type: Default::default(),
                 num_objects: Default::default(),
@@ -717,7 +719,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 session: Default::default(),
                 bind_point: Default::default(),
                 object_index: Default::default(),
@@ -785,7 +787,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 session: Default::default(),
                 bind_point: Default::default(),
                 object_index: Default::default(),
@@ -858,7 +860,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 data_graph_pipeline: Default::default(),
                 _marker: PhantomData,
             }
@@ -910,11 +912,11 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 property: Default::default(),
                 is_text: Default::default(),
                 data_size: Default::default(),
-                p_data: core::ptr::null_mut(),
+                p_data: ptr::null_mut(),
                 _marker: PhantomData,
             }
         }
@@ -979,9 +981,9 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 identifier_size: Default::default(),
-                p_identifier: core::ptr::null(),
+                p_identifier: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -1026,7 +1028,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 flags: Default::default(),
                 _marker: PhantomData,
             }
@@ -1154,7 +1156,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 engine: Default::default(),
                 operation: Default::default(),
                 _marker: PhantomData,
@@ -1211,7 +1213,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 queue_family_index: Default::default(),
                 engine_type: Default::default(),
                 _marker: PhantomData,
@@ -1275,7 +1277,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 foreign_semaphore_handle_types: Default::default(),
                 foreign_memory_handle_types: Default::default(),
                 _marker: PhantomData,
@@ -1346,9 +1348,9 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 processing_engine_count: Default::default(),
-                p_processing_engines: core::ptr::null_mut(),
+                p_processing_engines: ptr::null_mut(),
                 _marker: PhantomData,
             }
         }

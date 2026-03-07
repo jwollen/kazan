@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_KHR_video_queue";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     handle_nondispatchable!(
         VideoSessionKHR,
@@ -56,7 +58,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 video_codec_operations: Default::default(),
                 _marker: PhantomData,
             }
@@ -113,7 +115,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 query_result_status_support: Default::default(),
                 _marker: PhantomData,
             }
@@ -165,9 +167,9 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 profile_count: Default::default(),
-                p_profiles: core::ptr::null(),
+                p_profiles: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -212,7 +214,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 image_usage: Default::default(),
                 _marker: PhantomData,
             }
@@ -267,7 +269,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 format: Default::default(),
                 component_mapping: Default::default(),
                 image_create_flags: Default::default(),
@@ -355,7 +357,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 video_codec_operation: Default::default(),
                 chroma_subsampling: Default::default(),
                 luma_bit_depth: Default::default(),
@@ -458,7 +460,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 flags: Default::default(),
                 min_bitstream_buffer_offset_alignment: Default::default(),
                 min_bitstream_buffer_size_alignment: Default::default(),
@@ -567,7 +569,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 memory_bind_index: Default::default(),
                 memory_requirements: Default::default(),
                 _marker: PhantomData,
@@ -625,7 +627,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 memory_bind_index: Default::default(),
                 memory: Default::default(),
                 memory_offset: Default::default(),
@@ -697,7 +699,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 coded_offset: Default::default(),
                 coded_extent: Default::default(),
                 base_array_layer: Default::default(),
@@ -765,9 +767,9 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 slot_index: Default::default(),
-                p_picture_resource: core::ptr::null(),
+                p_picture_resource: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -839,16 +841,16 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 queue_family_index: Default::default(),
                 flags: Default::default(),
-                p_video_profile: core::ptr::null(),
+                p_video_profile: ptr::null(),
                 picture_format: Default::default(),
                 max_coded_extent: Default::default(),
                 reference_picture_format: Default::default(),
                 max_dpb_slots: Default::default(),
                 max_active_reference_pictures: Default::default(),
-                p_std_header_version: core::ptr::null(),
+                p_std_header_version: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -948,7 +950,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 video_session_parameters_template: Default::default(),
                 video_session: Default::default(),
@@ -1011,7 +1013,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 update_sequence_count: Default::default(),
                 _marker: PhantomData,
             }
@@ -1064,12 +1066,12 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 video_session: Default::default(),
                 video_session_parameters: Default::default(),
                 reference_slot_count: Default::default(),
-                p_reference_slots: core::ptr::null(),
+                p_reference_slots: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -1138,7 +1140,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 _marker: PhantomData,
             }
@@ -1183,7 +1185,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 _marker: PhantomData,
             }

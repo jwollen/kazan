@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_EXT_device_generated_commands";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     handle_nondispatchable!(
         IndirectCommandsLayoutEXT,
@@ -69,7 +71,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 device_generated_commands: Default::default(),
                 dynamic_generated_pipeline_layout: Default::default(),
                 _marker: PhantomData,
@@ -188,7 +190,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 max_indirect_pipeline_count: Default::default(),
                 max_indirect_shader_object_count: Default::default(),
                 max_indirect_sequence_count: Default::default(),
@@ -351,7 +353,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 pipeline: Default::default(),
                 _marker: PhantomData,
             }
@@ -404,9 +406,9 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 shader_count: Default::default(),
-                p_shaders: core::ptr::null(),
+                p_shaders: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -458,7 +460,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 indirect_execution_set: Default::default(),
                 indirect_commands_layout: Default::default(),
                 max_sequence_count: Default::default(),
@@ -533,7 +535,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 initial_pipeline: Default::default(),
                 max_pipeline_count: Default::default(),
                 _marker: PhantomData,
@@ -588,9 +590,9 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 set_layout_count: Default::default(),
-                p_set_layouts: core::ptr::null(),
+                p_set_layouts: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -645,13 +647,13 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 shader_count: Default::default(),
-                p_initial_shaders: core::ptr::null(),
-                p_set_layout_infos: core::ptr::null(),
+                p_initial_shaders: ptr::null(),
+                p_set_layout_infos: ptr::null(),
                 max_shader_count: Default::default(),
                 push_constant_range_count: Default::default(),
-                p_push_constant_ranges: core::ptr::null(),
+                p_push_constant_ranges: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -659,19 +661,17 @@ pub(super) mod defs {
 
     impl<'a> IndirectExecutionSetShaderInfoEXT<'a> {
         #[inline]
-        pub fn initial_shaders(mut self, initial_shaders: &'a [ShaderEXT]) -> Self {
-            self.shader_count = initial_shaders.len().try_into().unwrap();
-            self.p_initial_shaders = initial_shaders.as_ptr();
-            self
-        }
-
-        #[inline]
-        pub fn set_layout_infos(
+        pub fn shaders(
             mut self,
-            set_layout_infos: &'a [IndirectExecutionSetShaderLayoutInfoEXT<'a>],
+            initial_shaders: &'a [ShaderEXT],
+            set_layout_infos: Option<&'a [IndirectExecutionSetShaderLayoutInfoEXT<'a>]>,
         ) -> Self {
-            self.shader_count = set_layout_infos.len().try_into().unwrap();
-            self.p_set_layout_infos = set_layout_infos.as_ptr();
+            self.shader_count = initial_shaders.len().try_into().unwrap();
+            if let Some(s) = &set_layout_infos {
+                assert_eq!(s.len(), self.shader_count as usize);
+            }
+            self.p_initial_shaders = initial_shaders.as_ptr();
+            self.p_set_layout_infos = set_layout_infos.map_or(ptr::null(), |s| s.as_ptr());
             self
         }
 
@@ -724,7 +724,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 ty: Default::default(),
                 info: Default::default(),
                 _marker: PhantomData,
@@ -794,7 +794,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 shader_stages: Default::default(),
                 indirect_execution_set: Default::default(),
                 indirect_commands_layout: Default::default(),
@@ -911,7 +911,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 index: Default::default(),
                 pipeline: Default::default(),
                 _marker: PhantomData,
@@ -966,7 +966,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 index: Default::default(),
                 shader: Default::default(),
                 _marker: PhantomData,
@@ -1029,13 +1029,13 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 shader_stages: Default::default(),
                 indirect_stride: Default::default(),
                 pipeline_layout: Default::default(),
                 token_count: Default::default(),
-                p_tokens: core::ptr::null(),
+                p_tokens: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -1108,7 +1108,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 ty: Default::default(),
                 data: Default::default(),
                 offset: Default::default(),

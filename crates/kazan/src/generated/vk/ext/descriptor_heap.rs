@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_EXT_descriptor_heap";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkHostAddressRangeEXT.html>
     #[repr(C)]
@@ -36,7 +38,7 @@ pub(super) mod defs {
     impl Default for HostAddressRangeEXT<'_> {
         fn default() -> Self {
             Self {
-                address: core::ptr::null_mut(),
+                address: ptr::null_mut(),
                 size: Default::default(),
                 _marker: PhantomData,
             }
@@ -75,7 +77,7 @@ pub(super) mod defs {
     impl Default for HostAddressRangeConstEXT<'_> {
         fn default() -> Self {
             Self {
-                address: core::ptr::null(),
+                address: ptr::null(),
                 size: Default::default(),
                 _marker: PhantomData,
             }
@@ -147,7 +149,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 format: Default::default(),
                 address_range: Default::default(),
                 _marker: PhantomData,
@@ -201,8 +203,8 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
-                p_view: core::ptr::null(),
+                p_next: ptr::null(),
+                p_view: ptr::null(),
                 layout: Default::default(),
                 _marker: PhantomData,
             }
@@ -255,7 +257,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 ty: Default::default(),
                 data: Default::default(),
                 _marker: PhantomData,
@@ -311,7 +313,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 heap_range: Default::default(),
                 reserved_range_offset: Default::default(),
                 reserved_range_size: Default::default(),
@@ -372,7 +374,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 offset: Default::default(),
                 data: Default::default(),
                 _marker: PhantomData,
@@ -425,7 +427,7 @@ pub(super) mod defs {
             Self {
                 heap_offset: Default::default(),
                 heap_array_stride: Default::default(),
-                p_embedded_sampler: core::ptr::null(),
+                p_embedded_sampler: ptr::null(),
                 sampler_heap_offset: Default::default(),
                 sampler_heap_array_stride: Default::default(),
                 _marker: PhantomData,
@@ -511,7 +513,7 @@ pub(super) mod defs {
                 push_offset: Default::default(),
                 heap_index_stride: Default::default(),
                 heap_array_stride: Default::default(),
-                p_embedded_sampler: core::ptr::null(),
+                p_embedded_sampler: ptr::null(),
                 use_combined_image_sampler_index: Default::default(),
                 sampler_heap_offset: Default::default(),
                 sampler_push_offset: Default::default(),
@@ -638,7 +640,7 @@ pub(super) mod defs {
                 address_offset: Default::default(),
                 heap_index_stride: Default::default(),
                 heap_array_stride: Default::default(),
-                p_embedded_sampler: core::ptr::null(),
+                p_embedded_sampler: ptr::null(),
                 use_combined_image_sampler_index: Default::default(),
                 sampler_heap_offset: Default::default(),
                 sampler_push_offset: Default::default(),
@@ -773,7 +775,7 @@ pub(super) mod defs {
                 push_offset: Default::default(),
                 address_offset: Default::default(),
                 heap_index_stride: Default::default(),
-                p_embedded_sampler: core::ptr::null(),
+                p_embedded_sampler: ptr::null(),
                 use_combined_image_sampler_index: Default::default(),
                 sampler_heap_offset: Default::default(),
                 sampler_push_offset: Default::default(),
@@ -922,7 +924,7 @@ pub(super) mod defs {
                 shader_record_offset: Default::default(),
                 heap_index_stride: Default::default(),
                 heap_array_stride: Default::default(),
-                p_embedded_sampler: core::ptr::null(),
+                p_embedded_sampler: ptr::null(),
                 use_combined_image_sampler_index: Default::default(),
                 sampler_heap_offset: Default::default(),
                 sampler_shader_record_offset: Default::default(),
@@ -1062,7 +1064,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 descriptor_set: Default::default(),
                 first_binding: Default::default(),
                 binding_count: Default::default(),
@@ -1154,9 +1156,9 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 mapping_count: Default::default(),
-                p_mappings: core::ptr::null(),
+                p_mappings: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -1204,7 +1206,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 index: Default::default(),
                 _marker: PhantomData,
             }
@@ -1252,8 +1254,8 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
-                p_data: core::ptr::null(),
+                p_next: ptr::null(),
+                p_data: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -1305,7 +1307,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 push_data_offset: Default::default(),
                 push_data_size: Default::default(),
                 _marker: PhantomData,
@@ -1362,7 +1364,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 subsampled_image_descriptor_count: Default::default(),
                 _marker: PhantomData,
             }
@@ -1422,7 +1424,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 descriptor_heap: Default::default(),
                 descriptor_heap_capture_replay: Default::default(),
                 _marker: PhantomData,
@@ -1549,7 +1551,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 sampler_heap_alignment: Default::default(),
                 resource_heap_alignment: Default::default(),
                 max_sampler_heap_size: Default::default(),
@@ -1756,9 +1758,9 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
-                p_sampler_heap_bind_info: core::ptr::null(),
-                p_resource_heap_bind_info: core::ptr::null(),
+                p_next: ptr::null(),
+                p_sampler_heap_bind_info: ptr::null(),
+                p_resource_heap_bind_info: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -1830,7 +1832,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 tensor_descriptor_size: Default::default(),
                 tensor_descriptor_alignment: Default::default(),
                 tensor_capture_replay_opaque_data_size: Default::default(),

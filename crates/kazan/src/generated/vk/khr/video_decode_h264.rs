@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_KHR_video_decode_h264";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeH264ProfileInfoKHR.html>
     #[repr(C)]
@@ -48,7 +50,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 std_profile_idc: Default::default(),
                 picture_layout: Default::default(),
                 _marker: PhantomData,
@@ -107,7 +109,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 max_level_idc: Default::default(),
                 field_offset_granularity: Default::default(),
                 _marker: PhantomData,
@@ -171,11 +173,11 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 std_sps_count: Default::default(),
-                p_std_sp_ss: core::ptr::null(),
+                p_std_sp_ss: ptr::null(),
                 std_pps_count: Default::default(),
-                p_std_pp_ss: core::ptr::null(),
+                p_std_pp_ss: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -237,10 +239,10 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 max_std_sps_count: Default::default(),
                 max_std_pps_count: Default::default(),
-                p_parameters_add_info: core::ptr::null(),
+                p_parameters_add_info: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -305,10 +307,10 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
-                p_std_picture_info: core::ptr::null(),
+                p_next: ptr::null(),
+                p_std_picture_info: ptr::null(),
                 slice_count: Default::default(),
-                p_slice_offsets: core::ptr::null(),
+                p_slice_offsets: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -364,8 +366,8 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
-                p_std_reference_info: core::ptr::null(),
+                p_next: ptr::null(),
+                p_std_reference_info: ptr::null(),
                 _marker: PhantomData,
             }
         }

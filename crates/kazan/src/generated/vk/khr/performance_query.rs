@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_KHR_performance_query";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePerformanceQueryFeaturesKHR.html>
     #[repr(C)]
@@ -58,7 +60,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 performance_counter_query_pools: Default::default(),
                 performance_counter_multiple_query_pools: Default::default(),
                 _marker: PhantomData,
@@ -126,7 +128,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 allow_command_buffer_query_copies: Default::default(),
                 _marker: PhantomData,
             }
@@ -180,7 +182,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 unit: Default::default(),
                 scope: Default::default(),
                 storage: Default::default(),
@@ -255,7 +257,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 flags: Default::default(),
                 name: [Default::default(); _],
                 category: [Default::default(); _],
@@ -336,10 +338,10 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 queue_family_index: Default::default(),
                 counter_index_count: Default::default(),
-                p_counter_indices: core::ptr::null(),
+                p_counter_indices: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -392,7 +394,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 timeout: Default::default(),
                 _marker: PhantomData,
@@ -447,7 +449,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 counter_pass_index: Default::default(),
                 _marker: PhantomData,
             }

@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_EXT_present_timing";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePresentTimingFeaturesEXT.html>
     #[repr(C)]
@@ -54,7 +56,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 present_timing: Default::default(),
                 present_at_absolute_time: Default::default(),
                 present_at_relative_time: Default::default(),
@@ -128,7 +130,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 present_timing_supported: Default::default(),
                 present_at_absolute_time_supported: Default::default(),
                 present_at_relative_time_supported: Default::default(),
@@ -205,7 +207,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 refresh_duration: Default::default(),
                 refresh_interval: Default::default(),
                 _marker: PhantomData,
@@ -261,10 +263,10 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 time_domain_count: Default::default(),
-                p_time_domains: core::ptr::null_mut(),
-                p_time_domain_ids: core::ptr::null_mut(),
+                p_time_domains: ptr::null_mut(),
+                p_time_domain_ids: ptr::null_mut(),
                 _marker: PhantomData,
             }
         }
@@ -272,16 +274,22 @@ pub(super) mod defs {
 
     impl<'a> SwapchainTimeDomainPropertiesEXT<'a> {
         #[inline]
-        pub fn time_domains(mut self, time_domains: &'a mut [TimeDomainKHR]) -> Self {
-            self.time_domain_count = time_domains.len().try_into().unwrap();
-            self.p_time_domains = time_domains.as_mut_ptr();
-            self
-        }
-
-        #[inline]
-        pub fn time_domain_ids(mut self, time_domain_ids: &'a mut [u64]) -> Self {
-            self.time_domain_count = time_domain_ids.len().try_into().unwrap();
-            self.p_time_domain_ids = time_domain_ids.as_mut_ptr();
+        pub fn time_domains(
+            mut self,
+            time_domains: Option<&'a mut [TimeDomainKHR]>,
+            time_domain_ids: Option<&'a mut [u64]>,
+        ) -> Self {
+            self.time_domain_count = None
+                .or_else(|| time_domains.as_deref().map(|s| s.len()))
+                .or_else(|| time_domain_ids.as_deref().map(|s| s.len()))
+                .unwrap_or(0)
+                .try_into()
+                .unwrap();
+            if let Some(s) = &time_domain_ids {
+                assert_eq!(s.len(), self.time_domain_count as usize);
+            }
+            self.p_time_domains = time_domains.map_or(ptr::null_mut(), |s| s.as_mut_ptr());
+            self.p_time_domain_ids = time_domain_ids.map_or(ptr::null_mut(), |s| s.as_mut_ptr());
             self
         }
     }
@@ -342,7 +350,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 swapchain: Default::default(),
                 _marker: PhantomData,
@@ -401,11 +409,11 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 timing_properties_counter: Default::default(),
                 time_domains_counter: Default::default(),
                 presentation_timing_count: Default::default(),
-                p_presentation_timings: core::ptr::null_mut(),
+                p_presentation_timings: ptr::null_mut(),
                 _marker: PhantomData,
             }
         }
@@ -477,11 +485,11 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 present_id: Default::default(),
                 target_time: Default::default(),
                 present_stage_count: Default::default(),
-                p_present_stages: core::ptr::null_mut(),
+                p_present_stages: ptr::null_mut(),
                 time_domain: Default::default(),
                 time_domain_id: Default::default(),
                 report_complete: Default::default(),
@@ -563,9 +571,9 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 swapchain_count: Default::default(),
-                p_timing_infos: core::ptr::null(),
+                p_timing_infos: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -621,7 +629,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 target_time: Default::default(),
                 time_domain_id: Default::default(),
@@ -710,7 +718,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 swapchain: Default::default(),
                 present_stage: Default::default(),
                 time_domain_id: Default::default(),

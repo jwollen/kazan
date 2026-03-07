@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_EXT_descriptor_buffer";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDescriptorBufferFeaturesEXT.html>
     #[repr(C)]
@@ -65,7 +67,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 descriptor_buffer: Default::default(),
                 descriptor_buffer_capture_replay: Default::default(),
                 descriptor_buffer_image_layout_ignored: Default::default(),
@@ -307,7 +309,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 combined_image_sampler_descriptor_single_array: Default::default(),
                 bufferless_push_descriptors: Default::default(),
                 allow_sampler_image_view_post_submit_creation: Default::default(),
@@ -689,7 +691,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 combined_image_sampler_density_map_descriptor_size: Default::default(),
                 _marker: PhantomData,
             }
@@ -742,7 +744,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 address: Default::default(),
                 range: Default::default(),
                 format: Default::default(),
@@ -803,7 +805,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 address: Default::default(),
                 usage: Default::default(),
                 _marker: PhantomData,
@@ -861,7 +863,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 buffer: Default::default(),
                 _marker: PhantomData,
             }
@@ -908,7 +910,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 ty: Default::default(),
                 data: Default::default(),
                 _marker: PhantomData,
@@ -961,7 +963,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 buffer: Default::default(),
                 _marker: PhantomData,
             }
@@ -1006,7 +1008,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 image: Default::default(),
                 _marker: PhantomData,
             }
@@ -1052,7 +1054,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 image_view: Default::default(),
                 _marker: PhantomData,
             }
@@ -1098,7 +1100,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 sampler: Default::default(),
                 _marker: PhantomData,
             }
@@ -1146,7 +1148,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 acceleration_structure: Default::default(),
                 acceleration_structure_nv: Default::default(),
                 _marker: PhantomData,
@@ -1226,8 +1228,8 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
-                opaque_capture_descriptor_data: core::ptr::null(),
+                p_next: ptr::null(),
+                opaque_capture_descriptor_data: ptr::null(),
                 _marker: PhantomData,
             }
         }

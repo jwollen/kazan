@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_NV_device_generated_commands";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     handle_nondispatchable!(
         IndirectCommandsLayoutNV,
@@ -59,7 +61,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 device_generated_commands: Default::default(),
                 _marker: PhantomData,
             }
@@ -153,7 +155,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 max_graphics_shader_group_count: Default::default(),
                 max_indirect_sequence_count: Default::default(),
                 max_indirect_commands_token_count: Default::default(),
@@ -287,11 +289,11 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 stage_count: Default::default(),
-                p_stages: core::ptr::null(),
-                p_vertex_input_state: core::ptr::null(),
-                p_tessellation_state: core::ptr::null(),
+                p_stages: ptr::null(),
+                p_vertex_input_state: ptr::null(),
+                p_tessellation_state: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -366,11 +368,11 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 group_count: Default::default(),
-                p_groups: core::ptr::null(),
+                p_groups: ptr::null(),
                 pipeline_count: Default::default(),
-                p_pipelines: core::ptr::null(),
+                p_pipelines: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -572,7 +574,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 token_type: Default::default(),
                 stream: Default::default(),
                 offset: Default::default(),
@@ -584,8 +586,8 @@ pub(super) mod defs {
                 pushconstant_size: Default::default(),
                 indirect_state_flags: Default::default(),
                 index_type_count: Default::default(),
-                p_index_types: core::ptr::null(),
-                p_index_type_values: core::ptr::null(),
+                p_index_types: ptr::null(),
+                p_index_type_values: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -659,15 +661,14 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn index_types(mut self, index_types: &'a [IndexType]) -> Self {
+        pub fn index_types(
+            mut self,
+            index_types: &'a [IndexType],
+            index_type_values: &'a [u32],
+        ) -> Self {
             self.index_type_count = index_types.len().try_into().unwrap();
+            assert_eq!(index_type_values.len(), self.index_type_count as usize);
             self.p_index_types = index_types.as_ptr();
-            self
-        }
-
-        #[inline]
-        pub fn index_type_values(mut self, index_type_values: &'a [u32]) -> Self {
-            self.index_type_count = index_type_values.len().try_into().unwrap();
             self.p_index_type_values = index_type_values.as_ptr();
             self
         }
@@ -714,13 +715,13 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 pipeline_bind_point: Default::default(),
                 token_count: Default::default(),
-                p_tokens: core::ptr::null(),
+                p_tokens: ptr::null(),
                 stream_count: Default::default(),
-                p_stream_strides: core::ptr::null(),
+                p_stream_strides: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -808,12 +809,12 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 pipeline_bind_point: Default::default(),
                 pipeline: Default::default(),
                 indirect_commands_layout: Default::default(),
                 stream_count: Default::default(),
-                p_streams: core::ptr::null(),
+                p_streams: ptr::null(),
                 sequences_count: Default::default(),
                 preprocess_buffer: Default::default(),
                 preprocess_offset: Default::default(),
@@ -942,7 +943,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 pipeline_bind_point: Default::default(),
                 pipeline: Default::default(),
                 indirect_commands_layout: Default::default(),

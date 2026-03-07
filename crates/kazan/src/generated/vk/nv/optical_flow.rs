@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_NV_optical_flow";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     handle_nondispatchable!(
         OpticalFlowSessionNV,
@@ -53,7 +55,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 optical_flow: Default::default(),
                 _marker: PhantomData,
             }
@@ -133,7 +135,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 supported_output_grid_sizes: Default::default(),
                 supported_hint_grid_sizes: Default::default(),
                 hint_supported: Default::default(),
@@ -257,7 +259,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 usage: Default::default(),
                 _marker: PhantomData,
             }
@@ -303,7 +305,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 format: Default::default(),
                 _marker: PhantomData,
             }
@@ -364,7 +366,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 width: Default::default(),
                 height: Default::default(),
                 image_format: Default::default(),
@@ -478,10 +480,10 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 id: Default::default(),
                 size: Default::default(),
-                p_private_data: core::ptr::null(),
+                p_private_data: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -541,10 +543,10 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 flags: Default::default(),
                 region_count: Default::default(),
-                p_regions: core::ptr::null(),
+                p_regions: ptr::null(),
                 _marker: PhantomData,
             }
         }

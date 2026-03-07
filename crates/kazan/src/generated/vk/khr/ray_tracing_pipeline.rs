@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_KHR_ray_tracing_pipeline";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     pub const SHADER_UNUSED_KHR: u32 = !0;
 
@@ -59,13 +61,13 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 ty: Default::default(),
                 general_shader: Default::default(),
                 closest_hit_shader: Default::default(),
                 any_hit_shader: Default::default(),
                 intersection_shader: Default::default(),
-                p_shader_group_capture_replay_handle: core::ptr::null(),
+                p_shader_group_capture_replay_handle: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -167,16 +169,16 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 stage_count: Default::default(),
-                p_stages: core::ptr::null(),
+                p_stages: ptr::null(),
                 group_count: Default::default(),
-                p_groups: core::ptr::null(),
+                p_groups: ptr::null(),
                 max_pipeline_ray_recursion_depth: Default::default(),
-                p_library_info: core::ptr::null(),
-                p_library_interface: core::ptr::null(),
-                p_dynamic_state: core::ptr::null(),
+                p_library_info: ptr::null(),
+                p_library_interface: ptr::null(),
+                p_dynamic_state: ptr::null(),
                 layout: Default::default(),
                 base_pipeline_handle: Default::default(),
                 base_pipeline_index: Default::default(),
@@ -315,7 +317,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 ray_tracing_pipeline: Default::default(),
                 ray_tracing_pipeline_shader_group_handle_capture_replay: Default::default(),
                 ray_tracing_pipeline_shader_group_handle_capture_replay_mixed: Default::default(),
@@ -438,7 +440,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 shader_group_handle_size: Default::default(),
                 max_ray_recursion_depth: Default::default(),
                 max_shader_group_stride: Default::default(),
@@ -609,7 +611,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 max_pipeline_ray_payload_size: Default::default(),
                 max_pipeline_ray_hit_attribute_size: Default::default(),
                 _marker: PhantomData,

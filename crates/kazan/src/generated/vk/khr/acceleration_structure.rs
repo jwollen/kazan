@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_KHR_acceleration_structure";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     handle_nondispatchable!(
         AccelerationStructureKHR,
@@ -57,9 +59,9 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 acceleration_structure_count: Default::default(),
-                p_acceleration_structures: core::ptr::null(),
+                p_acceleration_structures: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -137,7 +139,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 acceleration_structure: Default::default(),
                 acceleration_structure_capture_replay: Default::default(),
                 acceleration_structure_indirect_build: Default::default(),
@@ -260,7 +262,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 max_geometry_count: Default::default(),
                 max_instance_count: Default::default(),
                 max_primitive_count: Default::default(),
@@ -388,7 +390,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 vertex_format: Default::default(),
                 vertex_data: Default::default(),
                 vertex_stride: Default::default(),
@@ -478,7 +480,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 data: Default::default(),
                 stride: Default::default(),
                 _marker: PhantomData,
@@ -533,7 +535,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 array_of_pointers: Default::default(),
                 data: Default::default(),
                 _marker: PhantomData,
@@ -589,7 +591,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 geometry_type: Default::default(),
                 geometry: Default::default(),
                 flags: Default::default(),
@@ -671,15 +673,15 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 ty: Default::default(),
                 flags: Default::default(),
                 mode: Default::default(),
                 src_acceleration_structure: Default::default(),
                 dst_acceleration_structure: Default::default(),
                 geometry_count: Default::default(),
-                p_geometries: core::ptr::null(),
-                pp_geometries: core::ptr::null(),
+                p_geometries: ptr::null(),
+                pp_geometries: ptr::null(),
                 scratch_data: Default::default(),
                 _marker: PhantomData,
             }
@@ -726,20 +728,20 @@ pub(super) mod defs {
         #[inline]
         pub fn geometries(
             mut self,
-            geometries: &'a [AccelerationStructureGeometryKHR<'a>],
+            geometries: Option<&'a [AccelerationStructureGeometryKHR<'a>]>,
+            geometries_ptrs: Option<&'a [&'a AccelerationStructureGeometryKHR<'a>]>,
         ) -> Self {
-            self.geometry_count = geometries.len().try_into().unwrap();
-            self.p_geometries = geometries.as_ptr();
-            self
-        }
-
-        #[inline]
-        pub fn geometries_ptrs(
-            mut self,
-            geometries_ptrs: &'a [&'a AccelerationStructureGeometryKHR<'a>],
-        ) -> Self {
-            self.geometry_count = geometries_ptrs.len().try_into().unwrap();
-            self.pp_geometries = geometries_ptrs.as_ptr() as _;
+            self.geometry_count = None
+                .or_else(|| geometries.as_deref().map(|s| s.len()))
+                .or_else(|| geometries_ptrs.as_deref().map(|s| s.len()))
+                .unwrap_or(0)
+                .try_into()
+                .unwrap();
+            if let Some(s) = &geometries_ptrs {
+                assert_eq!(s.len(), self.geometry_count as usize);
+            }
+            self.p_geometries = geometries.map_or(ptr::null(), |s| s.as_ptr());
+            self.pp_geometries = geometries_ptrs.map_or(ptr::null(), |s| s.as_ptr() as _);
             self
         }
 
@@ -828,7 +830,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 create_flags: Default::default(),
                 buffer: Default::default(),
                 offset: Default::default(),
@@ -1058,7 +1060,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 acceleration_structure: Default::default(),
                 _marker: PhantomData,
             }
@@ -1107,8 +1109,8 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
-                p_version_data: core::ptr::null(),
+                p_next: ptr::null(),
+                p_version_data: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -1150,7 +1152,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 src: Default::default(),
                 dst: Default::default(),
                 mode: Default::default(),
@@ -1214,7 +1216,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 src: Default::default(),
                 dst: Default::default(),
                 mode: Default::default(),
@@ -1278,7 +1280,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 src: Default::default(),
                 dst: Default::default(),
                 mode: Default::default(),
@@ -1345,7 +1347,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 acceleration_structure_size: Default::default(),
                 update_scratch_size: Default::default(),
                 build_scratch_size: Default::default(),

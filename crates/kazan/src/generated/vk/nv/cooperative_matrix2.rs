@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_NV_cooperative_matrix2";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCooperativeMatrix2FeaturesNV.html>
     #[repr(C)]
@@ -83,7 +85,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 cooperative_matrix_workgroup_scope: Default::default(),
                 cooperative_matrix_flexible_dimensions: Default::default(),
                 cooperative_matrix_reductions: Default::default(),
@@ -212,7 +214,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 cooperative_matrix_workgroup_scope_max_workgroup_size: Default::default(),
                 cooperative_matrix_flexible_dimensions_max_dimension: Default::default(),
                 cooperative_matrix_workgroup_scope_reserved_shared_memory: Default::default(),
@@ -302,7 +304,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 m_granularity: Default::default(),
                 n_granularity: Default::default(),
                 k_granularity: Default::default(),

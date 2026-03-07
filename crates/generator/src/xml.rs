@@ -487,6 +487,7 @@ pub struct StructureMember {
     pub len: Vec<&'static str>,
     pub altlen: Option<&'static str>,
     pub optional: Vec<&'static str>,
+    pub noautovalidity: bool,
 }
 
 impl StructureMember {
@@ -497,6 +498,7 @@ impl StructureMember {
             len: attribute_comma_separated(node, "len"),
             altlen: attribute(node, "altlen"),
             optional: attribute_comma_separated(node, "optional"),
+            noautovalidity: attribute(node, "noautovalidity") == Some("true"),
         }
     }
 }

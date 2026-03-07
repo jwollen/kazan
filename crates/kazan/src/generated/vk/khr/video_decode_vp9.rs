@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_KHR_video_decode_vp9";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     pub const MAX_VIDEO_VP9_REFERENCES_PER_FRAME_KHR: u32 = 3;
 
@@ -52,7 +54,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 video_decode_vp9: Default::default(),
                 _marker: PhantomData,
             }
@@ -100,7 +102,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 std_profile: Default::default(),
                 _marker: PhantomData,
             }
@@ -147,7 +149,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 max_level: Default::default(),
                 _marker: PhantomData,
             }
@@ -208,8 +210,8 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
-                p_std_picture_info: core::ptr::null(),
+                p_next: ptr::null(),
+                p_std_picture_info: ptr::null(),
                 reference_name_slot_indices: [Default::default(); _],
                 uncompressed_header_offset: Default::default(),
                 compressed_header_offset: Default::default(),

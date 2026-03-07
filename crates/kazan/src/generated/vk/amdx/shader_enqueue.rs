@@ -4,6 +4,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_AMDX_shader_enqueue";
 
@@ -13,6 +14,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     pub const SHADER_INDEX_UNUSED_AMDX: u32 = !0;
 
@@ -82,7 +84,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 max_execution_graph_depth: Default::default(),
                 max_execution_graph_shader_output_nodes: Default::default(),
                 max_execution_graph_shader_payload_size: Default::default(),
@@ -198,7 +200,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 shader_enqueue: Default::default(),
                 shader_mesh_enqueue: Default::default(),
                 _marker: PhantomData,
@@ -263,11 +265,11 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 stage_count: Default::default(),
-                p_stages: core::ptr::null(),
-                p_library_info: core::ptr::null(),
+                p_stages: ptr::null(),
+                p_library_info: ptr::null(),
                 layout: Default::default(),
                 base_pipeline_handle: Default::default(),
                 base_pipeline_index: Default::default(),
@@ -353,8 +355,8 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
-                p_name: core::ptr::null(),
+                p_next: ptr::null(),
+                p_name: ptr::null(),
                 index: Default::default(),
                 _marker: PhantomData,
             }
@@ -410,7 +412,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 min_size: Default::default(),
                 max_size: Default::default(),
                 size_granularity: Default::default(),

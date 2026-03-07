@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_KHR_maintenance6";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance6FeaturesKHR.html>
     pub type PhysicalDeviceMaintenance6FeaturesKHR<'a> = PhysicalDeviceMaintenance6Features<'a>;
@@ -72,13 +74,13 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 stage_flags: Default::default(),
                 layout: Default::default(),
                 first_set: Default::default(),
                 set_count: Default::default(),
-                p_buffer_indices: core::ptr::null(),
-                p_offsets: core::ptr::null(),
+                p_buffer_indices: ptr::null(),
+                p_offsets: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -104,15 +106,10 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn buffer_indices(mut self, buffer_indices: &'a [u32]) -> Self {
+        pub fn sets(mut self, buffer_indices: &'a [u32], offsets: &'a [DeviceSize]) -> Self {
             self.set_count = buffer_indices.len().try_into().unwrap();
+            assert_eq!(offsets.len(), self.set_count as usize);
             self.p_buffer_indices = buffer_indices.as_ptr();
-            self
-        }
-
-        #[inline]
-        pub fn offsets(mut self, offsets: &'a [DeviceSize]) -> Self {
-            self.set_count = offsets.len().try_into().unwrap();
             self.p_offsets = offsets.as_ptr();
             self
         }
@@ -153,7 +150,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 stage_flags: Default::default(),
                 layout: Default::default(),
                 set: Default::default(),

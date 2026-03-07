@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_EXT_debug_marker";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugMarkerObjectNameInfoEXT.html>
     #[repr(C)]
@@ -47,10 +49,10 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 object_type: Default::default(),
                 object: Default::default(),
-                p_object_name: core::ptr::null(),
+                p_object_name: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -114,12 +116,12 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 object_type: Default::default(),
                 object: Default::default(),
                 tag_name: Default::default(),
                 tag_size: Default::default(),
-                p_tag: core::ptr::null(),
+                p_tag: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -184,8 +186,8 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
-                p_marker_name: core::ptr::null(),
+                p_next: ptr::null(),
+                p_marker_name: ptr::null(),
                 color: [Default::default(); _],
                 _marker: PhantomData,
             }

@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_EXT_image_compression_control";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCompressionControlEXT.html>
     #[repr(C)]
@@ -54,10 +56,10 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 compression_control_plane_count: Default::default(),
-                p_fixed_rate_flags: core::ptr::null_mut(),
+                p_fixed_rate_flags: ptr::null_mut(),
                 _marker: PhantomData,
             }
         }
@@ -121,7 +123,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 image_compression_control: Default::default(),
                 _marker: PhantomData,
             }
@@ -175,7 +177,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 image_compression_flags: Default::default(),
                 image_compression_fixed_rate_flags: Default::default(),
                 _marker: PhantomData,

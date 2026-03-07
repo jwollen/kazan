@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_KHR_maintenance7";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance7FeaturesKHR.html>
     #[repr(C)]
@@ -47,7 +49,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 maintenance7: Default::default(),
                 _marker: PhantomData,
             }
@@ -136,7 +138,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 robust_fragment_shading_rate_attachment_access: Default::default(),
                 separate_depth_stencil_attachment_access: Default::default(),
                 max_descriptor_set_total_uniform_buffers_dynamic: Default::default(),
@@ -272,9 +274,9 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 layered_api_count: Default::default(),
-                p_layered_apis: core::ptr::null_mut(),
+                p_layered_apis: ptr::null_mut(),
                 _marker: PhantomData,
             }
         }
@@ -332,7 +334,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 vendor_id: Default::default(),
                 device_id: Default::default(),
                 layered_api: Default::default(),
@@ -407,7 +409,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 properties: Default::default(),
                 _marker: PhantomData,
             }

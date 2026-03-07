@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_FUCHSIA_buffer_collection";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     handle_nondispatchable!(
         BufferCollectionFUCHSIA,
@@ -54,7 +56,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 collection: Default::default(),
                 index: Default::default(),
                 _marker: PhantomData,
@@ -111,7 +113,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 collection: Default::default(),
                 index: Default::default(),
                 _marker: PhantomData,
@@ -168,7 +170,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 collection: Default::default(),
                 index: Default::default(),
                 _marker: PhantomData,
@@ -220,7 +222,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 collection_token: Default::default(),
                 _marker: PhantomData,
             }
@@ -288,7 +290,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 memory_type_bits: Default::default(),
                 buffer_count: Default::default(),
                 create_info_index: Default::default(),
@@ -425,7 +427,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 create_info: Default::default(),
                 required_format_features: Default::default(),
                 buffer_collection_constraints: Default::default(),
@@ -490,7 +492,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 color_space: Default::default(),
                 _marker: PhantomData,
             }
@@ -545,13 +547,13 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 image_create_info: Default::default(),
                 required_format_features: Default::default(),
                 flags: Default::default(),
                 sysmem_pixel_format: Default::default(),
                 color_space_count: Default::default(),
-                p_color_spaces: core::ptr::null(),
+                p_color_spaces: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -632,9 +634,9 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 format_constraints_count: Default::default(),
-                p_format_constraints: core::ptr::null(),
+                p_format_constraints: ptr::null(),
                 buffer_collection_constraints: Default::default(),
                 flags: Default::default(),
                 _marker: PhantomData,
@@ -717,7 +719,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 min_buffer_count: Default::default(),
                 max_buffer_count: Default::default(),
                 min_buffer_count_for_camping: Default::default(),

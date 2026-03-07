@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_KHR_win32_keyed_mutex";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkWin32KeyedMutexAcquireReleaseInfoKHR.html>
     #[repr(C)]
@@ -59,14 +61,14 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 acquire_count: Default::default(),
-                p_acquire_syncs: core::ptr::null(),
-                p_acquire_keys: core::ptr::null(),
-                p_acquire_timeouts: core::ptr::null(),
+                p_acquire_syncs: ptr::null(),
+                p_acquire_keys: ptr::null(),
+                p_acquire_timeouts: ptr::null(),
                 release_count: Default::default(),
-                p_release_syncs: core::ptr::null(),
-                p_release_keys: core::ptr::null(),
+                p_release_syncs: ptr::null(),
+                p_release_keys: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -74,36 +76,30 @@ pub(super) mod defs {
 
     impl<'a> Win32KeyedMutexAcquireReleaseInfoKHR<'a> {
         #[inline]
-        pub fn acquire_syncs(mut self, acquire_syncs: &'a [DeviceMemory]) -> Self {
+        pub fn acquires(
+            mut self,
+            acquire_syncs: &'a [DeviceMemory],
+            acquire_keys: &'a [u64],
+            acquire_timeouts: &'a [u32],
+        ) -> Self {
             self.acquire_count = acquire_syncs.len().try_into().unwrap();
+            assert_eq!(acquire_keys.len(), self.acquire_count as usize);
+            assert_eq!(acquire_timeouts.len(), self.acquire_count as usize);
             self.p_acquire_syncs = acquire_syncs.as_ptr();
-            self
-        }
-
-        #[inline]
-        pub fn acquire_keys(mut self, acquire_keys: &'a [u64]) -> Self {
-            self.acquire_count = acquire_keys.len().try_into().unwrap();
             self.p_acquire_keys = acquire_keys.as_ptr();
-            self
-        }
-
-        #[inline]
-        pub fn acquire_timeouts(mut self, acquire_timeouts: &'a [u32]) -> Self {
-            self.acquire_count = acquire_timeouts.len().try_into().unwrap();
             self.p_acquire_timeouts = acquire_timeouts.as_ptr();
             self
         }
 
         #[inline]
-        pub fn release_syncs(mut self, release_syncs: &'a [DeviceMemory]) -> Self {
+        pub fn releases(
+            mut self,
+            release_syncs: &'a [DeviceMemory],
+            release_keys: &'a [u64],
+        ) -> Self {
             self.release_count = release_syncs.len().try_into().unwrap();
+            assert_eq!(release_keys.len(), self.release_count as usize);
             self.p_release_syncs = release_syncs.as_ptr();
-            self
-        }
-
-        #[inline]
-        pub fn release_keys(mut self, release_keys: &'a [u64]) -> Self {
-            self.release_count = release_keys.len().try_into().unwrap();
             self.p_release_keys = release_keys.as_ptr();
             self
         }

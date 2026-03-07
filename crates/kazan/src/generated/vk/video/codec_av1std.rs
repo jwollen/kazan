@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"vulkan_video_codec_av1std";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     pub const STD_VIDEO_AV1_NUM_REF_FRAMES: u32 = 8;
     pub const STD_VIDEO_AV1_REFS_PER_FRAME: u32 = 7;
@@ -448,8 +450,8 @@ pub(super) mod defs {
                 seq_force_integer_mv: Default::default(),
                 seq_force_screen_content_tools: Default::default(),
                 reserved1: [Default::default(); _],
-                p_color_config: core::ptr::null(),
-                p_timing_info: core::ptr::null(),
+                p_color_config: ptr::null(),
+                p_timing_info: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -881,10 +883,10 @@ pub(super) mod defs {
                 context_update_tile_id: Default::default(),
                 tile_size_bytes_minus_1: Default::default(),
                 reserved1: [Default::default(); _],
-                p_mi_col_starts: core::ptr::null(),
-                p_mi_row_starts: core::ptr::null(),
-                p_width_in_sbs_minus1: core::ptr::null(),
-                p_height_in_sbs_minus1: core::ptr::null(),
+                p_mi_col_starts: ptr::null(),
+                p_mi_row_starts: ptr::null(),
+                p_width_in_sbs_minus1: ptr::null(),
+                p_height_in_sbs_minus1: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -898,29 +900,27 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn mi_col_starts(mut self, mi_col_starts: &'a [u16]) -> Self {
+        pub fn tile_cols(
+            mut self,
+            mi_col_starts: &'a [u16],
+            width_in_sbs_minus1: &'a [u16],
+        ) -> Self {
             self.tile_cols = mi_col_starts.len().try_into().unwrap();
+            assert_eq!(width_in_sbs_minus1.len(), self.tile_cols as usize);
             self.p_mi_col_starts = mi_col_starts.as_ptr();
-            self
-        }
-
-        #[inline]
-        pub fn width_in_sbs_minus1(mut self, width_in_sbs_minus1: &'a [u16]) -> Self {
-            self.tile_cols = width_in_sbs_minus1.len().try_into().unwrap();
             self.p_width_in_sbs_minus1 = width_in_sbs_minus1.as_ptr();
             self
         }
 
         #[inline]
-        pub fn mi_row_starts(mut self, mi_row_starts: &'a [u16]) -> Self {
+        pub fn tile_rows(
+            mut self,
+            mi_row_starts: &'a [u16],
+            height_in_sbs_minus1: &'a [u16],
+        ) -> Self {
             self.tile_rows = mi_row_starts.len().try_into().unwrap();
+            assert_eq!(height_in_sbs_minus1.len(), self.tile_rows as usize);
             self.p_mi_row_starts = mi_row_starts.as_ptr();
-            self
-        }
-
-        #[inline]
-        pub fn height_in_sbs_minus1(mut self, height_in_sbs_minus1: &'a [u16]) -> Self {
-            self.tile_rows = height_in_sbs_minus1.len().try_into().unwrap();
             self.p_height_in_sbs_minus1 = height_in_sbs_minus1.as_ptr();
             self
         }

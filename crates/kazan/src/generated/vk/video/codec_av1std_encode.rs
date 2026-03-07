@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"vulkan_video_codec_av1std_encode";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeAV1ExtensionHeader.html>
     #[repr(C)]
@@ -509,15 +511,15 @@ pub(super) mod defs {
                 ref_frame_idx: [Default::default(); _],
                 reserved1: [Default::default(); _],
                 delta_frame_id_minus_1: [Default::default(); _],
-                p_tile_info: core::ptr::null(),
-                p_quantization: core::ptr::null(),
-                p_segmentation: core::ptr::null(),
-                p_loop_filter: core::ptr::null(),
-                p_cdef: core::ptr::null(),
-                p_loop_restoration: core::ptr::null(),
-                p_global_motion: core::ptr::null(),
-                p_extension_header: core::ptr::null(),
-                p_buffer_removal_times: core::ptr::null(),
+                p_tile_info: ptr::null(),
+                p_quantization: ptr::null(),
+                p_segmentation: ptr::null(),
+                p_loop_filter: ptr::null(),
+                p_cdef: ptr::null(),
+                p_loop_restoration: ptr::null(),
+                p_global_motion: ptr::null(),
+                p_extension_header: ptr::null(),
+                p_buffer_removal_times: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -772,7 +774,7 @@ pub(super) mod defs {
                 frame_type: Default::default(),
                 order_hint: Default::default(),
                 reserved1: [Default::default(); _],
-                p_extension_header: core::ptr::null(),
+                p_extension_header: ptr::null(),
                 _marker: PhantomData,
             }
         }

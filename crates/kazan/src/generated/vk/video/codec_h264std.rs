@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"vulkan_video_codec_h264std";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     pub const STD_VIDEO_H264_CPB_CNT_LIST_SIZE: u32 = 32;
     pub const STD_VIDEO_H264_SCALING_LIST_4X4_NUM_LISTS: u32 = 6;
@@ -326,7 +328,7 @@ pub(super) mod defs {
                 chroma_sample_loc_type_top_field: Default::default(),
                 chroma_sample_loc_type_bottom_field: Default::default(),
                 reserved1: Default::default(),
-                p_hrd_parameters: core::ptr::null(),
+                p_hrd_parameters: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -738,9 +740,9 @@ pub(super) mod defs {
                 frame_crop_top_offset: Default::default(),
                 frame_crop_bottom_offset: Default::default(),
                 reserved2: Default::default(),
-                p_offset_for_ref_frame: core::ptr::null(),
-                p_scaling_lists: core::ptr::null(),
-                p_sequence_parameter_set_vui: core::ptr::null(),
+                p_offset_for_ref_frame: ptr::null(),
+                p_scaling_lists: ptr::null(),
+                p_sequence_parameter_set_vui: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -1045,7 +1047,7 @@ pub(super) mod defs {
                 pic_init_qs_minus26: Default::default(),
                 chroma_qp_index_offset: Default::default(),
                 second_chroma_qp_index_offset: Default::default(),
-                p_scaling_lists: core::ptr::null(),
+                p_scaling_lists: ptr::null(),
                 _marker: PhantomData,
             }
         }

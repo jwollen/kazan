@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_KHR_video_decode_av1";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     pub const MAX_VIDEO_AV1_REFERENCES_PER_FRAME_KHR: u32 = 7;
 
@@ -50,7 +52,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 std_profile: Default::default(),
                 film_grain_support: Default::default(),
                 _marker: PhantomData,
@@ -104,7 +106,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 max_level: Default::default(),
                 _marker: PhantomData,
             }
@@ -155,8 +157,8 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
-                p_std_sequence_header: core::ptr::null(),
+                p_next: ptr::null(),
+                p_std_sequence_header: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -218,13 +220,13 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
-                p_std_picture_info: core::ptr::null(),
+                p_next: ptr::null(),
+                p_std_picture_info: ptr::null(),
                 reference_name_slot_indices: [Default::default(); _],
                 frame_header_offset: Default::default(),
                 tile_count: Default::default(),
-                p_tile_offsets: core::ptr::null(),
-                p_tile_sizes: core::ptr::null(),
+                p_tile_offsets: ptr::null(),
+                p_tile_sizes: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -256,15 +258,10 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn tile_offsets(mut self, tile_offsets: &'a [u32]) -> Self {
+        pub fn tiles(mut self, tile_offsets: &'a [u32], tile_sizes: &'a [u32]) -> Self {
             self.tile_count = tile_offsets.len().try_into().unwrap();
+            assert_eq!(tile_sizes.len(), self.tile_count as usize);
             self.p_tile_offsets = tile_offsets.as_ptr();
-            self
-        }
-
-        #[inline]
-        pub fn tile_sizes(mut self, tile_sizes: &'a [u32]) -> Self {
-            self.tile_count = tile_sizes.len().try_into().unwrap();
             self.p_tile_sizes = tile_sizes.as_ptr();
             self
         }
@@ -302,8 +299,8 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
-                p_std_reference_info: core::ptr::null(),
+                p_next: ptr::null(),
+                p_std_reference_info: ptr::null(),
                 _marker: PhantomData,
             }
         }

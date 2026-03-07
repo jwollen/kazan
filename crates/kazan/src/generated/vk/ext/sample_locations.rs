@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_EXT_sample_locations";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSampleLocationEXT.html>
     #[repr(C)]
@@ -79,11 +81,11 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 sample_locations_per_pixel: Default::default(),
                 sample_location_grid_size: Default::default(),
                 sample_locations_count: Default::default(),
-                p_sample_locations: core::ptr::null(),
+                p_sample_locations: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -258,11 +260,11 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 attachment_initial_sample_locations_count: Default::default(),
-                p_attachment_initial_sample_locations: core::ptr::null(),
+                p_attachment_initial_sample_locations: ptr::null(),
                 post_subpass_sample_locations_count: Default::default(),
-                p_post_subpass_sample_locations: core::ptr::null(),
+                p_post_subpass_sample_locations: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -333,7 +335,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 sample_locations_enable: Default::default(),
                 sample_locations_info: Default::default(),
                 _marker: PhantomData,
@@ -414,7 +416,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 sample_location_sample_counts: Default::default(),
                 max_sample_location_grid_size: Default::default(),
                 sample_location_coordinate_range: [Default::default(); _],
@@ -502,7 +504,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 max_sample_location_grid_size: Default::default(),
                 _marker: PhantomData,
             }

@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_EXT_shader_module_identifier";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     pub const MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT: u32 = 32;
 
@@ -55,7 +57,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 shader_module_identifier: Default::default(),
                 _marker: PhantomData,
             }
@@ -109,7 +111,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 shader_module_identifier_algorithm_uuid: [Default::default(); _],
                 _marker: PhantomData,
             }
@@ -165,9 +167,9 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 identifier_size: Default::default(),
-                p_identifier: core::ptr::null(),
+                p_identifier: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -214,7 +216,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 identifier_size: Default::default(),
                 identifier: [Default::default(); _],
                 _marker: PhantomData,

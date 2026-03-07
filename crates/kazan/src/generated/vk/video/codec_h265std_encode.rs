@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"vulkan_video_codec_h265std_encode";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH265WeightTableFlags.html>
     #[repr(C)]
@@ -459,7 +461,7 @@ pub(super) mod defs {
                 slice_act_cr_qp_offset: Default::default(),
                 slice_qp_delta: Default::default(),
                 reserved1: Default::default(),
-                p_weight_table: core::ptr::null(),
+                p_weight_table: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -823,9 +825,9 @@ pub(super) mod defs {
                 pic_order_cnt_val: Default::default(),
                 temporal_id: Default::default(),
                 reserved1: [Default::default(); _],
-                p_ref_lists: core::ptr::null(),
-                p_short_term_ref_pic_set: core::ptr::null(),
-                p_long_term_ref_pics: core::ptr::null(),
+                p_ref_lists: ptr::null(),
+                p_short_term_ref_pic_set: ptr::null(),
+                p_long_term_ref_pics: ptr::null(),
                 _marker: PhantomData,
             }
         }

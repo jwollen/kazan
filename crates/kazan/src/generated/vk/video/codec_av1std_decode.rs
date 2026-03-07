@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"vulkan_video_codec_av1std_decode";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeAV1PictureInfoFlags.html>
     #[repr(C)]
@@ -322,14 +324,14 @@ pub(super) mod defs {
                 reserved2: [Default::default(); _],
                 order_hints: [Default::default(); _],
                 expected_frame_id: [Default::default(); _],
-                p_tile_info: core::ptr::null(),
-                p_quantization: core::ptr::null(),
-                p_segmentation: core::ptr::null(),
-                p_loop_filter: core::ptr::null(),
-                p_cdef: core::ptr::null(),
-                p_loop_restoration: core::ptr::null(),
-                p_global_motion: core::ptr::null(),
-                p_film_grain: core::ptr::null(),
+                p_tile_info: ptr::null(),
+                p_quantization: ptr::null(),
+                p_segmentation: ptr::null(),
+                p_loop_filter: ptr::null(),
+                p_cdef: ptr::null(),
+                p_loop_restoration: ptr::null(),
+                p_global_motion: ptr::null(),
+                p_film_grain: ptr::null(),
                 _marker: PhantomData,
             }
         }

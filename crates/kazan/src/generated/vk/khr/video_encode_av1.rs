@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_KHR_video_encode_av1";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeAV1CapabilitiesKHR.html>
     #[repr(C)]
@@ -124,7 +126,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 flags: Default::default(),
                 max_level: Default::default(),
                 coded_picture_alignment: Default::default(),
@@ -440,7 +442,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 preferred_rate_control_flags: Default::default(),
                 preferred_gop_frame_count: Default::default(),
                 preferred_key_frame_period: Default::default(),
@@ -637,7 +639,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 video_encode_av1: Default::default(),
                 _marker: PhantomData,
             }
@@ -687,7 +689,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 use_max_level: Default::default(),
                 max_level: Default::default(),
                 _marker: PhantomData,
@@ -751,11 +753,11 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
-                p_std_sequence_header: core::ptr::null(),
-                p_std_decoder_model_info: core::ptr::null(),
+                p_next: ptr::null(),
+                p_std_sequence_header: ptr::null(),
+                p_std_decoder_model_info: ptr::null(),
                 std_operating_point_count: Default::default(),
-                p_std_operating_points: core::ptr::null(),
+                p_std_operating_points: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -823,8 +825,8 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
-                p_std_reference_info: core::ptr::null(),
+                p_next: ptr::null(),
+                p_std_reference_info: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -894,11 +896,11 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 prediction_mode: Default::default(),
                 rate_control_group: Default::default(),
                 constant_q_index: Default::default(),
-                p_std_picture_info: core::ptr::null(),
+                p_std_picture_info: ptr::null(),
                 reference_name_slot_indices: [Default::default(); _],
                 primary_reference_cdf_only: Default::default(),
                 generate_obu_extension_header: Default::default(),
@@ -996,7 +998,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 std_profile: Default::default(),
                 _marker: PhantomData,
             }
@@ -1055,7 +1057,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 gop_frame_count: Default::default(),
                 key_frame_period: Default::default(),
@@ -1208,7 +1210,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 use_gop_remaining_frames: Default::default(),
                 gop_remaining_intra: Default::default(),
                 gop_remaining_predictive: Default::default(),
@@ -1290,7 +1292,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 use_min_q_index: Default::default(),
                 min_q_index: Default::default(),
                 use_max_q_index: Default::default(),

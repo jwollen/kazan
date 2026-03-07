@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"vulkan_video_codec_h265std";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     pub const STD_VIDEO_H265_CPB_CNT_LIST_SIZE: u32 = 32;
     pub const STD_VIDEO_H265_SUBLAYERS_LIST_SIZE: u32 = 7;
@@ -405,8 +407,8 @@ pub(super) mod defs {
                 cpb_cnt_minus1: [Default::default(); _],
                 elemental_duration_in_tc_minus1: [Default::default(); _],
                 reserved: [Default::default(); _],
-                p_sub_layer_hrd_parameters_nal: core::ptr::null(),
-                p_sub_layer_hrd_parameters_vcl: core::ptr::null(),
+                p_sub_layer_hrd_parameters_nal: ptr::null(),
+                p_sub_layer_hrd_parameters_vcl: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -617,9 +619,9 @@ pub(super) mod defs {
                 vps_time_scale: Default::default(),
                 vps_num_ticks_poc_diff_one_minus1: Default::default(),
                 reserved3: Default::default(),
-                p_dec_pic_buf_mgr: core::ptr::null(),
-                p_hrd_parameters: core::ptr::null(),
-                p_profile_tier_level: core::ptr::null(),
+                p_dec_pic_buf_mgr: ptr::null(),
+                p_hrd_parameters: ptr::null(),
+                p_profile_tier_level: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -1268,7 +1270,7 @@ pub(super) mod defs {
                 max_bits_per_min_cu_denom: Default::default(),
                 log2_max_mv_length_horizontal: Default::default(),
                 log2_max_mv_length_vertical: Default::default(),
-                p_hrd_parameters: core::ptr::null(),
+                p_hrd_parameters: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -1923,13 +1925,13 @@ pub(super) mod defs {
                 conf_win_right_offset: Default::default(),
                 conf_win_top_offset: Default::default(),
                 conf_win_bottom_offset: Default::default(),
-                p_profile_tier_level: core::ptr::null(),
-                p_dec_pic_buf_mgr: core::ptr::null(),
-                p_scaling_lists: core::ptr::null(),
-                p_short_term_ref_pic_set: core::ptr::null(),
-                p_long_term_ref_pics_sps: core::ptr::null(),
-                p_sequence_parameter_set_vui: core::ptr::null(),
-                p_predictor_palette_entries: core::ptr::null(),
+                p_profile_tier_level: ptr::null(),
+                p_dec_pic_buf_mgr: ptr::null(),
+                p_scaling_lists: ptr::null(),
+                p_short_term_ref_pic_set: ptr::null(),
+                p_long_term_ref_pics_sps: ptr::null(),
+                p_sequence_parameter_set_vui: ptr::null(),
+                p_predictor_palette_entries: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -2686,8 +2688,8 @@ pub(super) mod defs {
                 column_width_minus1: [Default::default(); _],
                 row_height_minus1: [Default::default(); _],
                 reserved3: Default::default(),
-                p_scaling_lists: core::ptr::null(),
-                p_predictor_palette_entries: core::ptr::null(),
+                p_scaling_lists: ptr::null(),
+                p_predictor_palette_entries: ptr::null(),
                 _marker: PhantomData,
             }
         }

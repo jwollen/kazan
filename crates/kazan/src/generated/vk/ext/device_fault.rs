@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_EXT_device_fault";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFaultFeaturesEXT.html>
     #[repr(C)]
@@ -51,7 +53,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 device_fault: Default::default(),
                 device_fault_vendor_binary: Default::default(),
                 _marker: PhantomData,
@@ -195,7 +197,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 address_info_count: Default::default(),
                 vendor_info_count: Default::default(),
                 vendor_binary_size: Default::default(),
@@ -263,11 +265,11 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 description: [Default::default(); _],
-                p_address_infos: core::ptr::null_mut(),
-                p_vendor_infos: core::ptr::null_mut(),
-                p_vendor_binary_data: core::ptr::null_mut(),
+                p_address_infos: ptr::null_mut(),
+                p_vendor_infos: ptr::null_mut(),
+                p_vendor_binary_data: ptr::null_mut(),
                 _marker: PhantomData,
             }
         }

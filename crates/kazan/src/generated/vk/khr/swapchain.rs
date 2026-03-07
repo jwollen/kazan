@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_KHR_swapchain";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     handle_nondispatchable!(
         SwapchainKHR,
@@ -79,7 +81,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 surface: Default::default(),
                 min_image_count: Default::default(),
@@ -90,7 +92,7 @@ pub(super) mod defs {
                 image_usage: Default::default(),
                 image_sharing_mode: Default::default(),
                 queue_family_index_count: Default::default(),
-                p_queue_family_indices: core::ptr::null(),
+                p_queue_family_indices: ptr::null(),
                 pre_transform: Default::default(),
                 composite_alpha: Default::default(),
                 present_mode: Default::default(),
@@ -234,13 +236,13 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 wait_semaphore_count: Default::default(),
-                p_wait_semaphores: core::ptr::null(),
+                p_wait_semaphores: ptr::null(),
                 swapchain_count: Default::default(),
-                p_swapchains: core::ptr::null(),
-                p_image_indices: core::ptr::null(),
-                p_results: core::ptr::null_mut(),
+                p_swapchains: ptr::null(),
+                p_image_indices: ptr::null(),
+                p_results: ptr::null_mut(),
                 _marker: PhantomData,
             }
         }
@@ -255,23 +257,20 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn swapchains(mut self, swapchains: &'a [SwapchainKHR]) -> Self {
+        pub fn swapchains(
+            mut self,
+            swapchains: &'a [SwapchainKHR],
+            image_indices: &'a [u32],
+            results: Option<&'a mut [vk::Result]>,
+        ) -> Self {
             self.swapchain_count = swapchains.len().try_into().unwrap();
+            assert_eq!(image_indices.len(), self.swapchain_count as usize);
+            if let Some(s) = &results {
+                assert_eq!(s.len(), self.swapchain_count as usize);
+            }
             self.p_swapchains = swapchains.as_ptr();
-            self
-        }
-
-        #[inline]
-        pub fn image_indices(mut self, image_indices: &'a [u32]) -> Self {
-            self.swapchain_count = image_indices.len().try_into().unwrap();
             self.p_image_indices = image_indices.as_ptr();
-            self
-        }
-
-        #[inline]
-        pub fn results(mut self, results: &'a mut [vk::Result]) -> Self {
-            self.swapchain_count = results.len().try_into().unwrap();
-            self.p_results = results.as_mut_ptr();
+            self.p_results = results.map_or(ptr::null_mut(), |s| s.as_mut_ptr());
             self
         }
     }
@@ -308,7 +307,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 present_mask: [Default::default(); _],
                 modes: Default::default(),
                 _marker: PhantomData,
@@ -362,7 +361,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 swapchain: Default::default(),
                 _marker: PhantomData,
             }
@@ -411,7 +410,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 swapchain: Default::default(),
                 image_index: Default::default(),
                 _marker: PhantomData,
@@ -471,7 +470,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 swapchain: Default::default(),
                 timeout: Default::default(),
                 semaphore: Default::default(),
@@ -550,9 +549,9 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 swapchain_count: Default::default(),
-                p_device_masks: core::ptr::null(),
+                p_device_masks: ptr::null(),
                 mode: Default::default(),
                 _marker: PhantomData,
             }
@@ -606,7 +605,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 modes: Default::default(),
                 _marker: PhantomData,
             }

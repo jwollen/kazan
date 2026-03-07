@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_KHR_video_encode_h265";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH265CapabilitiesKHR.html>
     #[repr(C)]
@@ -90,7 +92,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 flags: Default::default(),
                 max_level_idc: Default::default(),
                 max_slice_segment_count: Default::default(),
@@ -288,7 +290,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 preferred_rate_control_flags: Default::default(),
                 preferred_gop_frame_count: Default::default(),
                 preferred_idr_period: Default::default(),
@@ -402,7 +404,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 use_max_level_idc: Default::default(),
                 max_level_idc: Default::default(),
                 _marker: PhantomData,
@@ -470,13 +472,13 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 std_vps_count: Default::default(),
-                p_std_vp_ss: core::ptr::null(),
+                p_std_vp_ss: ptr::null(),
                 std_sps_count: Default::default(),
-                p_std_sp_ss: core::ptr::null(),
+                p_std_sp_ss: ptr::null(),
                 std_pps_count: Default::default(),
-                p_std_pp_ss: core::ptr::null(),
+                p_std_pp_ss: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -547,11 +549,11 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 max_std_vps_count: Default::default(),
                 max_std_sps_count: Default::default(),
                 max_std_pps_count: Default::default(),
-                p_parameters_add_info: core::ptr::null(),
+                p_parameters_add_info: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -632,7 +634,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 write_std_vps: Default::default(),
                 write_std_sps: Default::default(),
                 write_std_pps: Default::default(),
@@ -722,7 +724,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 has_std_vps_overrides: Default::default(),
                 has_std_sps_overrides: Default::default(),
                 has_std_pps_overrides: Default::default(),
@@ -793,10 +795,10 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 nalu_slice_segment_entry_count: Default::default(),
-                p_nalu_slice_segment_entries: core::ptr::null(),
-                p_std_picture_info: core::ptr::null(),
+                p_nalu_slice_segment_entries: ptr::null(),
+                p_std_picture_info: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -860,9 +862,9 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 constant_qp: Default::default(),
-                p_std_slice_segment_header: core::ptr::null(),
+                p_std_slice_segment_header: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -927,7 +929,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 gop_frame_count: Default::default(),
                 idr_period: Default::default(),
@@ -1074,7 +1076,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 use_gop_remaining_frames: Default::default(),
                 gop_remaining_i: Default::default(),
                 gop_remaining_p: Default::default(),
@@ -1156,7 +1158,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 use_min_qp: Default::default(),
                 min_qp: Default::default(),
                 use_max_qp: Default::default(),
@@ -1239,7 +1241,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 std_profile_idc: Default::default(),
                 _marker: PhantomData,
             }
@@ -1286,8 +1288,8 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
-                p_std_reference_info: core::ptr::null(),
+                p_next: ptr::null(),
+                p_std_reference_info: ptr::null(),
                 _marker: PhantomData,
             }
         }

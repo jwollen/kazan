@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_NV_cluster_acceleration_structure";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceClusterAccelerationStructureFeaturesNV.html>
     #[repr(C)]
@@ -56,7 +58,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 cluster_acceleration_structure: Default::default(),
                 _marker: PhantomData,
             }
@@ -139,7 +141,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 max_vertices_per_cluster: Default::default(),
                 max_triangles_per_cluster: Default::default(),
                 cluster_scratch_byte_alignment: Default::default(),
@@ -280,7 +282,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 allow_cluster_acceleration_structure: Default::default(),
                 _marker: PhantomData,
             }
@@ -784,7 +786,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 max_total_cluster_count: Default::default(),
                 max_cluster_count_per_acceleration_structure: Default::default(),
                 _marker: PhantomData,
@@ -864,7 +866,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 vertex_format: Default::default(),
                 max_geometry_index_value: Default::default(),
                 max_cluster_unique_geometry_count: Default::default(),
@@ -969,7 +971,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 ty: Default::default(),
                 no_move_overlap: Default::default(),
                 max_moved_bytes: Default::default(),
@@ -1040,7 +1042,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 max_acceleration_structure_count: Default::default(),
                 flags: Default::default(),
                 op_type: Default::default(),
@@ -1131,7 +1133,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 input: Default::default(),
                 dst_implicit_data: Default::default(),
                 scratch_data: Default::default(),

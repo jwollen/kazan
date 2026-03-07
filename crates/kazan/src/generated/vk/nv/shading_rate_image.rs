@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_NV_shading_rate_image";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShadingRatePaletteNV.html>
     #[repr(C)]
@@ -43,7 +45,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 shading_rate_palette_entry_count: Default::default(),
-                p_shading_rate_palette_entries: core::ptr::null(),
+                p_shading_rate_palette_entries: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -102,10 +104,10 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 shading_rate_image_enable: Default::default(),
                 viewport_count: Default::default(),
-                p_shading_rate_palettes: core::ptr::null(),
+                p_shading_rate_palettes: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -171,7 +173,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 shading_rate_image: Default::default(),
                 shading_rate_coarse_sample_order: Default::default(),
                 _marker: PhantomData,
@@ -239,7 +241,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 shading_rate_texel_size: Default::default(),
                 shading_rate_palette_size: Default::default(),
                 shading_rate_max_coarse_samples: Default::default(),
@@ -332,7 +334,7 @@ pub(super) mod defs {
                 shading_rate: Default::default(),
                 sample_count: Default::default(),
                 sample_location_count: Default::default(),
-                p_sample_locations: core::ptr::null(),
+                p_sample_locations: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -399,10 +401,10 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 sample_order_type: Default::default(),
                 custom_sample_order_count: Default::default(),
-                p_custom_sample_orders: core::ptr::null(),
+                p_custom_sample_orders: ptr::null(),
                 _marker: PhantomData,
             }
         }

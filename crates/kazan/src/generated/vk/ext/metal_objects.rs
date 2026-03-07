@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_EXT_metal_objects";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     pub type MTLDevice_id = *const c_void;
     pub type MTLCommandQueue_id = *const c_void;
@@ -58,7 +60,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 export_object_type: Default::default(),
                 _marker: PhantomData,
             }
@@ -104,7 +106,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -144,7 +146,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 mtl_device: Default::default(),
                 _marker: PhantomData,
             }
@@ -193,7 +195,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 queue: Default::default(),
                 mtl_command_queue: Default::default(),
                 _marker: PhantomData,
@@ -249,7 +251,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 memory: Default::default(),
                 mtl_buffer: Default::default(),
                 _marker: PhantomData,
@@ -303,7 +305,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 mtl_buffer: Default::default(),
                 _marker: PhantomData,
             }
@@ -358,7 +360,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 image: Default::default(),
                 image_view: Default::default(),
                 buffer_view: Default::default(),
@@ -435,7 +437,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 plane: Default::default(),
                 mtl_texture: Default::default(),
                 _marker: PhantomData,
@@ -491,7 +493,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 image: Default::default(),
                 io_surface: Default::default(),
                 _marker: PhantomData,
@@ -545,7 +547,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 io_surface: Default::default(),
                 _marker: PhantomData,
             }
@@ -596,7 +598,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 semaphore: Default::default(),
                 event: Default::default(),
                 mtl_shared_event: Default::default(),
@@ -658,7 +660,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 mtl_shared_event: Default::default(),
                 _marker: PhantomData,
             }

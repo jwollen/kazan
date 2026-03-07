@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"vulkan_video_codec_h264std_encode";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264WeightTableFlags.html>
     #[repr(C)]
@@ -487,9 +489,9 @@ pub(super) mod defs {
                 ref_list1_mod_op_count: Default::default(),
                 ref_pic_marking_op_count: Default::default(),
                 reserved1: [Default::default(); _],
-                p_ref_list0_mod_operations: core::ptr::null(),
-                p_ref_list1_mod_operations: core::ptr::null(),
-                p_ref_pic_marking_operations: core::ptr::null(),
+                p_ref_list0_mod_operations: ptr::null(),
+                p_ref_list1_mod_operations: ptr::null(),
+                p_ref_pic_marking_operations: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -617,7 +619,7 @@ pub(super) mod defs {
                 pic_order_cnt: Default::default(),
                 temporal_id: Default::default(),
                 reserved1: [Default::default(); _],
-                p_ref_lists: core::ptr::null(),
+                p_ref_lists: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -801,7 +803,7 @@ pub(super) mod defs {
                 reserved1: Default::default(),
                 cabac_init_idc: Default::default(),
                 disable_deblocking_filter_idc: Default::default(),
-                p_weight_table: core::ptr::null(),
+                p_weight_table: ptr::null(),
                 _marker: PhantomData,
             }
         }

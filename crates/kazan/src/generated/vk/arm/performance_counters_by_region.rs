@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_ARM_performance_counters_by_region";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePerformanceCountersByRegionFeaturesARM.html>
     #[repr(C)]
@@ -56,7 +58,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 performance_counters_by_region: Default::default(),
                 _marker: PhantomData,
             }
@@ -124,7 +126,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 max_per_region_performance_counters: Default::default(),
                 performance_counter_region_size: Default::default(),
                 row_stride_alignment: Default::default(),
@@ -203,7 +205,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 counter_id: Default::default(),
                 _marker: PhantomData,
             }
@@ -250,7 +252,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 flags: Default::default(),
                 name: [Default::default(); _],
                 _marker: PhantomData,
@@ -323,12 +325,12 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 counter_address_count: Default::default(),
-                p_counter_addresses: core::ptr::null(),
+                p_counter_addresses: ptr::null(),
                 serialize_regions: Default::default(),
                 counter_index_count: Default::default(),
-                p_counter_indices: core::ptr::null_mut(),
+                p_counter_indices: ptr::null_mut(),
                 _marker: PhantomData,
             }
         }

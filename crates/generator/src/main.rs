@@ -133,6 +133,7 @@ fn generate(analysis: &analysis::Analysis) {
             "#![allow(unused_imports)]
             use core::ffi::{{c_char, c_int, c_void, CStr}};
             use core::mem::transmute;
+            use core::ptr;
             use crate::{{*, vk::*, vk::Result as VkResult}};
             "
         )
@@ -156,6 +157,7 @@ fn generate(analysis: &analysis::Analysis) {
                 use core::ffi::{{c_char, c_int, c_void, CStr}};
                 use core::fmt;
                 use core::marker::PhantomData;
+                use core::ptr;
                 use crate::{{*, vk::*}};
                 "
             )

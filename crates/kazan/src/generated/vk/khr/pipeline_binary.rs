@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_KHR_pipeline_binary";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     pub const MAX_PIPELINE_BINARY_KEY_SIZE_KHR: u32 = 32;
 
@@ -56,10 +58,10 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
-                p_keys_and_data_info: core::ptr::null(),
+                p_next: ptr::null(),
+                p_keys_and_data_info: ptr::null(),
                 pipeline: Default::default(),
-                p_pipeline_create_info: core::ptr::null(),
+                p_pipeline_create_info: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -123,9 +125,9 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 pipeline_binary_count: Default::default(),
-                p_pipeline_binaries: core::ptr::null_mut(),
+                p_pipeline_binaries: ptr::null_mut(),
                 _marker: PhantomData,
             }
         }
@@ -164,7 +166,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 data_size: Default::default(),
-                p_data: core::ptr::null_mut(),
+                p_data: ptr::null_mut(),
                 _marker: PhantomData,
             }
         }
@@ -205,8 +207,8 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 binary_count: Default::default(),
-                p_pipeline_binary_keys: core::ptr::null(),
-                p_pipeline_binary_data: core::ptr::null(),
+                p_pipeline_binary_keys: ptr::null(),
+                p_pipeline_binary_data: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -214,21 +216,14 @@ pub(super) mod defs {
 
     impl<'a> PipelineBinaryKeysAndDataKHR<'a> {
         #[inline]
-        pub fn pipeline_binary_keys(
+        pub fn binaries(
             mut self,
             pipeline_binary_keys: &'a [PipelineBinaryKeyKHR<'a>],
-        ) -> Self {
-            self.binary_count = pipeline_binary_keys.len().try_into().unwrap();
-            self.p_pipeline_binary_keys = pipeline_binary_keys.as_ptr();
-            self
-        }
-
-        #[inline]
-        pub fn pipeline_binary_data(
-            mut self,
             pipeline_binary_data: &'a [PipelineBinaryDataKHR<'a>],
         ) -> Self {
-            self.binary_count = pipeline_binary_data.len().try_into().unwrap();
+            self.binary_count = pipeline_binary_keys.len().try_into().unwrap();
+            assert_eq!(pipeline_binary_data.len(), self.binary_count as usize);
+            self.p_pipeline_binary_keys = pipeline_binary_keys.as_ptr();
             self.p_pipeline_binary_data = pipeline_binary_data.as_ptr();
             self
         }
@@ -266,7 +261,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 key_size: Default::default(),
                 key: [Default::default(); _],
                 _marker: PhantomData,
@@ -324,9 +319,9 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 binary_count: Default::default(),
-                p_pipeline_binaries: core::ptr::null(),
+                p_pipeline_binaries: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -372,7 +367,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 pipeline: Default::default(),
                 _marker: PhantomData,
             }
@@ -417,7 +412,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 pipeline_binary: Default::default(),
                 _marker: PhantomData,
             }
@@ -460,7 +455,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 _marker: PhantomData,
             }
         }
@@ -505,7 +500,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 pipeline_binaries: Default::default(),
                 _marker: PhantomData,
             }
@@ -553,7 +548,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 disable_internal_cache: Default::default(),
                 _marker: PhantomData,
             }
@@ -627,7 +622,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 pipeline_binary_internal_cache: Default::default(),
                 pipeline_binary_internal_cache_control: Default::default(),
                 pipeline_binary_prefers_internal_cache: Default::default(),

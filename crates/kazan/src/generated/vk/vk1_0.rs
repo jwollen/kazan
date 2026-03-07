@@ -2,6 +2,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
@@ -9,6 +10,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     pub const FALSE: u32 = 0;
     pub const LOD_CLAMP_NONE: f32 = 1000.0;
@@ -731,10 +733,10 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
-                p_application_name: core::ptr::null(),
+                p_next: ptr::null(),
+                p_application_name: ptr::null(),
                 application_version: Default::default(),
-                p_engine_name: core::ptr::null(),
+                p_engine_name: ptr::null(),
                 engine_version: Default::default(),
                 api_version: Default::default(),
                 _marker: PhantomData,
@@ -817,7 +819,7 @@ pub(super) mod defs {
     impl Default for AllocationCallbacks<'_> {
         fn default() -> Self {
             Self {
-                p_user_data: core::ptr::null_mut(),
+                p_user_data: ptr::null_mut(),
                 pfn_allocation: Default::default(),
                 pfn_reallocation: Default::default(),
                 pfn_free: Default::default(),
@@ -908,11 +910,11 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 queue_family_index: Default::default(),
                 queue_count: Default::default(),
-                p_queue_priorities: core::ptr::null(),
+                p_queue_priorities: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -986,15 +988,15 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 queue_create_info_count: Default::default(),
-                p_queue_create_infos: core::ptr::null(),
+                p_queue_create_infos: ptr::null(),
                 enabled_layer_count: Default::default(),
-                pp_enabled_layer_names: core::ptr::null(),
+                pp_enabled_layer_names: ptr::null(),
                 enabled_extension_count: Default::default(),
-                pp_enabled_extension_names: core::ptr::null(),
-                p_enabled_features: core::ptr::null(),
+                pp_enabled_extension_names: ptr::null(),
+                p_enabled_features: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -1084,13 +1086,13 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
-                p_application_info: core::ptr::null(),
+                p_application_info: ptr::null(),
                 enabled_layer_count: Default::default(),
-                pp_enabled_layer_names: core::ptr::null(),
+                pp_enabled_layer_names: ptr::null(),
                 enabled_extension_count: Default::default(),
-                pp_enabled_extension_names: core::ptr::null(),
+                pp_enabled_extension_names: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -1239,7 +1241,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 allocation_size: Default::default(),
                 memory_type_index: Default::default(),
                 _marker: PhantomData,
@@ -1450,7 +1452,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 memory: Default::default(),
                 offset: Default::default(),
                 size: Default::default(),
@@ -1667,15 +1669,15 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 dst_set: Default::default(),
                 dst_binding: Default::default(),
                 dst_array_element: Default::default(),
                 descriptor_count: Default::default(),
                 descriptor_type: Default::default(),
-                p_image_info: core::ptr::null(),
-                p_buffer_info: core::ptr::null(),
-                p_texel_buffer_view: core::ptr::null(),
+                p_image_info: ptr::null(),
+                p_buffer_info: ptr::null(),
+                p_texel_buffer_view: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -1701,23 +1703,28 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn image_info(mut self, image_info: &'a [DescriptorImageInfo]) -> Self {
-            self.descriptor_count = image_info.len().try_into().unwrap();
-            self.p_image_info = image_info.as_ptr();
-            self
-        }
-
-        #[inline]
-        pub fn buffer_info(mut self, buffer_info: &'a [DescriptorBufferInfo]) -> Self {
-            self.descriptor_count = buffer_info.len().try_into().unwrap();
-            self.p_buffer_info = buffer_info.as_ptr();
-            self
-        }
-
-        #[inline]
-        pub fn texel_buffer_view(mut self, texel_buffer_view: &'a [BufferView]) -> Self {
-            self.descriptor_count = texel_buffer_view.len().try_into().unwrap();
-            self.p_texel_buffer_view = texel_buffer_view.as_ptr();
+        pub fn descriptors(
+            mut self,
+            image_info: Option<&'a [DescriptorImageInfo]>,
+            buffer_info: Option<&'a [DescriptorBufferInfo]>,
+            texel_buffer_view: Option<&'a [BufferView]>,
+        ) -> Self {
+            self.descriptor_count = None
+                .or_else(|| image_info.as_deref().map(|s| s.len()))
+                .or_else(|| buffer_info.as_deref().map(|s| s.len()))
+                .or_else(|| texel_buffer_view.as_deref().map(|s| s.len()))
+                .unwrap_or(0)
+                .try_into()
+                .unwrap();
+            if let Some(s) = &buffer_info {
+                assert_eq!(s.len(), self.descriptor_count as usize);
+            }
+            if let Some(s) = &texel_buffer_view {
+                assert_eq!(s.len(), self.descriptor_count as usize);
+            }
+            self.p_image_info = image_info.map_or(ptr::null(), |s| s.as_ptr());
+            self.p_buffer_info = buffer_info.map_or(ptr::null(), |s| s.as_ptr());
+            self.p_texel_buffer_view = texel_buffer_view.map_or(ptr::null(), |s| s.as_ptr());
             self
         }
 
@@ -1770,7 +1777,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 src_set: Default::default(),
                 src_binding: Default::default(),
                 src_array_element: Default::default(),
@@ -1867,13 +1874,13 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 size: Default::default(),
                 usage: Default::default(),
                 sharing_mode: Default::default(),
                 queue_family_index_count: Default::default(),
-                p_queue_family_indices: core::ptr::null(),
+                p_queue_family_indices: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -1950,7 +1957,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 buffer: Default::default(),
                 format: Default::default(),
@@ -2139,7 +2146,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 src_access_mask: Default::default(),
                 dst_access_mask: Default::default(),
                 _marker: PhantomData,
@@ -2203,7 +2210,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 src_access_mask: Default::default(),
                 dst_access_mask: Default::default(),
                 src_queue_family_index: Default::default(),
@@ -2304,7 +2311,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 src_access_mask: Default::default(),
                 dst_access_mask: Default::default(),
                 old_layout: Default::default(),
@@ -2422,7 +2429,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 image_type: Default::default(),
                 format: Default::default(),
@@ -2434,7 +2441,7 @@ pub(super) mod defs {
                 usage: Default::default(),
                 sharing_mode: Default::default(),
                 queue_family_index_count: Default::default(),
-                p_queue_family_indices: core::ptr::null(),
+                p_queue_family_indices: ptr::null(),
                 initial_layout: Default::default(),
                 _marker: PhantomData,
             }
@@ -2601,7 +2608,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 image: Default::default(),
                 view_type: Default::default(),
@@ -2806,7 +2813,7 @@ pub(super) mod defs {
             Self {
                 buffer: Default::default(),
                 bind_count: Default::default(),
-                p_binds: core::ptr::null(),
+                p_binds: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -2854,7 +2861,7 @@ pub(super) mod defs {
             Self {
                 image: Default::default(),
                 bind_count: Default::default(),
-                p_binds: core::ptr::null(),
+                p_binds: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -2902,7 +2909,7 @@ pub(super) mod defs {
             Self {
                 image: Default::default(),
                 bind_count: Default::default(),
-                p_binds: core::ptr::null(),
+                p_binds: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -2971,17 +2978,17 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 wait_semaphore_count: Default::default(),
-                p_wait_semaphores: core::ptr::null(),
+                p_wait_semaphores: ptr::null(),
                 buffer_bind_count: Default::default(),
-                p_buffer_binds: core::ptr::null(),
+                p_buffer_binds: ptr::null(),
                 image_opaque_bind_count: Default::default(),
-                p_image_opaque_binds: core::ptr::null(),
+                p_image_opaque_binds: ptr::null(),
                 image_bind_count: Default::default(),
-                p_image_binds: core::ptr::null(),
+                p_image_binds: ptr::null(),
                 signal_semaphore_count: Default::default(),
-                p_signal_semaphores: core::ptr::null(),
+                p_signal_semaphores: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -3255,10 +3262,10 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 code_size: Default::default(),
-                p_code: core::ptr::null(),
+                p_code: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -3311,7 +3318,7 @@ pub(super) mod defs {
                 descriptor_type: Default::default(),
                 descriptor_count: Default::default(),
                 stage_flags: Default::default(),
-                p_immutable_samplers: core::ptr::null(),
+                p_immutable_samplers: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -3378,10 +3385,10 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 binding_count: Default::default(),
-                p_bindings: core::ptr::null(),
+                p_bindings: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -3462,11 +3469,11 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 max_sets: Default::default(),
                 pool_size_count: Default::default(),
-                p_pool_sizes: core::ptr::null(),
+                p_pool_sizes: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -3527,10 +3534,10 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 descriptor_pool: Default::default(),
                 descriptor_set_count: Default::default(),
-                p_set_layouts: core::ptr::null(),
+                p_set_layouts: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -3610,9 +3617,9 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 map_entry_count: Default::default(),
-                p_map_entries: core::ptr::null(),
+                p_map_entries: ptr::null(),
                 data_size: Default::default(),
-                p_data: core::ptr::null(),
+                p_data: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -3672,12 +3679,12 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 stage: Default::default(),
                 module: Default::default(),
-                p_name: core::ptr::null(),
-                p_specialization_info: core::ptr::null(),
+                p_name: ptr::null(),
+                p_specialization_info: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -3756,7 +3763,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 stage: Default::default(),
                 layout: Default::default(),
@@ -3919,12 +3926,12 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 vertex_binding_description_count: Default::default(),
-                p_vertex_binding_descriptions: core::ptr::null(),
+                p_vertex_binding_descriptions: ptr::null(),
                 vertex_attribute_description_count: Default::default(),
-                p_vertex_attribute_descriptions: core::ptr::null(),
+                p_vertex_attribute_descriptions: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -3995,7 +4002,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 topology: Default::default(),
                 primitive_restart_enable: Default::default(),
@@ -4057,7 +4064,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 patch_control_points: Default::default(),
                 _marker: PhantomData,
@@ -4117,12 +4124,12 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 viewport_count: Default::default(),
-                p_viewports: core::ptr::null(),
+                p_viewports: ptr::null(),
                 scissor_count: Default::default(),
-                p_scissors: core::ptr::null(),
+                p_scissors: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -4204,7 +4211,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 depth_clamp_enable: Default::default(),
                 rasterizer_discard_enable: Default::default(),
@@ -4331,12 +4338,12 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 rasterization_samples: Default::default(),
                 sample_shading_enable: Default::default(),
                 min_sample_shading: Default::default(),
-                p_sample_mask: core::ptr::null(),
+                p_sample_mask: ptr::null(),
                 alpha_to_coverage_enable: Default::default(),
                 alpha_to_one_enable: Default::default(),
                 _marker: PhantomData,
@@ -4488,12 +4495,12 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 logic_op_enable: Default::default(),
                 logic_op: Default::default(),
                 attachment_count: Default::default(),
-                p_attachments: core::ptr::null(),
+                p_attachments: ptr::null(),
                 blend_constants: [Default::default(); _],
                 _marker: PhantomData,
             }
@@ -4567,10 +4574,10 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 dynamic_state_count: Default::default(),
-                p_dynamic_states: core::ptr::null(),
+                p_dynamic_states: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -4699,7 +4706,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 depth_test_enable: Default::default(),
                 depth_write_enable: Default::default(),
@@ -4839,19 +4846,19 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 stage_count: Default::default(),
-                p_stages: core::ptr::null(),
-                p_vertex_input_state: core::ptr::null(),
-                p_input_assembly_state: core::ptr::null(),
-                p_tessellation_state: core::ptr::null(),
-                p_viewport_state: core::ptr::null(),
-                p_rasterization_state: core::ptr::null(),
-                p_multisample_state: core::ptr::null(),
-                p_depth_stencil_state: core::ptr::null(),
-                p_color_blend_state: core::ptr::null(),
-                p_dynamic_state: core::ptr::null(),
+                p_stages: ptr::null(),
+                p_vertex_input_state: ptr::null(),
+                p_input_assembly_state: ptr::null(),
+                p_tessellation_state: ptr::null(),
+                p_viewport_state: ptr::null(),
+                p_rasterization_state: ptr::null(),
+                p_multisample_state: ptr::null(),
+                p_depth_stencil_state: ptr::null(),
+                p_color_blend_state: ptr::null(),
+                p_dynamic_state: ptr::null(),
                 layout: Default::default(),
                 render_pass: Default::default(),
                 subpass: Default::default(),
@@ -5022,10 +5029,10 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 initial_data_size: Default::default(),
-                p_initial_data: core::ptr::null(),
+                p_initial_data: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -5186,12 +5193,12 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 set_layout_count: Default::default(),
-                p_set_layouts: core::ptr::null(),
+                p_set_layouts: ptr::null(),
                 push_constant_range_count: Default::default(),
-                p_push_constant_ranges: core::ptr::null(),
+                p_push_constant_ranges: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -5282,7 +5289,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 mag_filter: Default::default(),
                 min_filter: Default::default(),
@@ -5434,7 +5441,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 queue_family_index: Default::default(),
                 _marker: PhantomData,
@@ -5490,7 +5497,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 command_pool: Default::default(),
                 level: Default::default(),
                 command_buffer_count: Default::default(),
@@ -5559,7 +5566,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 render_pass: Default::default(),
                 subpass: Default::default(),
                 framebuffer: Default::default(),
@@ -5644,9 +5651,9 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
-                p_inheritance_info: core::ptr::null(),
+                p_inheritance_info: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -5707,12 +5714,12 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 render_pass: Default::default(),
                 framebuffer: Default::default(),
                 render_area: Default::default(),
                 clear_value_count: Default::default(),
-                p_clear_values: core::ptr::null(),
+                p_clear_values: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -5952,13 +5959,13 @@ pub(super) mod defs {
                 flags: Default::default(),
                 pipeline_bind_point: Default::default(),
                 input_attachment_count: Default::default(),
-                p_input_attachments: core::ptr::null(),
+                p_input_attachments: ptr::null(),
                 color_attachment_count: Default::default(),
-                p_color_attachments: core::ptr::null(),
-                p_resolve_attachments: core::ptr::null(),
-                p_depth_stencil_attachment: core::ptr::null(),
+                p_color_attachments: ptr::null(),
+                p_resolve_attachments: ptr::null(),
+                p_depth_stencil_attachment: ptr::null(),
                 preserve_attachment_count: Default::default(),
-                p_preserve_attachments: core::ptr::null(),
+                p_preserve_attachments: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -5985,19 +5992,17 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn color_attachments(mut self, color_attachments: &'a [AttachmentReference]) -> Self {
-            self.color_attachment_count = color_attachments.len().try_into().unwrap();
-            self.p_color_attachments = color_attachments.as_ptr();
-            self
-        }
-
-        #[inline]
-        pub fn resolve_attachments(
+        pub fn color_attachments(
             mut self,
-            resolve_attachments: &'a [AttachmentReference],
+            color_attachments: &'a [AttachmentReference],
+            resolve_attachments: Option<&'a [AttachmentReference]>,
         ) -> Self {
-            self.color_attachment_count = resolve_attachments.len().try_into().unwrap();
-            self.p_resolve_attachments = resolve_attachments.as_ptr();
+            self.color_attachment_count = color_attachments.len().try_into().unwrap();
+            if let Some(s) = &resolve_attachments {
+                assert_eq!(s.len(), self.color_attachment_count as usize);
+            }
+            self.p_color_attachments = color_attachments.as_ptr();
+            self.p_resolve_attachments = resolve_attachments.map_or(ptr::null(), |s| s.as_ptr());
             self
         }
 
@@ -6119,14 +6124,14 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 attachment_count: Default::default(),
-                p_attachments: core::ptr::null(),
+                p_attachments: ptr::null(),
                 subpass_count: Default::default(),
-                p_subpasses: core::ptr::null(),
+                p_subpasses: ptr::null(),
                 dependency_count: Default::default(),
-                p_dependencies: core::ptr::null(),
+                p_dependencies: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -6191,7 +6196,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 _marker: PhantomData,
             }
@@ -6236,7 +6241,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 _marker: PhantomData,
             }
@@ -7796,7 +7801,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 _marker: PhantomData,
             }
@@ -7847,7 +7852,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 query_type: Default::default(),
                 query_count: Default::default(),
@@ -7928,11 +7933,11 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 flags: Default::default(),
                 render_pass: Default::default(),
                 attachment_count: Default::default(),
-                p_attachments: core::ptr::null(),
+                p_attachments: ptr::null(),
                 width: Default::default(),
                 height: Default::default(),
                 layers: Default::default(),
@@ -8136,14 +8141,14 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 wait_semaphore_count: Default::default(),
-                p_wait_semaphores: core::ptr::null(),
-                p_wait_dst_stage_mask: core::ptr::null(),
+                p_wait_semaphores: ptr::null(),
+                p_wait_dst_stage_mask: ptr::null(),
                 command_buffer_count: Default::default(),
-                p_command_buffers: core::ptr::null(),
+                p_command_buffers: ptr::null(),
                 signal_semaphore_count: Default::default(),
-                p_signal_semaphores: core::ptr::null(),
+                p_signal_semaphores: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -8151,18 +8156,17 @@ pub(super) mod defs {
 
     impl<'a> SubmitInfo<'a> {
         #[inline]
-        pub fn wait_semaphores(mut self, wait_semaphores: &'a [Semaphore]) -> Self {
-            self.wait_semaphore_count = wait_semaphores.len().try_into().unwrap();
-            self.p_wait_semaphores = wait_semaphores.as_ptr();
-            self
-        }
-
-        #[inline]
-        pub fn wait_dst_stage_mask(
+        pub fn wait_semaphores(
             mut self,
+            wait_semaphores: &'a [Semaphore],
             wait_dst_stage_mask: &'a [PipelineStageFlags],
         ) -> Self {
-            self.wait_semaphore_count = wait_dst_stage_mask.len().try_into().unwrap();
+            self.wait_semaphore_count = wait_semaphores.len().try_into().unwrap();
+            assert_eq!(
+                wait_dst_stage_mask.len(),
+                self.wait_semaphore_count as usize
+            );
+            self.p_wait_semaphores = wait_semaphores.as_ptr();
             self.p_wait_dst_stage_mask = wait_dst_stage_mask.as_ptr();
             self
         }

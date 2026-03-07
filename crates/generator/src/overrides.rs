@@ -24,6 +24,22 @@ pub struct OkCodes<'a> {
     pub repr: SuccessCodeRepr,
 }
 
+/// Return the setter name for a merged array setter (2+ params sharing a length field).
+///
+/// `len_member` is the C length member name (e.g. `"descriptorCount"`).
+/// `base` is the snake_case name derived by stripping `_count` from the normalized length member.
+///
+/// The default is to append `s` to `base` (unless it already ends in `s`).
+/// Override specific cases for irregular plurals.
+pub fn merged_setter_name(_struct_name: &str, len_member: &str, base: &str) -> String {
+    match len_member {
+        "binaryCount" => "binaries".to_string(),
+        "geometryCount" => "geometries".to_string(),
+        _ if base.ends_with('s') => base.to_string(),
+        _ => format!("{}s", base),
+    }
+}
+
 /// Override which success codes mean "output is valid" for a command.
 ///
 /// By default, only `VK_SUCCESS` maps to `Ok`. Some commands write their output

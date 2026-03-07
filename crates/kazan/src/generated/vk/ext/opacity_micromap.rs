@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_EXT_opacity_micromap";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     handle_nondispatchable!(
         MicromapEXT,
@@ -69,14 +71,14 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 ty: Default::default(),
                 flags: Default::default(),
                 mode: Default::default(),
                 dst_micromap: Default::default(),
                 usage_counts_count: Default::default(),
-                p_usage_counts: core::ptr::null(),
-                pp_usage_counts: core::ptr::null(),
+                p_usage_counts: ptr::null(),
+                pp_usage_counts: ptr::null(),
                 data: Default::default(),
                 scratch_data: Default::default(),
                 triangle_array: Default::default(),
@@ -112,16 +114,22 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn usage_counts(mut self, usage_counts: &'a [MicromapUsageEXT]) -> Self {
-            self.usage_counts_count = usage_counts.len().try_into().unwrap();
-            self.p_usage_counts = usage_counts.as_ptr();
-            self
-        }
-
-        #[inline]
-        pub fn usage_counts_ptrs(mut self, usage_counts_ptrs: &'a [&'a MicromapUsageEXT]) -> Self {
-            self.usage_counts_count = usage_counts_ptrs.len().try_into().unwrap();
-            self.pp_usage_counts = usage_counts_ptrs.as_ptr() as _;
+        pub fn usage_counts(
+            mut self,
+            usage_counts: Option<&'a [MicromapUsageEXT]>,
+            usage_counts_ptrs: Option<&'a [&'a MicromapUsageEXT]>,
+        ) -> Self {
+            self.usage_counts_count = None
+                .or_else(|| usage_counts.as_deref().map(|s| s.len()))
+                .or_else(|| usage_counts_ptrs.as_deref().map(|s| s.len()))
+                .unwrap_or(0)
+                .try_into()
+                .unwrap();
+            if let Some(s) = &usage_counts_ptrs {
+                assert_eq!(s.len(), self.usage_counts_count as usize);
+            }
+            self.p_usage_counts = usage_counts.map_or(ptr::null(), |s| s.as_ptr());
+            self.pp_usage_counts = usage_counts_ptrs.map_or(ptr::null(), |s| s.as_ptr() as _);
             self
         }
 
@@ -190,7 +198,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 create_flags: Default::default(),
                 buffer: Default::default(),
                 offset: Default::default(),
@@ -270,8 +278,8 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
-                p_version_data: core::ptr::null(),
+                p_next: ptr::null(),
+                p_version_data: ptr::null(),
                 _marker: PhantomData,
             }
         }
@@ -313,7 +321,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 src: Default::default(),
                 dst: Default::default(),
                 mode: Default::default(),
@@ -376,7 +384,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 src: Default::default(),
                 dst: Default::default(),
                 mode: Default::default(),
@@ -439,7 +447,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 src: Default::default(),
                 dst: Default::default(),
                 mode: Default::default(),
@@ -502,7 +510,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null(),
+                p_next: ptr::null(),
                 micromap_size: Default::default(),
                 build_scratch_size: Default::default(),
                 discardable: Default::default(),
@@ -634,7 +642,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 micromap: Default::default(),
                 micromap_capture_replay: Default::default(),
                 micromap_host_commands: Default::default(),
@@ -707,7 +715,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 max_opacity2_state_subdivision_level: Default::default(),
                 max_opacity4_state_subdivision_level: Default::default(),
                 _marker: PhantomData,
@@ -790,14 +798,14 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
-                p_next: core::ptr::null_mut(),
+                p_next: ptr::null_mut(),
                 index_type: Default::default(),
                 index_buffer: Default::default(),
                 index_stride: Default::default(),
                 base_triangle: Default::default(),
                 usage_counts_count: Default::default(),
-                p_usage_counts: core::ptr::null(),
-                pp_usage_counts: core::ptr::null(),
+                p_usage_counts: ptr::null(),
+                pp_usage_counts: ptr::null(),
                 micromap: Default::default(),
                 _marker: PhantomData,
             }
@@ -830,16 +838,22 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn usage_counts(mut self, usage_counts: &'a [MicromapUsageEXT]) -> Self {
-            self.usage_counts_count = usage_counts.len().try_into().unwrap();
-            self.p_usage_counts = usage_counts.as_ptr();
-            self
-        }
-
-        #[inline]
-        pub fn usage_counts_ptrs(mut self, usage_counts_ptrs: &'a [&'a MicromapUsageEXT]) -> Self {
-            self.usage_counts_count = usage_counts_ptrs.len().try_into().unwrap();
-            self.pp_usage_counts = usage_counts_ptrs.as_ptr() as _;
+        pub fn usage_counts(
+            mut self,
+            usage_counts: Option<&'a [MicromapUsageEXT]>,
+            usage_counts_ptrs: Option<&'a [&'a MicromapUsageEXT]>,
+        ) -> Self {
+            self.usage_counts_count = None
+                .or_else(|| usage_counts.as_deref().map(|s| s.len()))
+                .or_else(|| usage_counts_ptrs.as_deref().map(|s| s.len()))
+                .unwrap_or(0)
+                .try_into()
+                .unwrap();
+            if let Some(s) = &usage_counts_ptrs {
+                assert_eq!(s.len(), self.usage_counts_count as usize);
+            }
+            self.p_usage_counts = usage_counts.map_or(ptr::null(), |s| s.as_ptr());
+            self.pp_usage_counts = usage_counts_ptrs.map_or(ptr::null(), |s| s.as_ptr() as _);
             self
         }
 

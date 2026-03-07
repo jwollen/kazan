@@ -3,6 +3,7 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"vulkan_video_codec_vp9std_decode";
 
@@ -12,6 +13,7 @@ pub(super) mod defs {
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+    use core::ptr;
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeVP9PictureInfoFlags.html>
     #[repr(C)]
@@ -156,9 +158,9 @@ pub(super) mod defs {
                 tile_cols_log2: Default::default(),
                 tile_rows_log2: Default::default(),
                 reserved1: [Default::default(); _],
-                p_color_config: core::ptr::null(),
-                p_loop_filter: core::ptr::null(),
-                p_segmentation: core::ptr::null(),
+                p_color_config: ptr::null(),
+                p_loop_filter: ptr::null(),
+                p_segmentation: ptr::null(),
                 _marker: PhantomData,
             }
         }
