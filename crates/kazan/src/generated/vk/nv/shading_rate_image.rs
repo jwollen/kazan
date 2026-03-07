@@ -21,6 +21,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for ShadingRatePaletteNV<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("ShadingRatePaletteNV")
@@ -70,6 +71,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for PipelineViewportShadingRateImageStateCreateInfoNV<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("PipelineViewportShadingRateImageStateCreateInfoNV")
@@ -132,6 +134,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for PhysicalDeviceShadingRateImageFeaturesNV<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("PhysicalDeviceShadingRateImageFeaturesNV")
@@ -196,6 +199,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for PhysicalDeviceShadingRateImagePropertiesNV<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("PhysicalDeviceShadingRateImagePropertiesNV")
@@ -256,7 +260,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCoarseSampleLocationNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone, Default)]
     pub struct CoarseSampleLocationNV {
         pub pixel_x: u32,
         pub pixel_y: u32,
@@ -291,6 +296,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for CoarseSampleOrderCustomNV<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("CoarseSampleOrderCustomNV")
@@ -344,6 +350,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for PipelineViewportCoarseSampleOrderStateCreateInfoNV<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("PipelineViewportCoarseSampleOrderStateCreateInfoNV")

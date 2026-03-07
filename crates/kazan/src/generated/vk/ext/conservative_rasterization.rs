@@ -30,6 +30,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for PhysicalDeviceConservativeRasterizationPropertiesEXT<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("PhysicalDeviceConservativeRasterizationPropertiesEXT")
@@ -182,6 +183,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for PipelineRasterizationConservativeStateCreateInfoEXT<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("PipelineRasterizationConservativeStateCreateInfoEXT")

@@ -22,6 +22,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for PhysicalDeviceFragmentShaderBarycentricFeaturesKHR<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("PhysicalDeviceFragmentShaderBarycentricFeaturesKHR")
@@ -77,6 +78,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for PhysicalDeviceFragmentShaderBarycentricPropertiesKHR<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("PhysicalDeviceFragmentShaderBarycentricPropertiesKHR")

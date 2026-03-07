@@ -22,6 +22,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for PushConstantBankInfoNV<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("PushConstantBankInfoNV")
@@ -69,6 +70,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for PhysicalDevicePushConstantBankFeaturesNV<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("PhysicalDevicePushConstantBankFeaturesNV")
@@ -121,6 +123,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for PhysicalDevicePushConstantBankPropertiesNV<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("PhysicalDevicePushConstantBankPropertiesNV")

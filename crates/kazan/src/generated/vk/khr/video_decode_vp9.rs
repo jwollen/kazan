@@ -24,6 +24,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for PhysicalDeviceVideoDecodeVP9FeaturesKHR<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("PhysicalDeviceVideoDecodeVP9FeaturesKHR")
@@ -73,6 +74,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for VideoDecodeVP9ProfileInfoKHR<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("VideoDecodeVP9ProfileInfoKHR")
@@ -118,6 +120,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for VideoDecodeVP9CapabilitiesKHR<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("VideoDecodeVP9CapabilitiesKHR")
@@ -166,6 +169,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for VideoDecodeVP9PictureInfoKHR<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("VideoDecodeVP9PictureInfoKHR")

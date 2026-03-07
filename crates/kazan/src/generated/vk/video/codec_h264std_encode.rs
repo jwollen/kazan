@@ -14,7 +14,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264WeightTableFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone, Default)]
     pub struct StdVideoEncodeH264WeightTableFlags {
         pub luma_weight_l0_flag: u32,
         pub chroma_weight_l0_flag: u32,
@@ -46,7 +47,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264WeightTable.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone)]
     pub struct StdVideoEncodeH264WeightTable {
         pub flags: StdVideoEncodeH264WeightTableFlags,
         pub luma_log2_weight_denom: u8,
@@ -170,7 +172,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264SliceHeaderFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone, Default)]
     pub struct StdVideoEncodeH264SliceHeaderFlags {
         pub direct_spatial_mv_pred_flag: u32,
         pub num_ref_idx_active_override_flag: u32,
@@ -199,7 +202,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264PictureInfoFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone, Default)]
     pub struct StdVideoEncodeH264PictureInfoFlags {
         pub idr_pic_flag: u32,
         pub is_reference: u32,
@@ -246,7 +250,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264ReferenceInfoFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone, Default)]
     pub struct StdVideoEncodeH264ReferenceInfoFlags {
         pub used_for_long_term_reference: u32,
         pub reserved: u32,
@@ -266,7 +271,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264ReferenceListsInfoFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone, Default)]
     pub struct StdVideoEncodeH264ReferenceListsInfoFlags {
         pub ref_pic_list_modification_flag_l0: u32,
         pub ref_pic_list_modification_flag_l1: u32,
@@ -298,7 +304,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264RefListModEntry.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone, Default)]
     pub struct StdVideoEncodeH264RefListModEntry {
         pub modification_of_pic_nums_idc: StdVideoH264ModificationOfPicNumsIdc,
         pub abs_diff_pic_num_minus1: u16,
@@ -327,7 +334,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264RefPicMarkingEntry.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone, Default)]
     pub struct StdVideoEncodeH264RefPicMarkingEntry {
         pub memory_management_control_operation: StdVideoH264MemMgmtControlOp,
         pub difference_of_pic_nums_minus1: u16,
@@ -385,6 +393,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for StdVideoEncodeH264ReferenceListsInfo<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("StdVideoEncodeH264ReferenceListsInfo")
@@ -521,6 +530,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for StdVideoEncodeH264PictureInfo<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("StdVideoEncodeH264PictureInfo")
@@ -613,7 +623,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264ReferenceInfo.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone, Default)]
     pub struct StdVideoEncodeH264ReferenceInfo {
         pub flags: StdVideoEncodeH264ReferenceInfoFlags,
         pub primary_pic_type: StdVideoH264PictureType,
@@ -678,6 +689,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for StdVideoEncodeH264SliceHeader<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("StdVideoEncodeH264SliceHeader")

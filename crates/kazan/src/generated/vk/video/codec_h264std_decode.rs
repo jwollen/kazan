@@ -16,7 +16,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeH264PictureInfoFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone, Default)]
     pub struct StdVideoDecodeH264PictureInfoFlags {
         pub field_pic_flag: u32,
         pub is_intra: u32,
@@ -60,7 +61,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeH264PictureInfo.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone)]
     pub struct StdVideoDecodeH264PictureInfo {
         pub flags: StdVideoDecodeH264PictureInfoFlags,
         pub seq_parameter_set_id: u8,
@@ -134,7 +136,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeH264ReferenceInfoFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone, Default)]
     pub struct StdVideoDecodeH264ReferenceInfoFlags {
         pub top_field_flag: u32,
         pub bottom_field_flag: u32,
@@ -166,7 +169,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeH264ReferenceInfo.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone)]
     pub struct StdVideoDecodeH264ReferenceInfo {
         pub flags: StdVideoDecodeH264ReferenceInfoFlags,
         pub frame_num: u16,

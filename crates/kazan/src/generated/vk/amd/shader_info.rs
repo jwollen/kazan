@@ -14,7 +14,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderResourceUsageAMD.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone, Default)]
     pub struct ShaderResourceUsageAMD {
         pub num_used_vgprs: u32,
         pub num_used_sgprs: u32,
@@ -52,7 +53,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderStatisticsInfoAMD.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone)]
     pub struct ShaderStatisticsInfoAMD {
         pub shader_stage_mask: ShaderStageFlags,
         pub resource_usage: ShaderResourceUsageAMD,

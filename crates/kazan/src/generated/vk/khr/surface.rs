@@ -20,7 +20,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceCapabilitiesKHR.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone, Default)]
     pub struct SurfaceCapabilitiesKHR {
         pub min_image_count: u32,
         pub max_image_count: u32,
@@ -94,7 +95,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceFormatKHR.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone, Default)]
     pub struct SurfaceFormatKHR {
         pub format: Format,
         pub color_space: ColorSpaceKHR,

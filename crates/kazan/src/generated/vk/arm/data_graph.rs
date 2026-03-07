@@ -34,6 +34,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for PhysicalDeviceDataGraphFeaturesARM<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("PhysicalDeviceDataGraphFeaturesARM")
@@ -122,6 +123,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for DataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("DataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM")
@@ -187,6 +189,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for DataGraphPipelineConstantARM<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("DataGraphPipelineConstantARM")
@@ -238,6 +241,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for DataGraphPipelineResourceInfoARM<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("DataGraphPipelineResourceInfoARM")
@@ -294,6 +298,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for DataGraphPipelineCompilerControlCreateInfoARM<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("DataGraphPipelineCompilerControlCreateInfoARM")
@@ -347,6 +352,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for DataGraphPipelineCreateInfoARM<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("DataGraphPipelineCreateInfoARM")
@@ -413,6 +419,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for DataGraphPipelineShaderModuleCreateInfoARM<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("DataGraphPipelineShaderModuleCreateInfoARM")
@@ -489,6 +496,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for DataGraphPipelineSessionCreateInfoARM<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("DataGraphPipelineSessionCreateInfoARM")
@@ -539,6 +547,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for DataGraphPipelineSessionBindPointRequirementsInfoARM<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("DataGraphPipelineSessionBindPointRequirementsInfoARM")
@@ -584,6 +593,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for DataGraphPipelineSessionBindPointRequirementARM<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("DataGraphPipelineSessionBindPointRequirementARM")
@@ -646,6 +656,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for DataGraphPipelineSessionMemoryRequirementsInfoARM<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("DataGraphPipelineSessionMemoryRequirementsInfoARM")
@@ -707,6 +718,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for BindDataGraphPipelineSessionMemoryInfoARM<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("BindDataGraphPipelineSessionMemoryInfoARM")
@@ -778,6 +790,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for DataGraphPipelineInfoARM<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("DataGraphPipelineInfoARM")
@@ -823,6 +836,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for DataGraphPipelinePropertyQueryResultARM<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("DataGraphPipelinePropertyQueryResultARM")
@@ -884,6 +898,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for DataGraphPipelineIdentifierCreateInfoARM<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("DataGraphPipelineIdentifierCreateInfoARM")
@@ -935,6 +950,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for DataGraphPipelineDispatchInfoARM<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("DataGraphPipelineDispatchInfoARM")
@@ -969,7 +985,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDataGraphProcessingEngineARM.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone, Default)]
     pub struct PhysicalDeviceDataGraphProcessingEngineARM {
         pub ty: PhysicalDeviceDataGraphProcessingEngineTypeARM,
         pub is_foreign: Bool32,
@@ -996,6 +1013,7 @@ pub(super) mod defs {
         pub version: u32,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for PhysicalDeviceDataGraphOperationSupportARM {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("PhysicalDeviceDataGraphOperationSupportARM")
@@ -1050,6 +1068,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for QueueFamilyDataGraphPropertiesARM<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("QueueFamilyDataGraphPropertiesARM")
@@ -1100,6 +1119,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for PhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("PhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM")
@@ -1156,6 +1176,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for QueueFamilyDataGraphProcessingEnginePropertiesARM<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("QueueFamilyDataGraphProcessingEnginePropertiesARM")
@@ -1219,6 +1240,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for DataGraphProcessingEngineCreateInfoARM<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("DataGraphProcessingEngineCreateInfoARM")

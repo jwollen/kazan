@@ -22,6 +22,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for RenderPassCreationControlEXT<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("RenderPassCreationControlEXT")
@@ -59,7 +60,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassCreationFeedbackInfoEXT.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone, Default)]
     pub struct RenderPassCreationFeedbackInfoEXT {
         pub post_merge_subpass_count: u32,
     }
@@ -81,6 +83,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for RenderPassCreationFeedbackCreateInfoEXT<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("RenderPassCreationFeedbackCreateInfoEXT")
@@ -128,6 +131,7 @@ pub(super) mod defs {
         pub post_merge_index: u32,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for RenderPassSubpassFeedbackInfoEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("RenderPassSubpassFeedbackInfoEXT")
@@ -181,6 +185,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for RenderPassSubpassFeedbackCreateInfoEXT<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("RenderPassSubpassFeedbackCreateInfoEXT")
@@ -229,6 +234,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("PhysicalDeviceSubpassMergeFeedbackFeaturesEXT")

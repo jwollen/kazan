@@ -25,6 +25,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for PhysicalDeviceDenseGeometryFormatFeaturesAMDX<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("PhysicalDeviceDenseGeometryFormatFeaturesAMDX")
@@ -83,6 +84,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for AccelerationStructureDenseGeometryFormatTrianglesDataAMDX<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("AccelerationStructureDenseGeometryFormatTrianglesDataAMDX")

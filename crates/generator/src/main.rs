@@ -436,7 +436,8 @@ fn generate_unions(file: &mut impl std::io::Write, analysis: &Analysis, new_item
         let anon = if type_info.lifetime_param { "<'_>" } else { "" };
         writeln!(
             file,
-            "impl fmt::Debug for {name}{anon} {{
+            "#[cfg(feature = \"debug\")]
+            impl fmt::Debug for {name}{anon} {{
                 fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {{
                     f.debug_struct(\"{name}\").finish()
                 }}

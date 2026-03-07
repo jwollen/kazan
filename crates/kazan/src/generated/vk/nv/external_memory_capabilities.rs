@@ -14,7 +14,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalImageFormatPropertiesNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone, Default)]
     pub struct ExternalImageFormatPropertiesNV {
         pub image_format_properties: ImageFormatProperties,
         pub external_memory_features: ExternalMemoryFeatureFlagsNV,

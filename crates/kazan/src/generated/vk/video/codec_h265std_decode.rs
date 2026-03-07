@@ -16,7 +16,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeH265PictureInfoFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone, Default)]
     pub struct StdVideoDecodeH265PictureInfoFlags {
         pub irap_pic_flag: u32,
         pub idr_pic_flag: u32,
@@ -51,7 +52,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeH265PictureInfo.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone)]
     pub struct StdVideoDecodeH265PictureInfo {
         pub flags: StdVideoDecodeH265PictureInfoFlags,
         pub sps_video_parameter_set_id: u8,
@@ -155,7 +157,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeH265ReferenceInfoFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone, Default)]
     pub struct StdVideoDecodeH265ReferenceInfoFlags {
         pub used_for_long_term_reference: u32,
         pub unused_for_reference: u32,
@@ -175,7 +178,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeH265ReferenceInfo.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone, Default)]
     pub struct StdVideoDecodeH265ReferenceInfo {
         pub flags: StdVideoDecodeH265ReferenceInfoFlags,
         pub pic_order_cnt_val: i32,

@@ -289,16 +289,16 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
     if info.has_default && type_info.default {
         derives.push("Default");
     }
-    if type_info.trivial_debug {
-        derives.push("Debug");
-    }
     let derives_str = derives.join(", ");
 
     crate::write_doc_link(file, ty.name);
+    writeln!(file, "#[repr(C)]").unwrap();
+    if type_info.trivial_debug {
+        writeln!(file, "#[cfg_attr(feature = \"debug\", derive(Debug))]").unwrap();
+    }
     writeln!(
         file,
-        "#[repr(C)]
-        #[derive({derives_str})]
+        "#[derive({derives_str})]
         pub struct {}{} {{",
         normalize_ty_name(ty.name),
         lifetime_spec
@@ -324,6 +324,7 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
     writeln!(file, "}}\n").unwrap();
 
     if !type_info.trivial_debug {
+        writeln!(file, "#[cfg(feature = \"debug\")]").unwrap();
         write_debug_impl(file, analysis, ty, &info, type_info);
     }
 

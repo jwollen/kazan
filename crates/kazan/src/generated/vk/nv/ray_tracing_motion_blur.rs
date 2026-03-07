@@ -23,6 +23,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for PhysicalDeviceRayTracingMotionBlurFeaturesNV<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("PhysicalDeviceRayTracingMotionBlurFeaturesNV")
@@ -86,6 +87,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for AccelerationStructureGeometryMotionTrianglesDataNV<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("AccelerationStructureGeometryMotionTrianglesDataNV")
@@ -135,6 +137,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for AccelerationStructureMotionInfoNV<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("AccelerationStructureMotionInfoNV")
@@ -181,7 +184,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSRTDataNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone, Default)]
     pub struct SRTDataNV {
         pub sx: f32,
         pub a: f32,
@@ -285,7 +289,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureSRTMotionInstanceNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone, Default)]
     pub struct AccelerationStructureSRTMotionInstanceNV {
         pub transform_t0: SRTDataNV,
         pub transform_t1: SRTDataNV,
@@ -342,7 +347,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureMatrixMotionInstanceNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone)]
     pub struct AccelerationStructureMatrixMotionInstanceNV {
         pub transform_t0: TransformMatrixKHR,
         pub transform_t1: TransformMatrixKHR,
@@ -413,7 +419,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureMotionInstanceNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone)]
     pub struct AccelerationStructureMotionInstanceNV {
         pub ty: AccelerationStructureMotionInstanceTypeNV,
         pub flags: AccelerationStructureMotionInstanceFlagsNV,
@@ -456,6 +463,7 @@ pub(super) mod defs {
         pub srt_motion_instance: AccelerationStructureSRTMotionInstanceNV,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for AccelerationStructureMotionInstanceDataNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("AccelerationStructureMotionInstanceDataNV")

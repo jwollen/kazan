@@ -14,7 +14,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeAV1PictureInfoFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone, Default)]
     pub struct StdVideoDecodeAV1PictureInfoFlags {
         pub error_resilient_mode: u32,
         pub disable_cdf_update: u32,
@@ -237,6 +238,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for StdVideoDecodeAV1PictureInfo<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("StdVideoDecodeAV1PictureInfo")
@@ -439,7 +441,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeAV1ReferenceInfoFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone, Default)]
     pub struct StdVideoDecodeAV1ReferenceInfoFlags {
         pub disable_frame_end_update_cdf: u32,
         pub segmentation_enabled: u32,
@@ -465,7 +468,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeAV1ReferenceInfo.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone)]
     pub struct StdVideoDecodeAV1ReferenceInfo {
         pub flags: StdVideoDecodeAV1ReferenceInfoFlags,
         pub frame_type: u8,

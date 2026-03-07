@@ -14,7 +14,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeAV1ExtensionHeader.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone, Default)]
     pub struct StdVideoEncodeAV1ExtensionHeader {
         pub temporal_id: u8,
         pub spatial_id: u8,
@@ -34,7 +35,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeAV1DecoderModelInfo.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone, Default)]
     pub struct StdVideoEncodeAV1DecoderModelInfo {
         pub buffer_delay_length_minus_1: u8,
         pub buffer_removal_time_length_minus_1: u8,
@@ -78,7 +80,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeAV1OperatingPointInfoFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone, Default)]
     pub struct StdVideoEncodeAV1OperatingPointInfoFlags {
         pub decoder_model_present_for_this_op: u32,
         pub low_delay_mode_flag: u32,
@@ -117,7 +120,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeAV1OperatingPointInfo.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone, Default)]
     pub struct StdVideoEncodeAV1OperatingPointInfo {
         pub flags: StdVideoEncodeAV1OperatingPointInfoFlags,
         pub operating_point_idc: u16,
@@ -167,7 +171,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeAV1PictureInfoFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone, Default)]
     pub struct StdVideoEncodeAV1PictureInfoFlags {
         pub error_resilient_mode: u32,
         pub disable_cdf_update: u32,
@@ -393,6 +398,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for StdVideoEncodeAV1PictureInfo<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("StdVideoEncodeAV1PictureInfo")
@@ -619,7 +625,8 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeAV1ReferenceInfoFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default, Debug)]
+    #[cfg_attr(feature = "debug", derive(Debug))]
+    #[derive(Copy, Clone, Default)]
     pub struct StdVideoEncodeAV1ReferenceInfoFlags {
         pub disable_frame_end_update_cdf: u32,
         pub segmentation_enabled: u32,
@@ -656,6 +663,7 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    #[cfg(feature = "debug")]
     impl fmt::Debug for StdVideoEncodeAV1ReferenceInfo<'_> {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("StdVideoEncodeAV1ReferenceInfo")
