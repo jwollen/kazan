@@ -109,6 +109,15 @@ fn generate(analysis: &analysis::Analysis) {
         fs::create_dir_all(&vendor_path).unwrap();
         let mut file = File::create(format!("{}/{}.rs", &vendor_path, module_name)).unwrap();
 
+        if let Module::Extension(extension) = module {
+            writeln!(
+                file,
+                "//! <https://registry.khronos.org/vulkan/specs/latest/man/html/{}.html>",
+                extension.name
+            )
+            .unwrap();
+        }
+
         writeln!(
             file,
             "#![allow(unused_imports)]

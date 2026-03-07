@@ -1,3 +1,4 @@
+//! <https://registry.khronos.org/vulkan/specs/latest/man/html/vulkan_video_codec_av1std_encode.html>
 #![allow(unused_imports)]
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};

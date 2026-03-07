@@ -1,3 +1,4 @@
+//! <https://registry.khronos.org/vulkan/specs/latest/man/html/VK_NV_clip_space_w_scaling.html>
 #![allow(unused_imports)]
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
