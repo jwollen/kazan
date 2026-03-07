@@ -221,48 +221,11 @@ fn generate(analysis: &analysis::Analysis) {
         }
     }
 
-    generate_extension_set(&mut mod_file, registry);
-
     std::process::Command::new("rustfmt")
         .arg(format!("{}/mod.rs", output_dir))
         .arg("--edition=2024")
         .output()
         .unwrap();
-}
-
-fn generate_extension_set(file: &mut impl Write, registry: &xml::Registry) {
-    let extensions: Vec<&str> = registry
-        .extensions
-        .iter()
-        .map(|ext| ext.name)
-        .collect();
-
-    let count = extensions.len();
-
-    writeln!(
-        file,
-        "
-        pub(crate) const EXTENSION_COUNT: usize = {count};
-        pub(crate) const EXTENSIONS: &[&core::ffi::CStr; EXTENSION_COUNT] = &["
-    )
-    .unwrap();
-
-    for name in &extensions {
-        writeln!(file, "    c\"{}\",", name).unwrap();
-    }
-
-    writeln!(file, "];\n").unwrap();
-
-    writeln!(
-        file,
-        "pub(crate) fn extension_index(name: &core::ffi::CStr) -> Option<usize> {{
-    match name.to_bytes() {{"
-    )
-    .unwrap();
-    for (i, name) in extensions.iter().enumerate() {
-        writeln!(file, "        b\"{}\" => Some({i}),", name).unwrap();
-    }
-    writeln!(file, "        _ => None,\n    }}\n}}").unwrap();
 }
 
 /// For each item (type, command, constant) required by any module, determines which
