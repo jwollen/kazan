@@ -141,6 +141,7 @@ pub(super) mod defs {
         pub const MAILBOX_KHR: Self = Self(1);
         pub const FIFO_KHR: Self = Self(2);
         pub const FIFO_RELAXED_KHR: Self = Self(3);
+
         // VK_EXT_present_mode_fifo_latest_ready
         pub const FIFO_LATEST_READY_EXT: Self = Self::FIFO_LATEST_READY_KHR;
 
@@ -179,6 +180,7 @@ pub(super) mod defs {
 
     impl ColorSpaceKHR {
         pub const SRGB_NONLINEAR_KHR: Self = Self(0);
+
         // VK_AMD_display_native_hdr
         pub const DISPLAY_NATIVE_AMD: Self = Self(1000213000);
 

@@ -1455,6 +1455,7 @@ pub(super) mod defs {
     impl CopyAccelerationStructureModeKHR {
         pub const CLONE_KHR: Self = Self(0);
         pub const COMPACT_KHR: Self = Self(1);
+
         // VK_KHR_acceleration_structure
         pub const SERIALIZE_KHR: Self = Self(2);
         pub const DESERIALIZE_KHR: Self = Self(3);
@@ -1515,6 +1516,7 @@ pub(super) mod defs {
         pub const TOP_LEVEL_KHR: Self = Self(0);
         pub const BOTTOM_LEVEL_KHR: Self = Self(1);
         pub const GENERIC_KHR: Self = Self(2);
+
         // VK_NV_ray_tracing
         pub const TOP_LEVEL_NV: Self = Self::TOP_LEVEL_KHR;
         pub const BOTTOM_LEVEL_NV: Self = Self::BOTTOM_LEVEL_KHR;
@@ -1545,6 +1547,7 @@ pub(super) mod defs {
         pub const TRIANGLES_KHR: Self = Self(0);
         pub const AABBS_KHR: Self = Self(1);
         pub const INSTANCES_KHR: Self = Self(2);
+
         // VK_AMDX_dense_geometry_format
         #[cfg(feature = "provisional")]
         pub const DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX: Self = Self(1000478000);
@@ -1642,6 +1645,7 @@ pub(super) mod defs {
         pub const OPAQUE_KHR: Self = Self(GeometryFlagBitsKHR::OPAQUE_KHR.0);
         pub const NO_DUPLICATE_ANY_HIT_INVOCATION_KHR: Self =
             Self(GeometryFlagBitsKHR::NO_DUPLICATE_ANY_HIT_INVOCATION_KHR.0);
+
         // VK_NV_ray_tracing
         pub const OPAQUE_NV: Self = Self::OPAQUE_KHR;
         pub const NO_DUPLICATE_ANY_HIT_INVOCATION_NV: Self =
@@ -1707,6 +1711,7 @@ pub(super) mod defs {
         pub const FORCE_NO_OPAQUE_KHR: Self =
             Self(GeometryInstanceFlagBitsKHR::FORCE_NO_OPAQUE_KHR.0);
         pub const TRIANGLE_FRONT_COUNTERCLOCKWISE_KHR: Self = Self::TRIANGLE_FLIP_FACING_KHR;
+
         // VK_EXT_opacity_micromap
         pub const FORCE_OPACITY_MICROMAP_2_STATE_EXT: Self =
             Self(GeometryInstanceFlagBitsKHR::FORCE_OPACITY_MICROMAP_2_STATE_EXT.0);
@@ -1811,6 +1816,7 @@ pub(super) mod defs {
             Self(BuildAccelerationStructureFlagBitsKHR::PREFER_FAST_BUILD_KHR.0);
         pub const LOW_MEMORY_KHR: Self =
             Self(BuildAccelerationStructureFlagBitsKHR::LOW_MEMORY_KHR.0);
+
         // VK_EXT_opacity_micromap
         pub const ALLOW_OPACITY_MICROMAP_UPDATE_EXT: Self =
             Self(BuildAccelerationStructureFlagBitsKHR::ALLOW_OPACITY_MICROMAP_UPDATE_EXT.0);
@@ -1979,6 +1985,7 @@ pub(super) mod defs {
     impl AccelerationStructureCreateFlagsKHR {
         pub const DEVICE_ADDRESS_CAPTURE_REPLAY_KHR: Self =
             Self(AccelerationStructureCreateFlagBitsKHR::DEVICE_ADDRESS_CAPTURE_REPLAY_KHR.0);
+
         // VK_EXT_descriptor_buffer
         pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self =
             Self(AccelerationStructureCreateFlagBitsKHR::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT.0);

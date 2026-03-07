@@ -1415,6 +1415,7 @@ pub(super) mod defs {
             Self(VideoEncodeAV1CapabilityFlagBitsKHR::FRAME_SIZE_OVERRIDE_KHR.0);
         pub const MOTION_VECTOR_SCALING_KHR: Self =
             Self(VideoEncodeAV1CapabilityFlagBitsKHR::MOTION_VECTOR_SCALING_KHR.0);
+
         // VK_KHR_video_encode_intra_refresh
         pub const COMPOUND_PREDICTION_INTRA_REFRESH_KHR: Self =
             Self(VideoEncodeAV1CapabilityFlagBitsKHR::COMPOUND_PREDICTION_INTRA_REFRESH_KHR.0);

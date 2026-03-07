@@ -267,6 +267,7 @@ pub(super) mod defs {
         pub const WORKGROUP_KHR: Self = Self(2);
         pub const SUBGROUP_KHR: Self = Self(3);
         pub const QUEUE_FAMILY_KHR: Self = Self(5);
+
         // VK_NV_cooperative_matrix
         pub const DEVICE_NV: Self = Self::DEVICE_KHR;
         pub const WORKGROUP_NV: Self = Self::WORKGROUP_KHR;
@@ -308,6 +309,7 @@ pub(super) mod defs {
         pub const UINT16_KHR: Self = Self(8);
         pub const UINT32_KHR: Self = Self(9);
         pub const UINT64_KHR: Self = Self(10);
+
         // VK_EXT_shader_float8
         pub const FLOAT8_E4M3_EXT: Self = Self(1000491002);
         pub const FLOAT8_E5M2_EXT: Self = Self(1000491003);

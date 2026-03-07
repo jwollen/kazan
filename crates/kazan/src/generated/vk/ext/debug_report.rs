@@ -124,6 +124,7 @@ pub(super) mod defs {
         pub const DISPLAY_KHR_EXT: Self = Self(29);
         pub const DISPLAY_MODE_KHR_EXT: Self = Self(30);
         pub const VALIDATION_CACHE_EXT_EXT: Self = Self(33);
+
         // VK_EXT_debug_report
         pub const SAMPLER_YCBCR_CONVERSION_EXT: Self = Self(1000156000);
         pub const DESCRIPTOR_UPDATE_TEMPLATE_EXT: Self = Self(1000085000);

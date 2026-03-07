@@ -1209,6 +1209,7 @@ pub(super) mod defs {
         pub const ERROR_KHR: Self = Self(-1);
         pub const NOT_READY_KHR: Self = Self(0);
         pub const COMPLETE_KHR: Self = Self(1);
+
         // VK_KHR_video_encode_queue
         pub const INSUFFICIENT_BITSTREAM_BUFFER_RANGE_KHR: Self = Self(-1000299000);
     }
@@ -1240,6 +1241,7 @@ pub(super) mod defs {
 
     impl VideoCodecOperationFlagsKHR {
         pub const NONE: Self = Self(0);
+
         // VK_KHR_video_decode_av1
         pub const DECODE_AV1_KHR: Self = Self(VideoCodecOperationFlagBitsKHR::DECODE_AV1_KHR.0);
 
@@ -1409,6 +1411,7 @@ pub(super) mod defs {
     impl VideoSessionCreateFlagsKHR {
         pub const PROTECTED_CONTENT_KHR: Self =
             Self(VideoSessionCreateFlagBitsKHR::PROTECTED_CONTENT_KHR.0);
+
         // VK_KHR_video_encode_quantization_map
         pub const ALLOW_ENCODE_QUANTIZATION_DELTA_MAP_KHR: Self =
             Self(VideoSessionCreateFlagBitsKHR::ALLOW_ENCODE_QUANTIZATION_DELTA_MAP_KHR.0);
@@ -1582,6 +1585,7 @@ pub(super) mod defs {
 
     impl VideoCodingControlFlagsKHR {
         pub const RESET_KHR: Self = Self(VideoCodingControlFlagBitsKHR::RESET_KHR.0);
+
         // VK_KHR_video_encode_queue
         pub const ENCODE_RATE_CONTROL_KHR: Self =
             Self(VideoCodingControlFlagBitsKHR::ENCODE_RATE_CONTROL_KHR.0);

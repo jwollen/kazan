@@ -1037,6 +1037,7 @@ pub(super) mod defs {
             Self(VideoEncodeCapabilityFlagBitsKHR::PRECEDING_EXTERNALLY_ENCODED_BYTES_KHR.0);
         pub const INSUFFICIENTSTREAM_BUFFER_RANGE_DETECTION_KHR: Self =
             Self(VideoEncodeCapabilityFlagBitsKHR::INSUFFICIENTSTREAM_BUFFER_RANGE_DETECTION_KHR.0);
+
         // VK_KHR_video_encode_quantization_map
         pub const QUANTIZATION_DELTA_MAP_KHR: Self =
             Self(VideoEncodeCapabilityFlagBitsKHR::QUANTIZATION_DELTA_MAP_KHR.0);

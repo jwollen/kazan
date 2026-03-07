@@ -996,6 +996,7 @@ pub(super) mod defs {
         pub const DRAW_INDEXED_NV: Self = Self(5);
         pub const DRAW_NV: Self = Self(6);
         pub const DRAW_TASKS_NV: Self = Self(7);
+
         // VK_EXT_descriptor_heap
         pub const PUSH_DATA_NV: Self = Self(1000135000);
 

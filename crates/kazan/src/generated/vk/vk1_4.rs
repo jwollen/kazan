@@ -3906,6 +3906,7 @@ pub(super) mod defs {
         pub const MEDIUM: Self = Self(256);
         pub const HIGH: Self = Self(512);
         pub const REALTIME: Self = Self(1024);
+
         // VK_EXT_global_priority
         pub const LOW_EXT: Self = Self::LOW;
         pub const MEDIUM_EXT: Self = Self::MEDIUM;
@@ -3946,6 +3947,7 @@ pub(super) mod defs {
         pub const RECTANGULAR: Self = Self(1);
         pub const BRESENHAM: Self = Self(2);
         pub const RECTANGULAR_SMOOTH: Self = Self(3);
+
         // VK_EXT_line_rasterization
         pub const DEFAULT_EXT: Self = Self::DEFAULT;
         pub const RECTANGULAR_EXT: Self = Self::RECTANGULAR;
@@ -3986,6 +3988,7 @@ pub(super) mod defs {
         pub const DISABLED: Self = Self(1);
         pub const ROBUST_BUFFER_ACCESS: Self = Self(2);
         pub const ROBUST_BUFFER_ACCESS_2: Self = Self(3);
+
         // VK_EXT_pipeline_robustness
         pub const DEVICE_DEFAULT_EXT: Self = Self::DEVICE_DEFAULT;
         pub const DISABLED_EXT: Self = Self::DISABLED;
@@ -4020,6 +4023,7 @@ pub(super) mod defs {
         pub const DISABLED: Self = Self(1);
         pub const ROBUST_IMAGE_ACCESS: Self = Self(2);
         pub const ROBUST_IMAGE_ACCESS_2: Self = Self(3);
+
         // VK_EXT_pipeline_robustness
         pub const DEVICE_DEFAULT_EXT: Self = Self::DEVICE_DEFAULT;
         pub const DISABLED_EXT: Self = Self::DISABLED;
@@ -4107,6 +4111,7 @@ pub(super) mod defs {
         pub const NO_PROTECTED_ACCESS: Self = Self(PipelineCreateFlagBits2::NO_PROTECTED_ACCESS.0);
         pub const PROTECTED_ACCESS_ONLY: Self =
             Self(PipelineCreateFlagBits2::PROTECTED_ACCESS_ONLY.0);
+
         // VK_AMDX_shader_enqueue
         #[cfg(feature = "provisional")]
         pub const EXECUTION_GRAPH_AMDX: Self =
@@ -4531,6 +4536,7 @@ pub(super) mod defs {
         pub const INDEX_BUFFER: Self = Self(BufferUsageFlagBits2::INDEX_BUFFER.0);
         pub const VERTEX_BUFFER: Self = Self(BufferUsageFlagBits2::VERTEX_BUFFER.0);
         pub const INDIRECT_BUFFER: Self = Self(BufferUsageFlagBits2::INDIRECT_BUFFER.0);
+
         // VK_AMDX_dense_geometry_format
         #[cfg(feature = "provisional")]
         pub const COMPRESSED_DATA_DGF1_AMDX: Self =
@@ -4851,6 +4857,7 @@ pub(super) mod defs {
 
     impl HostImageCopyFlags {
         pub const MEMCPY: Self = Self(HostImageCopyFlagBits::MEMCPY.0);
+
         // VK_EXT_host_image_copy
         pub const MEMCPY_EXT: Self = Self::MEMCPY;
     }

@@ -5760,6 +5760,7 @@ pub(super) mod defs {
     impl SemaphoreType {
         pub const BINARY: Self = Self(0);
         pub const TIMELINE: Self = Self(1);
+
         // VK_KHR_timeline_semaphore
         pub const BINARY_KHR: Self = Self::BINARY;
         pub const TIMELINE_KHR: Self = Self::TIMELINE;
@@ -5789,6 +5790,7 @@ pub(super) mod defs {
         pub const WEIGHTED_AVERAGE: Self = Self(0);
         pub const MIN: Self = Self(1);
         pub const MAX: Self = Self(2);
+
         // VK_EXT_sampler_filter_minmax
         pub const WEIGHTED_AVERAGE_EXT: Self = Self::WEIGHTED_AVERAGE;
         pub const MIN_EXT: Self = Self::MIN;
@@ -5877,6 +5879,7 @@ pub(super) mod defs {
         pub const VULKAN_SC_EMULATION_ON_VULKAN: Self = Self(27);
         /// Mesa open source project
         pub const MESA_KOSMICKRISP: Self = Self(28);
+
         // VK_KHR_driver_properties
         pub const AMD_PROPRIETARY_KHR: Self = Self::AMD_PROPRIETARY;
         pub const AMD_OPEN_SOURCE_KHR: Self = Self::AMD_OPEN_SOURCE;
@@ -5942,6 +5945,7 @@ pub(super) mod defs {
         pub const _32_BIT_ONLY: Self = Self(0);
         pub const ALL: Self = Self(1);
         pub const NONE: Self = Self(2);
+
         // VK_KHR_shader_float_controls
         pub const _32_BIT_ONLY_KHR: Self = Self::_32_BIT_ONLY;
         pub const ALL_KHR: Self = Self::ALL;
@@ -5972,6 +5976,7 @@ pub(super) mod defs {
 
     impl SemaphoreWaitFlags {
         pub const ANY: Self = Self(SemaphoreWaitFlagBits::ANY.0);
+
         // VK_KHR_timeline_semaphore
         pub const ANY_KHR: Self = Self::ANY;
     }
@@ -6021,6 +6026,7 @@ pub(super) mod defs {
         pub const PARTIALLY_BOUND: Self = Self(DescriptorBindingFlagBits::PARTIALLY_BOUND.0);
         pub const VARIABLE_DESCRIPTOR_COUNT: Self =
             Self(DescriptorBindingFlagBits::VARIABLE_DESCRIPTOR_COUNT.0);
+
         // VK_EXT_descriptor_indexing
         pub const UPDATE_AFTER_BIND_EXT: Self = Self::UPDATE_AFTER_BIND;
         pub const UPDATE_UNUSED_WHILE_PENDING_EXT: Self = Self::UPDATE_UNUSED_WHILE_PENDING;
@@ -6095,6 +6101,7 @@ pub(super) mod defs {
         pub const MIN: Self = Self(ResolveModeFlagBits::MIN.0);
         pub const MAX: Self = Self(ResolveModeFlagBits::MAX.0);
         pub const NONE: Self = Self(0);
+
         // VK_ANDROID_external_format_resolve
         pub const EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID: Self =
             Self(ResolveModeFlagBits::EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID.0);

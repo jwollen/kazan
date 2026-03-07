@@ -494,6 +494,7 @@ pub(super) mod defs {
         pub const GENERAL_EXT: Self = Self(DebugUtilsMessageTypeFlagBitsEXT::GENERAL_EXT.0);
         pub const VALIDATION_EXT: Self = Self(DebugUtilsMessageTypeFlagBitsEXT::VALIDATION_EXT.0);
         pub const PERFORMANCE_EXT: Self = Self(DebugUtilsMessageTypeFlagBitsEXT::PERFORMANCE_EXT.0);
+
         // VK_EXT_device_address_binding_report
         pub const DEVICE_ADDRESS_BINDING_EXT: Self =
             Self(DebugUtilsMessageTypeFlagBitsEXT::DEVICE_ADDRESS_BINDING_EXT.0);

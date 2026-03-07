@@ -1936,6 +1936,7 @@ pub(super) mod defs {
         pub const PUSH_DATA_EXT: Self = Self(5);
         pub const PUSH_ADDRESS_EXT: Self = Self(6);
         pub const INDIRECT_ADDRESS_EXT: Self = Self(7);
+
         // VK_EXT_descriptor_heap
         pub const HEAP_WITH_SHADER_RECORD_INDEX_EXT: Self = Self(8);
         pub const SHADER_RECORD_DATA_EXT: Self = Self(9);
@@ -1992,6 +1993,7 @@ pub(super) mod defs {
         pub const READ_WRITE_STORAGE_BUFFER_EXT: Self =
             Self(SpirvResourceTypeFlagBitsEXT::READ_WRITE_STORAGE_BUFFER_EXT.0);
         pub const ALL: Self = Self(0x7FFFFFFF);
+
         // VK_EXT_descriptor_heap
         pub const ACCELERATION_STRUCTURE_EXT: Self =
             Self(SpirvResourceTypeFlagBitsEXT::ACCELERATION_STRUCTURE_EXT.0);

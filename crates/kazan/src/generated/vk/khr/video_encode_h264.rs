@@ -1271,6 +1271,7 @@ pub(super) mod defs {
             Self(VideoEncodeH264CapabilityFlagBitsKHR::PER_SLICE_CONSTANT_QP_KHR.0);
         pub const GENERATE_PREFIX_NALU_KHR: Self =
             Self(VideoEncodeH264CapabilityFlagBitsKHR::GENERATE_PREFIX_NALU_KHR.0);
+
         // VK_KHR_video_encode_intra_refresh
         pub const B_PICTURE_INTRA_REFRESH_KHR: Self =
             Self(VideoEncodeH264CapabilityFlagBitsKHR::B_PICTURE_INTRA_REFRESH_KHR.0);

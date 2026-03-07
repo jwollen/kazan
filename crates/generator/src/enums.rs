@@ -250,6 +250,7 @@ pub fn write_enum(file: &mut impl Write, analysis: &Analysis, ty: &xml::Enum) {
         visited.insert(vname.clone());
         debug_variants.push((vname, false));
     }
+    writeln!(file).unwrap();
 
     if let Some(modules) = req.get(ty.name) {
         for (module_name, contributions) in modules {
@@ -491,6 +492,7 @@ pub fn write_bitmask(
             write_doc_comment(file, value.comment);
             writeln!(file, "pub const {}: Self = Self({});", vname, value.value).unwrap();
         }
+        writeln!(file).unwrap();
 
         for md in &module_data {
             let mut entries = Vec::new();

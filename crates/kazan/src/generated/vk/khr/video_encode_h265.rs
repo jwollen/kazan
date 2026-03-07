@@ -1333,6 +1333,7 @@ pub(super) mod defs {
             Self(VideoEncodeH265CapabilityFlagBitsKHR::MULTIPLE_TILES_PER_SLICE_SEGMENT_KHR.0);
         pub const MULTIPLE_SLICE_SEGMENTS_PER_TILE_KHR: Self =
             Self(VideoEncodeH265CapabilityFlagBitsKHR::MULTIPLE_SLICE_SEGMENTS_PER_TILE_KHR.0);
+
         // VK_KHR_video_encode_intra_refresh
         pub const B_PICTURE_INTRA_REFRESH_KHR: Self =
             Self(VideoEncodeH265CapabilityFlagBitsKHR::B_PICTURE_INTRA_REFRESH_KHR.0);

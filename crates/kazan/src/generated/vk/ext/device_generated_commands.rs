@@ -1392,6 +1392,7 @@ pub(super) mod defs {
         pub const DRAW_INDEXED_COUNT_EXT: Self = Self(7);
         pub const DRAW_COUNT_EXT: Self = Self(8);
         pub const DISPATCH_EXT: Self = Self(9);
+
         // VK_EXT_descriptor_heap
         pub const PUSH_DATA_EXT: Self = Self(1000135000);
         pub const PUSH_DATA_SEQUENCE_INDEX_EXT: Self = Self(1000135001);

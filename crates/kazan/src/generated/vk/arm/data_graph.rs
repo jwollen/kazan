@@ -1446,6 +1446,7 @@ pub(super) mod defs {
 
     impl PhysicalDeviceDataGraphProcessingEngineTypeARM {
         pub const DEFAULT_ARM: Self = Self(0);
+
         // VK_QCOM_data_graph_model
         pub const NEURAL_QCOM: Self = Self(1000629000);
         pub const COMPUTE_QCOM: Self = Self(1000629001);
@@ -1474,6 +1475,7 @@ pub(super) mod defs {
 
     impl PhysicalDeviceDataGraphOperationTypeARM {
         pub const SPIRV_EXTENDED_INSTRUCTION_SET_ARM: Self = Self(0);
+
         // VK_QCOM_data_graph_model
         pub const NEURAL_MODEL_QCOM: Self = Self(1000629000);
         pub const BUILTIN_MODEL_QCOM: Self = Self(1000629001);

@@ -1735,6 +1735,7 @@ pub(super) mod defs {
     impl TensorCreateFlagsARM {
         pub const MUTABLE_FORMAT_ARM: Self = Self(TensorCreateFlagBitsARM::MUTABLE_FORMAT_ARM.0);
         pub const PROTECTED_ARM: Self = Self(TensorCreateFlagBitsARM::PROTECTED_ARM.0);
+
         // VK_ARM_tensors
         pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM: Self =
             Self(TensorCreateFlagBitsARM::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM.0);
@@ -1816,6 +1817,7 @@ pub(super) mod defs {
         pub const TRANSFER_DST_ARM: Self = Self(TensorUsageFlagBitsARM::TRANSFER_DST_ARM.0);
         /// Tensor can be aliased with an image
         pub const IMAGE_ALIASING_ARM: Self = Self(TensorUsageFlagBitsARM::IMAGE_ALIASING_ARM.0);
+
         // VK_ARM_data_graph
         pub const DATA_GRAPH_ARM: Self = Self(TensorUsageFlagBitsARM::DATA_GRAPH_ARM.0);
     }

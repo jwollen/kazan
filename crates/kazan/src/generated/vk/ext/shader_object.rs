@@ -302,6 +302,7 @@ pub(super) mod defs {
 
     impl ShaderCreateFlagsEXT {
         pub const LINK_STAGE_EXT: Self = Self(ShaderCreateFlagBitsEXT::LINK_STAGE_EXT.0);
+
         // VK_EXT_descriptor_heap
         pub const DESCRIPTOR_HEAP_EXT: Self = Self(ShaderCreateFlagBitsEXT::DESCRIPTOR_HEAP_EXT.0);
 

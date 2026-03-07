@@ -8253,6 +8253,7 @@ pub(super) mod defs {
         pub const TRANSFER_DST_OPTIMAL: Self = Self(7);
         /// Initial layout used when the data is populated by the CPU
         pub const PREINITIALIZED: Self = Self(8);
+
         // VK_ARM_tensors
         pub const TENSOR_ALIASING_ARM: Self = Self(1000460000);
 
@@ -8392,6 +8393,7 @@ pub(super) mod defs {
         pub const LOAD: Self = Self(0);
         pub const CLEAR: Self = Self(1);
         pub const DONT_CARE: Self = Self(2);
+
         // VK_EXT_load_store_op_none
         pub const NONE_EXT: Self = Self::NONE;
 
@@ -8427,6 +8429,7 @@ pub(super) mod defs {
     impl AttachmentStoreOp {
         pub const STORE: Self = Self(0);
         pub const DONT_CARE: Self = Self(1);
+
         // VK_EXT_load_store_op_none
         pub const NONE_EXT: Self = Self::NONE;
 
@@ -8491,6 +8494,7 @@ pub(super) mod defs {
     impl ImageTiling {
         pub const OPTIMAL: Self = Self(0);
         pub const LINEAR: Self = Self(1);
+
         // VK_EXT_image_drm_format_modifier
         pub const DRM_FORMAT_MODIFIER_EXT: Self = Self(1000158000);
     }
@@ -8623,6 +8627,7 @@ pub(super) mod defs {
         pub const UNIFORM_BUFFER_DYNAMIC: Self = Self(8);
         pub const STORAGE_BUFFER_DYNAMIC: Self = Self(9);
         pub const INPUT_ATTACHMENT: Self = Self(10);
+
         // VK_ARM_tensors
         pub const TENSOR_ARM: Self = Self(1000460000);
 
@@ -8695,6 +8700,7 @@ pub(super) mod defs {
         pub const OCCLUSION: Self = Self(0);
         pub const PIPELINE_STATISTICS: Self = Self(1);
         pub const TIMESTAMP: Self = Self(2);
+
         // VK_EXT_mesh_shader
         pub const MESH_PRIMITIVES_GENERATED_EXT: Self = Self(1000328000);
 
@@ -8783,6 +8789,7 @@ pub(super) mod defs {
         pub const INT_OPAQUE_BLACK: Self = Self(3);
         pub const FLOAT_OPAQUE_WHITE: Self = Self(4);
         pub const INT_OPAQUE_WHITE: Self = Self(5);
+
         // VK_EXT_custom_border_color
         pub const FLOAT_CUSTOM_EXT: Self = Self(1000287003);
         pub const INT_CUSTOM_EXT: Self = Self(1000287004);
@@ -8817,6 +8824,7 @@ pub(super) mod defs {
     impl PipelineBindPoint {
         pub const GRAPHICS: Self = Self(0);
         pub const COMPUTE: Self = Self(1);
+
         // VK_AMDX_shader_enqueue
         #[cfg(feature = "provisional")]
         pub const EXECUTION_GRAPH_AMDX: Self = Self(1000134000);
@@ -8861,6 +8869,7 @@ pub(super) mod defs {
 
     impl PipelineCacheHeaderVersion {
         pub const ONE: Self = Self(1);
+
         // VK_QCOM_data_graph_model
         pub const DATA_GRAPH_QCOM: Self = Self(1000629000);
     }
@@ -8956,6 +8965,7 @@ pub(super) mod defs {
     impl IndexType {
         pub const UINT16: Self = Self(0);
         pub const UINT32: Self = Self(1);
+
         // VK_EXT_index_type_uint8
         pub const UINT8_EXT: Self = Self::UINT8;
 
@@ -8997,6 +9007,7 @@ pub(super) mod defs {
     impl Filter {
         pub const NEAREST: Self = Self(0);
         pub const LINEAR: Self = Self(1);
+
         // VK_EXT_filter_cubic
         pub const CUBIC_EXT: Self = Self(1000015000);
 
@@ -9057,6 +9068,7 @@ pub(super) mod defs {
         pub const MIRRORED_REPEAT: Self = Self(1);
         pub const CLAMP_TO_EDGE: Self = Self(2);
         pub const CLAMP_TO_BORDER: Self = Self(3);
+
         // VK_KHR_sampler_mirror_clamp_to_edge
         pub const MIRROR_CLAMP_TO_EDGE: Self = Self(4);
         pub const MIRROR_CLAMP_TO_EDGE_KHR: Self = Self::MIRROR_CLAMP_TO_EDGE;
@@ -9126,6 +9138,7 @@ pub(super) mod defs {
         pub const FILL: Self = Self(0);
         pub const LINE: Self = Self(1);
         pub const POINT: Self = Self(2);
+
         // VK_NV_fill_rectangle
         pub const FILL_RECTANGLE_NV: Self = Self(1000153000);
     }
@@ -9242,6 +9255,7 @@ pub(super) mod defs {
         pub const REVERSE_SUBTRACT: Self = Self(2);
         pub const MIN: Self = Self(3);
         pub const MAX: Self = Self(4);
+
         // VK_EXT_blend_operation_advanced
         pub const ZERO_EXT: Self = Self(1000148000);
         pub const SRC_EXT: Self = Self(1000148001);
@@ -9746,6 +9760,7 @@ pub(super) mod defs {
         pub const ASTC_12X10_SRGB_BLOCK: Self = Self(182);
         pub const ASTC_12X12_UNORM_BLOCK: Self = Self(183);
         pub const ASTC_12X12_SRGB_BLOCK: Self = Self(184);
+
         // VK_ARM_format_pack
         pub const R10X6_UINT_PACK16_ARM: Self = Self(1000609000);
         pub const R10X6G10X6_UINT_2PACK16_ARM: Self = Self(1000609001);
@@ -10371,6 +10386,7 @@ pub(super) mod defs {
         pub const LOADER_INSTANCE_CREATE_INFO: Self = Self(47);
         /// Reserved for internal use by the loader, layers, and ICDs
         pub const LOADER_DEVICE_CREATE_INFO: Self = Self(48);
+
         // VK_AMDX_dense_geometry_format
         #[cfg(feature = "provisional")]
         pub const PHYSICAL_DEVICE_DENSE_GEOMETRY_FORMAT_FEATURES_AMDX: Self = Self(1000478000);
@@ -15636,6 +15652,7 @@ pub(super) mod defs {
     impl SubpassContents {
         pub const INLINE: Self = Self(0);
         pub const SECONDARY_COMMAND_BUFFERS: Self = Self(1);
+
         // VK_EXT_nested_command_buffer
         pub const INLINE_AND_SECONDARY_COMMAND_BUFFERS_EXT: Self =
             Self::INLINE_AND_SECONDARY_COMMAND_BUFFERS_KHR;
@@ -15706,6 +15723,7 @@ pub(super) mod defs {
         pub const ERROR_FRAGMENTED_POOL: Self = Self(-12);
         /// An unknown error has occurred, due to an implementation or application bug
         pub const ERROR_UNKNOWN: Self = Self(-13);
+
         // VK_EXT_buffer_device_address
         pub const ERROR_INVALID_DEVICE_ADDRESS_EXT: Self =
             Self::ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS;
@@ -15905,6 +15923,7 @@ pub(super) mod defs {
         pub const STENCIL_COMPARE_MASK: Self = Self(6);
         pub const STENCIL_WRITE_MASK: Self = Self(7);
         pub const STENCIL_REFERENCE: Self = Self(8);
+
         // VK_EXT_attachment_feedback_loop_dynamic_state
         pub const ATTACHMENT_FEEDBACK_LOOP_ENABLE_EXT: Self = Self(1000524000);
 
@@ -16155,6 +16174,7 @@ pub(super) mod defs {
         pub const DESCRIPTOR_SET: Self = Self(23);
         pub const FRAMEBUFFER: Self = Self(24);
         pub const COMMAND_POOL: Self = Self(25);
+
         // VK_ARM_data_graph
         pub const DATA_GRAPH_PIPELINE_SESSION_ARM: Self = Self(1000507000);
 
@@ -17267,6 +17287,7 @@ pub(super) mod defs {
         pub const TRANSFER: Self = Self(QueueFlagBits::TRANSFER.0);
         /// Queue supports sparse resource memory management operations
         pub const SPARSE_BINDING: Self = Self(QueueFlagBits::SPARSE_BINDING.0);
+
         // VK_ARM_data_graph
         pub const DATA_GRAPH_ARM: Self = Self(QueueFlagBits::DATA_GRAPH_ARM.0);
 
@@ -17371,6 +17392,7 @@ pub(super) mod defs {
         pub const HOST_CACHED: Self = Self(MemoryPropertyFlagBits::HOST_CACHED.0);
         /// Memory may be allocated by the driver when it is required
         pub const LAZILY_ALLOCATED: Self = Self(MemoryPropertyFlagBits::LAZILY_ALLOCATED.0);
+
         // VK_AMD_device_coherent_memory
         pub const DEVICE_COHERENT_AMD: Self = Self(MemoryPropertyFlagBits::DEVICE_COHERENT_AMD.0);
         pub const DEVICE_UNCACHED_AMD: Self = Self(MemoryPropertyFlagBits::DEVICE_UNCACHED_AMD.0);
@@ -17465,6 +17487,7 @@ pub(super) mod defs {
     impl MemoryHeapFlags {
         /// If set, heap represents device memory
         pub const DEVICE_LOCAL: Self = Self(MemoryHeapFlagBits::DEVICE_LOCAL.0);
+
         // VK_KHR_device_group_creation
         pub const MULTI_INSTANCE_KHR: Self = Self::MULTI_INSTANCE;
 
@@ -17565,6 +17588,7 @@ pub(super) mod defs {
         pub const MEMORY_READ: Self = Self(AccessFlagBits::MEMORY_READ.0);
         /// Controls coherency of memory writes
         pub const MEMORY_WRITE: Self = Self(AccessFlagBits::MEMORY_WRITE.0);
+
         // VK_EXT_blend_operation_advanced
         pub const COLOR_ATTACHMENT_READ_NONCOHERENT_EXT: Self =
             Self(AccessFlagBits::COLOR_ATTACHMENT_READ_NONCOHERENT_EXT.0);
@@ -17864,6 +17888,7 @@ pub(super) mod defs {
         pub const VERTEX_BUFFER: Self = Self(BufferUsageFlagBits::VERTEX_BUFFER.0);
         /// Can be the source of indirect parameters (e.g. indirect buffer, parameter buffer)
         pub const INDIRECT_BUFFER: Self = Self(BufferUsageFlagBits::INDIRECT_BUFFER.0);
+
         // VK_AMDX_shader_enqueue
         #[cfg(feature = "provisional")]
         pub const EXECUTION_GRAPH_SCRATCH_AMDX: Self =
@@ -18171,6 +18196,7 @@ pub(super) mod defs {
         pub const SPARSE_RESIDENCY: Self = Self(BufferCreateFlagBits::SPARSE_RESIDENCY.0);
         /// Buffer should support constant data access to physical memory ranges mapped into multiple locations of sparse buffers
         pub const SPARSE_ALIASED: Self = Self(BufferCreateFlagBits::SPARSE_ALIASED.0);
+
         // VK_EXT_buffer_device_address
         pub const DEVICE_ADDRESS_CAPTURE_REPLAY_EXT: Self = Self::DEVICE_ADDRESS_CAPTURE_REPLAY;
 
@@ -18288,6 +18314,7 @@ pub(super) mod defs {
         pub const COMPUTE: Self = Self(ShaderStageFlagBits::COMPUTE.0);
         pub const ALL_GRAPHICS: Self = Self(0x0000001F);
         pub const ALL: Self = Self(0x7FFFFFFF);
+
         // VK_EXT_mesh_shader
         pub const TASK_EXT: Self = Self(ShaderStageFlagBits::TASK_EXT.0);
         pub const MESH_EXT: Self = Self(ShaderStageFlagBits::MESH_EXT.0);
@@ -18453,6 +18480,7 @@ pub(super) mod defs {
         pub const TRANSIENT_ATTACHMENT: Self = Self(ImageUsageFlagBits::TRANSIENT_ATTACHMENT.0);
         /// Can be used as framebuffer input attachment
         pub const INPUT_ATTACHMENT: Self = Self(ImageUsageFlagBits::INPUT_ATTACHMENT.0);
+
         // VK_ARM_tensors
         pub const TENSOR_ALIASING_ARM: Self = Self(ImageUsageFlagBits::TENSOR_ALIASING_ARM.0);
 
@@ -18713,6 +18741,7 @@ pub(super) mod defs {
         pub const MUTABLE_FORMAT: Self = Self(ImageCreateFlagBits::MUTABLE_FORMAT.0);
         /// Allows creating image views with cube type from the created image
         pub const CUBE_COMPATIBLE: Self = Self(ImageCreateFlagBits::CUBE_COMPATIBLE.0);
+
         // VK_EXT_descriptor_buffer
         pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self =
             Self::DESCRIPTOR_HEAP_CAPTURE_REPLAY_EXT;
@@ -19039,6 +19068,7 @@ pub(super) mod defs {
         pub const DISABLE_OPTIMIZATION: Self = Self(PipelineCreateFlagBits::DISABLE_OPTIMIZATION.0);
         pub const ALLOW_DERIVATIVES: Self = Self(PipelineCreateFlagBits::ALLOW_DERIVATIVES.0);
         pub const DERIVATIVE: Self = Self(PipelineCreateFlagBits::DERIVATIVE.0);
+
         // VK_EXT_attachment_feedback_loop_layout
         pub const COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT: Self =
             Self(PipelineCreateFlagBits::COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT.0);
@@ -19564,6 +19594,7 @@ pub(super) mod defs {
         /// Format can be filtered with VK_FILTER_LINEAR when being sampled
         pub const SAMPLED_IMAGE_FILTER_LINEAR: Self =
             Self(FormatFeatureFlagBits::SAMPLED_IMAGE_FILTER_LINEAR.0);
+
         // VK_EXT_filter_cubic
         pub const SAMPLED_IMAGE_FILTER_CUBIC_EXT: Self =
             Self(FormatFeatureFlagBits::SAMPLED_IMAGE_FILTER_CUBIC_EXT.0);
@@ -19897,6 +19928,7 @@ pub(super) mod defs {
         pub const WITH_AVAILABILITY: Self = Self(QueryResultFlagBits::WITH_AVAILABILITY.0);
         /// Copy the partial results of the query even if the final results are not available
         pub const PARTIAL: Self = Self(QueryResultFlagBits::PARTIAL.0);
+
         // VK_KHR_video_queue
         pub const WITH_STATUS_KHR: Self = Self(QueryResultFlagBits::WITH_STATUS_KHR.0);
     }
@@ -20022,6 +20054,7 @@ pub(super) mod defs {
         /// Command buffers may release their memory individually
         pub const RESET_COMMAND_BUFFER: Self =
             Self(CommandPoolCreateFlagBits::RESET_COMMAND_BUFFER.0);
+
         // VK_VERSION_1_1
         /// Command buffers allocated from pool are protected command buffers
         pub const PROTECTED: Self = Self(CommandPoolCreateFlagBits::PROTECTED.0);
@@ -20253,6 +20286,7 @@ pub(super) mod defs {
             Self(QueryPipelineStatisticFlagBits::TESSELLATION_EVALUATION_SHADER_INVOCATIONS.0);
         pub const COMPUTE_SHADER_INVOCATIONS: Self =
             Self(QueryPipelineStatisticFlagBits::COMPUTE_SHADER_INVOCATIONS.0);
+
         // VK_EXT_mesh_shader
         pub const TASK_SHADER_INVOCATIONS_EXT: Self =
             Self(QueryPipelineStatisticFlagBits::TASK_SHADER_INVOCATIONS_EXT.0);
@@ -20439,6 +20473,7 @@ pub(super) mod defs {
         pub const DEPTH: Self = Self(ImageAspectFlagBits::DEPTH.0);
         pub const STENCIL: Self = Self(ImageAspectFlagBits::STENCIL.0);
         pub const METADATA: Self = Self(ImageAspectFlagBits::METADATA.0);
+
         // VK_EXT_image_drm_format_modifier
         pub const MEMORY_PLANE_0_EXT: Self = Self(ImageAspectFlagBits::MEMORY_PLANE_0_EXT.0);
         pub const MEMORY_PLANE_1_EXT: Self = Self(ImageAspectFlagBits::MEMORY_PLANE_1_EXT.0);
@@ -20838,6 +20873,7 @@ pub(super) mod defs {
         pub const ALL_GRAPHICS: Self = Self(PipelineStageFlagBits::ALL_GRAPHICS.0);
         /// All stages supported on the queue
         pub const ALL_COMMANDS: Self = Self(PipelineStageFlagBits::ALL_COMMANDS.0);
+
         // VK_EXT_conditional_rendering
         /// A pipeline stage for conditional rendering predicate fetch
         pub const CONDITIONAL_RENDERING_EXT: Self =
@@ -21173,6 +21209,7 @@ pub(super) mod defs {
     impl AttachmentDescriptionFlags {
         /// The attachment may alias physical memory of another attachment in the same render pass
         pub const MAY_ALIAS: Self = Self(AttachmentDescriptionFlagBits::MAY_ALIAS.0);
+
         // VK_KHR_maintenance10
         pub const RESOLVE_SKIP_TRANSFER_FUNCTION_KHR: Self =
             Self(AttachmentDescriptionFlagBits::RESOLVE_SKIP_TRANSFER_FUNCTION_KHR.0);
@@ -21341,6 +21378,7 @@ pub(super) mod defs {
         /// Descriptor sets may be freed individually
         pub const FREE_DESCRIPTOR_SET: Self =
             Self(DescriptorPoolCreateFlagBits::FREE_DESCRIPTOR_SET.0);
+
         // VK_EXT_descriptor_indexing
         pub const UPDATE_AFTER_BIND_EXT: Self = Self::UPDATE_AFTER_BIND;
 
@@ -21449,6 +21487,7 @@ pub(super) mod defs {
     impl DependencyFlags {
         /// Dependency is per pixel region
         pub const BY_REGION: Self = Self(DependencyFlagBits::BY_REGION.0);
+
         // VK_EXT_attachment_feedback_loop_layout
         /// Dependency may be a feedback loop
         pub const FEEDBACK_LOOP_EXT: Self = Self(DependencyFlagBits::FEEDBACK_LOOP_EXT.0);

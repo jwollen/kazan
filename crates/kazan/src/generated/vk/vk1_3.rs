@@ -4956,6 +4956,7 @@ _marker: PhantomData
             Self(PipelineCreationFeedbackFlagBits::APPLICATION_PIPELINE_CACHE_HIT.0);
         pub const BASE_PIPELINE_ACCELERATION: Self =
             Self(PipelineCreationFeedbackFlagBits::BASE_PIPELINE_ACCELERATION.0);
+
         // VK_EXT_pipeline_creation_feedback
         pub const VALID_EXT: Self = Self::VALID;
         pub const APPLICATION_PIPELINE_CACHE_HIT_EXT: Self = Self::APPLICATION_PIPELINE_CACHE_HIT;
@@ -5040,6 +5041,7 @@ _marker: PhantomData
         pub const SHADER_STORAGE_READ: Self = Self(AccessFlagBits2::SHADER_STORAGE_READ.0);
         pub const SHADER_STORAGE_WRITE: Self = Self(AccessFlagBits2::SHADER_STORAGE_WRITE.0);
         pub const NONE: Self = Self(0);
+
         // VK_ARM_data_graph
         pub const DATA_GRAPH_READ_ARM: Self = Self(AccessFlagBits2::DATA_GRAPH_READ_ARM.0);
         pub const DATA_GRAPH_WRITE_ARM: Self = Self(AccessFlagBits2::DATA_GRAPH_WRITE_ARM.0);
@@ -5514,6 +5516,7 @@ _marker: PhantomData
             Self(PipelineStageFlagBits2::PRE_RASTERIZATION_SHADERS.0);
         pub const TRANSFER: Self = Self::ALL_TRANSFER;
         pub const NONE: Self = Self(0);
+
         // VK_ARM_data_graph
         pub const DATA_GRAPH_ARM: Self = Self(PipelineStageFlagBits2::DATA_GRAPH_ARM.0);
 
@@ -5949,6 +5952,7 @@ _marker: PhantomData
             Self(FormatFeatureFlagBits2::STORAGE_WRITE_WITHOUT_FORMAT.0);
         pub const SAMPLED_IMAGE_DEPTH_COMPARISON: Self =
             Self(FormatFeatureFlagBits2::SAMPLED_IMAGE_DEPTH_COMPARISON.0);
+
         // VK_ARM_data_graph
         pub const TENSOR_DATA_GRAPH_ARM: Self =
             Self(FormatFeatureFlagBits2::TENSOR_DATA_GRAPH_ARM.0);
@@ -6363,6 +6367,7 @@ _marker: PhantomData
             Self(RenderingFlagBits::CONTENTS_SECONDARY_COMMAND_BUFFERS.0);
         pub const SUSPENDING: Self = Self(RenderingFlagBits::SUSPENDING.0);
         pub const RESUMING: Self = Self(RenderingFlagBits::RESUMING.0);
+
         // VK_EXT_custom_resolve
         pub const FRAGMENT_REGION_EXT: Self = Self(RenderingFlagBits::FRAGMENT_REGION_EXT.0);
         pub const CUSTOM_RESOLVE_EXT: Self = Self(RenderingFlagBits::CUSTOM_RESOLVE_EXT.0);
@@ -6496,6 +6501,7 @@ _marker: PhantomData
         pub const TRACING: Self = Self(ToolPurposeFlagBits::TRACING.0);
         pub const ADDITIONAL_FEATURES: Self = Self(ToolPurposeFlagBits::ADDITIONAL_FEATURES.0);
         pub const MODIFYING_FEATURES: Self = Self(ToolPurposeFlagBits::MODIFYING_FEATURES.0);
+
         // VK_EXT_tooling_info
         pub const DEBUG_REPORTING_EXT: Self = Self(ToolPurposeFlagBits::DEBUG_REPORTING_EXT.0);
         pub const DEBUG_MARKERS_EXT: Self = Self(ToolPurposeFlagBits::DEBUG_MARKERS_EXT.0);
@@ -6576,6 +6582,7 @@ _marker: PhantomData
 
     impl SubmitFlags {
         pub const PROTECTED: Self = Self(SubmitFlagBits::PROTECTED.0);
+
         // VK_KHR_synchronization2
         pub const PROTECTED_KHR: Self = Self::PROTECTED;
     }
