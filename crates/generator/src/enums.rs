@@ -192,12 +192,20 @@ fn format_doc_comment(comment: Option<&str>) -> String {
     }
 }
 
-fn write_module_group(file: &mut impl Write, module_name: &str, entries: &[String]) {
+fn write_module_group(
+    file: &mut impl Write,
+    module_name: &str,
+    entries: &[String],
+    provisional: bool,
+) {
     if entries.is_empty() {
         return;
     }
     writeln!(file, "// {}", module_name).unwrap();
     for entry in entries {
+        if provisional {
+            writeln!(file, "#[cfg(feature = \"provisional\")]").unwrap();
+        }
         writeln!(file, "{}", entry).unwrap();
     }
     writeln!(file).unwrap();
@@ -230,7 +238,7 @@ pub fn write_enum(file: &mut impl Write, analysis: &Analysis, ty: &xml::Enum) {
     .unwrap();
     writeln!(file).unwrap();
 
-    let mut debug_variants = Vec::new();
+    let mut debug_variants: Vec<(String, bool)> = Vec::new();
     let mut visited = HashSet::new();
 
     writeln!(file, "impl {} {{", name).unwrap();
@@ -240,11 +248,12 @@ pub fn write_enum(file: &mut impl Write, analysis: &Analysis, ty: &xml::Enum) {
         write_doc_comment(file, bit.comment);
         writeln!(file, "pub const {}: Self = Self({});", vname, bit.value).unwrap();
         visited.insert(vname.clone());
-        debug_variants.push(vname);
+        debug_variants.push((vname, false));
     }
 
     if let Some(modules) = req.get(ty.name) {
         for (module_name, contributions) in modules {
+            let provisional = analysis.is_provisional_extension(module_name);
             let mut entries = Vec::new();
 
             for v in &contributions.variants {
@@ -256,7 +265,7 @@ pub fn write_enum(file: &mut impl Write, analysis: &Analysis, ty: &xml::Enum) {
                         vname,
                         v.value
                     ));
-                    debug_variants.push(vname);
+                    debug_variants.push((vname, provisional));
                 }
             }
             for v in &contributions.values {
@@ -268,7 +277,7 @@ pub fn write_enum(file: &mut impl Write, analysis: &Analysis, ty: &xml::Enum) {
                         vname,
                         v.value
                     ));
-                    debug_variants.push(vname);
+                    debug_variants.push((vname, provisional));
                 }
             }
             for a in &contributions.aliases {
@@ -279,7 +288,7 @@ pub fn write_enum(file: &mut impl Write, analysis: &Analysis, ty: &xml::Enum) {
                 }
             }
 
-            write_module_group(file, module_name, &entries);
+            write_module_group(file, module_name, &entries, provisional);
         }
     }
 
@@ -292,7 +301,10 @@ pub fn write_enum(file: &mut impl Write, analysis: &Analysis, ty: &xml::Enum) {
     )
     .unwrap();
     writeln!(file, "let name = match *self {{").unwrap();
-    for vname in &debug_variants {
+    for (vname, provisional) in &debug_variants {
+        if *provisional {
+            writeln!(file, "#[cfg(feature = \"provisional\")]").unwrap();
+        }
         writeln!(file, "Self::{vname} => Some(\"{vname}\"),").unwrap();
     }
     writeln!(
@@ -388,6 +400,7 @@ pub fn write_bitmask(
     // Pre-compute normalized module data (shared between Flags and FlagBits)
     struct ModuleBitData {
         name: String,
+        provisional: bool,
         bits: Vec<NormalizedBit>,
         aliases: Vec<NormalizedAlias>,
         values: Vec<NormalizedValue>,
@@ -399,6 +412,7 @@ pub fn write_bitmask(
         .flat_map(|m| m.iter())
         .map(|(name, c)| ModuleBitData {
             name: name.clone(),
+            provisional: analysis.is_provisional_extension(name),
             bits: {
                 let mut bits: Vec<_> = c
                     .bitpositions
@@ -504,7 +518,7 @@ pub fn write_bitmask(
                     v.value
                 ));
             }
-            write_module_group(file, &md.name, &entries);
+            write_module_group(file, &md.name, &entries, md.provisional);
         }
 
         writeln!(file, "}}\n").unwrap();
@@ -513,18 +527,18 @@ pub fn write_bitmask(
     // Debug impl for Flags type
     {
         // Collect only single-bit constants (not composites, not zero)
-        let mut debug_bits: Vec<(String, u8)> = Vec::new();
+        let mut debug_bits: Vec<(String, u8, bool)> = Vec::new();
         let mut visited_bits = HashSet::new();
 
         for b in &base_bits {
             if visited_bits.insert(b.bitpos) {
-                debug_bits.push((b.name.clone(), b.bitpos));
+                debug_bits.push((b.name.clone(), b.bitpos, false));
             }
         }
         for md in &module_data {
             for b in &md.bits {
                 if visited_bits.insert(b.bitpos) {
-                    debug_bits.push((b.name.clone(), b.bitpos));
+                    debug_bits.push((b.name.clone(), b.bitpos, md.provisional));
                 }
             }
         }
@@ -536,7 +550,10 @@ pub fn write_bitmask(
                 const KNOWN: &[({base_type}, &str)] = &["
         )
         .unwrap();
-        for (bit_name, _) in &debug_bits {
+        for (bit_name, _, provisional) in &debug_bits {
+            if *provisional {
+                writeln!(file, "#[cfg(feature = \"provisional\")]").unwrap();
+            }
             writeln!(
                 file,
                 "                ({name}::{bit_name}.0, \"{bit_name}\"),"
@@ -600,24 +617,24 @@ pub fn write_bitmask(
                     entries.push(format!("pub const {}: Self = Self::{};", a.name, a.target));
                 }
             }
-            write_module_group(file, &md.name, &entries);
+            write_module_group(file, &md.name, &entries, md.provisional);
         }
 
         writeln!(file, "}}\n").unwrap();
 
         // Debug impl for FlagBits
-        let mut debug_variants = Vec::new();
+        let mut debug_variants: Vec<(String, bool)> = Vec::new();
         let mut debug_visited = HashSet::new();
 
         for b in &base_bits {
             if debug_visited.insert(b.name.clone()) {
-                debug_variants.push(b.name.clone());
+                debug_variants.push((b.name.clone(), false));
             }
         }
         for md in &module_data {
             for b in &md.bits {
                 if debug_visited.insert(b.name.clone()) {
-                    debug_variants.push(b.name.clone());
+                    debug_variants.push((b.name.clone(), md.provisional));
                 }
             }
         }
@@ -629,7 +646,10 @@ pub fn write_bitmask(
         )
         .unwrap();
         writeln!(file, "let name = match *self {{").unwrap();
-        for vname in &debug_variants {
+        for (vname, provisional) in &debug_variants {
+            if *provisional {
+                writeln!(file, "#[cfg(feature = \"provisional\")]").unwrap();
+            }
             writeln!(file, "Self::{vname} => Some(\"{vname}\"),").unwrap();
         }
         writeln!(

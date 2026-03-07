@@ -21,6 +21,7 @@ pub struct Analysis {
     handle_command_types: HandleCommandTypes,
     req_enum_data: ReqEnumData,
     provisional_types: HashSet<&'static str>,
+    provisional_extensions: HashSet<&'static str>,
 }
 
 impl Analysis {
@@ -52,6 +53,13 @@ impl Analysis {
         let handle_command_types = collect_handle_command_types(&registry);
         let req_enum_data = ReqEnumData::from_registry(&registry);
 
+        let provisional_extensions: HashSet<&'static str> = registry
+            .extensions
+            .iter()
+            .filter(|ext| ext.provisional)
+            .map(|ext| ext.name)
+            .collect();
+
         let provisional_types: HashSet<&'static str> = registry
             .extensions
             .iter()
@@ -69,6 +77,7 @@ impl Analysis {
             handle_command_types,
             req_enum_data,
             provisional_types,
+            provisional_extensions,
         }
     }
 
@@ -104,6 +113,11 @@ impl Analysis {
     /// Returns true if the named C type belongs to a provisional extension.
     pub fn is_provisional_type(&self, name: &str) -> bool {
         self.provisional_types.contains(name)
+    }
+
+    /// Returns true if the named extension is provisional.
+    pub fn is_provisional_extension(&self, name: &str) -> bool {
+        self.provisional_extensions.contains(name)
     }
 
     /// Returns true if the named type is a struct with an `sType` member (i.e. extensible via pNext).

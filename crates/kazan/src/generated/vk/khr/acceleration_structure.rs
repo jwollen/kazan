@@ -1546,6 +1546,7 @@ pub(super) mod defs {
         pub const AABBS_KHR: Self = Self(1);
         pub const INSTANCES_KHR: Self = Self(2);
         // VK_AMDX_dense_geometry_format
+        #[cfg(feature = "provisional")]
         pub const DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX: Self = Self(1000478000);
 
         // VK_NV_ray_tracing
@@ -1563,6 +1564,7 @@ pub(super) mod defs {
                 Self::TRIANGLES_KHR => Some("TRIANGLES_KHR"),
                 Self::AABBS_KHR => Some("AABBS_KHR"),
                 Self::INSTANCES_KHR => Some("INSTANCES_KHR"),
+                #[cfg(feature = "provisional")]
                 Self::DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX => {
                     Some("DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX")
                 }
@@ -1826,6 +1828,7 @@ pub(super) mod defs {
             Self(BuildAccelerationStructureFlagBitsKHR::ALLOW_CLUSTER_OPACITY_MICROMAPS_NV.0);
 
         // VK_NV_displacement_micromap
+        #[cfg(feature = "provisional")]
         pub const ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV: Self =
             Self(BuildAccelerationStructureFlagBitsKHR::ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV.0);
 
@@ -1883,6 +1886,7 @@ pub(super) mod defs {
                     BuildAccelerationStructureFlagsKHR::ALLOW_CLUSTER_OPACITY_MICROMAPS_NV.0,
                     "ALLOW_CLUSTER_OPACITY_MICROMAPS_NV",
                 ),
+                #[cfg(feature = "provisional")]
                 (
                     BuildAccelerationStructureFlagsKHR::ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV.0,
                     "ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV",
@@ -1916,6 +1920,7 @@ pub(super) mod defs {
         pub const ALLOW_CLUSTER_OPACITY_MICROMAPS_NV: Self = Self(1 << 12);
 
         // VK_NV_displacement_micromap
+        #[cfg(feature = "provisional")]
         pub const ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV: Self = Self(1 << 9);
 
         // VK_NV_ray_tracing
@@ -1950,6 +1955,7 @@ pub(super) mod defs {
                 Self::ALLOW_CLUSTER_OPACITY_MICROMAPS_NV => {
                     Some("ALLOW_CLUSTER_OPACITY_MICROMAPS_NV")
                 }
+                #[cfg(feature = "provisional")]
                 Self::ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV => {
                     Some("ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV")
                 }

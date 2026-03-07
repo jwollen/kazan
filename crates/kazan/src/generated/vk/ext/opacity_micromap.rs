@@ -872,6 +872,7 @@ pub(super) mod defs {
     impl MicromapTypeEXT {
         pub const OPACITY_MICROMAP_EXT: Self = Self(0);
         // VK_NV_displacement_micromap
+        #[cfg(feature = "provisional")]
         pub const DISPLACEMENT_MICROMAP_NV: Self = Self(1000397000);
     }
 
@@ -879,6 +880,7 @@ pub(super) mod defs {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
                 Self::OPACITY_MICROMAP_EXT => Some("OPACITY_MICROMAP_EXT"),
+                #[cfg(feature = "provisional")]
                 Self::DISPLACEMENT_MICROMAP_NV => Some("DISPLACEMENT_MICROMAP_NV"),
                 _ => None,
             };

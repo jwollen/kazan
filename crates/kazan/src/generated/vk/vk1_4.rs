@@ -4108,6 +4108,7 @@ pub(super) mod defs {
         pub const PROTECTED_ACCESS_ONLY: Self =
             Self(PipelineCreateFlagBits2::PROTECTED_ACCESS_ONLY.0);
         // VK_AMDX_shader_enqueue
+        #[cfg(feature = "provisional")]
         pub const EXECUTION_GRAPH_AMDX: Self =
             Self(PipelineCreateFlagBits2::EXECUTION_GRAPH_AMDX.0);
 
@@ -4232,6 +4233,7 @@ pub(super) mod defs {
                     PipelineCreateFlags2::PROTECTED_ACCESS_ONLY.0,
                     "PROTECTED_ACCESS_ONLY",
                 ),
+                #[cfg(feature = "provisional")]
                 (
                     PipelineCreateFlags2::EXECUTION_GRAPH_AMDX.0,
                     "EXECUTION_GRAPH_AMDX",
@@ -4365,6 +4367,7 @@ pub(super) mod defs {
         pub const NO_PROTECTED_ACCESS: Self = Self(1 << 27);
         pub const PROTECTED_ACCESS_ONLY: Self = Self(1 << 30);
         // VK_AMDX_shader_enqueue
+        #[cfg(feature = "provisional")]
         pub const EXECUTION_GRAPH_AMDX: Self = Self(1 << 32);
 
         // VK_ARM_pipeline_opacity_micromap
@@ -4444,6 +4447,7 @@ pub(super) mod defs {
                 Self::EARLY_RETURN_ON_FAILURE => Some("EARLY_RETURN_ON_FAILURE"),
                 Self::NO_PROTECTED_ACCESS => Some("NO_PROTECTED_ACCESS"),
                 Self::PROTECTED_ACCESS_ONLY => Some("PROTECTED_ACCESS_ONLY"),
+                #[cfg(feature = "provisional")]
                 Self::EXECUTION_GRAPH_AMDX => Some("EXECUTION_GRAPH_AMDX"),
                 Self::DISALLOW_OPACITY_MICROMAP_ARM => Some("DISALLOW_OPACITY_MICROMAP_ARM"),
                 Self::DESCRIPTOR_HEAP_EXT => Some("DESCRIPTOR_HEAP_EXT"),
@@ -4528,10 +4532,12 @@ pub(super) mod defs {
         pub const VERTEX_BUFFER: Self = Self(BufferUsageFlagBits2::VERTEX_BUFFER.0);
         pub const INDIRECT_BUFFER: Self = Self(BufferUsageFlagBits2::INDIRECT_BUFFER.0);
         // VK_AMDX_dense_geometry_format
+        #[cfg(feature = "provisional")]
         pub const COMPRESSED_DATA_DGF1_AMDX: Self =
             Self(BufferUsageFlagBits2::COMPRESSED_DATA_DGF1_AMDX.0);
 
         // VK_AMDX_shader_enqueue
+        #[cfg(feature = "provisional")]
         pub const EXECUTION_GRAPH_SCRATCH_AMDX: Self =
             Self(BufferUsageFlagBits2::EXECUTION_GRAPH_SCRATCH_AMDX.0);
 
@@ -4612,10 +4618,12 @@ pub(super) mod defs {
                 (BufferUsageFlags2::INDEX_BUFFER.0, "INDEX_BUFFER"),
                 (BufferUsageFlags2::VERTEX_BUFFER.0, "VERTEX_BUFFER"),
                 (BufferUsageFlags2::INDIRECT_BUFFER.0, "INDIRECT_BUFFER"),
+                #[cfg(feature = "provisional")]
                 (
                     BufferUsageFlags2::COMPRESSED_DATA_DGF1_AMDX.0,
                     "COMPRESSED_DATA_DGF1_AMDX",
                 ),
+                #[cfg(feature = "provisional")]
                 (
                     BufferUsageFlags2::EXECUTION_GRAPH_SCRATCH_AMDX.0,
                     "EXECUTION_GRAPH_SCRATCH_AMDX",
@@ -4722,9 +4730,11 @@ pub(super) mod defs {
         pub const VERTEX_BUFFER: Self = Self(1 << 7);
         pub const INDIRECT_BUFFER: Self = Self(1 << 8);
         // VK_AMDX_dense_geometry_format
+        #[cfg(feature = "provisional")]
         pub const COMPRESSED_DATA_DGF1_AMDX: Self = Self(1 << 33);
 
         // VK_AMDX_shader_enqueue
+        #[cfg(feature = "provisional")]
         pub const EXECUTION_GRAPH_SCRATCH_AMDX: Self = Self(1 << 25);
 
         // VK_ARM_data_graph
@@ -4786,7 +4796,9 @@ pub(super) mod defs {
                 Self::INDEX_BUFFER => Some("INDEX_BUFFER"),
                 Self::VERTEX_BUFFER => Some("VERTEX_BUFFER"),
                 Self::INDIRECT_BUFFER => Some("INDIRECT_BUFFER"),
+                #[cfg(feature = "provisional")]
                 Self::COMPRESSED_DATA_DGF1_AMDX => Some("COMPRESSED_DATA_DGF1_AMDX"),
+                #[cfg(feature = "provisional")]
                 Self::EXECUTION_GRAPH_SCRATCH_AMDX => Some("EXECUTION_GRAPH_SCRATCH_AMDX"),
                 Self::DATA_GRAPH_FOREIGN_DESCRIPTOR_ARM => {
                     Some("DATA_GRAPH_FOREIGN_DESCRIPTOR_ARM")

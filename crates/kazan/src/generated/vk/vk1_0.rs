@@ -8818,6 +8818,7 @@ pub(super) mod defs {
         pub const GRAPHICS: Self = Self(0);
         pub const COMPUTE: Self = Self(1);
         // VK_AMDX_shader_enqueue
+        #[cfg(feature = "provisional")]
         pub const EXECUTION_GRAPH_AMDX: Self = Self(1000134000);
 
         // VK_ARM_data_graph
@@ -8838,6 +8839,7 @@ pub(super) mod defs {
             let name = match *self {
                 Self::GRAPHICS => Some("GRAPHICS"),
                 Self::COMPUTE => Some("COMPUTE"),
+                #[cfg(feature = "provisional")]
                 Self::EXECUTION_GRAPH_AMDX => Some("EXECUTION_GRAPH_AMDX"),
                 Self::DATA_GRAPH_ARM => Some("DATA_GRAPH_ARM"),
                 Self::SUBPASS_SHADING_HUAWEI => Some("SUBPASS_SHADING_HUAWEI"),
@@ -10370,15 +10372,22 @@ pub(super) mod defs {
         /// Reserved for internal use by the loader, layers, and ICDs
         pub const LOADER_DEVICE_CREATE_INFO: Self = Self(48);
         // VK_AMDX_dense_geometry_format
+        #[cfg(feature = "provisional")]
         pub const PHYSICAL_DEVICE_DENSE_GEOMETRY_FORMAT_FEATURES_AMDX: Self = Self(1000478000);
+        #[cfg(feature = "provisional")]
         pub const ACCELERATION_STRUCTURE_DENSE_GEOMETRY_FORMAT_TRIANGLES_DATA_AMDX: Self =
             Self(1000478001);
 
         // VK_AMDX_shader_enqueue
+        #[cfg(feature = "provisional")]
         pub const PHYSICAL_DEVICE_SHADER_ENQUEUE_FEATURES_AMDX: Self = Self(1000134000);
+        #[cfg(feature = "provisional")]
         pub const PHYSICAL_DEVICE_SHADER_ENQUEUE_PROPERTIES_AMDX: Self = Self(1000134001);
+        #[cfg(feature = "provisional")]
         pub const EXECUTION_GRAPH_PIPELINE_SCRATCH_SIZE_AMDX: Self = Self(1000134002);
+        #[cfg(feature = "provisional")]
         pub const EXECUTION_GRAPH_PIPELINE_CREATE_INFO_AMDX: Self = Self(1000134003);
+        #[cfg(feature = "provisional")]
         pub const PIPELINE_SHADER_STAGE_NODE_CREATE_INFO_AMDX: Self = Self(1000134004);
 
         // VK_AMD_anti_lag
@@ -11701,7 +11710,9 @@ pub(super) mod defs {
         pub const PIPELINE_LIBRARY_CREATE_INFO_KHR: Self = Self(1000290000);
 
         // VK_KHR_portability_subset
+        #[cfg(feature = "provisional")]
         pub const PHYSICAL_DEVICE_PORTABILITY_SUBSET_FEATURES_KHR: Self = Self(1000163000);
+        #[cfg(feature = "provisional")]
         pub const PHYSICAL_DEVICE_PORTABILITY_SUBSET_PROPERTIES_KHR: Self = Self(1000163001);
 
         // VK_KHR_present_id
@@ -12165,10 +12176,15 @@ pub(super) mod defs {
         pub const FRAMEBUFFER_MIXED_SAMPLES_COMBINATION_NV: Self = Self(1000250002);
 
         // VK_NV_cuda_kernel_launch
+        #[cfg(feature = "provisional")]
         pub const CUDA_MODULE_CREATE_INFO_NV: Self = Self(1000307000);
+        #[cfg(feature = "provisional")]
         pub const CUDA_FUNCTION_CREATE_INFO_NV: Self = Self(1000307001);
+        #[cfg(feature = "provisional")]
         pub const CUDA_LAUNCH_INFO_NV: Self = Self(1000307002);
+        #[cfg(feature = "provisional")]
         pub const PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_FEATURES_NV: Self = Self(1000307003);
+        #[cfg(feature = "provisional")]
         pub const PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_PROPERTIES_NV: Self = Self(1000307004);
 
         // VK_NV_dedicated_allocation
@@ -12211,8 +12227,11 @@ pub(super) mod defs {
         pub const PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV: Self = Self(1000428002);
 
         // VK_NV_displacement_micromap
+        #[cfg(feature = "provisional")]
         pub const PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_FEATURES_NV: Self = Self(1000397000);
+        #[cfg(feature = "provisional")]
         pub const PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_PROPERTIES_NV: Self = Self(1000397001);
+        #[cfg(feature = "provisional")]
         pub const ACCELERATION_STRUCTURE_TRIANGLES_DISPLACEMENT_MICROMAP_NV: Self =
             Self(1000397002);
 
@@ -12321,7 +12340,9 @@ pub(super) mod defs {
         pub const SWAPCHAIN_PRESENT_BARRIER_CREATE_INFO_NV: Self = Self(1000292002);
 
         // VK_NV_present_metering
+        #[cfg(feature = "provisional")]
         pub const SET_PRESENT_CONFIG_NV: Self = Self(1000613000);
+        #[cfg(feature = "provisional")]
         pub const PHYSICAL_DEVICE_PRESENT_METERING_FEATURES_NV: Self = Self(1000613001);
 
         // VK_NV_push_constant_bank
@@ -12832,24 +12853,31 @@ pub(super) mod defs {
                 Self::MEMORY_BARRIER => Some("MEMORY_BARRIER"),
                 Self::LOADER_INSTANCE_CREATE_INFO => Some("LOADER_INSTANCE_CREATE_INFO"),
                 Self::LOADER_DEVICE_CREATE_INFO => Some("LOADER_DEVICE_CREATE_INFO"),
+                #[cfg(feature = "provisional")]
                 Self::PHYSICAL_DEVICE_DENSE_GEOMETRY_FORMAT_FEATURES_AMDX => {
                     Some("PHYSICAL_DEVICE_DENSE_GEOMETRY_FORMAT_FEATURES_AMDX")
                 }
+                #[cfg(feature = "provisional")]
                 Self::ACCELERATION_STRUCTURE_DENSE_GEOMETRY_FORMAT_TRIANGLES_DATA_AMDX => {
                     Some("ACCELERATION_STRUCTURE_DENSE_GEOMETRY_FORMAT_TRIANGLES_DATA_AMDX")
                 }
+                #[cfg(feature = "provisional")]
                 Self::PHYSICAL_DEVICE_SHADER_ENQUEUE_FEATURES_AMDX => {
                     Some("PHYSICAL_DEVICE_SHADER_ENQUEUE_FEATURES_AMDX")
                 }
+                #[cfg(feature = "provisional")]
                 Self::PHYSICAL_DEVICE_SHADER_ENQUEUE_PROPERTIES_AMDX => {
                     Some("PHYSICAL_DEVICE_SHADER_ENQUEUE_PROPERTIES_AMDX")
                 }
+                #[cfg(feature = "provisional")]
                 Self::EXECUTION_GRAPH_PIPELINE_SCRATCH_SIZE_AMDX => {
                     Some("EXECUTION_GRAPH_PIPELINE_SCRATCH_SIZE_AMDX")
                 }
+                #[cfg(feature = "provisional")]
                 Self::EXECUTION_GRAPH_PIPELINE_CREATE_INFO_AMDX => {
                     Some("EXECUTION_GRAPH_PIPELINE_CREATE_INFO_AMDX")
                 }
+                #[cfg(feature = "provisional")]
                 Self::PIPELINE_SHADER_STAGE_NODE_CREATE_INFO_AMDX => {
                     Some("PIPELINE_SHADER_STAGE_NODE_CREATE_INFO_AMDX")
                 }
@@ -14104,9 +14132,11 @@ pub(super) mod defs {
                     Some("PIPELINE_EXECUTABLE_INTERNAL_REPRESENTATION_KHR")
                 }
                 Self::PIPELINE_LIBRARY_CREATE_INFO_KHR => Some("PIPELINE_LIBRARY_CREATE_INFO_KHR"),
+                #[cfg(feature = "provisional")]
                 Self::PHYSICAL_DEVICE_PORTABILITY_SUBSET_FEATURES_KHR => {
                     Some("PHYSICAL_DEVICE_PORTABILITY_SUBSET_FEATURES_KHR")
                 }
+                #[cfg(feature = "provisional")]
                 Self::PHYSICAL_DEVICE_PORTABILITY_SUBSET_PROPERTIES_KHR => {
                     Some("PHYSICAL_DEVICE_PORTABILITY_SUBSET_PROPERTIES_KHR")
                 }
@@ -14649,12 +14679,17 @@ pub(super) mod defs {
                 Self::FRAMEBUFFER_MIXED_SAMPLES_COMBINATION_NV => {
                     Some("FRAMEBUFFER_MIXED_SAMPLES_COMBINATION_NV")
                 }
+                #[cfg(feature = "provisional")]
                 Self::CUDA_MODULE_CREATE_INFO_NV => Some("CUDA_MODULE_CREATE_INFO_NV"),
+                #[cfg(feature = "provisional")]
                 Self::CUDA_FUNCTION_CREATE_INFO_NV => Some("CUDA_FUNCTION_CREATE_INFO_NV"),
+                #[cfg(feature = "provisional")]
                 Self::CUDA_LAUNCH_INFO_NV => Some("CUDA_LAUNCH_INFO_NV"),
+                #[cfg(feature = "provisional")]
                 Self::PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_FEATURES_NV => {
                     Some("PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_FEATURES_NV")
                 }
+                #[cfg(feature = "provisional")]
                 Self::PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_PROPERTIES_NV => {
                     Some("PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_PROPERTIES_NV")
                 }
@@ -14718,12 +14753,15 @@ pub(super) mod defs {
                 Self::PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV => {
                     Some("PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV")
                 }
+                #[cfg(feature = "provisional")]
                 Self::PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_FEATURES_NV => {
                     Some("PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_FEATURES_NV")
                 }
+                #[cfg(feature = "provisional")]
                 Self::PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_PROPERTIES_NV => {
                     Some("PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_PROPERTIES_NV")
                 }
+                #[cfg(feature = "provisional")]
                 Self::ACCELERATION_STRUCTURE_TRIANGLES_DISPLACEMENT_MICROMAP_NV => {
                     Some("ACCELERATION_STRUCTURE_TRIANGLES_DISPLACEMENT_MICROMAP_NV")
                 }
@@ -14856,7 +14894,9 @@ pub(super) mod defs {
                 Self::SWAPCHAIN_PRESENT_BARRIER_CREATE_INFO_NV => {
                     Some("SWAPCHAIN_PRESENT_BARRIER_CREATE_INFO_NV")
                 }
+                #[cfg(feature = "provisional")]
                 Self::SET_PRESENT_CONFIG_NV => Some("SET_PRESENT_CONFIG_NV"),
+                #[cfg(feature = "provisional")]
                 Self::PHYSICAL_DEVICE_PRESENT_METERING_FEATURES_NV => {
                     Some("PHYSICAL_DEVICE_PRESENT_METERING_FEATURES_NV")
                 }
@@ -16187,7 +16227,9 @@ pub(super) mod defs {
         pub const CU_FUNCTION_NVX: Self = Self(1000029001);
 
         // VK_NV_cuda_kernel_launch
+        #[cfg(feature = "provisional")]
         pub const CUDA_MODULE_NV: Self = Self(1000307000);
+        #[cfg(feature = "provisional")]
         pub const CUDA_FUNCTION_NV: Self = Self(1000307001);
 
         // VK_NV_device_generated_commands
@@ -16262,7 +16304,9 @@ pub(super) mod defs {
                 Self::VIDEO_SESSION_PARAMETERS_KHR => Some("VIDEO_SESSION_PARAMETERS_KHR"),
                 Self::CU_MODULE_NVX => Some("CU_MODULE_NVX"),
                 Self::CU_FUNCTION_NVX => Some("CU_FUNCTION_NVX"),
+                #[cfg(feature = "provisional")]
                 Self::CUDA_MODULE_NV => Some("CUDA_MODULE_NV"),
+                #[cfg(feature = "provisional")]
                 Self::CUDA_FUNCTION_NV => Some("CUDA_FUNCTION_NV"),
                 Self::INDIRECT_COMMANDS_LAYOUT_NV => Some("INDIRECT_COMMANDS_LAYOUT_NV"),
                 Self::EXTERNAL_COMPUTE_QUEUE_NV => Some("EXTERNAL_COMPUTE_QUEUE_NV"),
@@ -17821,6 +17865,7 @@ pub(super) mod defs {
         /// Can be the source of indirect parameters (e.g. indirect buffer, parameter buffer)
         pub const INDIRECT_BUFFER: Self = Self(BufferUsageFlagBits::INDIRECT_BUFFER.0);
         // VK_AMDX_shader_enqueue
+        #[cfg(feature = "provisional")]
         pub const EXECUTION_GRAPH_SCRATCH_AMDX: Self =
             Self(BufferUsageFlagBits::EXECUTION_GRAPH_SCRATCH_AMDX.0);
 
@@ -17903,6 +17948,7 @@ pub(super) mod defs {
                 (BufferUsageFlags::INDEX_BUFFER.0, "INDEX_BUFFER"),
                 (BufferUsageFlags::VERTEX_BUFFER.0, "VERTEX_BUFFER"),
                 (BufferUsageFlags::INDIRECT_BUFFER.0, "INDIRECT_BUFFER"),
+                #[cfg(feature = "provisional")]
                 (
                     BufferUsageFlags::EXECUTION_GRAPH_SCRATCH_AMDX.0,
                     "EXECUTION_GRAPH_SCRATCH_AMDX",
@@ -18006,6 +18052,7 @@ pub(super) mod defs {
         /// Can be the source of indirect parameters (e.g. indirect buffer, parameter buffer)
         pub const INDIRECT_BUFFER: Self = Self(1 << 8);
         // VK_AMDX_shader_enqueue
+        #[cfg(feature = "provisional")]
         pub const EXECUTION_GRAPH_SCRATCH_AMDX: Self = Self(1 << 25);
 
         // VK_EXT_buffer_device_address
@@ -18071,6 +18118,7 @@ pub(super) mod defs {
                 Self::INDEX_BUFFER => Some("INDEX_BUFFER"),
                 Self::VERTEX_BUFFER => Some("VERTEX_BUFFER"),
                 Self::INDIRECT_BUFFER => Some("INDIRECT_BUFFER"),
+                #[cfg(feature = "provisional")]
                 Self::EXECUTION_GRAPH_SCRATCH_AMDX => Some("EXECUTION_GRAPH_SCRATCH_AMDX"),
                 Self::CONDITIONAL_RENDERING_EXT => Some("CONDITIONAL_RENDERING_EXT"),
                 Self::SAMPLER_DESCRIPTOR_BUFFER_EXT => Some("SAMPLER_DESCRIPTOR_BUFFER_EXT"),
@@ -19065,6 +19113,7 @@ pub(super) mod defs {
         pub const INDIRECT_BINDABLE_NV: Self = Self(PipelineCreateFlagBits::INDIRECT_BINDABLE_NV.0);
 
         // VK_NV_displacement_micromap
+        #[cfg(feature = "provisional")]
         pub const RAY_TRACING_DISPLACEMENT_MICROMAP_NV: Self =
             Self(PipelineCreateFlagBits::RAY_TRACING_DISPLACEMENT_MICROMAP_NV.0);
 
@@ -19177,6 +19226,7 @@ pub(super) mod defs {
                     PipelineCreateFlags::INDIRECT_BINDABLE_NV.0,
                     "INDIRECT_BINDABLE_NV",
                 ),
+                #[cfg(feature = "provisional")]
                 (
                     PipelineCreateFlags::RAY_TRACING_DISPLACEMENT_MICROMAP_NV.0,
                     "RAY_TRACING_DISPLACEMENT_MICROMAP_NV",
@@ -19278,6 +19328,7 @@ pub(super) mod defs {
         pub const INDIRECT_BINDABLE_NV: Self = Self(1 << 18);
 
         // VK_NV_displacement_micromap
+        #[cfg(feature = "provisional")]
         pub const RAY_TRACING_DISPLACEMENT_MICROMAP_NV: Self = Self(1 << 28);
 
         // VK_NV_ray_tracing
@@ -19346,6 +19397,7 @@ pub(super) mod defs {
                     Some("RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_KHR")
                 }
                 Self::INDIRECT_BINDABLE_NV => Some("INDIRECT_BINDABLE_NV"),
+                #[cfg(feature = "provisional")]
                 Self::RAY_TRACING_DISPLACEMENT_MICROMAP_NV => {
                     Some("RAY_TRACING_DISPLACEMENT_MICROMAP_NV")
                 }

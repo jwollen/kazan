@@ -145,7 +145,9 @@ pub(super) mod defs {
         pub const CU_FUNCTION_NVX_EXT: Self = Self(1000029001);
 
         // VK_NV_cuda_kernel_launch
+        #[cfg(feature = "provisional")]
         pub const CUDA_MODULE_NV_EXT: Self = Self(1000307000);
+        #[cfg(feature = "provisional")]
         pub const CUDA_FUNCTION_NV_EXT: Self = Self(1000307001);
 
         // VK_NV_ray_tracing
@@ -193,7 +195,9 @@ pub(super) mod defs {
                 Self::ACCELERATION_STRUCTURE_KHR_EXT => Some("ACCELERATION_STRUCTURE_KHR_EXT"),
                 Self::CU_MODULE_NVX_EXT => Some("CU_MODULE_NVX_EXT"),
                 Self::CU_FUNCTION_NVX_EXT => Some("CU_FUNCTION_NVX_EXT"),
+                #[cfg(feature = "provisional")]
                 Self::CUDA_MODULE_NV_EXT => Some("CUDA_MODULE_NV_EXT"),
+                #[cfg(feature = "provisional")]
                 Self::CUDA_FUNCTION_NV_EXT => Some("CUDA_FUNCTION_NV_EXT"),
                 Self::ACCELERATION_STRUCTURE_NV_EXT => Some("ACCELERATION_STRUCTURE_NV_EXT"),
                 _ => None,
