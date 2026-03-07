@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportSemaphoreZirconHandleInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -20,10 +22,12 @@ pub(super) mod defs {
         pub zircon_handle: zx_handle_t,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportSemaphoreZirconHandleInfoFUCHSIA<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::IMPORT_SEMAPHORE_ZIRCON_HANDLE_INFO_FUCHSIA;
     }
+
     impl Default for ImportSemaphoreZirconHandleInfoFUCHSIA<'_> {
         fn default() -> Self {
             Self {
@@ -37,24 +41,29 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ImportSemaphoreZirconHandleInfoFUCHSIA<'a> {
         pub fn semaphore(mut self, semaphore: Semaphore) -> Self {
             self.semaphore = semaphore;
             self
         }
+
         pub fn flags(mut self, flags: SemaphoreImportFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn handle_type(mut self, handle_type: ExternalSemaphoreHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
         }
+
         pub fn zircon_handle(mut self, zircon_handle: zx_handle_t) -> Self {
             self.zircon_handle = zircon_handle;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSemaphoreGetZirconHandleInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -65,10 +74,12 @@ pub(super) mod defs {
         pub handle_type: ExternalSemaphoreHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for SemaphoreGetZirconHandleInfoFUCHSIA<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::SEMAPHORE_GET_ZIRCON_HANDLE_INFO_FUCHSIA;
     }
+
     impl Default for SemaphoreGetZirconHandleInfoFUCHSIA<'_> {
         fn default() -> Self {
             Self {
@@ -80,16 +91,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SemaphoreGetZirconHandleInfoFUCHSIA<'a> {
         pub fn semaphore(mut self, semaphore: Semaphore) -> Self {
             self.semaphore = semaphore;
             self
         }
+
         pub fn handle_type(mut self, handle_type: ExternalSemaphoreHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSemaphoreZirconHandleFUCHSIA.html>
     pub type PFN_vkGetSemaphoreZirconHandleFUCHSIA = unsafe extern "system" fn(
         device: Device,
@@ -103,10 +117,12 @@ pub(super) mod defs {
     )
         -> vk::Result;
 }
+
 pub struct DeviceFn {
     import_semaphore_zircon_handle_fuchsia: PFN_vkImportSemaphoreZirconHandleFUCHSIA,
     get_semaphore_zircon_handle_fuchsia: PFN_vkGetSemaphoreZirconHandleFUCHSIA,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -123,6 +139,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportSemaphoreZirconHandleFUCHSIA.html>
     pub unsafe fn import_semaphore_zircon_handle_fuchsia(
@@ -142,6 +159,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSemaphoreZirconHandleFUCHSIA.html>
     pub unsafe fn get_semaphore_zircon_handle_fuchsia(
         &self,

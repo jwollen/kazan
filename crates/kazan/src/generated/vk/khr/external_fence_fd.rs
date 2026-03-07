@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportFenceFdInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -20,9 +22,11 @@ pub(super) mod defs {
         pub fd: c_int,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportFenceFdInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_FENCE_FD_INFO_KHR;
     }
+
     impl Default for ImportFenceFdInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -36,24 +40,29 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ImportFenceFdInfoKHR<'a> {
         pub fn fence(mut self, fence: Fence) -> Self {
             self.fence = fence;
             self
         }
+
         pub fn flags(mut self, flags: FenceImportFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn handle_type(mut self, handle_type: ExternalFenceHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
         }
+
         pub fn fd(mut self, fd: c_int) -> Self {
             self.fd = fd;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFenceGetFdInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -64,9 +73,11 @@ pub(super) mod defs {
         pub handle_type: ExternalFenceHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for FenceGetFdInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::FENCE_GET_FD_INFO_KHR;
     }
+
     impl Default for FenceGetFdInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -78,16 +89,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> FenceGetFdInfoKHR<'a> {
         pub fn fence(mut self, fence: Fence) -> Self {
             self.fence = fence;
             self
         }
+
         pub fn handle_type(mut self, handle_type: ExternalFenceHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetFenceFdKHR.html>
     pub type PFN_vkGetFenceFdKHR = unsafe extern "system" fn(
         device: Device,
@@ -100,10 +114,12 @@ pub(super) mod defs {
         p_import_fence_fd_info: *const ImportFenceFdInfoKHR<'_>,
     ) -> vk::Result;
 }
+
 pub struct DeviceFn {
     import_fence_fd_khr: PFN_vkImportFenceFdKHR,
     get_fence_fd_khr: PFN_vkGetFenceFdKHR,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -120,6 +136,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportFenceFdKHR.html>
     pub unsafe fn import_fence_fd_khr(
@@ -136,6 +153,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetFenceFdKHR.html>
     pub unsafe fn get_fence_fd_khr(
         &self,

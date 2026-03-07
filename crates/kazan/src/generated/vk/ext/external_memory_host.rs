@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportMemoryHostPointerInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,10 +20,13 @@ pub(super) mod defs {
         pub p_host_pointer: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportMemoryHostPointerInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_MEMORY_HOST_POINTER_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ImportMemoryHostPointerInfoEXT<'a> {}
+
     impl Default for ImportMemoryHostPointerInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -33,16 +38,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ImportMemoryHostPointerInfoEXT<'a> {
         pub fn handle_type(mut self, handle_type: ExternalMemoryHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
         }
+
         pub fn host_pointer(mut self, host_pointer: *mut c_void) -> Self {
             self.p_host_pointer = host_pointer;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryHostPointerPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -52,9 +60,11 @@ pub(super) mod defs {
         pub memory_type_bits: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for MemoryHostPointerPropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_HOST_POINTER_PROPERTIES_EXT;
     }
+
     impl Default for MemoryHostPointerPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -65,12 +75,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> MemoryHostPointerPropertiesEXT<'a> {
         pub fn memory_type_bits(mut self, memory_type_bits: u32) -> Self {
             self.memory_type_bits = memory_type_bits;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalMemoryHostPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -80,14 +92,17 @@ pub(super) mod defs {
         pub min_imported_host_pointer_alignment: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExternalMemoryHostPropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_EXTERNAL_MEMORY_HOST_PROPERTIES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceExternalMemoryHostPropertiesEXT<'a>
     {
     }
+
     impl Default for PhysicalDeviceExternalMemoryHostPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -98,6 +113,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceExternalMemoryHostPropertiesEXT<'a> {
         pub fn min_imported_host_pointer_alignment(
             mut self,
@@ -107,6 +123,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryHostPointerPropertiesEXT.html>
     pub type PFN_vkGetMemoryHostPointerPropertiesEXT = unsafe extern "system" fn(
         device: Device,
@@ -115,9 +132,11 @@ pub(super) mod defs {
         p_memory_host_pointer_properties: *mut MemoryHostPointerPropertiesEXT<'_>,
     ) -> vk::Result;
 }
+
 pub struct DeviceFn {
     get_memory_host_pointer_properties_ext: PFN_vkGetMemoryHostPointerPropertiesEXT,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -131,6 +150,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryHostPointerPropertiesEXT.html>
     pub unsafe fn get_memory_host_pointer_properties_ext(

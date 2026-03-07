@@ -2,13 +2,16 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     pub const PARTITIONED_ACCELERATION_STRUCTURE_PARTITION_INDEX_GLOBAL_NV: u32 = !0;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePartitionedAccelerationStructureFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,12 +21,14 @@ pub(super) mod defs {
         pub partitioned_acceleration_structure: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a>
         for PhysicalDevicePartitionedAccelerationStructureFeaturesNV<'a>
     {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_FEATURES_NV;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDevicePartitionedAccelerationStructureFeaturesNV<'a>
     {
@@ -32,6 +37,7 @@ pub(super) mod defs {
         for PhysicalDevicePartitionedAccelerationStructureFeaturesNV<'a>
     {
     }
+
     impl Default for PhysicalDevicePartitionedAccelerationStructureFeaturesNV<'_> {
         fn default() -> Self {
             Self {
@@ -42,6 +48,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDevicePartitionedAccelerationStructureFeaturesNV<'a> {
         pub fn partitioned_acceleration_structure(
             mut self,
@@ -51,6 +58,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePartitionedAccelerationStructurePropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -60,16 +68,19 @@ pub(super) mod defs {
         pub max_partition_count: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a>
         for PhysicalDevicePartitionedAccelerationStructurePropertiesNV<'a>
     {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_PROPERTIES_NV;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDevicePartitionedAccelerationStructurePropertiesNV<'a>
     {
     }
+
     impl Default for PhysicalDevicePartitionedAccelerationStructurePropertiesNV<'_> {
         fn default() -> Self {
             Self {
@@ -80,12 +91,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDevicePartitionedAccelerationStructurePropertiesNV<'a> {
         pub fn max_partition_count(mut self, max_partition_count: u32) -> Self {
             self.max_partition_count = max_partition_count;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBuildPartitionedAccelerationStructureIndirectCommandNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -94,20 +107,24 @@ pub(super) mod defs {
         pub arg_count: u32,
         pub arg_data: StridedDeviceAddressNV,
     }
+
     impl BuildPartitionedAccelerationStructureIndirectCommandNV {
         pub fn op_type(mut self, op_type: PartitionedAccelerationStructureOpTypeNV) -> Self {
             self.op_type = op_type;
             self
         }
+
         pub fn arg_count(mut self, arg_count: u32) -> Self {
             self.arg_count = arg_count;
             self
         }
+
         pub fn arg_data(mut self, arg_data: StridedDeviceAddressNV) -> Self {
             self.arg_data = arg_data;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPartitionedAccelerationStructureFlagsNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -117,14 +134,17 @@ pub(super) mod defs {
         pub enable_partition_translation: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PartitionedAccelerationStructureFlagsNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PARTITIONED_ACCELERATION_STRUCTURE_FLAGS_NV;
     }
+
     unsafe impl<'a> Extends<PartitionedAccelerationStructureInstancesInputNV<'a>>
         for PartitionedAccelerationStructureFlagsNV<'a>
     {
     }
+
     impl Default for PartitionedAccelerationStructureFlagsNV<'_> {
         fn default() -> Self {
             Self {
@@ -135,12 +155,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PartitionedAccelerationStructureFlagsNV<'a> {
         pub fn enable_partition_translation(mut self, enable_partition_translation: bool) -> Self {
             self.enable_partition_translation = enable_partition_translation.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPartitionedAccelerationStructureWriteInstanceDataNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -155,6 +177,7 @@ pub(super) mod defs {
         pub partition_index: u32,
         pub acceleration_structure: DeviceAddress,
     }
+
     impl Default for PartitionedAccelerationStructureWriteInstanceDataNV {
         fn default() -> Self {
             Self {
@@ -170,23 +193,28 @@ pub(super) mod defs {
             }
         }
     }
+
     impl PartitionedAccelerationStructureWriteInstanceDataNV {
         pub fn transform(mut self, transform: TransformMatrixKHR) -> Self {
             self.transform = transform;
             self
         }
+
         pub fn explicit_aabb(mut self, explicit_aabb: [f32; 6]) -> Self {
             self.explicit_aabb = explicit_aabb;
             self
         }
+
         pub fn instance_id(mut self, instance_id: u32) -> Self {
             self.instance_id = instance_id;
             self
         }
+
         pub fn instance_mask(mut self, instance_mask: u32) -> Self {
             self.instance_mask = instance_mask;
             self
         }
+
         pub fn instance_contribution_to_hit_group_index(
             mut self,
             instance_contribution_to_hit_group_index: u32,
@@ -195,6 +223,7 @@ pub(super) mod defs {
                 instance_contribution_to_hit_group_index;
             self
         }
+
         pub fn instance_flags(
             mut self,
             instance_flags: PartitionedAccelerationStructureInstanceFlagsNV,
@@ -202,19 +231,23 @@ pub(super) mod defs {
             self.instance_flags = instance_flags;
             self
         }
+
         pub fn instance_index(mut self, instance_index: u32) -> Self {
             self.instance_index = instance_index;
             self
         }
+
         pub fn partition_index(mut self, partition_index: u32) -> Self {
             self.partition_index = partition_index;
             self
         }
+
         pub fn acceleration_structure(mut self, acceleration_structure: DeviceAddress) -> Self {
             self.acceleration_structure = acceleration_structure;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPartitionedAccelerationStructureUpdateInstanceDataNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -223,11 +256,13 @@ pub(super) mod defs {
         pub instance_contribution_to_hit_group_index: u32,
         pub acceleration_structure: DeviceAddress,
     }
+
     impl PartitionedAccelerationStructureUpdateInstanceDataNV {
         pub fn instance_index(mut self, instance_index: u32) -> Self {
             self.instance_index = instance_index;
             self
         }
+
         pub fn instance_contribution_to_hit_group_index(
             mut self,
             instance_contribution_to_hit_group_index: u32,
@@ -236,11 +271,13 @@ pub(super) mod defs {
                 instance_contribution_to_hit_group_index;
             self
         }
+
         pub fn acceleration_structure(mut self, acceleration_structure: DeviceAddress) -> Self {
             self.acceleration_structure = acceleration_structure;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPartitionedAccelerationStructureWritePartitionTranslationDataNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -248,6 +285,7 @@ pub(super) mod defs {
         pub partition_index: u32,
         pub partition_translation: [f32; 3],
     }
+
     impl Default for PartitionedAccelerationStructureWritePartitionTranslationDataNV {
         fn default() -> Self {
             Self {
@@ -256,16 +294,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl PartitionedAccelerationStructureWritePartitionTranslationDataNV {
         pub fn partition_index(mut self, partition_index: u32) -> Self {
             self.partition_index = partition_index;
             self
         }
+
         pub fn partition_translation(mut self, partition_translation: [f32; 3]) -> Self {
             self.partition_translation = partition_translation;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkWriteDescriptorSetPartitionedAccelerationStructureNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -276,14 +317,17 @@ pub(super) mod defs {
         pub p_acceleration_structures: *const DeviceAddress,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for WriteDescriptorSetPartitionedAccelerationStructureNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::WRITE_DESCRIPTOR_SET_PARTITIONED_ACCELERATION_STRUCTURE_NV;
     }
+
     unsafe impl<'a> Extends<WriteDescriptorSet<'a>>
         for WriteDescriptorSetPartitionedAccelerationStructureNV<'a>
     {
     }
+
     impl Default for WriteDescriptorSetPartitionedAccelerationStructureNV<'_> {
         fn default() -> Self {
             Self {
@@ -295,6 +339,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> WriteDescriptorSetPartitionedAccelerationStructureNV<'a> {
         pub fn acceleration_structures(
             mut self,
@@ -305,6 +350,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPartitionedAccelerationStructureInstancesInputNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -318,10 +364,12 @@ pub(super) mod defs {
         pub max_instance_in_global_partition_count: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PartitionedAccelerationStructureInstancesInputNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PARTITIONED_ACCELERATION_STRUCTURE_INSTANCES_INPUT_NV;
     }
+
     impl Default for PartitionedAccelerationStructureInstancesInputNV<'_> {
         fn default() -> Self {
             Self {
@@ -336,15 +384,18 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PartitionedAccelerationStructureInstancesInputNV<'a> {
         pub fn flags(mut self, flags: BuildAccelerationStructureFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn instance_count(mut self, instance_count: u32) -> Self {
             self.instance_count = instance_count;
             self
         }
+
         pub fn max_instance_per_partition_count(
             mut self,
             max_instance_per_partition_count: u32,
@@ -352,10 +403,12 @@ pub(super) mod defs {
             self.max_instance_per_partition_count = max_instance_per_partition_count;
             self
         }
+
         pub fn partition_count(mut self, partition_count: u32) -> Self {
             self.partition_count = partition_count;
             self
         }
+
         pub fn max_instance_in_global_partition_count(
             mut self,
             max_instance_in_global_partition_count: u32,
@@ -364,6 +417,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBuildPartitionedAccelerationStructureInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -378,10 +432,12 @@ pub(super) mod defs {
         pub src_infos_count: DeviceAddress,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for BuildPartitionedAccelerationStructureInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::BUILD_PARTITIONED_ACCELERATION_STRUCTURE_INFO_NV;
     }
+
     impl Default for BuildPartitionedAccelerationStructureInfoNV<'_> {
         fn default() -> Self {
             Self {
@@ -397,6 +453,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> BuildPartitionedAccelerationStructureInfoNV<'a> {
         pub fn input(
             mut self,
@@ -405,6 +462,7 @@ pub(super) mod defs {
             self.input = input;
             self
         }
+
         pub fn src_acceleration_structure_data(
             mut self,
             src_acceleration_structure_data: DeviceAddress,
@@ -412,6 +470,7 @@ pub(super) mod defs {
             self.src_acceleration_structure_data = src_acceleration_structure_data;
             self
         }
+
         pub fn dst_acceleration_structure_data(
             mut self,
             dst_acceleration_structure_data: DeviceAddress,
@@ -419,28 +478,34 @@ pub(super) mod defs {
             self.dst_acceleration_structure_data = dst_acceleration_structure_data;
             self
         }
+
         pub fn scratch_data(mut self, scratch_data: DeviceAddress) -> Self {
             self.scratch_data = scratch_data;
             self
         }
+
         pub fn src_infos(mut self, src_infos: DeviceAddress) -> Self {
             self.src_infos = src_infos;
             self
         }
+
         pub fn src_infos_count(mut self, src_infos_count: DeviceAddress) -> Self {
             self.src_infos_count = src_infos_count;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPartitionedAccelerationStructureOpTypeNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PartitionedAccelerationStructureOpTypeNV(i32);
+
     impl PartitionedAccelerationStructureOpTypeNV {
         pub const WRITE_INSTANCE_NV: Self = Self(0);
         pub const UPDATE_INSTANCE_NV: Self = Self(1);
         pub const WRITE_PARTITION_TRANSLATION_NV: Self = Self(2);
     }
+
     impl fmt::Debug for PartitionedAccelerationStructureOpTypeNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -456,11 +521,13 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPartitionedAccelerationStructureInstanceFlagsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PartitionedAccelerationStructureInstanceFlagsNV(Flags);
     vk_bitflags_wrapped!(PartitionedAccelerationStructureInstanceFlagsNV, Flags);
+
     impl PartitionedAccelerationStructureInstanceFlagsNV {
         pub const FLAG_TRIANGLE_FACING_CULL_DISABLE_NV: Self = Self(PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_TRIANGLE_FACING_CULL_DISABLE_NV.0);
         pub const FLAG_TRIANGLE_FLIP_FACING_NV: Self = Self(
@@ -472,6 +539,7 @@ pub(super) mod defs {
             Self(PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_FORCE_NO_OPAQUE_NV.0);
         pub const FLAG_ENABLE_EXPLICIT_BOUNDING_BOX_NV: Self = Self(PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_ENABLE_EXPLICIT_BOUNDING_BOX_NV.0);
     }
+
     impl fmt::Debug for PartitionedAccelerationStructureInstanceFlagsNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -484,10 +552,12 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPartitionedAccelerationStructureInstanceFlagBitsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PartitionedAccelerationStructureInstanceFlagBitsNV(u32);
+
     impl PartitionedAccelerationStructureInstanceFlagBitsNV {
         pub const FLAG_TRIANGLE_FACING_CULL_DISABLE_NV: Self = Self(1 << 0);
         pub const FLAG_TRIANGLE_FLIP_FACING_NV: Self = Self(1 << 1);
@@ -495,6 +565,7 @@ pub(super) mod defs {
         pub const FLAG_FORCE_NO_OPAQUE_NV: Self = Self(1 << 3);
         pub const FLAG_ENABLE_EXPLICIT_BOUNDING_BOX_NV: Self = Self(1 << 4);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPartitionedAccelerationStructuresBuildSizesNV.html>
     pub type PFN_vkGetPartitionedAccelerationStructuresBuildSizesNV = unsafe extern "system" fn(
         device: Device,
@@ -507,12 +578,14 @@ pub(super) mod defs {
         p_build_info: *const BuildPartitionedAccelerationStructureInfoNV<'_>,
     );
 }
+
 pub struct DeviceFn {
     get_partitioned_acceleration_structures_build_sizes_nv:
         PFN_vkGetPartitionedAccelerationStructuresBuildSizesNV,
     cmd_build_partitioned_acceleration_structures_nv:
         PFN_vkCmdBuildPartitionedAccelerationStructuresNV,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -531,6 +604,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPartitionedAccelerationStructuresBuildSizesNV.html>
     pub unsafe fn get_partitioned_acceleration_structures_build_sizes_nv(
@@ -543,6 +617,7 @@ impl DeviceFn {
             (self.get_partitioned_acceleration_structures_build_sizes_nv)(device, info, size_info)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBuildPartitionedAccelerationStructuresNV.html>
     pub unsafe fn cmd_build_partitioned_acceleration_structures_nv(
         &self,

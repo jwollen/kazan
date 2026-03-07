@@ -2,17 +2,20 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     handle_nondispatchable!(
         SurfaceKHR,
         SURFACE_KHR,
         doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceKHR.html>"
     );
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceCapabilitiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -28,31 +31,38 @@ pub(super) mod defs {
         pub supported_composite_alpha: CompositeAlphaFlagsKHR,
         pub supported_usage_flags: ImageUsageFlags,
     }
+
     impl SurfaceCapabilitiesKHR {
         pub fn min_image_count(mut self, min_image_count: u32) -> Self {
             self.min_image_count = min_image_count;
             self
         }
+
         pub fn max_image_count(mut self, max_image_count: u32) -> Self {
             self.max_image_count = max_image_count;
             self
         }
+
         pub fn current_extent(mut self, current_extent: Extent2D) -> Self {
             self.current_extent = current_extent;
             self
         }
+
         pub fn min_image_extent(mut self, min_image_extent: Extent2D) -> Self {
             self.min_image_extent = min_image_extent;
             self
         }
+
         pub fn max_image_extent(mut self, max_image_extent: Extent2D) -> Self {
             self.max_image_extent = max_image_extent;
             self
         }
+
         pub fn max_image_array_layers(mut self, max_image_array_layers: u32) -> Self {
             self.max_image_array_layers = max_image_array_layers;
             self
         }
+
         pub fn supported_transforms(
             mut self,
             supported_transforms: SurfaceTransformFlagsKHR,
@@ -60,10 +70,12 @@ pub(super) mod defs {
             self.supported_transforms = supported_transforms;
             self
         }
+
         pub fn current_transform(mut self, current_transform: SurfaceTransformFlagBitsKHR) -> Self {
             self.current_transform = current_transform;
             self
         }
+
         pub fn supported_composite_alpha(
             mut self,
             supported_composite_alpha: CompositeAlphaFlagsKHR,
@@ -71,11 +83,13 @@ pub(super) mod defs {
             self.supported_composite_alpha = supported_composite_alpha;
             self
         }
+
         pub fn supported_usage_flags(mut self, supported_usage_flags: ImageUsageFlags) -> Self {
             self.supported_usage_flags = supported_usage_flags;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceFormatKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -83,20 +97,24 @@ pub(super) mod defs {
         pub format: Format,
         pub color_space: ColorSpaceKHR,
     }
+
     impl SurfaceFormatKHR {
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
         }
+
         pub fn color_space(mut self, color_space: ColorSpaceKHR) -> Self {
             self.color_space = color_space;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentModeKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PresentModeKHR(i32);
+
     impl PresentModeKHR {
         pub const IMMEDIATE_KHR: Self = Self(0);
         pub const MAILBOX_KHR: Self = Self(1);
@@ -104,12 +122,15 @@ pub(super) mod defs {
         pub const FIFO_RELAXED_KHR: Self = Self(3);
         // VK_EXT_present_mode_fifo_latest_ready
         pub const FIFO_LATEST_READY_EXT: Self = Self::FIFO_LATEST_READY_KHR;
+
         // VK_KHR_present_mode_fifo_latest_ready
         pub const FIFO_LATEST_READY_KHR: Self = Self(1000361000);
+
         // VK_KHR_shared_presentable_image
         pub const SHARED_DEMAND_REFRESH_KHR: Self = Self(1000111000);
         pub const SHARED_CONTINUOUS_REFRESH_KHR: Self = Self(1000111001);
     }
+
     impl fmt::Debug for PresentModeKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -129,14 +150,17 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkColorSpaceKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ColorSpaceKHR(i32);
+
     impl ColorSpaceKHR {
         pub const SRGB_NONLINEAR_KHR: Self = Self(0);
         // VK_AMD_display_native_hdr
         pub const DISPLAY_NATIVE_AMD: Self = Self(1000213000);
+
         // VK_EXT_swapchain_colorspace
         pub const DISPLAY_P3_NONLINEAR_EXT: Self = Self(1000104001);
         pub const EXTENDED_SRGB_LINEAR_EXT: Self = Self(1000104002);
@@ -154,6 +178,7 @@ pub(super) mod defs {
         pub const EXTENDED_SRGB_NONLINEAR_EXT: Self = Self(1000104014);
         pub const DCI_P3_LINEAR_EXT: Self = Self::DISPLAY_P3_LINEAR_EXT;
     }
+
     impl fmt::Debug for ColorSpaceKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -182,11 +207,13 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCompositeAlphaFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct CompositeAlphaFlagsKHR(Flags);
     vk_bitflags_wrapped!(CompositeAlphaFlagsKHR, Flags);
+
     impl CompositeAlphaFlagsKHR {
         pub const OPAQUE_KHR: Self = Self(CompositeAlphaFlagBitsKHR::OPAQUE_KHR.0);
         pub const PRE_MULTIPLIED_KHR: Self = Self(CompositeAlphaFlagBitsKHR::PRE_MULTIPLIED_KHR.0);
@@ -194,6 +221,7 @@ pub(super) mod defs {
             Self(CompositeAlphaFlagBitsKHR::POST_MULTIPLIED_KHR.0);
         pub const INHERIT_KHR: Self = Self(CompositeAlphaFlagBitsKHR::INHERIT_KHR.0);
     }
+
     impl fmt::Debug for CompositeAlphaFlagsKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -211,16 +239,19 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCompositeAlphaFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct CompositeAlphaFlagBitsKHR(u32);
+
     impl CompositeAlphaFlagBitsKHR {
         pub const OPAQUE_KHR: Self = Self(1 << 0);
         pub const PRE_MULTIPLIED_KHR: Self = Self(1 << 1);
         pub const POST_MULTIPLIED_KHR: Self = Self(1 << 2);
         pub const INHERIT_KHR: Self = Self(1 << 3);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroySurfaceKHR.html>
     pub type PFN_vkDestroySurfaceKHR = unsafe extern "system" fn(
         instance: Instance,
@@ -259,6 +290,7 @@ pub(super) mod defs {
             p_present_modes: *mut PresentModeKHR,
         ) -> vk::Result;
 }
+
 pub struct InstanceFn {
     destroy_surface_khr: PFN_vkDestroySurfaceKHR,
     get_physical_device_surface_support_khr: PFN_vkGetPhysicalDeviceSurfaceSupportKHR,
@@ -266,6 +298,7 @@ pub struct InstanceFn {
     get_physical_device_surface_formats_khr: PFN_vkGetPhysicalDeviceSurfaceFormatsKHR,
     get_physical_device_surface_present_modes_khr: PFN_vkGetPhysicalDeviceSurfacePresentModesKHR,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -293,6 +326,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroySurfaceKHR.html>
     pub unsafe fn destroy_surface_khr(
@@ -303,6 +337,7 @@ impl InstanceFn {
     ) {
         unsafe { (self.destroy_surface_khr)(instance, surface, allocator.to_raw_ptr()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceSupportKHR.html>
     pub unsafe fn get_physical_device_surface_support_khr(
         &self,
@@ -325,6 +360,7 @@ impl InstanceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html>
     pub unsafe fn get_physical_device_surface_capabilities_khr(
         &self,
@@ -345,6 +381,7 @@ impl InstanceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceFormatsKHR.html>
     pub unsafe fn get_physical_device_surface_formats_khr(
         &self,
@@ -377,6 +414,7 @@ impl InstanceFn {
             Ok(result)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfacePresentModesKHR.html>
     pub unsafe fn get_physical_device_surface_present_modes_khr(
         &self,

@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePipelineOpacityMicromapFeaturesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,10 +19,12 @@ pub(super) mod defs {
         pub pipeline_opacity_micromap: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePipelineOpacityMicromapFeaturesARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PIPELINE_OPACITY_MICROMAP_FEATURES_ARM;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDevicePipelineOpacityMicromapFeaturesARM<'a>
     {
@@ -29,6 +33,7 @@ pub(super) mod defs {
         for PhysicalDevicePipelineOpacityMicromapFeaturesARM<'a>
     {
     }
+
     impl Default for PhysicalDevicePipelineOpacityMicromapFeaturesARM<'_> {
         fn default() -> Self {
             Self {
@@ -39,6 +44,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDevicePipelineOpacityMicromapFeaturesARM<'a> {
         pub fn pipeline_opacity_micromap(mut self, pipeline_opacity_micromap: bool) -> Self {
             self.pipeline_opacity_micromap = pipeline_opacity_micromap.into();

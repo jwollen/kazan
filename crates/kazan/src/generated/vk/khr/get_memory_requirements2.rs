@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferMemoryRequirementsInfo2KHR.html>
     pub type BufferMemoryRequirementsInfo2KHR<'a> = BufferMemoryRequirementsInfo2<'a>;
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageMemoryRequirementsInfo2KHR.html>
@@ -22,11 +24,13 @@ pub(super) mod defs {
     pub type PFN_vkGetImageMemoryRequirements2KHR = PFN_vkGetImageMemoryRequirements2;
     pub type PFN_vkGetImageSparseMemoryRequirements2KHR = PFN_vkGetImageSparseMemoryRequirements2;
 }
+
 pub struct DeviceFn {
     get_image_memory_requirements2_khr: PFN_vkGetImageMemoryRequirements2,
     get_buffer_memory_requirements2_khr: PFN_vkGetBufferMemoryRequirements2,
     get_image_sparse_memory_requirements2_khr: PFN_vkGetImageSparseMemoryRequirements2,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -47,6 +51,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageMemoryRequirements2KHR.html>
     pub unsafe fn get_image_memory_requirements2_khr(
@@ -57,6 +62,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.get_image_memory_requirements2_khr)(device, info, memory_requirements) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferMemoryRequirements2KHR.html>
     pub unsafe fn get_buffer_memory_requirements2_khr(
         &self,
@@ -66,6 +72,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.get_buffer_memory_requirements2_khr)(device, info, memory_requirements) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageSparseMemoryRequirements2KHR.html>
     pub unsafe fn get_image_sparse_memory_requirements2_khr<'a>(
         &self,

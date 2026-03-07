@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassCreationControlEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,11 +19,14 @@ pub(super) mod defs {
         pub disallow_merging: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for RenderPassCreationControlEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::RENDER_PASS_CREATION_CONTROL_EXT;
     }
+
     unsafe impl<'a> Extends<RenderPassCreateInfo2<'a>> for RenderPassCreationControlEXT<'a> {}
     unsafe impl<'a> Extends<SubpassDescription2<'a>> for RenderPassCreationControlEXT<'a> {}
+
     impl Default for RenderPassCreationControlEXT<'_> {
         fn default() -> Self {
             Self {
@@ -32,24 +37,28 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> RenderPassCreationControlEXT<'a> {
         pub fn disallow_merging(mut self, disallow_merging: bool) -> Self {
             self.disallow_merging = disallow_merging.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassCreationFeedbackInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct RenderPassCreationFeedbackInfoEXT {
         pub post_merge_subpass_count: u32,
     }
+
     impl RenderPassCreationFeedbackInfoEXT {
         pub fn post_merge_subpass_count(mut self, post_merge_subpass_count: u32) -> Self {
             self.post_merge_subpass_count = post_merge_subpass_count;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassCreationFeedbackCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -59,11 +68,14 @@ pub(super) mod defs {
         pub p_render_pass_feedback: *mut RenderPassCreationFeedbackInfoEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for RenderPassCreationFeedbackCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::RENDER_PASS_CREATION_FEEDBACK_CREATE_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<RenderPassCreateInfo2<'a>> for RenderPassCreationFeedbackCreateInfoEXT<'a> {}
+
     impl Default for RenderPassCreationFeedbackCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -74,6 +86,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> RenderPassCreationFeedbackCreateInfoEXT<'a> {
         pub fn render_pass_feedback(
             mut self,
@@ -83,6 +96,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassSubpassFeedbackInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -91,6 +105,7 @@ pub(super) mod defs {
         pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
         pub post_merge_index: u32,
     }
+
     impl Default for RenderPassSubpassFeedbackInfoEXT {
         fn default() -> Self {
             Self {
@@ -100,16 +115,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl RenderPassSubpassFeedbackInfoEXT {
         pub fn subpass_merge_status(mut self, subpass_merge_status: SubpassMergeStatusEXT) -> Self {
             self.subpass_merge_status = subpass_merge_status;
             self
         }
+
         pub fn post_merge_index(mut self, post_merge_index: u32) -> Self {
             self.post_merge_index = post_merge_index;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassSubpassFeedbackCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -119,11 +137,14 @@ pub(super) mod defs {
         pub p_subpass_feedback: *mut RenderPassSubpassFeedbackInfoEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for RenderPassSubpassFeedbackCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::RENDER_PASS_SUBPASS_FEEDBACK_CREATE_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<SubpassDescription2<'a>> for RenderPassSubpassFeedbackCreateInfoEXT<'a> {}
+
     impl Default for RenderPassSubpassFeedbackCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -134,6 +155,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> RenderPassSubpassFeedbackCreateInfoEXT<'a> {
         pub fn subpass_feedback(
             mut self,
@@ -143,6 +165,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSubpassMergeFeedbackFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -152,10 +175,12 @@ pub(super) mod defs {
         pub subpass_merge_feedback: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SUBPASS_MERGE_FEEDBACK_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'a>
     {
@@ -164,6 +189,7 @@ pub(super) mod defs {
         for PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'a>
     {
     }
+
     impl Default for PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -174,16 +200,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'a> {
         pub fn subpass_merge_feedback(mut self, subpass_merge_feedback: bool) -> Self {
             self.subpass_merge_feedback = subpass_merge_feedback.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassMergeStatusEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct SubpassMergeStatusEXT(i32);
+
     impl SubpassMergeStatusEXT {
         pub const MERGED_EXT: Self = Self(0);
         pub const DISALLOWED_EXT: Self = Self(1);
@@ -200,6 +229,7 @@ pub(super) mod defs {
         pub const NOT_MERGED_SINGLE_SUBPASS_EXT: Self = Self(12);
         pub const NOT_MERGED_UNSPECIFIED_EXT: Self = Self(13);
     }
+
     impl fmt::Debug for SubpassMergeStatusEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {

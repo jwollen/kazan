@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMemoryPriorityFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,15 +19,18 @@ pub(super) mod defs {
         pub memory_priority: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMemoryPriorityFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_MEMORY_PRIORITY_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceMemoryPriorityFeaturesEXT<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceMemoryPriorityFeaturesEXT<'a> {}
+
     impl Default for PhysicalDeviceMemoryPriorityFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -36,12 +41,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceMemoryPriorityFeaturesEXT<'a> {
         pub fn memory_priority(mut self, memory_priority: bool) -> Self {
             self.memory_priority = memory_priority.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryPriorityAllocateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -51,10 +58,13 @@ pub(super) mod defs {
         pub priority: f32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for MemoryPriorityAllocateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_PRIORITY_ALLOCATE_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for MemoryPriorityAllocateInfoEXT<'a> {}
+
     impl Default for MemoryPriorityAllocateInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -65,6 +75,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> MemoryPriorityAllocateInfoEXT<'a> {
         pub fn priority(mut self, priority: f32) -> Self {
             self.priority = priority;

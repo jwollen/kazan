@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMacOSSurfaceCreateInfoMVK.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,9 +20,11 @@ pub(super) mod defs {
         pub p_view: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for MacOSSurfaceCreateInfoMVK<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::MACOS_SURFACE_CREATE_INFO_MVK;
     }
+
     impl Default for MacOSSurfaceCreateInfoMVK<'_> {
         fn default() -> Self {
             Self {
@@ -32,26 +36,31 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> MacOSSurfaceCreateInfoMVK<'a> {
         pub fn flags(mut self, flags: MacOSSurfaceCreateFlagsMVK) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn view(mut self, view: *const c_void) -> Self {
             self.p_view = view;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMacOSSurfaceCreateFlagsMVK.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct MacOSSurfaceCreateFlagsMVK(Flags);
     vk_bitflags_wrapped!(MacOSSurfaceCreateFlagsMVK, Flags);
+
     impl fmt::Debug for MacOSSurfaceCreateFlagsMVK {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateMacOSSurfaceMVK.html>
     pub type PFN_vkCreateMacOSSurfaceMVK = unsafe extern "system" fn(
         instance: Instance,
@@ -60,9 +69,11 @@ pub(super) mod defs {
         p_surface: *mut SurfaceKHR,
     ) -> vk::Result;
 }
+
 pub struct InstanceFn {
     create_mac_os_surface_mvk: PFN_vkCreateMacOSSurfaceMVK,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -76,6 +87,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateMacOSSurfaceMVK.html>
     pub unsafe fn create_mac_os_surface_mvk(

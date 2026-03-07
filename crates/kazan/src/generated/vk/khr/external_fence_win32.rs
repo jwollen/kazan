@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportFenceWin32HandleInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -21,9 +23,11 @@ pub(super) mod defs {
         pub name: LPCWSTR,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportFenceWin32HandleInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_FENCE_WIN32_HANDLE_INFO_KHR;
     }
+
     impl Default for ImportFenceWin32HandleInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -38,28 +42,34 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ImportFenceWin32HandleInfoKHR<'a> {
         pub fn fence(mut self, fence: Fence) -> Self {
             self.fence = fence;
             self
         }
+
         pub fn flags(mut self, flags: FenceImportFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn handle_type(mut self, handle_type: ExternalFenceHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
         }
+
         pub fn handle(mut self, handle: HANDLE) -> Self {
             self.handle = handle;
             self
         }
+
         pub fn name(mut self, name: LPCWSTR) -> Self {
             self.name = name;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportFenceWin32HandleInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -71,10 +81,13 @@ pub(super) mod defs {
         pub name: LPCWSTR,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ExportFenceWin32HandleInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_FENCE_WIN32_HANDLE_INFO_KHR;
     }
+
     unsafe impl<'a> Extends<FenceCreateInfo<'a>> for ExportFenceWin32HandleInfoKHR<'a> {}
+
     impl Default for ExportFenceWin32HandleInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -87,20 +100,24 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ExportFenceWin32HandleInfoKHR<'a> {
         pub fn attributes(mut self, attributes: *const SECURITY_ATTRIBUTES) -> Self {
             self.p_attributes = attributes;
             self
         }
+
         pub fn dw_access(mut self, dw_access: DWORD) -> Self {
             self.dw_access = dw_access;
             self
         }
+
         pub fn name(mut self, name: LPCWSTR) -> Self {
             self.name = name;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFenceGetWin32HandleInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -111,9 +128,11 @@ pub(super) mod defs {
         pub handle_type: ExternalFenceHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for FenceGetWin32HandleInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::FENCE_GET_WIN32_HANDLE_INFO_KHR;
     }
+
     impl Default for FenceGetWin32HandleInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -125,16 +144,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> FenceGetWin32HandleInfoKHR<'a> {
         pub fn fence(mut self, fence: Fence) -> Self {
             self.fence = fence;
             self
         }
+
         pub fn handle_type(mut self, handle_type: ExternalFenceHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetFenceWin32HandleKHR.html>
     pub type PFN_vkGetFenceWin32HandleKHR = unsafe extern "system" fn(
         device: Device,
@@ -147,10 +169,12 @@ pub(super) mod defs {
         p_import_fence_win32_handle_info: *const ImportFenceWin32HandleInfoKHR<'_>,
     ) -> vk::Result;
 }
+
 pub struct DeviceFn {
     import_fence_win32_handle_khr: PFN_vkImportFenceWin32HandleKHR,
     get_fence_win32_handle_khr: PFN_vkGetFenceWin32HandleKHR,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -167,6 +191,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportFenceWin32HandleKHR.html>
     pub unsafe fn import_fence_win32_handle_khr(
@@ -184,6 +209,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetFenceWin32HandleKHR.html>
     pub unsafe fn get_fence_win32_handle_khr(
         &self,

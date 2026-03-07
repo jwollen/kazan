@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,10 +20,12 @@ pub(super) mod defs {
         pub compute_derivative_group_linear: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceComputeShaderDerivativesFeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_FEATURES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceComputeShaderDerivativesFeaturesKHR<'a>
     {
@@ -30,6 +34,7 @@ pub(super) mod defs {
         for PhysicalDeviceComputeShaderDerivativesFeaturesKHR<'a>
     {
     }
+
     impl Default for PhysicalDeviceComputeShaderDerivativesFeaturesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -41,6 +46,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceComputeShaderDerivativesFeaturesKHR<'a> {
         pub fn compute_derivative_group_quads(
             mut self,
@@ -49,6 +55,7 @@ pub(super) mod defs {
             self.compute_derivative_group_quads = compute_derivative_group_quads.into();
             self
         }
+
         pub fn compute_derivative_group_linear(
             mut self,
             compute_derivative_group_linear: bool,
@@ -57,6 +64,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -66,14 +74,17 @@ pub(super) mod defs {
         pub mesh_and_task_shader_derivatives: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceComputeShaderDerivativesPropertiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_PROPERTIES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceComputeShaderDerivativesPropertiesKHR<'a>
     {
     }
+
     impl Default for PhysicalDeviceComputeShaderDerivativesPropertiesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -84,6 +95,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceComputeShaderDerivativesPropertiesKHR<'a> {
         pub fn mesh_and_task_shader_derivatives(
             mut self,

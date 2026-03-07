@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceYcbcrDegammaFeaturesQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,15 +19,18 @@ pub(super) mod defs {
         pub ycbcr_degamma: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceYcbcrDegammaFeaturesQCOM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_YCBCR_DEGAMMA_FEATURES_QCOM;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceYcbcrDegammaFeaturesQCOM<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceYcbcrDegammaFeaturesQCOM<'a> {}
+
     impl Default for PhysicalDeviceYcbcrDegammaFeaturesQCOM<'_> {
         fn default() -> Self {
             Self {
@@ -36,12 +41,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceYcbcrDegammaFeaturesQCOM<'a> {
         pub fn ycbcr_degamma(mut self, ycbcr_degamma: bool) -> Self {
             self.ycbcr_degamma = ycbcr_degamma.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -52,14 +59,17 @@ pub(super) mod defs {
         pub enable_cb_cr_degamma: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for SamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::SAMPLER_YCBCR_CONVERSION_YCBCR_DEGAMMA_CREATE_INFO_QCOM;
     }
+
     unsafe impl<'a> Extends<SamplerYcbcrConversionCreateInfo<'a>>
         for SamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM<'a>
     {
     }
+
     impl Default for SamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM<'_> {
         fn default() -> Self {
             Self {
@@ -71,11 +81,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM<'a> {
         pub fn enable_y_degamma(mut self, enable_y_degamma: bool) -> Self {
             self.enable_y_degamma = enable_y_degamma.into();
             self
         }
+
         pub fn enable_cb_cr_degamma(mut self, enable_cb_cr_degamma: bool) -> Self {
             self.enable_cb_cr_degamma = enable_cb_cr_degamma.into();
             self

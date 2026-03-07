@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCoverageToColorStateCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -19,14 +21,17 @@ pub(super) mod defs {
         pub coverage_to_color_location: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineCoverageToColorStateCreateInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_COVERAGE_TO_COLOR_STATE_CREATE_INFO_NV;
     }
+
     unsafe impl<'a> Extends<PipelineMultisampleStateCreateInfo<'a>>
         for PipelineCoverageToColorStateCreateInfoNV<'a>
     {
     }
+
     impl Default for PipelineCoverageToColorStateCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
@@ -39,25 +44,30 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineCoverageToColorStateCreateInfoNV<'a> {
         pub fn flags(mut self, flags: PipelineCoverageToColorStateCreateFlagsNV) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn coverage_to_color_enable(mut self, coverage_to_color_enable: bool) -> Self {
             self.coverage_to_color_enable = coverage_to_color_enable.into();
             self
         }
+
         pub fn coverage_to_color_location(mut self, coverage_to_color_location: u32) -> Self {
             self.coverage_to_color_location = coverage_to_color_location;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCoverageToColorStateCreateFlagsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineCoverageToColorStateCreateFlagsNV(Flags);
     vk_bitflags_wrapped!(PipelineCoverageToColorStateCreateFlagsNV, Flags);
+
     impl fmt::Debug for PipelineCoverageToColorStateCreateFlagsNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)

@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkValidationFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -20,12 +22,15 @@ pub(super) mod defs {
         pub p_disabled_validation_features: *const ValidationFeatureDisableEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ValidationFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VALIDATION_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<InstanceCreateInfo<'a>> for ValidationFeaturesEXT<'a> {}
     unsafe impl<'a> Extends<ShaderModuleCreateInfo<'a>> for ValidationFeaturesEXT<'a> {}
     unsafe impl<'a> Extends<ShaderCreateInfoEXT<'a>> for ValidationFeaturesEXT<'a> {}
+
     impl Default for ValidationFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -39,6 +44,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ValidationFeaturesEXT<'a> {
         pub fn enabled_validation_features(
             mut self,
@@ -49,6 +55,7 @@ pub(super) mod defs {
             self.p_enabled_validation_features = enabled_validation_features.as_ptr();
             self
         }
+
         pub fn disabled_validation_features(
             mut self,
             disabled_validation_features: &'a [ValidationFeatureDisableEXT],
@@ -59,10 +66,12 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkValidationFeatureEnableEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ValidationFeatureEnableEXT(i32);
+
     impl ValidationFeatureEnableEXT {
         pub const GPU_ASSISTED_EXT: Self = Self(0);
         pub const GPU_ASSISTED_RESERVE_BINDING_SLOT_EXT: Self = Self(1);
@@ -70,6 +79,7 @@ pub(super) mod defs {
         pub const DEBUG_PRINTF_EXT: Self = Self(3);
         pub const SYNCHRONIZATION_VALIDATION_EXT: Self = Self(4);
     }
+
     impl fmt::Debug for ValidationFeatureEnableEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -89,10 +99,12 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkValidationFeatureDisableEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ValidationFeatureDisableEXT(i32);
+
     impl ValidationFeatureDisableEXT {
         pub const ALL_EXT: Self = Self(0);
         pub const SHADERS_EXT: Self = Self(1);
@@ -103,6 +115,7 @@ pub(super) mod defs {
         pub const UNIQUE_HANDLES_EXT: Self = Self(6);
         pub const SHADER_VALIDATION_CACHE_EXT: Self = Self(7);
     }
+
     impl fmt::Debug for ValidationFeatureDisableEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {

@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyMemoryIndirectCommandNV.html>
     pub type CopyMemoryIndirectCommandNV = CopyMemoryIndirectCommandKHR;
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyMemoryToImageIndirectCommandNV.html>
@@ -15,6 +17,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCopyMemoryIndirectPropertiesNV.html>
     pub type PhysicalDeviceCopyMemoryIndirectPropertiesNV<'a> =
         PhysicalDeviceCopyMemoryIndirectPropertiesKHR<'a>;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCopyMemoryIndirectFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -24,15 +27,18 @@ pub(super) mod defs {
         pub indirect_copy: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCopyMemoryIndirectFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_NV;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceCopyMemoryIndirectFeaturesNV<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceCopyMemoryIndirectFeaturesNV<'a> {}
+
     impl Default for PhysicalDeviceCopyMemoryIndirectFeaturesNV<'_> {
         fn default() -> Self {
             Self {
@@ -43,12 +49,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceCopyMemoryIndirectFeaturesNV<'a> {
         pub fn indirect_copy(mut self, indirect_copy: bool) -> Self {
             self.indirect_copy = indirect_copy.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryIndirectNV.html>
     pub type PFN_vkCmdCopyMemoryIndirectNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
@@ -67,10 +75,12 @@ pub(super) mod defs {
         p_image_subresources: *const ImageSubresourceLayers,
     );
 }
+
 pub struct DeviceFn {
     cmd_copy_memory_indirect_nv: PFN_vkCmdCopyMemoryIndirectNV,
     cmd_copy_memory_to_image_indirect_nv: PFN_vkCmdCopyMemoryToImageIndirectNV,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -87,6 +97,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryIndirectNV.html>
     pub unsafe fn cmd_copy_memory_indirect_nv(
@@ -105,6 +116,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryToImageIndirectNV.html>
     pub unsafe fn cmd_copy_memory_to_image_indirect_nv(
         &self,

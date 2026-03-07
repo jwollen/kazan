@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalFenceInfoKHR.html>
     pub type PhysicalDeviceExternalFenceInfoKHR<'a> = PhysicalDeviceExternalFenceInfo<'a>;
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalFencePropertiesKHR.html>
@@ -19,10 +21,12 @@ pub(super) mod defs {
     pub type PFN_vkGetPhysicalDeviceExternalFencePropertiesKHR =
         PFN_vkGetPhysicalDeviceExternalFenceProperties;
 }
+
 pub struct InstanceFn {
     get_physical_device_external_fence_properties_khr:
         PFN_vkGetPhysicalDeviceExternalFenceProperties,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -37,6 +41,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceExternalFencePropertiesKHR.html>
     pub unsafe fn get_physical_device_external_fence_properties_khr(

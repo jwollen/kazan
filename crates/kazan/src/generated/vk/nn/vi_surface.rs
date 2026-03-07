@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkViSurfaceCreateInfoNN.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,9 +20,11 @@ pub(super) mod defs {
         pub window: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ViSurfaceCreateInfoNN<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VI_SURFACE_CREATE_INFO_NN;
     }
+
     impl Default for ViSurfaceCreateInfoNN<'_> {
         fn default() -> Self {
             Self {
@@ -32,26 +36,31 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ViSurfaceCreateInfoNN<'a> {
         pub fn flags(mut self, flags: ViSurfaceCreateFlagsNN) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn window(mut self, window: *mut c_void) -> Self {
             self.window = window;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkViSurfaceCreateFlagsNN.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ViSurfaceCreateFlagsNN(Flags);
     vk_bitflags_wrapped!(ViSurfaceCreateFlagsNN, Flags);
+
     impl fmt::Debug for ViSurfaceCreateFlagsNN {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateViSurfaceNN.html>
     pub type PFN_vkCreateViSurfaceNN = unsafe extern "system" fn(
         instance: Instance,
@@ -60,9 +69,11 @@ pub(super) mod defs {
         p_surface: *mut SurfaceKHR,
     ) -> vk::Result;
 }
+
 pub struct InstanceFn {
     create_vi_surface_nn: PFN_vkCreateViSurfaceNN,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -76,6 +87,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateViSurfaceNN.html>
     pub unsafe fn create_vi_surface_nn(

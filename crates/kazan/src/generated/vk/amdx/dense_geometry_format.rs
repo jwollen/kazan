@@ -2,14 +2,17 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     pub const COMPRESSED_TRIANGLE_FORMAT_DGF1_BYTE_ALIGNMENT_AMDX: u32 = 128;
     pub const COMPRESSED_TRIANGLE_FORMAT_DGF1_BYTE_STRIDE_AMDX: u32 = 128;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -19,10 +22,12 @@ pub(super) mod defs {
         pub dense_geometry_format: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDenseGeometryFormatFeaturesAMDX<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_DENSE_GEOMETRY_FORMAT_FEATURES_AMDX;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceDenseGeometryFormatFeaturesAMDX<'a>
     {
@@ -31,6 +36,7 @@ pub(super) mod defs {
         for PhysicalDeviceDenseGeometryFormatFeaturesAMDX<'a>
     {
     }
+
     impl Default for PhysicalDeviceDenseGeometryFormatFeaturesAMDX<'_> {
         fn default() -> Self {
             Self {
@@ -41,12 +47,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceDenseGeometryFormatFeaturesAMDX<'a> {
         pub fn dense_geometry_format(mut self, dense_geometry_format: bool) -> Self {
             self.dense_geometry_format = dense_geometry_format.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -62,16 +70,19 @@ pub(super) mod defs {
         pub format: CompressedTriangleFormatAMDX,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a>
         for AccelerationStructureDenseGeometryFormatTrianglesDataAMDX<'a>
     {
         const STRUCTURE_TYPE: StructureType =
             StructureType::ACCELERATION_STRUCTURE_DENSE_GEOMETRY_FORMAT_TRIANGLES_DATA_AMDX;
     }
+
     unsafe impl<'a> Extends<AccelerationStructureGeometryKHR<'a>>
         for AccelerationStructureDenseGeometryFormatTrianglesDataAMDX<'a>
     {
     }
+
     impl Default for AccelerationStructureDenseGeometryFormatTrianglesDataAMDX<'_> {
         fn default() -> Self {
             Self {
@@ -88,43 +99,53 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> AccelerationStructureDenseGeometryFormatTrianglesDataAMDX<'a> {
         pub fn compressed_data(mut self, compressed_data: DeviceOrHostAddressConstKHR<'a>) -> Self {
             self.compressed_data = compressed_data;
             self
         }
+
         pub fn data_size(mut self, data_size: DeviceSize) -> Self {
             self.data_size = data_size;
             self
         }
+
         pub fn num_triangles(mut self, num_triangles: u32) -> Self {
             self.num_triangles = num_triangles;
             self
         }
+
         pub fn num_vertices(mut self, num_vertices: u32) -> Self {
             self.num_vertices = num_vertices;
             self
         }
+
         pub fn max_primitive_index(mut self, max_primitive_index: u32) -> Self {
             self.max_primitive_index = max_primitive_index;
             self
         }
+
         pub fn max_geometry_index(mut self, max_geometry_index: u32) -> Self {
             self.max_geometry_index = max_geometry_index;
             self
         }
+
         pub fn format(mut self, format: CompressedTriangleFormatAMDX) -> Self {
             self.format = format;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCompressedTriangleFormatAMDX.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct CompressedTriangleFormatAMDX(i32);
+
     impl CompressedTriangleFormatAMDX {
         pub const DGF1_AMDX: Self = Self(0);
     }
+
     impl fmt::Debug for CompressedTriangleFormatAMDX {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {

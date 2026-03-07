@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryMapInfoKHR.html>
     pub type MemoryMapInfoKHR<'a> = MemoryMapInfo<'a>;
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryUnmapInfoKHR.html>
@@ -17,10 +19,12 @@ pub(super) mod defs {
     pub type PFN_vkMapMemory2KHR = PFN_vkMapMemory2;
     pub type PFN_vkUnmapMemory2KHR = PFN_vkUnmapMemory2;
 }
+
 pub struct DeviceFn {
     map_memory2_khr: PFN_vkMapMemory2,
     unmap_memory2_khr: PFN_vkUnmapMemory2,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -35,6 +39,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkMapMemory2KHR.html>
     pub unsafe fn map_memory2_khr(
@@ -52,6 +57,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUnmapMemory2KHR.html>
     pub unsafe fn unmap_memory2_khr(
         &self,

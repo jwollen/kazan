@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceLegacyVertexAttributesFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,10 +19,12 @@ pub(super) mod defs {
         pub legacy_vertex_attributes: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceLegacyVertexAttributesFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_LEGACY_VERTEX_ATTRIBUTES_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceLegacyVertexAttributesFeaturesEXT<'a>
     {
@@ -29,6 +33,7 @@ pub(super) mod defs {
         for PhysicalDeviceLegacyVertexAttributesFeaturesEXT<'a>
     {
     }
+
     impl Default for PhysicalDeviceLegacyVertexAttributesFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -39,12 +44,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceLegacyVertexAttributesFeaturesEXT<'a> {
         pub fn legacy_vertex_attributes(mut self, legacy_vertex_attributes: bool) -> Self {
             self.legacy_vertex_attributes = legacy_vertex_attributes.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -54,14 +61,17 @@ pub(super) mod defs {
         pub native_unaligned_performance: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceLegacyVertexAttributesPropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_LEGACY_VERTEX_ATTRIBUTES_PROPERTIES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceLegacyVertexAttributesPropertiesEXT<'a>
     {
     }
+
     impl Default for PhysicalDeviceLegacyVertexAttributesPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -72,6 +82,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceLegacyVertexAttributesPropertiesEXT<'a> {
         pub fn native_unaligned_performance(mut self, native_unaligned_performance: bool) -> Self {
             self.native_unaligned_performance = native_unaligned_performance.into();

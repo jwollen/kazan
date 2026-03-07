@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSamplerBorderColorComponentMappingCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,14 +20,17 @@ pub(super) mod defs {
         pub srgb: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for SamplerBorderColorComponentMappingCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::SAMPLER_BORDER_COLOR_COMPONENT_MAPPING_CREATE_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<SamplerCreateInfo<'a>>
         for SamplerBorderColorComponentMappingCreateInfoEXT<'a>
     {
     }
+
     impl Default for SamplerBorderColorComponentMappingCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -37,16 +42,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SamplerBorderColorComponentMappingCreateInfoEXT<'a> {
         pub fn components(mut self, components: ComponentMapping) -> Self {
             self.components = components;
             self
         }
+
         pub fn srgb(mut self, srgb: bool) -> Self {
             self.srgb = srgb.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceBorderColorSwizzleFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -57,15 +65,18 @@ pub(super) mod defs {
         pub border_color_swizzle_from_image: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceBorderColorSwizzleFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_BORDER_COLOR_SWIZZLE_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceBorderColorSwizzleFeaturesEXT<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceBorderColorSwizzleFeaturesEXT<'a> {}
+
     impl Default for PhysicalDeviceBorderColorSwizzleFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -77,11 +88,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceBorderColorSwizzleFeaturesEXT<'a> {
         pub fn border_color_swizzle(mut self, border_color_swizzle: bool) -> Self {
             self.border_color_swizzle = border_color_swizzle.into();
             self
         }
+
         pub fn border_color_swizzle_from_image(
             mut self,
             border_color_swizzle_from_image: bool,

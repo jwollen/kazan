@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSamplerCustomBorderColorCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,11 +20,14 @@ pub(super) mod defs {
         pub format: Format,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for SamplerCustomBorderColorCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::SAMPLER_CUSTOM_BORDER_COLOR_CREATE_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<SamplerCreateInfo<'a>> for SamplerCustomBorderColorCreateInfoEXT<'a> {}
+
     impl Default for SamplerCustomBorderColorCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -34,16 +39,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SamplerCustomBorderColorCreateInfoEXT<'a> {
         pub fn custom_border_color(mut self, custom_border_color: ClearColorValue) -> Self {
             self.custom_border_color = custom_border_color;
             self
         }
+
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCustomBorderColorPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -53,14 +61,17 @@ pub(super) mod defs {
         pub max_custom_border_color_samplers: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCustomBorderColorPropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_PROPERTIES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceCustomBorderColorPropertiesEXT<'a>
     {
     }
+
     impl Default for PhysicalDeviceCustomBorderColorPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -71,6 +82,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceCustomBorderColorPropertiesEXT<'a> {
         pub fn max_custom_border_color_samplers(
             mut self,
@@ -80,6 +92,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCustomBorderColorFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -90,15 +103,18 @@ pub(super) mod defs {
         pub custom_border_color_without_format: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCustomBorderColorFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceCustomBorderColorFeaturesEXT<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceCustomBorderColorFeaturesEXT<'a> {}
+
     impl Default for PhysicalDeviceCustomBorderColorFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -110,11 +126,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceCustomBorderColorFeaturesEXT<'a> {
         pub fn custom_border_colors(mut self, custom_border_colors: bool) -> Self {
             self.custom_border_colors = custom_border_colors.into();
             self
         }
+
         pub fn custom_border_color_without_format(
             mut self,
             custom_border_color_without_format: bool,

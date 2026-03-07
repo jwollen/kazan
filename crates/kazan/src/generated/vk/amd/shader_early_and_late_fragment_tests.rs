@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,12 +19,14 @@ pub(super) mod defs {
         pub shader_early_and_late_fragment_tests: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a>
         for PhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD<'a>
     {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_EARLY_AND_LATE_FRAGMENT_TESTS_FEATURES_AMD;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD<'a>
     {
@@ -31,6 +35,7 @@ pub(super) mod defs {
         for PhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD<'a>
     {
     }
+
     impl Default for PhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD<'_> {
         fn default() -> Self {
             Self {
@@ -41,6 +46,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD<'a> {
         pub fn shader_early_and_late_fragment_tests(
             mut self,

@@ -2,17 +2,20 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     define_handle!(
         ExternalComputeQueueNV,
         EXTERNAL_COMPUTE_QUEUE_NV,
         doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalComputeQueueNV.html>"
     );
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalComputeQueueDeviceCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -22,11 +25,14 @@ pub(super) mod defs {
         pub reserved_external_queues: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ExternalComputeQueueDeviceCreateInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::EXTERNAL_COMPUTE_QUEUE_DEVICE_CREATE_INFO_NV;
     }
+
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for ExternalComputeQueueDeviceCreateInfoNV<'a> {}
+
     impl Default for ExternalComputeQueueDeviceCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
@@ -37,12 +43,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ExternalComputeQueueDeviceCreateInfoNV<'a> {
         pub fn reserved_external_queues(mut self, reserved_external_queues: u32) -> Self {
             self.reserved_external_queues = reserved_external_queues;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalComputeQueueCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -52,9 +60,11 @@ pub(super) mod defs {
         pub preferred_queue: Queue,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ExternalComputeQueueCreateInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_COMPUTE_QUEUE_CREATE_INFO_NV;
     }
+
     impl Default for ExternalComputeQueueCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
@@ -65,12 +75,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ExternalComputeQueueCreateInfoNV<'a> {
         pub fn preferred_queue(mut self, preferred_queue: Queue) -> Self {
             self.preferred_queue = preferred_queue;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalComputeQueueDataParamsNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -80,9 +92,11 @@ pub(super) mod defs {
         pub device_index: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ExternalComputeQueueDataParamsNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_COMPUTE_QUEUE_DATA_PARAMS_NV;
     }
+
     impl Default for ExternalComputeQueueDataParamsNV<'_> {
         fn default() -> Self {
             Self {
@@ -93,12 +107,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ExternalComputeQueueDataParamsNV<'a> {
         pub fn device_index(mut self, device_index: u32) -> Self {
             self.device_index = device_index;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalComputeQueuePropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -109,14 +125,17 @@ pub(super) mod defs {
         pub max_external_queues: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExternalComputeQueuePropertiesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_EXTERNAL_COMPUTE_QUEUE_PROPERTIES_NV;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceExternalComputeQueuePropertiesNV<'a>
     {
     }
+
     impl Default for PhysicalDeviceExternalComputeQueuePropertiesNV<'_> {
         fn default() -> Self {
             Self {
@@ -128,16 +147,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceExternalComputeQueuePropertiesNV<'a> {
         pub fn external_data_size(mut self, external_data_size: u32) -> Self {
             self.external_data_size = external_data_size;
             self
         }
+
         pub fn max_external_queues(mut self, max_external_queues: u32) -> Self {
             self.max_external_queues = max_external_queues;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateExternalComputeQueueNV.html>
     pub type PFN_vkCreateExternalComputeQueueNV = unsafe extern "system" fn(
         device: Device,
@@ -158,11 +180,13 @@ pub(super) mod defs {
         p_data: *mut c_void,
     );
 }
+
 pub struct DeviceFn {
     create_external_compute_queue_nv: PFN_vkCreateExternalComputeQueueNV,
     destroy_external_compute_queue_nv: PFN_vkDestroyExternalComputeQueueNV,
     get_external_compute_queue_data_nv: PFN_vkGetExternalComputeQueueDataNV,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -182,6 +206,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateExternalComputeQueueNV.html>
     pub unsafe fn create_external_compute_queue_nv(
@@ -205,6 +230,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyExternalComputeQueueNV.html>
     pub unsafe fn destroy_external_compute_queue_nv(
         &self,
@@ -216,6 +242,7 @@ impl DeviceFn {
             (self.destroy_external_compute_queue_nv)(device, external_queue, allocator.to_raw_ptr())
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetExternalComputeQueueDataNV.html>
     pub unsafe fn get_external_compute_queue_data_nv(
         &self,

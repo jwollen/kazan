@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDirectFBSurfaceCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -19,9 +21,11 @@ pub(super) mod defs {
         pub surface: *mut IDirectFBSurface,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DirectFBSurfaceCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DIRECTFB_SURFACE_CREATE_INFO_EXT;
     }
+
     impl Default for DirectFBSurfaceCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -34,30 +38,36 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DirectFBSurfaceCreateInfoEXT<'a> {
         pub fn flags(mut self, flags: DirectFBSurfaceCreateFlagsEXT) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn dfb(mut self, dfb: *mut IDirectFB) -> Self {
             self.dfb = dfb;
             self
         }
+
         pub fn surface(mut self, surface: *mut IDirectFBSurface) -> Self {
             self.surface = surface;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDirectFBSurfaceCreateFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DirectFBSurfaceCreateFlagsEXT(Flags);
     vk_bitflags_wrapped!(DirectFBSurfaceCreateFlagsEXT, Flags);
+
     impl fmt::Debug for DirectFBSurfaceCreateFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDirectFBSurfaceEXT.html>
     pub type PFN_vkCreateDirectFBSurfaceEXT = unsafe extern "system" fn(
         instance: Instance,
@@ -73,11 +83,13 @@ pub(super) mod defs {
             dfb: *mut IDirectFB,
         ) -> Bool32;
 }
+
 pub struct InstanceFn {
     create_direct_fb_surface_ext: PFN_vkCreateDirectFBSurfaceEXT,
     get_physical_device_direct_fb_presentation_support_ext:
         PFN_vkGetPhysicalDeviceDirectFBPresentationSupportEXT,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -95,6 +107,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDirectFBSurfaceEXT.html>
     pub unsafe fn create_direct_fb_surface_ext(
@@ -118,6 +131,7 @@ impl InstanceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDirectFBPresentationSupportEXT.html>
     pub unsafe fn get_physical_device_direct_fb_presentation_support_ext(
         &self,

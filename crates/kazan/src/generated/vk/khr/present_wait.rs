@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePresentWaitFeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,12 +19,15 @@ pub(super) mod defs {
         pub present_wait: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePresentWaitFeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PRESENT_WAIT_FEATURES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDevicePresentWaitFeaturesKHR<'a> {}
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePresentWaitFeaturesKHR<'a> {}
+
     impl Default for PhysicalDevicePresentWaitFeaturesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -33,12 +38,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDevicePresentWaitFeaturesKHR<'a> {
         pub fn present_wait(mut self, present_wait: bool) -> Self {
             self.present_wait = present_wait.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkWaitForPresentKHR.html>
     pub type PFN_vkWaitForPresentKHR = unsafe extern "system" fn(
         device: Device,
@@ -47,9 +54,11 @@ pub(super) mod defs {
         timeout: u64,
     ) -> vk::Result;
 }
+
 pub struct DeviceFn {
     wait_for_present_khr: PFN_vkWaitForPresentKHR,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -63,6 +72,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkWaitForPresentKHR.html>
     pub unsafe fn wait_for_present_khr(

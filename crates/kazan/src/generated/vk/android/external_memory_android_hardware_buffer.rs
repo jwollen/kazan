@@ -2,13 +2,16 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     pub type AHardwareBuffer = *const c_void;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportAndroidHardwareBufferInfoANDROID.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,11 +21,14 @@ pub(super) mod defs {
         pub buffer: *mut AHardwareBuffer,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportAndroidHardwareBufferInfoANDROID<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::IMPORT_ANDROID_HARDWARE_BUFFER_INFO_ANDROID;
     }
+
     unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ImportAndroidHardwareBufferInfoANDROID<'a> {}
+
     impl Default for ImportAndroidHardwareBufferInfoANDROID<'_> {
         fn default() -> Self {
             Self {
@@ -33,12 +39,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ImportAndroidHardwareBufferInfoANDROID<'a> {
         pub fn buffer(mut self, buffer: *mut AHardwareBuffer) -> Self {
             self.buffer = buffer;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAndroidHardwareBufferUsageANDROID.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -48,10 +56,13 @@ pub(super) mod defs {
         pub android_hardware_buffer_usage: u64,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for AndroidHardwareBufferUsageANDROID<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::ANDROID_HARDWARE_BUFFER_USAGE_ANDROID;
     }
+
     unsafe impl<'a> Extends<ImageFormatProperties2<'a>> for AndroidHardwareBufferUsageANDROID<'a> {}
+
     impl Default for AndroidHardwareBufferUsageANDROID<'_> {
         fn default() -> Self {
             Self {
@@ -62,12 +73,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> AndroidHardwareBufferUsageANDROID<'a> {
         pub fn android_hardware_buffer_usage(mut self, android_hardware_buffer_usage: u64) -> Self {
             self.android_hardware_buffer_usage = android_hardware_buffer_usage;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAndroidHardwareBufferPropertiesANDROID.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -78,10 +91,12 @@ pub(super) mod defs {
         pub memory_type_bits: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for AndroidHardwareBufferPropertiesANDROID<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::ANDROID_HARDWARE_BUFFER_PROPERTIES_ANDROID;
     }
+
     impl Default for AndroidHardwareBufferPropertiesANDROID<'_> {
         fn default() -> Self {
             Self {
@@ -93,16 +108,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> AndroidHardwareBufferPropertiesANDROID<'a> {
         pub fn allocation_size(mut self, allocation_size: DeviceSize) -> Self {
             self.allocation_size = allocation_size;
             self
         }
+
         pub fn memory_type_bits(mut self, memory_type_bits: u32) -> Self {
             self.memory_type_bits = memory_type_bits;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryGetAndroidHardwareBufferInfoANDROID.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -112,10 +130,12 @@ pub(super) mod defs {
         pub memory: DeviceMemory,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for MemoryGetAndroidHardwareBufferInfoANDROID<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::MEMORY_GET_ANDROID_HARDWARE_BUFFER_INFO_ANDROID;
     }
+
     impl Default for MemoryGetAndroidHardwareBufferInfoANDROID<'_> {
         fn default() -> Self {
             Self {
@@ -126,12 +146,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> MemoryGetAndroidHardwareBufferInfoANDROID<'a> {
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAndroidHardwareBufferFormatPropertiesANDROID.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -148,14 +170,17 @@ pub(super) mod defs {
         pub suggested_y_chroma_offset: ChromaLocation,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for AndroidHardwareBufferFormatPropertiesANDROID<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_ANDROID;
     }
+
     unsafe impl<'a> Extends<AndroidHardwareBufferPropertiesANDROID<'a>>
         for AndroidHardwareBufferFormatPropertiesANDROID<'a>
     {
     }
+
     impl Default for AndroidHardwareBufferFormatPropertiesANDROID<'_> {
         fn default() -> Self {
             Self {
@@ -173,19 +198,23 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> AndroidHardwareBufferFormatPropertiesANDROID<'a> {
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
         }
+
         pub fn external_format(mut self, external_format: u64) -> Self {
             self.external_format = external_format;
             self
         }
+
         pub fn format_features(mut self, format_features: FormatFeatureFlags) -> Self {
             self.format_features = format_features;
             self
         }
+
         pub fn sampler_ycbcr_conversion_components(
             mut self,
             sampler_ycbcr_conversion_components: ComponentMapping,
@@ -193,6 +222,7 @@ pub(super) mod defs {
             self.sampler_ycbcr_conversion_components = sampler_ycbcr_conversion_components;
             self
         }
+
         pub fn suggested_ycbcr_model(
             mut self,
             suggested_ycbcr_model: SamplerYcbcrModelConversion,
@@ -200,10 +230,12 @@ pub(super) mod defs {
             self.suggested_ycbcr_model = suggested_ycbcr_model;
             self
         }
+
         pub fn suggested_ycbcr_range(mut self, suggested_ycbcr_range: SamplerYcbcrRange) -> Self {
             self.suggested_ycbcr_range = suggested_ycbcr_range;
             self
         }
+
         pub fn suggested_x_chroma_offset(
             mut self,
             suggested_x_chroma_offset: ChromaLocation,
@@ -211,6 +243,7 @@ pub(super) mod defs {
             self.suggested_x_chroma_offset = suggested_x_chroma_offset;
             self
         }
+
         pub fn suggested_y_chroma_offset(
             mut self,
             suggested_y_chroma_offset: ChromaLocation,
@@ -219,6 +252,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalFormatANDROID.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -228,14 +262,17 @@ pub(super) mod defs {
         pub external_format: u64,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ExternalFormatANDROID<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_FORMAT_ANDROID;
     }
+
     unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ExternalFormatANDROID<'a> {}
     unsafe impl<'a> Extends<SamplerYcbcrConversionCreateInfo<'a>> for ExternalFormatANDROID<'a> {}
     unsafe impl<'a> Extends<AttachmentDescription2<'a>> for ExternalFormatANDROID<'a> {}
     unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>> for ExternalFormatANDROID<'a> {}
     unsafe impl<'a> Extends<CommandBufferInheritanceInfo<'a>> for ExternalFormatANDROID<'a> {}
+
     impl Default for ExternalFormatANDROID<'_> {
         fn default() -> Self {
             Self {
@@ -246,12 +283,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ExternalFormatANDROID<'a> {
         pub fn external_format(mut self, external_format: u64) -> Self {
             self.external_format = external_format;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAndroidHardwareBufferFormatProperties2ANDROID.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -268,14 +307,17 @@ pub(super) mod defs {
         pub suggested_y_chroma_offset: ChromaLocation,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for AndroidHardwareBufferFormatProperties2ANDROID<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_2_ANDROID;
     }
+
     unsafe impl<'a> Extends<AndroidHardwareBufferPropertiesANDROID<'a>>
         for AndroidHardwareBufferFormatProperties2ANDROID<'a>
     {
     }
+
     impl Default for AndroidHardwareBufferFormatProperties2ANDROID<'_> {
         fn default() -> Self {
             Self {
@@ -293,19 +335,23 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> AndroidHardwareBufferFormatProperties2ANDROID<'a> {
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
         }
+
         pub fn external_format(mut self, external_format: u64) -> Self {
             self.external_format = external_format;
             self
         }
+
         pub fn format_features(mut self, format_features: FormatFeatureFlags2) -> Self {
             self.format_features = format_features;
             self
         }
+
         pub fn sampler_ycbcr_conversion_components(
             mut self,
             sampler_ycbcr_conversion_components: ComponentMapping,
@@ -313,6 +359,7 @@ pub(super) mod defs {
             self.sampler_ycbcr_conversion_components = sampler_ycbcr_conversion_components;
             self
         }
+
         pub fn suggested_ycbcr_model(
             mut self,
             suggested_ycbcr_model: SamplerYcbcrModelConversion,
@@ -320,10 +367,12 @@ pub(super) mod defs {
             self.suggested_ycbcr_model = suggested_ycbcr_model;
             self
         }
+
         pub fn suggested_ycbcr_range(mut self, suggested_ycbcr_range: SamplerYcbcrRange) -> Self {
             self.suggested_ycbcr_range = suggested_ycbcr_range;
             self
         }
+
         pub fn suggested_x_chroma_offset(
             mut self,
             suggested_x_chroma_offset: ChromaLocation,
@@ -331,6 +380,7 @@ pub(super) mod defs {
             self.suggested_x_chroma_offset = suggested_x_chroma_offset;
             self
         }
+
         pub fn suggested_y_chroma_offset(
             mut self,
             suggested_y_chroma_offset: ChromaLocation,
@@ -339,6 +389,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetAndroidHardwareBufferPropertiesANDROID.html>
     pub type PFN_vkGetAndroidHardwareBufferPropertiesANDROID =
         unsafe extern "system" fn(
@@ -354,10 +405,12 @@ pub(super) mod defs {
     )
         -> vk::Result;
 }
+
 pub struct DeviceFn {
     get_android_hardware_buffer_properties_android: PFN_vkGetAndroidHardwareBufferPropertiesANDROID,
     get_memory_android_hardware_buffer_android: PFN_vkGetMemoryAndroidHardwareBufferANDROID,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -376,6 +429,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetAndroidHardwareBufferPropertiesANDROID.html>
     pub unsafe fn get_android_hardware_buffer_properties_android(
@@ -394,6 +448,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryAndroidHardwareBufferANDROID.html>
     pub unsafe fn get_memory_android_hardware_buffer_android(
         &self,

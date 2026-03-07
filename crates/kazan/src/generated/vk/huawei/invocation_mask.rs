@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceInvocationMaskFeaturesHUAWEI.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,15 +19,18 @@ pub(super) mod defs {
         pub invocation_mask: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceInvocationMaskFeaturesHUAWEI<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceInvocationMaskFeaturesHUAWEI<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceInvocationMaskFeaturesHUAWEI<'a> {}
+
     impl Default for PhysicalDeviceInvocationMaskFeaturesHUAWEI<'_> {
         fn default() -> Self {
             Self {
@@ -36,12 +41,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceInvocationMaskFeaturesHUAWEI<'a> {
         pub fn invocation_mask(mut self, invocation_mask: bool) -> Self {
             self.invocation_mask = invocation_mask.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindInvocationMaskHUAWEI.html>
     pub type PFN_vkCmdBindInvocationMaskHUAWEI = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
@@ -49,9 +56,11 @@ pub(super) mod defs {
         image_layout: ImageLayout,
     );
 }
+
 pub struct DeviceFn {
     cmd_bind_invocation_mask_huawei: PFN_vkCmdBindInvocationMaskHUAWEI,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -65,6 +74,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindInvocationMaskHUAWEI.html>
     pub unsafe fn cmd_bind_invocation_mask_huawei(

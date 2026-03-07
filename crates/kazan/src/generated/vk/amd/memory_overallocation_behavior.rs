@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceMemoryOverallocationCreateInfoAMD.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,11 +19,14 @@ pub(super) mod defs {
         pub overallocation_behavior: MemoryOverallocationBehaviorAMD,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DeviceMemoryOverallocationCreateInfoAMD<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD;
     }
+
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for DeviceMemoryOverallocationCreateInfoAMD<'a> {}
+
     impl Default for DeviceMemoryOverallocationCreateInfoAMD<'_> {
         fn default() -> Self {
             Self {
@@ -32,6 +37,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DeviceMemoryOverallocationCreateInfoAMD<'a> {
         pub fn overallocation_behavior(
             mut self,
@@ -41,15 +47,18 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryOverallocationBehaviorAMD.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct MemoryOverallocationBehaviorAMD(i32);
+
     impl MemoryOverallocationBehaviorAMD {
         pub const DEFAULT_AMD: Self = Self(0);
         pub const ALLOWED_AMD: Self = Self(1);
         pub const DISALLOWED_AMD: Self = Self(2);
     }
+
     impl fmt::Debug for MemoryOverallocationBehaviorAMD {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {

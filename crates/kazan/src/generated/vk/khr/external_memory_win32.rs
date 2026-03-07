@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportMemoryWin32HandleInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -19,10 +21,13 @@ pub(super) mod defs {
         pub name: LPCWSTR,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportMemoryWin32HandleInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_MEMORY_WIN32_HANDLE_INFO_KHR;
     }
+
     unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ImportMemoryWin32HandleInfoKHR<'a> {}
+
     impl Default for ImportMemoryWin32HandleInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -35,20 +40,24 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ImportMemoryWin32HandleInfoKHR<'a> {
         pub fn handle_type(mut self, handle_type: ExternalMemoryHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
         }
+
         pub fn handle(mut self, handle: HANDLE) -> Self {
             self.handle = handle;
             self
         }
+
         pub fn name(mut self, name: LPCWSTR) -> Self {
             self.name = name;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMemoryWin32HandleInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -60,10 +69,13 @@ pub(super) mod defs {
         pub name: LPCWSTR,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ExportMemoryWin32HandleInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_MEMORY_WIN32_HANDLE_INFO_KHR;
     }
+
     unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ExportMemoryWin32HandleInfoKHR<'a> {}
+
     impl Default for ExportMemoryWin32HandleInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -76,20 +88,24 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ExportMemoryWin32HandleInfoKHR<'a> {
         pub fn attributes(mut self, attributes: *const SECURITY_ATTRIBUTES) -> Self {
             self.p_attributes = attributes;
             self
         }
+
         pub fn dw_access(mut self, dw_access: DWORD) -> Self {
             self.dw_access = dw_access;
             self
         }
+
         pub fn name(mut self, name: LPCWSTR) -> Self {
             self.name = name;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryWin32HandlePropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -99,9 +115,11 @@ pub(super) mod defs {
         pub memory_type_bits: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for MemoryWin32HandlePropertiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_WIN32_HANDLE_PROPERTIES_KHR;
     }
+
     impl Default for MemoryWin32HandlePropertiesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -112,12 +130,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> MemoryWin32HandlePropertiesKHR<'a> {
         pub fn memory_type_bits(mut self, memory_type_bits: u32) -> Self {
             self.memory_type_bits = memory_type_bits;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryGetWin32HandleInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -128,9 +148,11 @@ pub(super) mod defs {
         pub handle_type: ExternalMemoryHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for MemoryGetWin32HandleInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_GET_WIN32_HANDLE_INFO_KHR;
     }
+
     impl Default for MemoryGetWin32HandleInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -142,16 +164,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> MemoryGetWin32HandleInfoKHR<'a> {
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
         }
+
         pub fn handle_type(mut self, handle_type: ExternalMemoryHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryWin32HandleKHR.html>
     pub type PFN_vkGetMemoryWin32HandleKHR = unsafe extern "system" fn(
         device: Device,
@@ -166,10 +191,12 @@ pub(super) mod defs {
         p_memory_win32_handle_properties: *mut MemoryWin32HandlePropertiesKHR<'_>,
     ) -> vk::Result;
 }
+
 pub struct DeviceFn {
     get_memory_win32_handle_khr: PFN_vkGetMemoryWin32HandleKHR,
     get_memory_win32_handle_properties_khr: PFN_vkGetMemoryWin32HandlePropertiesKHR,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -186,6 +213,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryWin32HandleKHR.html>
     pub unsafe fn get_memory_win32_handle_khr(
@@ -207,6 +235,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryWin32HandlePropertiesKHR.html>
     pub unsafe fn get_memory_win32_handle_properties_khr(
         &self,

@@ -284,14 +284,14 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
     if type_info.lifetime_param {
         writeln!(file, "pub _marker: PhantomData<&'a ()>,",).unwrap();
     }
-    writeln!(file, "}}").unwrap();
+    writeln!(file, "}}\n").unwrap();
 
     if let Some(tag) = info.tag {
         writeln!(
             file,
             "unsafe impl<'a> TaggedStructure<'a> for {}<'a> {{
                 const STRUCTURE_TYPE: StructureType = StructureType::{};
-            }}",
+            }}\n",
             info.name, tag
         )
         .unwrap();
@@ -305,6 +305,9 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
             ty, info.name
         )
         .unwrap();
+    }
+    if !ty.structextends.is_empty() {
+        writeln!(file).unwrap();
     }
 
     if info.has_default && !type_info.default {
@@ -328,7 +331,7 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
         if type_info.lifetime_param {
             writeln!(file, "_marker: PhantomData",).unwrap();
         }
-        writeln!(file, "}} }} }}").unwrap();
+        writeln!(file, "}} }} }}\n").unwrap();
     }
 
     writeln!(
@@ -402,10 +405,9 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
             }
         }
 
-        writeln!(file, "self").unwrap();
-        writeln!(file, "}}").unwrap();
+        writeln!(file, "self }}\n").unwrap();
     }
-    writeln!(file, "}}").unwrap();
+    writeln!(file, "}}\n").unwrap();
 }
 
 fn default_value(analysis: &Analysis, ty: &CType) -> std::borrow::Cow<'static, str> {

@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineRenderingCreateInfoKHR.html>
     pub type PipelineRenderingCreateInfoKHR<'a> = PipelineRenderingCreateInfo<'a>;
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderingInfoKHR.html>
@@ -25,10 +27,12 @@ pub(super) mod defs {
     pub type PFN_vkCmdBeginRenderingKHR = PFN_vkCmdBeginRendering;
     pub type PFN_vkCmdEndRenderingKHR = PFN_vkCmdEndRendering;
 }
+
 pub struct DeviceFn {
     cmd_begin_rendering_khr: PFN_vkCmdBeginRendering,
     cmd_end_rendering_khr: PFN_vkCmdEndRendering,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -45,6 +49,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginRenderingKHR.html>
     pub unsafe fn cmd_begin_rendering_khr(
@@ -54,6 +59,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_begin_rendering_khr)(command_buffer, rendering_info) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndRenderingKHR.html>
     pub unsafe fn cmd_end_rendering_khr(&self, command_buffer: CommandBuffer) {
         unsafe { (self.cmd_end_rendering_khr)(command_buffer) }

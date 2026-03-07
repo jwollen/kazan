@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,10 +19,12 @@ pub(super) mod defs {
         pub ycbcr2plane444_formats: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_YCBCR_2_PLANE_444_FORMATS_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT<'a>
     {
@@ -29,6 +33,7 @@ pub(super) mod defs {
         for PhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT<'a>
     {
     }
+
     impl Default for PhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -39,6 +44,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT<'a> {
         pub fn ycbcr2plane444_formats(mut self, ycbcr2plane444_formats: bool) -> Self {
             self.ycbcr2plane444_formats = ycbcr2plane444_formats.into();

@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,10 +19,12 @@ pub(super) mod defs {
         pub vertex_input_dynamic_state: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_VERTEX_INPUT_DYNAMIC_STATE_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'a>
     {
@@ -29,6 +33,7 @@ pub(super) mod defs {
         for PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'a>
     {
     }
+
     impl Default for PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -39,12 +44,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'a> {
         pub fn vertex_input_dynamic_state(mut self, vertex_input_dynamic_state: bool) -> Self {
             self.vertex_input_dynamic_state = vertex_input_dynamic_state.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVertexInputBindingDescription2EXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -57,9 +64,11 @@ pub(super) mod defs {
         pub divisor: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for VertexInputBindingDescription2EXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT;
     }
+
     impl Default for VertexInputBindingDescription2EXT<'_> {
         fn default() -> Self {
             Self {
@@ -73,24 +82,29 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> VertexInputBindingDescription2EXT<'a> {
         pub fn binding(mut self, binding: u32) -> Self {
             self.binding = binding;
             self
         }
+
         pub fn stride(mut self, stride: u32) -> Self {
             self.stride = stride;
             self
         }
+
         pub fn input_rate(mut self, input_rate: VertexInputRate) -> Self {
             self.input_rate = input_rate;
             self
         }
+
         pub fn divisor(mut self, divisor: u32) -> Self {
             self.divisor = divisor;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVertexInputAttributeDescription2EXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -103,10 +117,12 @@ pub(super) mod defs {
         pub offset: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for VertexInputAttributeDescription2EXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT;
     }
+
     impl Default for VertexInputAttributeDescription2EXT<'_> {
         fn default() -> Self {
             Self {
@@ -120,24 +136,29 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> VertexInputAttributeDescription2EXT<'a> {
         pub fn location(mut self, location: u32) -> Self {
             self.location = location;
             self
         }
+
         pub fn binding(mut self, binding: u32) -> Self {
             self.binding = binding;
             self
         }
+
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
         }
+
         pub fn offset(mut self, offset: u32) -> Self {
             self.offset = offset;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetVertexInputEXT.html>
     pub type PFN_vkCmdSetVertexInputEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
@@ -147,9 +168,11 @@ pub(super) mod defs {
         p_vertex_attribute_descriptions: *const VertexInputAttributeDescription2EXT<'_>,
     );
 }
+
 pub struct DeviceFn {
     cmd_set_vertex_input_ext: PFN_vkCmdSetVertexInputEXT,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -163,6 +186,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetVertexInputEXT.html>
     pub unsafe fn cmd_set_vertex_input_ext(

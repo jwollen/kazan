@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSurfaceInfo2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,9 +19,11 @@ pub(super) mod defs {
         pub surface: SurfaceKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSurfaceInfo2KHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_SURFACE_INFO_2_KHR;
     }
+
     impl Default for PhysicalDeviceSurfaceInfo2KHR<'_> {
         fn default() -> Self {
             Self {
@@ -30,12 +34,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceSurfaceInfo2KHR<'a> {
         pub fn surface(mut self, surface: SurfaceKHR) -> Self {
             self.surface = surface;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceCapabilities2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -45,9 +51,11 @@ pub(super) mod defs {
         pub surface_capabilities: SurfaceCapabilitiesKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for SurfaceCapabilities2KHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SURFACE_CAPABILITIES_2_KHR;
     }
+
     impl Default for SurfaceCapabilities2KHR<'_> {
         fn default() -> Self {
             Self {
@@ -58,6 +66,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SurfaceCapabilities2KHR<'a> {
         pub fn surface_capabilities(
             mut self,
@@ -67,6 +76,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceFormat2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -76,9 +86,11 @@ pub(super) mod defs {
         pub surface_format: SurfaceFormatKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for SurfaceFormat2KHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SURFACE_FORMAT_2_KHR;
     }
+
     impl Default for SurfaceFormat2KHR<'_> {
         fn default() -> Self {
             Self {
@@ -89,12 +101,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SurfaceFormat2KHR<'a> {
         pub fn surface_format(mut self, surface_format: SurfaceFormatKHR) -> Self {
             self.surface_format = surface_format;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceCapabilities2KHR.html>
     pub type PFN_vkGetPhysicalDeviceSurfaceCapabilities2KHR =
         unsafe extern "system" fn(
@@ -111,10 +125,12 @@ pub(super) mod defs {
     )
         -> vk::Result;
 }
+
 pub struct InstanceFn {
     get_physical_device_surface_capabilities2_khr: PFN_vkGetPhysicalDeviceSurfaceCapabilities2KHR,
     get_physical_device_surface_formats2_khr: PFN_vkGetPhysicalDeviceSurfaceFormats2KHR,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -132,6 +148,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceCapabilities2KHR.html>
     pub unsafe fn get_physical_device_surface_capabilities2_khr(
@@ -153,6 +170,7 @@ impl InstanceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceFormats2KHR.html>
     pub unsafe fn get_physical_device_surface_formats2_khr<'a>(
         &self,

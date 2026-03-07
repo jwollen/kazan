@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSemaphoreTypeKHR.html>
     pub type SemaphoreTypeKHR = SemaphoreType;
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTimelineSemaphoreFeaturesKHR.html>
@@ -30,11 +32,13 @@ pub(super) mod defs {
     pub type PFN_vkWaitSemaphoresKHR = PFN_vkWaitSemaphores;
     pub type PFN_vkSignalSemaphoreKHR = PFN_vkSignalSemaphore;
 }
+
 pub struct DeviceFn {
     get_semaphore_counter_value_khr: PFN_vkGetSemaphoreCounterValue,
     wait_semaphores_khr: PFN_vkWaitSemaphores,
     signal_semaphore_khr: PFN_vkSignalSemaphore,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -54,6 +58,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSemaphoreCounterValueKHR.html>
     pub unsafe fn get_semaphore_counter_value_khr(
@@ -72,6 +77,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkWaitSemaphoresKHR.html>
     pub unsafe fn wait_semaphores_khr(
         &self,
@@ -88,6 +94,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSignalSemaphoreKHR.html>
     pub unsafe fn signal_semaphore_khr(
         &self,

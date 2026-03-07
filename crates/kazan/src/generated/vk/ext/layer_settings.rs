@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkLayerSettingsCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,10 +20,13 @@ pub(super) mod defs {
         pub p_settings: *const LayerSettingEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for LayerSettingsCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::LAYER_SETTINGS_CREATE_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<InstanceCreateInfo<'a>> for LayerSettingsCreateInfoEXT<'a> {}
+
     impl Default for LayerSettingsCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -33,6 +38,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> LayerSettingsCreateInfoEXT<'a> {
         pub fn settings(mut self, settings: &'a [LayerSettingEXT<'a>]) -> Self {
             self.setting_count = settings.len().try_into().unwrap();
@@ -40,6 +46,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkLayerSettingEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -51,6 +58,7 @@ pub(super) mod defs {
         pub p_values: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+
     impl Default for LayerSettingEXT<'_> {
         fn default() -> Self {
             Self {
@@ -63,29 +71,35 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> LayerSettingEXT<'a> {
         pub fn layer_name(mut self, layer_name: &'a CStr) -> Self {
             self.p_layer_name = layer_name.as_ptr();
             self
         }
+
         pub fn setting_name(mut self, setting_name: &'a CStr) -> Self {
             self.p_setting_name = setting_name.as_ptr();
             self
         }
+
         pub fn ty(mut self, ty: LayerSettingTypeEXT) -> Self {
             self.ty = ty;
             self
         }
+
         pub fn values(mut self, values: &'a [u8]) -> Self {
             self.value_count = values.len().try_into().unwrap();
             self.p_values = values.as_ptr() as _;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkLayerSettingTypeEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct LayerSettingTypeEXT(i32);
+
     impl LayerSettingTypeEXT {
         pub const BOOL32_EXT: Self = Self(0);
         pub const INT32_EXT: Self = Self(1);
@@ -96,6 +110,7 @@ pub(super) mod defs {
         pub const FLOAT64_EXT: Self = Self(6);
         pub const STRING_EXT: Self = Self(7);
     }
+
     impl fmt::Debug for LayerSettingTypeEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {

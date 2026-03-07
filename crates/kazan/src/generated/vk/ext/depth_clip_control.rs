@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDepthClipControlFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,15 +19,18 @@ pub(super) mod defs {
         pub depth_clip_control: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDepthClipControlFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_DEPTH_CLIP_CONTROL_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceDepthClipControlFeaturesEXT<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceDepthClipControlFeaturesEXT<'a> {}
+
     impl Default for PhysicalDeviceDepthClipControlFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -36,12 +41,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceDepthClipControlFeaturesEXT<'a> {
         pub fn depth_clip_control(mut self, depth_clip_control: bool) -> Self {
             self.depth_clip_control = depth_clip_control.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineViewportDepthClipControlCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -51,14 +58,17 @@ pub(super) mod defs {
         pub negative_one_to_one: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineViewportDepthClipControlCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_VIEWPORT_DEPTH_CLIP_CONTROL_CREATE_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<PipelineViewportStateCreateInfo<'a>>
         for PipelineViewportDepthClipControlCreateInfoEXT<'a>
     {
     }
+
     impl Default for PipelineViewportDepthClipControlCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -69,6 +79,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineViewportDepthClipControlCreateInfoEXT<'a> {
         pub fn negative_one_to_one(mut self, negative_one_to_one: bool) -> Self {
             self.negative_one_to_one = negative_one_to_one.into();

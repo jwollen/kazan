@@ -2,13 +2,16 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     pub const MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT: u32 = 32;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderModuleIdentifierFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,10 +21,12 @@ pub(super) mod defs {
         pub shader_module_identifier: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'a>
     {
@@ -30,6 +35,7 @@ pub(super) mod defs {
         for PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'a>
     {
     }
+
     impl Default for PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -40,12 +46,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'a> {
         pub fn shader_module_identifier(mut self, shader_module_identifier: bool) -> Self {
             self.shader_module_identifier = shader_module_identifier.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -55,14 +63,17 @@ pub(super) mod defs {
         pub shader_module_identifier_algorithm_uuid: [u8; UUID_SIZE as usize],
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderModuleIdentifierPropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_PROPERTIES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceShaderModuleIdentifierPropertiesEXT<'a>
     {
     }
+
     impl Default for PhysicalDeviceShaderModuleIdentifierPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -73,6 +84,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceShaderModuleIdentifierPropertiesEXT<'a> {
         pub fn shader_module_identifier_algorithm_uuid(
             mut self,
@@ -82,6 +94,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineShaderStageModuleIdentifierCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -92,14 +105,17 @@ pub(super) mod defs {
         pub p_identifier: *const u8,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineShaderStageModuleIdentifierCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_SHADER_STAGE_MODULE_IDENTIFIER_CREATE_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<PipelineShaderStageCreateInfo<'a>>
         for PipelineShaderStageModuleIdentifierCreateInfoEXT<'a>
     {
     }
+
     impl Default for PipelineShaderStageModuleIdentifierCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -111,6 +127,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineShaderStageModuleIdentifierCreateInfoEXT<'a> {
         pub fn identifier(mut self, identifier: &'a [u8]) -> Self {
             self.identifier_size = identifier.len().try_into().unwrap();
@@ -118,6 +135,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderModuleIdentifierEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -128,9 +146,11 @@ pub(super) mod defs {
         pub identifier: [u8; MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT as usize],
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ShaderModuleIdentifierEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SHADER_MODULE_IDENTIFIER_EXT;
     }
+
     impl Default for ShaderModuleIdentifierEXT<'_> {
         fn default() -> Self {
             Self {
@@ -142,6 +162,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ShaderModuleIdentifierEXT<'a> {
         pub fn identifier(mut self, identifier: &[u8]) -> Self {
             self.identifier_size = identifier.len().try_into().unwrap();
@@ -149,6 +170,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetShaderModuleIdentifierEXT.html>
     pub type PFN_vkGetShaderModuleIdentifierEXT = unsafe extern "system" fn(
         device: Device,
@@ -162,10 +184,12 @@ pub(super) mod defs {
         p_identifier: *mut ShaderModuleIdentifierEXT<'_>,
     );
 }
+
 pub struct DeviceFn {
     get_shader_module_identifier_ext: PFN_vkGetShaderModuleIdentifierEXT,
     get_shader_module_create_info_identifier_ext: PFN_vkGetShaderModuleCreateInfoIdentifierEXT,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -183,6 +207,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetShaderModuleIdentifierEXT.html>
     pub unsafe fn get_shader_module_identifier_ext(
@@ -193,6 +218,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.get_shader_module_identifier_ext)(device, shader_module, identifier) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetShaderModuleCreateInfoIdentifierEXT.html>
     pub unsafe fn get_shader_module_create_info_identifier_ext(
         &self,

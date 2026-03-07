@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalMemoryImageCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,10 +19,13 @@ pub(super) mod defs {
         pub handle_types: ExternalMemoryHandleTypeFlagsNV,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ExternalMemoryImageCreateInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_MEMORY_IMAGE_CREATE_INFO_NV;
     }
+
     unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ExternalMemoryImageCreateInfoNV<'a> {}
+
     impl Default for ExternalMemoryImageCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
@@ -31,12 +36,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ExternalMemoryImageCreateInfoNV<'a> {
         pub fn handle_types(mut self, handle_types: ExternalMemoryHandleTypeFlagsNV) -> Self {
             self.handle_types = handle_types;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMemoryAllocateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -46,10 +53,13 @@ pub(super) mod defs {
         pub handle_types: ExternalMemoryHandleTypeFlagsNV,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ExportMemoryAllocateInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_MEMORY_ALLOCATE_INFO_NV;
     }
+
     unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ExportMemoryAllocateInfoNV<'a> {}
+
     impl Default for ExportMemoryAllocateInfoNV<'_> {
         fn default() -> Self {
             Self {
@@ -60,6 +70,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ExportMemoryAllocateInfoNV<'a> {
         pub fn handle_types(mut self, handle_types: ExternalMemoryHandleTypeFlagsNV) -> Self {
             self.handle_types = handle_types;

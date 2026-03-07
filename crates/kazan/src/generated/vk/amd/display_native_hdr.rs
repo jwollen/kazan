@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayNativeHdrSurfaceCapabilitiesAMD.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,14 +19,17 @@ pub(super) mod defs {
         pub local_dimming_support: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DisplayNativeHdrSurfaceCapabilitiesAMD<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD;
     }
+
     unsafe impl<'a> Extends<SurfaceCapabilities2KHR<'a>>
         for DisplayNativeHdrSurfaceCapabilitiesAMD<'a>
     {
     }
+
     impl Default for DisplayNativeHdrSurfaceCapabilitiesAMD<'_> {
         fn default() -> Self {
             Self {
@@ -35,12 +40,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DisplayNativeHdrSurfaceCapabilitiesAMD<'a> {
         pub fn local_dimming_support(mut self, local_dimming_support: bool) -> Self {
             self.local_dimming_support = local_dimming_support.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSwapchainDisplayNativeHdrCreateInfoAMD.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -50,11 +57,14 @@ pub(super) mod defs {
         pub local_dimming_enable: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for SwapchainDisplayNativeHdrCreateInfoAMD<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::SWAPCHAIN_DISPLAY_NATIVE_HDR_CREATE_INFO_AMD;
     }
+
     unsafe impl<'a> Extends<SwapchainCreateInfoKHR<'a>> for SwapchainDisplayNativeHdrCreateInfoAMD<'a> {}
+
     impl Default for SwapchainDisplayNativeHdrCreateInfoAMD<'_> {
         fn default() -> Self {
             Self {
@@ -65,12 +75,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SwapchainDisplayNativeHdrCreateInfoAMD<'a> {
         pub fn local_dimming_enable(mut self, local_dimming_enable: bool) -> Self {
             self.local_dimming_enable = local_dimming_enable.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetLocalDimmingAMD.html>
     pub type PFN_vkSetLocalDimmingAMD = unsafe extern "system" fn(
         device: Device,
@@ -78,9 +90,11 @@ pub(super) mod defs {
         local_dimming_enable: Bool32,
     );
 }
+
 pub struct DeviceFn {
     set_local_dimming_amd: PFN_vkSetLocalDimmingAMD,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -94,6 +108,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetLocalDimmingAMD.html>
     pub unsafe fn set_local_dimming_amd(

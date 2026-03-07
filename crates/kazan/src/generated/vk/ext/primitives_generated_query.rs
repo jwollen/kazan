@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -19,10 +21,12 @@ pub(super) mod defs {
         pub primitives_generated_query_with_non_zero_streams: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePrimitivesGeneratedQueryFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PRIMITIVES_GENERATED_QUERY_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDevicePrimitivesGeneratedQueryFeaturesEXT<'a>
     {
@@ -31,6 +35,7 @@ pub(super) mod defs {
         for PhysicalDevicePrimitivesGeneratedQueryFeaturesEXT<'a>
     {
     }
+
     impl Default for PhysicalDevicePrimitivesGeneratedQueryFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -43,11 +48,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDevicePrimitivesGeneratedQueryFeaturesEXT<'a> {
         pub fn primitives_generated_query(mut self, primitives_generated_query: bool) -> Self {
             self.primitives_generated_query = primitives_generated_query.into();
             self
         }
+
         pub fn primitives_generated_query_with_rasterizer_discard(
             mut self,
             primitives_generated_query_with_rasterizer_discard: bool,
@@ -56,6 +63,7 @@ pub(super) mod defs {
                 primitives_generated_query_with_rasterizer_discard.into();
             self
         }
+
         pub fn primitives_generated_query_with_non_zero_streams(
             mut self,
             primitives_generated_query_with_non_zero_streams: bool,

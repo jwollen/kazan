@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCooperativeMatrixFeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,15 +20,18 @@ pub(super) mod defs {
         pub cooperative_matrix_robust_buffer_access: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCooperativeMatrixFeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceCooperativeMatrixFeaturesKHR<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceCooperativeMatrixFeaturesKHR<'a> {}
+
     impl Default for PhysicalDeviceCooperativeMatrixFeaturesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -38,11 +43,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceCooperativeMatrixFeaturesKHR<'a> {
         pub fn cooperative_matrix(mut self, cooperative_matrix: bool) -> Self {
             self.cooperative_matrix = cooperative_matrix.into();
             self
         }
+
         pub fn cooperative_matrix_robust_buffer_access(
             mut self,
             cooperative_matrix_robust_buffer_access: bool,
@@ -52,6 +59,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCooperativeMatrixPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -69,9 +77,11 @@ pub(super) mod defs {
         pub scope: ScopeKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for CooperativeMatrixPropertiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::COOPERATIVE_MATRIX_PROPERTIES_KHR;
     }
+
     impl Default for CooperativeMatrixPropertiesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -90,44 +100,54 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> CooperativeMatrixPropertiesKHR<'a> {
         pub fn m_size(mut self, m_size: u32) -> Self {
             self.m_size = m_size;
             self
         }
+
         pub fn n_size(mut self, n_size: u32) -> Self {
             self.n_size = n_size;
             self
         }
+
         pub fn k_size(mut self, k_size: u32) -> Self {
             self.k_size = k_size;
             self
         }
+
         pub fn a_type(mut self, a_type: ComponentTypeKHR) -> Self {
             self.a_type = a_type;
             self
         }
+
         pub fn b_type(mut self, b_type: ComponentTypeKHR) -> Self {
             self.b_type = b_type;
             self
         }
+
         pub fn c_type(mut self, c_type: ComponentTypeKHR) -> Self {
             self.c_type = c_type;
             self
         }
+
         pub fn result_type(mut self, result_type: ComponentTypeKHR) -> Self {
             self.result_type = result_type;
             self
         }
+
         pub fn saturating_accumulation(mut self, saturating_accumulation: bool) -> Self {
             self.saturating_accumulation = saturating_accumulation.into();
             self
         }
+
         pub fn scope(mut self, scope: ScopeKHR) -> Self {
             self.scope = scope;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCooperativeMatrixPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -137,14 +157,17 @@ pub(super) mod defs {
         pub cooperative_matrix_supported_stages: ShaderStageFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCooperativeMatrixPropertiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceCooperativeMatrixPropertiesKHR<'a>
     {
     }
+
     impl Default for PhysicalDeviceCooperativeMatrixPropertiesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -155,6 +178,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceCooperativeMatrixPropertiesKHR<'a> {
         pub fn cooperative_matrix_supported_stages(
             mut self,
@@ -164,10 +188,12 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkScopeKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ScopeKHR(i32);
+
     impl ScopeKHR {
         pub const DEVICE_KHR: Self = Self(1);
         pub const WORKGROUP_KHR: Self = Self(2);
@@ -179,6 +205,7 @@ pub(super) mod defs {
         pub const SUBGROUP_NV: Self = Self::SUBGROUP_KHR;
         pub const QUEUE_FAMILY_NV: Self = Self::QUEUE_FAMILY_KHR;
     }
+
     impl fmt::Debug for ScopeKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -195,10 +222,12 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkComponentTypeKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ComponentTypeKHR(i32);
+
     impl ComponentTypeKHR {
         pub const FLOAT16_KHR: Self = Self(0);
         pub const FLOAT32_KHR: Self = Self(1);
@@ -214,8 +243,10 @@ pub(super) mod defs {
         // VK_EXT_shader_float8
         pub const FLOAT8_E4M3_EXT: Self = Self(1000491002);
         pub const FLOAT8_E5M2_EXT: Self = Self(1000491003);
+
         // VK_KHR_shader_bfloat16
         pub const BFLOAT16_KHR: Self = Self(1000141000);
+
         // VK_NV_cooperative_matrix
         pub const FLOAT16_NV: Self = Self::FLOAT16_KHR;
         pub const FLOAT32_NV: Self = Self::FLOAT32_KHR;
@@ -228,12 +259,14 @@ pub(super) mod defs {
         pub const UINT16_NV: Self = Self::UINT16_KHR;
         pub const UINT32_NV: Self = Self::UINT32_KHR;
         pub const UINT64_NV: Self = Self::UINT64_KHR;
+
         // VK_NV_cooperative_vector
         pub const SINT8_PACKED_NV: Self = Self(1000491000);
         pub const UINT8_PACKED_NV: Self = Self(1000491001);
         pub const FLOAT_E4M3_NV: Self = Self::FLOAT8_E4M3_EXT;
         pub const FLOAT_E5M2_NV: Self = Self::FLOAT8_E5M2_EXT;
     }
+
     impl fmt::Debug for ComponentTypeKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -262,6 +295,7 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR.html>
     pub type PFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR =
         unsafe extern "system" fn(
@@ -270,10 +304,12 @@ pub(super) mod defs {
             p_properties: *mut CooperativeMatrixPropertiesKHR<'_>,
         ) -> vk::Result;
 }
+
 pub struct InstanceFn {
     get_physical_device_cooperative_matrix_properties_khr:
         PFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -288,6 +324,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR.html>
     pub unsafe fn get_physical_device_cooperative_matrix_properties_khr<'a>(

@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryBarrier2KHR.html>
     pub type MemoryBarrier2KHR<'a> = MemoryBarrier2<'a>;
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageMemoryBarrier2KHR.html>
@@ -38,6 +40,7 @@ pub(super) mod defs {
     pub type PFN_vkQueueSubmit2KHR = PFN_vkQueueSubmit2;
     pub type PFN_vkCmdWriteTimestamp2KHR = PFN_vkCmdWriteTimestamp2;
 }
+
 pub struct DeviceFn {
     cmd_set_event2_khr: PFN_vkCmdSetEvent2,
     cmd_reset_event2_khr: PFN_vkCmdResetEvent2,
@@ -46,6 +49,7 @@ pub struct DeviceFn {
     cmd_write_timestamp2_khr: PFN_vkCmdWriteTimestamp2,
     queue_submit2_khr: PFN_vkQueueSubmit2,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -74,6 +78,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetEvent2KHR.html>
     pub unsafe fn cmd_set_event2_khr(
@@ -84,6 +89,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_event2_khr)(command_buffer, event, dependency_info) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdResetEvent2KHR.html>
     pub unsafe fn cmd_reset_event2_khr(
         &self,
@@ -93,6 +99,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_reset_event2_khr)(command_buffer, event, stage_mask) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWaitEvents2KHR.html>
     pub unsafe fn cmd_wait_events2_khr(
         &self,
@@ -109,6 +116,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPipelineBarrier2KHR.html>
     pub unsafe fn cmd_pipeline_barrier2_khr(
         &self,
@@ -117,6 +125,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_pipeline_barrier2_khr)(command_buffer, dependency_info) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWriteTimestamp2KHR.html>
     pub unsafe fn cmd_write_timestamp2_khr(
         &self,
@@ -127,6 +136,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_write_timestamp2_khr)(command_buffer, stage, query_pool, query) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueSubmit2KHR.html>
     pub unsafe fn queue_submit2_khr(
         &self,

@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceProtectedCapabilitiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,10 +19,13 @@ pub(super) mod defs {
         pub supports_protected: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for SurfaceProtectedCapabilitiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SURFACE_PROTECTED_CAPABILITIES_KHR;
     }
+
     unsafe impl<'a> Extends<SurfaceCapabilities2KHR<'a>> for SurfaceProtectedCapabilitiesKHR<'a> {}
+
     impl Default for SurfaceProtectedCapabilitiesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -31,6 +36,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SurfaceProtectedCapabilitiesKHR<'a> {
         pub fn supports_protected(mut self, supports_protected: bool) -> Self {
             self.supports_protected = supports_protected.into();

@@ -2,19 +2,23 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     pub type PFN_vkCmdDrawIndirectCountAMD = PFN_vkCmdDrawIndirectCount;
     pub type PFN_vkCmdDrawIndexedIndirectCountAMD = PFN_vkCmdDrawIndexedIndirectCount;
 }
+
 pub struct DeviceFn {
     cmd_draw_indirect_count_amd: PFN_vkCmdDrawIndirectCount,
     cmd_draw_indexed_indirect_count_amd: PFN_vkCmdDrawIndexedIndirectCount,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -31,6 +35,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawIndirectCountAMD.html>
     pub unsafe fn cmd_draw_indirect_count_amd(
@@ -55,6 +60,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawIndexedIndirectCountAMD.html>
     pub unsafe fn cmd_draw_indexed_indirect_count_amd(
         &self,

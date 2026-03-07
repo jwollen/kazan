@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeVP9PictureInfoFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -22,44 +24,54 @@ pub(super) mod defs {
         pub use_prev_frame_mvs: u32,
         pub reserved: u32,
     }
+
     impl StdVideoDecodeVP9PictureInfoFlags {
         pub fn error_resilient_mode(mut self, error_resilient_mode: u32) -> Self {
             self.error_resilient_mode = error_resilient_mode;
             self
         }
+
         pub fn intra_only(mut self, intra_only: u32) -> Self {
             self.intra_only = intra_only;
             self
         }
+
         pub fn allow_high_precision_mv(mut self, allow_high_precision_mv: u32) -> Self {
             self.allow_high_precision_mv = allow_high_precision_mv;
             self
         }
+
         pub fn refresh_frame_context(mut self, refresh_frame_context: u32) -> Self {
             self.refresh_frame_context = refresh_frame_context;
             self
         }
+
         pub fn frame_parallel_decoding_mode(mut self, frame_parallel_decoding_mode: u32) -> Self {
             self.frame_parallel_decoding_mode = frame_parallel_decoding_mode;
             self
         }
+
         pub fn segmentation_enabled(mut self, segmentation_enabled: u32) -> Self {
             self.segmentation_enabled = segmentation_enabled;
             self
         }
+
         pub fn show_frame(mut self, show_frame: u32) -> Self {
             self.show_frame = show_frame;
             self
         }
+
         pub fn use_prev_frame_mvs(mut self, use_prev_frame_mvs: u32) -> Self {
             self.use_prev_frame_mvs = use_prev_frame_mvs;
             self
         }
+
         pub fn reserved(mut self, reserved: u32) -> Self {
             self.reserved = reserved;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeVP9PictureInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -84,6 +96,7 @@ pub(super) mod defs {
         pub p_segmentation: *const StdVideoVP9Segmentation,
         pub _marker: PhantomData<&'a ()>,
     }
+
     impl Default for StdVideoDecodeVP9PictureInfo<'_> {
         fn default() -> Self {
             Self {
@@ -109,35 +122,43 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> StdVideoDecodeVP9PictureInfo<'a> {
         pub fn flags(mut self, flags: StdVideoDecodeVP9PictureInfoFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn profile(mut self, profile: StdVideoVP9Profile) -> Self {
             self.profile = profile;
             self
         }
+
         pub fn frame_type(mut self, frame_type: StdVideoVP9FrameType) -> Self {
             self.frame_type = frame_type;
             self
         }
+
         pub fn frame_context_idx(mut self, frame_context_idx: u8) -> Self {
             self.frame_context_idx = frame_context_idx;
             self
         }
+
         pub fn reset_frame_context(mut self, reset_frame_context: u8) -> Self {
             self.reset_frame_context = reset_frame_context;
             self
         }
+
         pub fn refresh_frame_flags(mut self, refresh_frame_flags: u8) -> Self {
             self.refresh_frame_flags = refresh_frame_flags;
             self
         }
+
         pub fn ref_frame_sign_bias_mask(mut self, ref_frame_sign_bias_mask: u8) -> Self {
             self.ref_frame_sign_bias_mask = ref_frame_sign_bias_mask;
             self
         }
+
         pub fn interpolation_filter(
             mut self,
             interpolation_filter: StdVideoVP9InterpolationFilter,
@@ -145,42 +166,52 @@ pub(super) mod defs {
             self.interpolation_filter = interpolation_filter;
             self
         }
+
         pub fn base_q_idx(mut self, base_q_idx: u8) -> Self {
             self.base_q_idx = base_q_idx;
             self
         }
+
         pub fn delta_q_y_dc(mut self, delta_q_y_dc: i8) -> Self {
             self.delta_q_y_dc = delta_q_y_dc;
             self
         }
+
         pub fn delta_q_uv_dc(mut self, delta_q_uv_dc: i8) -> Self {
             self.delta_q_uv_dc = delta_q_uv_dc;
             self
         }
+
         pub fn delta_q_uv_ac(mut self, delta_q_uv_ac: i8) -> Self {
             self.delta_q_uv_ac = delta_q_uv_ac;
             self
         }
+
         pub fn tile_cols_log2(mut self, tile_cols_log2: u8) -> Self {
             self.tile_cols_log2 = tile_cols_log2;
             self
         }
+
         pub fn tile_rows_log2(mut self, tile_rows_log2: u8) -> Self {
             self.tile_rows_log2 = tile_rows_log2;
             self
         }
+
         pub fn reserved1(mut self, reserved1: [u16; 3]) -> Self {
             self.reserved1 = reserved1;
             self
         }
+
         pub fn color_config(mut self, color_config: &'a StdVideoVP9ColorConfig) -> Self {
             self.p_color_config = color_config;
             self
         }
+
         pub fn loop_filter(mut self, loop_filter: &'a StdVideoVP9LoopFilter) -> Self {
             self.p_loop_filter = loop_filter;
             self
         }
+
         pub fn segmentation(mut self, segmentation: &'a StdVideoVP9Segmentation) -> Self {
             self.p_segmentation = segmentation;
             self

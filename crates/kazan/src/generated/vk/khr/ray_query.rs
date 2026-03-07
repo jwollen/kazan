@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceRayQueryFeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,11 +19,14 @@ pub(super) mod defs {
         pub ray_query: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRayQueryFeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_RAY_QUERY_FEATURES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceRayQueryFeaturesKHR<'a> {}
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceRayQueryFeaturesKHR<'a> {}
+
     impl Default for PhysicalDeviceRayQueryFeaturesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -32,6 +37,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceRayQueryFeaturesKHR<'a> {
         pub fn ray_query(mut self, ray_query: bool) -> Self {
             self.ray_query = ray_query.into();

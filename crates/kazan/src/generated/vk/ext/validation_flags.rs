@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkValidationFlagsEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,10 +20,13 @@ pub(super) mod defs {
         pub p_disabled_validation_checks: *const ValidationCheckEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ValidationFlagsEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VALIDATION_FLAGS_EXT;
     }
+
     unsafe impl<'a> Extends<InstanceCreateInfo<'a>> for ValidationFlagsEXT<'a> {}
+
     impl Default for ValidationFlagsEXT<'_> {
         fn default() -> Self {
             Self {
@@ -33,6 +38,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ValidationFlagsEXT<'a> {
         pub fn disabled_validation_checks(
             mut self,
@@ -44,14 +50,17 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkValidationCheckEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ValidationCheckEXT(i32);
+
     impl ValidationCheckEXT {
         pub const ALL_EXT: Self = Self(0);
         pub const SHADERS_EXT: Self = Self(1);
     }
+
     impl fmt::Debug for ValidationCheckEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {

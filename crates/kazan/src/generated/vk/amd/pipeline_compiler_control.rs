@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCompilerControlCreateInfoAMD.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,10 +19,12 @@ pub(super) mod defs {
         pub compiler_control_flags: PipelineCompilerControlFlagsAMD,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineCompilerControlCreateInfoAMD<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_COMPILER_CONTROL_CREATE_INFO_AMD;
     }
+
     unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>>
         for PipelineCompilerControlCreateInfoAMD<'a>
     {
@@ -33,6 +37,7 @@ pub(super) mod defs {
         for PipelineCompilerControlCreateInfoAMD<'a>
     {
     }
+
     impl Default for PipelineCompilerControlCreateInfoAMD<'_> {
         fn default() -> Self {
             Self {
@@ -43,6 +48,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineCompilerControlCreateInfoAMD<'a> {
         pub fn compiler_control_flags(
             mut self,
@@ -52,21 +58,26 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCompilerControlFlagsAMD.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineCompilerControlFlagsAMD(Flags);
     vk_bitflags_wrapped!(PipelineCompilerControlFlagsAMD, Flags);
+
     impl PipelineCompilerControlFlagsAMD {}
+
     impl fmt::Debug for PipelineCompilerControlFlagsAMD {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[];
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCompilerControlFlagBitsAMD.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineCompilerControlFlagBitsAMD(u32);
+
     impl PipelineCompilerControlFlagBitsAMD {}
 }

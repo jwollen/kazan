@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceRenderPassStripedFeaturesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,15 +19,18 @@ pub(super) mod defs {
         pub render_pass_striped: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRenderPassStripedFeaturesARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_RENDER_PASS_STRIPED_FEATURES_ARM;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceRenderPassStripedFeaturesARM<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceRenderPassStripedFeaturesARM<'a> {}
+
     impl Default for PhysicalDeviceRenderPassStripedFeaturesARM<'_> {
         fn default() -> Self {
             Self {
@@ -36,12 +41,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceRenderPassStripedFeaturesARM<'a> {
         pub fn render_pass_striped(mut self, render_pass_striped: bool) -> Self {
             self.render_pass_striped = render_pass_striped.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceRenderPassStripedPropertiesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -52,14 +59,17 @@ pub(super) mod defs {
         pub max_render_pass_stripes: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRenderPassStripedPropertiesARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_RENDER_PASS_STRIPED_PROPERTIES_ARM;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceRenderPassStripedPropertiesARM<'a>
     {
     }
+
     impl Default for PhysicalDeviceRenderPassStripedPropertiesARM<'_> {
         fn default() -> Self {
             Self {
@@ -71,6 +81,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceRenderPassStripedPropertiesARM<'a> {
         pub fn render_pass_stripe_granularity(
             mut self,
@@ -79,11 +90,13 @@ pub(super) mod defs {
             self.render_pass_stripe_granularity = render_pass_stripe_granularity;
             self
         }
+
         pub fn max_render_pass_stripes(mut self, max_render_pass_stripes: u32) -> Self {
             self.max_render_pass_stripes = max_render_pass_stripes;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassStripeInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -93,9 +106,11 @@ pub(super) mod defs {
         pub stripe_area: Rect2D,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for RenderPassStripeInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::RENDER_PASS_STRIPE_INFO_ARM;
     }
+
     impl Default for RenderPassStripeInfoARM<'_> {
         fn default() -> Self {
             Self {
@@ -106,12 +121,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> RenderPassStripeInfoARM<'a> {
         pub fn stripe_area(mut self, stripe_area: Rect2D) -> Self {
             self.stripe_area = stripe_area;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassStripeBeginInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -122,11 +139,14 @@ pub(super) mod defs {
         pub p_stripe_infos: *const RenderPassStripeInfoARM<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for RenderPassStripeBeginInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::RENDER_PASS_STRIPE_BEGIN_INFO_ARM;
     }
+
     unsafe impl<'a> Extends<RenderingInfo<'a>> for RenderPassStripeBeginInfoARM<'a> {}
     unsafe impl<'a> Extends<RenderPassBeginInfo<'a>> for RenderPassStripeBeginInfoARM<'a> {}
+
     impl Default for RenderPassStripeBeginInfoARM<'_> {
         fn default() -> Self {
             Self {
@@ -138,6 +158,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> RenderPassStripeBeginInfoARM<'a> {
         pub fn stripe_infos(mut self, stripe_infos: &'a [RenderPassStripeInfoARM<'a>]) -> Self {
             self.stripe_info_count = stripe_infos.len().try_into().unwrap();
@@ -145,6 +166,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassStripeSubmitInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -155,10 +177,13 @@ pub(super) mod defs {
         pub p_stripe_semaphore_infos: *const SemaphoreSubmitInfo<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for RenderPassStripeSubmitInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::RENDER_PASS_STRIPE_SUBMIT_INFO_ARM;
     }
+
     unsafe impl<'a> Extends<CommandBufferSubmitInfo<'a>> for RenderPassStripeSubmitInfoARM<'a> {}
+
     impl Default for RenderPassStripeSubmitInfoARM<'_> {
         fn default() -> Self {
             Self {
@@ -170,6 +195,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> RenderPassStripeSubmitInfoARM<'a> {
         pub fn stripe_semaphore_infos(
             mut self,

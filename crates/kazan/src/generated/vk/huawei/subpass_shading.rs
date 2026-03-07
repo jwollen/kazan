@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassShadingPipelineCreateInfoHUAWEI.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,14 +20,17 @@ pub(super) mod defs {
         pub subpass: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for SubpassShadingPipelineCreateInfoHUAWEI<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::SUBPASS_SHADING_PIPELINE_CREATE_INFO_HUAWEI;
     }
+
     unsafe impl<'a> Extends<ComputePipelineCreateInfo<'a>>
         for SubpassShadingPipelineCreateInfoHUAWEI<'a>
     {
     }
+
     impl Default for SubpassShadingPipelineCreateInfoHUAWEI<'_> {
         fn default() -> Self {
             Self {
@@ -37,16 +42,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SubpassShadingPipelineCreateInfoHUAWEI<'a> {
         pub fn render_pass(mut self, render_pass: RenderPass) -> Self {
             self.render_pass = render_pass;
             self
         }
+
         pub fn subpass(mut self, subpass: u32) -> Self {
             self.subpass = subpass;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSubpassShadingPropertiesHUAWEI.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -56,14 +64,17 @@ pub(super) mod defs {
         pub max_subpass_shading_workgroup_size_aspect_ratio: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSubpassShadingPropertiesHUAWEI<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SUBPASS_SHADING_PROPERTIES_HUAWEI;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceSubpassShadingPropertiesHUAWEI<'a>
     {
     }
+
     impl Default for PhysicalDeviceSubpassShadingPropertiesHUAWEI<'_> {
         fn default() -> Self {
             Self {
@@ -74,6 +85,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceSubpassShadingPropertiesHUAWEI<'a> {
         pub fn max_subpass_shading_workgroup_size_aspect_ratio(
             mut self,
@@ -84,6 +96,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSubpassShadingFeaturesHUAWEI.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -93,15 +106,18 @@ pub(super) mod defs {
         pub subpass_shading: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSubpassShadingFeaturesHUAWEI<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SUBPASS_SHADING_FEATURES_HUAWEI;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceSubpassShadingFeaturesHUAWEI<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceSubpassShadingFeaturesHUAWEI<'a> {}
+
     impl Default for PhysicalDeviceSubpassShadingFeaturesHUAWEI<'_> {
         fn default() -> Self {
             Self {
@@ -112,12 +128,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceSubpassShadingFeaturesHUAWEI<'a> {
         pub fn subpass_shading(mut self, subpass_shading: bool) -> Self {
             self.subpass_shading = subpass_shading.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI.html>
     pub type PFN_vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI =
         unsafe extern "system" fn(
@@ -129,11 +147,13 @@ pub(super) mod defs {
     pub type PFN_vkCmdSubpassShadingHUAWEI =
         unsafe extern "system" fn(command_buffer: CommandBuffer);
 }
+
 pub struct DeviceFn {
     get_device_subpass_shading_max_workgroup_size_huawei:
         PFN_vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI,
     cmd_subpass_shading_huawei: PFN_vkCmdSubpassShadingHUAWEI,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -151,6 +171,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI.html>
     pub unsafe fn get_device_subpass_shading_max_workgroup_size_huawei(
@@ -172,6 +193,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSubpassShadingHUAWEI.html>
     pub unsafe fn cmd_subpass_shading_huawei(&self, command_buffer: CommandBuffer) {
         unsafe { (self.cmd_subpass_shading_huawei)(command_buffer) }

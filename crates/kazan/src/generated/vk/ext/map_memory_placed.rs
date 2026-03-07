@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMapMemoryPlacedFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -19,15 +21,18 @@ pub(super) mod defs {
         pub memory_unmap_reserve: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMapMemoryPlacedFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_MAP_MEMORY_PLACED_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceMapMemoryPlacedFeaturesEXT<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceMapMemoryPlacedFeaturesEXT<'a> {}
+
     impl Default for PhysicalDeviceMapMemoryPlacedFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -40,20 +45,24 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceMapMemoryPlacedFeaturesEXT<'a> {
         pub fn memory_map_placed(mut self, memory_map_placed: bool) -> Self {
             self.memory_map_placed = memory_map_placed.into();
             self
         }
+
         pub fn memory_map_range_placed(mut self, memory_map_range_placed: bool) -> Self {
             self.memory_map_range_placed = memory_map_range_placed.into();
             self
         }
+
         pub fn memory_unmap_reserve(mut self, memory_unmap_reserve: bool) -> Self {
             self.memory_unmap_reserve = memory_unmap_reserve.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMapMemoryPlacedPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -63,14 +72,17 @@ pub(super) mod defs {
         pub min_placed_memory_map_alignment: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMapMemoryPlacedPropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_MAP_MEMORY_PLACED_PROPERTIES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceMapMemoryPlacedPropertiesEXT<'a>
     {
     }
+
     impl Default for PhysicalDeviceMapMemoryPlacedPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -81,6 +93,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceMapMemoryPlacedPropertiesEXT<'a> {
         pub fn min_placed_memory_map_alignment(
             mut self,
@@ -90,6 +103,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryMapPlacedInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -99,10 +113,13 @@ pub(super) mod defs {
         pub p_placed_address: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for MemoryMapPlacedInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_MAP_PLACED_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<MemoryMapInfo<'a>> for MemoryMapPlacedInfoEXT<'a> {}
+
     impl Default for MemoryMapPlacedInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -113,6 +130,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> MemoryMapPlacedInfoEXT<'a> {
         pub fn placed_address(mut self, placed_address: *mut c_void) -> Self {
             self.p_placed_address = placed_address;

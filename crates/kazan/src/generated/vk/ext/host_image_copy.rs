@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceHostImageCopyFeaturesEXT.html>
     pub type PhysicalDeviceHostImageCopyFeaturesEXT<'a> = PhysicalDeviceHostImageCopyFeatures<'a>;
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceHostImageCopyPropertiesEXT.html>
@@ -41,6 +43,7 @@ pub(super) mod defs {
     pub type PFN_vkTransitionImageLayoutEXT = PFN_vkTransitionImageLayout;
     pub type PFN_vkGetImageSubresourceLayout2EXT = PFN_vkGetImageSubresourceLayout2;
 }
+
 pub struct DeviceFn {
     copy_memory_to_image_ext: PFN_vkCopyMemoryToImage,
     copy_image_to_memory_ext: PFN_vkCopyImageToMemory,
@@ -48,6 +51,7 @@ pub struct DeviceFn {
     transition_image_layout_ext: PFN_vkTransitionImageLayout,
     get_image_subresource_layout2_ext: PFN_vkGetImageSubresourceLayout2,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -73,6 +77,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyMemoryToImageEXT.html>
     pub unsafe fn copy_memory_to_image_ext(
@@ -89,6 +94,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyImageToMemoryEXT.html>
     pub unsafe fn copy_image_to_memory_ext(
         &self,
@@ -104,6 +110,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyImageToImageEXT.html>
     pub unsafe fn copy_image_to_image_ext(
         &self,
@@ -119,6 +126,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkTransitionImageLayoutEXT.html>
     pub unsafe fn transition_image_layout_ext(
         &self,
@@ -138,6 +146,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageSubresourceLayout2EXT.html>
     pub unsafe fn get_image_subresource_layout2_ext(
         &self,

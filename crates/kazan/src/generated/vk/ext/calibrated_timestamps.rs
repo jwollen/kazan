@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTimeDomainEXT.html>
     pub type TimeDomainEXT = TimeDomainKHR;
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCalibratedTimestampInfoEXT.html>
@@ -16,10 +18,12 @@ pub(super) mod defs {
         PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsKHR;
     pub type PFN_vkGetCalibratedTimestampsEXT = PFN_vkGetCalibratedTimestampsKHR;
 }
+
 pub struct InstanceFn {
     get_physical_device_calibrateable_time_domains_ext:
         PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsKHR,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -34,6 +38,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceCalibrateableTimeDomainsEXT.html>
     pub unsafe fn get_physical_device_calibrateable_time_domains_ext(
@@ -66,9 +71,11 @@ impl InstanceFn {
         }
     }
 }
+
 pub struct DeviceFn {
     get_calibrated_timestamps_ext: PFN_vkGetCalibratedTimestampsKHR,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -82,6 +89,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetCalibratedTimestampsEXT.html>
     pub unsafe fn get_calibrated_timestamps_ext(

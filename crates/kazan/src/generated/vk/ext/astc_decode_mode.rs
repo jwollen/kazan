@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageViewASTCDecodeModeEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,10 +19,13 @@ pub(super) mod defs {
         pub decode_mode: Format,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ImageViewASTCDecodeModeEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_VIEW_ASTC_DECODE_MODE_EXT;
     }
+
     unsafe impl<'a> Extends<ImageViewCreateInfo<'a>> for ImageViewASTCDecodeModeEXT<'a> {}
+
     impl Default for ImageViewASTCDecodeModeEXT<'_> {
         fn default() -> Self {
             Self {
@@ -31,12 +36,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ImageViewASTCDecodeModeEXT<'a> {
         pub fn decode_mode(mut self, decode_mode: Format) -> Self {
             self.decode_mode = decode_mode;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceASTCDecodeFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -46,12 +53,15 @@ pub(super) mod defs {
         pub decode_mode_shared_exponent: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceASTCDecodeFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_ASTC_DECODE_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceASTCDecodeFeaturesEXT<'a> {}
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceASTCDecodeFeaturesEXT<'a> {}
+
     impl Default for PhysicalDeviceASTCDecodeFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -62,6 +72,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceASTCDecodeFeaturesEXT<'a> {
         pub fn decode_mode_shared_exponent(mut self, decode_mode_shared_exponent: bool) -> Self {
             self.decode_mode_shared_exponent = decode_mode_shared_exponent.into();

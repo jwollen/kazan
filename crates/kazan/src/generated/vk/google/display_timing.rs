@@ -2,24 +2,28 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRefreshCycleDurationGOOGLE.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct RefreshCycleDurationGOOGLE {
         pub refresh_duration: u64,
     }
+
     impl RefreshCycleDurationGOOGLE {
         pub fn refresh_duration(mut self, refresh_duration: u64) -> Self {
             self.refresh_duration = refresh_duration;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPastPresentationTimingGOOGLE.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -30,28 +34,34 @@ pub(super) mod defs {
         pub earliest_present_time: u64,
         pub present_margin: u64,
     }
+
     impl PastPresentationTimingGOOGLE {
         pub fn present_id(mut self, present_id: u32) -> Self {
             self.present_id = present_id;
             self
         }
+
         pub fn desired_present_time(mut self, desired_present_time: u64) -> Self {
             self.desired_present_time = desired_present_time;
             self
         }
+
         pub fn actual_present_time(mut self, actual_present_time: u64) -> Self {
             self.actual_present_time = actual_present_time;
             self
         }
+
         pub fn earliest_present_time(mut self, earliest_present_time: u64) -> Self {
             self.earliest_present_time = earliest_present_time;
             self
         }
+
         pub fn present_margin(mut self, present_margin: u64) -> Self {
             self.present_margin = present_margin;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentTimesInfoGOOGLE.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -62,10 +72,13 @@ pub(super) mod defs {
         pub p_times: *const PresentTimeGOOGLE,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PresentTimesInfoGOOGLE<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PRESENT_TIMES_INFO_GOOGLE;
     }
+
     unsafe impl<'a> Extends<PresentInfoKHR<'a>> for PresentTimesInfoGOOGLE<'a> {}
+
     impl Default for PresentTimesInfoGOOGLE<'_> {
         fn default() -> Self {
             Self {
@@ -77,6 +90,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PresentTimesInfoGOOGLE<'a> {
         pub fn times(mut self, times: &'a [PresentTimeGOOGLE]) -> Self {
             self.swapchain_count = times.len().try_into().unwrap();
@@ -84,6 +98,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentTimeGOOGLE.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -91,16 +106,19 @@ pub(super) mod defs {
         pub present_id: u32,
         pub desired_present_time: u64,
     }
+
     impl PresentTimeGOOGLE {
         pub fn present_id(mut self, present_id: u32) -> Self {
             self.present_id = present_id;
             self
         }
+
         pub fn desired_present_time(mut self, desired_present_time: u64) -> Self {
             self.desired_present_time = desired_present_time;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRefreshCycleDurationGOOGLE.html>
     pub type PFN_vkGetRefreshCycleDurationGOOGLE = unsafe extern "system" fn(
         device: Device,
@@ -115,10 +133,12 @@ pub(super) mod defs {
         p_presentation_timings: *mut PastPresentationTimingGOOGLE,
     ) -> vk::Result;
 }
+
 pub struct DeviceFn {
     get_refresh_cycle_duration_google: PFN_vkGetRefreshCycleDurationGOOGLE,
     get_past_presentation_timing_google: PFN_vkGetPastPresentationTimingGOOGLE,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -135,6 +155,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRefreshCycleDurationGOOGLE.html>
     pub unsafe fn get_refresh_cycle_duration_google(
@@ -156,6 +177,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPastPresentationTimingGOOGLE.html>
     pub unsafe fn get_past_presentation_timing_google(
         &self,

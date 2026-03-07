@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPrivateDataSlotEXT.html>
     pub type PrivateDataSlotEXT = PrivateDataSlot;
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDevicePrivateDataCreateInfoEXT.html>
@@ -23,12 +25,14 @@ pub(super) mod defs {
     pub type PFN_vkSetPrivateDataEXT = PFN_vkSetPrivateData;
     pub type PFN_vkGetPrivateDataEXT = PFN_vkGetPrivateData;
 }
+
 pub struct DeviceFn {
     create_private_data_slot_ext: PFN_vkCreatePrivateDataSlot,
     destroy_private_data_slot_ext: PFN_vkDestroyPrivateDataSlot,
     set_private_data_ext: PFN_vkSetPrivateData,
     get_private_data_ext: PFN_vkGetPrivateData,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -51,6 +55,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreatePrivateDataSlotEXT.html>
     pub unsafe fn create_private_data_slot_ext(
@@ -74,6 +79,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyPrivateDataSlotEXT.html>
     pub unsafe fn destroy_private_data_slot_ext(
         &self,
@@ -85,6 +91,7 @@ impl DeviceFn {
             (self.destroy_private_data_slot_ext)(device, private_data_slot, allocator.to_raw_ptr())
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetPrivateDataEXT.html>
     pub unsafe fn set_private_data_ext(
         &self,
@@ -109,6 +116,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPrivateDataEXT.html>
     pub unsafe fn get_private_data_ext(
         &self,

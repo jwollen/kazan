@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCoverageReductionModeFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,10 +19,12 @@ pub(super) mod defs {
         pub coverage_reduction_mode: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCoverageReductionModeFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_COVERAGE_REDUCTION_MODE_FEATURES_NV;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceCoverageReductionModeFeaturesNV<'a>
     {
@@ -29,6 +33,7 @@ pub(super) mod defs {
         for PhysicalDeviceCoverageReductionModeFeaturesNV<'a>
     {
     }
+
     impl Default for PhysicalDeviceCoverageReductionModeFeaturesNV<'_> {
         fn default() -> Self {
             Self {
@@ -39,12 +44,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceCoverageReductionModeFeaturesNV<'a> {
         pub fn coverage_reduction_mode(mut self, coverage_reduction_mode: bool) -> Self {
             self.coverage_reduction_mode = coverage_reduction_mode.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCoverageReductionStateCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -55,14 +62,17 @@ pub(super) mod defs {
         pub coverage_reduction_mode: CoverageReductionModeNV,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineCoverageReductionStateCreateInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV;
     }
+
     unsafe impl<'a> Extends<PipelineMultisampleStateCreateInfo<'a>>
         for PipelineCoverageReductionStateCreateInfoNV<'a>
     {
     }
+
     impl Default for PipelineCoverageReductionStateCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
@@ -74,11 +84,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineCoverageReductionStateCreateInfoNV<'a> {
         pub fn flags(mut self, flags: PipelineCoverageReductionStateCreateFlagsNV) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn coverage_reduction_mode(
             mut self,
             coverage_reduction_mode: CoverageReductionModeNV,
@@ -87,6 +99,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFramebufferMixedSamplesCombinationNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -99,10 +112,12 @@ pub(super) mod defs {
         pub color_samples: SampleCountFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for FramebufferMixedSamplesCombinationNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::FRAMEBUFFER_MIXED_SAMPLES_COMBINATION_NV;
     }
+
     impl Default for FramebufferMixedSamplesCombinationNV<'_> {
         fn default() -> Self {
             Self {
@@ -116,6 +131,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> FramebufferMixedSamplesCombinationNV<'a> {
         pub fn coverage_reduction_mode(
             mut self,
@@ -124,27 +140,33 @@ pub(super) mod defs {
             self.coverage_reduction_mode = coverage_reduction_mode;
             self
         }
+
         pub fn rasterization_samples(mut self, rasterization_samples: SampleCountFlagBits) -> Self {
             self.rasterization_samples = rasterization_samples;
             self
         }
+
         pub fn depth_stencil_samples(mut self, depth_stencil_samples: SampleCountFlags) -> Self {
             self.depth_stencil_samples = depth_stencil_samples;
             self
         }
+
         pub fn color_samples(mut self, color_samples: SampleCountFlags) -> Self {
             self.color_samples = color_samples;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCoverageReductionModeNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct CoverageReductionModeNV(i32);
+
     impl CoverageReductionModeNV {
         pub const MERGE_NV: Self = Self(0);
         pub const TRUNCATE_NV: Self = Self(1);
     }
+
     impl fmt::Debug for CoverageReductionModeNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -159,16 +181,19 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCoverageReductionStateCreateFlagsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineCoverageReductionStateCreateFlagsNV(Flags);
     vk_bitflags_wrapped!(PipelineCoverageReductionStateCreateFlagsNV, Flags);
+
     impl fmt::Debug for PipelineCoverageReductionStateCreateFlagsNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV.html>
     pub type PFN_vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV =
         unsafe extern "system" fn(
@@ -177,10 +202,12 @@ pub(super) mod defs {
             p_combinations: *mut FramebufferMixedSamplesCombinationNV<'_>,
         ) -> vk::Result;
 }
+
 pub struct InstanceFn {
     get_physical_device_supported_framebuffer_mixed_samples_combinations_nv:
         PFN_vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -195,6 +222,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV.html>
     pub unsafe fn get_physical_device_supported_framebuffer_mixed_samples_combinations_nv<'a>(

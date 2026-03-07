@@ -2,14 +2,17 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentSampleCountInfoNV.html>
     pub type AttachmentSampleCountInfoNV<'a> = AttachmentSampleCountInfoAMD<'a>;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCoverageModulationStateCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -23,14 +26,17 @@ pub(super) mod defs {
         pub p_coverage_modulation_table: *const f32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineCoverageModulationStateCreateInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_COVERAGE_MODULATION_STATE_CREATE_INFO_NV;
     }
+
     unsafe impl<'a> Extends<PipelineMultisampleStateCreateInfo<'a>>
         for PipelineCoverageModulationStateCreateInfoNV<'a>
     {
     }
+
     impl Default for PipelineCoverageModulationStateCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
@@ -45,11 +51,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineCoverageModulationStateCreateInfoNV<'a> {
         pub fn flags(mut self, flags: PipelineCoverageModulationStateCreateFlagsNV) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn coverage_modulation_mode(
             mut self,
             coverage_modulation_mode: CoverageModulationModeNV,
@@ -57,6 +65,7 @@ pub(super) mod defs {
             self.coverage_modulation_mode = coverage_modulation_mode;
             self
         }
+
         pub fn coverage_modulation_table_enable(
             mut self,
             coverage_modulation_table_enable: bool,
@@ -64,6 +73,7 @@ pub(super) mod defs {
             self.coverage_modulation_table_enable = coverage_modulation_table_enable.into();
             self
         }
+
         pub fn coverage_modulation_table(mut self, coverage_modulation_table: &'a [f32]) -> Self {
             self.coverage_modulation_table_count =
                 coverage_modulation_table.len().try_into().unwrap();
@@ -71,16 +81,19 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCoverageModulationModeNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct CoverageModulationModeNV(i32);
+
     impl CoverageModulationModeNV {
         pub const NONE_NV: Self = Self(0);
         pub const RGB_NV: Self = Self(1);
         pub const ALPHA_NV: Self = Self(2);
         pub const RGBA_NV: Self = Self(3);
     }
+
     impl fmt::Debug for CoverageModulationModeNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -97,11 +110,13 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCoverageModulationStateCreateFlagsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineCoverageModulationStateCreateFlagsNV(Flags);
     vk_bitflags_wrapped!(PipelineCoverageModulationStateCreateFlagsNV, Flags);
+
     impl fmt::Debug for PipelineCoverageModulationStateCreateFlagsNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)

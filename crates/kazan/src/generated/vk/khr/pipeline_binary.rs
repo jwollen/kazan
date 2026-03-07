@@ -2,19 +2,23 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     pub const MAX_PIPELINE_BINARY_KEY_SIZE_KHR: u32 = 32;
+
     handle_nondispatchable!(
         PipelineBinaryKHR,
         PIPELINE_BINARY_KHR,
         doc =
             "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineBinaryKHR.html>"
     );
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineBinaryCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -26,9 +30,11 @@ pub(super) mod defs {
         pub p_pipeline_create_info: *const PipelineCreateInfoKHR<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineBinaryCreateInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_BINARY_CREATE_INFO_KHR;
     }
+
     impl Default for PipelineBinaryCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -41,6 +47,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineBinaryCreateInfoKHR<'a> {
         pub fn keys_and_data_info(
             mut self,
@@ -49,10 +56,12 @@ pub(super) mod defs {
             self.p_keys_and_data_info = keys_and_data_info;
             self
         }
+
         pub fn pipeline(mut self, pipeline: Pipeline) -> Self {
             self.pipeline = pipeline;
             self
         }
+
         pub fn pipeline_create_info(
             mut self,
             pipeline_create_info: &'a PipelineCreateInfoKHR<'a>,
@@ -61,6 +70,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineBinaryHandlesInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -71,9 +81,11 @@ pub(super) mod defs {
         pub p_pipeline_binaries: *mut PipelineBinaryKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineBinaryHandlesInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_BINARY_HANDLES_INFO_KHR;
     }
+
     impl Default for PipelineBinaryHandlesInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -85,6 +97,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineBinaryHandlesInfoKHR<'a> {
         pub fn pipeline_binaries(mut self, pipeline_binaries: &'a mut [PipelineBinaryKHR]) -> Self {
             self.pipeline_binary_count = pipeline_binaries.len().try_into().unwrap();
@@ -92,6 +105,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineBinaryDataKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -100,6 +114,7 @@ pub(super) mod defs {
         pub p_data: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+
     impl Default for PipelineBinaryDataKHR<'_> {
         fn default() -> Self {
             Self {
@@ -109,6 +124,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineBinaryDataKHR<'a> {
         pub fn data(mut self, data: &'a mut [u8]) -> Self {
             self.data_size = data.len().try_into().unwrap();
@@ -116,6 +132,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineBinaryKeysAndDataKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -125,6 +142,7 @@ pub(super) mod defs {
         pub p_pipeline_binary_data: *const PipelineBinaryDataKHR<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     impl Default for PipelineBinaryKeysAndDataKHR<'_> {
         fn default() -> Self {
             Self {
@@ -135,6 +153,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineBinaryKeysAndDataKHR<'a> {
         pub fn pipeline_binary_keys(
             mut self,
@@ -144,6 +163,7 @@ pub(super) mod defs {
             self.p_pipeline_binary_keys = pipeline_binary_keys.as_ptr();
             self
         }
+
         pub fn pipeline_binary_data(
             mut self,
             pipeline_binary_data: &'a [PipelineBinaryDataKHR<'a>],
@@ -153,6 +173,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineBinaryKeyKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -163,9 +184,11 @@ pub(super) mod defs {
         pub key: [u8; MAX_PIPELINE_BINARY_KEY_SIZE_KHR as usize],
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineBinaryKeyKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_BINARY_KEY_KHR;
     }
+
     impl Default for PipelineBinaryKeyKHR<'_> {
         fn default() -> Self {
             Self {
@@ -177,16 +200,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineBinaryKeyKHR<'a> {
         pub fn key_size(mut self, key_size: u32) -> Self {
             self.key_size = key_size;
             self
         }
+
         pub fn key(mut self, key: [u8; MAX_PIPELINE_BINARY_KEY_SIZE_KHR as usize]) -> Self {
             self.key = key;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineBinaryInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -197,12 +223,15 @@ pub(super) mod defs {
         pub p_pipeline_binaries: *const PipelineBinaryKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineBinaryInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_BINARY_INFO_KHR;
     }
+
     unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>> for PipelineBinaryInfoKHR<'a> {}
     unsafe impl<'a> Extends<ComputePipelineCreateInfo<'a>> for PipelineBinaryInfoKHR<'a> {}
     unsafe impl<'a> Extends<RayTracingPipelineCreateInfoKHR<'a>> for PipelineBinaryInfoKHR<'a> {}
+
     impl Default for PipelineBinaryInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -214,6 +243,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineBinaryInfoKHR<'a> {
         pub fn pipeline_binaries(mut self, pipeline_binaries: &'a [PipelineBinaryKHR]) -> Self {
             self.binary_count = pipeline_binaries.len().try_into().unwrap();
@@ -221,6 +251,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkReleaseCapturedPipelineDataInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -230,10 +261,12 @@ pub(super) mod defs {
         pub pipeline: Pipeline,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ReleaseCapturedPipelineDataInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::RELEASE_CAPTURED_PIPELINE_DATA_INFO_KHR;
     }
+
     impl Default for ReleaseCapturedPipelineDataInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -244,12 +277,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ReleaseCapturedPipelineDataInfoKHR<'a> {
         pub fn pipeline(mut self, pipeline: Pipeline) -> Self {
             self.pipeline = pipeline;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineBinaryDataInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -259,9 +294,11 @@ pub(super) mod defs {
         pub pipeline_binary: PipelineBinaryKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineBinaryDataInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_BINARY_DATA_INFO_KHR;
     }
+
     impl Default for PipelineBinaryDataInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -272,12 +309,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineBinaryDataInfoKHR<'a> {
         pub fn pipeline_binary(mut self, pipeline_binary: PipelineBinaryKHR) -> Self {
             self.pipeline_binary = pipeline_binary;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -286,9 +325,11 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineCreateInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_CREATE_INFO_KHR;
     }
+
     impl Default for PipelineCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -298,7 +339,9 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineCreateInfoKHR<'a> {}
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePipelineBinaryFeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -308,15 +351,18 @@ pub(super) mod defs {
         pub pipeline_binaries: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePipelineBinaryFeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PIPELINE_BINARY_FEATURES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDevicePipelineBinaryFeaturesKHR<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePipelineBinaryFeaturesKHR<'a> {}
+
     impl Default for PhysicalDevicePipelineBinaryFeaturesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -327,12 +373,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDevicePipelineBinaryFeaturesKHR<'a> {
         pub fn pipeline_binaries(mut self, pipeline_binaries: bool) -> Self {
             self.pipeline_binaries = pipeline_binaries.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDevicePipelineBinaryInternalCacheControlKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -342,11 +390,14 @@ pub(super) mod defs {
         pub disable_internal_cache: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DevicePipelineBinaryInternalCacheControlKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DEVICE_PIPELINE_BINARY_INTERNAL_CACHE_CONTROL_KHR;
     }
+
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for DevicePipelineBinaryInternalCacheControlKHR<'a> {}
+
     impl Default for DevicePipelineBinaryInternalCacheControlKHR<'_> {
         fn default() -> Self {
             Self {
@@ -357,12 +408,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DevicePipelineBinaryInternalCacheControlKHR<'a> {
         pub fn disable_internal_cache(mut self, disable_internal_cache: bool) -> Self {
             self.disable_internal_cache = disable_internal_cache.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePipelineBinaryPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -376,14 +429,17 @@ pub(super) mod defs {
         pub pipeline_binary_compressed_data: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePipelineBinaryPropertiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PIPELINE_BINARY_PROPERTIES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDevicePipelineBinaryPropertiesKHR<'a>
     {
     }
+
     impl Default for PhysicalDevicePipelineBinaryPropertiesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -398,6 +454,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDevicePipelineBinaryPropertiesKHR<'a> {
         pub fn pipeline_binary_internal_cache(
             mut self,
@@ -406,6 +463,7 @@ pub(super) mod defs {
             self.pipeline_binary_internal_cache = pipeline_binary_internal_cache.into();
             self
         }
+
         pub fn pipeline_binary_internal_cache_control(
             mut self,
             pipeline_binary_internal_cache_control: bool,
@@ -414,6 +472,7 @@ pub(super) mod defs {
                 pipeline_binary_internal_cache_control.into();
             self
         }
+
         pub fn pipeline_binary_prefers_internal_cache(
             mut self,
             pipeline_binary_prefers_internal_cache: bool,
@@ -422,6 +481,7 @@ pub(super) mod defs {
                 pipeline_binary_prefers_internal_cache.into();
             self
         }
+
         pub fn pipeline_binary_precompiled_internal_cache(
             mut self,
             pipeline_binary_precompiled_internal_cache: bool,
@@ -430,6 +490,7 @@ pub(super) mod defs {
                 pipeline_binary_precompiled_internal_cache.into();
             self
         }
+
         pub fn pipeline_binary_compressed_data(
             mut self,
             pipeline_binary_compressed_data: bool,
@@ -438,6 +499,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreatePipelineBinariesKHR.html>
     pub type PFN_vkCreatePipelineBinariesKHR = unsafe extern "system" fn(
         device: Device,
@@ -472,6 +534,7 @@ pub(super) mod defs {
         p_allocator: *const AllocationCallbacks<'_>,
     ) -> vk::Result;
 }
+
 pub struct DeviceFn {
     create_pipeline_binaries_khr: PFN_vkCreatePipelineBinariesKHR,
     destroy_pipeline_binary_khr: PFN_vkDestroyPipelineBinaryKHR,
@@ -479,6 +542,7 @@ pub struct DeviceFn {
     get_pipeline_binary_data_khr: PFN_vkGetPipelineBinaryDataKHR,
     release_captured_pipeline_data_khr: PFN_vkReleaseCapturedPipelineDataKHR,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -504,6 +568,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreatePipelineBinariesKHR.html>
     pub unsafe fn create_pipeline_binaries_khr(
@@ -527,6 +592,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyPipelineBinaryKHR.html>
     pub unsafe fn destroy_pipeline_binary_khr(
         &self,
@@ -538,6 +604,7 @@ impl DeviceFn {
             (self.destroy_pipeline_binary_khr)(device, pipeline_binary, allocator.to_raw_ptr())
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineKeyKHR.html>
     pub unsafe fn get_pipeline_key_khr(
         &self,
@@ -558,6 +625,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineBinaryDataKHR.html>
     pub unsafe fn get_pipeline_binary_data_khr<'a>(
         &self,
@@ -597,6 +665,7 @@ impl DeviceFn {
             Ok(result)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkReleaseCapturedPipelineDataKHR.html>
     pub unsafe fn release_captured_pipeline_data_khr(
         &self,

@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceConservativeRasterizationPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -25,14 +27,17 @@ pub(super) mod defs {
         pub conservative_rasterization_post_depth_coverage: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceConservativeRasterizationPropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_CONSERVATIVE_RASTERIZATION_PROPERTIES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceConservativeRasterizationPropertiesEXT<'a>
     {
     }
+
     impl Default for PhysicalDeviceConservativeRasterizationPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -51,11 +56,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceConservativeRasterizationPropertiesEXT<'a> {
         pub fn primitive_overestimation_size(mut self, primitive_overestimation_size: f32) -> Self {
             self.primitive_overestimation_size = primitive_overestimation_size;
             self
         }
+
         pub fn max_extra_primitive_overestimation_size(
             mut self,
             max_extra_primitive_overestimation_size: f32,
@@ -63,6 +70,7 @@ pub(super) mod defs {
             self.max_extra_primitive_overestimation_size = max_extra_primitive_overestimation_size;
             self
         }
+
         pub fn extra_primitive_overestimation_size_granularity(
             mut self,
             extra_primitive_overestimation_size_granularity: f32,
@@ -71,10 +79,12 @@ pub(super) mod defs {
                 extra_primitive_overestimation_size_granularity;
             self
         }
+
         pub fn primitive_underestimation(mut self, primitive_underestimation: bool) -> Self {
             self.primitive_underestimation = primitive_underestimation.into();
             self
         }
+
         pub fn conservative_point_and_line_rasterization(
             mut self,
             conservative_point_and_line_rasterization: bool,
@@ -83,6 +93,7 @@ pub(super) mod defs {
                 conservative_point_and_line_rasterization.into();
             self
         }
+
         pub fn degenerate_triangles_rasterized(
             mut self,
             degenerate_triangles_rasterized: bool,
@@ -90,10 +101,12 @@ pub(super) mod defs {
             self.degenerate_triangles_rasterized = degenerate_triangles_rasterized.into();
             self
         }
+
         pub fn degenerate_lines_rasterized(mut self, degenerate_lines_rasterized: bool) -> Self {
             self.degenerate_lines_rasterized = degenerate_lines_rasterized.into();
             self
         }
+
         pub fn fully_covered_fragment_shader_input_variable(
             mut self,
             fully_covered_fragment_shader_input_variable: bool,
@@ -102,6 +115,7 @@ pub(super) mod defs {
                 fully_covered_fragment_shader_input_variable.into();
             self
         }
+
         pub fn conservative_rasterization_post_depth_coverage(
             mut self,
             conservative_rasterization_post_depth_coverage: bool,
@@ -111,6 +125,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineRasterizationConservativeStateCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -122,14 +137,17 @@ pub(super) mod defs {
         pub extra_primitive_overestimation_size: f32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineRasterizationConservativeStateCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_RASTERIZATION_CONSERVATIVE_STATE_CREATE_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<PipelineRasterizationStateCreateInfo<'a>>
         for PipelineRasterizationConservativeStateCreateInfoEXT<'a>
     {
     }
+
     impl Default for PipelineRasterizationConservativeStateCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -142,6 +160,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineRasterizationConservativeStateCreateInfoEXT<'a> {
         pub fn flags(
             mut self,
@@ -150,6 +169,7 @@ pub(super) mod defs {
             self.flags = flags;
             self
         }
+
         pub fn conservative_rasterization_mode(
             mut self,
             conservative_rasterization_mode: ConservativeRasterizationModeEXT,
@@ -157,6 +177,7 @@ pub(super) mod defs {
             self.conservative_rasterization_mode = conservative_rasterization_mode;
             self
         }
+
         pub fn extra_primitive_overestimation_size(
             mut self,
             extra_primitive_overestimation_size: f32,
@@ -165,15 +186,18 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkConservativeRasterizationModeEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ConservativeRasterizationModeEXT(i32);
+
     impl ConservativeRasterizationModeEXT {
         pub const DISABLED_EXT: Self = Self(0);
         pub const OVERESTIMATE_EXT: Self = Self(1);
         pub const UNDERESTIMATE_EXT: Self = Self(2);
     }
+
     impl fmt::Debug for ConservativeRasterizationModeEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -189,11 +213,13 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineRasterizationConservativeStateCreateFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineRasterizationConservativeStateCreateFlagsEXT(Flags);
     vk_bitflags_wrapped!(PipelineRasterizationConservativeStateCreateFlagsEXT, Flags);
+
     impl fmt::Debug for PipelineRasterizationConservativeStateCreateFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)

@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePresentTimingFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -19,15 +21,18 @@ pub(super) mod defs {
         pub present_at_relative_time: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePresentTimingFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PRESENT_TIMING_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDevicePresentTimingFeaturesEXT<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePresentTimingFeaturesEXT<'a> {}
+
     impl Default for PhysicalDevicePresentTimingFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -40,20 +45,24 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDevicePresentTimingFeaturesEXT<'a> {
         pub fn present_timing(mut self, present_timing: bool) -> Self {
             self.present_timing = present_timing.into();
             self
         }
+
         pub fn present_at_absolute_time(mut self, present_at_absolute_time: bool) -> Self {
             self.present_at_absolute_time = present_at_absolute_time.into();
             self
         }
+
         pub fn present_at_relative_time(mut self, present_at_relative_time: bool) -> Self {
             self.present_at_relative_time = present_at_relative_time.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentTimingSurfaceCapabilitiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -66,11 +75,14 @@ pub(super) mod defs {
         pub present_stage_queries: PresentStageFlagsEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PresentTimingSurfaceCapabilitiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PRESENT_TIMING_SURFACE_CAPABILITIES_EXT;
     }
+
     unsafe impl<'a> Extends<SurfaceCapabilities2KHR<'a>> for PresentTimingSurfaceCapabilitiesEXT<'a> {}
+
     impl Default for PresentTimingSurfaceCapabilitiesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -84,11 +96,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PresentTimingSurfaceCapabilitiesEXT<'a> {
         pub fn present_timing_supported(mut self, present_timing_supported: bool) -> Self {
             self.present_timing_supported = present_timing_supported.into();
             self
         }
+
         pub fn present_at_absolute_time_supported(
             mut self,
             present_at_absolute_time_supported: bool,
@@ -96,6 +110,7 @@ pub(super) mod defs {
             self.present_at_absolute_time_supported = present_at_absolute_time_supported.into();
             self
         }
+
         pub fn present_at_relative_time_supported(
             mut self,
             present_at_relative_time_supported: bool,
@@ -103,6 +118,7 @@ pub(super) mod defs {
             self.present_at_relative_time_supported = present_at_relative_time_supported.into();
             self
         }
+
         pub fn present_stage_queries(
             mut self,
             present_stage_queries: PresentStageFlagsEXT,
@@ -111,6 +127,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSwapchainTimingPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -121,9 +138,11 @@ pub(super) mod defs {
         pub refresh_interval: u64,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for SwapchainTimingPropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SWAPCHAIN_TIMING_PROPERTIES_EXT;
     }
+
     impl Default for SwapchainTimingPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -135,16 +154,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SwapchainTimingPropertiesEXT<'a> {
         pub fn refresh_duration(mut self, refresh_duration: u64) -> Self {
             self.refresh_duration = refresh_duration;
             self
         }
+
         pub fn refresh_interval(mut self, refresh_interval: u64) -> Self {
             self.refresh_interval = refresh_interval;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSwapchainTimeDomainPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -156,9 +178,11 @@ pub(super) mod defs {
         pub p_time_domain_ids: *mut u64,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for SwapchainTimeDomainPropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SWAPCHAIN_TIME_DOMAIN_PROPERTIES_EXT;
     }
+
     impl Default for SwapchainTimeDomainPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -171,18 +195,21 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SwapchainTimeDomainPropertiesEXT<'a> {
         pub fn time_domains(mut self, time_domains: &'a mut [TimeDomainKHR]) -> Self {
             self.time_domain_count = time_domains.len().try_into().unwrap();
             self.p_time_domains = time_domains.as_mut_ptr();
             self
         }
+
         pub fn time_domain_ids(mut self, time_domain_ids: &'a mut [u64]) -> Self {
             self.time_domain_count = time_domain_ids.len().try_into().unwrap();
             self.p_time_domain_ids = time_domain_ids.as_mut_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentStageTimeEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -190,16 +217,19 @@ pub(super) mod defs {
         pub stage: PresentStageFlagsEXT,
         pub time: u64,
     }
+
     impl PresentStageTimeEXT {
         pub fn stage(mut self, stage: PresentStageFlagsEXT) -> Self {
             self.stage = stage;
             self
         }
+
         pub fn time(mut self, time: u64) -> Self {
             self.time = time;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPastPresentationTimingInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -210,9 +240,11 @@ pub(super) mod defs {
         pub swapchain: SwapchainKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PastPresentationTimingInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PAST_PRESENTATION_TIMING_INFO_EXT;
     }
+
     impl Default for PastPresentationTimingInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -224,16 +256,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PastPresentationTimingInfoEXT<'a> {
         pub fn flags(mut self, flags: PastPresentationTimingFlagsEXT) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn swapchain(mut self, swapchain: SwapchainKHR) -> Self {
             self.swapchain = swapchain;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPastPresentationTimingPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -246,10 +281,12 @@ pub(super) mod defs {
         pub p_presentation_timings: *mut PastPresentationTimingEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PastPresentationTimingPropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PAST_PRESENTATION_TIMING_PROPERTIES_EXT;
     }
+
     impl Default for PastPresentationTimingPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -263,15 +300,18 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PastPresentationTimingPropertiesEXT<'a> {
         pub fn timing_properties_counter(mut self, timing_properties_counter: u64) -> Self {
             self.timing_properties_counter = timing_properties_counter;
             self
         }
+
         pub fn time_domains_counter(mut self, time_domains_counter: u64) -> Self {
             self.time_domains_counter = time_domains_counter;
             self
         }
+
         pub fn presentation_timings(
             mut self,
             presentation_timings: &'a mut [PastPresentationTimingEXT<'a>],
@@ -281,6 +321,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPastPresentationTimingEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -296,9 +337,11 @@ pub(super) mod defs {
         pub report_complete: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PastPresentationTimingEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PAST_PRESENTATION_TIMING_EXT;
     }
+
     impl Default for PastPresentationTimingEXT<'_> {
         fn default() -> Self {
             Self {
@@ -315,33 +358,40 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PastPresentationTimingEXT<'a> {
         pub fn present_id(mut self, present_id: u64) -> Self {
             self.present_id = present_id;
             self
         }
+
         pub fn target_time(mut self, target_time: u64) -> Self {
             self.target_time = target_time;
             self
         }
+
         pub fn present_stages(mut self, present_stages: &'a mut [PresentStageTimeEXT]) -> Self {
             self.present_stage_count = present_stages.len().try_into().unwrap();
             self.p_present_stages = present_stages.as_mut_ptr();
             self
         }
+
         pub fn time_domain(mut self, time_domain: TimeDomainKHR) -> Self {
             self.time_domain = time_domain;
             self
         }
+
         pub fn time_domain_id(mut self, time_domain_id: u64) -> Self {
             self.time_domain_id = time_domain_id;
             self
         }
+
         pub fn report_complete(mut self, report_complete: bool) -> Self {
             self.report_complete = report_complete.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentTimingsInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -352,10 +402,13 @@ pub(super) mod defs {
         pub p_timing_infos: *const PresentTimingInfoEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PresentTimingsInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PRESENT_TIMINGS_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<PresentInfoKHR<'a>> for PresentTimingsInfoEXT<'a> {}
+
     impl Default for PresentTimingsInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -367,6 +420,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PresentTimingsInfoEXT<'a> {
         pub fn timing_infos(mut self, timing_infos: &'a [PresentTimingInfoEXT<'a>]) -> Self {
             self.swapchain_count = timing_infos.len().try_into().unwrap();
@@ -374,6 +428,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentTimingInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -387,9 +442,11 @@ pub(super) mod defs {
         pub target_time_domain_present_stage: PresentStageFlagsEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PresentTimingInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PRESENT_TIMING_INFO_EXT;
     }
+
     impl Default for PresentTimingInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -404,19 +461,23 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PresentTimingInfoEXT<'a> {
         pub fn flags(mut self, flags: PresentTimingInfoFlagsEXT) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn target_time(mut self, target_time: u64) -> Self {
             self.target_time = target_time;
             self
         }
+
         pub fn time_domain_id(mut self, time_domain_id: u64) -> Self {
             self.time_domain_id = time_domain_id;
             self
         }
+
         pub fn present_stage_queries(
             mut self,
             present_stage_queries: PresentStageFlagsEXT,
@@ -424,6 +485,7 @@ pub(super) mod defs {
             self.present_stage_queries = present_stage_queries;
             self
         }
+
         pub fn target_time_domain_present_stage(
             mut self,
             target_time_domain_present_stage: PresentStageFlagsEXT,
@@ -432,6 +494,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSwapchainCalibratedTimestampInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -443,14 +506,17 @@ pub(super) mod defs {
         pub time_domain_id: u64,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for SwapchainCalibratedTimestampInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::SWAPCHAIN_CALIBRATED_TIMESTAMP_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<CalibratedTimestampInfoKHR<'a>>
         for SwapchainCalibratedTimestampInfoEXT<'a>
     {
     }
+
     impl Default for SwapchainCalibratedTimestampInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -463,25 +529,30 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SwapchainCalibratedTimestampInfoEXT<'a> {
         pub fn swapchain(mut self, swapchain: SwapchainKHR) -> Self {
             self.swapchain = swapchain;
             self
         }
+
         pub fn present_stage(mut self, present_stage: PresentStageFlagsEXT) -> Self {
             self.present_stage = present_stage;
             self
         }
+
         pub fn time_domain_id(mut self, time_domain_id: u64) -> Self {
             self.time_domain_id = time_domain_id;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentStageFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PresentStageFlagsEXT(Flags);
     vk_bitflags_wrapped!(PresentStageFlagsEXT, Flags);
+
     impl PresentStageFlagsEXT {
         pub const QUEUE_OPERATIONS_END_EXT: Self =
             Self(PresentStageFlagBitsEXT::QUEUE_OPERATIONS_END_EXT.0);
@@ -492,6 +563,7 @@ pub(super) mod defs {
         pub const IMAGE_FIRST_PIXEL_VISIBLE_EXT: Self =
             Self(PresentStageFlagBitsEXT::IMAGE_FIRST_PIXEL_VISIBLE_EXT.0);
     }
+
     impl fmt::Debug for PresentStageFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -515,27 +587,32 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentStageFlagBitsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PresentStageFlagBitsEXT(u32);
+
     impl PresentStageFlagBitsEXT {
         pub const QUEUE_OPERATIONS_END_EXT: Self = Self(1 << 0);
         pub const REQUEST_DEQUEUED_EXT: Self = Self(1 << 1);
         pub const IMAGE_FIRST_PIXEL_OUT_EXT: Self = Self(1 << 2);
         pub const IMAGE_FIRST_PIXEL_VISIBLE_EXT: Self = Self(1 << 3);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPastPresentationTimingFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PastPresentationTimingFlagsEXT(Flags);
     vk_bitflags_wrapped!(PastPresentationTimingFlagsEXT, Flags);
+
     impl PastPresentationTimingFlagsEXT {
         pub const ALLOW_PARTIAL_RESULTS_EXT: Self =
             Self(PastPresentationTimingFlagBitsEXT::ALLOW_PARTIAL_RESULTS_EXT.0);
         pub const ALLOW_OUT_OF_ORDER_RESULTS_EXT: Self =
             Self(PastPresentationTimingFlagBitsEXT::ALLOW_OUT_OF_ORDER_RESULTS_EXT.0);
     }
+
     impl fmt::Debug for PastPresentationTimingFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -551,25 +628,30 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPastPresentationTimingFlagBitsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PastPresentationTimingFlagBitsEXT(u32);
+
     impl PastPresentationTimingFlagBitsEXT {
         pub const ALLOW_PARTIAL_RESULTS_EXT: Self = Self(1 << 0);
         pub const ALLOW_OUT_OF_ORDER_RESULTS_EXT: Self = Self(1 << 1);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentTimingInfoFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PresentTimingInfoFlagsEXT(Flags);
     vk_bitflags_wrapped!(PresentTimingInfoFlagsEXT, Flags);
+
     impl PresentTimingInfoFlagsEXT {
         pub const PRESENT_AT_RELATIVE_TIME_EXT: Self =
             Self(PresentTimingInfoFlagBitsEXT::PRESENT_AT_RELATIVE_TIME_EXT.0);
         pub const PRESENT_AT_NEAREST_REFRESH_CYCLE_EXT: Self =
             Self(PresentTimingInfoFlagBitsEXT::PRESENT_AT_NEAREST_REFRESH_CYCLE_EXT.0);
     }
+
     impl fmt::Debug for PresentTimingInfoFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -585,14 +667,17 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentTimingInfoFlagBitsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PresentTimingInfoFlagBitsEXT(u32);
+
     impl PresentTimingInfoFlagBitsEXT {
         pub const PRESENT_AT_RELATIVE_TIME_EXT: Self = Self(1 << 0);
         pub const PRESENT_AT_NEAREST_REFRESH_CYCLE_EXT: Self = Self(1 << 1);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetSwapchainPresentTimingQueueSizeEXT.html>
     pub type PFN_vkSetSwapchainPresentTimingQueueSizeEXT =
         unsafe extern "system" fn(device: Device, swapchain: SwapchainKHR, size: u32) -> vk::Result;
@@ -618,12 +703,14 @@ pub(super) mod defs {
         p_past_presentation_timing_properties: *mut PastPresentationTimingPropertiesEXT<'_>,
     ) -> vk::Result;
 }
+
 pub struct DeviceFn {
     set_swapchain_present_timing_queue_size_ext: PFN_vkSetSwapchainPresentTimingQueueSizeEXT,
     get_swapchain_timing_properties_ext: PFN_vkGetSwapchainTimingPropertiesEXT,
     get_swapchain_time_domain_properties_ext: PFN_vkGetSwapchainTimeDomainPropertiesEXT,
     get_past_presentation_timing_ext: PFN_vkGetPastPresentationTimingEXT,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -647,6 +734,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetSwapchainPresentTimingQueueSizeEXT.html>
     pub unsafe fn set_swapchain_present_timing_queue_size_ext(
@@ -665,6 +753,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSwapchainTimingPropertiesEXT.html>
     pub unsafe fn get_swapchain_timing_properties_ext(
         &self,
@@ -687,6 +776,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSwapchainTimeDomainPropertiesEXT.html>
     pub unsafe fn get_swapchain_time_domain_properties_ext(
         &self,
@@ -709,6 +799,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPastPresentationTimingEXT.html>
     pub unsafe fn get_past_presentation_timing_ext(
         &self,

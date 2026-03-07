@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderFmaFeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -19,12 +21,15 @@ pub(super) mod defs {
         pub shader_fma_float64: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderFmaFeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_FMA_FEATURES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceShaderFmaFeaturesKHR<'a> {}
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceShaderFmaFeaturesKHR<'a> {}
+
     impl Default for PhysicalDeviceShaderFmaFeaturesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -37,15 +42,18 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceShaderFmaFeaturesKHR<'a> {
         pub fn shader_fma_float16(mut self, shader_fma_float16: bool) -> Self {
             self.shader_fma_float16 = shader_fma_float16.into();
             self
         }
+
         pub fn shader_fma_float32(mut self, shader_fma_float32: bool) -> Self {
             self.shader_fma_float32 = shader_fma_float32.into();
             self
         }
+
         pub fn shader_fma_float64(mut self, shader_fma_float64: bool) -> Self {
             self.shader_fma_float64 = shader_fma_float64.into();
             self

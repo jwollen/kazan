@@ -2,14 +2,17 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRayTracingInvocationReorderModeNV.html>
     pub type RayTracingInvocationReorderModeNV = RayTracingInvocationReorderModeEXT;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingInvocationReorderFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -19,10 +22,12 @@ pub(super) mod defs {
         pub ray_tracing_invocation_reorder: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRayTracingInvocationReorderFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_NV;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceRayTracingInvocationReorderFeaturesNV<'a>
     {
@@ -31,6 +36,7 @@ pub(super) mod defs {
         for PhysicalDeviceRayTracingInvocationReorderFeaturesNV<'a>
     {
     }
+
     impl Default for PhysicalDeviceRayTracingInvocationReorderFeaturesNV<'_> {
         fn default() -> Self {
             Self {
@@ -41,6 +47,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceRayTracingInvocationReorderFeaturesNV<'a> {
         pub fn ray_tracing_invocation_reorder(
             mut self,
@@ -50,6 +57,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -59,14 +67,17 @@ pub(super) mod defs {
         pub ray_tracing_invocation_reorder_reordering_hint: RayTracingInvocationReorderModeEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRayTracingInvocationReorderPropertiesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_NV;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceRayTracingInvocationReorderPropertiesNV<'a>
     {
     }
+
     impl Default for PhysicalDeviceRayTracingInvocationReorderPropertiesNV<'_> {
         fn default() -> Self {
             Self {
@@ -77,6 +88,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceRayTracingInvocationReorderPropertiesNV<'a> {
         pub fn ray_tracing_invocation_reorder_reordering_hint(
             mut self,

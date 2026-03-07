@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceImageViewImageFormatInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,14 +19,17 @@ pub(super) mod defs {
         pub image_view_type: ImageViewType,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceImageViewImageFormatInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceImageFormatInfo2<'a>>
         for PhysicalDeviceImageViewImageFormatInfoEXT<'a>
     {
     }
+
     impl Default for PhysicalDeviceImageViewImageFormatInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -35,12 +40,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceImageViewImageFormatInfoEXT<'a> {
         pub fn image_view_type(mut self, image_view_type: ImageViewType) -> Self {
             self.image_view_type = image_view_type;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFilterCubicImageViewImageFormatPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -51,14 +58,17 @@ pub(super) mod defs {
         pub filter_cubic_minmax: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for FilterCubicImageViewImageFormatPropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::FILTER_CUBIC_IMAGE_VIEW_IMAGE_FORMAT_PROPERTIES_EXT;
     }
+
     unsafe impl<'a> Extends<ImageFormatProperties2<'a>>
         for FilterCubicImageViewImageFormatPropertiesEXT<'a>
     {
     }
+
     impl Default for FilterCubicImageViewImageFormatPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -70,11 +80,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> FilterCubicImageViewImageFormatPropertiesEXT<'a> {
         pub fn filter_cubic(mut self, filter_cubic: bool) -> Self {
             self.filter_cubic = filter_cubic.into();
             self
         }
+
         pub fn filter_cubic_minmax(mut self, filter_cubic_minmax: bool) -> Self {
             self.filter_cubic_minmax = filter_cubic_minmax.into();
             self

@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,10 +19,12 @@ pub(super) mod defs {
         pub representative_fragment_test: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRepresentativeFragmentTestFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_REPRESENTATIVE_FRAGMENT_TEST_FEATURES_NV;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceRepresentativeFragmentTestFeaturesNV<'a>
     {
@@ -29,6 +33,7 @@ pub(super) mod defs {
         for PhysicalDeviceRepresentativeFragmentTestFeaturesNV<'a>
     {
     }
+
     impl Default for PhysicalDeviceRepresentativeFragmentTestFeaturesNV<'_> {
         fn default() -> Self {
             Self {
@@ -39,12 +44,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceRepresentativeFragmentTestFeaturesNV<'a> {
         pub fn representative_fragment_test(mut self, representative_fragment_test: bool) -> Self {
             self.representative_fragment_test = representative_fragment_test.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineRepresentativeFragmentTestStateCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -54,14 +61,17 @@ pub(super) mod defs {
         pub representative_fragment_test_enable: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineRepresentativeFragmentTestStateCreateInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_REPRESENTATIVE_FRAGMENT_TEST_STATE_CREATE_INFO_NV;
     }
+
     unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>>
         for PipelineRepresentativeFragmentTestStateCreateInfoNV<'a>
     {
     }
+
     impl Default for PipelineRepresentativeFragmentTestStateCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
@@ -72,6 +82,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineRepresentativeFragmentTestStateCreateInfoNV<'a> {
         pub fn representative_fragment_test_enable(
             mut self,

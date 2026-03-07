@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkScreenSurfaceCreateInfoQNX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -19,9 +21,11 @@ pub(super) mod defs {
         pub window: *mut _screen_window,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ScreenSurfaceCreateInfoQNX<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SCREEN_SURFACE_CREATE_INFO_QNX;
     }
+
     impl Default for ScreenSurfaceCreateInfoQNX<'_> {
         fn default() -> Self {
             Self {
@@ -34,30 +38,36 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ScreenSurfaceCreateInfoQNX<'a> {
         pub fn flags(mut self, flags: ScreenSurfaceCreateFlagsQNX) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn context(mut self, context: *mut _screen_context) -> Self {
             self.context = context;
             self
         }
+
         pub fn window(mut self, window: *mut _screen_window) -> Self {
             self.window = window;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkScreenSurfaceCreateFlagsQNX.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ScreenSurfaceCreateFlagsQNX(Flags);
     vk_bitflags_wrapped!(ScreenSurfaceCreateFlagsQNX, Flags);
+
     impl fmt::Debug for ScreenSurfaceCreateFlagsQNX {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateScreenSurfaceQNX.html>
     pub type PFN_vkCreateScreenSurfaceQNX = unsafe extern "system" fn(
         instance: Instance,
@@ -73,11 +83,13 @@ pub(super) mod defs {
             window: *mut _screen_window,
         ) -> Bool32;
 }
+
 pub struct InstanceFn {
     create_screen_surface_qnx: PFN_vkCreateScreenSurfaceQNX,
     get_physical_device_screen_presentation_support_qnx:
         PFN_vkGetPhysicalDeviceScreenPresentationSupportQNX,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -95,6 +107,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateScreenSurfaceQNX.html>
     pub unsafe fn create_screen_surface_qnx(
@@ -118,6 +131,7 @@ impl InstanceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceScreenPresentationSupportQNX.html>
     pub unsafe fn get_physical_device_screen_presentation_support_qnx(
         &self,

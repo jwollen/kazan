@@ -96,7 +96,7 @@ fn generate(analysis: &analysis::Analysis) {
             name: module_name,
         } = module.name();
 
-        let is_extension = false;//matches!(module, Module::Extension(_));
+        let is_extension = false; //matches!(module, Module::Extension(_));
         if !new_items.is_empty() || required_commands.clone().next().is_some() || is_extension {
             vendor_modules
                 .entry(vendor.clone())
@@ -116,7 +116,8 @@ fn generate(analysis: &analysis::Analysis) {
                 "#![allow(unused_imports)]
                 use core::ffi::{{c_char, c_int, c_void, CStr}};
                 use core::mem::transmute;
-                use crate::{{*, vk::*, vk::Result as VkResult}};"
+                use crate::{{*, vk::*, vk::Result as VkResult}};
+                "
             )
             .unwrap();
 
@@ -133,7 +134,8 @@ fn generate(analysis: &analysis::Analysis) {
                     use core::ffi::{{c_char, c_int, c_void, CStr}};
                     use core::fmt;
                     use core::marker::PhantomData;
-                    use crate::{{*, vk::*}};"
+                    use crate::{{*, vk::*}};
+                    "
                 )
                 .unwrap();
 
@@ -157,7 +159,7 @@ fn generate(analysis: &analysis::Analysis) {
 
                 generate_functions(&mut file, analysis, new_commands.clone());
             }
-            writeln!(file, "}}").unwrap();
+            writeln!(file, "}}\n").unwrap();
 
             if required_commands.clone().next().is_some() {
                 generate_commands(&mut file, analysis, &requires);
@@ -278,6 +280,7 @@ fn generate_api_constants<'a>(
         )
         .unwrap();
     }
+    writeln!(file).unwrap();
 }
 
 fn generate_basetypes(
@@ -300,6 +303,7 @@ fn generate_basetypes(
         )
         .unwrap();
     }
+    writeln!(file).unwrap();
 }
 
 fn generate_handles(
@@ -324,8 +328,13 @@ fn generate_handles(
         let obj_type = handle.objtypeenum.strip_prefix("VK_OBJECT_TYPE_").unwrap();
 
         let doc_url = doc_url(handle.name);
-        writeln!(file, "{macro_name}!({name}, {obj_type}, doc = \"<{doc_url}>\");").unwrap();
+        writeln!(
+            file,
+            "{macro_name}!({name}, {obj_type}, doc = \"<{doc_url}>\");"
+        )
+        .unwrap();
     }
+    writeln!(file).unwrap();
 }
 
 fn generate_type_aliases(
@@ -375,6 +384,7 @@ fn generate_type_aliases(
         )
         .unwrap();
     }
+    writeln!(file).unwrap();
 }
 
 fn generate_structs(
@@ -437,6 +447,7 @@ fn generate_unions(file: &mut impl std::io::Write, analysis: &Analysis, new_item
             if type_info.lifetime_param { "<'_>" } else { "" }
         )
         .unwrap();
+        writeln!(file).unwrap();
     }
 }
 
@@ -516,6 +527,7 @@ fn generate_funcpointers(
             writeln!(file, ");").unwrap();
         }
     }
+    writeln!(file).unwrap();
 }
 
 fn generate_functions<'a>(
@@ -523,6 +535,7 @@ fn generate_functions<'a>(
     analysis: &Analysis,
     new_commands: impl Iterator<Item = &'a xml::Command>,
 ) {
+    let mut count = 0;
     for command in new_commands {
         write_doc_link(file, command.name);
         writeln!(
@@ -551,6 +564,7 @@ fn generate_functions<'a>(
             writeln!(file, ");").unwrap();
         }
     }
+    writeln!(file).unwrap();
 }
 
 fn convert_c_expr<'a>(expr: &'a str) -> Cow<'a, str> {

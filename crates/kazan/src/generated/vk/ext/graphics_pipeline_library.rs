@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,10 +19,12 @@ pub(super) mod defs {
         pub graphics_pipeline_library: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'a>
     {
@@ -29,6 +33,7 @@ pub(super) mod defs {
         for PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'a>
     {
     }
+
     impl Default for PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -39,12 +44,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'a> {
         pub fn graphics_pipeline_library(mut self, graphics_pipeline_library: bool) -> Self {
             self.graphics_pipeline_library = graphics_pipeline_library.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -55,14 +62,17 @@ pub(super) mod defs {
         pub graphics_pipeline_library_independent_interpolation_decoration: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_PROPERTIES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT<'a>
     {
     }
+
     impl Default for PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -74,6 +84,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT<'a> {
         pub fn graphics_pipeline_library_fast_linking(
             mut self,
@@ -83,6 +94,7 @@ pub(super) mod defs {
                 graphics_pipeline_library_fast_linking.into();
             self
         }
+
         pub fn graphics_pipeline_library_independent_interpolation_decoration(
             mut self,
             graphics_pipeline_library_independent_interpolation_decoration: bool,
@@ -92,6 +104,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGraphicsPipelineLibraryCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -101,14 +114,17 @@ pub(super) mod defs {
         pub flags: GraphicsPipelineLibraryFlagsEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for GraphicsPipelineLibraryCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::GRAPHICS_PIPELINE_LIBRARY_CREATE_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>>
         for GraphicsPipelineLibraryCreateInfoEXT<'a>
     {
     }
+
     impl Default for GraphicsPipelineLibraryCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -119,17 +135,20 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> GraphicsPipelineLibraryCreateInfoEXT<'a> {
         pub fn flags(mut self, flags: GraphicsPipelineLibraryFlagsEXT) -> Self {
             self.flags = flags;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGraphicsPipelineLibraryFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct GraphicsPipelineLibraryFlagsEXT(Flags);
     vk_bitflags_wrapped!(GraphicsPipelineLibraryFlagsEXT, Flags);
+
     impl GraphicsPipelineLibraryFlagsEXT {
         pub const VERTEX_INPUT_INTERFACE_EXT: Self =
             Self(GraphicsPipelineLibraryFlagBitsEXT::VERTEX_INPUT_INTERFACE_EXT.0);
@@ -140,6 +159,7 @@ pub(super) mod defs {
         pub const FRAGMENT_OUTPUT_INTERFACE_EXT: Self =
             Self(GraphicsPipelineLibraryFlagBitsEXT::FRAGMENT_OUTPUT_INTERFACE_EXT.0);
     }
+
     impl fmt::Debug for GraphicsPipelineLibraryFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -163,10 +183,12 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGraphicsPipelineLibraryFlagBitsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct GraphicsPipelineLibraryFlagBitsEXT(u32);
+
     impl GraphicsPipelineLibraryFlagBitsEXT {
         pub const VERTEX_INPUT_INTERFACE_EXT: Self = Self(1 << 0);
         pub const PRE_RASTERIZATION_SHADERS_EXT: Self = Self(1 << 1);

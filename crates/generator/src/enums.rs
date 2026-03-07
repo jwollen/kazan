@@ -200,6 +200,7 @@ fn write_module_group(file: &mut impl Write, module_name: &str, entries: &[Strin
     for entry in entries {
         writeln!(file, "{}", entry).unwrap();
     }
+    writeln!(file).unwrap();
 }
 
 pub fn write_enum(file: &mut impl Write, analysis: &Analysis, ty: &xml::Enum) {
@@ -227,6 +228,7 @@ pub fn write_enum(file: &mut impl Write, analysis: &Analysis, ty: &xml::Enum) {
         name
     )
     .unwrap();
+    writeln!(file).unwrap();
 
     let mut debug_variants = Vec::new();
     let mut visited = HashSet::new();
@@ -281,7 +283,7 @@ pub fn write_enum(file: &mut impl Write, analysis: &Analysis, ty: &xml::Enum) {
         }
     }
 
-    writeln!(file, "}}").unwrap();
+    writeln!(file, "}}\n").unwrap();
 
     writeln!(
         file,
@@ -301,7 +303,7 @@ pub fn write_enum(file: &mut impl Write, analysis: &Analysis, ty: &xml::Enum) {
             f.write_str(name)
         }} else {{
             self.0.fmt(f)
-        }} }} }}"
+        }} }} }}\n"
     )
     .unwrap();
 }
@@ -323,7 +325,8 @@ pub fn write_bitmask(
         "#[repr(transparent)]
         #[derive(Copy, Clone, PartialEq, Eq, Hash)]
         pub struct {name}({base_type});
-        vk_bitflags_wrapped!({name}, {base_type});"
+        vk_bitflags_wrapped!({name}, {base_type});
+"
     )
     .unwrap();
 
@@ -337,6 +340,7 @@ pub fn write_bitmask(
             }} }}"
         )
         .unwrap();
+        writeln!(file).unwrap();
         return;
     };
 
@@ -503,7 +507,7 @@ pub fn write_bitmask(
             write_module_group(file, &md.name, &entries);
         }
 
-        writeln!(file, "}}").unwrap();
+        writeln!(file, "}}\n").unwrap();
     }
 
     // Debug impl for Flags type
@@ -539,7 +543,7 @@ pub fn write_bitmask(
             file,
             "];
             debug_flags(f, KNOWN, self.0)
-            }} }}"
+            }} }}\n"
         )
         .unwrap();
     }
@@ -550,7 +554,7 @@ pub fn write_bitmask(
         file,
         "#[repr(transparent)]
         #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
-        pub struct {}(u{});",
+        pub struct {}(u{});\n",
         bitmask_name,
         bitmask.bitwidth.unwrap_or(32),
     )
@@ -595,6 +599,6 @@ pub fn write_bitmask(
             write_module_group(file, &md.name, &entries);
         }
 
-        writeln!(file, "}}").unwrap();
+        writeln!(file, "}}\n").unwrap();
     }
 }

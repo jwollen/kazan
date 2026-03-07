@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindBufferMemoryInfoKHR.html>
     pub type BindBufferMemoryInfoKHR<'a> = BindBufferMemoryInfo<'a>;
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindImageMemoryInfoKHR.html>
@@ -15,10 +17,12 @@ pub(super) mod defs {
     pub type PFN_vkBindBufferMemory2KHR = PFN_vkBindBufferMemory2;
     pub type PFN_vkBindImageMemory2KHR = PFN_vkBindImageMemory2;
 }
+
 pub struct DeviceFn {
     bind_buffer_memory2_khr: PFN_vkBindBufferMemory2,
     bind_image_memory2_khr: PFN_vkBindImageMemory2,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -35,6 +39,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindBufferMemory2KHR.html>
     pub unsafe fn bind_buffer_memory2_khr(
@@ -55,6 +60,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindImageMemory2KHR.html>
     pub unsafe fn bind_image_memory2_khr(
         &self,

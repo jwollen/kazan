@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentDensityMap2FeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,15 +19,18 @@ pub(super) mod defs {
         pub fragment_density_map_deferred: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentDensityMap2FeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_2_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceFragmentDensityMap2FeaturesEXT<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceFragmentDensityMap2FeaturesEXT<'a> {}
+
     impl Default for PhysicalDeviceFragmentDensityMap2FeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -36,6 +41,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceFragmentDensityMap2FeaturesEXT<'a> {
         pub fn fragment_density_map_deferred(
             mut self,
@@ -45,6 +51,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentDensityMap2PropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -57,14 +64,17 @@ pub(super) mod defs {
         pub max_descriptor_set_subsampled_samplers: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentDensityMap2PropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_2_PROPERTIES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceFragmentDensityMap2PropertiesEXT<'a>
     {
     }
+
     impl Default for PhysicalDeviceFragmentDensityMap2PropertiesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -78,11 +88,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceFragmentDensityMap2PropertiesEXT<'a> {
         pub fn subsampled_loads(mut self, subsampled_loads: bool) -> Self {
             self.subsampled_loads = subsampled_loads.into();
             self
         }
+
         pub fn subsampled_coarse_reconstruction_early_access(
             mut self,
             subsampled_coarse_reconstruction_early_access: bool,
@@ -91,10 +103,12 @@ pub(super) mod defs {
                 subsampled_coarse_reconstruction_early_access.into();
             self
         }
+
         pub fn max_subsampled_array_layers(mut self, max_subsampled_array_layers: u32) -> Self {
             self.max_subsampled_array_layers = max_subsampled_array_layers;
             self
         }
+
         pub fn max_descriptor_set_subsampled_samplers(
             mut self,
             max_descriptor_set_subsampled_samplers: u32,

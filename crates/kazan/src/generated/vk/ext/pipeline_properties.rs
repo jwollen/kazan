@@ -2,14 +2,17 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineInfoEXT.html>
     pub type PipelineInfoEXT<'a> = PipelineInfoKHR<'a>;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelinePropertiesIdentifierEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -19,9 +22,11 @@ pub(super) mod defs {
         pub pipeline_identifier: [u8; UUID_SIZE as usize],
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelinePropertiesIdentifierEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_PROPERTIES_IDENTIFIER_EXT;
     }
+
     impl Default for PipelinePropertiesIdentifierEXT<'_> {
         fn default() -> Self {
             Self {
@@ -32,6 +37,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelinePropertiesIdentifierEXT<'a> {
         pub fn pipeline_identifier(
             mut self,
@@ -41,6 +47,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePipelinePropertiesFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -50,15 +57,18 @@ pub(super) mod defs {
         pub pipeline_properties_identifier: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePipelinePropertiesFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PIPELINE_PROPERTIES_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDevicePipelinePropertiesFeaturesEXT<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePipelinePropertiesFeaturesEXT<'a> {}
+
     impl Default for PhysicalDevicePipelinePropertiesFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -69,6 +79,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDevicePipelinePropertiesFeaturesEXT<'a> {
         pub fn pipeline_properties_identifier(
             mut self,
@@ -78,6 +89,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelinePropertiesEXT.html>
     pub type PFN_vkGetPipelinePropertiesEXT = unsafe extern "system" fn(
         device: Device,
@@ -85,9 +97,11 @@ pub(super) mod defs {
         p_pipeline_properties: *mut BaseOutStructure<'_>,
     ) -> vk::Result;
 }
+
 pub struct DeviceFn {
     get_pipeline_properties_ext: PFN_vkGetPipelinePropertiesEXT,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -101,6 +115,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelinePropertiesEXT.html>
     pub unsafe fn get_pipeline_properties_ext(

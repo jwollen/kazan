@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSharedPresentSurfaceCapabilitiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,11 +19,14 @@ pub(super) mod defs {
         pub shared_present_supported_usage_flags: ImageUsageFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for SharedPresentSurfaceCapabilitiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::SHARED_PRESENT_SURFACE_CAPABILITIES_KHR;
     }
+
     unsafe impl<'a> Extends<SurfaceCapabilities2KHR<'a>> for SharedPresentSurfaceCapabilitiesKHR<'a> {}
+
     impl Default for SharedPresentSurfaceCapabilitiesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -32,6 +37,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SharedPresentSurfaceCapabilitiesKHR<'a> {
         pub fn shared_present_supported_usage_flags(
             mut self,
@@ -41,13 +47,16 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSwapchainStatusKHR.html>
     pub type PFN_vkGetSwapchainStatusKHR =
         unsafe extern "system" fn(device: Device, swapchain: SwapchainKHR) -> vk::Result;
 }
+
 pub struct DeviceFn {
     get_swapchain_status_khr: PFN_vkGetSwapchainStatusKHR,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -61,6 +70,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSwapchainStatusKHR.html>
     pub unsafe fn get_swapchain_status_khr(

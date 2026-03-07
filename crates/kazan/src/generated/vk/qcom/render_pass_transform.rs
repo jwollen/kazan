@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassTransformBeginInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,10 +19,13 @@ pub(super) mod defs {
         pub transform: SurfaceTransformFlagBitsKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for RenderPassTransformBeginInfoQCOM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::RENDER_PASS_TRANSFORM_BEGIN_INFO_QCOM;
     }
+
     unsafe impl<'a> Extends<RenderPassBeginInfo<'a>> for RenderPassTransformBeginInfoQCOM<'a> {}
+
     impl Default for RenderPassTransformBeginInfoQCOM<'_> {
         fn default() -> Self {
             Self {
@@ -31,12 +36,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> RenderPassTransformBeginInfoQCOM<'a> {
         pub fn transform(mut self, transform: SurfaceTransformFlagBitsKHR) -> Self {
             self.transform = transform;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferInheritanceRenderPassTransformInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -47,14 +54,17 @@ pub(super) mod defs {
         pub render_area: Rect2D,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for CommandBufferInheritanceRenderPassTransformInfoQCOM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::COMMAND_BUFFER_INHERITANCE_RENDER_PASS_TRANSFORM_INFO_QCOM;
     }
+
     unsafe impl<'a> Extends<CommandBufferInheritanceInfo<'a>>
         for CommandBufferInheritanceRenderPassTransformInfoQCOM<'a>
     {
     }
+
     impl Default for CommandBufferInheritanceRenderPassTransformInfoQCOM<'_> {
         fn default() -> Self {
             Self {
@@ -66,11 +76,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> CommandBufferInheritanceRenderPassTransformInfoQCOM<'a> {
         pub fn transform(mut self, transform: SurfaceTransformFlagBitsKHR) -> Self {
             self.transform = transform;
             self
         }
+
         pub fn render_area(mut self, render_area: Rect2D) -> Self {
             self.render_area = render_area;
             self

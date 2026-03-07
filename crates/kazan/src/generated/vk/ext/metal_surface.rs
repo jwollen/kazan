@@ -2,13 +2,16 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     pub type CAMetalLayer = *const c_void;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMetalSurfaceCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -19,9 +22,11 @@ pub(super) mod defs {
         pub p_layer: *const CAMetalLayer,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for MetalSurfaceCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::METAL_SURFACE_CREATE_INFO_EXT;
     }
+
     impl Default for MetalSurfaceCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -33,26 +38,31 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> MetalSurfaceCreateInfoEXT<'a> {
         pub fn flags(mut self, flags: MetalSurfaceCreateFlagsEXT) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn layer(mut self, layer: *const CAMetalLayer) -> Self {
             self.p_layer = layer;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMetalSurfaceCreateFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct MetalSurfaceCreateFlagsEXT(Flags);
     vk_bitflags_wrapped!(MetalSurfaceCreateFlagsEXT, Flags);
+
     impl fmt::Debug for MetalSurfaceCreateFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateMetalSurfaceEXT.html>
     pub type PFN_vkCreateMetalSurfaceEXT = unsafe extern "system" fn(
         instance: Instance,
@@ -61,9 +71,11 @@ pub(super) mod defs {
         p_surface: *mut SurfaceKHR,
     ) -> vk::Result;
 }
+
 pub struct InstanceFn {
     create_metal_surface_ext: PFN_vkCreateMetalSurfaceEXT,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -77,6 +89,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateMetalSurfaceEXT.html>
     pub unsafe fn create_metal_surface_ext(

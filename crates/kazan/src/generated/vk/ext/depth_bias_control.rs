@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDepthBiasInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -19,9 +21,11 @@ pub(super) mod defs {
         pub depth_bias_slope_factor: f32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DepthBiasInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DEPTH_BIAS_INFO_EXT;
     }
+
     impl Default for DepthBiasInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -34,20 +38,24 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DepthBiasInfoEXT<'a> {
         pub fn depth_bias_constant_factor(mut self, depth_bias_constant_factor: f32) -> Self {
             self.depth_bias_constant_factor = depth_bias_constant_factor;
             self
         }
+
         pub fn depth_bias_clamp(mut self, depth_bias_clamp: f32) -> Self {
             self.depth_bias_clamp = depth_bias_clamp;
             self
         }
+
         pub fn depth_bias_slope_factor(mut self, depth_bias_slope_factor: f32) -> Self {
             self.depth_bias_slope_factor = depth_bias_slope_factor;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDepthBiasRepresentationInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -58,14 +66,17 @@ pub(super) mod defs {
         pub depth_bias_exact: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DepthBiasRepresentationInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DEPTH_BIAS_REPRESENTATION_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<DepthBiasInfoEXT<'a>> for DepthBiasRepresentationInfoEXT<'a> {}
     unsafe impl<'a> Extends<PipelineRasterizationStateCreateInfo<'a>>
         for DepthBiasRepresentationInfoEXT<'a>
     {
     }
+
     impl Default for DepthBiasRepresentationInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -77,6 +88,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DepthBiasRepresentationInfoEXT<'a> {
         pub fn depth_bias_representation(
             mut self,
@@ -85,11 +97,13 @@ pub(super) mod defs {
             self.depth_bias_representation = depth_bias_representation;
             self
         }
+
         pub fn depth_bias_exact(mut self, depth_bias_exact: bool) -> Self {
             self.depth_bias_exact = depth_bias_exact.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDepthBiasControlFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -102,15 +116,18 @@ pub(super) mod defs {
         pub depth_bias_exact: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDepthBiasControlFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_DEPTH_BIAS_CONTROL_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceDepthBiasControlFeaturesEXT<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceDepthBiasControlFeaturesEXT<'a> {}
+
     impl Default for PhysicalDeviceDepthBiasControlFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -124,11 +141,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceDepthBiasControlFeaturesEXT<'a> {
         pub fn depth_bias_control(mut self, depth_bias_control: bool) -> Self {
             self.depth_bias_control = depth_bias_control.into();
             self
         }
+
         pub fn least_representable_value_force_unorm_representation(
             mut self,
             least_representable_value_force_unorm_representation: bool,
@@ -137,24 +156,29 @@ pub(super) mod defs {
                 least_representable_value_force_unorm_representation.into();
             self
         }
+
         pub fn float_representation(mut self, float_representation: bool) -> Self {
             self.float_representation = float_representation.into();
             self
         }
+
         pub fn depth_bias_exact(mut self, depth_bias_exact: bool) -> Self {
             self.depth_bias_exact = depth_bias_exact.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDepthBiasRepresentationEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DepthBiasRepresentationEXT(i32);
+
     impl DepthBiasRepresentationEXT {
         pub const LEAST_REPRESENTABLE_VALUE_FORMAT_EXT: Self = Self(0);
         pub const LEAST_REPRESENTABLE_VALUE_FORCE_UNORM_EXT: Self = Self(1);
         pub const FLOAT_EXT: Self = Self(2);
     }
+
     impl fmt::Debug for DepthBiasRepresentationEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -174,15 +198,18 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthBias2EXT.html>
     pub type PFN_vkCmdSetDepthBias2EXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_depth_bias_info: *const DepthBiasInfoEXT<'_>,
     );
 }
+
 pub struct DeviceFn {
     cmd_set_depth_bias2_ext: PFN_vkCmdSetDepthBias2EXT,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -196,6 +223,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthBias2EXT.html>
     pub unsafe fn cmd_set_depth_bias2_ext(

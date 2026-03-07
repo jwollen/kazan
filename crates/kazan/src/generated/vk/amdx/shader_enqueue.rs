@@ -2,13 +2,16 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     pub const SHADER_INDEX_UNUSED_AMDX: u32 = !0;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderEnqueuePropertiesAMDX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -24,14 +27,17 @@ pub(super) mod defs {
         pub max_execution_graph_workgroups: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderEnqueuePropertiesAMDX<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_ENQUEUE_PROPERTIES_AMDX;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceShaderEnqueuePropertiesAMDX<'a>
     {
     }
+
     impl Default for PhysicalDeviceShaderEnqueuePropertiesAMDX<'_> {
         fn default() -> Self {
             Self {
@@ -48,11 +54,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceShaderEnqueuePropertiesAMDX<'a> {
         pub fn max_execution_graph_depth(mut self, max_execution_graph_depth: u32) -> Self {
             self.max_execution_graph_depth = max_execution_graph_depth;
             self
         }
+
         pub fn max_execution_graph_shader_output_nodes(
             mut self,
             max_execution_graph_shader_output_nodes: u32,
@@ -60,6 +68,7 @@ pub(super) mod defs {
             self.max_execution_graph_shader_output_nodes = max_execution_graph_shader_output_nodes;
             self
         }
+
         pub fn max_execution_graph_shader_payload_size(
             mut self,
             max_execution_graph_shader_payload_size: u32,
@@ -67,6 +76,7 @@ pub(super) mod defs {
             self.max_execution_graph_shader_payload_size = max_execution_graph_shader_payload_size;
             self
         }
+
         pub fn max_execution_graph_shader_payload_count(
             mut self,
             max_execution_graph_shader_payload_count: u32,
@@ -75,6 +85,7 @@ pub(super) mod defs {
                 max_execution_graph_shader_payload_count;
             self
         }
+
         pub fn execution_graph_dispatch_address_alignment(
             mut self,
             execution_graph_dispatch_address_alignment: u32,
@@ -83,6 +94,7 @@ pub(super) mod defs {
                 execution_graph_dispatch_address_alignment;
             self
         }
+
         pub fn max_execution_graph_workgroup_count(
             mut self,
             max_execution_graph_workgroup_count: [u32; 3],
@@ -90,6 +102,7 @@ pub(super) mod defs {
             self.max_execution_graph_workgroup_count = max_execution_graph_workgroup_count;
             self
         }
+
         pub fn max_execution_graph_workgroups(
             mut self,
             max_execution_graph_workgroups: u32,
@@ -98,6 +111,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderEnqueueFeaturesAMDX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -108,15 +122,18 @@ pub(super) mod defs {
         pub shader_mesh_enqueue: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderEnqueueFeaturesAMDX<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_ENQUEUE_FEATURES_AMDX;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceShaderEnqueueFeaturesAMDX<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceShaderEnqueueFeaturesAMDX<'a> {}
+
     impl Default for PhysicalDeviceShaderEnqueueFeaturesAMDX<'_> {
         fn default() -> Self {
             Self {
@@ -128,16 +145,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceShaderEnqueueFeaturesAMDX<'a> {
         pub fn shader_enqueue(mut self, shader_enqueue: bool) -> Self {
             self.shader_enqueue = shader_enqueue.into();
             self
         }
+
         pub fn shader_mesh_enqueue(mut self, shader_mesh_enqueue: bool) -> Self {
             self.shader_mesh_enqueue = shader_mesh_enqueue.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExecutionGraphPipelineCreateInfoAMDX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -153,10 +173,12 @@ pub(super) mod defs {
         pub base_pipeline_index: i32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ExecutionGraphPipelineCreateInfoAMDX<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::EXECUTION_GRAPH_PIPELINE_CREATE_INFO_AMDX;
     }
+
     impl Default for ExecutionGraphPipelineCreateInfoAMDX<'_> {
         fn default() -> Self {
             Self {
@@ -173,33 +195,40 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ExecutionGraphPipelineCreateInfoAMDX<'a> {
         pub fn flags(mut self, flags: PipelineCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn stages(mut self, stages: &'a [PipelineShaderStageCreateInfo<'a>]) -> Self {
             self.stage_count = stages.len().try_into().unwrap();
             self.p_stages = stages.as_ptr();
             self
         }
+
         pub fn library_info(mut self, library_info: &'a PipelineLibraryCreateInfoKHR<'a>) -> Self {
             self.p_library_info = library_info;
             self
         }
+
         pub fn layout(mut self, layout: PipelineLayout) -> Self {
             self.layout = layout;
             self
         }
+
         pub fn base_pipeline_handle(mut self, base_pipeline_handle: Pipeline) -> Self {
             self.base_pipeline_handle = base_pipeline_handle;
             self
         }
+
         pub fn base_pipeline_index(mut self, base_pipeline_index: i32) -> Self {
             self.base_pipeline_index = base_pipeline_index;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineShaderStageNodeCreateInfoAMDX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -210,14 +239,17 @@ pub(super) mod defs {
         pub index: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineShaderStageNodeCreateInfoAMDX<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_SHADER_STAGE_NODE_CREATE_INFO_AMDX;
     }
+
     unsafe impl<'a> Extends<PipelineShaderStageCreateInfo<'a>>
         for PipelineShaderStageNodeCreateInfoAMDX<'a>
     {
     }
+
     impl Default for PipelineShaderStageNodeCreateInfoAMDX<'_> {
         fn default() -> Self {
             Self {
@@ -229,16 +261,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineShaderStageNodeCreateInfoAMDX<'a> {
         pub fn name(mut self, name: &'a CStr) -> Self {
             self.p_name = name.as_ptr();
             self
         }
+
         pub fn index(mut self, index: u32) -> Self {
             self.index = index;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExecutionGraphPipelineScratchSizeAMDX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -250,10 +285,12 @@ pub(super) mod defs {
         pub size_granularity: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ExecutionGraphPipelineScratchSizeAMDX<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::EXECUTION_GRAPH_PIPELINE_SCRATCH_SIZE_AMDX;
     }
+
     impl Default for ExecutionGraphPipelineScratchSizeAMDX<'_> {
         fn default() -> Self {
             Self {
@@ -266,20 +303,24 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ExecutionGraphPipelineScratchSizeAMDX<'a> {
         pub fn min_size(mut self, min_size: DeviceSize) -> Self {
             self.min_size = min_size;
             self
         }
+
         pub fn max_size(mut self, max_size: DeviceSize) -> Self {
             self.max_size = max_size;
             self
         }
+
         pub fn size_granularity(mut self, size_granularity: DeviceSize) -> Self {
             self.size_granularity = size_granularity;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDispatchGraphInfoAMDX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -290,6 +331,7 @@ pub(super) mod defs {
         pub payload_stride: u64,
         pub _marker: PhantomData<&'a ()>,
     }
+
     impl Default for DispatchGraphInfoAMDX<'_> {
         fn default() -> Self {
             Self {
@@ -301,24 +343,29 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DispatchGraphInfoAMDX<'a> {
         pub fn node_index(mut self, node_index: u32) -> Self {
             self.node_index = node_index;
             self
         }
+
         pub fn payload_count(mut self, payload_count: u32) -> Self {
             self.payload_count = payload_count;
             self
         }
+
         pub fn payloads(mut self, payloads: DeviceOrHostAddressConstAMDX<'a>) -> Self {
             self.payloads = payloads;
             self
         }
+
         pub fn payload_stride(mut self, payload_stride: u64) -> Self {
             self.payload_stride = payload_stride;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDispatchGraphCountInfoAMDX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -328,6 +375,7 @@ pub(super) mod defs {
         pub stride: u64,
         pub _marker: PhantomData<&'a ()>,
     }
+
     impl Default for DispatchGraphCountInfoAMDX<'_> {
         fn default() -> Self {
             Self {
@@ -338,20 +386,24 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DispatchGraphCountInfoAMDX<'a> {
         pub fn count(mut self, count: u32) -> Self {
             self.count = count;
             self
         }
+
         pub fn infos(mut self, infos: DeviceOrHostAddressConstAMDX<'a>) -> Self {
             self.infos = infos;
             self
         }
+
         pub fn stride(mut self, stride: u64) -> Self {
             self.stride = stride;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceOrHostAddressConstAMDX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -365,6 +417,7 @@ pub(super) mod defs {
             unsafe { core::mem::zeroed() }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetExecutionGraphPipelineScratchSizeAMDX.html>
     pub type PFN_vkGetExecutionGraphPipelineScratchSizeAMDX =
         unsafe extern "system" fn(
@@ -418,6 +471,7 @@ pub(super) mod defs {
         count_info: DeviceAddress,
     );
 }
+
 pub struct DeviceFn {
     create_execution_graph_pipelines_amdx: PFN_vkCreateExecutionGraphPipelinesAMDX,
     get_execution_graph_pipeline_scratch_size_amdx: PFN_vkGetExecutionGraphPipelineScratchSizeAMDX,
@@ -427,6 +481,7 @@ pub struct DeviceFn {
     cmd_dispatch_graph_indirect_amdx: PFN_vkCmdDispatchGraphIndirectAMDX,
     cmd_dispatch_graph_indirect_count_amdx: PFN_vkCmdDispatchGraphIndirectCountAMDX,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -460,6 +515,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateExecutionGraphPipelinesAMDX.html>
     pub unsafe fn create_execution_graph_pipelines_amdx(
@@ -486,6 +542,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetExecutionGraphPipelineScratchSizeAMDX.html>
     pub unsafe fn get_execution_graph_pipeline_scratch_size_amdx(
         &self,
@@ -506,6 +563,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetExecutionGraphPipelineNodeIndexAMDX.html>
     pub unsafe fn get_execution_graph_pipeline_node_index_amdx(
         &self,
@@ -528,6 +586,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdInitializeGraphScratchMemoryAMDX.html>
     pub unsafe fn cmd_initialize_graph_scratch_memory_amdx(
         &self,
@@ -545,6 +604,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDispatchGraphAMDX.html>
     pub unsafe fn cmd_dispatch_graph_amdx(
         &self,
@@ -555,6 +615,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_dispatch_graph_amdx)(command_buffer, scratch, scratch_size, count_info) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDispatchGraphIndirectAMDX.html>
     pub unsafe fn cmd_dispatch_graph_indirect_amdx(
         &self,
@@ -572,6 +633,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDispatchGraphIndirectCountAMDX.html>
     pub unsafe fn cmd_dispatch_graph_indirect_count_amdx(
         &self,

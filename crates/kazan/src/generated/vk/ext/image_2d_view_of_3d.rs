@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceImage2DViewOf3DFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,15 +20,18 @@ pub(super) mod defs {
         pub sampler2_d_view_of3_d: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceImage2DViewOf3DFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_IMAGE_2D_VIEW_OF_3D_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceImage2DViewOf3DFeaturesEXT<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceImage2DViewOf3DFeaturesEXT<'a> {}
+
     impl Default for PhysicalDeviceImage2DViewOf3DFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -38,11 +43,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceImage2DViewOf3DFeaturesEXT<'a> {
         pub fn image2_d_view_of3_d(mut self, image2_d_view_of3_d: bool) -> Self {
             self.image2_d_view_of3_d = image2_d_view_of3_d.into();
             self
         }
+
         pub fn sampler2_d_view_of3_d(mut self, sampler2_d_view_of3_d: bool) -> Self {
             self.sampler2_d_view_of3_d = sampler2_d_view_of3_d.into();
             self

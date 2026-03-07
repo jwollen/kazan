@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCopy2KHR.html>
     pub type BufferCopy2KHR<'a> = BufferCopy2<'a>;
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCopy2KHR.html>
@@ -37,6 +39,7 @@ pub(super) mod defs {
     pub type PFN_vkCmdCopyImageToBuffer2KHR = PFN_vkCmdCopyImageToBuffer2;
     pub type PFN_vkCmdResolveImage2KHR = PFN_vkCmdResolveImage2;
 }
+
 pub struct DeviceFn {
     cmd_copy_buffer2_khr: PFN_vkCmdCopyBuffer2,
     cmd_copy_image2_khr: PFN_vkCmdCopyImage2,
@@ -45,6 +48,7 @@ pub struct DeviceFn {
     cmd_blit_image2_khr: PFN_vkCmdBlitImage2,
     cmd_resolve_image2_khr: PFN_vkCmdResolveImage2,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -73,6 +77,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyBuffer2KHR.html>
     pub unsafe fn cmd_copy_buffer2_khr(
@@ -82,6 +87,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_copy_buffer2_khr)(command_buffer, copy_buffer_info) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyImage2KHR.html>
     pub unsafe fn cmd_copy_image2_khr(
         &self,
@@ -90,6 +96,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_copy_image2_khr)(command_buffer, copy_image_info) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyBufferToImage2KHR.html>
     pub unsafe fn cmd_copy_buffer_to_image2_khr(
         &self,
@@ -98,6 +105,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_copy_buffer_to_image2_khr)(command_buffer, copy_buffer_to_image_info) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyImageToBuffer2KHR.html>
     pub unsafe fn cmd_copy_image_to_buffer2_khr(
         &self,
@@ -106,6 +114,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_copy_image_to_buffer2_khr)(command_buffer, copy_image_to_buffer_info) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBlitImage2KHR.html>
     pub unsafe fn cmd_blit_image2_khr(
         &self,
@@ -114,6 +123,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_blit_image2_khr)(command_buffer, blit_image_info) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdResolveImage2KHR.html>
     pub unsafe fn cmd_resolve_image2_khr(
         &self,

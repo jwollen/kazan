@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceAntiLagFeaturesAMD.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,11 +19,14 @@ pub(super) mod defs {
         pub anti_lag: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceAntiLagFeaturesAMD<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_ANTI_LAG_FEATURES_AMD;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceAntiLagFeaturesAMD<'a> {}
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceAntiLagFeaturesAMD<'a> {}
+
     impl Default for PhysicalDeviceAntiLagFeaturesAMD<'_> {
         fn default() -> Self {
             Self {
@@ -32,12 +37,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceAntiLagFeaturesAMD<'a> {
         pub fn anti_lag(mut self, anti_lag: bool) -> Self {
             self.anti_lag = anti_lag.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAntiLagDataAMD.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -49,9 +56,11 @@ pub(super) mod defs {
         pub p_presentation_info: *const AntiLagPresentationInfoAMD<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for AntiLagDataAMD<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::ANTI_LAG_DATA_AMD;
     }
+
     impl Default for AntiLagDataAMD<'_> {
         fn default() -> Self {
             Self {
@@ -64,15 +73,18 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> AntiLagDataAMD<'a> {
         pub fn mode(mut self, mode: AntiLagModeAMD) -> Self {
             self.mode = mode;
             self
         }
+
         pub fn max_fps(mut self, max_fps: u32) -> Self {
             self.max_fps = max_fps;
             self
         }
+
         pub fn presentation_info(
             mut self,
             presentation_info: &'a AntiLagPresentationInfoAMD<'a>,
@@ -81,6 +93,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAntiLagPresentationInfoAMD.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -91,9 +104,11 @@ pub(super) mod defs {
         pub frame_index: u64,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for AntiLagPresentationInfoAMD<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::ANTI_LAG_PRESENTATION_INFO_AMD;
     }
+
     impl Default for AntiLagPresentationInfoAMD<'_> {
         fn default() -> Self {
             Self {
@@ -105,25 +120,30 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> AntiLagPresentationInfoAMD<'a> {
         pub fn stage(mut self, stage: AntiLagStageAMD) -> Self {
             self.stage = stage;
             self
         }
+
         pub fn frame_index(mut self, frame_index: u64) -> Self {
             self.frame_index = frame_index;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAntiLagModeAMD.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct AntiLagModeAMD(i32);
+
     impl AntiLagModeAMD {
         pub const DRIVER_CONTROL_AMD: Self = Self(0);
         pub const ON_AMD: Self = Self(1);
         pub const OFF_AMD: Self = Self(2);
     }
+
     impl fmt::Debug for AntiLagModeAMD {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -139,14 +159,17 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAntiLagStageAMD.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct AntiLagStageAMD(i32);
+
     impl AntiLagStageAMD {
         pub const INPUT_AMD: Self = Self(0);
         pub const PRESENT_AMD: Self = Self(1);
     }
+
     impl fmt::Debug for AntiLagStageAMD {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -161,13 +184,16 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAntiLagUpdateAMD.html>
     pub type PFN_vkAntiLagUpdateAMD =
         unsafe extern "system" fn(device: Device, p_data: *const AntiLagDataAMD<'_>);
 }
+
 pub struct DeviceFn {
     anti_lag_update_amd: PFN_vkAntiLagUpdateAMD,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -181,6 +207,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAntiLagUpdateAMD.html>
     pub unsafe fn anti_lag_update_amd(&self, device: Device, data: &AntiLagDataAMD<'_>) {

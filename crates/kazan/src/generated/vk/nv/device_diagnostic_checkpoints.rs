@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyCheckpointPropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,10 +19,13 @@ pub(super) mod defs {
         pub checkpoint_execution_stage_mask: PipelineStageFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for QueueFamilyCheckpointPropertiesNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::QUEUE_FAMILY_CHECKPOINT_PROPERTIES_NV;
     }
+
     unsafe impl<'a> Extends<QueueFamilyProperties2<'a>> for QueueFamilyCheckpointPropertiesNV<'a> {}
+
     impl Default for QueueFamilyCheckpointPropertiesNV<'_> {
         fn default() -> Self {
             Self {
@@ -31,6 +36,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> QueueFamilyCheckpointPropertiesNV<'a> {
         pub fn checkpoint_execution_stage_mask(
             mut self,
@@ -40,6 +46,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCheckpointDataNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -50,9 +57,11 @@ pub(super) mod defs {
         pub p_checkpoint_marker: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for CheckpointDataNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::CHECKPOINT_DATA_NV;
     }
+
     impl Default for CheckpointDataNV<'_> {
         fn default() -> Self {
             Self {
@@ -64,16 +73,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> CheckpointDataNV<'a> {
         pub fn stage(mut self, stage: PipelineStageFlagBits) -> Self {
             self.stage = stage;
             self
         }
+
         pub fn checkpoint_marker(mut self, checkpoint_marker: *mut c_void) -> Self {
             self.p_checkpoint_marker = checkpoint_marker;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyCheckpointProperties2NV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -83,11 +95,14 @@ pub(super) mod defs {
         pub checkpoint_execution_stage_mask: PipelineStageFlags2,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for QueueFamilyCheckpointProperties2NV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV;
     }
+
     unsafe impl<'a> Extends<QueueFamilyProperties2<'a>> for QueueFamilyCheckpointProperties2NV<'a> {}
+
     impl Default for QueueFamilyCheckpointProperties2NV<'_> {
         fn default() -> Self {
             Self {
@@ -98,6 +113,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> QueueFamilyCheckpointProperties2NV<'a> {
         pub fn checkpoint_execution_stage_mask(
             mut self,
@@ -107,6 +123,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCheckpointData2NV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -117,9 +134,11 @@ pub(super) mod defs {
         pub p_checkpoint_marker: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for CheckpointData2NV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::CHECKPOINT_DATA_2_NV;
     }
+
     impl Default for CheckpointData2NV<'_> {
         fn default() -> Self {
             Self {
@@ -131,16 +150,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> CheckpointData2NV<'a> {
         pub fn stage(mut self, stage: PipelineStageFlags2) -> Self {
             self.stage = stage;
             self
         }
+
         pub fn checkpoint_marker(mut self, checkpoint_marker: *mut c_void) -> Self {
             self.p_checkpoint_marker = checkpoint_marker;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCheckpointNV.html>
     pub type PFN_vkCmdSetCheckpointNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
@@ -159,11 +181,13 @@ pub(super) mod defs {
         p_checkpoint_data: *mut CheckpointData2NV<'_>,
     );
 }
+
 pub struct DeviceFn {
     cmd_set_checkpoint_nv: PFN_vkCmdSetCheckpointNV,
     get_queue_checkpoint_data_nv: PFN_vkGetQueueCheckpointDataNV,
     get_queue_checkpoint_data2_nv: Option<PFN_vkGetQueueCheckpointData2NV>,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -181,6 +205,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCheckpointNV.html>
     pub unsafe fn cmd_set_checkpoint_nv(
@@ -190,6 +215,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_checkpoint_nv)(command_buffer, checkpoint_marker) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetQueueCheckpointDataNV.html>
     pub unsafe fn get_queue_checkpoint_data_nv<'a>(
         &self,
@@ -213,6 +239,7 @@ impl DeviceFn {
             checkpoint_data.set_len(len.try_into().unwrap());
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetQueueCheckpointData2NV.html>
     pub unsafe fn get_queue_checkpoint_data2_nv<'a>(
         &self,

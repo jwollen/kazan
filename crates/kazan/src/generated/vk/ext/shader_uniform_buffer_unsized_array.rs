@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderUniformBufferUnsizedArrayFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,12 +19,14 @@ pub(super) mod defs {
         pub shader_uniform_buffer_unsized_array: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a>
         for PhysicalDeviceShaderUniformBufferUnsizedArrayFeaturesEXT<'a>
     {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_UNIFORM_BUFFER_UNSIZED_ARRAY_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceShaderUniformBufferUnsizedArrayFeaturesEXT<'a>
     {
@@ -31,6 +35,7 @@ pub(super) mod defs {
         for PhysicalDeviceShaderUniformBufferUnsizedArrayFeaturesEXT<'a>
     {
     }
+
     impl Default for PhysicalDeviceShaderUniformBufferUnsizedArrayFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -41,6 +46,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceShaderUniformBufferUnsizedArrayFeaturesEXT<'a> {
         pub fn shader_uniform_buffer_unsized_array(
             mut self,

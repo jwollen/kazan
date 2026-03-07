@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,14 +19,17 @@ pub(super) mod defs {
         pub max_fragment_density_map_layers: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_PROPERTIES_VALVE;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE<'a>
     {
     }
+
     impl Default for PhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE<'_> {
         fn default() -> Self {
             Self {
@@ -35,6 +40,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE<'a> {
         pub fn max_fragment_density_map_layers(
             mut self,
@@ -44,6 +50,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -53,10 +60,12 @@ pub(super) mod defs {
         pub fragment_density_map_layered: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_FEATURES_VALVE;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE<'a>
     {
@@ -65,6 +74,7 @@ pub(super) mod defs {
         for PhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE<'a>
     {
     }
+
     impl Default for PhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE<'_> {
         fn default() -> Self {
             Self {
@@ -75,12 +85,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE<'a> {
         pub fn fragment_density_map_layered(mut self, fragment_density_map_layered: bool) -> Self {
             self.fragment_density_map_layered = fragment_density_map_layered.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineFragmentDensityMapLayeredCreateInfoVALVE.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -90,14 +102,17 @@ pub(super) mod defs {
         pub max_fragment_density_map_layers: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineFragmentDensityMapLayeredCreateInfoVALVE<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_FRAGMENT_DENSITY_MAP_LAYERED_CREATE_INFO_VALVE;
     }
+
     unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>>
         for PipelineFragmentDensityMapLayeredCreateInfoVALVE<'a>
     {
     }
+
     impl Default for PipelineFragmentDensityMapLayeredCreateInfoVALVE<'_> {
         fn default() -> Self {
             Self {
@@ -108,6 +123,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineFragmentDensityMapLayeredCreateInfoVALVE<'a> {
         pub fn max_fragment_density_map_layers(
             mut self,

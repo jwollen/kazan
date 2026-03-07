@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceBufferDeviceAddressFeaturesKHR.html>
     pub type PhysicalDeviceBufferDeviceAddressFeaturesKHR<'a> =
         PhysicalDeviceBufferDeviceAddressFeatures<'a>;
@@ -25,11 +27,13 @@ pub(super) mod defs {
     pub type PFN_vkGetDeviceMemoryOpaqueCaptureAddressKHR =
         PFN_vkGetDeviceMemoryOpaqueCaptureAddress;
 }
+
 pub struct DeviceFn {
     get_buffer_device_address_khr: PFN_vkGetBufferDeviceAddress,
     get_buffer_opaque_capture_address_khr: PFN_vkGetBufferOpaqueCaptureAddress,
     get_device_memory_opaque_capture_address_khr: PFN_vkGetDeviceMemoryOpaqueCaptureAddress,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -50,6 +54,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferDeviceAddressKHR.html>
     pub unsafe fn get_buffer_device_address_khr(
@@ -59,6 +64,7 @@ impl DeviceFn {
     ) -> DeviceAddress {
         unsafe { (self.get_buffer_device_address_khr)(device, info) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferOpaqueCaptureAddressKHR.html>
     pub unsafe fn get_buffer_opaque_capture_address_khr(
         &self,
@@ -67,6 +73,7 @@ impl DeviceFn {
     ) -> u64 {
         unsafe { (self.get_buffer_opaque_capture_address_khr)(device, info) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceMemoryOpaqueCaptureAddressKHR.html>
     pub unsafe fn get_device_memory_opaque_capture_address_khr(
         &self,

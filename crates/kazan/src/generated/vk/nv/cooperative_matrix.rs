@@ -2,16 +2,19 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkScopeNV.html>
     pub type ScopeNV = ScopeKHR;
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkComponentTypeNV.html>
     pub type ComponentTypeNV = ComponentTypeKHR;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCooperativeMatrixFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -22,15 +25,18 @@ pub(super) mod defs {
         pub cooperative_matrix_robust_buffer_access: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCooperativeMatrixFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_NV;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceCooperativeMatrixFeaturesNV<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceCooperativeMatrixFeaturesNV<'a> {}
+
     impl Default for PhysicalDeviceCooperativeMatrixFeaturesNV<'_> {
         fn default() -> Self {
             Self {
@@ -42,11 +48,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceCooperativeMatrixFeaturesNV<'a> {
         pub fn cooperative_matrix(mut self, cooperative_matrix: bool) -> Self {
             self.cooperative_matrix = cooperative_matrix.into();
             self
         }
+
         pub fn cooperative_matrix_robust_buffer_access(
             mut self,
             cooperative_matrix_robust_buffer_access: bool,
@@ -56,6 +64,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCooperativeMatrixPropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -65,14 +74,17 @@ pub(super) mod defs {
         pub cooperative_matrix_supported_stages: ShaderStageFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCooperativeMatrixPropertiesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_NV;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceCooperativeMatrixPropertiesNV<'a>
     {
     }
+
     impl Default for PhysicalDeviceCooperativeMatrixPropertiesNV<'_> {
         fn default() -> Self {
             Self {
@@ -83,6 +95,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceCooperativeMatrixPropertiesNV<'a> {
         pub fn cooperative_matrix_supported_stages(
             mut self,
@@ -92,6 +105,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCooperativeMatrixPropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -108,9 +122,11 @@ pub(super) mod defs {
         pub scope: ScopeNV,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for CooperativeMatrixPropertiesNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::COOPERATIVE_MATRIX_PROPERTIES_NV;
     }
+
     impl Default for CooperativeMatrixPropertiesNV<'_> {
         fn default() -> Self {
             Self {
@@ -128,40 +144,49 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> CooperativeMatrixPropertiesNV<'a> {
         pub fn m_size(mut self, m_size: u32) -> Self {
             self.m_size = m_size;
             self
         }
+
         pub fn n_size(mut self, n_size: u32) -> Self {
             self.n_size = n_size;
             self
         }
+
         pub fn k_size(mut self, k_size: u32) -> Self {
             self.k_size = k_size;
             self
         }
+
         pub fn a_type(mut self, a_type: ComponentTypeNV) -> Self {
             self.a_type = a_type;
             self
         }
+
         pub fn b_type(mut self, b_type: ComponentTypeNV) -> Self {
             self.b_type = b_type;
             self
         }
+
         pub fn c_type(mut self, c_type: ComponentTypeNV) -> Self {
             self.c_type = c_type;
             self
         }
+
         pub fn d_type(mut self, d_type: ComponentTypeNV) -> Self {
             self.d_type = d_type;
             self
         }
+
         pub fn scope(mut self, scope: ScopeNV) -> Self {
             self.scope = scope;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceCooperativeMatrixPropertiesNV.html>
     pub type PFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesNV =
         unsafe extern "system" fn(
@@ -170,10 +195,12 @@ pub(super) mod defs {
             p_properties: *mut CooperativeMatrixPropertiesNV<'_>,
         ) -> vk::Result;
 }
+
 pub struct InstanceFn {
     get_physical_device_cooperative_matrix_properties_nv:
         PFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesNV,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -188,6 +215,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceCooperativeMatrixPropertiesNV.html>
     pub unsafe fn get_physical_device_cooperative_matrix_properties_nv<'a>(

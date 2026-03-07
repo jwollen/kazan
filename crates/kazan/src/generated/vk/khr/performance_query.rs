@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePerformanceQueryFeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,15 +20,18 @@ pub(super) mod defs {
         pub performance_counter_multiple_query_pools: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePerformanceQueryFeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDevicePerformanceQueryFeaturesKHR<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePerformanceQueryFeaturesKHR<'a> {}
+
     impl Default for PhysicalDevicePerformanceQueryFeaturesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -38,6 +43,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDevicePerformanceQueryFeaturesKHR<'a> {
         pub fn performance_counter_query_pools(
             mut self,
@@ -46,6 +52,7 @@ pub(super) mod defs {
             self.performance_counter_query_pools = performance_counter_query_pools.into();
             self
         }
+
         pub fn performance_counter_multiple_query_pools(
             mut self,
             performance_counter_multiple_query_pools: bool,
@@ -55,6 +62,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePerformanceQueryPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -64,14 +72,17 @@ pub(super) mod defs {
         pub allow_command_buffer_query_copies: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePerformanceQueryPropertiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PERFORMANCE_QUERY_PROPERTIES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDevicePerformanceQueryPropertiesKHR<'a>
     {
     }
+
     impl Default for PhysicalDevicePerformanceQueryPropertiesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -82,6 +93,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDevicePerformanceQueryPropertiesKHR<'a> {
         pub fn allow_command_buffer_query_copies(
             mut self,
@@ -91,6 +103,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceCounterKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -103,9 +116,11 @@ pub(super) mod defs {
         pub uuid: [u8; UUID_SIZE as usize],
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PerformanceCounterKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PERFORMANCE_COUNTER_KHR;
     }
+
     impl Default for PerformanceCounterKHR<'_> {
         fn default() -> Self {
             Self {
@@ -119,24 +134,29 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PerformanceCounterKHR<'a> {
         pub fn unit(mut self, unit: PerformanceCounterUnitKHR) -> Self {
             self.unit = unit;
             self
         }
+
         pub fn scope(mut self, scope: PerformanceCounterScopeKHR) -> Self {
             self.scope = scope;
             self
         }
+
         pub fn storage(mut self, storage: PerformanceCounterStorageKHR) -> Self {
             self.storage = storage;
             self
         }
+
         pub fn uuid(mut self, uuid: [u8; UUID_SIZE as usize]) -> Self {
             self.uuid = uuid;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceCounterDescriptionKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -149,9 +169,11 @@ pub(super) mod defs {
         pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PerformanceCounterDescriptionKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PERFORMANCE_COUNTER_DESCRIPTION_KHR;
     }
+
     impl Default for PerformanceCounterDescriptionKHR<'_> {
         fn default() -> Self {
             Self {
@@ -165,12 +187,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PerformanceCounterDescriptionKHR<'a> {
         pub fn flags(mut self, flags: PerformanceCounterDescriptionFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryPoolPerformanceCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -182,10 +206,13 @@ pub(super) mod defs {
         pub p_counter_indices: *const u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for QueryPoolPerformanceCreateInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::QUERY_POOL_PERFORMANCE_CREATE_INFO_KHR;
     }
+
     unsafe impl<'a> Extends<QueryPoolCreateInfo<'a>> for QueryPoolPerformanceCreateInfoKHR<'a> {}
+
     impl Default for QueryPoolPerformanceCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -198,17 +225,20 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> QueryPoolPerformanceCreateInfoKHR<'a> {
         pub fn queue_family_index(mut self, queue_family_index: u32) -> Self {
             self.queue_family_index = queue_family_index;
             self
         }
+
         pub fn counter_indices(mut self, counter_indices: &'a [u32]) -> Self {
             self.counter_index_count = counter_indices.len().try_into().unwrap();
             self.p_counter_indices = counter_indices.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAcquireProfilingLockInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -219,9 +249,11 @@ pub(super) mod defs {
         pub timeout: u64,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for AcquireProfilingLockInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::ACQUIRE_PROFILING_LOCK_INFO_KHR;
     }
+
     impl Default for AcquireProfilingLockInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -233,16 +265,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> AcquireProfilingLockInfoKHR<'a> {
         pub fn flags(mut self, flags: AcquireProfilingLockFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn timeout(mut self, timeout: u64) -> Self {
             self.timeout = timeout;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceQuerySubmitInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -252,11 +287,14 @@ pub(super) mod defs {
         pub counter_pass_index: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PerformanceQuerySubmitInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PERFORMANCE_QUERY_SUBMIT_INFO_KHR;
     }
+
     unsafe impl<'a> Extends<SubmitInfo<'a>> for PerformanceQuerySubmitInfoKHR<'a> {}
     unsafe impl<'a> Extends<SubmitInfo2<'a>> for PerformanceQuerySubmitInfoKHR<'a> {}
+
     impl Default for PerformanceQuerySubmitInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -267,12 +305,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PerformanceQuerySubmitInfoKHR<'a> {
         pub fn counter_pass_index(mut self, counter_pass_index: u32) -> Self {
             self.counter_pass_index = counter_pass_index;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceCounterResultKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -289,15 +329,18 @@ pub(super) mod defs {
             unsafe { core::mem::zeroed() }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceCounterScopeKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PerformanceCounterScopeKHR(i32);
+
     impl PerformanceCounterScopeKHR {
         pub const COMMAND_BUFFER_KHR: Self = Self(0);
         pub const RENDER_PASS_KHR: Self = Self(1);
         pub const COMMAND_KHR: Self = Self(2);
     }
+
     impl fmt::Debug for PerformanceCounterScopeKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -313,10 +356,12 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceCounterUnitKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PerformanceCounterUnitKHR(i32);
+
     impl PerformanceCounterUnitKHR {
         pub const GENERIC_KHR: Self = Self(0);
         pub const PERCENTAGE_KHR: Self = Self(1);
@@ -330,6 +375,7 @@ pub(super) mod defs {
         pub const HERTZ_KHR: Self = Self(9);
         pub const CYCLES_KHR: Self = Self(10);
     }
+
     impl fmt::Debug for PerformanceCounterUnitKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -353,10 +399,12 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceCounterStorageKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PerformanceCounterStorageKHR(i32);
+
     impl PerformanceCounterStorageKHR {
         pub const INT32_KHR: Self = Self(0);
         pub const INT64_KHR: Self = Self(1);
@@ -365,6 +413,7 @@ pub(super) mod defs {
         pub const FLOAT32_KHR: Self = Self(4);
         pub const FLOAT64_KHR: Self = Self(5);
     }
+
     impl fmt::Debug for PerformanceCounterStorageKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -383,17 +432,20 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceCounterDescriptionFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PerformanceCounterDescriptionFlagsKHR(Flags);
     vk_bitflags_wrapped!(PerformanceCounterDescriptionFlagsKHR, Flags);
+
     impl PerformanceCounterDescriptionFlagsKHR {
         pub const PERFORMANCE_IMPACTING_KHR: Self =
             Self(PerformanceCounterDescriptionFlagBitsKHR::PERFORMANCE_IMPACTING_KHR.0);
         pub const CONCURRENTLY_IMPACTED_KHR: Self =
             Self(PerformanceCounterDescriptionFlagBitsKHR::CONCURRENTLY_IMPACTED_KHR.0);
     }
+
     impl fmt::Debug for PerformanceCounterDescriptionFlagsKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -409,31 +461,39 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceCounterDescriptionFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PerformanceCounterDescriptionFlagBitsKHR(u32);
+
     impl PerformanceCounterDescriptionFlagBitsKHR {
         pub const PERFORMANCE_IMPACTING_KHR: Self = Self(1 << 0);
         pub const CONCURRENTLY_IMPACTED_KHR: Self = Self(1 << 1);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAcquireProfilingLockFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct AcquireProfilingLockFlagsKHR(Flags);
     vk_bitflags_wrapped!(AcquireProfilingLockFlagsKHR, Flags);
+
     impl AcquireProfilingLockFlagsKHR {}
+
     impl fmt::Debug for AcquireProfilingLockFlagsKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[];
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAcquireProfilingLockFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct AcquireProfilingLockFlagBitsKHR(u32);
+
     impl AcquireProfilingLockFlagBitsKHR {}
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR.html>
     pub type PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR =
         unsafe extern "system" fn(
@@ -458,12 +518,14 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkReleaseProfilingLockKHR.html>
     pub type PFN_vkReleaseProfilingLockKHR = unsafe extern "system" fn(device: Device);
 }
+
 pub struct InstanceFn {
     enumerate_physical_device_queue_family_performance_query_counters_khr:
         PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR,
     get_physical_device_queue_family_performance_query_passes_khr:
         PFN_vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -482,6 +544,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR.html>
     pub unsafe fn enumerate_physical_device_queue_family_performance_query_counters_khr<'a>(
@@ -525,6 +588,7 @@ impl InstanceFn {
             Ok(result)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR.html>
     pub unsafe fn get_physical_device_queue_family_performance_query_passes_khr(
         &self,
@@ -542,10 +606,12 @@ impl InstanceFn {
         }
     }
 }
+
 pub struct DeviceFn {
     acquire_profiling_lock_khr: PFN_vkAcquireProfilingLockKHR,
     release_profiling_lock_khr: PFN_vkReleaseProfilingLockKHR,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -562,6 +628,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireProfilingLockKHR.html>
     pub unsafe fn acquire_profiling_lock_khr(
@@ -578,6 +645,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkReleaseProfilingLockKHR.html>
     pub unsafe fn release_profiling_lock_khr(&self, device: Device) {
         unsafe { (self.release_profiling_lock_khr)(device) }

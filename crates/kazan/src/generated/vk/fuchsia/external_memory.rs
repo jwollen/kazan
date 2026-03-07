@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportMemoryZirconHandleInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,11 +20,14 @@ pub(super) mod defs {
         pub handle: zx_handle_t,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportMemoryZirconHandleInfoFUCHSIA<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::IMPORT_MEMORY_ZIRCON_HANDLE_INFO_FUCHSIA;
     }
+
     unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ImportMemoryZirconHandleInfoFUCHSIA<'a> {}
+
     impl Default for ImportMemoryZirconHandleInfoFUCHSIA<'_> {
         fn default() -> Self {
             Self {
@@ -34,16 +39,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ImportMemoryZirconHandleInfoFUCHSIA<'a> {
         pub fn handle_type(mut self, handle_type: ExternalMemoryHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
         }
+
         pub fn handle(mut self, handle: zx_handle_t) -> Self {
             self.handle = handle;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryZirconHandlePropertiesFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -53,10 +61,12 @@ pub(super) mod defs {
         pub memory_type_bits: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for MemoryZirconHandlePropertiesFUCHSIA<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::MEMORY_ZIRCON_HANDLE_PROPERTIES_FUCHSIA;
     }
+
     impl Default for MemoryZirconHandlePropertiesFUCHSIA<'_> {
         fn default() -> Self {
             Self {
@@ -67,12 +77,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> MemoryZirconHandlePropertiesFUCHSIA<'a> {
         pub fn memory_type_bits(mut self, memory_type_bits: u32) -> Self {
             self.memory_type_bits = memory_type_bits;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryGetZirconHandleInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -83,9 +95,11 @@ pub(super) mod defs {
         pub handle_type: ExternalMemoryHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for MemoryGetZirconHandleInfoFUCHSIA<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_GET_ZIRCON_HANDLE_INFO_FUCHSIA;
     }
+
     impl Default for MemoryGetZirconHandleInfoFUCHSIA<'_> {
         fn default() -> Self {
             Self {
@@ -97,16 +111,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> MemoryGetZirconHandleInfoFUCHSIA<'a> {
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
         }
+
         pub fn handle_type(mut self, handle_type: ExternalMemoryHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryZirconHandleFUCHSIA.html>
     pub type PFN_vkGetMemoryZirconHandleFUCHSIA = unsafe extern "system" fn(
         device: Device,
@@ -122,10 +139,12 @@ pub(super) mod defs {
     )
         -> vk::Result;
 }
+
 pub struct DeviceFn {
     get_memory_zircon_handle_fuchsia: PFN_vkGetMemoryZirconHandleFUCHSIA,
     get_memory_zircon_handle_properties_fuchsia: PFN_vkGetMemoryZirconHandlePropertiesFUCHSIA,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -143,6 +162,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryZirconHandleFUCHSIA.html>
     pub unsafe fn get_memory_zircon_handle_fuchsia(
@@ -164,6 +184,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryZirconHandlePropertiesFUCHSIA.html>
     pub unsafe fn get_memory_zircon_handle_properties_fuchsia(
         &self,

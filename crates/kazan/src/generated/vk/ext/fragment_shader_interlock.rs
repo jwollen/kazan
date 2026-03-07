@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -19,10 +21,12 @@ pub(super) mod defs {
         pub fragment_shader_shading_rate_interlock: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentShaderInterlockFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_FRAGMENT_SHADER_INTERLOCK_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceFragmentShaderInterlockFeaturesEXT<'a>
     {
@@ -31,6 +35,7 @@ pub(super) mod defs {
         for PhysicalDeviceFragmentShaderInterlockFeaturesEXT<'a>
     {
     }
+
     impl Default for PhysicalDeviceFragmentShaderInterlockFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -43,6 +48,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceFragmentShaderInterlockFeaturesEXT<'a> {
         pub fn fragment_shader_sample_interlock(
             mut self,
@@ -51,6 +57,7 @@ pub(super) mod defs {
             self.fragment_shader_sample_interlock = fragment_shader_sample_interlock.into();
             self
         }
+
         pub fn fragment_shader_pixel_interlock(
             mut self,
             fragment_shader_pixel_interlock: bool,
@@ -58,6 +65,7 @@ pub(super) mod defs {
             self.fragment_shader_pixel_interlock = fragment_shader_pixel_interlock.into();
             self
         }
+
         pub fn fragment_shader_shading_rate_interlock(
             mut self,
             fragment_shader_shading_rate_interlock: bool,

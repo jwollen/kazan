@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkStridedDeviceAddressRangeKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -16,20 +18,24 @@ pub(super) mod defs {
         pub size: DeviceSize,
         pub stride: DeviceSize,
     }
+
     impl StridedDeviceAddressRangeKHR {
         pub fn address(mut self, address: DeviceAddress) -> Self {
             self.address = address;
             self
         }
+
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
         }
+
         pub fn stride(mut self, stride: DeviceSize) -> Self {
             self.stride = stride;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyMemoryIndirectCommandKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -38,20 +44,24 @@ pub(super) mod defs {
         pub dst_address: DeviceAddress,
         pub size: DeviceSize,
     }
+
     impl CopyMemoryIndirectCommandKHR {
         pub fn src_address(mut self, src_address: DeviceAddress) -> Self {
             self.src_address = src_address;
             self
         }
+
         pub fn dst_address(mut self, dst_address: DeviceAddress) -> Self {
             self.dst_address = dst_address;
             self
         }
+
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyMemoryIndirectInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -64,9 +74,11 @@ pub(super) mod defs {
         pub copy_address_range: StridedDeviceAddressRangeKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for CopyMemoryIndirectInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::COPY_MEMORY_INDIRECT_INFO_KHR;
     }
+
     impl Default for CopyMemoryIndirectInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -80,19 +92,23 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> CopyMemoryIndirectInfoKHR<'a> {
         pub fn src_copy_flags(mut self, src_copy_flags: AddressCopyFlagsKHR) -> Self {
             self.src_copy_flags = src_copy_flags;
             self
         }
+
         pub fn dst_copy_flags(mut self, dst_copy_flags: AddressCopyFlagsKHR) -> Self {
             self.dst_copy_flags = dst_copy_flags;
             self
         }
+
         pub fn copy_count(mut self, copy_count: u32) -> Self {
             self.copy_count = copy_count;
             self
         }
+
         pub fn copy_address_range(
             mut self,
             copy_address_range: StridedDeviceAddressRangeKHR,
@@ -101,6 +117,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyMemoryToImageIndirectCommandKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -112,32 +129,39 @@ pub(super) mod defs {
         pub image_offset: Offset3D,
         pub image_extent: Extent3D,
     }
+
     impl CopyMemoryToImageIndirectCommandKHR {
         pub fn src_address(mut self, src_address: DeviceAddress) -> Self {
             self.src_address = src_address;
             self
         }
+
         pub fn buffer_row_length(mut self, buffer_row_length: u32) -> Self {
             self.buffer_row_length = buffer_row_length;
             self
         }
+
         pub fn buffer_image_height(mut self, buffer_image_height: u32) -> Self {
             self.buffer_image_height = buffer_image_height;
             self
         }
+
         pub fn image_subresource(mut self, image_subresource: ImageSubresourceLayers) -> Self {
             self.image_subresource = image_subresource;
             self
         }
+
         pub fn image_offset(mut self, image_offset: Offset3D) -> Self {
             self.image_offset = image_offset;
             self
         }
+
         pub fn image_extent(mut self, image_extent: Extent3D) -> Self {
             self.image_extent = image_extent;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyMemoryToImageIndirectInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -152,9 +176,11 @@ pub(super) mod defs {
         pub p_image_subresources: *const ImageSubresourceLayers,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for CopyMemoryToImageIndirectInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::COPY_MEMORY_TO_IMAGE_INDIRECT_INFO_KHR;
     }
+
     impl Default for CopyMemoryToImageIndirectInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -170,11 +196,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> CopyMemoryToImageIndirectInfoKHR<'a> {
         pub fn src_copy_flags(mut self, src_copy_flags: AddressCopyFlagsKHR) -> Self {
             self.src_copy_flags = src_copy_flags;
             self
         }
+
         pub fn image_subresources(
             mut self,
             image_subresources: &'a [ImageSubresourceLayers],
@@ -183,6 +211,7 @@ pub(super) mod defs {
             self.p_image_subresources = image_subresources.as_ptr();
             self
         }
+
         pub fn copy_address_range(
             mut self,
             copy_address_range: StridedDeviceAddressRangeKHR,
@@ -190,15 +219,18 @@ pub(super) mod defs {
             self.copy_address_range = copy_address_range;
             self
         }
+
         pub fn dst_image(mut self, dst_image: Image) -> Self {
             self.dst_image = dst_image;
             self
         }
+
         pub fn dst_image_layout(mut self, dst_image_layout: ImageLayout) -> Self {
             self.dst_image_layout = dst_image_layout;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCopyMemoryIndirectFeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -209,15 +241,18 @@ pub(super) mod defs {
         pub indirect_memory_to_image_copy: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCopyMemoryIndirectFeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceCopyMemoryIndirectFeaturesKHR<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceCopyMemoryIndirectFeaturesKHR<'a> {}
+
     impl Default for PhysicalDeviceCopyMemoryIndirectFeaturesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -229,11 +264,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceCopyMemoryIndirectFeaturesKHR<'a> {
         pub fn indirect_memory_copy(mut self, indirect_memory_copy: bool) -> Self {
             self.indirect_memory_copy = indirect_memory_copy.into();
             self
         }
+
         pub fn indirect_memory_to_image_copy(
             mut self,
             indirect_memory_to_image_copy: bool,
@@ -242,6 +279,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -251,14 +289,17 @@ pub(super) mod defs {
         pub supported_queues: QueueFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCopyMemoryIndirectPropertiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceCopyMemoryIndirectPropertiesKHR<'a>
     {
     }
+
     impl Default for PhysicalDeviceCopyMemoryIndirectPropertiesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -269,22 +310,26 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceCopyMemoryIndirectPropertiesKHR<'a> {
         pub fn supported_queues(mut self, supported_queues: QueueFlags) -> Self {
             self.supported_queues = supported_queues;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAddressCopyFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct AddressCopyFlagsKHR(Flags);
     vk_bitflags_wrapped!(AddressCopyFlagsKHR, Flags);
+
     impl AddressCopyFlagsKHR {
         pub const DEVICE_LOCAL_KHR: Self = Self(AddressCopyFlagBitsKHR::DEVICE_LOCAL_KHR.0);
         pub const SPARSE_KHR: Self = Self(AddressCopyFlagBitsKHR::SPARSE_KHR.0);
         pub const PROTECTED_KHR: Self = Self(AddressCopyFlagBitsKHR::PROTECTED_KHR.0);
     }
+
     impl fmt::Debug for AddressCopyFlagsKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -295,15 +340,18 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAddressCopyFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct AddressCopyFlagBitsKHR(u32);
+
     impl AddressCopyFlagBitsKHR {
         pub const DEVICE_LOCAL_KHR: Self = Self(1 << 0);
         pub const SPARSE_KHR: Self = Self(1 << 1);
         pub const PROTECTED_KHR: Self = Self(1 << 2);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryIndirectKHR.html>
     pub type PFN_vkCmdCopyMemoryIndirectKHR = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
@@ -315,10 +363,12 @@ pub(super) mod defs {
         p_copy_memory_to_image_indirect_info: *const CopyMemoryToImageIndirectInfoKHR<'_>,
     );
 }
+
 pub struct DeviceFn {
     cmd_copy_memory_indirect_khr: PFN_vkCmdCopyMemoryIndirectKHR,
     cmd_copy_memory_to_image_indirect_khr: PFN_vkCmdCopyMemoryToImageIndirectKHR,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -335,6 +385,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryIndirectKHR.html>
     pub unsafe fn cmd_copy_memory_indirect_khr(
@@ -344,6 +395,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_copy_memory_indirect_khr)(command_buffer, copy_memory_indirect_info) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryToImageIndirectKHR.html>
     pub unsafe fn cmd_copy_memory_to_image_indirect_khr(
         &self,

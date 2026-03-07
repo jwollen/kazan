@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkWaylandSurfaceCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -19,9 +21,11 @@ pub(super) mod defs {
         pub surface: *mut wl_surface,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for WaylandSurfaceCreateInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::WAYLAND_SURFACE_CREATE_INFO_KHR;
     }
+
     impl Default for WaylandSurfaceCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -34,30 +38,36 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> WaylandSurfaceCreateInfoKHR<'a> {
         pub fn flags(mut self, flags: WaylandSurfaceCreateFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn display(mut self, display: *mut wl_display) -> Self {
             self.display = display;
             self
         }
+
         pub fn surface(mut self, surface: *mut wl_surface) -> Self {
             self.surface = surface;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkWaylandSurfaceCreateFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct WaylandSurfaceCreateFlagsKHR(Flags);
     vk_bitflags_wrapped!(WaylandSurfaceCreateFlagsKHR, Flags);
+
     impl fmt::Debug for WaylandSurfaceCreateFlagsKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateWaylandSurfaceKHR.html>
     pub type PFN_vkCreateWaylandSurfaceKHR = unsafe extern "system" fn(
         instance: Instance,
@@ -73,11 +83,13 @@ pub(super) mod defs {
             display: *mut wl_display,
         ) -> Bool32;
 }
+
 pub struct InstanceFn {
     create_wayland_surface_khr: PFN_vkCreateWaylandSurfaceKHR,
     get_physical_device_wayland_presentation_support_khr:
         PFN_vkGetPhysicalDeviceWaylandPresentationSupportKHR,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -95,6 +107,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateWaylandSurfaceKHR.html>
     pub unsafe fn create_wayland_surface_khr(
@@ -118,6 +131,7 @@ impl InstanceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceWaylandPresentationSupportKHR.html>
     pub unsafe fn get_physical_device_wayland_presentation_support_khr(
         &self,

@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportMemoryMetalHandleInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,10 +20,13 @@ pub(super) mod defs {
         pub handle: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportMemoryMetalHandleInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_MEMORY_METAL_HANDLE_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ImportMemoryMetalHandleInfoEXT<'a> {}
+
     impl Default for ImportMemoryMetalHandleInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -33,16 +38,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ImportMemoryMetalHandleInfoEXT<'a> {
         pub fn handle_type(mut self, handle_type: ExternalMemoryHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
         }
+
         pub fn handle(mut self, handle: *mut c_void) -> Self {
             self.handle = handle;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryMetalHandlePropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -52,9 +60,11 @@ pub(super) mod defs {
         pub memory_type_bits: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for MemoryMetalHandlePropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_METAL_HANDLE_PROPERTIES_EXT;
     }
+
     impl Default for MemoryMetalHandlePropertiesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -65,12 +75,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> MemoryMetalHandlePropertiesEXT<'a> {
         pub fn memory_type_bits(mut self, memory_type_bits: u32) -> Self {
             self.memory_type_bits = memory_type_bits;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryGetMetalHandleInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -81,9 +93,11 @@ pub(super) mod defs {
         pub handle_type: ExternalMemoryHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for MemoryGetMetalHandleInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_GET_METAL_HANDLE_INFO_EXT;
     }
+
     impl Default for MemoryGetMetalHandleInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -95,16 +109,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> MemoryGetMetalHandleInfoEXT<'a> {
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
         }
+
         pub fn handle_type(mut self, handle_type: ExternalMemoryHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryMetalHandleEXT.html>
     pub type PFN_vkGetMemoryMetalHandleEXT = unsafe extern "system" fn(
         device: Device,
@@ -119,10 +136,12 @@ pub(super) mod defs {
         p_memory_metal_handle_properties: *mut MemoryMetalHandlePropertiesEXT<'_>,
     ) -> vk::Result;
 }
+
 pub struct DeviceFn {
     get_memory_metal_handle_ext: PFN_vkGetMemoryMetalHandleEXT,
     get_memory_metal_handle_properties_ext: PFN_vkGetMemoryMetalHandlePropertiesEXT,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -139,6 +158,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryMetalHandleEXT.html>
     pub unsafe fn get_memory_metal_handle_ext(
@@ -160,6 +180,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryMetalHandlePropertiesEXT.html>
     pub unsafe fn get_memory_metal_handle_properties_ext(
         &self,

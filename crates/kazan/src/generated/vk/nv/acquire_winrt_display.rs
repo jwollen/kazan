@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireWinrtDisplayNV.html>
     pub type PFN_vkAcquireWinrtDisplayNV = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
@@ -20,10 +22,12 @@ pub(super) mod defs {
         p_display: *mut DisplayKHR,
     ) -> vk::Result;
 }
+
 pub struct InstanceFn {
     acquire_winrt_display_nv: PFN_vkAcquireWinrtDisplayNV,
     get_winrt_display_nv: PFN_vkGetWinrtDisplayNV,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -40,6 +44,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireWinrtDisplayNV.html>
     pub unsafe fn acquire_winrt_display_nv(
@@ -56,6 +61,7 @@ impl InstanceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetWinrtDisplayNV.html>
     pub unsafe fn get_winrt_display_nv(
         &self,

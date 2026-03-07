@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExclusiveScissorFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,15 +19,18 @@ pub(super) mod defs {
         pub exclusive_scissor: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExclusiveScissorFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_EXCLUSIVE_SCISSOR_FEATURES_NV;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceExclusiveScissorFeaturesNV<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceExclusiveScissorFeaturesNV<'a> {}
+
     impl Default for PhysicalDeviceExclusiveScissorFeaturesNV<'_> {
         fn default() -> Self {
             Self {
@@ -36,12 +41,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceExclusiveScissorFeaturesNV<'a> {
         pub fn exclusive_scissor(mut self, exclusive_scissor: bool) -> Self {
             self.exclusive_scissor = exclusive_scissor.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineViewportExclusiveScissorStateCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -52,14 +59,17 @@ pub(super) mod defs {
         pub p_exclusive_scissors: *const Rect2D,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineViewportExclusiveScissorStateCreateInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_VIEWPORT_EXCLUSIVE_SCISSOR_STATE_CREATE_INFO_NV;
     }
+
     unsafe impl<'a> Extends<PipelineViewportStateCreateInfo<'a>>
         for PipelineViewportExclusiveScissorStateCreateInfoNV<'a>
     {
     }
+
     impl Default for PipelineViewportExclusiveScissorStateCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
@@ -71,6 +81,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineViewportExclusiveScissorStateCreateInfoNV<'a> {
         pub fn exclusive_scissors(mut self, exclusive_scissors: &'a [Rect2D]) -> Self {
             self.exclusive_scissor_count = exclusive_scissors.len().try_into().unwrap();
@@ -78,6 +89,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetExclusiveScissorNV.html>
     pub type PFN_vkCmdSetExclusiveScissorNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
@@ -93,10 +105,12 @@ pub(super) mod defs {
         p_exclusive_scissor_enables: *const Bool32,
     );
 }
+
 pub struct DeviceFn {
     cmd_set_exclusive_scissor_enable_nv: PFN_vkCmdSetExclusiveScissorEnableNV,
     cmd_set_exclusive_scissor_nv: PFN_vkCmdSetExclusiveScissorNV,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -113,6 +127,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetExclusiveScissorEnableNV.html>
     pub unsafe fn cmd_set_exclusive_scissor_enable_nv(
@@ -130,6 +145,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetExclusiveScissorNV.html>
     pub unsafe fn cmd_set_exclusive_scissor_nv(
         &self,

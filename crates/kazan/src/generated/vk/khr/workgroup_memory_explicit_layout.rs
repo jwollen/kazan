@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -20,10 +22,12 @@ pub(super) mod defs {
         pub workgroup_memory_explicit_layout16_bit_access: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_WORKGROUP_MEMORY_EXPLICIT_LAYOUT_FEATURES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR<'a>
     {
@@ -32,6 +36,7 @@ pub(super) mod defs {
         for PhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR<'a>
     {
     }
+
     impl Default for PhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -45,6 +50,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR<'a> {
         pub fn workgroup_memory_explicit_layout(
             mut self,
@@ -53,6 +59,7 @@ pub(super) mod defs {
             self.workgroup_memory_explicit_layout = workgroup_memory_explicit_layout.into();
             self
         }
+
         pub fn workgroup_memory_explicit_layout_scalar_block_layout(
             mut self,
             workgroup_memory_explicit_layout_scalar_block_layout: bool,
@@ -61,6 +68,7 @@ pub(super) mod defs {
                 workgroup_memory_explicit_layout_scalar_block_layout.into();
             self
         }
+
         pub fn workgroup_memory_explicit_layout8_bit_access(
             mut self,
             workgroup_memory_explicit_layout8_bit_access: bool,
@@ -69,6 +77,7 @@ pub(super) mod defs {
                 workgroup_memory_explicit_layout8_bit_access.into();
             self
         }
+
         pub fn workgroup_memory_explicit_layout16_bit_access(
             mut self,
             workgroup_memory_explicit_layout16_bit_access: bool,

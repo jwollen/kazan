@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePresentIdFeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,12 +19,15 @@ pub(super) mod defs {
         pub present_id: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePresentIdFeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PRESENT_ID_FEATURES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDevicePresentIdFeaturesKHR<'a> {}
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePresentIdFeaturesKHR<'a> {}
+
     impl Default for PhysicalDevicePresentIdFeaturesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -33,12 +38,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDevicePresentIdFeaturesKHR<'a> {
         pub fn present_id(mut self, present_id: bool) -> Self {
             self.present_id = present_id.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentIdKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -49,10 +56,13 @@ pub(super) mod defs {
         pub p_present_ids: *const u64,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PresentIdKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PRESENT_ID_KHR;
     }
+
     unsafe impl<'a> Extends<PresentInfoKHR<'a>> for PresentIdKHR<'a> {}
+
     impl Default for PresentIdKHR<'_> {
         fn default() -> Self {
             Self {
@@ -64,6 +74,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PresentIdKHR<'a> {
         pub fn present_ids(mut self, present_ids: &'a [u64]) -> Self {
             self.swapchain_count = present_ids.len().try_into().unwrap();

@@ -2,17 +2,20 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     handle_nondispatchable!(
         BufferCollectionFUCHSIA,
         BUFFER_COLLECTION_FUCHSIA,
         doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCollectionFUCHSIA.html>"
     );
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportMemoryBufferCollectionFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -23,11 +26,14 @@ pub(super) mod defs {
         pub index: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportMemoryBufferCollectionFUCHSIA<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::IMPORT_MEMORY_BUFFER_COLLECTION_FUCHSIA;
     }
+
     unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ImportMemoryBufferCollectionFUCHSIA<'a> {}
+
     impl Default for ImportMemoryBufferCollectionFUCHSIA<'_> {
         fn default() -> Self {
             Self {
@@ -39,16 +45,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ImportMemoryBufferCollectionFUCHSIA<'a> {
         pub fn collection(mut self, collection: BufferCollectionFUCHSIA) -> Self {
             self.collection = collection;
             self
         }
+
         pub fn index(mut self, index: u32) -> Self {
             self.index = index;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCollectionImageCreateInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -59,11 +68,14 @@ pub(super) mod defs {
         pub index: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for BufferCollectionImageCreateInfoFUCHSIA<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::BUFFER_COLLECTION_IMAGE_CREATE_INFO_FUCHSIA;
     }
+
     unsafe impl<'a> Extends<ImageCreateInfo<'a>> for BufferCollectionImageCreateInfoFUCHSIA<'a> {}
+
     impl Default for BufferCollectionImageCreateInfoFUCHSIA<'_> {
         fn default() -> Self {
             Self {
@@ -75,16 +87,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> BufferCollectionImageCreateInfoFUCHSIA<'a> {
         pub fn collection(mut self, collection: BufferCollectionFUCHSIA) -> Self {
             self.collection = collection;
             self
         }
+
         pub fn index(mut self, index: u32) -> Self {
             self.index = index;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCollectionBufferCreateInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -95,11 +110,14 @@ pub(super) mod defs {
         pub index: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for BufferCollectionBufferCreateInfoFUCHSIA<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::BUFFER_COLLECTION_BUFFER_CREATE_INFO_FUCHSIA;
     }
+
     unsafe impl<'a> Extends<BufferCreateInfo<'a>> for BufferCollectionBufferCreateInfoFUCHSIA<'a> {}
+
     impl Default for BufferCollectionBufferCreateInfoFUCHSIA<'_> {
         fn default() -> Self {
             Self {
@@ -111,16 +129,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> BufferCollectionBufferCreateInfoFUCHSIA<'a> {
         pub fn collection(mut self, collection: BufferCollectionFUCHSIA) -> Self {
             self.collection = collection;
             self
         }
+
         pub fn index(mut self, index: u32) -> Self {
             self.index = index;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCollectionCreateInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -130,9 +151,11 @@ pub(super) mod defs {
         pub collection_token: zx_handle_t,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for BufferCollectionCreateInfoFUCHSIA<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::BUFFER_COLLECTION_CREATE_INFO_FUCHSIA;
     }
+
     impl Default for BufferCollectionCreateInfoFUCHSIA<'_> {
         fn default() -> Self {
             Self {
@@ -143,12 +166,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> BufferCollectionCreateInfoFUCHSIA<'a> {
         pub fn collection_token(mut self, collection_token: zx_handle_t) -> Self {
             self.collection_token = collection_token;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCollectionPropertiesFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -168,9 +193,11 @@ pub(super) mod defs {
         pub suggested_y_chroma_offset: ChromaLocation,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for BufferCollectionPropertiesFUCHSIA<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::BUFFER_COLLECTION_PROPERTIES_FUCHSIA;
     }
+
     impl Default for BufferCollectionPropertiesFUCHSIA<'_> {
         fn default() -> Self {
             Self {
@@ -191,27 +218,33 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> BufferCollectionPropertiesFUCHSIA<'a> {
         pub fn memory_type_bits(mut self, memory_type_bits: u32) -> Self {
             self.memory_type_bits = memory_type_bits;
             self
         }
+
         pub fn buffer_count(mut self, buffer_count: u32) -> Self {
             self.buffer_count = buffer_count;
             self
         }
+
         pub fn create_info_index(mut self, create_info_index: u32) -> Self {
             self.create_info_index = create_info_index;
             self
         }
+
         pub fn sysmem_pixel_format(mut self, sysmem_pixel_format: u64) -> Self {
             self.sysmem_pixel_format = sysmem_pixel_format;
             self
         }
+
         pub fn format_features(mut self, format_features: FormatFeatureFlags) -> Self {
             self.format_features = format_features;
             self
         }
+
         pub fn sysmem_color_space_index(
             mut self,
             sysmem_color_space_index: SysmemColorSpaceFUCHSIA<'a>,
@@ -219,6 +252,7 @@ pub(super) mod defs {
             self.sysmem_color_space_index = sysmem_color_space_index;
             self
         }
+
         pub fn sampler_ycbcr_conversion_components(
             mut self,
             sampler_ycbcr_conversion_components: ComponentMapping,
@@ -226,6 +260,7 @@ pub(super) mod defs {
             self.sampler_ycbcr_conversion_components = sampler_ycbcr_conversion_components;
             self
         }
+
         pub fn suggested_ycbcr_model(
             mut self,
             suggested_ycbcr_model: SamplerYcbcrModelConversion,
@@ -233,10 +268,12 @@ pub(super) mod defs {
             self.suggested_ycbcr_model = suggested_ycbcr_model;
             self
         }
+
         pub fn suggested_ycbcr_range(mut self, suggested_ycbcr_range: SamplerYcbcrRange) -> Self {
             self.suggested_ycbcr_range = suggested_ycbcr_range;
             self
         }
+
         pub fn suggested_x_chroma_offset(
             mut self,
             suggested_x_chroma_offset: ChromaLocation,
@@ -244,6 +281,7 @@ pub(super) mod defs {
             self.suggested_x_chroma_offset = suggested_x_chroma_offset;
             self
         }
+
         pub fn suggested_y_chroma_offset(
             mut self,
             suggested_y_chroma_offset: ChromaLocation,
@@ -252,6 +290,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferConstraintsInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -263,9 +302,11 @@ pub(super) mod defs {
         pub buffer_collection_constraints: BufferCollectionConstraintsInfoFUCHSIA<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for BufferConstraintsInfoFUCHSIA<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::BUFFER_CONSTRAINTS_INFO_FUCHSIA;
     }
+
     impl Default for BufferConstraintsInfoFUCHSIA<'_> {
         fn default() -> Self {
             Self {
@@ -278,11 +319,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> BufferConstraintsInfoFUCHSIA<'a> {
         pub fn create_info(mut self, create_info: BufferCreateInfo<'a>) -> Self {
             self.create_info = create_info;
             self
         }
+
         pub fn required_format_features(
             mut self,
             required_format_features: FormatFeatureFlags,
@@ -290,6 +333,7 @@ pub(super) mod defs {
             self.required_format_features = required_format_features;
             self
         }
+
         pub fn buffer_collection_constraints(
             mut self,
             buffer_collection_constraints: BufferCollectionConstraintsInfoFUCHSIA<'a>,
@@ -298,6 +342,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSysmemColorSpaceFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -307,9 +352,11 @@ pub(super) mod defs {
         pub color_space: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for SysmemColorSpaceFUCHSIA<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SYSMEM_COLOR_SPACE_FUCHSIA;
     }
+
     impl Default for SysmemColorSpaceFUCHSIA<'_> {
         fn default() -> Self {
             Self {
@@ -320,12 +367,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SysmemColorSpaceFUCHSIA<'a> {
         pub fn color_space(mut self, color_space: u32) -> Self {
             self.color_space = color_space;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageFormatConstraintsInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -340,9 +389,11 @@ pub(super) mod defs {
         pub p_color_spaces: *const SysmemColorSpaceFUCHSIA<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ImageFormatConstraintsInfoFUCHSIA<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_FORMAT_CONSTRAINTS_INFO_FUCHSIA;
     }
+
     impl Default for ImageFormatConstraintsInfoFUCHSIA<'_> {
         fn default() -> Self {
             Self {
@@ -358,11 +409,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ImageFormatConstraintsInfoFUCHSIA<'a> {
         pub fn image_create_info(mut self, image_create_info: ImageCreateInfo<'a>) -> Self {
             self.image_create_info = image_create_info;
             self
         }
+
         pub fn required_format_features(
             mut self,
             required_format_features: FormatFeatureFlags,
@@ -370,20 +423,24 @@ pub(super) mod defs {
             self.required_format_features = required_format_features;
             self
         }
+
         pub fn flags(mut self, flags: ImageFormatConstraintsFlagsFUCHSIA) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn sysmem_pixel_format(mut self, sysmem_pixel_format: u64) -> Self {
             self.sysmem_pixel_format = sysmem_pixel_format;
             self
         }
+
         pub fn color_spaces(mut self, color_spaces: &'a [SysmemColorSpaceFUCHSIA<'a>]) -> Self {
             self.color_space_count = color_spaces.len().try_into().unwrap();
             self.p_color_spaces = color_spaces.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageConstraintsInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -396,9 +453,11 @@ pub(super) mod defs {
         pub flags: ImageConstraintsInfoFlagsFUCHSIA,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ImageConstraintsInfoFUCHSIA<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_CONSTRAINTS_INFO_FUCHSIA;
     }
+
     impl Default for ImageConstraintsInfoFUCHSIA<'_> {
         fn default() -> Self {
             Self {
@@ -412,6 +471,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ImageConstraintsInfoFUCHSIA<'a> {
         pub fn format_constraints(
             mut self,
@@ -421,6 +481,7 @@ pub(super) mod defs {
             self.p_format_constraints = format_constraints.as_ptr();
             self
         }
+
         pub fn buffer_collection_constraints(
             mut self,
             buffer_collection_constraints: BufferCollectionConstraintsInfoFUCHSIA<'a>,
@@ -428,11 +489,13 @@ pub(super) mod defs {
             self.buffer_collection_constraints = buffer_collection_constraints;
             self
         }
+
         pub fn flags(mut self, flags: ImageConstraintsInfoFlagsFUCHSIA) -> Self {
             self.flags = flags;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCollectionConstraintsInfoFUCHSIA.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -446,10 +509,12 @@ pub(super) mod defs {
         pub min_buffer_count_for_shared_slack: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for BufferCollectionConstraintsInfoFUCHSIA<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::BUFFER_COLLECTION_CONSTRAINTS_INFO_FUCHSIA;
     }
+
     impl Default for BufferCollectionConstraintsInfoFUCHSIA<'_> {
         fn default() -> Self {
             Self {
@@ -464,19 +529,23 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> BufferCollectionConstraintsInfoFUCHSIA<'a> {
         pub fn min_buffer_count(mut self, min_buffer_count: u32) -> Self {
             self.min_buffer_count = min_buffer_count;
             self
         }
+
         pub fn max_buffer_count(mut self, max_buffer_count: u32) -> Self {
             self.max_buffer_count = max_buffer_count;
             self
         }
+
         pub fn min_buffer_count_for_camping(mut self, min_buffer_count_for_camping: u32) -> Self {
             self.min_buffer_count_for_camping = min_buffer_count_for_camping;
             self
         }
+
         pub fn min_buffer_count_for_dedicated_slack(
             mut self,
             min_buffer_count_for_dedicated_slack: u32,
@@ -484,6 +553,7 @@ pub(super) mod defs {
             self.min_buffer_count_for_dedicated_slack = min_buffer_count_for_dedicated_slack;
             self
         }
+
         pub fn min_buffer_count_for_shared_slack(
             mut self,
             min_buffer_count_for_shared_slack: u32,
@@ -492,21 +562,25 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageFormatConstraintsFlagsFUCHSIA.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageFormatConstraintsFlagsFUCHSIA(Flags);
     vk_bitflags_wrapped!(ImageFormatConstraintsFlagsFUCHSIA, Flags);
+
     impl fmt::Debug for ImageFormatConstraintsFlagsFUCHSIA {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageConstraintsInfoFlagsFUCHSIA.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageConstraintsInfoFlagsFUCHSIA(Flags);
     vk_bitflags_wrapped!(ImageConstraintsInfoFlagsFUCHSIA, Flags);
+
     impl ImageConstraintsInfoFlagsFUCHSIA {
         pub const CPU_READ_RARELY_FUCHSIA: Self =
             Self(ImageConstraintsInfoFlagBitsFUCHSIA::CPU_READ_RARELY_FUCHSIA.0);
@@ -519,6 +593,7 @@ pub(super) mod defs {
         pub const PROTECTED_OPTIONAL_FUCHSIA: Self =
             Self(ImageConstraintsInfoFlagBitsFUCHSIA::PROTECTED_OPTIONAL_FUCHSIA.0);
     }
+
     impl fmt::Debug for ImageConstraintsInfoFlagsFUCHSIA {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -546,10 +621,12 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageConstraintsInfoFlagBitsFUCHSIA.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ImageConstraintsInfoFlagBitsFUCHSIA(u32);
+
     impl ImageConstraintsInfoFlagBitsFUCHSIA {
         pub const CPU_READ_RARELY_FUCHSIA: Self = Self(1 << 0);
         pub const CPU_READ_OFTEN_FUCHSIA: Self = Self(1 << 1);
@@ -557,6 +634,7 @@ pub(super) mod defs {
         pub const CPU_WRITE_OFTEN_FUCHSIA: Self = Self(1 << 3);
         pub const PROTECTED_OPTIONAL_FUCHSIA: Self = Self(1 << 4);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateBufferCollectionFUCHSIA.html>
     pub type PFN_vkCreateBufferCollectionFUCHSIA = unsafe extern "system" fn(
         device: Device,
@@ -592,6 +670,7 @@ pub(super) mod defs {
     )
         -> vk::Result;
 }
+
 pub struct DeviceFn {
     create_buffer_collection_fuchsia: PFN_vkCreateBufferCollectionFUCHSIA,
     set_buffer_collection_image_constraints_fuchsia:
@@ -601,6 +680,7 @@ pub struct DeviceFn {
     destroy_buffer_collection_fuchsia: PFN_vkDestroyBufferCollectionFUCHSIA,
     get_buffer_collection_properties_fuchsia: PFN_vkGetBufferCollectionPropertiesFUCHSIA,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -629,6 +709,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateBufferCollectionFUCHSIA.html>
     pub unsafe fn create_buffer_collection_fuchsia(
@@ -652,6 +733,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetBufferCollectionImageConstraintsFUCHSIA.html>
     pub unsafe fn set_buffer_collection_image_constraints_fuchsia(
         &self,
@@ -672,6 +754,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetBufferCollectionBufferConstraintsFUCHSIA.html>
     pub unsafe fn set_buffer_collection_buffer_constraints_fuchsia(
         &self,
@@ -692,6 +775,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyBufferCollectionFUCHSIA.html>
     pub unsafe fn destroy_buffer_collection_fuchsia(
         &self,
@@ -703,6 +787,7 @@ impl DeviceFn {
             (self.destroy_buffer_collection_fuchsia)(device, collection, allocator.to_raw_ptr())
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferCollectionPropertiesFUCHSIA.html>
     pub unsafe fn get_buffer_collection_properties_fuchsia(
         &self,

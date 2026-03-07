@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     handle_nondispatchable!(
         TensorARM,
         TENSOR_ARM,
@@ -18,6 +20,7 @@ pub(super) mod defs {
         TENSOR_VIEW_ARM,
         doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorViewARM.html>"
     );
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorDescriptionARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -32,11 +35,14 @@ pub(super) mod defs {
         pub usage: TensorUsageFlagsARM,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for TensorDescriptionARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::TENSOR_DESCRIPTION_ARM;
     }
+
     unsafe impl<'a> Extends<DataGraphPipelineResourceInfoARM<'a>> for TensorDescriptionARM<'a> {}
     unsafe impl<'a> Extends<DataGraphPipelineConstantARM<'a>> for TensorDescriptionARM<'a> {}
+
     impl Default for TensorDescriptionARM<'_> {
         fn default() -> Self {
             Self {
@@ -52,30 +58,36 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> TensorDescriptionARM<'a> {
         pub fn tiling(mut self, tiling: TensorTilingARM) -> Self {
             self.tiling = tiling;
             self
         }
+
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
         }
+
         pub fn dimensions(mut self, dimensions: &'a [i64]) -> Self {
             self.dimension_count = dimensions.len().try_into().unwrap();
             self.p_dimensions = dimensions.as_ptr();
             self
         }
+
         pub fn strides(mut self, strides: &'a [i64]) -> Self {
             self.dimension_count = strides.len().try_into().unwrap();
             self.p_strides = strides.as_ptr();
             self
         }
+
         pub fn usage(mut self, usage: TensorUsageFlagsARM) -> Self {
             self.usage = usage;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorCreateInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -89,9 +101,11 @@ pub(super) mod defs {
         pub p_queue_family_indices: *const u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for TensorCreateInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::TENSOR_CREATE_INFO_ARM;
     }
+
     impl Default for TensorCreateInfoARM<'_> {
         fn default() -> Self {
             Self {
@@ -106,25 +120,30 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> TensorCreateInfoARM<'a> {
         pub fn flags(mut self, flags: TensorCreateFlagsARM) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn description(mut self, description: &'a TensorDescriptionARM<'a>) -> Self {
             self.p_description = description;
             self
         }
+
         pub fn sharing_mode(mut self, sharing_mode: SharingMode) -> Self {
             self.sharing_mode = sharing_mode;
             self
         }
+
         pub fn queue_family_indices(mut self, queue_family_indices: &'a [u32]) -> Self {
             self.queue_family_index_count = queue_family_indices.len().try_into().unwrap();
             self.p_queue_family_indices = queue_family_indices.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorViewCreateInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -136,9 +155,11 @@ pub(super) mod defs {
         pub format: Format,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for TensorViewCreateInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::TENSOR_VIEW_CREATE_INFO_ARM;
     }
+
     impl Default for TensorViewCreateInfoARM<'_> {
         fn default() -> Self {
             Self {
@@ -151,20 +172,24 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> TensorViewCreateInfoARM<'a> {
         pub fn flags(mut self, flags: TensorViewCreateFlagsARM) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn tensor(mut self, tensor: TensorARM) -> Self {
             self.tensor = tensor;
             self
         }
+
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorMemoryRequirementsInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -174,9 +199,11 @@ pub(super) mod defs {
         pub tensor: TensorARM,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for TensorMemoryRequirementsInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::TENSOR_MEMORY_REQUIREMENTS_INFO_ARM;
     }
+
     impl Default for TensorMemoryRequirementsInfoARM<'_> {
         fn default() -> Self {
             Self {
@@ -187,12 +214,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> TensorMemoryRequirementsInfoARM<'a> {
         pub fn tensor(mut self, tensor: TensorARM) -> Self {
             self.tensor = tensor;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindTensorMemoryInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -204,9 +233,11 @@ pub(super) mod defs {
         pub memory_offset: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for BindTensorMemoryInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::BIND_TENSOR_MEMORY_INFO_ARM;
     }
+
     impl Default for BindTensorMemoryInfoARM<'_> {
         fn default() -> Self {
             Self {
@@ -219,20 +250,24 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> BindTensorMemoryInfoARM<'a> {
         pub fn tensor(mut self, tensor: TensorARM) -> Self {
             self.tensor = tensor;
             self
         }
+
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
         }
+
         pub fn memory_offset(mut self, memory_offset: DeviceSize) -> Self {
             self.memory_offset = memory_offset;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkWriteDescriptorSetTensorARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -243,10 +278,13 @@ pub(super) mod defs {
         pub p_tensor_views: *const TensorViewARM,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for WriteDescriptorSetTensorARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::WRITE_DESCRIPTOR_SET_TENSOR_ARM;
     }
+
     unsafe impl<'a> Extends<WriteDescriptorSet<'a>> for WriteDescriptorSetTensorARM<'a> {}
+
     impl Default for WriteDescriptorSetTensorARM<'_> {
         fn default() -> Self {
             Self {
@@ -258,6 +296,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> WriteDescriptorSetTensorARM<'a> {
         pub fn tensor_views(mut self, tensor_views: &'a [TensorViewARM]) -> Self {
             self.tensor_view_count = tensor_views.len().try_into().unwrap();
@@ -265,6 +304,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorFormatPropertiesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -275,10 +315,13 @@ pub(super) mod defs {
         pub linear_tiling_tensor_features: FormatFeatureFlags2,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for TensorFormatPropertiesARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::TENSOR_FORMAT_PROPERTIES_ARM;
     }
+
     unsafe impl<'a> Extends<FormatProperties2<'a>> for TensorFormatPropertiesARM<'a> {}
+
     impl Default for TensorFormatPropertiesARM<'_> {
         fn default() -> Self {
             Self {
@@ -290,6 +333,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> TensorFormatPropertiesARM<'a> {
         pub fn optimal_tiling_tensor_features(
             mut self,
@@ -298,6 +342,7 @@ pub(super) mod defs {
             self.optimal_tiling_tensor_features = optimal_tiling_tensor_features;
             self
         }
+
         pub fn linear_tiling_tensor_features(
             mut self,
             linear_tiling_tensor_features: FormatFeatureFlags2,
@@ -306,6 +351,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTensorPropertiesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -327,10 +373,13 @@ pub(super) mod defs {
         pub shader_tensor_supported_stages: ShaderStageFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceTensorPropertiesARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_TENSOR_PROPERTIES_ARM;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>> for PhysicalDeviceTensorPropertiesARM<'a> {}
+
     impl Default for PhysicalDeviceTensorPropertiesARM<'_> {
         fn default() -> Self {
             Self {
@@ -353,15 +402,18 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceTensorPropertiesARM<'a> {
         pub fn max_tensor_dimension_count(mut self, max_tensor_dimension_count: u32) -> Self {
             self.max_tensor_dimension_count = max_tensor_dimension_count;
             self
         }
+
         pub fn max_tensor_elements(mut self, max_tensor_elements: u64) -> Self {
             self.max_tensor_elements = max_tensor_elements;
             self
         }
+
         pub fn max_per_dimension_tensor_elements(
             mut self,
             max_per_dimension_tensor_elements: u64,
@@ -369,14 +421,17 @@ pub(super) mod defs {
             self.max_per_dimension_tensor_elements = max_per_dimension_tensor_elements;
             self
         }
+
         pub fn max_tensor_stride(mut self, max_tensor_stride: i64) -> Self {
             self.max_tensor_stride = max_tensor_stride;
             self
         }
+
         pub fn max_tensor_size(mut self, max_tensor_size: u64) -> Self {
             self.max_tensor_size = max_tensor_size;
             self
         }
+
         pub fn max_tensor_shader_access_array_length(
             mut self,
             max_tensor_shader_access_array_length: u32,
@@ -384,10 +439,12 @@ pub(super) mod defs {
             self.max_tensor_shader_access_array_length = max_tensor_shader_access_array_length;
             self
         }
+
         pub fn max_tensor_shader_access_size(mut self, max_tensor_shader_access_size: u32) -> Self {
             self.max_tensor_shader_access_size = max_tensor_shader_access_size;
             self
         }
+
         pub fn max_descriptor_set_storage_tensors(
             mut self,
             max_descriptor_set_storage_tensors: u32,
@@ -395,6 +452,7 @@ pub(super) mod defs {
             self.max_descriptor_set_storage_tensors = max_descriptor_set_storage_tensors;
             self
         }
+
         pub fn max_per_stage_descriptor_set_storage_tensors(
             mut self,
             max_per_stage_descriptor_set_storage_tensors: u32,
@@ -403,6 +461,7 @@ pub(super) mod defs {
                 max_per_stage_descriptor_set_storage_tensors;
             self
         }
+
         pub fn max_descriptor_set_update_after_bind_storage_tensors(
             mut self,
             max_descriptor_set_update_after_bind_storage_tensors: u32,
@@ -411,6 +470,7 @@ pub(super) mod defs {
                 max_descriptor_set_update_after_bind_storage_tensors;
             self
         }
+
         pub fn max_per_stage_descriptor_update_after_bind_storage_tensors(
             mut self,
             max_per_stage_descriptor_update_after_bind_storage_tensors: u32,
@@ -419,6 +479,7 @@ pub(super) mod defs {
                 max_per_stage_descriptor_update_after_bind_storage_tensors;
             self
         }
+
         pub fn shader_storage_tensor_array_non_uniform_indexing_native(
             mut self,
             shader_storage_tensor_array_non_uniform_indexing_native: bool,
@@ -427,6 +488,7 @@ pub(super) mod defs {
                 shader_storage_tensor_array_non_uniform_indexing_native.into();
             self
         }
+
         pub fn shader_tensor_supported_stages(
             mut self,
             shader_tensor_supported_stages: ShaderStageFlags,
@@ -435,6 +497,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorMemoryBarrierARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -450,10 +513,13 @@ pub(super) mod defs {
         pub tensor: TensorARM,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for TensorMemoryBarrierARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::TENSOR_MEMORY_BARRIER_ARM;
     }
+
     unsafe impl<'a> Extends<DependencyInfo<'a>> for TensorMemoryBarrierARM<'a> {}
+
     impl Default for TensorMemoryBarrierARM<'_> {
         fn default() -> Self {
             Self {
@@ -470,36 +536,44 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> TensorMemoryBarrierARM<'a> {
         pub fn src_stage_mask(mut self, src_stage_mask: PipelineStageFlags2) -> Self {
             self.src_stage_mask = src_stage_mask;
             self
         }
+
         pub fn src_access_mask(mut self, src_access_mask: AccessFlags2) -> Self {
             self.src_access_mask = src_access_mask;
             self
         }
+
         pub fn dst_stage_mask(mut self, dst_stage_mask: PipelineStageFlags2) -> Self {
             self.dst_stage_mask = dst_stage_mask;
             self
         }
+
         pub fn dst_access_mask(mut self, dst_access_mask: AccessFlags2) -> Self {
             self.dst_access_mask = dst_access_mask;
             self
         }
+
         pub fn src_queue_family_index(mut self, src_queue_family_index: u32) -> Self {
             self.src_queue_family_index = src_queue_family_index;
             self
         }
+
         pub fn dst_queue_family_index(mut self, dst_queue_family_index: u32) -> Self {
             self.dst_queue_family_index = dst_queue_family_index;
             self
         }
+
         pub fn tensor(mut self, tensor: TensorARM) -> Self {
             self.tensor = tensor;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorDependencyInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -510,10 +584,13 @@ pub(super) mod defs {
         pub p_tensor_memory_barriers: *const TensorMemoryBarrierARM<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for TensorDependencyInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::TENSOR_DEPENDENCY_INFO_ARM;
     }
+
     unsafe impl<'a> Extends<DependencyInfo<'a>> for TensorDependencyInfoARM<'a> {}
+
     impl Default for TensorDependencyInfoARM<'_> {
         fn default() -> Self {
             Self {
@@ -525,11 +602,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> TensorDependencyInfoARM<'a> {
         pub fn tensor_memory_barrier_count(mut self, tensor_memory_barrier_count: u32) -> Self {
             self.tensor_memory_barrier_count = tensor_memory_barrier_count;
             self
         }
+
         pub fn tensor_memory_barriers(
             mut self,
             tensor_memory_barriers: &'a TensorMemoryBarrierARM<'a>,
@@ -538,6 +617,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTensorFeaturesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -552,11 +632,14 @@ pub(super) mod defs {
         pub tensors: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceTensorFeaturesARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_TENSOR_FEATURES_ARM;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceTensorFeaturesARM<'a> {}
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceTensorFeaturesARM<'a> {}
+
     impl Default for PhysicalDeviceTensorFeaturesARM<'_> {
         fn default() -> Self {
             Self {
@@ -572,15 +655,18 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceTensorFeaturesARM<'a> {
         pub fn tensor_non_packed(mut self, tensor_non_packed: bool) -> Self {
             self.tensor_non_packed = tensor_non_packed.into();
             self
         }
+
         pub fn shader_tensor_access(mut self, shader_tensor_access: bool) -> Self {
             self.shader_tensor_access = shader_tensor_access.into();
             self
         }
+
         pub fn shader_storage_tensor_array_dynamic_indexing(
             mut self,
             shader_storage_tensor_array_dynamic_indexing: bool,
@@ -589,6 +675,7 @@ pub(super) mod defs {
                 shader_storage_tensor_array_dynamic_indexing.into();
             self
         }
+
         pub fn shader_storage_tensor_array_non_uniform_indexing(
             mut self,
             shader_storage_tensor_array_non_uniform_indexing: bool,
@@ -597,6 +684,7 @@ pub(super) mod defs {
                 shader_storage_tensor_array_non_uniform_indexing.into();
             self
         }
+
         pub fn descriptor_binding_storage_tensor_update_after_bind(
             mut self,
             descriptor_binding_storage_tensor_update_after_bind: bool,
@@ -605,11 +693,13 @@ pub(super) mod defs {
                 descriptor_binding_storage_tensor_update_after_bind.into();
             self
         }
+
         pub fn tensors(mut self, tensors: bool) -> Self {
             self.tensors = tensors.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceTensorMemoryRequirementsARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -619,9 +709,11 @@ pub(super) mod defs {
         pub p_create_info: *const TensorCreateInfoARM<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DeviceTensorMemoryRequirementsARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_TENSOR_MEMORY_REQUIREMENTS_ARM;
     }
+
     impl Default for DeviceTensorMemoryRequirementsARM<'_> {
         fn default() -> Self {
             Self {
@@ -632,12 +724,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DeviceTensorMemoryRequirementsARM<'a> {
         pub fn create_info(mut self, create_info: &'a TensorCreateInfoARM<'a>) -> Self {
             self.p_create_info = create_info;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyTensorInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -650,9 +744,11 @@ pub(super) mod defs {
         pub p_regions: *const TensorCopyARM<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for CopyTensorInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::COPY_TENSOR_INFO_ARM;
     }
+
     impl Default for CopyTensorInfoARM<'_> {
         fn default() -> Self {
             Self {
@@ -666,21 +762,25 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> CopyTensorInfoARM<'a> {
         pub fn src_tensor(mut self, src_tensor: TensorARM) -> Self {
             self.src_tensor = src_tensor;
             self
         }
+
         pub fn dst_tensor(mut self, dst_tensor: TensorARM) -> Self {
             self.dst_tensor = dst_tensor;
             self
         }
+
         pub fn regions(mut self, regions: &'a [TensorCopyARM<'a>]) -> Self {
             self.region_count = regions.len().try_into().unwrap();
             self.p_regions = regions.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorCopyARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -693,9 +793,11 @@ pub(super) mod defs {
         pub p_extent: *const u64,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for TensorCopyARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::TENSOR_COPY_ARM;
     }
+
     impl Default for TensorCopyARM<'_> {
         fn default() -> Self {
             Self {
@@ -709,23 +811,27 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> TensorCopyARM<'a> {
         pub fn src_offset(mut self, src_offset: &'a [u64]) -> Self {
             self.dimension_count = src_offset.len().try_into().unwrap();
             self.p_src_offset = src_offset.as_ptr();
             self
         }
+
         pub fn dst_offset(mut self, dst_offset: &'a [u64]) -> Self {
             self.dimension_count = dst_offset.len().try_into().unwrap();
             self.p_dst_offset = dst_offset.as_ptr();
             self
         }
+
         pub fn extent(mut self, extent: &'a [u64]) -> Self {
             self.dimension_count = extent.len().try_into().unwrap();
             self.p_extent = extent.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryDedicatedAllocateInfoTensorARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -735,11 +841,14 @@ pub(super) mod defs {
         pub tensor: TensorARM,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for MemoryDedicatedAllocateInfoTensorARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::MEMORY_DEDICATED_ALLOCATE_INFO_TENSOR_ARM;
     }
+
     unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for MemoryDedicatedAllocateInfoTensorARM<'a> {}
+
     impl Default for MemoryDedicatedAllocateInfoTensorARM<'_> {
         fn default() -> Self {
             Self {
@@ -750,12 +859,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> MemoryDedicatedAllocateInfoTensorARM<'a> {
         pub fn tensor(mut self, tensor: TensorARM) -> Self {
             self.tensor = tensor;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDescriptorBufferTensorPropertiesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -767,14 +878,17 @@ pub(super) mod defs {
         pub tensor_descriptor_size: usize,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDescriptorBufferTensorPropertiesARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_PROPERTIES_ARM;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceDescriptorBufferTensorPropertiesARM<'a>
     {
     }
+
     impl Default for PhysicalDeviceDescriptorBufferTensorPropertiesARM<'_> {
         fn default() -> Self {
             Self {
@@ -787,6 +901,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceDescriptorBufferTensorPropertiesARM<'a> {
         pub fn tensor_capture_replay_descriptor_data_size(
             mut self,
@@ -796,6 +911,7 @@ pub(super) mod defs {
                 tensor_capture_replay_descriptor_data_size;
             self
         }
+
         pub fn tensor_view_capture_replay_descriptor_data_size(
             mut self,
             tensor_view_capture_replay_descriptor_data_size: usize,
@@ -804,11 +920,13 @@ pub(super) mod defs {
                 tensor_view_capture_replay_descriptor_data_size;
             self
         }
+
         pub fn tensor_descriptor_size(mut self, tensor_descriptor_size: usize) -> Self {
             self.tensor_descriptor_size = tensor_descriptor_size;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDescriptorBufferTensorFeaturesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -818,10 +936,12 @@ pub(super) mod defs {
         pub descriptor_buffer_tensor_descriptors: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDescriptorBufferTensorFeaturesARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_FEATURES_ARM;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceDescriptorBufferTensorFeaturesARM<'a>
     {
@@ -830,6 +950,7 @@ pub(super) mod defs {
         for PhysicalDeviceDescriptorBufferTensorFeaturesARM<'a>
     {
     }
+
     impl Default for PhysicalDeviceDescriptorBufferTensorFeaturesARM<'_> {
         fn default() -> Self {
             Self {
@@ -840,6 +961,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceDescriptorBufferTensorFeaturesARM<'a> {
         pub fn descriptor_buffer_tensor_descriptors(
             mut self,
@@ -849,6 +971,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorCaptureDescriptorDataInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -858,10 +981,12 @@ pub(super) mod defs {
         pub tensor: TensorARM,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for TensorCaptureDescriptorDataInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::TENSOR_CAPTURE_DESCRIPTOR_DATA_INFO_ARM;
     }
+
     impl Default for TensorCaptureDescriptorDataInfoARM<'_> {
         fn default() -> Self {
             Self {
@@ -872,12 +997,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> TensorCaptureDescriptorDataInfoARM<'a> {
         pub fn tensor(mut self, tensor: TensorARM) -> Self {
             self.tensor = tensor;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorViewCaptureDescriptorDataInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -887,10 +1014,12 @@ pub(super) mod defs {
         pub tensor_view: TensorViewARM,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for TensorViewCaptureDescriptorDataInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::TENSOR_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_ARM;
     }
+
     impl Default for TensorViewCaptureDescriptorDataInfoARM<'_> {
         fn default() -> Self {
             Self {
@@ -901,12 +1030,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> TensorViewCaptureDescriptorDataInfoARM<'a> {
         pub fn tensor_view(mut self, tensor_view: TensorViewARM) -> Self {
             self.tensor_view = tensor_view;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorGetTensorInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -916,10 +1047,13 @@ pub(super) mod defs {
         pub tensor_view: TensorViewARM,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DescriptorGetTensorInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DESCRIPTOR_GET_TENSOR_INFO_ARM;
     }
+
     unsafe impl<'a> Extends<DescriptorGetInfoEXT<'a>> for DescriptorGetTensorInfoARM<'a> {}
+
     impl Default for DescriptorGetTensorInfoARM<'_> {
         fn default() -> Self {
             Self {
@@ -930,12 +1064,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DescriptorGetTensorInfoARM<'a> {
         pub fn tensor_view(mut self, tensor_view: TensorViewARM) -> Self {
             self.tensor_view = tensor_view;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFrameBoundaryTensorsARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -946,13 +1082,16 @@ pub(super) mod defs {
         pub p_tensors: *const TensorARM,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for FrameBoundaryTensorsARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::FRAME_BOUNDARY_TENSORS_ARM;
     }
+
     unsafe impl<'a> Extends<SubmitInfo<'a>> for FrameBoundaryTensorsARM<'a> {}
     unsafe impl<'a> Extends<SubmitInfo2<'a>> for FrameBoundaryTensorsARM<'a> {}
     unsafe impl<'a> Extends<PresentInfoKHR<'a>> for FrameBoundaryTensorsARM<'a> {}
     unsafe impl<'a> Extends<BindSparseInfo<'a>> for FrameBoundaryTensorsARM<'a> {}
+
     impl Default for FrameBoundaryTensorsARM<'_> {
         fn default() -> Self {
             Self {
@@ -964,6 +1103,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> FrameBoundaryTensorsARM<'a> {
         pub fn tensors(mut self, tensors: &'a [TensorARM]) -> Self {
             self.tensor_count = tensors.len().try_into().unwrap();
@@ -971,6 +1111,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalTensorInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -982,10 +1123,12 @@ pub(super) mod defs {
         pub handle_type: ExternalMemoryHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExternalTensorInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_EXTERNAL_TENSOR_INFO_ARM;
     }
+
     impl Default for PhysicalDeviceExternalTensorInfoARM<'_> {
         fn default() -> Self {
             Self {
@@ -998,20 +1141,24 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceExternalTensorInfoARM<'a> {
         pub fn flags(mut self, flags: TensorCreateFlagsARM) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn description(mut self, description: &'a TensorDescriptionARM<'a>) -> Self {
             self.p_description = description;
             self
         }
+
         pub fn handle_type(mut self, handle_type: ExternalMemoryHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalTensorPropertiesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -1021,9 +1168,11 @@ pub(super) mod defs {
         pub external_memory_properties: ExternalMemoryProperties,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ExternalTensorPropertiesARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_TENSOR_PROPERTIES_ARM;
     }
+
     impl Default for ExternalTensorPropertiesARM<'_> {
         fn default() -> Self {
             Self {
@@ -1034,6 +1183,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ExternalTensorPropertiesARM<'a> {
         pub fn external_memory_properties(
             mut self,
@@ -1043,6 +1193,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalMemoryTensorCreateInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -1052,10 +1203,13 @@ pub(super) mod defs {
         pub handle_types: ExternalMemoryHandleTypeFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ExternalMemoryTensorCreateInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_MEMORY_TENSOR_CREATE_INFO_ARM;
     }
+
     unsafe impl<'a> Extends<TensorCreateInfoARM<'a>> for ExternalMemoryTensorCreateInfoARM<'a> {}
+
     impl Default for ExternalMemoryTensorCreateInfoARM<'_> {
         fn default() -> Self {
             Self {
@@ -1066,20 +1220,24 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ExternalMemoryTensorCreateInfoARM<'a> {
         pub fn handle_types(mut self, handle_types: ExternalMemoryHandleTypeFlags) -> Self {
             self.handle_types = handle_types;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorTilingARM.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct TensorTilingARM(i32);
+
     impl TensorTilingARM {
         pub const OPTIMAL_ARM: Self = Self(0);
         pub const LINEAR_ARM: Self = Self(1);
     }
+
     impl fmt::Debug for TensorTilingARM {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -1094,21 +1252,25 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorCreateFlagsARM.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct TensorCreateFlagsARM(Flags64);
     vk_bitflags_wrapped!(TensorCreateFlagsARM, Flags64);
+
     impl TensorCreateFlagsARM {
         pub const MUTABLE_FORMAT_ARM: Self = Self(TensorCreateFlagBitsARM::MUTABLE_FORMAT_ARM.0);
         pub const PROTECTED_ARM: Self = Self(TensorCreateFlagBitsARM::PROTECTED_ARM.0);
         // VK_ARM_tensors
         pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM: Self =
             Self(TensorCreateFlagBitsARM::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM.0);
+
         // VK_EXT_descriptor_heap
         pub const DESCRIPTOR_HEAP_CAPTURE_REPLAY_ARM: Self =
             Self(TensorCreateFlagBitsARM::DESCRIPTOR_HEAP_CAPTURE_REPLAY_ARM.0);
     }
+
     impl fmt::Debug for TensorCreateFlagsARM {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags64, &str)] = &[
@@ -1129,23 +1291,28 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorCreateFlagBitsARM.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct TensorCreateFlagBitsARM(u64);
+
     impl TensorCreateFlagBitsARM {
         pub const MUTABLE_FORMAT_ARM: Self = Self(1 << 0);
         pub const PROTECTED_ARM: Self = Self(1 << 1);
         // VK_ARM_tensors
         pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM: Self = Self(1 << 2);
+
         // VK_EXT_descriptor_heap
         pub const DESCRIPTOR_HEAP_CAPTURE_REPLAY_ARM: Self = Self(1 << 3);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorUsageFlagsARM.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct TensorUsageFlagsARM(Flags64);
     vk_bitflags_wrapped!(TensorUsageFlagsARM, Flags64);
+
     impl TensorUsageFlagsARM {
         /// Tensor written/read through shader descriptor
         pub const SHADER_ARM: Self = Self(TensorUsageFlagBitsARM::SHADER_ARM.0);
@@ -1158,6 +1325,7 @@ pub(super) mod defs {
         // VK_ARM_data_graph
         pub const DATA_GRAPH_ARM: Self = Self(TensorUsageFlagBitsARM::DATA_GRAPH_ARM.0);
     }
+
     impl fmt::Debug for TensorUsageFlagsARM {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags64, &str)] = &[
@@ -1173,10 +1341,12 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorUsageFlagBitsARM.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct TensorUsageFlagBitsARM(u64);
+
     impl TensorUsageFlagBitsARM {
         /// Tensor written/read through shader descriptor
         pub const SHADER_ARM: Self = Self(1 << 1);
@@ -1189,16 +1359,19 @@ pub(super) mod defs {
         // VK_ARM_data_graph
         pub const DATA_GRAPH_ARM: Self = Self(1 << 5);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorViewCreateFlagsARM.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct TensorViewCreateFlagsARM(Flags64);
     vk_bitflags_wrapped!(TensorViewCreateFlagsARM, Flags64);
+
     impl TensorViewCreateFlagsARM {
         // VK_ARM_tensors
         pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM: Self =
             Self(TensorViewCreateFlagBitsARM::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM.0);
     }
+
     impl fmt::Debug for TensorViewCreateFlagsARM {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags64, &str)] = &[(
@@ -1208,14 +1381,17 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorViewCreateFlagBitsARM.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct TensorViewCreateFlagBitsARM(u64);
+
     impl TensorViewCreateFlagBitsARM {
         // VK_ARM_tensors
         pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM: Self = Self(1 << 0);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateTensorARM.html>
     pub type PFN_vkCreateTensorARM = unsafe extern "system" fn(
         device: Device,
@@ -1286,10 +1462,12 @@ pub(super) mod defs {
         p_external_tensor_properties: *mut ExternalTensorPropertiesARM<'_>,
     );
 }
+
 pub struct InstanceFn {
     get_physical_device_external_tensor_properties_arm:
         PFN_vkGetPhysicalDeviceExternalTensorPropertiesARM,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -1304,6 +1482,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceExternalTensorPropertiesARM.html>
     pub unsafe fn get_physical_device_external_tensor_properties_arm(
@@ -1321,6 +1500,7 @@ impl InstanceFn {
         }
     }
 }
+
 pub struct DeviceFn {
     create_tensor_arm: PFN_vkCreateTensorARM,
     destroy_tensor_arm: PFN_vkDestroyTensorARM,
@@ -1335,6 +1515,7 @@ pub struct DeviceFn {
     get_tensor_view_opaque_capture_descriptor_data_arm:
         Option<PFN_vkGetTensorViewOpaqueCaptureDescriptorDataARM>,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -1376,6 +1557,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateTensorARM.html>
     pub unsafe fn create_tensor_arm(
@@ -1399,6 +1581,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyTensorARM.html>
     pub unsafe fn destroy_tensor_arm(
         &self,
@@ -1408,6 +1591,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_tensor_arm)(device, tensor, allocator.to_raw_ptr()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateTensorViewARM.html>
     pub unsafe fn create_tensor_view_arm(
         &self,
@@ -1430,6 +1614,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyTensorViewARM.html>
     pub unsafe fn destroy_tensor_view_arm(
         &self,
@@ -1439,6 +1624,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_tensor_view_arm)(device, tensor_view, allocator.to_raw_ptr()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetTensorMemoryRequirementsARM.html>
     pub unsafe fn get_tensor_memory_requirements_arm(
         &self,
@@ -1448,6 +1634,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.get_tensor_memory_requirements_arm)(device, info, memory_requirements) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindTensorMemoryARM.html>
     pub unsafe fn bind_tensor_memory_arm(
         &self,
@@ -1467,6 +1654,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceTensorMemoryRequirementsARM.html>
     pub unsafe fn get_device_tensor_memory_requirements_arm(
         &self,
@@ -1478,6 +1666,7 @@ impl DeviceFn {
             (self.get_device_tensor_memory_requirements_arm)(device, info, memory_requirements)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyTensorARM.html>
     pub unsafe fn cmd_copy_tensor_arm(
         &self,
@@ -1486,6 +1675,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_copy_tensor_arm)(command_buffer, copy_tensor_info) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetTensorOpaqueCaptureDescriptorDataARM.html>
     pub unsafe fn get_tensor_opaque_capture_descriptor_data_arm(
         &self,
@@ -1503,6 +1693,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetTensorViewOpaqueCaptureDescriptorDataARM.html>
     pub unsafe fn get_tensor_view_opaque_capture_descriptor_data_arm(
         &self,

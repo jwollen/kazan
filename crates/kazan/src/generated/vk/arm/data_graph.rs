@@ -2,18 +2,22 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     pub const MAX_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_SET_NAME_SIZE_ARM: u32 = 128;
+
     handle_nondispatchable!(
         DataGraphPipelineSessionARM,
         DATA_GRAPH_PIPELINE_SESSION_ARM,
         doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineSessionARM.html>"
     );
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDataGraphFeaturesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -27,12 +31,15 @@ pub(super) mod defs {
         pub data_graph_shader_module: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDataGraphFeaturesARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_DATA_GRAPH_FEATURES_ARM;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceDataGraphFeaturesARM<'a> {}
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceDataGraphFeaturesARM<'a> {}
+
     impl Default for PhysicalDeviceDataGraphFeaturesARM<'_> {
         fn default() -> Self {
             Self {
@@ -47,15 +54,18 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceDataGraphFeaturesARM<'a> {
         pub fn data_graph(mut self, data_graph: bool) -> Self {
             self.data_graph = data_graph.into();
             self
         }
+
         pub fn data_graph_update_after_bind(mut self, data_graph_update_after_bind: bool) -> Self {
             self.data_graph_update_after_bind = data_graph_update_after_bind.into();
             self
         }
+
         pub fn data_graph_specialization_constants(
             mut self,
             data_graph_specialization_constants: bool,
@@ -63,15 +73,18 @@ pub(super) mod defs {
             self.data_graph_specialization_constants = data_graph_specialization_constants.into();
             self
         }
+
         pub fn data_graph_descriptor_buffer(mut self, data_graph_descriptor_buffer: bool) -> Self {
             self.data_graph_descriptor_buffer = data_graph_descriptor_buffer.into();
             self
         }
+
         pub fn data_graph_shader_module(mut self, data_graph_shader_module: bool) -> Self {
             self.data_graph_shader_module = data_graph_shader_module.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -83,16 +96,19 @@ pub(super) mod defs {
         pub group_size: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a>
         for DataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM<'a>
     {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DATA_GRAPH_PIPELINE_CONSTANT_TENSOR_SEMI_STRUCTURED_SPARSITY_INFO_ARM;
     }
+
     unsafe impl<'a> Extends<DataGraphPipelineConstantARM<'a>>
         for DataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM<'a>
     {
     }
+
     impl Default for DataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM<'_> {
         fn default() -> Self {
             Self {
@@ -105,20 +121,24 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM<'a> {
         pub fn dimension(mut self, dimension: u32) -> Self {
             self.dimension = dimension;
             self
         }
+
         pub fn zero_count(mut self, zero_count: u32) -> Self {
             self.zero_count = zero_count;
             self
         }
+
         pub fn group_size(mut self, group_size: u32) -> Self {
             self.group_size = group_size;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineConstantARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -129,9 +149,11 @@ pub(super) mod defs {
         pub p_constant_data: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DataGraphPipelineConstantARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DATA_GRAPH_PIPELINE_CONSTANT_ARM;
     }
+
     impl Default for DataGraphPipelineConstantARM<'_> {
         fn default() -> Self {
             Self {
@@ -143,16 +165,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DataGraphPipelineConstantARM<'a> {
         pub fn id(mut self, id: u32) -> Self {
             self.id = id;
             self
         }
+
         pub fn constant_data(mut self, constant_data: *const c_void) -> Self {
             self.p_constant_data = constant_data;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineResourceInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -164,9 +189,11 @@ pub(super) mod defs {
         pub array_element: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DataGraphPipelineResourceInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DATA_GRAPH_PIPELINE_RESOURCE_INFO_ARM;
     }
+
     impl Default for DataGraphPipelineResourceInfoARM<'_> {
         fn default() -> Self {
             Self {
@@ -179,20 +206,24 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DataGraphPipelineResourceInfoARM<'a> {
         pub fn descriptor_set(mut self, descriptor_set: u32) -> Self {
             self.descriptor_set = descriptor_set;
             self
         }
+
         pub fn binding(mut self, binding: u32) -> Self {
             self.binding = binding;
             self
         }
+
         pub fn array_element(mut self, array_element: u32) -> Self {
             self.array_element = array_element;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineCompilerControlCreateInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -202,14 +233,17 @@ pub(super) mod defs {
         pub p_vendor_options: *const c_char,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DataGraphPipelineCompilerControlCreateInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DATA_GRAPH_PIPELINE_COMPILER_CONTROL_CREATE_INFO_ARM;
     }
+
     unsafe impl<'a> Extends<DataGraphPipelineCreateInfoARM<'a>>
         for DataGraphPipelineCompilerControlCreateInfoARM<'a>
     {
     }
+
     impl Default for DataGraphPipelineCompilerControlCreateInfoARM<'_> {
         fn default() -> Self {
             Self {
@@ -220,12 +254,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DataGraphPipelineCompilerControlCreateInfoARM<'a> {
         pub fn vendor_options(mut self, vendor_options: &'a CStr) -> Self {
             self.p_vendor_options = vendor_options.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineCreateInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -238,9 +274,11 @@ pub(super) mod defs {
         pub p_resource_infos: *const DataGraphPipelineResourceInfoARM<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DataGraphPipelineCreateInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DATA_GRAPH_PIPELINE_CREATE_INFO_ARM;
     }
+
     impl Default for DataGraphPipelineCreateInfoARM<'_> {
         fn default() -> Self {
             Self {
@@ -254,15 +292,18 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DataGraphPipelineCreateInfoARM<'a> {
         pub fn flags(mut self, flags: PipelineCreateFlags2KHR) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn layout(mut self, layout: PipelineLayout) -> Self {
             self.layout = layout;
             self
         }
+
         pub fn resource_infos(
             mut self,
             resource_infos: &'a [DataGraphPipelineResourceInfoARM<'a>],
@@ -272,6 +313,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineShaderModuleCreateInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -285,14 +327,17 @@ pub(super) mod defs {
         pub p_constants: *const DataGraphPipelineConstantARM<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DataGraphPipelineShaderModuleCreateInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DATA_GRAPH_PIPELINE_SHADER_MODULE_CREATE_INFO_ARM;
     }
+
     unsafe impl<'a> Extends<DataGraphPipelineCreateInfoARM<'a>>
         for DataGraphPipelineShaderModuleCreateInfoARM<'a>
     {
     }
+
     impl Default for DataGraphPipelineShaderModuleCreateInfoARM<'_> {
         fn default() -> Self {
             Self {
@@ -307,15 +352,18 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DataGraphPipelineShaderModuleCreateInfoARM<'a> {
         pub fn module(mut self, module: ShaderModule) -> Self {
             self.module = module;
             self
         }
+
         pub fn name(mut self, name: &'a CStr) -> Self {
             self.p_name = name.as_ptr();
             self
         }
+
         pub fn specialization_info(
             mut self,
             specialization_info: &'a SpecializationInfo<'a>,
@@ -323,12 +371,14 @@ pub(super) mod defs {
             self.p_specialization_info = specialization_info;
             self
         }
+
         pub fn constants(mut self, constants: &'a [DataGraphPipelineConstantARM<'a>]) -> Self {
             self.constant_count = constants.len().try_into().unwrap();
             self.p_constants = constants.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineSessionCreateInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -339,10 +389,12 @@ pub(super) mod defs {
         pub data_graph_pipeline: Pipeline,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DataGraphPipelineSessionCreateInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DATA_GRAPH_PIPELINE_SESSION_CREATE_INFO_ARM;
     }
+
     impl Default for DataGraphPipelineSessionCreateInfoARM<'_> {
         fn default() -> Self {
             Self {
@@ -354,16 +406,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DataGraphPipelineSessionCreateInfoARM<'a> {
         pub fn flags(mut self, flags: DataGraphPipelineSessionCreateFlagsARM) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn data_graph_pipeline(mut self, data_graph_pipeline: Pipeline) -> Self {
             self.data_graph_pipeline = data_graph_pipeline;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineSessionBindPointRequirementsInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -373,10 +428,12 @@ pub(super) mod defs {
         pub session: DataGraphPipelineSessionARM,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DataGraphPipelineSessionBindPointRequirementsInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENTS_INFO_ARM;
     }
+
     impl Default for DataGraphPipelineSessionBindPointRequirementsInfoARM<'_> {
         fn default() -> Self {
             Self {
@@ -387,12 +444,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DataGraphPipelineSessionBindPointRequirementsInfoARM<'a> {
         pub fn session(mut self, session: DataGraphPipelineSessionARM) -> Self {
             self.session = session;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineSessionBindPointRequirementARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -404,10 +463,12 @@ pub(super) mod defs {
         pub num_objects: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DataGraphPipelineSessionBindPointRequirementARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENT_ARM;
     }
+
     impl Default for DataGraphPipelineSessionBindPointRequirementARM<'_> {
         fn default() -> Self {
             Self {
@@ -420,11 +481,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DataGraphPipelineSessionBindPointRequirementARM<'a> {
         pub fn bind_point(mut self, bind_point: DataGraphPipelineSessionBindPointARM) -> Self {
             self.bind_point = bind_point;
             self
         }
+
         pub fn bind_point_type(
             mut self,
             bind_point_type: DataGraphPipelineSessionBindPointTypeARM,
@@ -432,11 +495,13 @@ pub(super) mod defs {
             self.bind_point_type = bind_point_type;
             self
         }
+
         pub fn num_objects(mut self, num_objects: u32) -> Self {
             self.num_objects = num_objects;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineSessionMemoryRequirementsInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -448,10 +513,12 @@ pub(super) mod defs {
         pub object_index: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DataGraphPipelineSessionMemoryRequirementsInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DATA_GRAPH_PIPELINE_SESSION_MEMORY_REQUIREMENTS_INFO_ARM;
     }
+
     impl Default for DataGraphPipelineSessionMemoryRequirementsInfoARM<'_> {
         fn default() -> Self {
             Self {
@@ -464,20 +531,24 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DataGraphPipelineSessionMemoryRequirementsInfoARM<'a> {
         pub fn session(mut self, session: DataGraphPipelineSessionARM) -> Self {
             self.session = session;
             self
         }
+
         pub fn bind_point(mut self, bind_point: DataGraphPipelineSessionBindPointARM) -> Self {
             self.bind_point = bind_point;
             self
         }
+
         pub fn object_index(mut self, object_index: u32) -> Self {
             self.object_index = object_index;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindDataGraphPipelineSessionMemoryInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -491,10 +562,12 @@ pub(super) mod defs {
         pub memory_offset: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for BindDataGraphPipelineSessionMemoryInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::BIND_DATA_GRAPH_PIPELINE_SESSION_MEMORY_INFO_ARM;
     }
+
     impl Default for BindDataGraphPipelineSessionMemoryInfoARM<'_> {
         fn default() -> Self {
             Self {
@@ -509,28 +582,34 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> BindDataGraphPipelineSessionMemoryInfoARM<'a> {
         pub fn session(mut self, session: DataGraphPipelineSessionARM) -> Self {
             self.session = session;
             self
         }
+
         pub fn bind_point(mut self, bind_point: DataGraphPipelineSessionBindPointARM) -> Self {
             self.bind_point = bind_point;
             self
         }
+
         pub fn object_index(mut self, object_index: u32) -> Self {
             self.object_index = object_index;
             self
         }
+
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
         }
+
         pub fn memory_offset(mut self, memory_offset: DeviceSize) -> Self {
             self.memory_offset = memory_offset;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -540,9 +619,11 @@ pub(super) mod defs {
         pub data_graph_pipeline: Pipeline,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DataGraphPipelineInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DATA_GRAPH_PIPELINE_INFO_ARM;
     }
+
     impl Default for DataGraphPipelineInfoARM<'_> {
         fn default() -> Self {
             Self {
@@ -553,12 +634,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DataGraphPipelineInfoARM<'a> {
         pub fn data_graph_pipeline(mut self, data_graph_pipeline: Pipeline) -> Self {
             self.data_graph_pipeline = data_graph_pipeline;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelinePropertyQueryResultARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -571,10 +654,12 @@ pub(super) mod defs {
         pub p_data: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DataGraphPipelinePropertyQueryResultARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DATA_GRAPH_PIPELINE_PROPERTY_QUERY_RESULT_ARM;
     }
+
     impl Default for DataGraphPipelinePropertyQueryResultARM<'_> {
         fn default() -> Self {
             Self {
@@ -588,21 +673,25 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DataGraphPipelinePropertyQueryResultARM<'a> {
         pub fn property(mut self, property: DataGraphPipelinePropertyARM) -> Self {
             self.property = property;
             self
         }
+
         pub fn is_text(mut self, is_text: bool) -> Self {
             self.is_text = is_text.into();
             self
         }
+
         pub fn data(mut self, data: &'a mut [u8]) -> Self {
             self.data_size = data.len().try_into().unwrap();
             self.p_data = data.as_mut_ptr() as _;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineIdentifierCreateInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -613,14 +702,17 @@ pub(super) mod defs {
         pub p_identifier: *const u8,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DataGraphPipelineIdentifierCreateInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DATA_GRAPH_PIPELINE_IDENTIFIER_CREATE_INFO_ARM;
     }
+
     unsafe impl<'a> Extends<DataGraphPipelineCreateInfoARM<'a>>
         for DataGraphPipelineIdentifierCreateInfoARM<'a>
     {
     }
+
     impl Default for DataGraphPipelineIdentifierCreateInfoARM<'_> {
         fn default() -> Self {
             Self {
@@ -632,6 +724,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DataGraphPipelineIdentifierCreateInfoARM<'a> {
         pub fn identifier(mut self, identifier: &'a [u8]) -> Self {
             self.identifier_size = identifier.len().try_into().unwrap();
@@ -639,6 +732,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineDispatchInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -648,9 +742,11 @@ pub(super) mod defs {
         pub flags: DataGraphPipelineDispatchFlagsARM,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DataGraphPipelineDispatchInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DATA_GRAPH_PIPELINE_DISPATCH_INFO_ARM;
     }
+
     impl Default for DataGraphPipelineDispatchInfoARM<'_> {
         fn default() -> Self {
             Self {
@@ -661,12 +757,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DataGraphPipelineDispatchInfoARM<'a> {
         pub fn flags(mut self, flags: DataGraphPipelineDispatchFlagsARM) -> Self {
             self.flags = flags;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDataGraphProcessingEngineARM.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -674,16 +772,19 @@ pub(super) mod defs {
         pub ty: PhysicalDeviceDataGraphProcessingEngineTypeARM,
         pub is_foreign: Bool32,
     }
+
     impl PhysicalDeviceDataGraphProcessingEngineARM {
         pub fn ty(mut self, ty: PhysicalDeviceDataGraphProcessingEngineTypeARM) -> Self {
             self.ty = ty;
             self
         }
+
         pub fn is_foreign(mut self, is_foreign: bool) -> Self {
             self.is_foreign = is_foreign.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDataGraphOperationSupportARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -692,6 +793,7 @@ pub(super) mod defs {
         pub name: [c_char; MAX_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_SET_NAME_SIZE_ARM as usize],
         pub version: u32,
     }
+
     impl Default for PhysicalDeviceDataGraphOperationSupportARM {
         fn default() -> Self {
             Self {
@@ -701,6 +803,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl PhysicalDeviceDataGraphOperationSupportARM {
         pub fn operation_type(
             mut self,
@@ -709,11 +812,13 @@ pub(super) mod defs {
             self.operation_type = operation_type;
             self
         }
+
         pub fn version(mut self, version: u32) -> Self {
             self.version = version;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyDataGraphPropertiesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -724,9 +829,11 @@ pub(super) mod defs {
         pub operation: PhysicalDeviceDataGraphOperationSupportARM,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for QueueFamilyDataGraphPropertiesARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::QUEUE_FAMILY_DATA_GRAPH_PROPERTIES_ARM;
     }
+
     impl Default for QueueFamilyDataGraphPropertiesARM<'_> {
         fn default() -> Self {
             Self {
@@ -738,16 +845,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> QueueFamilyDataGraphPropertiesARM<'a> {
         pub fn engine(mut self, engine: PhysicalDeviceDataGraphProcessingEngineARM) -> Self {
             self.engine = engine;
             self
         }
+
         pub fn operation(mut self, operation: PhysicalDeviceDataGraphOperationSupportARM) -> Self {
             self.operation = operation;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -758,12 +868,14 @@ pub(super) mod defs {
         pub engine_type: PhysicalDeviceDataGraphProcessingEngineTypeARM,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a>
         for PhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM<'a>
     {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_INFO_ARM;
     }
+
     impl Default for PhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM<'_> {
         fn default() -> Self {
             Self {
@@ -775,11 +887,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM<'a> {
         pub fn queue_family_index(mut self, queue_family_index: u32) -> Self {
             self.queue_family_index = queue_family_index;
             self
         }
+
         pub fn engine_type(
             mut self,
             engine_type: PhysicalDeviceDataGraphProcessingEngineTypeARM,
@@ -788,6 +902,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyDataGraphProcessingEnginePropertiesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -798,10 +913,12 @@ pub(super) mod defs {
         pub foreign_memory_handle_types: ExternalMemoryHandleTypeFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for QueueFamilyDataGraphProcessingEnginePropertiesARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_PROPERTIES_ARM;
     }
+
     impl Default for QueueFamilyDataGraphProcessingEnginePropertiesARM<'_> {
         fn default() -> Self {
             Self {
@@ -813,6 +930,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> QueueFamilyDataGraphProcessingEnginePropertiesARM<'a> {
         pub fn foreign_semaphore_handle_types(
             mut self,
@@ -821,6 +939,7 @@ pub(super) mod defs {
             self.foreign_semaphore_handle_types = foreign_semaphore_handle_types;
             self
         }
+
         pub fn foreign_memory_handle_types(
             mut self,
             foreign_memory_handle_types: ExternalMemoryHandleTypeFlags,
@@ -829,6 +948,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphProcessingEngineCreateInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -839,10 +959,12 @@ pub(super) mod defs {
         pub p_processing_engines: *mut PhysicalDeviceDataGraphProcessingEngineARM,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DataGraphProcessingEngineCreateInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DATA_GRAPH_PROCESSING_ENGINE_CREATE_INFO_ARM;
     }
+
     unsafe impl<'a> Extends<DataGraphPipelineCreateInfoARM<'a>>
         for DataGraphProcessingEngineCreateInfoARM<'a>
     {
@@ -852,6 +974,7 @@ pub(super) mod defs {
     {
     }
     unsafe impl<'a> Extends<CommandPoolCreateInfo<'a>> for DataGraphProcessingEngineCreateInfoARM<'a> {}
+
     impl Default for DataGraphProcessingEngineCreateInfoARM<'_> {
         fn default() -> Self {
             Self {
@@ -863,6 +986,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DataGraphProcessingEngineCreateInfoARM<'a> {
         pub fn processing_engines(
             mut self,
@@ -873,13 +997,16 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineSessionBindPointARM.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DataGraphPipelineSessionBindPointARM(i32);
+
     impl DataGraphPipelineSessionBindPointARM {
         pub const TRANSIENT_ARM: Self = Self(0);
     }
+
     impl fmt::Debug for DataGraphPipelineSessionBindPointARM {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -893,13 +1020,16 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineSessionBindPointTypeARM.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DataGraphPipelineSessionBindPointTypeARM(i32);
+
     impl DataGraphPipelineSessionBindPointTypeARM {
         pub const MEMORY_ARM: Self = Self(0);
     }
+
     impl fmt::Debug for DataGraphPipelineSessionBindPointTypeARM {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -913,14 +1043,17 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelinePropertyARM.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DataGraphPipelinePropertyARM(i32);
+
     impl DataGraphPipelinePropertyARM {
         pub const CREATION_LOG_ARM: Self = Self(0);
         pub const IDENTIFIER_ARM: Self = Self(1);
     }
+
     impl fmt::Debug for DataGraphPipelinePropertyARM {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -935,16 +1068,19 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDataGraphProcessingEngineTypeARM.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PhysicalDeviceDataGraphProcessingEngineTypeARM(i32);
+
     impl PhysicalDeviceDataGraphProcessingEngineTypeARM {
         pub const DEFAULT_ARM: Self = Self(0);
         // VK_QCOM_data_graph_model
         pub const NEURAL_QCOM: Self = Self(1000629000);
         pub const COMPUTE_QCOM: Self = Self(1000629001);
     }
+
     impl fmt::Debug for PhysicalDeviceDataGraphProcessingEngineTypeARM {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -960,16 +1096,19 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDataGraphOperationTypeARM.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PhysicalDeviceDataGraphOperationTypeARM(i32);
+
     impl PhysicalDeviceDataGraphOperationTypeARM {
         pub const SPIRV_EXTENDED_INSTRUCTION_SET_ARM: Self = Self(0);
         // VK_QCOM_data_graph_model
         pub const NEURAL_MODEL_QCOM: Self = Self(1000629000);
         pub const BUILTIN_MODEL_QCOM: Self = Self(1000629001);
     }
+
     impl fmt::Debug for PhysicalDeviceDataGraphOperationTypeARM {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -987,15 +1126,18 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineSessionCreateFlagsARM.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DataGraphPipelineSessionCreateFlagsARM(Flags64);
     vk_bitflags_wrapped!(DataGraphPipelineSessionCreateFlagsARM, Flags64);
+
     impl DataGraphPipelineSessionCreateFlagsARM {
         pub const PROTECTED_ARM: Self =
             Self(DataGraphPipelineSessionCreateFlagBitsARM::PROTECTED_ARM.0);
     }
+
     impl fmt::Debug for DataGraphPipelineSessionCreateFlagsARM {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags64, &str)] = &[(
@@ -1005,30 +1147,38 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineSessionCreateFlagBitsARM.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DataGraphPipelineSessionCreateFlagBitsARM(u64);
+
     impl DataGraphPipelineSessionCreateFlagBitsARM {
         pub const PROTECTED_ARM: Self = Self(1 << 0);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineDispatchFlagsARM.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DataGraphPipelineDispatchFlagsARM(Flags64);
     vk_bitflags_wrapped!(DataGraphPipelineDispatchFlagsARM, Flags64);
+
     impl DataGraphPipelineDispatchFlagsARM {}
+
     impl fmt::Debug for DataGraphPipelineDispatchFlagsARM {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags64, &str)] = &[];
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineDispatchFlagBitsARM.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DataGraphPipelineDispatchFlagBitsARM(u64);
+
     impl DataGraphPipelineDispatchFlagBitsARM {}
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDataGraphPipelinesARM.html>
     pub type PFN_vkCreateDataGraphPipelinesARM = unsafe extern "system" fn(
         device: Device,
@@ -1109,12 +1259,14 @@ pub(super) mod defs {
     p_queue_family_data_graph_processing_engine_properties: *mut QueueFamilyDataGraphProcessingEnginePropertiesARM<'_>,
 );
 }
+
 pub struct InstanceFn {
     get_physical_device_queue_family_data_graph_properties_arm:
         PFN_vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM,
     get_physical_device_queue_family_data_graph_processing_engine_properties_arm:
         PFN_vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -1136,6 +1288,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM.html>
     pub unsafe fn get_physical_device_queue_family_data_graph_properties_arm<'a>(
@@ -1177,6 +1330,7 @@ impl InstanceFn {
             Ok(result)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM.html>
     pub unsafe fn get_physical_device_queue_family_data_graph_processing_engine_properties_arm(
         &self,
@@ -1193,6 +1347,7 @@ impl InstanceFn {
         }
     }
 }
+
 pub struct DeviceFn {
     create_data_graph_pipelines_arm: PFN_vkCreateDataGraphPipelinesARM,
     create_data_graph_pipeline_session_arm: PFN_vkCreateDataGraphPipelineSessionARM,
@@ -1207,6 +1362,7 @@ pub struct DeviceFn {
         PFN_vkGetDataGraphPipelineAvailablePropertiesARM,
     get_data_graph_pipeline_properties_arm: PFN_vkGetDataGraphPipelinePropertiesARM,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -1248,6 +1404,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDataGraphPipelinesARM.html>
     pub unsafe fn create_data_graph_pipelines_arm(
@@ -1276,6 +1433,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDataGraphPipelineSessionARM.html>
     pub unsafe fn create_data_graph_pipeline_session_arm(
         &self,
@@ -1298,6 +1456,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDataGraphPipelineSessionBindPointRequirementsARM.html>
     pub unsafe fn get_data_graph_pipeline_session_bind_point_requirements_arm<'a>(
         &self,
@@ -1332,6 +1491,7 @@ impl DeviceFn {
             Ok(result)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDataGraphPipelineSessionMemoryRequirementsARM.html>
     pub unsafe fn get_data_graph_pipeline_session_memory_requirements_arm(
         &self,
@@ -1347,6 +1507,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindDataGraphPipelineSessionMemoryARM.html>
     pub unsafe fn bind_data_graph_pipeline_session_memory_arm(
         &self,
@@ -1366,6 +1527,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDataGraphPipelineSessionARM.html>
     pub unsafe fn destroy_data_graph_pipeline_session_arm(
         &self,
@@ -1377,6 +1539,7 @@ impl DeviceFn {
             (self.destroy_data_graph_pipeline_session_arm)(device, session, allocator.to_raw_ptr())
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDispatchDataGraphARM.html>
     pub unsafe fn cmd_dispatch_data_graph_arm(
         &self,
@@ -1386,6 +1549,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_dispatch_data_graph_arm)(command_buffer, session, info.to_raw_ptr()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDataGraphPipelineAvailablePropertiesARM.html>
     pub unsafe fn get_data_graph_pipeline_available_properties_arm<'a>(
         &self,
@@ -1418,6 +1582,7 @@ impl DeviceFn {
             Ok(result)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDataGraphPipelinePropertiesARM.html>
     pub unsafe fn get_data_graph_pipeline_properties_arm(
         &self,

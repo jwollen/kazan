@@ -2,13 +2,16 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     pub const DATA_GRAPH_MODEL_TOOLCHAIN_VERSION_LENGTH_QCOM: u32 = 3;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCacheHeaderVersionDataGraphQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -19,6 +22,7 @@ pub(super) mod defs {
         pub cache_version: u32,
         pub toolchain_version: [u32; DATA_GRAPH_MODEL_TOOLCHAIN_VERSION_LENGTH_QCOM as usize],
     }
+
     impl Default for PipelineCacheHeaderVersionDataGraphQCOM {
         fn default() -> Self {
             Self {
@@ -30,23 +34,28 @@ pub(super) mod defs {
             }
         }
     }
+
     impl PipelineCacheHeaderVersionDataGraphQCOM {
         pub fn header_size(mut self, header_size: u32) -> Self {
             self.header_size = header_size;
             self
         }
+
         pub fn header_version(mut self, header_version: PipelineCacheHeaderVersion) -> Self {
             self.header_version = header_version;
             self
         }
+
         pub fn cache_type(mut self, cache_type: DataGraphModelCacheTypeQCOM) -> Self {
             self.cache_type = cache_type;
             self
         }
+
         pub fn cache_version(mut self, cache_version: u32) -> Self {
             self.cache_version = cache_version;
             self
         }
+
         pub fn toolchain_version(
             mut self,
             toolchain_version: [u32; DATA_GRAPH_MODEL_TOOLCHAIN_VERSION_LENGTH_QCOM as usize],
@@ -55,6 +64,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineBuiltinModelCreateInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -64,14 +74,17 @@ pub(super) mod defs {
         pub p_operation: *const PhysicalDeviceDataGraphOperationSupportARM,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DataGraphPipelineBuiltinModelCreateInfoQCOM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DATA_GRAPH_PIPELINE_BUILTIN_MODEL_CREATE_INFO_QCOM;
     }
+
     unsafe impl<'a> Extends<DataGraphPipelineCreateInfoARM<'a>>
         for DataGraphPipelineBuiltinModelCreateInfoQCOM<'a>
     {
     }
+
     impl Default for DataGraphPipelineBuiltinModelCreateInfoQCOM<'_> {
         fn default() -> Self {
             Self {
@@ -82,6 +95,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DataGraphPipelineBuiltinModelCreateInfoQCOM<'a> {
         pub fn operation(
             mut self,
@@ -91,6 +105,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDataGraphModelFeaturesQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -100,15 +115,18 @@ pub(super) mod defs {
         pub data_graph_model: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDataGraphModelFeaturesQCOM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_DATA_GRAPH_MODEL_FEATURES_QCOM;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceDataGraphModelFeaturesQCOM<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceDataGraphModelFeaturesQCOM<'a> {}
+
     impl Default for PhysicalDeviceDataGraphModelFeaturesQCOM<'_> {
         fn default() -> Self {
             Self {
@@ -119,19 +137,23 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceDataGraphModelFeaturesQCOM<'a> {
         pub fn data_graph_model(mut self, data_graph_model: bool) -> Self {
             self.data_graph_model = data_graph_model.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphModelCacheTypeQCOM.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DataGraphModelCacheTypeQCOM(i32);
+
     impl DataGraphModelCacheTypeQCOM {
         pub const GENERIC_BINARY_QCOM: Self = Self(0);
     }
+
     impl fmt::Debug for DataGraphModelCacheTypeQCOM {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {

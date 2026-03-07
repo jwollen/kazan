@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDirectDriverLoadingInfoLUNARG.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,9 +20,11 @@ pub(super) mod defs {
         pub pfn_get_instance_proc_addr: Option<PFN_vkGetInstanceProcAddrLUNARG>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DirectDriverLoadingInfoLUNARG<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DIRECT_DRIVER_LOADING_INFO_LUNARG;
     }
+
     impl Default for DirectDriverLoadingInfoLUNARG<'_> {
         fn default() -> Self {
             Self {
@@ -32,11 +36,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DirectDriverLoadingInfoLUNARG<'a> {
         pub fn flags(mut self, flags: DirectDriverLoadingFlagsLUNARG) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn pfn_get_instance_proc_addr(
             mut self,
             pfn_get_instance_proc_addr: PFN_vkGetInstanceProcAddrLUNARG,
@@ -45,6 +51,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDirectDriverLoadingListLUNARG.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -56,10 +63,13 @@ pub(super) mod defs {
         pub p_drivers: *const DirectDriverLoadingInfoLUNARG<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DirectDriverLoadingListLUNARG<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DIRECT_DRIVER_LOADING_LIST_LUNARG;
     }
+
     unsafe impl<'a> Extends<InstanceCreateInfo<'a>> for DirectDriverLoadingListLUNARG<'a> {}
+
     impl Default for DirectDriverLoadingListLUNARG<'_> {
         fn default() -> Self {
             Self {
@@ -72,25 +82,30 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DirectDriverLoadingListLUNARG<'a> {
         pub fn mode(mut self, mode: DirectDriverLoadingModeLUNARG) -> Self {
             self.mode = mode;
             self
         }
+
         pub fn drivers(mut self, drivers: &'a [DirectDriverLoadingInfoLUNARG<'a>]) -> Self {
             self.driver_count = drivers.len().try_into().unwrap();
             self.p_drivers = drivers.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDirectDriverLoadingModeLUNARG.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DirectDriverLoadingModeLUNARG(i32);
+
     impl DirectDriverLoadingModeLUNARG {
         pub const EXCLUSIVE_LUNARG: Self = Self(0);
         pub const INCLUSIVE_LUNARG: Self = Self(1);
     }
+
     impl fmt::Debug for DirectDriverLoadingModeLUNARG {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -105,16 +120,19 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDirectDriverLoadingFlagsLUNARG.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DirectDriverLoadingFlagsLUNARG(Flags);
     vk_bitflags_wrapped!(DirectDriverLoadingFlagsLUNARG, Flags);
+
     impl fmt::Debug for DirectDriverLoadingFlagsLUNARG {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/PFN_vkGetInstanceProcAddrLUNARG.html>
     pub type PFN_vkGetInstanceProcAddrLUNARG =
         unsafe extern "system" fn(instance: Instance, p_name: *const c_char) -> PFN_vkVoidFunction;

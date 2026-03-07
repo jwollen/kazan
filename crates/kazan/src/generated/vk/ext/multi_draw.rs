@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMultiDrawInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -15,16 +17,19 @@ pub(super) mod defs {
         pub first_vertex: u32,
         pub vertex_count: u32,
     }
+
     impl MultiDrawInfoEXT {
         pub fn first_vertex(mut self, first_vertex: u32) -> Self {
             self.first_vertex = first_vertex;
             self
         }
+
         pub fn vertex_count(mut self, vertex_count: u32) -> Self {
             self.vertex_count = vertex_count;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMultiDrawIndexedInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -33,20 +38,24 @@ pub(super) mod defs {
         pub index_count: u32,
         pub vertex_offset: i32,
     }
+
     impl MultiDrawIndexedInfoEXT {
         pub fn first_index(mut self, first_index: u32) -> Self {
             self.first_index = first_index;
             self
         }
+
         pub fn index_count(mut self, index_count: u32) -> Self {
             self.index_count = index_count;
             self
         }
+
         pub fn vertex_offset(mut self, vertex_offset: i32) -> Self {
             self.vertex_offset = vertex_offset;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMultiDrawPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -56,14 +65,17 @@ pub(super) mod defs {
         pub max_multi_draw_count: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMultiDrawPropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_MULTI_DRAW_PROPERTIES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceMultiDrawPropertiesEXT<'a>
     {
     }
+
     impl Default for PhysicalDeviceMultiDrawPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -74,12 +86,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceMultiDrawPropertiesEXT<'a> {
         pub fn max_multi_draw_count(mut self, max_multi_draw_count: u32) -> Self {
             self.max_multi_draw_count = max_multi_draw_count;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMultiDrawFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -89,12 +103,15 @@ pub(super) mod defs {
         pub multi_draw: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMultiDrawFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_MULTI_DRAW_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceMultiDrawFeaturesEXT<'a> {}
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceMultiDrawFeaturesEXT<'a> {}
+
     impl Default for PhysicalDeviceMultiDrawFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -105,12 +122,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceMultiDrawFeaturesEXT<'a> {
         pub fn multi_draw(mut self, multi_draw: bool) -> Self {
             self.multi_draw = multi_draw.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawMultiEXT.html>
     pub type PFN_vkCmdDrawMultiEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
@@ -131,10 +150,12 @@ pub(super) mod defs {
         p_vertex_offset: *const i32,
     );
 }
+
 pub struct DeviceFn {
     cmd_draw_multi_ext: PFN_vkCmdDrawMultiEXT,
     cmd_draw_multi_indexed_ext: PFN_vkCmdDrawMultiIndexedEXT,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -151,6 +172,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawMultiEXT.html>
     pub unsafe fn cmd_draw_multi_ext(
@@ -172,6 +194,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawMultiIndexedEXT.html>
     pub unsafe fn cmd_draw_multi_indexed_ext(
         &self,

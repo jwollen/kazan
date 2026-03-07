@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,10 +19,12 @@ pub(super) mod defs {
         pub extended_sparse_address_space: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExtendedSparseAddressSpaceFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_EXTENDED_SPARSE_ADDRESS_SPACE_FEATURES_NV;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceExtendedSparseAddressSpaceFeaturesNV<'a>
     {
@@ -29,6 +33,7 @@ pub(super) mod defs {
         for PhysicalDeviceExtendedSparseAddressSpaceFeaturesNV<'a>
     {
     }
+
     impl Default for PhysicalDeviceExtendedSparseAddressSpaceFeaturesNV<'_> {
         fn default() -> Self {
             Self {
@@ -39,6 +44,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceExtendedSparseAddressSpaceFeaturesNV<'a> {
         pub fn extended_sparse_address_space(
             mut self,
@@ -48,6 +54,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -59,14 +66,17 @@ pub(super) mod defs {
         pub extended_sparse_buffer_usage_flags: BufferUsageFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExtendedSparseAddressSpacePropertiesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_EXTENDED_SPARSE_ADDRESS_SPACE_PROPERTIES_NV;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceExtendedSparseAddressSpacePropertiesNV<'a>
     {
     }
+
     impl Default for PhysicalDeviceExtendedSparseAddressSpacePropertiesNV<'_> {
         fn default() -> Self {
             Self {
@@ -79,6 +89,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceExtendedSparseAddressSpacePropertiesNV<'a> {
         pub fn extended_sparse_address_space_size(
             mut self,
@@ -87,6 +98,7 @@ pub(super) mod defs {
             self.extended_sparse_address_space_size = extended_sparse_address_space_size;
             self
         }
+
         pub fn extended_sparse_image_usage_flags(
             mut self,
             extended_sparse_image_usage_flags: ImageUsageFlags,
@@ -94,6 +106,7 @@ pub(super) mod defs {
             self.extended_sparse_image_usage_flags = extended_sparse_image_usage_flags;
             self
         }
+
         pub fn extended_sparse_buffer_usage_flags(
             mut self,
             extended_sparse_buffer_usage_flags: BufferUsageFlags,

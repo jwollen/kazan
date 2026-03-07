@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDrmPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -22,10 +24,13 @@ pub(super) mod defs {
         pub render_minor: i64,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDrmPropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_DRM_PROPERTIES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>> for PhysicalDeviceDrmPropertiesEXT<'a> {}
+
     impl Default for PhysicalDeviceDrmPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -41,27 +46,33 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceDrmPropertiesEXT<'a> {
         pub fn has_primary(mut self, has_primary: bool) -> Self {
             self.has_primary = has_primary.into();
             self
         }
+
         pub fn has_render(mut self, has_render: bool) -> Self {
             self.has_render = has_render.into();
             self
         }
+
         pub fn primary_major(mut self, primary_major: i64) -> Self {
             self.primary_major = primary_major;
             self
         }
+
         pub fn primary_minor(mut self, primary_minor: i64) -> Self {
             self.primary_minor = primary_minor;
             self
         }
+
         pub fn render_major(mut self, render_major: i64) -> Self {
             self.render_major = render_major;
             self
         }
+
         pub fn render_minor(mut self, render_minor: i64) -> Self {
             self.render_minor = render_minor;
             self

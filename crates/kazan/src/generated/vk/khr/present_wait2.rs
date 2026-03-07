@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentWait2InfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,9 +20,11 @@ pub(super) mod defs {
         pub timeout: u64,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PresentWait2InfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PRESENT_WAIT_2_INFO_KHR;
     }
+
     impl Default for PresentWait2InfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -32,16 +36,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PresentWait2InfoKHR<'a> {
         pub fn present_id(mut self, present_id: u64) -> Self {
             self.present_id = present_id;
             self
         }
+
         pub fn timeout(mut self, timeout: u64) -> Self {
             self.timeout = timeout;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePresentWait2FeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -51,12 +58,15 @@ pub(super) mod defs {
         pub present_wait2: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePresentWait2FeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PRESENT_WAIT_2_FEATURES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDevicePresentWait2FeaturesKHR<'a> {}
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePresentWait2FeaturesKHR<'a> {}
+
     impl Default for PhysicalDevicePresentWait2FeaturesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -67,12 +77,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDevicePresentWait2FeaturesKHR<'a> {
         pub fn present_wait2(mut self, present_wait2: bool) -> Self {
             self.present_wait2 = present_wait2.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceCapabilitiesPresentWait2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -82,11 +94,14 @@ pub(super) mod defs {
         pub present_wait2_supported: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for SurfaceCapabilitiesPresentWait2KHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::SURFACE_CAPABILITIES_PRESENT_WAIT_2_KHR;
     }
+
     unsafe impl<'a> Extends<SurfaceCapabilities2KHR<'a>> for SurfaceCapabilitiesPresentWait2KHR<'a> {}
+
     impl Default for SurfaceCapabilitiesPresentWait2KHR<'_> {
         fn default() -> Self {
             Self {
@@ -97,12 +112,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SurfaceCapabilitiesPresentWait2KHR<'a> {
         pub fn present_wait2_supported(mut self, present_wait2_supported: bool) -> Self {
             self.present_wait2_supported = present_wait2_supported.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkWaitForPresent2KHR.html>
     pub type PFN_vkWaitForPresent2KHR = unsafe extern "system" fn(
         device: Device,
@@ -110,9 +127,11 @@ pub(super) mod defs {
         p_present_wait2_info: *const PresentWait2InfoKHR<'_>,
     ) -> vk::Result;
 }
+
 pub struct DeviceFn {
     wait_for_present2_khr: PFN_vkWaitForPresent2KHR,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -126,6 +145,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkWaitForPresent2KHR.html>
     pub unsafe fn wait_for_present2_khr(

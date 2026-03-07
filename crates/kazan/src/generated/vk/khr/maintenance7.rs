@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance7FeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,12 +19,15 @@ pub(super) mod defs {
         pub maintenance7: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMaintenance7FeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_MAINTENANCE_7_FEATURES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceMaintenance7FeaturesKHR<'a> {}
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceMaintenance7FeaturesKHR<'a> {}
+
     impl Default for PhysicalDeviceMaintenance7FeaturesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -33,12 +38,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceMaintenance7FeaturesKHR<'a> {
         pub fn maintenance7(mut self, maintenance7: bool) -> Self {
             self.maintenance7 = maintenance7.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance7PropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -55,14 +62,17 @@ pub(super) mod defs {
         pub max_descriptor_set_update_after_bind_total_buffers_dynamic: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMaintenance7PropertiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_MAINTENANCE_7_PROPERTIES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceMaintenance7PropertiesKHR<'a>
     {
     }
+
     impl Default for PhysicalDeviceMaintenance7PropertiesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -82,6 +92,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceMaintenance7PropertiesKHR<'a> {
         pub fn robust_fragment_shading_rate_attachment_access(
             mut self,
@@ -91,6 +102,7 @@ pub(super) mod defs {
                 robust_fragment_shading_rate_attachment_access.into();
             self
         }
+
         pub fn separate_depth_stencil_attachment_access(
             mut self,
             separate_depth_stencil_attachment_access: bool,
@@ -99,6 +111,7 @@ pub(super) mod defs {
                 separate_depth_stencil_attachment_access.into();
             self
         }
+
         pub fn max_descriptor_set_total_uniform_buffers_dynamic(
             mut self,
             max_descriptor_set_total_uniform_buffers_dynamic: u32,
@@ -107,6 +120,7 @@ pub(super) mod defs {
                 max_descriptor_set_total_uniform_buffers_dynamic;
             self
         }
+
         pub fn max_descriptor_set_total_storage_buffers_dynamic(
             mut self,
             max_descriptor_set_total_storage_buffers_dynamic: u32,
@@ -115,6 +129,7 @@ pub(super) mod defs {
                 max_descriptor_set_total_storage_buffers_dynamic;
             self
         }
+
         pub fn max_descriptor_set_total_buffers_dynamic(
             mut self,
             max_descriptor_set_total_buffers_dynamic: u32,
@@ -123,6 +138,7 @@ pub(super) mod defs {
                 max_descriptor_set_total_buffers_dynamic;
             self
         }
+
         pub fn max_descriptor_set_update_after_bind_total_uniform_buffers_dynamic(
             mut self,
             max_descriptor_set_update_after_bind_total_uniform_buffers_dynamic: u32,
@@ -131,6 +147,7 @@ pub(super) mod defs {
                 max_descriptor_set_update_after_bind_total_uniform_buffers_dynamic;
             self
         }
+
         pub fn max_descriptor_set_update_after_bind_total_storage_buffers_dynamic(
             mut self,
             max_descriptor_set_update_after_bind_total_storage_buffers_dynamic: u32,
@@ -139,6 +156,7 @@ pub(super) mod defs {
                 max_descriptor_set_update_after_bind_total_storage_buffers_dynamic;
             self
         }
+
         pub fn max_descriptor_set_update_after_bind_total_buffers_dynamic(
             mut self,
             max_descriptor_set_update_after_bind_total_buffers_dynamic: u32,
@@ -148,6 +166,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceLayeredApiPropertiesListKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -158,14 +177,17 @@ pub(super) mod defs {
         pub p_layered_apis: *mut PhysicalDeviceLayeredApiPropertiesKHR<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceLayeredApiPropertiesListKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_LIST_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceLayeredApiPropertiesListKHR<'a>
     {
     }
+
     impl Default for PhysicalDeviceLayeredApiPropertiesListKHR<'_> {
         fn default() -> Self {
             Self {
@@ -177,6 +199,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceLayeredApiPropertiesListKHR<'a> {
         pub fn layered_apis(
             mut self,
@@ -187,6 +210,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceLayeredApiPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -199,10 +223,12 @@ pub(super) mod defs {
         pub device_name: [c_char; MAX_PHYSICAL_DEVICE_NAME_SIZE as usize],
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceLayeredApiPropertiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_KHR;
     }
+
     impl Default for PhysicalDeviceLayeredApiPropertiesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -216,19 +242,23 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceLayeredApiPropertiesKHR<'a> {
         pub fn vendor_id(mut self, vendor_id: u32) -> Self {
             self.vendor_id = vendor_id;
             self
         }
+
         pub fn device_id(mut self, device_id: u32) -> Self {
             self.device_id = device_id;
             self
         }
+
         pub fn layered_api(mut self, layered_api: PhysicalDeviceLayeredApiKHR) -> Self {
             self.layered_api = layered_api;
             self
         }
+
         pub fn device_name(
             mut self,
             device_name: [c_char; MAX_PHYSICAL_DEVICE_NAME_SIZE as usize],
@@ -237,6 +267,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceLayeredApiVulkanPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -246,14 +277,17 @@ pub(super) mod defs {
         pub properties: PhysicalDeviceProperties2<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceLayeredApiVulkanPropertiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_LAYERED_API_VULKAN_PROPERTIES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceLayeredApiPropertiesKHR<'a>>
         for PhysicalDeviceLayeredApiVulkanPropertiesKHR<'a>
     {
     }
+
     impl Default for PhysicalDeviceLayeredApiVulkanPropertiesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -264,16 +298,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceLayeredApiVulkanPropertiesKHR<'a> {
         pub fn properties(mut self, properties: PhysicalDeviceProperties2<'a>) -> Self {
             self.properties = properties;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceLayeredApiKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PhysicalDeviceLayeredApiKHR(i32);
+
     impl PhysicalDeviceLayeredApiKHR {
         pub const VULKAN_KHR: Self = Self(0);
         pub const D3D12_KHR: Self = Self(1);
@@ -281,6 +318,7 @@ pub(super) mod defs {
         pub const OPENGL_KHR: Self = Self(3);
         pub const OPENGLES_KHR: Self = Self(4);
     }
+
     impl fmt::Debug for PhysicalDeviceLayeredApiKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {

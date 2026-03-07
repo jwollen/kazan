@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePresentId2FeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,12 +19,15 @@ pub(super) mod defs {
         pub present_id2: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePresentId2FeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PRESENT_ID_2_FEATURES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDevicePresentId2FeaturesKHR<'a> {}
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePresentId2FeaturesKHR<'a> {}
+
     impl Default for PhysicalDevicePresentId2FeaturesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -33,12 +38,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDevicePresentId2FeaturesKHR<'a> {
         pub fn present_id2(mut self, present_id2: bool) -> Self {
             self.present_id2 = present_id2.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentId2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -49,10 +56,13 @@ pub(super) mod defs {
         pub p_present_ids: *const u64,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PresentId2KHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PRESENT_ID_2_KHR;
     }
+
     unsafe impl<'a> Extends<PresentInfoKHR<'a>> for PresentId2KHR<'a> {}
+
     impl Default for PresentId2KHR<'_> {
         fn default() -> Self {
             Self {
@@ -64,6 +74,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PresentId2KHR<'a> {
         pub fn present_ids(mut self, present_ids: &'a [u64]) -> Self {
             self.swapchain_count = present_ids.len().try_into().unwrap();
@@ -71,6 +82,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceCapabilitiesPresentId2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -80,10 +92,13 @@ pub(super) mod defs {
         pub present_id2_supported: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for SurfaceCapabilitiesPresentId2KHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SURFACE_CAPABILITIES_PRESENT_ID_2_KHR;
     }
+
     unsafe impl<'a> Extends<SurfaceCapabilities2KHR<'a>> for SurfaceCapabilitiesPresentId2KHR<'a> {}
+
     impl Default for SurfaceCapabilitiesPresentId2KHR<'_> {
         fn default() -> Self {
             Self {
@@ -94,6 +109,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SurfaceCapabilitiesPresentId2KHR<'a> {
         pub fn present_id2_supported(mut self, present_id2_supported: bool) -> Self {
             self.present_id2_supported = present_id2_supported.into();

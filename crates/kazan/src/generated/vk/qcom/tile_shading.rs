@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTileShadingFeaturesQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -30,12 +32,15 @@ pub(super) mod defs {
         pub tile_shading_image_processing: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceTileShadingFeaturesQCOM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_TILE_SHADING_FEATURES_QCOM;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceTileShadingFeaturesQCOM<'a> {}
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceTileShadingFeaturesQCOM<'a> {}
+
     impl Default for PhysicalDeviceTileShadingFeaturesQCOM<'_> {
         fn default() -> Self {
             Self {
@@ -59,15 +64,18 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceTileShadingFeaturesQCOM<'a> {
         pub fn tile_shading(mut self, tile_shading: bool) -> Self {
             self.tile_shading = tile_shading.into();
             self
         }
+
         pub fn tile_shading_fragment_stage(mut self, tile_shading_fragment_stage: bool) -> Self {
             self.tile_shading_fragment_stage = tile_shading_fragment_stage.into();
             self
         }
+
         pub fn tile_shading_color_attachments(
             mut self,
             tile_shading_color_attachments: bool,
@@ -75,6 +83,7 @@ pub(super) mod defs {
             self.tile_shading_color_attachments = tile_shading_color_attachments.into();
             self
         }
+
         pub fn tile_shading_depth_attachments(
             mut self,
             tile_shading_depth_attachments: bool,
@@ -82,6 +91,7 @@ pub(super) mod defs {
             self.tile_shading_depth_attachments = tile_shading_depth_attachments.into();
             self
         }
+
         pub fn tile_shading_stencil_attachments(
             mut self,
             tile_shading_stencil_attachments: bool,
@@ -89,6 +99,7 @@ pub(super) mod defs {
             self.tile_shading_stencil_attachments = tile_shading_stencil_attachments.into();
             self
         }
+
         pub fn tile_shading_input_attachments(
             mut self,
             tile_shading_input_attachments: bool,
@@ -96,6 +107,7 @@ pub(super) mod defs {
             self.tile_shading_input_attachments = tile_shading_input_attachments.into();
             self
         }
+
         pub fn tile_shading_sampled_attachments(
             mut self,
             tile_shading_sampled_attachments: bool,
@@ -103,10 +115,12 @@ pub(super) mod defs {
             self.tile_shading_sampled_attachments = tile_shading_sampled_attachments.into();
             self
         }
+
         pub fn tile_shading_per_tile_draw(mut self, tile_shading_per_tile_draw: bool) -> Self {
             self.tile_shading_per_tile_draw = tile_shading_per_tile_draw.into();
             self
         }
+
         pub fn tile_shading_per_tile_dispatch(
             mut self,
             tile_shading_per_tile_dispatch: bool,
@@ -114,14 +128,17 @@ pub(super) mod defs {
             self.tile_shading_per_tile_dispatch = tile_shading_per_tile_dispatch.into();
             self
         }
+
         pub fn tile_shading_dispatch_tile(mut self, tile_shading_dispatch_tile: bool) -> Self {
             self.tile_shading_dispatch_tile = tile_shading_dispatch_tile.into();
             self
         }
+
         pub fn tile_shading_apron(mut self, tile_shading_apron: bool) -> Self {
             self.tile_shading_apron = tile_shading_apron.into();
             self
         }
+
         pub fn tile_shading_anisotropic_apron(
             mut self,
             tile_shading_anisotropic_apron: bool,
@@ -129,10 +146,12 @@ pub(super) mod defs {
             self.tile_shading_anisotropic_apron = tile_shading_anisotropic_apron.into();
             self
         }
+
         pub fn tile_shading_atomic_ops(mut self, tile_shading_atomic_ops: bool) -> Self {
             self.tile_shading_atomic_ops = tile_shading_atomic_ops.into();
             self
         }
+
         pub fn tile_shading_image_processing(
             mut self,
             tile_shading_image_processing: bool,
@@ -141,6 +160,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTileShadingPropertiesQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -153,14 +173,17 @@ pub(super) mod defs {
         pub max_tile_shading_rate: Extent2D,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceTileShadingPropertiesQCOM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_TILE_SHADING_PROPERTIES_QCOM;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceTileShadingPropertiesQCOM<'a>
     {
     }
+
     impl Default for PhysicalDeviceTileShadingPropertiesQCOM<'_> {
         fn default() -> Self {
             Self {
@@ -174,24 +197,29 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceTileShadingPropertiesQCOM<'a> {
         pub fn max_apron_size(mut self, max_apron_size: u32) -> Self {
             self.max_apron_size = max_apron_size;
             self
         }
+
         pub fn prefer_non_coherent(mut self, prefer_non_coherent: bool) -> Self {
             self.prefer_non_coherent = prefer_non_coherent.into();
             self
         }
+
         pub fn tile_granularity(mut self, tile_granularity: Extent2D) -> Self {
             self.tile_granularity = tile_granularity;
             self
         }
+
         pub fn max_tile_shading_rate(mut self, max_tile_shading_rate: Extent2D) -> Self {
             self.max_tile_shading_rate = max_tile_shading_rate;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassTileShadingCreateInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -202,10 +230,12 @@ pub(super) mod defs {
         pub tile_apron_size: Extent2D,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for RenderPassTileShadingCreateInfoQCOM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::RENDER_PASS_TILE_SHADING_CREATE_INFO_QCOM;
     }
+
     unsafe impl<'a> Extends<RenderPassCreateInfo<'a>> for RenderPassTileShadingCreateInfoQCOM<'a> {}
     unsafe impl<'a> Extends<RenderPassCreateInfo2<'a>> for RenderPassTileShadingCreateInfoQCOM<'a> {}
     unsafe impl<'a> Extends<RenderingInfo<'a>> for RenderPassTileShadingCreateInfoQCOM<'a> {}
@@ -213,6 +243,7 @@ pub(super) mod defs {
         for RenderPassTileShadingCreateInfoQCOM<'a>
     {
     }
+
     impl Default for RenderPassTileShadingCreateInfoQCOM<'_> {
         fn default() -> Self {
             Self {
@@ -224,16 +255,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> RenderPassTileShadingCreateInfoQCOM<'a> {
         pub fn flags(mut self, flags: TileShadingRenderPassFlagsQCOM) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn tile_apron_size(mut self, tile_apron_size: Extent2D) -> Self {
             self.tile_apron_size = tile_apron_size;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerTileBeginInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -242,9 +276,11 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PerTileBeginInfoQCOM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PER_TILE_BEGIN_INFO_QCOM;
     }
+
     impl Default for PerTileBeginInfoQCOM<'_> {
         fn default() -> Self {
             Self {
@@ -254,7 +290,9 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PerTileBeginInfoQCOM<'a> {}
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerTileEndInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -263,9 +301,11 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PerTileEndInfoQCOM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PER_TILE_END_INFO_QCOM;
     }
+
     impl Default for PerTileEndInfoQCOM<'_> {
         fn default() -> Self {
             Self {
@@ -275,7 +315,9 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PerTileEndInfoQCOM<'a> {}
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDispatchTileInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -284,9 +326,11 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DispatchTileInfoQCOM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DISPATCH_TILE_INFO_QCOM;
     }
+
     impl Default for DispatchTileInfoQCOM<'_> {
         fn default() -> Self {
             Self {
@@ -296,17 +340,21 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DispatchTileInfoQCOM<'a> {}
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTileShadingRenderPassFlagsQCOM.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct TileShadingRenderPassFlagsQCOM(Flags);
     vk_bitflags_wrapped!(TileShadingRenderPassFlagsQCOM, Flags);
+
     impl TileShadingRenderPassFlagsQCOM {
         pub const ENABLE_QCOM: Self = Self(TileShadingRenderPassFlagBitsQCOM::ENABLE_QCOM.0);
         pub const PER_TILE_EXECUTION_QCOM: Self =
             Self(TileShadingRenderPassFlagBitsQCOM::PER_TILE_EXECUTION_QCOM.0);
     }
+
     impl fmt::Debug for TileShadingRenderPassFlagsQCOM {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -319,14 +367,17 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTileShadingRenderPassFlagBitsQCOM.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct TileShadingRenderPassFlagBitsQCOM(u32);
+
     impl TileShadingRenderPassFlagBitsQCOM {
         pub const ENABLE_QCOM: Self = Self(1 << 0);
         pub const PER_TILE_EXECUTION_QCOM: Self = Self(1 << 1);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDispatchTileQCOM.html>
     pub type PFN_vkCmdDispatchTileQCOM = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
@@ -343,11 +394,13 @@ pub(super) mod defs {
         p_per_tile_end_info: *const PerTileEndInfoQCOM<'_>,
     );
 }
+
 pub struct DeviceFn {
     cmd_dispatch_tile_qcom: PFN_vkCmdDispatchTileQCOM,
     cmd_begin_per_tile_execution_qcom: PFN_vkCmdBeginPerTileExecutionQCOM,
     cmd_end_per_tile_execution_qcom: PFN_vkCmdEndPerTileExecutionQCOM,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -367,6 +420,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDispatchTileQCOM.html>
     pub unsafe fn cmd_dispatch_tile_qcom(
@@ -376,6 +430,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_dispatch_tile_qcom)(command_buffer, dispatch_tile_info) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginPerTileExecutionQCOM.html>
     pub unsafe fn cmd_begin_per_tile_execution_qcom(
         &self,
@@ -384,6 +439,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_begin_per_tile_execution_qcom)(command_buffer, per_tile_begin_info) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndPerTileExecutionQCOM.html>
     pub unsafe fn cmd_end_per_tile_execution_qcom(
         &self,

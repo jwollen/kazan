@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMemoryDecompressionFeaturesNV.html>
     pub type PhysicalDeviceMemoryDecompressionFeaturesNV<'a> =
         PhysicalDeviceMemoryDecompressionFeaturesEXT<'a>;
@@ -16,6 +18,7 @@ pub(super) mod defs {
         PhysicalDeviceMemoryDecompressionPropertiesEXT<'a>;
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryDecompressionMethodFlagsNV.html>
     pub type MemoryDecompressionMethodFlagsNV = MemoryDecompressionMethodFlagsEXT;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDecompressMemoryRegionNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -26,23 +29,28 @@ pub(super) mod defs {
         pub decompressed_size: DeviceSize,
         pub decompression_method: MemoryDecompressionMethodFlagsNV,
     }
+
     impl DecompressMemoryRegionNV {
         pub fn src_address(mut self, src_address: DeviceAddress) -> Self {
             self.src_address = src_address;
             self
         }
+
         pub fn dst_address(mut self, dst_address: DeviceAddress) -> Self {
             self.dst_address = dst_address;
             self
         }
+
         pub fn compressed_size(mut self, compressed_size: DeviceSize) -> Self {
             self.compressed_size = compressed_size;
             self
         }
+
         pub fn decompressed_size(mut self, decompressed_size: DeviceSize) -> Self {
             self.decompressed_size = decompressed_size;
             self
         }
+
         pub fn decompression_method(
             mut self,
             decompression_method: MemoryDecompressionMethodFlagsNV,
@@ -51,6 +59,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDecompressMemoryNV.html>
     pub type PFN_vkCmdDecompressMemoryNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
@@ -65,10 +74,12 @@ pub(super) mod defs {
         stride: u32,
     );
 }
+
 pub struct DeviceFn {
     cmd_decompress_memory_nv: PFN_vkCmdDecompressMemoryNV,
     cmd_decompress_memory_indirect_count_nv: PFN_vkCmdDecompressMemoryIndirectCountNV,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -85,6 +96,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDecompressMemoryNV.html>
     pub unsafe fn cmd_decompress_memory_nv(
@@ -100,6 +112,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDecompressMemoryIndirectCountNV.html>
     pub unsafe fn cmd_decompress_memory_indirect_count_nv(
         &self,

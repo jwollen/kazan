@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayProperties2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,9 +19,11 @@ pub(super) mod defs {
         pub display_properties: DisplayPropertiesKHR<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DisplayProperties2KHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DISPLAY_PROPERTIES_2_KHR;
     }
+
     impl Default for DisplayProperties2KHR<'_> {
         fn default() -> Self {
             Self {
@@ -30,12 +34,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DisplayProperties2KHR<'a> {
         pub fn display_properties(mut self, display_properties: DisplayPropertiesKHR<'a>) -> Self {
             self.display_properties = display_properties;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPlaneProperties2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -45,9 +51,11 @@ pub(super) mod defs {
         pub display_plane_properties: DisplayPlanePropertiesKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DisplayPlaneProperties2KHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DISPLAY_PLANE_PROPERTIES_2_KHR;
     }
+
     impl Default for DisplayPlaneProperties2KHR<'_> {
         fn default() -> Self {
             Self {
@@ -58,6 +66,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DisplayPlaneProperties2KHR<'a> {
         pub fn display_plane_properties(
             mut self,
@@ -67,6 +76,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayModeProperties2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -76,9 +86,11 @@ pub(super) mod defs {
         pub display_mode_properties: DisplayModePropertiesKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DisplayModeProperties2KHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DISPLAY_MODE_PROPERTIES_2_KHR;
     }
+
     impl Default for DisplayModeProperties2KHR<'_> {
         fn default() -> Self {
             Self {
@@ -89,6 +101,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DisplayModeProperties2KHR<'a> {
         pub fn display_mode_properties(
             mut self,
@@ -98,6 +111,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPlaneInfo2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -108,9 +122,11 @@ pub(super) mod defs {
         pub plane_index: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DisplayPlaneInfo2KHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DISPLAY_PLANE_INFO_2_KHR;
     }
+
     impl Default for DisplayPlaneInfo2KHR<'_> {
         fn default() -> Self {
             Self {
@@ -122,16 +138,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DisplayPlaneInfo2KHR<'a> {
         pub fn mode(mut self, mode: DisplayModeKHR) -> Self {
             self.mode = mode;
             self
         }
+
         pub fn plane_index(mut self, plane_index: u32) -> Self {
             self.plane_index = plane_index;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPlaneCapabilities2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -141,9 +160,11 @@ pub(super) mod defs {
         pub capabilities: DisplayPlaneCapabilitiesKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DisplayPlaneCapabilities2KHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DISPLAY_PLANE_CAPABILITIES_2_KHR;
     }
+
     impl Default for DisplayPlaneCapabilities2KHR<'_> {
         fn default() -> Self {
             Self {
@@ -154,12 +175,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DisplayPlaneCapabilities2KHR<'a> {
         pub fn capabilities(mut self, capabilities: DisplayPlaneCapabilitiesKHR) -> Self {
             self.capabilities = capabilities;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDisplayProperties2KHR.html>
     pub type PFN_vkGetPhysicalDeviceDisplayProperties2KHR = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
@@ -188,6 +211,7 @@ pub(super) mod defs {
         p_capabilities: *mut DisplayPlaneCapabilities2KHR<'_>,
     ) -> vk::Result;
 }
+
 pub struct InstanceFn {
     get_physical_device_display_properties2_khr: PFN_vkGetPhysicalDeviceDisplayProperties2KHR,
     get_physical_device_display_plane_properties2_khr:
@@ -195,6 +219,7 @@ pub struct InstanceFn {
     get_display_mode_properties2_khr: PFN_vkGetDisplayModeProperties2KHR,
     get_display_plane_capabilities2_khr: PFN_vkGetDisplayPlaneCapabilities2KHR,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -219,6 +244,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDisplayProperties2KHR.html>
     pub unsafe fn get_physical_device_display_properties2_khr<'a>(
@@ -250,6 +276,7 @@ impl InstanceFn {
             Ok(result)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDisplayPlaneProperties2KHR.html>
     pub unsafe fn get_physical_device_display_plane_properties2_khr<'a>(
         &self,
@@ -280,6 +307,7 @@ impl InstanceFn {
             Ok(result)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDisplayModeProperties2KHR.html>
     pub unsafe fn get_display_mode_properties2_khr<'a>(
         &self,
@@ -312,6 +340,7 @@ impl InstanceFn {
             Ok(result)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDisplayPlaneCapabilities2KHR.html>
     pub unsafe fn get_display_plane_capabilities2_khr(
         &self,

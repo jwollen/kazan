@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderSMBuiltinsPropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,14 +20,17 @@ pub(super) mod defs {
         pub shader_warps_per_sm: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderSMBuiltinsPropertiesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_SM_BUILTINS_PROPERTIES_NV;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceShaderSMBuiltinsPropertiesNV<'a>
     {
     }
+
     impl Default for PhysicalDeviceShaderSMBuiltinsPropertiesNV<'_> {
         fn default() -> Self {
             Self {
@@ -37,16 +42,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceShaderSMBuiltinsPropertiesNV<'a> {
         pub fn shader_sm_count(mut self, shader_sm_count: u32) -> Self {
             self.shader_sm_count = shader_sm_count;
             self
         }
+
         pub fn shader_warps_per_sm(mut self, shader_warps_per_sm: u32) -> Self {
             self.shader_warps_per_sm = shader_warps_per_sm;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderSMBuiltinsFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -56,15 +64,18 @@ pub(super) mod defs {
         pub shader_sm_builtins: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderSMBuiltinsFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_SM_BUILTINS_FEATURES_NV;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceShaderSMBuiltinsFeaturesNV<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceShaderSMBuiltinsFeaturesNV<'a> {}
+
     impl Default for PhysicalDeviceShaderSMBuiltinsFeaturesNV<'_> {
         fn default() -> Self {
             Self {
@@ -75,6 +86,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceShaderSMBuiltinsFeaturesNV<'a> {
         pub fn shader_sm_builtins(mut self, shader_sm_builtins: bool) -> Self {
             self.shader_sm_builtins = shader_sm_builtins.into();

@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentDescription2KHR.html>
     pub type AttachmentDescription2KHR<'a> = AttachmentDescription2<'a>;
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentReference2KHR.html>
@@ -27,12 +29,14 @@ pub(super) mod defs {
     pub type PFN_vkCmdNextSubpass2KHR = PFN_vkCmdNextSubpass2;
     pub type PFN_vkCmdEndRenderPass2KHR = PFN_vkCmdEndRenderPass2;
 }
+
 pub struct DeviceFn {
     create_render_pass2_khr: PFN_vkCreateRenderPass2,
     cmd_begin_render_pass2_khr: PFN_vkCmdBeginRenderPass2,
     cmd_next_subpass2_khr: PFN_vkCmdNextSubpass2,
     cmd_end_render_pass2_khr: PFN_vkCmdEndRenderPass2,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -55,6 +59,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateRenderPass2KHR.html>
     pub unsafe fn create_render_pass2_khr(
@@ -78,6 +83,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginRenderPass2KHR.html>
     pub unsafe fn cmd_begin_render_pass2_khr(
         &self,
@@ -89,6 +95,7 @@ impl DeviceFn {
             (self.cmd_begin_render_pass2_khr)(command_buffer, render_pass_begin, subpass_begin_info)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdNextSubpass2KHR.html>
     pub unsafe fn cmd_next_subpass2_khr(
         &self,
@@ -100,6 +107,7 @@ impl DeviceFn {
             (self.cmd_next_subpass2_khr)(command_buffer, subpass_begin_info, subpass_end_info)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndRenderPass2KHR.html>
     pub unsafe fn cmd_end_render_pass2_khr(
         &self,

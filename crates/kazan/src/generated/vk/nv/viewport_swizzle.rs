@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkViewportSwizzleNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -17,24 +19,29 @@ pub(super) mod defs {
         pub z: ViewportCoordinateSwizzleNV,
         pub w: ViewportCoordinateSwizzleNV,
     }
+
     impl ViewportSwizzleNV {
         pub fn x(mut self, x: ViewportCoordinateSwizzleNV) -> Self {
             self.x = x;
             self
         }
+
         pub fn y(mut self, y: ViewportCoordinateSwizzleNV) -> Self {
             self.y = y;
             self
         }
+
         pub fn z(mut self, z: ViewportCoordinateSwizzleNV) -> Self {
             self.z = z;
             self
         }
+
         pub fn w(mut self, w: ViewportCoordinateSwizzleNV) -> Self {
             self.w = w;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineViewportSwizzleStateCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -46,14 +53,17 @@ pub(super) mod defs {
         pub p_viewport_swizzles: *const ViewportSwizzleNV,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineViewportSwizzleStateCreateInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_VIEWPORT_SWIZZLE_STATE_CREATE_INFO_NV;
     }
+
     unsafe impl<'a> Extends<PipelineViewportStateCreateInfo<'a>>
         for PipelineViewportSwizzleStateCreateInfoNV<'a>
     {
     }
+
     impl Default for PipelineViewportSwizzleStateCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
@@ -66,21 +76,25 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineViewportSwizzleStateCreateInfoNV<'a> {
         pub fn flags(mut self, flags: PipelineViewportSwizzleStateCreateFlagsNV) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn viewport_swizzles(mut self, viewport_swizzles: &'a [ViewportSwizzleNV]) -> Self {
             self.viewport_count = viewport_swizzles.len().try_into().unwrap();
             self.p_viewport_swizzles = viewport_swizzles.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkViewportCoordinateSwizzleNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ViewportCoordinateSwizzleNV(i32);
+
     impl ViewportCoordinateSwizzleNV {
         pub const POSITIVE_X_NV: Self = Self(0);
         pub const NEGATIVE_X_NV: Self = Self(1);
@@ -91,6 +105,7 @@ pub(super) mod defs {
         pub const POSITIVE_W_NV: Self = Self(6);
         pub const NEGATIVE_W_NV: Self = Self(7);
     }
+
     impl fmt::Debug for ViewportCoordinateSwizzleNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -111,11 +126,13 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineViewportSwizzleStateCreateFlagsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineViewportSwizzleStateCreateFlagsNV(Flags);
     vk_bitflags_wrapped!(PipelineViewportSwizzleStateCreateFlagsNV, Flags);
+
     impl fmt::Debug for PipelineViewportSwizzleStateCreateFlagsNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)

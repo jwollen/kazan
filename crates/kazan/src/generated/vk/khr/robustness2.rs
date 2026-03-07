@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceRobustness2FeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -19,12 +21,15 @@ pub(super) mod defs {
         pub null_descriptor: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRobustness2FeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceRobustness2FeaturesKHR<'a> {}
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceRobustness2FeaturesKHR<'a> {}
+
     impl Default for PhysicalDeviceRobustness2FeaturesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -37,20 +42,24 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceRobustness2FeaturesKHR<'a> {
         pub fn robust_buffer_access2(mut self, robust_buffer_access2: bool) -> Self {
             self.robust_buffer_access2 = robust_buffer_access2.into();
             self
         }
+
         pub fn robust_image_access2(mut self, robust_image_access2: bool) -> Self {
             self.robust_image_access2 = robust_image_access2.into();
             self
         }
+
         pub fn null_descriptor(mut self, null_descriptor: bool) -> Self {
             self.null_descriptor = null_descriptor.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceRobustness2PropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -61,14 +70,17 @@ pub(super) mod defs {
         pub robust_uniform_buffer_access_size_alignment: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRobustness2PropertiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_ROBUSTNESS_2_PROPERTIES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceRobustness2PropertiesKHR<'a>
     {
     }
+
     impl Default for PhysicalDeviceRobustness2PropertiesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -80,6 +92,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceRobustness2PropertiesKHR<'a> {
         pub fn robust_storage_buffer_access_size_alignment(
             mut self,
@@ -89,6 +102,7 @@ pub(super) mod defs {
                 robust_storage_buffer_access_size_alignment;
             self
         }
+
         pub fn robust_uniform_buffer_access_size_alignment(
             mut self,
             robust_uniform_buffer_access_size_alignment: DeviceSize,

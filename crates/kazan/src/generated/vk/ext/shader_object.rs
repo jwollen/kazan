@@ -2,20 +2,24 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     handle_nondispatchable!(
         ShaderEXT,
         SHADER_EXT,
         doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderEXT.html>"
     );
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderRequiredSubgroupSizeCreateInfoEXT.html>
     pub type ShaderRequiredSubgroupSizeCreateInfoEXT<'a> =
         PipelineShaderStageRequiredSubgroupSizeCreateInfo<'a>;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderObjectFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -25,12 +29,15 @@ pub(super) mod defs {
         pub shader_object: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderObjectFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_OBJECT_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceShaderObjectFeaturesEXT<'a> {}
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceShaderObjectFeaturesEXT<'a> {}
+
     impl Default for PhysicalDeviceShaderObjectFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -41,12 +48,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceShaderObjectFeaturesEXT<'a> {
         pub fn shader_object(mut self, shader_object: bool) -> Self {
             self.shader_object = shader_object.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderObjectPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -57,14 +66,17 @@ pub(super) mod defs {
         pub shader_binary_version: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderObjectPropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_OBJECT_PROPERTIES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceShaderObjectPropertiesEXT<'a>
     {
     }
+
     impl Default for PhysicalDeviceShaderObjectPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -76,16 +88,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceShaderObjectPropertiesEXT<'a> {
         pub fn shader_binary_uuid(mut self, shader_binary_uuid: [u8; UUID_SIZE as usize]) -> Self {
             self.shader_binary_uuid = shader_binary_uuid;
             self
         }
+
         pub fn shader_binary_version(mut self, shader_binary_version: u32) -> Self {
             self.shader_binary_version = shader_binary_version;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -106,9 +121,11 @@ pub(super) mod defs {
         pub p_specialization_info: *const SpecializationInfo<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ShaderCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SHADER_CREATE_INFO_EXT;
     }
+
     impl Default for ShaderCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -130,37 +147,45 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ShaderCreateInfoEXT<'a> {
         pub fn flags(mut self, flags: ShaderCreateFlagsEXT) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn stage(mut self, stage: ShaderStageFlagBits) -> Self {
             self.stage = stage;
             self
         }
+
         pub fn next_stage(mut self, next_stage: ShaderStageFlags) -> Self {
             self.next_stage = next_stage;
             self
         }
+
         pub fn code_type(mut self, code_type: ShaderCodeTypeEXT) -> Self {
             self.code_type = code_type;
             self
         }
+
         pub fn code(mut self, code: &'a [u8]) -> Self {
             self.code_size = code.len().try_into().unwrap();
             self.p_code = code.as_ptr() as _;
             self
         }
+
         pub fn name(mut self, name: &'a CStr) -> Self {
             self.p_name = name.as_ptr();
             self
         }
+
         pub fn set_layouts(mut self, set_layouts: &'a [DescriptorSetLayout]) -> Self {
             self.set_layout_count = set_layouts.len().try_into().unwrap();
             self.p_set_layouts = set_layouts.as_ptr();
             self
         }
+
         pub fn push_constant_ranges(
             mut self,
             push_constant_ranges: &'a [PushConstantRange],
@@ -169,6 +194,7 @@ pub(super) mod defs {
             self.p_push_constant_ranges = push_constant_ranges.as_ptr();
             self
         }
+
         pub fn specialization_info(
             mut self,
             specialization_info: &'a SpecializationInfo<'a>,
@@ -177,14 +203,17 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderCodeTypeEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ShaderCodeTypeEXT(i32);
+
     impl ShaderCodeTypeEXT {
         pub const BINARY_EXT: Self = Self(0);
         pub const SPIRV_EXT: Self = Self(1);
     }
+
     impl fmt::Debug for ShaderCodeTypeEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -199,20 +228,25 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderCreateFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ShaderCreateFlagsEXT(Flags);
     vk_bitflags_wrapped!(ShaderCreateFlagsEXT, Flags);
+
     impl ShaderCreateFlagsEXT {
         pub const LINK_STAGE_EXT: Self = Self(ShaderCreateFlagBitsEXT::LINK_STAGE_EXT.0);
         // VK_EXT_descriptor_heap
         pub const DESCRIPTOR_HEAP_EXT: Self = Self(ShaderCreateFlagBitsEXT::DESCRIPTOR_HEAP_EXT.0);
+
         // VK_EXT_device_generated_commands
         pub const INDIRECT_BINDABLE_EXT: Self =
             Self(ShaderCreateFlagBitsEXT::INDIRECT_BINDABLE_EXT.0);
+
         // VK_EXT_shader_64bit_indexing
         pub const _64_INDEXING_EXT: Self = Self(ShaderCreateFlagBitsEXT::_64_INDEXING_EXT.0);
+
         // VK_EXT_shader_object
         pub const ALLOW_VARYING_SUBGROUP_SIZE_EXT: Self =
             Self(ShaderCreateFlagBitsEXT::ALLOW_VARYING_SUBGROUP_SIZE_EXT.0);
@@ -225,6 +259,7 @@ pub(super) mod defs {
         pub const FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT: Self =
             Self(ShaderCreateFlagBitsEXT::FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT.0);
     }
+
     impl fmt::Debug for ShaderCreateFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -266,18 +301,23 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderCreateFlagBitsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ShaderCreateFlagBitsEXT(u32);
+
     impl ShaderCreateFlagBitsEXT {
         pub const LINK_STAGE_EXT: Self = Self(1 << 0);
         // VK_EXT_descriptor_heap
         pub const DESCRIPTOR_HEAP_EXT: Self = Self(1 << 10);
+
         // VK_EXT_device_generated_commands
         pub const INDIRECT_BINDABLE_EXT: Self = Self(1 << 7);
+
         // VK_EXT_shader_64bit_indexing
         pub const _64_INDEXING_EXT: Self = Self(1 << 15);
+
         // VK_EXT_shader_object
         pub const ALLOW_VARYING_SUBGROUP_SIZE_EXT: Self = Self(1 << 1);
         pub const REQUIRE_FULL_SUBGROUPS_EXT: Self = Self(1 << 2);
@@ -286,6 +326,7 @@ pub(super) mod defs {
         pub const FRAGMENT_SHADING_RATE_ATTACHMENT_EXT: Self = Self(1 << 5);
         pub const FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT: Self = Self(1 << 6);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateShadersEXT.html>
     pub type PFN_vkCreateShadersEXT = unsafe extern "system" fn(
         device: Device,
@@ -321,6 +362,7 @@ pub(super) mod defs {
         p_depth_clamp_range: *const DepthClampRangeEXT,
     );
 }
+
 pub struct DeviceFn {
     create_shaders_ext: PFN_vkCreateShadersEXT,
     destroy_shader_ext: PFN_vkDestroyShaderEXT,
@@ -381,6 +423,7 @@ pub struct DeviceFn {
     cmd_set_coverage_reduction_mode_nv: Option<PFN_vkCmdSetCoverageReductionModeNV>,
     cmd_set_depth_clamp_range_ext: Option<PFN_vkCmdSetDepthClampRangeEXT>,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -543,6 +586,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateShadersEXT.html>
     pub unsafe fn create_shaders_ext(
@@ -567,6 +611,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyShaderEXT.html>
     pub unsafe fn destroy_shader_ext(
         &self,
@@ -576,6 +621,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_shader_ext)(device, shader, allocator.to_raw_ptr()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetShaderBinaryDataEXT.html>
     pub unsafe fn get_shader_binary_data_ext(
         &self,
@@ -604,6 +650,7 @@ impl DeviceFn {
             Ok(result)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindShadersEXT.html>
     pub unsafe fn cmd_bind_shaders_ext(
         &self,
@@ -620,6 +667,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCullModeEXT.html>
     pub unsafe fn cmd_set_cull_mode_ext(
         &self,
@@ -628,6 +676,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_cull_mode_ext)(command_buffer, cull_mode) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetFrontFaceEXT.html>
     pub unsafe fn cmd_set_front_face_ext(
         &self,
@@ -636,6 +685,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_front_face_ext)(command_buffer, front_face) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPrimitiveTopologyEXT.html>
     pub unsafe fn cmd_set_primitive_topology_ext(
         &self,
@@ -644,6 +694,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_primitive_topology_ext)(command_buffer, primitive_topology) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetViewportWithCountEXT.html>
     pub unsafe fn cmd_set_viewport_with_count_ext(
         &self,
@@ -658,6 +709,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetScissorWithCountEXT.html>
     pub unsafe fn cmd_set_scissor_with_count_ext(
         &self,
@@ -672,6 +724,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindVertexBuffers2EXT.html>
     pub unsafe fn cmd_bind_vertex_buffers2_ext(
         &self,
@@ -694,6 +747,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthTestEnableEXT.html>
     pub unsafe fn cmd_set_depth_test_enable_ext(
         &self,
@@ -702,6 +756,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_depth_test_enable_ext)(command_buffer, depth_test_enable.into()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthWriteEnableEXT.html>
     pub unsafe fn cmd_set_depth_write_enable_ext(
         &self,
@@ -710,6 +765,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_depth_write_enable_ext)(command_buffer, depth_write_enable.into()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthCompareOpEXT.html>
     pub unsafe fn cmd_set_depth_compare_op_ext(
         &self,
@@ -718,6 +774,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_depth_compare_op_ext)(command_buffer, depth_compare_op) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthBoundsTestEnableEXT.html>
     pub unsafe fn cmd_set_depth_bounds_test_enable_ext(
         &self,
@@ -731,6 +788,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetStencilTestEnableEXT.html>
     pub unsafe fn cmd_set_stencil_test_enable_ext(
         &self,
@@ -741,6 +799,7 @@ impl DeviceFn {
             (self.cmd_set_stencil_test_enable_ext)(command_buffer, stencil_test_enable.into())
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetStencilOpEXT.html>
     pub unsafe fn cmd_set_stencil_op_ext(
         &self,
@@ -762,6 +821,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetVertexInputEXT.html>
     pub unsafe fn cmd_set_vertex_input_ext(
         &self,
@@ -779,6 +839,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPatchControlPointsEXT.html>
     pub unsafe fn cmd_set_patch_control_points_ext(
         &self,
@@ -787,6 +848,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_patch_control_points_ext)(command_buffer, patch_control_points) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetRasterizerDiscardEnableEXT.html>
     pub unsafe fn cmd_set_rasterizer_discard_enable_ext(
         &self,
@@ -800,6 +862,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthBiasEnableEXT.html>
     pub unsafe fn cmd_set_depth_bias_enable_ext(
         &self,
@@ -808,10 +871,12 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_depth_bias_enable_ext)(command_buffer, depth_bias_enable.into()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLogicOpEXT.html>
     pub unsafe fn cmd_set_logic_op_ext(&self, command_buffer: CommandBuffer, logic_op: LogicOp) {
         unsafe { (self.cmd_set_logic_op_ext)(command_buffer, logic_op) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPrimitiveRestartEnableEXT.html>
     pub unsafe fn cmd_set_primitive_restart_enable_ext(
         &self,
@@ -825,6 +890,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetTessellationDomainOriginEXT.html>
     pub unsafe fn cmd_set_tessellation_domain_origin_ext(
         &self,
@@ -833,6 +899,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_tessellation_domain_origin_ext)(command_buffer, domain_origin) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthClampEnableEXT.html>
     pub unsafe fn cmd_set_depth_clamp_enable_ext(
         &self,
@@ -841,6 +908,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_depth_clamp_enable_ext)(command_buffer, depth_clamp_enable.into()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPolygonModeEXT.html>
     pub unsafe fn cmd_set_polygon_mode_ext(
         &self,
@@ -849,6 +917,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_polygon_mode_ext)(command_buffer, polygon_mode) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetRasterizationSamplesEXT.html>
     pub unsafe fn cmd_set_rasterization_samples_ext(
         &self,
@@ -857,6 +926,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_rasterization_samples_ext)(command_buffer, rasterization_samples) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetSampleMaskEXT.html>
     pub unsafe fn cmd_set_sample_mask_ext(
         &self,
@@ -866,6 +936,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_sample_mask_ext)(command_buffer, samples, sample_mask.to_raw_ptr()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetAlphaToCoverageEnableEXT.html>
     pub unsafe fn cmd_set_alpha_to_coverage_enable_ext(
         &self,
@@ -879,6 +950,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetAlphaToOneEnableEXT.html>
     pub unsafe fn cmd_set_alpha_to_one_enable_ext(
         &self,
@@ -889,6 +961,7 @@ impl DeviceFn {
             (self.cmd_set_alpha_to_one_enable_ext)(command_buffer, alpha_to_one_enable.into())
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLogicOpEnableEXT.html>
     pub unsafe fn cmd_set_logic_op_enable_ext(
         &self,
@@ -897,6 +970,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_logic_op_enable_ext)(command_buffer, logic_op_enable.into()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetColorBlendEnableEXT.html>
     pub unsafe fn cmd_set_color_blend_enable_ext(
         &self,
@@ -913,6 +987,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetColorBlendEquationEXT.html>
     pub unsafe fn cmd_set_color_blend_equation_ext(
         &self,
@@ -929,6 +1004,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetColorWriteMaskEXT.html>
     pub unsafe fn cmd_set_color_write_mask_ext(
         &self,
@@ -945,6 +1021,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetRasterizationStreamEXT.html>
     pub unsafe fn cmd_set_rasterization_stream_ext(
         &self,
@@ -955,6 +1032,7 @@ impl DeviceFn {
             (self.cmd_set_rasterization_stream_ext.unwrap())(command_buffer, rasterization_stream)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetConservativeRasterizationModeEXT.html>
     pub unsafe fn cmd_set_conservative_rasterization_mode_ext(
         &self,
@@ -968,6 +1046,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetExtraPrimitiveOverestimationSizeEXT.html>
     pub unsafe fn cmd_set_extra_primitive_overestimation_size_ext(
         &self,
@@ -980,6 +1059,7 @@ impl DeviceFn {
                 .unwrap())(command_buffer, extra_primitive_overestimation_size)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthClipEnableEXT.html>
     pub unsafe fn cmd_set_depth_clip_enable_ext(
         &self,
@@ -990,6 +1070,7 @@ impl DeviceFn {
             (self.cmd_set_depth_clip_enable_ext.unwrap())(command_buffer, depth_clip_enable.into())
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetSampleLocationsEnableEXT.html>
     pub unsafe fn cmd_set_sample_locations_enable_ext(
         &self,
@@ -1003,6 +1084,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetColorBlendAdvancedEXT.html>
     pub unsafe fn cmd_set_color_blend_advanced_ext(
         &self,
@@ -1019,6 +1101,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetProvokingVertexModeEXT.html>
     pub unsafe fn cmd_set_provoking_vertex_mode_ext(
         &self,
@@ -1029,6 +1112,7 @@ impl DeviceFn {
             (self.cmd_set_provoking_vertex_mode_ext.unwrap())(command_buffer, provoking_vertex_mode)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLineRasterizationModeEXT.html>
     pub unsafe fn cmd_set_line_rasterization_mode_ext(
         &self,
@@ -1042,6 +1126,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLineStippleEnableEXT.html>
     pub unsafe fn cmd_set_line_stipple_enable_ext(
         &self,
@@ -1055,6 +1140,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthClipNegativeOneToOneEXT.html>
     pub unsafe fn cmd_set_depth_clip_negative_one_to_one_ext(
         &self,
@@ -1068,6 +1154,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetViewportWScalingEnableNV.html>
     pub unsafe fn cmd_set_viewport_w_scaling_enable_nv(
         &self,
@@ -1081,6 +1168,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetViewportSwizzleNV.html>
     pub unsafe fn cmd_set_viewport_swizzle_nv(
         &self,
@@ -1097,6 +1185,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoverageToColorEnableNV.html>
     pub unsafe fn cmd_set_coverage_to_color_enable_nv(
         &self,
@@ -1110,6 +1199,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoverageToColorLocationNV.html>
     pub unsafe fn cmd_set_coverage_to_color_location_nv(
         &self,
@@ -1123,6 +1213,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoverageModulationModeNV.html>
     pub unsafe fn cmd_set_coverage_modulation_mode_nv(
         &self,
@@ -1136,6 +1227,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoverageModulationTableEnableNV.html>
     pub unsafe fn cmd_set_coverage_modulation_table_enable_nv(
         &self,
@@ -1149,6 +1241,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoverageModulationTableNV.html>
     pub unsafe fn cmd_set_coverage_modulation_table_nv(
         &self,
@@ -1163,6 +1256,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetShadingRateImageEnableNV.html>
     pub unsafe fn cmd_set_shading_rate_image_enable_nv(
         &self,
@@ -1176,6 +1270,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetRepresentativeFragmentTestEnableNV.html>
     pub unsafe fn cmd_set_representative_fragment_test_enable_nv(
         &self,
@@ -1189,6 +1284,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoverageReductionModeNV.html>
     pub unsafe fn cmd_set_coverage_reduction_mode_nv(
         &self,
@@ -1202,6 +1298,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthClampRangeEXT.html>
     pub unsafe fn cmd_set_depth_clamp_range_ext(
         &self,

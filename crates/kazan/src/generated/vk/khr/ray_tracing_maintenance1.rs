@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTraceRaysIndirectCommand2KHR.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -27,6 +29,7 @@ pub(super) mod defs {
         pub height: u32,
         pub depth: u32,
     }
+
     impl TraceRaysIndirectCommand2KHR {
         pub fn raygen_shader_record_address(
             mut self,
@@ -35,10 +38,12 @@ pub(super) mod defs {
             self.raygen_shader_record_address = raygen_shader_record_address;
             self
         }
+
         pub fn raygen_shader_record_size(mut self, raygen_shader_record_size: DeviceSize) -> Self {
             self.raygen_shader_record_size = raygen_shader_record_size;
             self
         }
+
         pub fn miss_shader_binding_table_address(
             mut self,
             miss_shader_binding_table_address: DeviceAddress,
@@ -46,6 +51,7 @@ pub(super) mod defs {
             self.miss_shader_binding_table_address = miss_shader_binding_table_address;
             self
         }
+
         pub fn miss_shader_binding_table_size(
             mut self,
             miss_shader_binding_table_size: DeviceSize,
@@ -53,6 +59,7 @@ pub(super) mod defs {
             self.miss_shader_binding_table_size = miss_shader_binding_table_size;
             self
         }
+
         pub fn miss_shader_binding_table_stride(
             mut self,
             miss_shader_binding_table_stride: DeviceSize,
@@ -60,6 +67,7 @@ pub(super) mod defs {
             self.miss_shader_binding_table_stride = miss_shader_binding_table_stride;
             self
         }
+
         pub fn hit_shader_binding_table_address(
             mut self,
             hit_shader_binding_table_address: DeviceAddress,
@@ -67,6 +75,7 @@ pub(super) mod defs {
             self.hit_shader_binding_table_address = hit_shader_binding_table_address;
             self
         }
+
         pub fn hit_shader_binding_table_size(
             mut self,
             hit_shader_binding_table_size: DeviceSize,
@@ -74,6 +83,7 @@ pub(super) mod defs {
             self.hit_shader_binding_table_size = hit_shader_binding_table_size;
             self
         }
+
         pub fn hit_shader_binding_table_stride(
             mut self,
             hit_shader_binding_table_stride: DeviceSize,
@@ -81,6 +91,7 @@ pub(super) mod defs {
             self.hit_shader_binding_table_stride = hit_shader_binding_table_stride;
             self
         }
+
         pub fn callable_shader_binding_table_address(
             mut self,
             callable_shader_binding_table_address: DeviceAddress,
@@ -88,6 +99,7 @@ pub(super) mod defs {
             self.callable_shader_binding_table_address = callable_shader_binding_table_address;
             self
         }
+
         pub fn callable_shader_binding_table_size(
             mut self,
             callable_shader_binding_table_size: DeviceSize,
@@ -95,6 +107,7 @@ pub(super) mod defs {
             self.callable_shader_binding_table_size = callable_shader_binding_table_size;
             self
         }
+
         pub fn callable_shader_binding_table_stride(
             mut self,
             callable_shader_binding_table_stride: DeviceSize,
@@ -102,19 +115,23 @@ pub(super) mod defs {
             self.callable_shader_binding_table_stride = callable_shader_binding_table_stride;
             self
         }
+
         pub fn width(mut self, width: u32) -> Self {
             self.width = width;
             self
         }
+
         pub fn height(mut self, height: u32) -> Self {
             self.height = height;
             self
         }
+
         pub fn depth(mut self, depth: u32) -> Self {
             self.depth = depth;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -125,10 +142,12 @@ pub(super) mod defs {
         pub ray_tracing_pipeline_trace_rays_indirect2: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRayTracingMaintenance1FeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_RAY_TRACING_MAINTENANCE_1_FEATURES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceRayTracingMaintenance1FeaturesKHR<'a>
     {
@@ -137,6 +156,7 @@ pub(super) mod defs {
         for PhysicalDeviceRayTracingMaintenance1FeaturesKHR<'a>
     {
     }
+
     impl Default for PhysicalDeviceRayTracingMaintenance1FeaturesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -148,11 +168,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceRayTracingMaintenance1FeaturesKHR<'a> {
         pub fn ray_tracing_maintenance1(mut self, ray_tracing_maintenance1: bool) -> Self {
             self.ray_tracing_maintenance1 = ray_tracing_maintenance1.into();
             self
         }
+
         pub fn ray_tracing_pipeline_trace_rays_indirect2(
             mut self,
             ray_tracing_pipeline_trace_rays_indirect2: bool,
@@ -162,15 +184,18 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdTraceRaysIndirect2KHR.html>
     pub type PFN_vkCmdTraceRaysIndirect2KHR = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         indirect_device_address: DeviceAddress,
     );
 }
+
 pub struct DeviceFn {
     cmd_trace_rays_indirect2_khr: Option<PFN_vkCmdTraceRaysIndirect2KHR>,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -182,6 +207,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdTraceRaysIndirect2KHR.html>
     pub unsafe fn cmd_trace_rays_indirect2_khr(

@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePerformanceCountersByRegionFeaturesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,10 +19,12 @@ pub(super) mod defs {
         pub performance_counters_by_region: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePerformanceCountersByRegionFeaturesARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_FEATURES_ARM;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDevicePerformanceCountersByRegionFeaturesARM<'a>
     {
@@ -29,6 +33,7 @@ pub(super) mod defs {
         for PhysicalDevicePerformanceCountersByRegionFeaturesARM<'a>
     {
     }
+
     impl Default for PhysicalDevicePerformanceCountersByRegionFeaturesARM<'_> {
         fn default() -> Self {
             Self {
@@ -39,6 +44,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDevicePerformanceCountersByRegionFeaturesARM<'a> {
         pub fn performance_counters_by_region(
             mut self,
@@ -48,6 +54,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePerformanceCountersByRegionPropertiesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -61,14 +68,17 @@ pub(super) mod defs {
         pub identity_transform_order: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePerformanceCountersByRegionPropertiesARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_PROPERTIES_ARM;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDevicePerformanceCountersByRegionPropertiesARM<'a>
     {
     }
+
     impl Default for PhysicalDevicePerformanceCountersByRegionPropertiesARM<'_> {
         fn default() -> Self {
             Self {
@@ -83,6 +93,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDevicePerformanceCountersByRegionPropertiesARM<'a> {
         pub fn max_per_region_performance_counters(
             mut self,
@@ -91,6 +102,7 @@ pub(super) mod defs {
             self.max_per_region_performance_counters = max_per_region_performance_counters;
             self
         }
+
         pub fn performance_counter_region_size(
             mut self,
             performance_counter_region_size: Extent2D,
@@ -98,19 +110,23 @@ pub(super) mod defs {
             self.performance_counter_region_size = performance_counter_region_size;
             self
         }
+
         pub fn row_stride_alignment(mut self, row_stride_alignment: u32) -> Self {
             self.row_stride_alignment = row_stride_alignment;
             self
         }
+
         pub fn region_alignment(mut self, region_alignment: u32) -> Self {
             self.region_alignment = region_alignment;
             self
         }
+
         pub fn identity_transform_order(mut self, identity_transform_order: bool) -> Self {
             self.identity_transform_order = identity_transform_order.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceCounterARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -120,9 +136,11 @@ pub(super) mod defs {
         pub counter_id: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PerformanceCounterARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PERFORMANCE_COUNTER_ARM;
     }
+
     impl Default for PerformanceCounterARM<'_> {
         fn default() -> Self {
             Self {
@@ -133,12 +151,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PerformanceCounterARM<'a> {
         pub fn counter_id(mut self, counter_id: u32) -> Self {
             self.counter_id = counter_id;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceCounterDescriptionARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -149,9 +169,11 @@ pub(super) mod defs {
         pub name: [c_char; MAX_DESCRIPTION_SIZE as usize],
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PerformanceCounterDescriptionARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PERFORMANCE_COUNTER_DESCRIPTION_ARM;
     }
+
     impl Default for PerformanceCounterDescriptionARM<'_> {
         fn default() -> Self {
             Self {
@@ -163,12 +185,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PerformanceCounterDescriptionARM<'a> {
         pub fn flags(mut self, flags: PerformanceCounterDescriptionFlagsARM) -> Self {
             self.flags = flags;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassPerformanceCountersByRegionBeginInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -182,10 +206,12 @@ pub(super) mod defs {
         pub p_counter_indices: *mut u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for RenderPassPerformanceCountersByRegionBeginInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::RENDER_PASS_PERFORMANCE_COUNTERS_BY_REGION_BEGIN_INFO_ARM;
     }
+
     unsafe impl<'a> Extends<RenderPassBeginInfo<'a>>
         for RenderPassPerformanceCountersByRegionBeginInfoARM<'a>
     {
@@ -194,6 +220,7 @@ pub(super) mod defs {
         for RenderPassPerformanceCountersByRegionBeginInfoARM<'a>
     {
     }
+
     impl Default for RenderPassPerformanceCountersByRegionBeginInfoARM<'_> {
         fn default() -> Self {
             Self {
@@ -208,38 +235,46 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> RenderPassPerformanceCountersByRegionBeginInfoARM<'a> {
         pub fn counter_address_count(mut self, counter_address_count: u32) -> Self {
             self.counter_address_count = counter_address_count;
             self
         }
+
         pub fn counter_addresses(mut self, counter_addresses: &'a DeviceAddress) -> Self {
             self.p_counter_addresses = counter_addresses;
             self
         }
+
         pub fn serialize_regions(mut self, serialize_regions: bool) -> Self {
             self.serialize_regions = serialize_regions.into();
             self
         }
+
         pub fn counter_index_count(mut self, counter_index_count: u32) -> Self {
             self.counter_index_count = counter_index_count;
             self
         }
+
         pub fn counter_indices(mut self, counter_indices: &'a mut u32) -> Self {
             self.p_counter_indices = counter_indices;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceCounterDescriptionFlagsARM.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PerformanceCounterDescriptionFlagsARM(Flags);
     vk_bitflags_wrapped!(PerformanceCounterDescriptionFlagsARM, Flags);
+
     impl fmt::Debug for PerformanceCounterDescriptionFlagsARM {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM.html>
     pub type PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM =
         unsafe extern "system" fn(
@@ -250,10 +285,12 @@ pub(super) mod defs {
             p_counter_descriptions: *mut PerformanceCounterDescriptionARM<'_>,
         ) -> vk::Result;
 }
+
 pub struct InstanceFn {
     enumerate_physical_device_queue_family_performance_counters_by_region_arm:
         PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -269,6 +306,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM.html>
     pub unsafe fn enumerate_physical_device_queue_family_performance_counters_by_region_arm<'a>(

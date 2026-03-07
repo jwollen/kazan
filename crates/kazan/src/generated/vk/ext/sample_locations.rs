@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSampleLocationEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -15,16 +17,19 @@ pub(super) mod defs {
         pub x: f32,
         pub y: f32,
     }
+
     impl SampleLocationEXT {
         pub fn x(mut self, x: f32) -> Self {
             self.x = x;
             self
         }
+
         pub fn y(mut self, y: f32) -> Self {
             self.y = y;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSampleLocationsInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -37,11 +42,14 @@ pub(super) mod defs {
         pub p_sample_locations: *const SampleLocationEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for SampleLocationsInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SAMPLE_LOCATIONS_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<ImageMemoryBarrier<'a>> for SampleLocationsInfoEXT<'a> {}
     unsafe impl<'a> Extends<ImageMemoryBarrier2<'a>> for SampleLocationsInfoEXT<'a> {}
+
     impl Default for SampleLocationsInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -55,6 +63,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SampleLocationsInfoEXT<'a> {
         pub fn sample_locations_per_pixel(
             mut self,
@@ -63,16 +72,19 @@ pub(super) mod defs {
             self.sample_locations_per_pixel = sample_locations_per_pixel;
             self
         }
+
         pub fn sample_location_grid_size(mut self, sample_location_grid_size: Extent2D) -> Self {
             self.sample_location_grid_size = sample_location_grid_size;
             self
         }
+
         pub fn sample_locations(mut self, sample_locations: &'a [SampleLocationEXT]) -> Self {
             self.sample_locations_count = sample_locations.len().try_into().unwrap();
             self.p_sample_locations = sample_locations.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentSampleLocationsEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -81,6 +93,7 @@ pub(super) mod defs {
         pub sample_locations_info: SampleLocationsInfoEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     impl Default for AttachmentSampleLocationsEXT<'_> {
         fn default() -> Self {
             Self {
@@ -90,11 +103,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> AttachmentSampleLocationsEXT<'a> {
         pub fn attachment_index(mut self, attachment_index: u32) -> Self {
             self.attachment_index = attachment_index;
             self
         }
+
         pub fn sample_locations_info(
             mut self,
             sample_locations_info: SampleLocationsInfoEXT<'a>,
@@ -103,6 +118,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassSampleLocationsEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -111,6 +127,7 @@ pub(super) mod defs {
         pub sample_locations_info: SampleLocationsInfoEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     impl Default for SubpassSampleLocationsEXT<'_> {
         fn default() -> Self {
             Self {
@@ -120,11 +137,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SubpassSampleLocationsEXT<'a> {
         pub fn subpass_index(mut self, subpass_index: u32) -> Self {
             self.subpass_index = subpass_index;
             self
         }
+
         pub fn sample_locations_info(
             mut self,
             sample_locations_info: SampleLocationsInfoEXT<'a>,
@@ -133,6 +152,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassSampleLocationsBeginInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -145,11 +165,14 @@ pub(super) mod defs {
         pub p_post_subpass_sample_locations: *const SubpassSampleLocationsEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for RenderPassSampleLocationsBeginInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::RENDER_PASS_SAMPLE_LOCATIONS_BEGIN_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<RenderPassBeginInfo<'a>> for RenderPassSampleLocationsBeginInfoEXT<'a> {}
+
     impl Default for RenderPassSampleLocationsBeginInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -163,6 +186,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> RenderPassSampleLocationsBeginInfoEXT<'a> {
         pub fn attachment_initial_sample_locations(
             mut self,
@@ -176,6 +200,7 @@ pub(super) mod defs {
                 attachment_initial_sample_locations.as_ptr();
             self
         }
+
         pub fn post_subpass_sample_locations(
             mut self,
             post_subpass_sample_locations: &'a [SubpassSampleLocationsEXT<'a>],
@@ -186,6 +211,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineSampleLocationsStateCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -196,14 +222,17 @@ pub(super) mod defs {
         pub sample_locations_info: SampleLocationsInfoEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineSampleLocationsStateCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<PipelineMultisampleStateCreateInfo<'a>>
         for PipelineSampleLocationsStateCreateInfoEXT<'a>
     {
     }
+
     impl Default for PipelineSampleLocationsStateCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -215,11 +244,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineSampleLocationsStateCreateInfoEXT<'a> {
         pub fn sample_locations_enable(mut self, sample_locations_enable: bool) -> Self {
             self.sample_locations_enable = sample_locations_enable.into();
             self
         }
+
         pub fn sample_locations_info(
             mut self,
             sample_locations_info: SampleLocationsInfoEXT<'a>,
@@ -228,6 +259,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSampleLocationsPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -241,14 +273,17 @@ pub(super) mod defs {
         pub variable_sample_locations: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSampleLocationsPropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SAMPLE_LOCATIONS_PROPERTIES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceSampleLocationsPropertiesEXT<'a>
     {
     }
+
     impl Default for PhysicalDeviceSampleLocationsPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -263,6 +298,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceSampleLocationsPropertiesEXT<'a> {
         pub fn sample_location_sample_counts(
             mut self,
@@ -271,6 +307,7 @@ pub(super) mod defs {
             self.sample_location_sample_counts = sample_location_sample_counts;
             self
         }
+
         pub fn max_sample_location_grid_size(
             mut self,
             max_sample_location_grid_size: Extent2D,
@@ -278,6 +315,7 @@ pub(super) mod defs {
             self.max_sample_location_grid_size = max_sample_location_grid_size;
             self
         }
+
         pub fn sample_location_coordinate_range(
             mut self,
             sample_location_coordinate_range: [f32; 2],
@@ -285,6 +323,7 @@ pub(super) mod defs {
             self.sample_location_coordinate_range = sample_location_coordinate_range;
             self
         }
+
         pub fn sample_location_sub_pixel_bits(
             mut self,
             sample_location_sub_pixel_bits: u32,
@@ -292,11 +331,13 @@ pub(super) mod defs {
             self.sample_location_sub_pixel_bits = sample_location_sub_pixel_bits;
             self
         }
+
         pub fn variable_sample_locations(mut self, variable_sample_locations: bool) -> Self {
             self.variable_sample_locations = variable_sample_locations.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMultisamplePropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -306,9 +347,11 @@ pub(super) mod defs {
         pub max_sample_location_grid_size: Extent2D,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for MultisamplePropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::MULTISAMPLE_PROPERTIES_EXT;
     }
+
     impl Default for MultisamplePropertiesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -319,6 +362,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> MultisamplePropertiesEXT<'a> {
         pub fn max_sample_location_grid_size(
             mut self,
@@ -328,6 +372,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetSampleLocationsEXT.html>
     pub type PFN_vkCmdSetSampleLocationsEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
@@ -340,9 +385,11 @@ pub(super) mod defs {
         p_multisample_properties: *mut MultisamplePropertiesEXT<'_>,
     );
 }
+
 pub struct InstanceFn {
     get_physical_device_multisample_properties_ext: PFN_vkGetPhysicalDeviceMultisamplePropertiesEXT,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -357,6 +404,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceMultisamplePropertiesEXT.html>
     pub unsafe fn get_physical_device_multisample_properties_ext(
@@ -374,9 +422,11 @@ impl InstanceFn {
         }
     }
 }
+
 pub struct DeviceFn {
     cmd_set_sample_locations_ext: PFN_vkCmdSetSampleLocationsEXT,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -390,6 +440,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetSampleLocationsEXT.html>
     pub unsafe fn cmd_set_sample_locations_ext(

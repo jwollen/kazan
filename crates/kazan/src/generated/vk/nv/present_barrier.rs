@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePresentBarrierFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,15 +19,18 @@ pub(super) mod defs {
         pub present_barrier: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePresentBarrierFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PRESENT_BARRIER_FEATURES_NV;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDevicePresentBarrierFeaturesNV<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePresentBarrierFeaturesNV<'a> {}
+
     impl Default for PhysicalDevicePresentBarrierFeaturesNV<'_> {
         fn default() -> Self {
             Self {
@@ -36,12 +41,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDevicePresentBarrierFeaturesNV<'a> {
         pub fn present_barrier(mut self, present_barrier: bool) -> Self {
             self.present_barrier = present_barrier.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceCapabilitiesPresentBarrierNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -51,11 +58,14 @@ pub(super) mod defs {
         pub present_barrier_supported: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for SurfaceCapabilitiesPresentBarrierNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::SURFACE_CAPABILITIES_PRESENT_BARRIER_NV;
     }
+
     unsafe impl<'a> Extends<SurfaceCapabilities2KHR<'a>> for SurfaceCapabilitiesPresentBarrierNV<'a> {}
+
     impl Default for SurfaceCapabilitiesPresentBarrierNV<'_> {
         fn default() -> Self {
             Self {
@@ -66,12 +76,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SurfaceCapabilitiesPresentBarrierNV<'a> {
         pub fn present_barrier_supported(mut self, present_barrier_supported: bool) -> Self {
             self.present_barrier_supported = present_barrier_supported.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSwapchainPresentBarrierCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -81,11 +93,14 @@ pub(super) mod defs {
         pub present_barrier_enable: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for SwapchainPresentBarrierCreateInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::SWAPCHAIN_PRESENT_BARRIER_CREATE_INFO_NV;
     }
+
     unsafe impl<'a> Extends<SwapchainCreateInfoKHR<'a>> for SwapchainPresentBarrierCreateInfoNV<'a> {}
+
     impl Default for SwapchainPresentBarrierCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
@@ -96,6 +111,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SwapchainPresentBarrierCreateInfoNV<'a> {
         pub fn present_barrier_enable(mut self, present_barrier_enable: bool) -> Self {
             self.present_barrier_enable = present_barrier_enable.into();

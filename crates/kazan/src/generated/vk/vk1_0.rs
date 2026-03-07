@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     pub const FALSE: u32 = 0;
     pub const LOD_CLAMP_NONE: f32 = 1000.0;
     pub const QUEUE_FAMILY_IGNORED: u32 = !0;
@@ -23,11 +25,13 @@ pub(super) mod defs {
     pub const MAX_MEMORY_HEAPS: u32 = 16;
     pub const ATTACHMENT_UNUSED: u32 = !0;
     pub const SUBPASS_EXTERNAL: u32 = !0;
+
     pub type SampleMask = u32;
     pub type Bool32 = u32;
     pub type Flags = u32;
     pub type DeviceSize = u64;
     pub type DeviceAddress = u64;
+
     define_handle!(
         Instance,
         INSTANCE,
@@ -153,6 +157,7 @@ pub(super) mod defs {
         PIPELINE_CACHE,
         doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCache.html>"
     );
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBaseOutStructure.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -161,7 +166,9 @@ pub(super) mod defs {
         pub p_next: *mut BaseOutStructure<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     impl<'a> BaseOutStructure<'a> {}
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBaseInStructure.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -170,7 +177,9 @@ pub(super) mod defs {
         pub p_next: *const BaseInStructure<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     impl<'a> BaseInStructure<'a> {}
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOffset2D.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -178,16 +187,19 @@ pub(super) mod defs {
         pub x: i32,
         pub y: i32,
     }
+
     impl Offset2D {
         pub fn x(mut self, x: i32) -> Self {
             self.x = x;
             self
         }
+
         pub fn y(mut self, y: i32) -> Self {
             self.y = y;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOffset3D.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -196,20 +208,24 @@ pub(super) mod defs {
         pub y: i32,
         pub z: i32,
     }
+
     impl Offset3D {
         pub fn x(mut self, x: i32) -> Self {
             self.x = x;
             self
         }
+
         pub fn y(mut self, y: i32) -> Self {
             self.y = y;
             self
         }
+
         pub fn z(mut self, z: i32) -> Self {
             self.z = z;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExtent2D.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -217,16 +233,19 @@ pub(super) mod defs {
         pub width: u32,
         pub height: u32,
     }
+
     impl Extent2D {
         pub fn width(mut self, width: u32) -> Self {
             self.width = width;
             self
         }
+
         pub fn height(mut self, height: u32) -> Self {
             self.height = height;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExtent3D.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -235,20 +254,24 @@ pub(super) mod defs {
         pub height: u32,
         pub depth: u32,
     }
+
     impl Extent3D {
         pub fn width(mut self, width: u32) -> Self {
             self.width = width;
             self
         }
+
         pub fn height(mut self, height: u32) -> Self {
             self.height = height;
             self
         }
+
         pub fn depth(mut self, depth: u32) -> Self {
             self.depth = depth;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkViewport.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -260,32 +283,39 @@ pub(super) mod defs {
         pub min_depth: f32,
         pub max_depth: f32,
     }
+
     impl Viewport {
         pub fn x(mut self, x: f32) -> Self {
             self.x = x;
             self
         }
+
         pub fn y(mut self, y: f32) -> Self {
             self.y = y;
             self
         }
+
         pub fn width(mut self, width: f32) -> Self {
             self.width = width;
             self
         }
+
         pub fn height(mut self, height: f32) -> Self {
             self.height = height;
             self
         }
+
         pub fn min_depth(mut self, min_depth: f32) -> Self {
             self.min_depth = min_depth;
             self
         }
+
         pub fn max_depth(mut self, max_depth: f32) -> Self {
             self.max_depth = max_depth;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRect2D.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -293,16 +323,19 @@ pub(super) mod defs {
         pub offset: Offset2D,
         pub extent: Extent2D,
     }
+
     impl Rect2D {
         pub fn offset(mut self, offset: Offset2D) -> Self {
             self.offset = offset;
             self
         }
+
         pub fn extent(mut self, extent: Extent2D) -> Self {
             self.extent = extent;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClearRect.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -311,20 +344,24 @@ pub(super) mod defs {
         pub base_array_layer: u32,
         pub layer_count: u32,
     }
+
     impl ClearRect {
         pub fn rect(mut self, rect: Rect2D) -> Self {
             self.rect = rect;
             self
         }
+
         pub fn base_array_layer(mut self, base_array_layer: u32) -> Self {
             self.base_array_layer = base_array_layer;
             self
         }
+
         pub fn layer_count(mut self, layer_count: u32) -> Self {
             self.layer_count = layer_count;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkComponentMapping.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -334,24 +371,29 @@ pub(super) mod defs {
         pub b: ComponentSwizzle,
         pub a: ComponentSwizzle,
     }
+
     impl ComponentMapping {
         pub fn r(mut self, r: ComponentSwizzle) -> Self {
             self.r = r;
             self
         }
+
         pub fn g(mut self, g: ComponentSwizzle) -> Self {
             self.g = g;
             self
         }
+
         pub fn b(mut self, b: ComponentSwizzle) -> Self {
             self.b = b;
             self
         }
+
         pub fn a(mut self, a: ComponentSwizzle) -> Self {
             self.a = a;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceProperties.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -366,6 +408,7 @@ pub(super) mod defs {
         pub limits: PhysicalDeviceLimits,
         pub sparse_properties: PhysicalDeviceSparseProperties,
     }
+
     impl Default for PhysicalDeviceProperties {
         fn default() -> Self {
             Self {
@@ -381,27 +424,33 @@ pub(super) mod defs {
             }
         }
     }
+
     impl PhysicalDeviceProperties {
         pub fn api_version(mut self, api_version: u32) -> Self {
             self.api_version = api_version;
             self
         }
+
         pub fn driver_version(mut self, driver_version: u32) -> Self {
             self.driver_version = driver_version;
             self
         }
+
         pub fn vendor_id(mut self, vendor_id: u32) -> Self {
             self.vendor_id = vendor_id;
             self
         }
+
         pub fn device_id(mut self, device_id: u32) -> Self {
             self.device_id = device_id;
             self
         }
+
         pub fn device_type(mut self, device_type: PhysicalDeviceType) -> Self {
             self.device_type = device_type;
             self
         }
+
         pub fn pipeline_cache_uuid(
             mut self,
             pipeline_cache_uuid: [u8; UUID_SIZE as usize],
@@ -409,10 +458,12 @@ pub(super) mod defs {
             self.pipeline_cache_uuid = pipeline_cache_uuid;
             self
         }
+
         pub fn limits(mut self, limits: PhysicalDeviceLimits) -> Self {
             self.limits = limits;
             self
         }
+
         pub fn sparse_properties(
             mut self,
             sparse_properties: PhysicalDeviceSparseProperties,
@@ -421,6 +472,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExtensionProperties.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -428,6 +480,7 @@ pub(super) mod defs {
         pub extension_name: [c_char; MAX_EXTENSION_NAME_SIZE as usize],
         pub spec_version: u32,
     }
+
     impl Default for ExtensionProperties {
         fn default() -> Self {
             Self {
@@ -436,12 +489,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl ExtensionProperties {
         pub fn spec_version(mut self, spec_version: u32) -> Self {
             self.spec_version = spec_version;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkLayerProperties.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -451,6 +506,7 @@ pub(super) mod defs {
         pub implementation_version: u32,
         pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
     }
+
     impl Default for LayerProperties {
         fn default() -> Self {
             Self {
@@ -461,16 +517,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl LayerProperties {
         pub fn spec_version(mut self, spec_version: u32) -> Self {
             self.spec_version = spec_version;
             self
         }
+
         pub fn implementation_version(mut self, implementation_version: u32) -> Self {
             self.implementation_version = implementation_version;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkApplicationInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -484,9 +543,11 @@ pub(super) mod defs {
         pub api_version: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ApplicationInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::APPLICATION_INFO;
     }
+
     impl Default for ApplicationInfo<'_> {
         fn default() -> Self {
             Self {
@@ -501,28 +562,34 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ApplicationInfo<'a> {
         pub fn application_name(mut self, application_name: &'a CStr) -> Self {
             self.p_application_name = application_name.as_ptr();
             self
         }
+
         pub fn application_version(mut self, application_version: u32) -> Self {
             self.application_version = application_version;
             self
         }
+
         pub fn engine_name(mut self, engine_name: &'a CStr) -> Self {
             self.p_engine_name = engine_name.as_ptr();
             self
         }
+
         pub fn engine_version(mut self, engine_version: u32) -> Self {
             self.engine_version = engine_version;
             self
         }
+
         pub fn api_version(mut self, api_version: u32) -> Self {
             self.api_version = api_version;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAllocationCallbacks.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -535,6 +602,7 @@ pub(super) mod defs {
         pub pfn_internal_free: Option<PFN_vkInternalFreeNotification>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     impl Default for AllocationCallbacks<'_> {
         fn default() -> Self {
             Self {
@@ -548,23 +616,28 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> AllocationCallbacks<'a> {
         pub fn user_data(mut self, user_data: *mut c_void) -> Self {
             self.p_user_data = user_data;
             self
         }
+
         pub fn pfn_allocation(mut self, pfn_allocation: PFN_vkAllocationFunction) -> Self {
             self.pfn_allocation = Some(pfn_allocation);
             self
         }
+
         pub fn pfn_reallocation(mut self, pfn_reallocation: PFN_vkReallocationFunction) -> Self {
             self.pfn_reallocation = Some(pfn_reallocation);
             self
         }
+
         pub fn pfn_free(mut self, pfn_free: PFN_vkFreeFunction) -> Self {
             self.pfn_free = Some(pfn_free);
             self
         }
+
         pub fn pfn_internal_allocation(
             mut self,
             pfn_internal_allocation: PFN_vkInternalAllocationNotification,
@@ -572,6 +645,7 @@ pub(super) mod defs {
             self.pfn_internal_allocation = Some(pfn_internal_allocation);
             self
         }
+
         pub fn pfn_internal_free(
             mut self,
             pfn_internal_free: PFN_vkInternalFreeNotification,
@@ -580,6 +654,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceQueueCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -592,9 +667,11 @@ pub(super) mod defs {
         pub p_queue_priorities: *const f32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DeviceQueueCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_QUEUE_CREATE_INFO;
     }
+
     impl Default for DeviceQueueCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -608,21 +685,25 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DeviceQueueCreateInfo<'a> {
         pub fn flags(mut self, flags: DeviceQueueCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn queue_family_index(mut self, queue_family_index: u32) -> Self {
             self.queue_family_index = queue_family_index;
             self
         }
+
         pub fn queue_priorities(mut self, queue_priorities: &'a [f32]) -> Self {
             self.queue_count = queue_priorities.len().try_into().unwrap();
             self.p_queue_priorities = queue_priorities.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -639,9 +720,11 @@ pub(super) mod defs {
         pub p_enabled_features: *const PhysicalDeviceFeatures,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DeviceCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_CREATE_INFO;
     }
+
     impl Default for DeviceCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -659,11 +742,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DeviceCreateInfo<'a> {
         pub fn flags(mut self, flags: DeviceCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn queue_create_infos(
             mut self,
             queue_create_infos: &'a [DeviceQueueCreateInfo<'a>],
@@ -672,6 +757,7 @@ pub(super) mod defs {
             self.p_queue_create_infos = queue_create_infos.as_ptr();
             self
         }
+
         pub fn enabled_layer_names_ptrs(
             mut self,
             enabled_layer_names_ptrs: &'a [*const c_char],
@@ -680,6 +766,7 @@ pub(super) mod defs {
             self.pp_enabled_layer_names = enabled_layer_names_ptrs.as_ptr() as _;
             self
         }
+
         pub fn enabled_extension_names_ptrs(
             mut self,
             enabled_extension_names_ptrs: &'a [*const c_char],
@@ -688,11 +775,13 @@ pub(super) mod defs {
             self.pp_enabled_extension_names = enabled_extension_names_ptrs.as_ptr() as _;
             self
         }
+
         pub fn enabled_features(mut self, enabled_features: &'a PhysicalDeviceFeatures) -> Self {
             self.p_enabled_features = enabled_features;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkInstanceCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -707,9 +796,11 @@ pub(super) mod defs {
         pub pp_enabled_extension_names: *const *const c_char,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for InstanceCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::INSTANCE_CREATE_INFO;
     }
+
     impl Default for InstanceCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -725,15 +816,18 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> InstanceCreateInfo<'a> {
         pub fn flags(mut self, flags: InstanceCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn application_info(mut self, application_info: &'a ApplicationInfo<'a>) -> Self {
             self.p_application_info = application_info;
             self
         }
+
         pub fn enabled_layer_names_ptrs(
             mut self,
             enabled_layer_names_ptrs: &'a [*const c_char],
@@ -742,6 +836,7 @@ pub(super) mod defs {
             self.pp_enabled_layer_names = enabled_layer_names_ptrs.as_ptr() as _;
             self
         }
+
         pub fn enabled_extension_names_ptrs(
             mut self,
             enabled_extension_names_ptrs: &'a [*const c_char],
@@ -751,6 +846,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyProperties.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -760,19 +856,23 @@ pub(super) mod defs {
         pub timestamp_valid_bits: u32,
         pub min_image_transfer_granularity: Extent3D,
     }
+
     impl QueueFamilyProperties {
         pub fn queue_flags(mut self, queue_flags: QueueFlags) -> Self {
             self.queue_flags = queue_flags;
             self
         }
+
         pub fn queue_count(mut self, queue_count: u32) -> Self {
             self.queue_count = queue_count;
             self
         }
+
         pub fn timestamp_valid_bits(mut self, timestamp_valid_bits: u32) -> Self {
             self.timestamp_valid_bits = timestamp_valid_bits;
             self
         }
+
         pub fn min_image_transfer_granularity(
             mut self,
             min_image_transfer_granularity: Extent3D,
@@ -781,6 +881,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMemoryProperties.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -790,6 +891,7 @@ pub(super) mod defs {
         pub memory_heap_count: u32,
         pub memory_heaps: [MemoryHeap; MAX_MEMORY_HEAPS as usize],
     }
+
     impl Default for PhysicalDeviceMemoryProperties {
         fn default() -> Self {
             Self {
@@ -800,18 +902,21 @@ pub(super) mod defs {
             }
         }
     }
+
     impl PhysicalDeviceMemoryProperties {
         pub fn memory_types(mut self, memory_types: &[MemoryType]) -> Self {
             self.memory_type_count = memory_types.len().try_into().unwrap();
             self.memory_types[..memory_types.len()].copy_from_slice(memory_types);
             self
         }
+
         pub fn memory_heaps(mut self, memory_heaps: &[MemoryHeap]) -> Self {
             self.memory_heap_count = memory_heaps.len().try_into().unwrap();
             self.memory_heaps[..memory_heaps.len()].copy_from_slice(memory_heaps);
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryAllocateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -822,9 +927,11 @@ pub(super) mod defs {
         pub memory_type_index: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for MemoryAllocateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_ALLOCATE_INFO;
     }
+
     impl Default for MemoryAllocateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -836,16 +943,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> MemoryAllocateInfo<'a> {
         pub fn allocation_size(mut self, allocation_size: DeviceSize) -> Self {
             self.allocation_size = allocation_size;
             self
         }
+
         pub fn memory_type_index(mut self, memory_type_index: u32) -> Self {
             self.memory_type_index = memory_type_index;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryRequirements.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -854,20 +964,24 @@ pub(super) mod defs {
         pub alignment: DeviceSize,
         pub memory_type_bits: u32,
     }
+
     impl MemoryRequirements {
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
         }
+
         pub fn alignment(mut self, alignment: DeviceSize) -> Self {
             self.alignment = alignment;
             self
         }
+
         pub fn memory_type_bits(mut self, memory_type_bits: u32) -> Self {
             self.memory_type_bits = memory_type_bits;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseImageFormatProperties.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -876,20 +990,24 @@ pub(super) mod defs {
         pub image_granularity: Extent3D,
         pub flags: SparseImageFormatFlags,
     }
+
     impl SparseImageFormatProperties {
         pub fn aspect_mask(mut self, aspect_mask: ImageAspectFlags) -> Self {
             self.aspect_mask = aspect_mask;
             self
         }
+
         pub fn image_granularity(mut self, image_granularity: Extent3D) -> Self {
             self.image_granularity = image_granularity;
             self
         }
+
         pub fn flags(mut self, flags: SparseImageFormatFlags) -> Self {
             self.flags = flags;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseImageMemoryRequirements.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -900,28 +1018,34 @@ pub(super) mod defs {
         pub image_mip_tail_offset: DeviceSize,
         pub image_mip_tail_stride: DeviceSize,
     }
+
     impl SparseImageMemoryRequirements {
         pub fn format_properties(mut self, format_properties: SparseImageFormatProperties) -> Self {
             self.format_properties = format_properties;
             self
         }
+
         pub fn image_mip_tail_first_lod(mut self, image_mip_tail_first_lod: u32) -> Self {
             self.image_mip_tail_first_lod = image_mip_tail_first_lod;
             self
         }
+
         pub fn image_mip_tail_size(mut self, image_mip_tail_size: DeviceSize) -> Self {
             self.image_mip_tail_size = image_mip_tail_size;
             self
         }
+
         pub fn image_mip_tail_offset(mut self, image_mip_tail_offset: DeviceSize) -> Self {
             self.image_mip_tail_offset = image_mip_tail_offset;
             self
         }
+
         pub fn image_mip_tail_stride(mut self, image_mip_tail_stride: DeviceSize) -> Self {
             self.image_mip_tail_stride = image_mip_tail_stride;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryType.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -929,16 +1053,19 @@ pub(super) mod defs {
         pub property_flags: MemoryPropertyFlags,
         pub heap_index: u32,
     }
+
     impl MemoryType {
         pub fn property_flags(mut self, property_flags: MemoryPropertyFlags) -> Self {
             self.property_flags = property_flags;
             self
         }
+
         pub fn heap_index(mut self, heap_index: u32) -> Self {
             self.heap_index = heap_index;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryHeap.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -946,16 +1073,19 @@ pub(super) mod defs {
         pub size: DeviceSize,
         pub flags: MemoryHeapFlags,
     }
+
     impl MemoryHeap {
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
         }
+
         pub fn flags(mut self, flags: MemoryHeapFlags) -> Self {
             self.flags = flags;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMappedMemoryRange.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -967,9 +1097,11 @@ pub(super) mod defs {
         pub size: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for MappedMemoryRange<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::MAPPED_MEMORY_RANGE;
     }
+
     impl Default for MappedMemoryRange<'_> {
         fn default() -> Self {
             Self {
@@ -982,20 +1114,24 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> MappedMemoryRange<'a> {
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
         }
+
         pub fn offset(mut self, offset: DeviceSize) -> Self {
             self.offset = offset;
             self
         }
+
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFormatProperties.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -1004,6 +1140,7 @@ pub(super) mod defs {
         pub optimal_tiling_features: FormatFeatureFlags,
         pub buffer_features: FormatFeatureFlags,
     }
+
     impl FormatProperties {
         pub fn linear_tiling_features(
             mut self,
@@ -1012,6 +1149,7 @@ pub(super) mod defs {
             self.linear_tiling_features = linear_tiling_features;
             self
         }
+
         pub fn optimal_tiling_features(
             mut self,
             optimal_tiling_features: FormatFeatureFlags,
@@ -1019,11 +1157,13 @@ pub(super) mod defs {
             self.optimal_tiling_features = optimal_tiling_features;
             self
         }
+
         pub fn buffer_features(mut self, buffer_features: FormatFeatureFlags) -> Self {
             self.buffer_features = buffer_features;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageFormatProperties.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -1034,28 +1174,34 @@ pub(super) mod defs {
         pub sample_counts: SampleCountFlags,
         pub max_resource_size: DeviceSize,
     }
+
     impl ImageFormatProperties {
         pub fn max_extent(mut self, max_extent: Extent3D) -> Self {
             self.max_extent = max_extent;
             self
         }
+
         pub fn max_mip_levels(mut self, max_mip_levels: u32) -> Self {
             self.max_mip_levels = max_mip_levels;
             self
         }
+
         pub fn max_array_layers(mut self, max_array_layers: u32) -> Self {
             self.max_array_layers = max_array_layers;
             self
         }
+
         pub fn sample_counts(mut self, sample_counts: SampleCountFlags) -> Self {
             self.sample_counts = sample_counts;
             self
         }
+
         pub fn max_resource_size(mut self, max_resource_size: DeviceSize) -> Self {
             self.max_resource_size = max_resource_size;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorBufferInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -1064,20 +1210,24 @@ pub(super) mod defs {
         pub offset: DeviceSize,
         pub range: DeviceSize,
     }
+
     impl DescriptorBufferInfo {
         pub fn buffer(mut self, buffer: Buffer) -> Self {
             self.buffer = buffer;
             self
         }
+
         pub fn offset(mut self, offset: DeviceSize) -> Self {
             self.offset = offset;
             self
         }
+
         pub fn range(mut self, range: DeviceSize) -> Self {
             self.range = range;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorImageInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -1086,20 +1236,24 @@ pub(super) mod defs {
         pub image_view: ImageView,
         pub image_layout: ImageLayout,
     }
+
     impl DescriptorImageInfo {
         pub fn sampler(mut self, sampler: Sampler) -> Self {
             self.sampler = sampler;
             self
         }
+
         pub fn image_view(mut self, image_view: ImageView) -> Self {
             self.image_view = image_view;
             self
         }
+
         pub fn image_layout(mut self, image_layout: ImageLayout) -> Self {
             self.image_layout = image_layout;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkWriteDescriptorSet.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -1116,9 +1270,11 @@ pub(super) mod defs {
         pub p_texel_buffer_view: *const BufferView,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for WriteDescriptorSet<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::WRITE_DESCRIPTOR_SET;
     }
+
     impl Default for WriteDescriptorSet<'_> {
         fn default() -> Self {
             Self {
@@ -1136,39 +1292,47 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> WriteDescriptorSet<'a> {
         pub fn dst_set(mut self, dst_set: DescriptorSet) -> Self {
             self.dst_set = dst_set;
             self
         }
+
         pub fn dst_binding(mut self, dst_binding: u32) -> Self {
             self.dst_binding = dst_binding;
             self
         }
+
         pub fn dst_array_element(mut self, dst_array_element: u32) -> Self {
             self.dst_array_element = dst_array_element;
             self
         }
+
         pub fn image_info(mut self, image_info: &'a [DescriptorImageInfo]) -> Self {
             self.descriptor_count = image_info.len().try_into().unwrap();
             self.p_image_info = image_info.as_ptr();
             self
         }
+
         pub fn buffer_info(mut self, buffer_info: &'a [DescriptorBufferInfo]) -> Self {
             self.descriptor_count = buffer_info.len().try_into().unwrap();
             self.p_buffer_info = buffer_info.as_ptr();
             self
         }
+
         pub fn texel_buffer_view(mut self, texel_buffer_view: &'a [BufferView]) -> Self {
             self.descriptor_count = texel_buffer_view.len().try_into().unwrap();
             self.p_texel_buffer_view = texel_buffer_view.as_ptr();
             self
         }
+
         pub fn descriptor_type(mut self, descriptor_type: DescriptorType) -> Self {
             self.descriptor_type = descriptor_type;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyDescriptorSet.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -1184,9 +1348,11 @@ pub(super) mod defs {
         pub descriptor_count: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for CopyDescriptorSet<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::COPY_DESCRIPTOR_SET;
     }
+
     impl Default for CopyDescriptorSet<'_> {
         fn default() -> Self {
             Self {
@@ -1203,36 +1369,44 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> CopyDescriptorSet<'a> {
         pub fn src_set(mut self, src_set: DescriptorSet) -> Self {
             self.src_set = src_set;
             self
         }
+
         pub fn src_binding(mut self, src_binding: u32) -> Self {
             self.src_binding = src_binding;
             self
         }
+
         pub fn src_array_element(mut self, src_array_element: u32) -> Self {
             self.src_array_element = src_array_element;
             self
         }
+
         pub fn dst_set(mut self, dst_set: DescriptorSet) -> Self {
             self.dst_set = dst_set;
             self
         }
+
         pub fn dst_binding(mut self, dst_binding: u32) -> Self {
             self.dst_binding = dst_binding;
             self
         }
+
         pub fn dst_array_element(mut self, dst_array_element: u32) -> Self {
             self.dst_array_element = dst_array_element;
             self
         }
+
         pub fn descriptor_count(mut self, descriptor_count: u32) -> Self {
             self.descriptor_count = descriptor_count;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -1247,9 +1421,11 @@ pub(super) mod defs {
         pub p_queue_family_indices: *const u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for BufferCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::BUFFER_CREATE_INFO;
     }
+
     impl Default for BufferCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -1265,29 +1441,35 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> BufferCreateInfo<'a> {
         pub fn flags(mut self, flags: BufferCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
         }
+
         pub fn usage(mut self, usage: BufferUsageFlags) -> Self {
             self.usage = usage;
             self
         }
+
         pub fn sharing_mode(mut self, sharing_mode: SharingMode) -> Self {
             self.sharing_mode = sharing_mode;
             self
         }
+
         pub fn queue_family_indices(mut self, queue_family_indices: &'a [u32]) -> Self {
             self.queue_family_index_count = queue_family_indices.len().try_into().unwrap();
             self.p_queue_family_indices = queue_family_indices.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferViewCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -1301,9 +1483,11 @@ pub(super) mod defs {
         pub range: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for BufferViewCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::BUFFER_VIEW_CREATE_INFO;
     }
+
     impl Default for BufferViewCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -1318,28 +1502,34 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> BufferViewCreateInfo<'a> {
         pub fn flags(mut self, flags: BufferViewCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn buffer(mut self, buffer: Buffer) -> Self {
             self.buffer = buffer;
             self
         }
+
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
         }
+
         pub fn offset(mut self, offset: DeviceSize) -> Self {
             self.offset = offset;
             self
         }
+
         pub fn range(mut self, range: DeviceSize) -> Self {
             self.range = range;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageSubresource.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -1348,20 +1538,24 @@ pub(super) mod defs {
         pub mip_level: u32,
         pub array_layer: u32,
     }
+
     impl ImageSubresource {
         pub fn aspect_mask(mut self, aspect_mask: ImageAspectFlags) -> Self {
             self.aspect_mask = aspect_mask;
             self
         }
+
         pub fn mip_level(mut self, mip_level: u32) -> Self {
             self.mip_level = mip_level;
             self
         }
+
         pub fn array_layer(mut self, array_layer: u32) -> Self {
             self.array_layer = array_layer;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageSubresourceLayers.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -1371,24 +1565,29 @@ pub(super) mod defs {
         pub base_array_layer: u32,
         pub layer_count: u32,
     }
+
     impl ImageSubresourceLayers {
         pub fn aspect_mask(mut self, aspect_mask: ImageAspectFlags) -> Self {
             self.aspect_mask = aspect_mask;
             self
         }
+
         pub fn mip_level(mut self, mip_level: u32) -> Self {
             self.mip_level = mip_level;
             self
         }
+
         pub fn base_array_layer(mut self, base_array_layer: u32) -> Self {
             self.base_array_layer = base_array_layer;
             self
         }
+
         pub fn layer_count(mut self, layer_count: u32) -> Self {
             self.layer_count = layer_count;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageSubresourceRange.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -1399,28 +1598,34 @@ pub(super) mod defs {
         pub base_array_layer: u32,
         pub layer_count: u32,
     }
+
     impl ImageSubresourceRange {
         pub fn aspect_mask(mut self, aspect_mask: ImageAspectFlags) -> Self {
             self.aspect_mask = aspect_mask;
             self
         }
+
         pub fn base_mip_level(mut self, base_mip_level: u32) -> Self {
             self.base_mip_level = base_mip_level;
             self
         }
+
         pub fn level_count(mut self, level_count: u32) -> Self {
             self.level_count = level_count;
             self
         }
+
         pub fn base_array_layer(mut self, base_array_layer: u32) -> Self {
             self.base_array_layer = base_array_layer;
             self
         }
+
         pub fn layer_count(mut self, layer_count: u32) -> Self {
             self.layer_count = layer_count;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryBarrier.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -1431,9 +1636,11 @@ pub(super) mod defs {
         pub dst_access_mask: AccessFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for MemoryBarrier<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_BARRIER;
     }
+
     impl Default for MemoryBarrier<'_> {
         fn default() -> Self {
             Self {
@@ -1445,16 +1652,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> MemoryBarrier<'a> {
         pub fn src_access_mask(mut self, src_access_mask: AccessFlags) -> Self {
             self.src_access_mask = src_access_mask;
             self
         }
+
         pub fn dst_access_mask(mut self, dst_access_mask: AccessFlags) -> Self {
             self.dst_access_mask = dst_access_mask;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferMemoryBarrier.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -1470,9 +1680,11 @@ pub(super) mod defs {
         pub size: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for BufferMemoryBarrier<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::BUFFER_MEMORY_BARRIER;
     }
+
     impl Default for BufferMemoryBarrier<'_> {
         fn default() -> Self {
             Self {
@@ -1489,36 +1701,44 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> BufferMemoryBarrier<'a> {
         pub fn src_access_mask(mut self, src_access_mask: AccessFlags) -> Self {
             self.src_access_mask = src_access_mask;
             self
         }
+
         pub fn dst_access_mask(mut self, dst_access_mask: AccessFlags) -> Self {
             self.dst_access_mask = dst_access_mask;
             self
         }
+
         pub fn src_queue_family_index(mut self, src_queue_family_index: u32) -> Self {
             self.src_queue_family_index = src_queue_family_index;
             self
         }
+
         pub fn dst_queue_family_index(mut self, dst_queue_family_index: u32) -> Self {
             self.dst_queue_family_index = dst_queue_family_index;
             self
         }
+
         pub fn buffer(mut self, buffer: Buffer) -> Self {
             self.buffer = buffer;
             self
         }
+
         pub fn offset(mut self, offset: DeviceSize) -> Self {
             self.offset = offset;
             self
         }
+
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageMemoryBarrier.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -1535,9 +1755,11 @@ pub(super) mod defs {
         pub subresource_range: ImageSubresourceRange,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ImageMemoryBarrier<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_MEMORY_BARRIER;
     }
+
     impl Default for ImageMemoryBarrier<'_> {
         fn default() -> Self {
             Self {
@@ -1555,40 +1777,49 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ImageMemoryBarrier<'a> {
         pub fn src_access_mask(mut self, src_access_mask: AccessFlags) -> Self {
             self.src_access_mask = src_access_mask;
             self
         }
+
         pub fn dst_access_mask(mut self, dst_access_mask: AccessFlags) -> Self {
             self.dst_access_mask = dst_access_mask;
             self
         }
+
         pub fn old_layout(mut self, old_layout: ImageLayout) -> Self {
             self.old_layout = old_layout;
             self
         }
+
         pub fn new_layout(mut self, new_layout: ImageLayout) -> Self {
             self.new_layout = new_layout;
             self
         }
+
         pub fn src_queue_family_index(mut self, src_queue_family_index: u32) -> Self {
             self.src_queue_family_index = src_queue_family_index;
             self
         }
+
         pub fn dst_queue_family_index(mut self, dst_queue_family_index: u32) -> Self {
             self.dst_queue_family_index = dst_queue_family_index;
             self
         }
+
         pub fn image(mut self, image: Image) -> Self {
             self.image = image;
             self
         }
+
         pub fn subresource_range(mut self, subresource_range: ImageSubresourceRange) -> Self {
             self.subresource_range = subresource_range;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -1610,9 +1841,11 @@ pub(super) mod defs {
         pub initial_layout: ImageLayout,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ImageCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_CREATE_INFO;
     }
+
     impl Default for ImageCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -1635,57 +1868,70 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ImageCreateInfo<'a> {
         pub fn flags(mut self, flags: ImageCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn image_type(mut self, image_type: ImageType) -> Self {
             self.image_type = image_type;
             self
         }
+
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
         }
+
         pub fn extent(mut self, extent: Extent3D) -> Self {
             self.extent = extent;
             self
         }
+
         pub fn mip_levels(mut self, mip_levels: u32) -> Self {
             self.mip_levels = mip_levels;
             self
         }
+
         pub fn array_layers(mut self, array_layers: u32) -> Self {
             self.array_layers = array_layers;
             self
         }
+
         pub fn samples(mut self, samples: SampleCountFlagBits) -> Self {
             self.samples = samples;
             self
         }
+
         pub fn tiling(mut self, tiling: ImageTiling) -> Self {
             self.tiling = tiling;
             self
         }
+
         pub fn usage(mut self, usage: ImageUsageFlags) -> Self {
             self.usage = usage;
             self
         }
+
         pub fn sharing_mode(mut self, sharing_mode: SharingMode) -> Self {
             self.sharing_mode = sharing_mode;
             self
         }
+
         pub fn queue_family_indices(mut self, queue_family_indices: &'a [u32]) -> Self {
             self.queue_family_index_count = queue_family_indices.len().try_into().unwrap();
             self.p_queue_family_indices = queue_family_indices.as_ptr();
             self
         }
+
         pub fn initial_layout(mut self, initial_layout: ImageLayout) -> Self {
             self.initial_layout = initial_layout;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubresourceLayout.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -1696,28 +1942,34 @@ pub(super) mod defs {
         pub array_pitch: DeviceSize,
         pub depth_pitch: DeviceSize,
     }
+
     impl SubresourceLayout {
         pub fn offset(mut self, offset: DeviceSize) -> Self {
             self.offset = offset;
             self
         }
+
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
         }
+
         pub fn row_pitch(mut self, row_pitch: DeviceSize) -> Self {
             self.row_pitch = row_pitch;
             self
         }
+
         pub fn array_pitch(mut self, array_pitch: DeviceSize) -> Self {
             self.array_pitch = array_pitch;
             self
         }
+
         pub fn depth_pitch(mut self, depth_pitch: DeviceSize) -> Self {
             self.depth_pitch = depth_pitch;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageViewCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -1732,9 +1984,11 @@ pub(super) mod defs {
         pub subresource_range: ImageSubresourceRange,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ImageViewCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_VIEW_CREATE_INFO;
     }
+
     impl Default for ImageViewCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -1750,32 +2004,39 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ImageViewCreateInfo<'a> {
         pub fn flags(mut self, flags: ImageViewCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn image(mut self, image: Image) -> Self {
             self.image = image;
             self
         }
+
         pub fn view_type(mut self, view_type: ImageViewType) -> Self {
             self.view_type = view_type;
             self
         }
+
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
         }
+
         pub fn components(mut self, components: ComponentMapping) -> Self {
             self.components = components;
             self
         }
+
         pub fn subresource_range(mut self, subresource_range: ImageSubresourceRange) -> Self {
             self.subresource_range = subresource_range;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCopy.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -1784,20 +2045,24 @@ pub(super) mod defs {
         pub dst_offset: DeviceSize,
         pub size: DeviceSize,
     }
+
     impl BufferCopy {
         pub fn src_offset(mut self, src_offset: DeviceSize) -> Self {
             self.src_offset = src_offset;
             self
         }
+
         pub fn dst_offset(mut self, dst_offset: DeviceSize) -> Self {
             self.dst_offset = dst_offset;
             self
         }
+
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseMemoryBind.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -1808,28 +2073,34 @@ pub(super) mod defs {
         pub memory_offset: DeviceSize,
         pub flags: SparseMemoryBindFlags,
     }
+
     impl SparseMemoryBind {
         pub fn resource_offset(mut self, resource_offset: DeviceSize) -> Self {
             self.resource_offset = resource_offset;
             self
         }
+
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
         }
+
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
         }
+
         pub fn memory_offset(mut self, memory_offset: DeviceSize) -> Self {
             self.memory_offset = memory_offset;
             self
         }
+
         pub fn flags(mut self, flags: SparseMemoryBindFlags) -> Self {
             self.flags = flags;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseImageMemoryBind.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -1841,32 +2112,39 @@ pub(super) mod defs {
         pub memory_offset: DeviceSize,
         pub flags: SparseMemoryBindFlags,
     }
+
     impl SparseImageMemoryBind {
         pub fn subresource(mut self, subresource: ImageSubresource) -> Self {
             self.subresource = subresource;
             self
         }
+
         pub fn offset(mut self, offset: Offset3D) -> Self {
             self.offset = offset;
             self
         }
+
         pub fn extent(mut self, extent: Extent3D) -> Self {
             self.extent = extent;
             self
         }
+
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
         }
+
         pub fn memory_offset(mut self, memory_offset: DeviceSize) -> Self {
             self.memory_offset = memory_offset;
             self
         }
+
         pub fn flags(mut self, flags: SparseMemoryBindFlags) -> Self {
             self.flags = flags;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseBufferMemoryBindInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -1876,6 +2154,7 @@ pub(super) mod defs {
         pub p_binds: *const SparseMemoryBind,
         pub _marker: PhantomData<&'a ()>,
     }
+
     impl Default for SparseBufferMemoryBindInfo<'_> {
         fn default() -> Self {
             Self {
@@ -1886,17 +2165,20 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SparseBufferMemoryBindInfo<'a> {
         pub fn buffer(mut self, buffer: Buffer) -> Self {
             self.buffer = buffer;
             self
         }
+
         pub fn binds(mut self, binds: &'a [SparseMemoryBind]) -> Self {
             self.bind_count = binds.len().try_into().unwrap();
             self.p_binds = binds.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseImageOpaqueMemoryBindInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -1906,6 +2188,7 @@ pub(super) mod defs {
         pub p_binds: *const SparseMemoryBind,
         pub _marker: PhantomData<&'a ()>,
     }
+
     impl Default for SparseImageOpaqueMemoryBindInfo<'_> {
         fn default() -> Self {
             Self {
@@ -1916,17 +2199,20 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SparseImageOpaqueMemoryBindInfo<'a> {
         pub fn image(mut self, image: Image) -> Self {
             self.image = image;
             self
         }
+
         pub fn binds(mut self, binds: &'a [SparseMemoryBind]) -> Self {
             self.bind_count = binds.len().try_into().unwrap();
             self.p_binds = binds.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseImageMemoryBindInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -1936,6 +2222,7 @@ pub(super) mod defs {
         pub p_binds: *const SparseImageMemoryBind,
         pub _marker: PhantomData<&'a ()>,
     }
+
     impl Default for SparseImageMemoryBindInfo<'_> {
         fn default() -> Self {
             Self {
@@ -1946,17 +2233,20 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SparseImageMemoryBindInfo<'a> {
         pub fn image(mut self, image: Image) -> Self {
             self.image = image;
             self
         }
+
         pub fn binds(mut self, binds: &'a [SparseImageMemoryBind]) -> Self {
             self.bind_count = binds.len().try_into().unwrap();
             self.p_binds = binds.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindSparseInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -1975,9 +2265,11 @@ pub(super) mod defs {
         pub p_signal_semaphores: *const Semaphore,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for BindSparseInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::BIND_SPARSE_INFO;
     }
+
     impl Default for BindSparseInfo<'_> {
         fn default() -> Self {
             Self {
@@ -1997,17 +2289,20 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> BindSparseInfo<'a> {
         pub fn wait_semaphores(mut self, wait_semaphores: &'a [Semaphore]) -> Self {
             self.wait_semaphore_count = wait_semaphores.len().try_into().unwrap();
             self.p_wait_semaphores = wait_semaphores.as_ptr();
             self
         }
+
         pub fn buffer_binds(mut self, buffer_binds: &'a [SparseBufferMemoryBindInfo<'a>]) -> Self {
             self.buffer_bind_count = buffer_binds.len().try_into().unwrap();
             self.p_buffer_binds = buffer_binds.as_ptr();
             self
         }
+
         pub fn image_opaque_binds(
             mut self,
             image_opaque_binds: &'a [SparseImageOpaqueMemoryBindInfo<'a>],
@@ -2016,17 +2311,20 @@ pub(super) mod defs {
             self.p_image_opaque_binds = image_opaque_binds.as_ptr();
             self
         }
+
         pub fn image_binds(mut self, image_binds: &'a [SparseImageMemoryBindInfo<'a>]) -> Self {
             self.image_bind_count = image_binds.len().try_into().unwrap();
             self.p_image_binds = image_binds.as_ptr();
             self
         }
+
         pub fn signal_semaphores(mut self, signal_semaphores: &'a [Semaphore]) -> Self {
             self.signal_semaphore_count = signal_semaphores.len().try_into().unwrap();
             self.p_signal_semaphores = signal_semaphores.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCopy.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -2037,28 +2335,34 @@ pub(super) mod defs {
         pub dst_offset: Offset3D,
         pub extent: Extent3D,
     }
+
     impl ImageCopy {
         pub fn src_subresource(mut self, src_subresource: ImageSubresourceLayers) -> Self {
             self.src_subresource = src_subresource;
             self
         }
+
         pub fn src_offset(mut self, src_offset: Offset3D) -> Self {
             self.src_offset = src_offset;
             self
         }
+
         pub fn dst_subresource(mut self, dst_subresource: ImageSubresourceLayers) -> Self {
             self.dst_subresource = dst_subresource;
             self
         }
+
         pub fn dst_offset(mut self, dst_offset: Offset3D) -> Self {
             self.dst_offset = dst_offset;
             self
         }
+
         pub fn extent(mut self, extent: Extent3D) -> Self {
             self.extent = extent;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageBlit.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -2068,6 +2372,7 @@ pub(super) mod defs {
         pub dst_subresource: ImageSubresourceLayers,
         pub dst_offsets: [Offset3D; 2],
     }
+
     impl Default for ImageBlit {
         fn default() -> Self {
             Self {
@@ -2078,24 +2383,29 @@ pub(super) mod defs {
             }
         }
     }
+
     impl ImageBlit {
         pub fn src_subresource(mut self, src_subresource: ImageSubresourceLayers) -> Self {
             self.src_subresource = src_subresource;
             self
         }
+
         pub fn src_offsets(mut self, src_offsets: [Offset3D; 2]) -> Self {
             self.src_offsets = src_offsets;
             self
         }
+
         pub fn dst_subresource(mut self, dst_subresource: ImageSubresourceLayers) -> Self {
             self.dst_subresource = dst_subresource;
             self
         }
+
         pub fn dst_offsets(mut self, dst_offsets: [Offset3D; 2]) -> Self {
             self.dst_offsets = dst_offsets;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferImageCopy.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -2107,32 +2417,39 @@ pub(super) mod defs {
         pub image_offset: Offset3D,
         pub image_extent: Extent3D,
     }
+
     impl BufferImageCopy {
         pub fn buffer_offset(mut self, buffer_offset: DeviceSize) -> Self {
             self.buffer_offset = buffer_offset;
             self
         }
+
         pub fn buffer_row_length(mut self, buffer_row_length: u32) -> Self {
             self.buffer_row_length = buffer_row_length;
             self
         }
+
         pub fn buffer_image_height(mut self, buffer_image_height: u32) -> Self {
             self.buffer_image_height = buffer_image_height;
             self
         }
+
         pub fn image_subresource(mut self, image_subresource: ImageSubresourceLayers) -> Self {
             self.image_subresource = image_subresource;
             self
         }
+
         pub fn image_offset(mut self, image_offset: Offset3D) -> Self {
             self.image_offset = image_offset;
             self
         }
+
         pub fn image_extent(mut self, image_extent: Extent3D) -> Self {
             self.image_extent = image_extent;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageResolve.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -2143,28 +2460,34 @@ pub(super) mod defs {
         pub dst_offset: Offset3D,
         pub extent: Extent3D,
     }
+
     impl ImageResolve {
         pub fn src_subresource(mut self, src_subresource: ImageSubresourceLayers) -> Self {
             self.src_subresource = src_subresource;
             self
         }
+
         pub fn src_offset(mut self, src_offset: Offset3D) -> Self {
             self.src_offset = src_offset;
             self
         }
+
         pub fn dst_subresource(mut self, dst_subresource: ImageSubresourceLayers) -> Self {
             self.dst_subresource = dst_subresource;
             self
         }
+
         pub fn dst_offset(mut self, dst_offset: Offset3D) -> Self {
             self.dst_offset = dst_offset;
             self
         }
+
         pub fn extent(mut self, extent: Extent3D) -> Self {
             self.extent = extent;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderModuleCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -2176,11 +2499,14 @@ pub(super) mod defs {
         pub p_code: *const u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ShaderModuleCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SHADER_MODULE_CREATE_INFO;
     }
+
     unsafe impl<'a> Extends<PipelineShaderStageCreateInfo<'a>> for ShaderModuleCreateInfo<'a> {}
     unsafe impl<'a> Extends<DataGraphPipelineCreateInfoARM<'a>> for ShaderModuleCreateInfo<'a> {}
+
     impl Default for ShaderModuleCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -2193,16 +2519,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ShaderModuleCreateInfo<'a> {
         pub fn flags(mut self, flags: ShaderModuleCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn code_size(mut self, code_size: usize) -> Self {
             self.code_size = code_size;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetLayoutBinding.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -2214,6 +2543,7 @@ pub(super) mod defs {
         pub p_immutable_samplers: *const Sampler,
         pub _marker: PhantomData<&'a ()>,
     }
+
     impl Default for DescriptorSetLayoutBinding<'_> {
         fn default() -> Self {
             Self {
@@ -2226,25 +2556,30 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DescriptorSetLayoutBinding<'a> {
         pub fn binding(mut self, binding: u32) -> Self {
             self.binding = binding;
             self
         }
+
         pub fn descriptor_type(mut self, descriptor_type: DescriptorType) -> Self {
             self.descriptor_type = descriptor_type;
             self
         }
+
         pub fn immutable_samplers(mut self, immutable_samplers: &'a [Sampler]) -> Self {
             self.descriptor_count = immutable_samplers.len().try_into().unwrap();
             self.p_immutable_samplers = immutable_samplers.as_ptr();
             self
         }
+
         pub fn stage_flags(mut self, stage_flags: ShaderStageFlags) -> Self {
             self.stage_flags = stage_flags;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetLayoutCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -2256,9 +2591,11 @@ pub(super) mod defs {
         pub p_bindings: *const DescriptorSetLayoutBinding<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DescriptorSetLayoutCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
     }
+
     impl Default for DescriptorSetLayoutCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -2271,17 +2608,20 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DescriptorSetLayoutCreateInfo<'a> {
         pub fn flags(mut self, flags: DescriptorSetLayoutCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn bindings(mut self, bindings: &'a [DescriptorSetLayoutBinding<'a>]) -> Self {
             self.binding_count = bindings.len().try_into().unwrap();
             self.p_bindings = bindings.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorPoolSize.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -2289,16 +2629,19 @@ pub(super) mod defs {
         pub ty: DescriptorType,
         pub descriptor_count: u32,
     }
+
     impl DescriptorPoolSize {
         pub fn ty(mut self, ty: DescriptorType) -> Self {
             self.ty = ty;
             self
         }
+
         pub fn descriptor_count(mut self, descriptor_count: u32) -> Self {
             self.descriptor_count = descriptor_count;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorPoolCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -2311,9 +2654,11 @@ pub(super) mod defs {
         pub p_pool_sizes: *const DescriptorPoolSize,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DescriptorPoolCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DESCRIPTOR_POOL_CREATE_INFO;
     }
+
     impl Default for DescriptorPoolCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -2327,21 +2672,25 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DescriptorPoolCreateInfo<'a> {
         pub fn flags(mut self, flags: DescriptorPoolCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn max_sets(mut self, max_sets: u32) -> Self {
             self.max_sets = max_sets;
             self
         }
+
         pub fn pool_sizes(mut self, pool_sizes: &'a [DescriptorPoolSize]) -> Self {
             self.pool_size_count = pool_sizes.len().try_into().unwrap();
             self.p_pool_sizes = pool_sizes.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetAllocateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -2353,9 +2702,11 @@ pub(super) mod defs {
         pub p_set_layouts: *const DescriptorSetLayout,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DescriptorSetAllocateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DESCRIPTOR_SET_ALLOCATE_INFO;
     }
+
     impl Default for DescriptorSetAllocateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -2368,17 +2719,20 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DescriptorSetAllocateInfo<'a> {
         pub fn descriptor_pool(mut self, descriptor_pool: DescriptorPool) -> Self {
             self.descriptor_pool = descriptor_pool;
             self
         }
+
         pub fn set_layouts(mut self, set_layouts: &'a [DescriptorSetLayout]) -> Self {
             self.descriptor_set_count = set_layouts.len().try_into().unwrap();
             self.p_set_layouts = set_layouts.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSpecializationMapEntry.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -2387,20 +2741,24 @@ pub(super) mod defs {
         pub offset: u32,
         pub size: usize,
     }
+
     impl SpecializationMapEntry {
         pub fn constant_id(mut self, constant_id: u32) -> Self {
             self.constant_id = constant_id;
             self
         }
+
         pub fn offset(mut self, offset: u32) -> Self {
             self.offset = offset;
             self
         }
+
         pub fn size(mut self, size: usize) -> Self {
             self.size = size;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSpecializationInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -2411,6 +2769,7 @@ pub(super) mod defs {
         pub p_data: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+
     impl Default for SpecializationInfo<'_> {
         fn default() -> Self {
             Self {
@@ -2422,18 +2781,21 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SpecializationInfo<'a> {
         pub fn map_entries(mut self, map_entries: &'a [SpecializationMapEntry]) -> Self {
             self.map_entry_count = map_entries.len().try_into().unwrap();
             self.p_map_entries = map_entries.as_ptr();
             self
         }
+
         pub fn data(mut self, data: &'a [u8]) -> Self {
             self.data_size = data.len().try_into().unwrap();
             self.p_data = data.as_ptr() as _;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineShaderStageCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -2447,9 +2809,11 @@ pub(super) mod defs {
         pub p_specialization_info: *const SpecializationInfo<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineShaderStageCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_SHADER_STAGE_CREATE_INFO;
     }
+
     impl Default for PipelineShaderStageCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -2464,23 +2828,28 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineShaderStageCreateInfo<'a> {
         pub fn flags(mut self, flags: PipelineShaderStageCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn stage(mut self, stage: ShaderStageFlagBits) -> Self {
             self.stage = stage;
             self
         }
+
         pub fn module(mut self, module: ShaderModule) -> Self {
             self.module = module;
             self
         }
+
         pub fn name(mut self, name: &'a CStr) -> Self {
             self.p_name = name.as_ptr();
             self
         }
+
         pub fn specialization_info(
             mut self,
             specialization_info: &'a SpecializationInfo<'a>,
@@ -2489,6 +2858,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkComputePipelineCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -2502,9 +2872,11 @@ pub(super) mod defs {
         pub base_pipeline_index: i32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ComputePipelineCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::COMPUTE_PIPELINE_CREATE_INFO;
     }
+
     impl Default for ComputePipelineCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -2519,28 +2891,34 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ComputePipelineCreateInfo<'a> {
         pub fn flags(mut self, flags: PipelineCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn stage(mut self, stage: PipelineShaderStageCreateInfo<'a>) -> Self {
             self.stage = stage;
             self
         }
+
         pub fn layout(mut self, layout: PipelineLayout) -> Self {
             self.layout = layout;
             self
         }
+
         pub fn base_pipeline_handle(mut self, base_pipeline_handle: Pipeline) -> Self {
             self.base_pipeline_handle = base_pipeline_handle;
             self
         }
+
         pub fn base_pipeline_index(mut self, base_pipeline_index: i32) -> Self {
             self.base_pipeline_index = base_pipeline_index;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVertexInputBindingDescription.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -2549,20 +2927,24 @@ pub(super) mod defs {
         pub stride: u32,
         pub input_rate: VertexInputRate,
     }
+
     impl VertexInputBindingDescription {
         pub fn binding(mut self, binding: u32) -> Self {
             self.binding = binding;
             self
         }
+
         pub fn stride(mut self, stride: u32) -> Self {
             self.stride = stride;
             self
         }
+
         pub fn input_rate(mut self, input_rate: VertexInputRate) -> Self {
             self.input_rate = input_rate;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVertexInputAttributeDescription.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -2572,24 +2954,29 @@ pub(super) mod defs {
         pub format: Format,
         pub offset: u32,
     }
+
     impl VertexInputAttributeDescription {
         pub fn location(mut self, location: u32) -> Self {
             self.location = location;
             self
         }
+
         pub fn binding(mut self, binding: u32) -> Self {
             self.binding = binding;
             self
         }
+
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
         }
+
         pub fn offset(mut self, offset: u32) -> Self {
             self.offset = offset;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineVertexInputStateCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -2603,10 +2990,12 @@ pub(super) mod defs {
         pub p_vertex_attribute_descriptions: *const VertexInputAttributeDescription,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineVertexInputStateCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
     }
+
     impl Default for PipelineVertexInputStateCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -2621,11 +3010,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineVertexInputStateCreateInfo<'a> {
         pub fn flags(mut self, flags: PipelineVertexInputStateCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn vertex_binding_descriptions(
             mut self,
             vertex_binding_descriptions: &'a [VertexInputBindingDescription],
@@ -2635,6 +3026,7 @@ pub(super) mod defs {
             self.p_vertex_binding_descriptions = vertex_binding_descriptions.as_ptr();
             self
         }
+
         pub fn vertex_attribute_descriptions(
             mut self,
             vertex_attribute_descriptions: &'a [VertexInputAttributeDescription],
@@ -2645,6 +3037,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineInputAssemblyStateCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -2656,10 +3049,12 @@ pub(super) mod defs {
         pub primitive_restart_enable: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineInputAssemblyStateCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
     }
+
     impl Default for PipelineInputAssemblyStateCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -2672,20 +3067,24 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineInputAssemblyStateCreateInfo<'a> {
         pub fn flags(mut self, flags: PipelineInputAssemblyStateCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn topology(mut self, topology: PrimitiveTopology) -> Self {
             self.topology = topology;
             self
         }
+
         pub fn primitive_restart_enable(mut self, primitive_restart_enable: bool) -> Self {
             self.primitive_restart_enable = primitive_restart_enable.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineTessellationStateCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -2696,10 +3095,12 @@ pub(super) mod defs {
         pub patch_control_points: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineTessellationStateCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_TESSELLATION_STATE_CREATE_INFO;
     }
+
     impl Default for PipelineTessellationStateCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -2711,16 +3112,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineTessellationStateCreateInfo<'a> {
         pub fn flags(mut self, flags: PipelineTessellationStateCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn patch_control_points(mut self, patch_control_points: u32) -> Self {
             self.patch_control_points = patch_control_points;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineViewportStateCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -2734,9 +3138,11 @@ pub(super) mod defs {
         pub p_scissors: *const Rect2D,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineViewportStateCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_VIEWPORT_STATE_CREATE_INFO;
     }
+
     impl Default for PipelineViewportStateCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -2751,22 +3157,26 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineViewportStateCreateInfo<'a> {
         pub fn flags(mut self, flags: PipelineViewportStateCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn viewports(mut self, viewports: &'a [Viewport]) -> Self {
             self.viewport_count = viewports.len().try_into().unwrap();
             self.p_viewports = viewports.as_ptr();
             self
         }
+
         pub fn scissors(mut self, scissors: &'a [Rect2D]) -> Self {
             self.scissor_count = scissors.len().try_into().unwrap();
             self.p_scissors = scissors.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineRasterizationStateCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -2786,10 +3196,12 @@ pub(super) mod defs {
         pub line_width: f32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineRasterizationStateCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
     }
+
     impl Default for PipelineRasterizationStateCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -2810,52 +3222,64 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineRasterizationStateCreateInfo<'a> {
         pub fn flags(mut self, flags: PipelineRasterizationStateCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn depth_clamp_enable(mut self, depth_clamp_enable: bool) -> Self {
             self.depth_clamp_enable = depth_clamp_enable.into();
             self
         }
+
         pub fn rasterizer_discard_enable(mut self, rasterizer_discard_enable: bool) -> Self {
             self.rasterizer_discard_enable = rasterizer_discard_enable.into();
             self
         }
+
         pub fn polygon_mode(mut self, polygon_mode: PolygonMode) -> Self {
             self.polygon_mode = polygon_mode;
             self
         }
+
         pub fn cull_mode(mut self, cull_mode: CullModeFlags) -> Self {
             self.cull_mode = cull_mode;
             self
         }
+
         pub fn front_face(mut self, front_face: FrontFace) -> Self {
             self.front_face = front_face;
             self
         }
+
         pub fn depth_bias_enable(mut self, depth_bias_enable: bool) -> Self {
             self.depth_bias_enable = depth_bias_enable.into();
             self
         }
+
         pub fn depth_bias_constant_factor(mut self, depth_bias_constant_factor: f32) -> Self {
             self.depth_bias_constant_factor = depth_bias_constant_factor;
             self
         }
+
         pub fn depth_bias_clamp(mut self, depth_bias_clamp: f32) -> Self {
             self.depth_bias_clamp = depth_bias_clamp;
             self
         }
+
         pub fn depth_bias_slope_factor(mut self, depth_bias_slope_factor: f32) -> Self {
             self.depth_bias_slope_factor = depth_bias_slope_factor;
             self
         }
+
         pub fn line_width(mut self, line_width: f32) -> Self {
             self.line_width = line_width;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineMultisampleStateCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -2871,9 +3295,11 @@ pub(super) mod defs {
         pub alpha_to_one_enable: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineMultisampleStateCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
     }
+
     impl Default for PipelineMultisampleStateCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -2890,32 +3316,39 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineMultisampleStateCreateInfo<'a> {
         pub fn flags(mut self, flags: PipelineMultisampleStateCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn rasterization_samples(mut self, rasterization_samples: SampleCountFlagBits) -> Self {
             self.rasterization_samples = rasterization_samples;
             self
         }
+
         pub fn sample_shading_enable(mut self, sample_shading_enable: bool) -> Self {
             self.sample_shading_enable = sample_shading_enable.into();
             self
         }
+
         pub fn min_sample_shading(mut self, min_sample_shading: f32) -> Self {
             self.min_sample_shading = min_sample_shading;
             self
         }
+
         pub fn alpha_to_coverage_enable(mut self, alpha_to_coverage_enable: bool) -> Self {
             self.alpha_to_coverage_enable = alpha_to_coverage_enable.into();
             self
         }
+
         pub fn alpha_to_one_enable(mut self, alpha_to_one_enable: bool) -> Self {
             self.alpha_to_one_enable = alpha_to_one_enable.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineColorBlendAttachmentState.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -2929,40 +3362,49 @@ pub(super) mod defs {
         pub alpha_blend_op: BlendOp,
         pub color_write_mask: ColorComponentFlags,
     }
+
     impl PipelineColorBlendAttachmentState {
         pub fn blend_enable(mut self, blend_enable: bool) -> Self {
             self.blend_enable = blend_enable.into();
             self
         }
+
         pub fn src_color_blend_factor(mut self, src_color_blend_factor: BlendFactor) -> Self {
             self.src_color_blend_factor = src_color_blend_factor;
             self
         }
+
         pub fn dst_color_blend_factor(mut self, dst_color_blend_factor: BlendFactor) -> Self {
             self.dst_color_blend_factor = dst_color_blend_factor;
             self
         }
+
         pub fn color_blend_op(mut self, color_blend_op: BlendOp) -> Self {
             self.color_blend_op = color_blend_op;
             self
         }
+
         pub fn src_alpha_blend_factor(mut self, src_alpha_blend_factor: BlendFactor) -> Self {
             self.src_alpha_blend_factor = src_alpha_blend_factor;
             self
         }
+
         pub fn dst_alpha_blend_factor(mut self, dst_alpha_blend_factor: BlendFactor) -> Self {
             self.dst_alpha_blend_factor = dst_alpha_blend_factor;
             self
         }
+
         pub fn alpha_blend_op(mut self, alpha_blend_op: BlendOp) -> Self {
             self.alpha_blend_op = alpha_blend_op;
             self
         }
+
         pub fn color_write_mask(mut self, color_write_mask: ColorComponentFlags) -> Self {
             self.color_write_mask = color_write_mask;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineColorBlendStateCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -2977,9 +3419,11 @@ pub(super) mod defs {
         pub blend_constants: [f32; 4],
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineColorBlendStateCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
     }
+
     impl Default for PipelineColorBlendStateCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -2995,29 +3439,35 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineColorBlendStateCreateInfo<'a> {
         pub fn flags(mut self, flags: PipelineColorBlendStateCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn logic_op_enable(mut self, logic_op_enable: bool) -> Self {
             self.logic_op_enable = logic_op_enable.into();
             self
         }
+
         pub fn logic_op(mut self, logic_op: LogicOp) -> Self {
             self.logic_op = logic_op;
             self
         }
+
         pub fn attachments(mut self, attachments: &'a [PipelineColorBlendAttachmentState]) -> Self {
             self.attachment_count = attachments.len().try_into().unwrap();
             self.p_attachments = attachments.as_ptr();
             self
         }
+
         pub fn blend_constants(mut self, blend_constants: [f32; 4]) -> Self {
             self.blend_constants = blend_constants;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineDynamicStateCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -3029,9 +3479,11 @@ pub(super) mod defs {
         pub p_dynamic_states: *const DynamicState,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineDynamicStateCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_DYNAMIC_STATE_CREATE_INFO;
     }
+
     impl Default for PipelineDynamicStateCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -3044,17 +3496,20 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineDynamicStateCreateInfo<'a> {
         pub fn flags(mut self, flags: PipelineDynamicStateCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn dynamic_states(mut self, dynamic_states: &'a [DynamicState]) -> Self {
             self.dynamic_state_count = dynamic_states.len().try_into().unwrap();
             self.p_dynamic_states = dynamic_states.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkStencilOpState.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -3067,36 +3522,44 @@ pub(super) mod defs {
         pub write_mask: u32,
         pub reference: u32,
     }
+
     impl StencilOpState {
         pub fn fail_op(mut self, fail_op: StencilOp) -> Self {
             self.fail_op = fail_op;
             self
         }
+
         pub fn pass_op(mut self, pass_op: StencilOp) -> Self {
             self.pass_op = pass_op;
             self
         }
+
         pub fn depth_fail_op(mut self, depth_fail_op: StencilOp) -> Self {
             self.depth_fail_op = depth_fail_op;
             self
         }
+
         pub fn compare_op(mut self, compare_op: CompareOp) -> Self {
             self.compare_op = compare_op;
             self
         }
+
         pub fn compare_mask(mut self, compare_mask: u32) -> Self {
             self.compare_mask = compare_mask;
             self
         }
+
         pub fn write_mask(mut self, write_mask: u32) -> Self {
             self.write_mask = write_mask;
             self
         }
+
         pub fn reference(mut self, reference: u32) -> Self {
             self.reference = reference;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineDepthStencilStateCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -3115,10 +3578,12 @@ pub(super) mod defs {
         pub max_depth_bounds: f32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineDepthStencilStateCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
     }
+
     impl Default for PipelineDepthStencilStateCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -3138,48 +3603,59 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineDepthStencilStateCreateInfo<'a> {
         pub fn flags(mut self, flags: PipelineDepthStencilStateCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn depth_test_enable(mut self, depth_test_enable: bool) -> Self {
             self.depth_test_enable = depth_test_enable.into();
             self
         }
+
         pub fn depth_write_enable(mut self, depth_write_enable: bool) -> Self {
             self.depth_write_enable = depth_write_enable.into();
             self
         }
+
         pub fn depth_compare_op(mut self, depth_compare_op: CompareOp) -> Self {
             self.depth_compare_op = depth_compare_op;
             self
         }
+
         pub fn depth_bounds_test_enable(mut self, depth_bounds_test_enable: bool) -> Self {
             self.depth_bounds_test_enable = depth_bounds_test_enable.into();
             self
         }
+
         pub fn stencil_test_enable(mut self, stencil_test_enable: bool) -> Self {
             self.stencil_test_enable = stencil_test_enable.into();
             self
         }
+
         pub fn front(mut self, front: StencilOpState) -> Self {
             self.front = front;
             self
         }
+
         pub fn back(mut self, back: StencilOpState) -> Self {
             self.back = back;
             self
         }
+
         pub fn min_depth_bounds(mut self, min_depth_bounds: f32) -> Self {
             self.min_depth_bounds = min_depth_bounds;
             self
         }
+
         pub fn max_depth_bounds(mut self, max_depth_bounds: f32) -> Self {
             self.max_depth_bounds = max_depth_bounds;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGraphicsPipelineCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -3205,9 +3681,11 @@ pub(super) mod defs {
         pub base_pipeline_index: i32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for GraphicsPipelineCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::GRAPHICS_PIPELINE_CREATE_INFO;
     }
+
     impl Default for GraphicsPipelineCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -3234,16 +3712,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> GraphicsPipelineCreateInfo<'a> {
         pub fn flags(mut self, flags: PipelineCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn stages(mut self, stages: &'a [PipelineShaderStageCreateInfo<'a>]) -> Self {
             self.stage_count = stages.len().try_into().unwrap();
             self.p_stages = stages.as_ptr();
             self
         }
+
         pub fn vertex_input_state(
             mut self,
             vertex_input_state: &'a PipelineVertexInputStateCreateInfo<'a>,
@@ -3251,6 +3732,7 @@ pub(super) mod defs {
             self.p_vertex_input_state = vertex_input_state;
             self
         }
+
         pub fn input_assembly_state(
             mut self,
             input_assembly_state: &'a PipelineInputAssemblyStateCreateInfo<'a>,
@@ -3258,6 +3740,7 @@ pub(super) mod defs {
             self.p_input_assembly_state = input_assembly_state;
             self
         }
+
         pub fn tessellation_state(
             mut self,
             tessellation_state: &'a PipelineTessellationStateCreateInfo<'a>,
@@ -3265,6 +3748,7 @@ pub(super) mod defs {
             self.p_tessellation_state = tessellation_state;
             self
         }
+
         pub fn viewport_state(
             mut self,
             viewport_state: &'a PipelineViewportStateCreateInfo<'a>,
@@ -3272,6 +3756,7 @@ pub(super) mod defs {
             self.p_viewport_state = viewport_state;
             self
         }
+
         pub fn rasterization_state(
             mut self,
             rasterization_state: &'a PipelineRasterizationStateCreateInfo<'a>,
@@ -3279,6 +3764,7 @@ pub(super) mod defs {
             self.p_rasterization_state = rasterization_state;
             self
         }
+
         pub fn multisample_state(
             mut self,
             multisample_state: &'a PipelineMultisampleStateCreateInfo<'a>,
@@ -3286,6 +3772,7 @@ pub(super) mod defs {
             self.p_multisample_state = multisample_state;
             self
         }
+
         pub fn depth_stencil_state(
             mut self,
             depth_stencil_state: &'a PipelineDepthStencilStateCreateInfo<'a>,
@@ -3293,6 +3780,7 @@ pub(super) mod defs {
             self.p_depth_stencil_state = depth_stencil_state;
             self
         }
+
         pub fn color_blend_state(
             mut self,
             color_blend_state: &'a PipelineColorBlendStateCreateInfo<'a>,
@@ -3300,6 +3788,7 @@ pub(super) mod defs {
             self.p_color_blend_state = color_blend_state;
             self
         }
+
         pub fn dynamic_state(
             mut self,
             dynamic_state: &'a PipelineDynamicStateCreateInfo<'a>,
@@ -3307,27 +3796,33 @@ pub(super) mod defs {
             self.p_dynamic_state = dynamic_state;
             self
         }
+
         pub fn layout(mut self, layout: PipelineLayout) -> Self {
             self.layout = layout;
             self
         }
+
         pub fn render_pass(mut self, render_pass: RenderPass) -> Self {
             self.render_pass = render_pass;
             self
         }
+
         pub fn subpass(mut self, subpass: u32) -> Self {
             self.subpass = subpass;
             self
         }
+
         pub fn base_pipeline_handle(mut self, base_pipeline_handle: Pipeline) -> Self {
             self.base_pipeline_handle = base_pipeline_handle;
             self
         }
+
         pub fn base_pipeline_index(mut self, base_pipeline_index: i32) -> Self {
             self.base_pipeline_index = base_pipeline_index;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCacheCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -3339,9 +3834,11 @@ pub(super) mod defs {
         pub p_initial_data: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineCacheCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_CACHE_CREATE_INFO;
     }
+
     impl Default for PipelineCacheCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -3354,17 +3851,20 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineCacheCreateInfo<'a> {
         pub fn flags(mut self, flags: PipelineCacheCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn initial_data(mut self, initial_data: &'a [u8]) -> Self {
             self.initial_data_size = initial_data.len().try_into().unwrap();
             self.p_initial_data = initial_data.as_ptr() as _;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCacheHeaderVersionOne.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -3375,6 +3875,7 @@ pub(super) mod defs {
         pub device_id: u32,
         pub pipeline_cache_uuid: [u8; UUID_SIZE as usize],
     }
+
     impl Default for PipelineCacheHeaderVersionOne {
         fn default() -> Self {
             Self {
@@ -3386,23 +3887,28 @@ pub(super) mod defs {
             }
         }
     }
+
     impl PipelineCacheHeaderVersionOne {
         pub fn header_size(mut self, header_size: u32) -> Self {
             self.header_size = header_size;
             self
         }
+
         pub fn header_version(mut self, header_version: PipelineCacheHeaderVersion) -> Self {
             self.header_version = header_version;
             self
         }
+
         pub fn vendor_id(mut self, vendor_id: u32) -> Self {
             self.vendor_id = vendor_id;
             self
         }
+
         pub fn device_id(mut self, device_id: u32) -> Self {
             self.device_id = device_id;
             self
         }
+
         pub fn pipeline_cache_uuid(
             mut self,
             pipeline_cache_uuid: [u8; UUID_SIZE as usize],
@@ -3411,6 +3917,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPushConstantRange.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -3419,20 +3926,24 @@ pub(super) mod defs {
         pub offset: u32,
         pub size: u32,
     }
+
     impl PushConstantRange {
         pub fn stage_flags(mut self, stage_flags: ShaderStageFlags) -> Self {
             self.stage_flags = stage_flags;
             self
         }
+
         pub fn offset(mut self, offset: u32) -> Self {
             self.offset = offset;
             self
         }
+
         pub fn size(mut self, size: u32) -> Self {
             self.size = size;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineLayoutCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -3446,9 +3957,11 @@ pub(super) mod defs {
         pub p_push_constant_ranges: *const PushConstantRange,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineLayoutCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_LAYOUT_CREATE_INFO;
     }
+
     unsafe impl<'a> Extends<BindDescriptorSetsInfo<'a>> for PipelineLayoutCreateInfo<'a> {}
     unsafe impl<'a> Extends<PushConstantsInfo<'a>> for PipelineLayoutCreateInfo<'a> {}
     unsafe impl<'a> Extends<PushDescriptorSetInfo<'a>> for PipelineLayoutCreateInfo<'a> {}
@@ -3459,6 +3972,7 @@ pub(super) mod defs {
     {
     }
     unsafe impl<'a> Extends<IndirectCommandsLayoutCreateInfoEXT<'a>> for PipelineLayoutCreateInfo<'a> {}
+
     impl Default for PipelineLayoutCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -3473,16 +3987,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineLayoutCreateInfo<'a> {
         pub fn flags(mut self, flags: PipelineLayoutCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn set_layouts(mut self, set_layouts: &'a [DescriptorSetLayout]) -> Self {
             self.set_layout_count = set_layouts.len().try_into().unwrap();
             self.p_set_layouts = set_layouts.as_ptr();
             self
         }
+
         pub fn push_constant_ranges(
             mut self,
             push_constant_ranges: &'a [PushConstantRange],
@@ -3492,6 +4009,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSamplerCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -3516,9 +4034,11 @@ pub(super) mod defs {
         pub unnormalized_coordinates: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for SamplerCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SAMPLER_CREATE_INFO;
     }
+
     impl Default for SamplerCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -3544,72 +4064,89 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SamplerCreateInfo<'a> {
         pub fn flags(mut self, flags: SamplerCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn mag_filter(mut self, mag_filter: Filter) -> Self {
             self.mag_filter = mag_filter;
             self
         }
+
         pub fn min_filter(mut self, min_filter: Filter) -> Self {
             self.min_filter = min_filter;
             self
         }
+
         pub fn mipmap_mode(mut self, mipmap_mode: SamplerMipmapMode) -> Self {
             self.mipmap_mode = mipmap_mode;
             self
         }
+
         pub fn address_mode_u(mut self, address_mode_u: SamplerAddressMode) -> Self {
             self.address_mode_u = address_mode_u;
             self
         }
+
         pub fn address_mode_v(mut self, address_mode_v: SamplerAddressMode) -> Self {
             self.address_mode_v = address_mode_v;
             self
         }
+
         pub fn address_mode_w(mut self, address_mode_w: SamplerAddressMode) -> Self {
             self.address_mode_w = address_mode_w;
             self
         }
+
         pub fn mip_lod_bias(mut self, mip_lod_bias: f32) -> Self {
             self.mip_lod_bias = mip_lod_bias;
             self
         }
+
         pub fn anisotropy_enable(mut self, anisotropy_enable: bool) -> Self {
             self.anisotropy_enable = anisotropy_enable.into();
             self
         }
+
         pub fn max_anisotropy(mut self, max_anisotropy: f32) -> Self {
             self.max_anisotropy = max_anisotropy;
             self
         }
+
         pub fn compare_enable(mut self, compare_enable: bool) -> Self {
             self.compare_enable = compare_enable.into();
             self
         }
+
         pub fn compare_op(mut self, compare_op: CompareOp) -> Self {
             self.compare_op = compare_op;
             self
         }
+
         pub fn min_lod(mut self, min_lod: f32) -> Self {
             self.min_lod = min_lod;
             self
         }
+
         pub fn max_lod(mut self, max_lod: f32) -> Self {
             self.max_lod = max_lod;
             self
         }
+
         pub fn border_color(mut self, border_color: BorderColor) -> Self {
             self.border_color = border_color;
             self
         }
+
         pub fn unnormalized_coordinates(mut self, unnormalized_coordinates: bool) -> Self {
             self.unnormalized_coordinates = unnormalized_coordinates.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandPoolCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -3620,9 +4157,11 @@ pub(super) mod defs {
         pub queue_family_index: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for CommandPoolCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::COMMAND_POOL_CREATE_INFO;
     }
+
     impl Default for CommandPoolCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -3634,16 +4173,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> CommandPoolCreateInfo<'a> {
         pub fn flags(mut self, flags: CommandPoolCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn queue_family_index(mut self, queue_family_index: u32) -> Self {
             self.queue_family_index = queue_family_index;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferAllocateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -3655,9 +4197,11 @@ pub(super) mod defs {
         pub command_buffer_count: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for CommandBufferAllocateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::COMMAND_BUFFER_ALLOCATE_INFO;
     }
+
     impl Default for CommandBufferAllocateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -3670,20 +4214,24 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> CommandBufferAllocateInfo<'a> {
         pub fn command_pool(mut self, command_pool: CommandPool) -> Self {
             self.command_pool = command_pool;
             self
         }
+
         pub fn level(mut self, level: CommandBufferLevel) -> Self {
             self.level = level;
             self
         }
+
         pub fn command_buffer_count(mut self, command_buffer_count: u32) -> Self {
             self.command_buffer_count = command_buffer_count;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferInheritanceInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -3698,9 +4246,11 @@ pub(super) mod defs {
         pub pipeline_statistics: QueryPipelineStatisticFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for CommandBufferInheritanceInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::COMMAND_BUFFER_INHERITANCE_INFO;
     }
+
     impl Default for CommandBufferInheritanceInfo<'_> {
         fn default() -> Self {
             Self {
@@ -3716,27 +4266,33 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> CommandBufferInheritanceInfo<'a> {
         pub fn render_pass(mut self, render_pass: RenderPass) -> Self {
             self.render_pass = render_pass;
             self
         }
+
         pub fn subpass(mut self, subpass: u32) -> Self {
             self.subpass = subpass;
             self
         }
+
         pub fn framebuffer(mut self, framebuffer: Framebuffer) -> Self {
             self.framebuffer = framebuffer;
             self
         }
+
         pub fn occlusion_query_enable(mut self, occlusion_query_enable: bool) -> Self {
             self.occlusion_query_enable = occlusion_query_enable.into();
             self
         }
+
         pub fn query_flags(mut self, query_flags: QueryControlFlags) -> Self {
             self.query_flags = query_flags;
             self
         }
+
         pub fn pipeline_statistics(
             mut self,
             pipeline_statistics: QueryPipelineStatisticFlags,
@@ -3745,6 +4301,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferBeginInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -3755,9 +4312,11 @@ pub(super) mod defs {
         pub p_inheritance_info: *const CommandBufferInheritanceInfo<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for CommandBufferBeginInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::COMMAND_BUFFER_BEGIN_INFO;
     }
+
     impl Default for CommandBufferBeginInfo<'_> {
         fn default() -> Self {
             Self {
@@ -3769,11 +4328,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> CommandBufferBeginInfo<'a> {
         pub fn flags(mut self, flags: CommandBufferUsageFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn inheritance_info(
             mut self,
             inheritance_info: &'a CommandBufferInheritanceInfo<'a>,
@@ -3782,6 +4343,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassBeginInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -3795,9 +4357,11 @@ pub(super) mod defs {
         pub p_clear_values: *const ClearValue,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for RenderPassBeginInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::RENDER_PASS_BEGIN_INFO;
     }
+
     impl Default for RenderPassBeginInfo<'_> {
         fn default() -> Self {
             Self {
@@ -3812,25 +4376,30 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> RenderPassBeginInfo<'a> {
         pub fn render_pass(mut self, render_pass: RenderPass) -> Self {
             self.render_pass = render_pass;
             self
         }
+
         pub fn framebuffer(mut self, framebuffer: Framebuffer) -> Self {
             self.framebuffer = framebuffer;
             self
         }
+
         pub fn render_area(mut self, render_area: Rect2D) -> Self {
             self.render_area = render_area;
             self
         }
+
         pub fn clear_values(mut self, clear_values: &'a [ClearValue]) -> Self {
             self.clear_value_count = clear_values.len().try_into().unwrap();
             self.p_clear_values = clear_values.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClearDepthStencilValue.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -3838,16 +4407,19 @@ pub(super) mod defs {
         pub depth: f32,
         pub stencil: u32,
     }
+
     impl ClearDepthStencilValue {
         pub fn depth(mut self, depth: f32) -> Self {
             self.depth = depth;
             self
         }
+
         pub fn stencil(mut self, stencil: u32) -> Self {
             self.stencil = stencil;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClearAttachment.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -3856,6 +4428,7 @@ pub(super) mod defs {
         pub color_attachment: u32,
         pub clear_value: ClearValue,
     }
+
     impl Default for ClearAttachment {
         fn default() -> Self {
             Self {
@@ -3865,20 +4438,24 @@ pub(super) mod defs {
             }
         }
     }
+
     impl ClearAttachment {
         pub fn aspect_mask(mut self, aspect_mask: ImageAspectFlags) -> Self {
             self.aspect_mask = aspect_mask;
             self
         }
+
         pub fn color_attachment(mut self, color_attachment: u32) -> Self {
             self.color_attachment = color_attachment;
             self
         }
+
         pub fn clear_value(mut self, clear_value: ClearValue) -> Self {
             self.clear_value = clear_value;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentDescription.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -3893,44 +4470,54 @@ pub(super) mod defs {
         pub initial_layout: ImageLayout,
         pub final_layout: ImageLayout,
     }
+
     impl AttachmentDescription {
         pub fn flags(mut self, flags: AttachmentDescriptionFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
         }
+
         pub fn samples(mut self, samples: SampleCountFlagBits) -> Self {
             self.samples = samples;
             self
         }
+
         pub fn load_op(mut self, load_op: AttachmentLoadOp) -> Self {
             self.load_op = load_op;
             self
         }
+
         pub fn store_op(mut self, store_op: AttachmentStoreOp) -> Self {
             self.store_op = store_op;
             self
         }
+
         pub fn stencil_load_op(mut self, stencil_load_op: AttachmentLoadOp) -> Self {
             self.stencil_load_op = stencil_load_op;
             self
         }
+
         pub fn stencil_store_op(mut self, stencil_store_op: AttachmentStoreOp) -> Self {
             self.stencil_store_op = stencil_store_op;
             self
         }
+
         pub fn initial_layout(mut self, initial_layout: ImageLayout) -> Self {
             self.initial_layout = initial_layout;
             self
         }
+
         pub fn final_layout(mut self, final_layout: ImageLayout) -> Self {
             self.final_layout = final_layout;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentReference.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -3938,16 +4525,19 @@ pub(super) mod defs {
         pub attachment: u32,
         pub layout: ImageLayout,
     }
+
     impl AttachmentReference {
         pub fn attachment(mut self, attachment: u32) -> Self {
             self.attachment = attachment;
             self
         }
+
         pub fn layout(mut self, layout: ImageLayout) -> Self {
             self.layout = layout;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassDescription.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -3964,6 +4554,7 @@ pub(super) mod defs {
         pub p_preserve_attachments: *const u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     impl Default for SubpassDescription<'_> {
         fn default() -> Self {
             Self {
@@ -3981,25 +4572,30 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SubpassDescription<'a> {
         pub fn flags(mut self, flags: SubpassDescriptionFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn pipeline_bind_point(mut self, pipeline_bind_point: PipelineBindPoint) -> Self {
             self.pipeline_bind_point = pipeline_bind_point;
             self
         }
+
         pub fn input_attachments(mut self, input_attachments: &'a [AttachmentReference]) -> Self {
             self.input_attachment_count = input_attachments.len().try_into().unwrap();
             self.p_input_attachments = input_attachments.as_ptr();
             self
         }
+
         pub fn color_attachments(mut self, color_attachments: &'a [AttachmentReference]) -> Self {
             self.color_attachment_count = color_attachments.len().try_into().unwrap();
             self.p_color_attachments = color_attachments.as_ptr();
             self
         }
+
         pub fn resolve_attachments(
             mut self,
             resolve_attachments: &'a [AttachmentReference],
@@ -4008,6 +4604,7 @@ pub(super) mod defs {
             self.p_resolve_attachments = resolve_attachments.as_ptr();
             self
         }
+
         pub fn depth_stencil_attachment(
             mut self,
             depth_stencil_attachment: &'a AttachmentReference,
@@ -4015,12 +4612,14 @@ pub(super) mod defs {
             self.p_depth_stencil_attachment = depth_stencil_attachment;
             self
         }
+
         pub fn preserve_attachments(mut self, preserve_attachments: &'a [u32]) -> Self {
             self.preserve_attachment_count = preserve_attachments.len().try_into().unwrap();
             self.p_preserve_attachments = preserve_attachments.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassDependency.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -4033,36 +4632,44 @@ pub(super) mod defs {
         pub dst_access_mask: AccessFlags,
         pub dependency_flags: DependencyFlags,
     }
+
     impl SubpassDependency {
         pub fn src_subpass(mut self, src_subpass: u32) -> Self {
             self.src_subpass = src_subpass;
             self
         }
+
         pub fn dst_subpass(mut self, dst_subpass: u32) -> Self {
             self.dst_subpass = dst_subpass;
             self
         }
+
         pub fn src_stage_mask(mut self, src_stage_mask: PipelineStageFlags) -> Self {
             self.src_stage_mask = src_stage_mask;
             self
         }
+
         pub fn dst_stage_mask(mut self, dst_stage_mask: PipelineStageFlags) -> Self {
             self.dst_stage_mask = dst_stage_mask;
             self
         }
+
         pub fn src_access_mask(mut self, src_access_mask: AccessFlags) -> Self {
             self.src_access_mask = src_access_mask;
             self
         }
+
         pub fn dst_access_mask(mut self, dst_access_mask: AccessFlags) -> Self {
             self.dst_access_mask = dst_access_mask;
             self
         }
+
         pub fn dependency_flags(mut self, dependency_flags: DependencyFlags) -> Self {
             self.dependency_flags = dependency_flags;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -4078,9 +4685,11 @@ pub(super) mod defs {
         pub p_dependencies: *const SubpassDependency,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for RenderPassCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::RENDER_PASS_CREATE_INFO;
     }
+
     impl Default for RenderPassCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -4097,27 +4706,32 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> RenderPassCreateInfo<'a> {
         pub fn flags(mut self, flags: RenderPassCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn attachments(mut self, attachments: &'a [AttachmentDescription]) -> Self {
             self.attachment_count = attachments.len().try_into().unwrap();
             self.p_attachments = attachments.as_ptr();
             self
         }
+
         pub fn subpasses(mut self, subpasses: &'a [SubpassDescription<'a>]) -> Self {
             self.subpass_count = subpasses.len().try_into().unwrap();
             self.p_subpasses = subpasses.as_ptr();
             self
         }
+
         pub fn dependencies(mut self, dependencies: &'a [SubpassDependency]) -> Self {
             self.dependency_count = dependencies.len().try_into().unwrap();
             self.p_dependencies = dependencies.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkEventCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -4127,9 +4741,11 @@ pub(super) mod defs {
         pub flags: EventCreateFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for EventCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EVENT_CREATE_INFO;
     }
+
     impl Default for EventCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -4140,12 +4756,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> EventCreateInfo<'a> {
         pub fn flags(mut self, flags: EventCreateFlags) -> Self {
             self.flags = flags;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFenceCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -4155,9 +4773,11 @@ pub(super) mod defs {
         pub flags: FenceCreateFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for FenceCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::FENCE_CREATE_INFO;
     }
+
     impl Default for FenceCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -4168,12 +4788,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> FenceCreateInfo<'a> {
         pub fn flags(mut self, flags: FenceCreateFlags) -> Self {
             self.flags = flags;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFeatures.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -4234,107 +4856,133 @@ pub(super) mod defs {
         pub variable_multisample_rate: Bool32,
         pub inherited_queries: Bool32,
     }
+
     impl PhysicalDeviceFeatures {
         pub fn robust_buffer_access(mut self, robust_buffer_access: bool) -> Self {
             self.robust_buffer_access = robust_buffer_access.into();
             self
         }
+
         pub fn full_draw_index_uint32(mut self, full_draw_index_uint32: bool) -> Self {
             self.full_draw_index_uint32 = full_draw_index_uint32.into();
             self
         }
+
         pub fn image_cube_array(mut self, image_cube_array: bool) -> Self {
             self.image_cube_array = image_cube_array.into();
             self
         }
+
         pub fn independent_blend(mut self, independent_blend: bool) -> Self {
             self.independent_blend = independent_blend.into();
             self
         }
+
         pub fn geometry_shader(mut self, geometry_shader: bool) -> Self {
             self.geometry_shader = geometry_shader.into();
             self
         }
+
         pub fn tessellation_shader(mut self, tessellation_shader: bool) -> Self {
             self.tessellation_shader = tessellation_shader.into();
             self
         }
+
         pub fn sample_rate_shading(mut self, sample_rate_shading: bool) -> Self {
             self.sample_rate_shading = sample_rate_shading.into();
             self
         }
+
         pub fn dual_src_blend(mut self, dual_src_blend: bool) -> Self {
             self.dual_src_blend = dual_src_blend.into();
             self
         }
+
         pub fn logic_op(mut self, logic_op: bool) -> Self {
             self.logic_op = logic_op.into();
             self
         }
+
         pub fn multi_draw_indirect(mut self, multi_draw_indirect: bool) -> Self {
             self.multi_draw_indirect = multi_draw_indirect.into();
             self
         }
+
         pub fn draw_indirect_first_instance(mut self, draw_indirect_first_instance: bool) -> Self {
             self.draw_indirect_first_instance = draw_indirect_first_instance.into();
             self
         }
+
         pub fn depth_clamp(mut self, depth_clamp: bool) -> Self {
             self.depth_clamp = depth_clamp.into();
             self
         }
+
         pub fn depth_bias_clamp(mut self, depth_bias_clamp: bool) -> Self {
             self.depth_bias_clamp = depth_bias_clamp.into();
             self
         }
+
         pub fn fill_mode_non_solid(mut self, fill_mode_non_solid: bool) -> Self {
             self.fill_mode_non_solid = fill_mode_non_solid.into();
             self
         }
+
         pub fn depth_bounds(mut self, depth_bounds: bool) -> Self {
             self.depth_bounds = depth_bounds.into();
             self
         }
+
         pub fn wide_lines(mut self, wide_lines: bool) -> Self {
             self.wide_lines = wide_lines.into();
             self
         }
+
         pub fn large_points(mut self, large_points: bool) -> Self {
             self.large_points = large_points.into();
             self
         }
+
         pub fn alpha_to_one(mut self, alpha_to_one: bool) -> Self {
             self.alpha_to_one = alpha_to_one.into();
             self
         }
+
         pub fn multi_viewport(mut self, multi_viewport: bool) -> Self {
             self.multi_viewport = multi_viewport.into();
             self
         }
+
         pub fn sampler_anisotropy(mut self, sampler_anisotropy: bool) -> Self {
             self.sampler_anisotropy = sampler_anisotropy.into();
             self
         }
+
         pub fn texture_compression_etc2(mut self, texture_compression_etc2: bool) -> Self {
             self.texture_compression_etc2 = texture_compression_etc2.into();
             self
         }
+
         pub fn texture_compression_astc_ldr(mut self, texture_compression_astc_ldr: bool) -> Self {
             self.texture_compression_astc_ldr = texture_compression_astc_ldr.into();
             self
         }
+
         pub fn texture_compression_bc(mut self, texture_compression_bc: bool) -> Self {
             self.texture_compression_bc = texture_compression_bc.into();
             self
         }
+
         pub fn occlusion_query_precise(mut self, occlusion_query_precise: bool) -> Self {
             self.occlusion_query_precise = occlusion_query_precise.into();
             self
         }
+
         pub fn pipeline_statistics_query(mut self, pipeline_statistics_query: bool) -> Self {
             self.pipeline_statistics_query = pipeline_statistics_query.into();
             self
         }
+
         pub fn vertex_pipeline_stores_and_atomics(
             mut self,
             vertex_pipeline_stores_and_atomics: bool,
@@ -4342,10 +4990,12 @@ pub(super) mod defs {
             self.vertex_pipeline_stores_and_atomics = vertex_pipeline_stores_and_atomics.into();
             self
         }
+
         pub fn fragment_stores_and_atomics(mut self, fragment_stores_and_atomics: bool) -> Self {
             self.fragment_stores_and_atomics = fragment_stores_and_atomics.into();
             self
         }
+
         pub fn shader_tessellation_and_geometry_point_size(
             mut self,
             shader_tessellation_and_geometry_point_size: bool,
@@ -4354,10 +5004,12 @@ pub(super) mod defs {
                 shader_tessellation_and_geometry_point_size.into();
             self
         }
+
         pub fn shader_image_gather_extended(mut self, shader_image_gather_extended: bool) -> Self {
             self.shader_image_gather_extended = shader_image_gather_extended.into();
             self
         }
+
         pub fn shader_storage_image_extended_formats(
             mut self,
             shader_storage_image_extended_formats: bool,
@@ -4366,6 +5018,7 @@ pub(super) mod defs {
                 shader_storage_image_extended_formats.into();
             self
         }
+
         pub fn shader_storage_image_multisample(
             mut self,
             shader_storage_image_multisample: bool,
@@ -4373,6 +5026,7 @@ pub(super) mod defs {
             self.shader_storage_image_multisample = shader_storage_image_multisample.into();
             self
         }
+
         pub fn shader_storage_image_read_without_format(
             mut self,
             shader_storage_image_read_without_format: bool,
@@ -4381,6 +5035,7 @@ pub(super) mod defs {
                 shader_storage_image_read_without_format.into();
             self
         }
+
         pub fn shader_storage_image_write_without_format(
             mut self,
             shader_storage_image_write_without_format: bool,
@@ -4389,6 +5044,7 @@ pub(super) mod defs {
                 shader_storage_image_write_without_format.into();
             self
         }
+
         pub fn shader_uniform_buffer_array_dynamic_indexing(
             mut self,
             shader_uniform_buffer_array_dynamic_indexing: bool,
@@ -4397,6 +5053,7 @@ pub(super) mod defs {
                 shader_uniform_buffer_array_dynamic_indexing.into();
             self
         }
+
         pub fn shader_sampled_image_array_dynamic_indexing(
             mut self,
             shader_sampled_image_array_dynamic_indexing: bool,
@@ -4405,6 +5062,7 @@ pub(super) mod defs {
                 shader_sampled_image_array_dynamic_indexing.into();
             self
         }
+
         pub fn shader_storage_buffer_array_dynamic_indexing(
             mut self,
             shader_storage_buffer_array_dynamic_indexing: bool,
@@ -4413,6 +5071,7 @@ pub(super) mod defs {
                 shader_storage_buffer_array_dynamic_indexing.into();
             self
         }
+
         pub fn shader_storage_image_array_dynamic_indexing(
             mut self,
             shader_storage_image_array_dynamic_indexing: bool,
@@ -4421,79 +5080,98 @@ pub(super) mod defs {
                 shader_storage_image_array_dynamic_indexing.into();
             self
         }
+
         pub fn shader_clip_distance(mut self, shader_clip_distance: bool) -> Self {
             self.shader_clip_distance = shader_clip_distance.into();
             self
         }
+
         pub fn shader_cull_distance(mut self, shader_cull_distance: bool) -> Self {
             self.shader_cull_distance = shader_cull_distance.into();
             self
         }
+
         pub fn shader_float64(mut self, shader_float64: bool) -> Self {
             self.shader_float64 = shader_float64.into();
             self
         }
+
         pub fn shader_int64(mut self, shader_int64: bool) -> Self {
             self.shader_int64 = shader_int64.into();
             self
         }
+
         pub fn shader_int16(mut self, shader_int16: bool) -> Self {
             self.shader_int16 = shader_int16.into();
             self
         }
+
         pub fn shader_resource_residency(mut self, shader_resource_residency: bool) -> Self {
             self.shader_resource_residency = shader_resource_residency.into();
             self
         }
+
         pub fn shader_resource_min_lod(mut self, shader_resource_min_lod: bool) -> Self {
             self.shader_resource_min_lod = shader_resource_min_lod.into();
             self
         }
+
         pub fn sparse_binding(mut self, sparse_binding: bool) -> Self {
             self.sparse_binding = sparse_binding.into();
             self
         }
+
         pub fn sparse_residency_buffer(mut self, sparse_residency_buffer: bool) -> Self {
             self.sparse_residency_buffer = sparse_residency_buffer.into();
             self
         }
+
         pub fn sparse_residency_image2_d(mut self, sparse_residency_image2_d: bool) -> Self {
             self.sparse_residency_image2_d = sparse_residency_image2_d.into();
             self
         }
+
         pub fn sparse_residency_image3_d(mut self, sparse_residency_image3_d: bool) -> Self {
             self.sparse_residency_image3_d = sparse_residency_image3_d.into();
             self
         }
+
         pub fn sparse_residency2_samples(mut self, sparse_residency2_samples: bool) -> Self {
             self.sparse_residency2_samples = sparse_residency2_samples.into();
             self
         }
+
         pub fn sparse_residency4_samples(mut self, sparse_residency4_samples: bool) -> Self {
             self.sparse_residency4_samples = sparse_residency4_samples.into();
             self
         }
+
         pub fn sparse_residency8_samples(mut self, sparse_residency8_samples: bool) -> Self {
             self.sparse_residency8_samples = sparse_residency8_samples.into();
             self
         }
+
         pub fn sparse_residency16_samples(mut self, sparse_residency16_samples: bool) -> Self {
             self.sparse_residency16_samples = sparse_residency16_samples.into();
             self
         }
+
         pub fn sparse_residency_aliased(mut self, sparse_residency_aliased: bool) -> Self {
             self.sparse_residency_aliased = sparse_residency_aliased.into();
             self
         }
+
         pub fn variable_multisample_rate(mut self, variable_multisample_rate: bool) -> Self {
             self.variable_multisample_rate = variable_multisample_rate.into();
             self
         }
+
         pub fn inherited_queries(mut self, inherited_queries: bool) -> Self {
             self.inherited_queries = inherited_queries.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSparseProperties.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -4504,6 +5182,7 @@ pub(super) mod defs {
         pub residency_aligned_mip_size: Bool32,
         pub residency_non_resident_strict: Bool32,
     }
+
     impl PhysicalDeviceSparseProperties {
         pub fn residency_standard2_d_block_shape(
             mut self,
@@ -4512,6 +5191,7 @@ pub(super) mod defs {
             self.residency_standard2_d_block_shape = residency_standard2_d_block_shape.into();
             self
         }
+
         pub fn residency_standard2_d_multisample_block_shape(
             mut self,
             residency_standard2_d_multisample_block_shape: bool,
@@ -4520,6 +5200,7 @@ pub(super) mod defs {
                 residency_standard2_d_multisample_block_shape.into();
             self
         }
+
         pub fn residency_standard3_d_block_shape(
             mut self,
             residency_standard3_d_block_shape: bool,
@@ -4527,10 +5208,12 @@ pub(super) mod defs {
             self.residency_standard3_d_block_shape = residency_standard3_d_block_shape.into();
             self
         }
+
         pub fn residency_aligned_mip_size(mut self, residency_aligned_mip_size: bool) -> Self {
             self.residency_aligned_mip_size = residency_aligned_mip_size.into();
             self
         }
+
         pub fn residency_non_resident_strict(
             mut self,
             residency_non_resident_strict: bool,
@@ -4539,6 +5222,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceLimits.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -4650,6 +5334,7 @@ pub(super) mod defs {
         pub optimal_buffer_copy_row_pitch_alignment: DeviceSize,
         pub non_coherent_atom_size: DeviceSize,
     }
+
     impl Default for PhysicalDeviceLimits {
         fn default() -> Self {
             Self {
@@ -4762,63 +5447,78 @@ pub(super) mod defs {
             }
         }
     }
+
     impl PhysicalDeviceLimits {
         pub fn max_image_dimension1_d(mut self, max_image_dimension1_d: u32) -> Self {
             self.max_image_dimension1_d = max_image_dimension1_d;
             self
         }
+
         pub fn max_image_dimension2_d(mut self, max_image_dimension2_d: u32) -> Self {
             self.max_image_dimension2_d = max_image_dimension2_d;
             self
         }
+
         pub fn max_image_dimension3_d(mut self, max_image_dimension3_d: u32) -> Self {
             self.max_image_dimension3_d = max_image_dimension3_d;
             self
         }
+
         pub fn max_image_dimension_cube(mut self, max_image_dimension_cube: u32) -> Self {
             self.max_image_dimension_cube = max_image_dimension_cube;
             self
         }
+
         pub fn max_image_array_layers(mut self, max_image_array_layers: u32) -> Self {
             self.max_image_array_layers = max_image_array_layers;
             self
         }
+
         pub fn max_texel_buffer_elements(mut self, max_texel_buffer_elements: u32) -> Self {
             self.max_texel_buffer_elements = max_texel_buffer_elements;
             self
         }
+
         pub fn max_uniform_buffer_range(mut self, max_uniform_buffer_range: u32) -> Self {
             self.max_uniform_buffer_range = max_uniform_buffer_range;
             self
         }
+
         pub fn max_storage_buffer_range(mut self, max_storage_buffer_range: u32) -> Self {
             self.max_storage_buffer_range = max_storage_buffer_range;
             self
         }
+
         pub fn max_push_constants_size(mut self, max_push_constants_size: u32) -> Self {
             self.max_push_constants_size = max_push_constants_size;
             self
         }
+
         pub fn max_memory_allocation_count(mut self, max_memory_allocation_count: u32) -> Self {
             self.max_memory_allocation_count = max_memory_allocation_count;
             self
         }
+
         pub fn max_sampler_allocation_count(mut self, max_sampler_allocation_count: u32) -> Self {
             self.max_sampler_allocation_count = max_sampler_allocation_count;
             self
         }
+
         pub fn buffer_image_granularity(mut self, buffer_image_granularity: DeviceSize) -> Self {
             self.buffer_image_granularity = buffer_image_granularity;
             self
         }
+
         pub fn sparse_address_space_size(mut self, sparse_address_space_size: DeviceSize) -> Self {
             self.sparse_address_space_size = sparse_address_space_size;
             self
         }
+
         pub fn max_bound_descriptor_sets(mut self, max_bound_descriptor_sets: u32) -> Self {
             self.max_bound_descriptor_sets = max_bound_descriptor_sets;
             self
         }
+
         pub fn max_per_stage_descriptor_samplers(
             mut self,
             max_per_stage_descriptor_samplers: u32,
@@ -4826,6 +5526,7 @@ pub(super) mod defs {
             self.max_per_stage_descriptor_samplers = max_per_stage_descriptor_samplers;
             self
         }
+
         pub fn max_per_stage_descriptor_uniform_buffers(
             mut self,
             max_per_stage_descriptor_uniform_buffers: u32,
@@ -4834,6 +5535,7 @@ pub(super) mod defs {
                 max_per_stage_descriptor_uniform_buffers;
             self
         }
+
         pub fn max_per_stage_descriptor_storage_buffers(
             mut self,
             max_per_stage_descriptor_storage_buffers: u32,
@@ -4842,6 +5544,7 @@ pub(super) mod defs {
                 max_per_stage_descriptor_storage_buffers;
             self
         }
+
         pub fn max_per_stage_descriptor_sampled_images(
             mut self,
             max_per_stage_descriptor_sampled_images: u32,
@@ -4849,6 +5552,7 @@ pub(super) mod defs {
             self.max_per_stage_descriptor_sampled_images = max_per_stage_descriptor_sampled_images;
             self
         }
+
         pub fn max_per_stage_descriptor_storage_images(
             mut self,
             max_per_stage_descriptor_storage_images: u32,
@@ -4856,6 +5560,7 @@ pub(super) mod defs {
             self.max_per_stage_descriptor_storage_images = max_per_stage_descriptor_storage_images;
             self
         }
+
         pub fn max_per_stage_descriptor_input_attachments(
             mut self,
             max_per_stage_descriptor_input_attachments: u32,
@@ -4864,14 +5569,17 @@ pub(super) mod defs {
                 max_per_stage_descriptor_input_attachments;
             self
         }
+
         pub fn max_per_stage_resources(mut self, max_per_stage_resources: u32) -> Self {
             self.max_per_stage_resources = max_per_stage_resources;
             self
         }
+
         pub fn max_descriptor_set_samplers(mut self, max_descriptor_set_samplers: u32) -> Self {
             self.max_descriptor_set_samplers = max_descriptor_set_samplers;
             self
         }
+
         pub fn max_descriptor_set_uniform_buffers(
             mut self,
             max_descriptor_set_uniform_buffers: u32,
@@ -4879,6 +5587,7 @@ pub(super) mod defs {
             self.max_descriptor_set_uniform_buffers = max_descriptor_set_uniform_buffers;
             self
         }
+
         pub fn max_descriptor_set_uniform_buffers_dynamic(
             mut self,
             max_descriptor_set_uniform_buffers_dynamic: u32,
@@ -4887,6 +5596,7 @@ pub(super) mod defs {
                 max_descriptor_set_uniform_buffers_dynamic;
             self
         }
+
         pub fn max_descriptor_set_storage_buffers(
             mut self,
             max_descriptor_set_storage_buffers: u32,
@@ -4894,6 +5604,7 @@ pub(super) mod defs {
             self.max_descriptor_set_storage_buffers = max_descriptor_set_storage_buffers;
             self
         }
+
         pub fn max_descriptor_set_storage_buffers_dynamic(
             mut self,
             max_descriptor_set_storage_buffers_dynamic: u32,
@@ -4902,6 +5613,7 @@ pub(super) mod defs {
                 max_descriptor_set_storage_buffers_dynamic;
             self
         }
+
         pub fn max_descriptor_set_sampled_images(
             mut self,
             max_descriptor_set_sampled_images: u32,
@@ -4909,6 +5621,7 @@ pub(super) mod defs {
             self.max_descriptor_set_sampled_images = max_descriptor_set_sampled_images;
             self
         }
+
         pub fn max_descriptor_set_storage_images(
             mut self,
             max_descriptor_set_storage_images: u32,
@@ -4916,6 +5629,7 @@ pub(super) mod defs {
             self.max_descriptor_set_storage_images = max_descriptor_set_storage_images;
             self
         }
+
         pub fn max_descriptor_set_input_attachments(
             mut self,
             max_descriptor_set_input_attachments: u32,
@@ -4923,14 +5637,17 @@ pub(super) mod defs {
             self.max_descriptor_set_input_attachments = max_descriptor_set_input_attachments;
             self
         }
+
         pub fn max_vertex_input_attributes(mut self, max_vertex_input_attributes: u32) -> Self {
             self.max_vertex_input_attributes = max_vertex_input_attributes;
             self
         }
+
         pub fn max_vertex_input_bindings(mut self, max_vertex_input_bindings: u32) -> Self {
             self.max_vertex_input_bindings = max_vertex_input_bindings;
             self
         }
+
         pub fn max_vertex_input_attribute_offset(
             mut self,
             max_vertex_input_attribute_offset: u32,
@@ -4938,6 +5655,7 @@ pub(super) mod defs {
             self.max_vertex_input_attribute_offset = max_vertex_input_attribute_offset;
             self
         }
+
         pub fn max_vertex_input_binding_stride(
             mut self,
             max_vertex_input_binding_stride: u32,
@@ -4945,10 +5663,12 @@ pub(super) mod defs {
             self.max_vertex_input_binding_stride = max_vertex_input_binding_stride;
             self
         }
+
         pub fn max_vertex_output_components(mut self, max_vertex_output_components: u32) -> Self {
             self.max_vertex_output_components = max_vertex_output_components;
             self
         }
+
         pub fn max_tessellation_generation_level(
             mut self,
             max_tessellation_generation_level: u32,
@@ -4956,10 +5676,12 @@ pub(super) mod defs {
             self.max_tessellation_generation_level = max_tessellation_generation_level;
             self
         }
+
         pub fn max_tessellation_patch_size(mut self, max_tessellation_patch_size: u32) -> Self {
             self.max_tessellation_patch_size = max_tessellation_patch_size;
             self
         }
+
         pub fn max_tessellation_control_per_vertex_input_components(
             mut self,
             max_tessellation_control_per_vertex_input_components: u32,
@@ -4968,6 +5690,7 @@ pub(super) mod defs {
                 max_tessellation_control_per_vertex_input_components;
             self
         }
+
         pub fn max_tessellation_control_per_vertex_output_components(
             mut self,
             max_tessellation_control_per_vertex_output_components: u32,
@@ -4976,6 +5699,7 @@ pub(super) mod defs {
                 max_tessellation_control_per_vertex_output_components;
             self
         }
+
         pub fn max_tessellation_control_per_patch_output_components(
             mut self,
             max_tessellation_control_per_patch_output_components: u32,
@@ -4984,6 +5708,7 @@ pub(super) mod defs {
                 max_tessellation_control_per_patch_output_components;
             self
         }
+
         pub fn max_tessellation_control_total_output_components(
             mut self,
             max_tessellation_control_total_output_components: u32,
@@ -4992,6 +5717,7 @@ pub(super) mod defs {
                 max_tessellation_control_total_output_components;
             self
         }
+
         pub fn max_tessellation_evaluation_input_components(
             mut self,
             max_tessellation_evaluation_input_components: u32,
@@ -5000,6 +5726,7 @@ pub(super) mod defs {
                 max_tessellation_evaluation_input_components;
             self
         }
+
         pub fn max_tessellation_evaluation_output_components(
             mut self,
             max_tessellation_evaluation_output_components: u32,
@@ -5008,6 +5735,7 @@ pub(super) mod defs {
                 max_tessellation_evaluation_output_components;
             self
         }
+
         pub fn max_geometry_shader_invocations(
             mut self,
             max_geometry_shader_invocations: u32,
@@ -5015,10 +5743,12 @@ pub(super) mod defs {
             self.max_geometry_shader_invocations = max_geometry_shader_invocations;
             self
         }
+
         pub fn max_geometry_input_components(mut self, max_geometry_input_components: u32) -> Self {
             self.max_geometry_input_components = max_geometry_input_components;
             self
         }
+
         pub fn max_geometry_output_components(
             mut self,
             max_geometry_output_components: u32,
@@ -5026,10 +5756,12 @@ pub(super) mod defs {
             self.max_geometry_output_components = max_geometry_output_components;
             self
         }
+
         pub fn max_geometry_output_vertices(mut self, max_geometry_output_vertices: u32) -> Self {
             self.max_geometry_output_vertices = max_geometry_output_vertices;
             self
         }
+
         pub fn max_geometry_total_output_components(
             mut self,
             max_geometry_total_output_components: u32,
@@ -5037,10 +5769,12 @@ pub(super) mod defs {
             self.max_geometry_total_output_components = max_geometry_total_output_components;
             self
         }
+
         pub fn max_fragment_input_components(mut self, max_fragment_input_components: u32) -> Self {
             self.max_fragment_input_components = max_fragment_input_components;
             self
         }
+
         pub fn max_fragment_output_attachments(
             mut self,
             max_fragment_output_attachments: u32,
@@ -5048,6 +5782,7 @@ pub(super) mod defs {
             self.max_fragment_output_attachments = max_fragment_output_attachments;
             self
         }
+
         pub fn max_fragment_dual_src_attachments(
             mut self,
             max_fragment_dual_src_attachments: u32,
@@ -5055,6 +5790,7 @@ pub(super) mod defs {
             self.max_fragment_dual_src_attachments = max_fragment_dual_src_attachments;
             self
         }
+
         pub fn max_fragment_combined_output_resources(
             mut self,
             max_fragment_combined_output_resources: u32,
@@ -5062,6 +5798,7 @@ pub(super) mod defs {
             self.max_fragment_combined_output_resources = max_fragment_combined_output_resources;
             self
         }
+
         pub fn max_compute_shared_memory_size(
             mut self,
             max_compute_shared_memory_size: u32,
@@ -5069,6 +5806,7 @@ pub(super) mod defs {
             self.max_compute_shared_memory_size = max_compute_shared_memory_size;
             self
         }
+
         pub fn max_compute_work_group_count(
             mut self,
             max_compute_work_group_count: [u32; 3],
@@ -5076,6 +5814,7 @@ pub(super) mod defs {
             self.max_compute_work_group_count = max_compute_work_group_count;
             self
         }
+
         pub fn max_compute_work_group_invocations(
             mut self,
             max_compute_work_group_invocations: u32,
@@ -5083,6 +5822,7 @@ pub(super) mod defs {
             self.max_compute_work_group_invocations = max_compute_work_group_invocations;
             self
         }
+
         pub fn max_compute_work_group_size(
             mut self,
             max_compute_work_group_size: [u32; 3],
@@ -5090,54 +5830,67 @@ pub(super) mod defs {
             self.max_compute_work_group_size = max_compute_work_group_size;
             self
         }
+
         pub fn sub_pixel_precision_bits(mut self, sub_pixel_precision_bits: u32) -> Self {
             self.sub_pixel_precision_bits = sub_pixel_precision_bits;
             self
         }
+
         pub fn sub_texel_precision_bits(mut self, sub_texel_precision_bits: u32) -> Self {
             self.sub_texel_precision_bits = sub_texel_precision_bits;
             self
         }
+
         pub fn mipmap_precision_bits(mut self, mipmap_precision_bits: u32) -> Self {
             self.mipmap_precision_bits = mipmap_precision_bits;
             self
         }
+
         pub fn max_draw_indexed_index_value(mut self, max_draw_indexed_index_value: u32) -> Self {
             self.max_draw_indexed_index_value = max_draw_indexed_index_value;
             self
         }
+
         pub fn max_draw_indirect_count(mut self, max_draw_indirect_count: u32) -> Self {
             self.max_draw_indirect_count = max_draw_indirect_count;
             self
         }
+
         pub fn max_sampler_lod_bias(mut self, max_sampler_lod_bias: f32) -> Self {
             self.max_sampler_lod_bias = max_sampler_lod_bias;
             self
         }
+
         pub fn max_sampler_anisotropy(mut self, max_sampler_anisotropy: f32) -> Self {
             self.max_sampler_anisotropy = max_sampler_anisotropy;
             self
         }
+
         pub fn max_viewports(mut self, max_viewports: u32) -> Self {
             self.max_viewports = max_viewports;
             self
         }
+
         pub fn max_viewport_dimensions(mut self, max_viewport_dimensions: [u32; 2]) -> Self {
             self.max_viewport_dimensions = max_viewport_dimensions;
             self
         }
+
         pub fn viewport_bounds_range(mut self, viewport_bounds_range: [f32; 2]) -> Self {
             self.viewport_bounds_range = viewport_bounds_range;
             self
         }
+
         pub fn viewport_sub_pixel_bits(mut self, viewport_sub_pixel_bits: u32) -> Self {
             self.viewport_sub_pixel_bits = viewport_sub_pixel_bits;
             self
         }
+
         pub fn min_memory_map_alignment(mut self, min_memory_map_alignment: usize) -> Self {
             self.min_memory_map_alignment = min_memory_map_alignment;
             self
         }
+
         pub fn min_texel_buffer_offset_alignment(
             mut self,
             min_texel_buffer_offset_alignment: DeviceSize,
@@ -5145,6 +5898,7 @@ pub(super) mod defs {
             self.min_texel_buffer_offset_alignment = min_texel_buffer_offset_alignment;
             self
         }
+
         pub fn min_uniform_buffer_offset_alignment(
             mut self,
             min_uniform_buffer_offset_alignment: DeviceSize,
@@ -5152,6 +5906,7 @@ pub(super) mod defs {
             self.min_uniform_buffer_offset_alignment = min_uniform_buffer_offset_alignment;
             self
         }
+
         pub fn min_storage_buffer_offset_alignment(
             mut self,
             min_storage_buffer_offset_alignment: DeviceSize,
@@ -5159,30 +5914,37 @@ pub(super) mod defs {
             self.min_storage_buffer_offset_alignment = min_storage_buffer_offset_alignment;
             self
         }
+
         pub fn min_texel_offset(mut self, min_texel_offset: i32) -> Self {
             self.min_texel_offset = min_texel_offset;
             self
         }
+
         pub fn max_texel_offset(mut self, max_texel_offset: u32) -> Self {
             self.max_texel_offset = max_texel_offset;
             self
         }
+
         pub fn min_texel_gather_offset(mut self, min_texel_gather_offset: i32) -> Self {
             self.min_texel_gather_offset = min_texel_gather_offset;
             self
         }
+
         pub fn max_texel_gather_offset(mut self, max_texel_gather_offset: u32) -> Self {
             self.max_texel_gather_offset = max_texel_gather_offset;
             self
         }
+
         pub fn min_interpolation_offset(mut self, min_interpolation_offset: f32) -> Self {
             self.min_interpolation_offset = min_interpolation_offset;
             self
         }
+
         pub fn max_interpolation_offset(mut self, max_interpolation_offset: f32) -> Self {
             self.max_interpolation_offset = max_interpolation_offset;
             self
         }
+
         pub fn sub_pixel_interpolation_offset_bits(
             mut self,
             sub_pixel_interpolation_offset_bits: u32,
@@ -5190,18 +5952,22 @@ pub(super) mod defs {
             self.sub_pixel_interpolation_offset_bits = sub_pixel_interpolation_offset_bits;
             self
         }
+
         pub fn max_framebuffer_width(mut self, max_framebuffer_width: u32) -> Self {
             self.max_framebuffer_width = max_framebuffer_width;
             self
         }
+
         pub fn max_framebuffer_height(mut self, max_framebuffer_height: u32) -> Self {
             self.max_framebuffer_height = max_framebuffer_height;
             self
         }
+
         pub fn max_framebuffer_layers(mut self, max_framebuffer_layers: u32) -> Self {
             self.max_framebuffer_layers = max_framebuffer_layers;
             self
         }
+
         pub fn framebuffer_color_sample_counts(
             mut self,
             framebuffer_color_sample_counts: SampleCountFlags,
@@ -5209,6 +5975,7 @@ pub(super) mod defs {
             self.framebuffer_color_sample_counts = framebuffer_color_sample_counts;
             self
         }
+
         pub fn framebuffer_depth_sample_counts(
             mut self,
             framebuffer_depth_sample_counts: SampleCountFlags,
@@ -5216,6 +5983,7 @@ pub(super) mod defs {
             self.framebuffer_depth_sample_counts = framebuffer_depth_sample_counts;
             self
         }
+
         pub fn framebuffer_stencil_sample_counts(
             mut self,
             framebuffer_stencil_sample_counts: SampleCountFlags,
@@ -5223,6 +5991,7 @@ pub(super) mod defs {
             self.framebuffer_stencil_sample_counts = framebuffer_stencil_sample_counts;
             self
         }
+
         pub fn framebuffer_no_attachments_sample_counts(
             mut self,
             framebuffer_no_attachments_sample_counts: SampleCountFlags,
@@ -5231,10 +6000,12 @@ pub(super) mod defs {
                 framebuffer_no_attachments_sample_counts;
             self
         }
+
         pub fn max_color_attachments(mut self, max_color_attachments: u32) -> Self {
             self.max_color_attachments = max_color_attachments;
             self
         }
+
         pub fn sampled_image_color_sample_counts(
             mut self,
             sampled_image_color_sample_counts: SampleCountFlags,
@@ -5242,6 +6013,7 @@ pub(super) mod defs {
             self.sampled_image_color_sample_counts = sampled_image_color_sample_counts;
             self
         }
+
         pub fn sampled_image_integer_sample_counts(
             mut self,
             sampled_image_integer_sample_counts: SampleCountFlags,
@@ -5249,6 +6021,7 @@ pub(super) mod defs {
             self.sampled_image_integer_sample_counts = sampled_image_integer_sample_counts;
             self
         }
+
         pub fn sampled_image_depth_sample_counts(
             mut self,
             sampled_image_depth_sample_counts: SampleCountFlags,
@@ -5256,6 +6029,7 @@ pub(super) mod defs {
             self.sampled_image_depth_sample_counts = sampled_image_depth_sample_counts;
             self
         }
+
         pub fn sampled_image_stencil_sample_counts(
             mut self,
             sampled_image_stencil_sample_counts: SampleCountFlags,
@@ -5263,6 +6037,7 @@ pub(super) mod defs {
             self.sampled_image_stencil_sample_counts = sampled_image_stencil_sample_counts;
             self
         }
+
         pub fn storage_image_sample_counts(
             mut self,
             storage_image_sample_counts: SampleCountFlags,
@@ -5270,10 +6045,12 @@ pub(super) mod defs {
             self.storage_image_sample_counts = storage_image_sample_counts;
             self
         }
+
         pub fn max_sample_mask_words(mut self, max_sample_mask_words: u32) -> Self {
             self.max_sample_mask_words = max_sample_mask_words;
             self
         }
+
         pub fn timestamp_compute_and_graphics(
             mut self,
             timestamp_compute_and_graphics: bool,
@@ -5281,18 +6058,22 @@ pub(super) mod defs {
             self.timestamp_compute_and_graphics = timestamp_compute_and_graphics.into();
             self
         }
+
         pub fn timestamp_period(mut self, timestamp_period: f32) -> Self {
             self.timestamp_period = timestamp_period;
             self
         }
+
         pub fn max_clip_distances(mut self, max_clip_distances: u32) -> Self {
             self.max_clip_distances = max_clip_distances;
             self
         }
+
         pub fn max_cull_distances(mut self, max_cull_distances: u32) -> Self {
             self.max_cull_distances = max_cull_distances;
             self
         }
+
         pub fn max_combined_clip_and_cull_distances(
             mut self,
             max_combined_clip_and_cull_distances: u32,
@@ -5300,34 +6081,42 @@ pub(super) mod defs {
             self.max_combined_clip_and_cull_distances = max_combined_clip_and_cull_distances;
             self
         }
+
         pub fn discrete_queue_priorities(mut self, discrete_queue_priorities: u32) -> Self {
             self.discrete_queue_priorities = discrete_queue_priorities;
             self
         }
+
         pub fn point_size_range(mut self, point_size_range: [f32; 2]) -> Self {
             self.point_size_range = point_size_range;
             self
         }
+
         pub fn line_width_range(mut self, line_width_range: [f32; 2]) -> Self {
             self.line_width_range = line_width_range;
             self
         }
+
         pub fn point_size_granularity(mut self, point_size_granularity: f32) -> Self {
             self.point_size_granularity = point_size_granularity;
             self
         }
+
         pub fn line_width_granularity(mut self, line_width_granularity: f32) -> Self {
             self.line_width_granularity = line_width_granularity;
             self
         }
+
         pub fn strict_lines(mut self, strict_lines: bool) -> Self {
             self.strict_lines = strict_lines.into();
             self
         }
+
         pub fn standard_sample_locations(mut self, standard_sample_locations: bool) -> Self {
             self.standard_sample_locations = standard_sample_locations.into();
             self
         }
+
         pub fn optimal_buffer_copy_offset_alignment(
             mut self,
             optimal_buffer_copy_offset_alignment: DeviceSize,
@@ -5335,6 +6124,7 @@ pub(super) mod defs {
             self.optimal_buffer_copy_offset_alignment = optimal_buffer_copy_offset_alignment;
             self
         }
+
         pub fn optimal_buffer_copy_row_pitch_alignment(
             mut self,
             optimal_buffer_copy_row_pitch_alignment: DeviceSize,
@@ -5342,11 +6132,13 @@ pub(super) mod defs {
             self.optimal_buffer_copy_row_pitch_alignment = optimal_buffer_copy_row_pitch_alignment;
             self
         }
+
         pub fn non_coherent_atom_size(mut self, non_coherent_atom_size: DeviceSize) -> Self {
             self.non_coherent_atom_size = non_coherent_atom_size;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSemaphoreCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -5356,9 +6148,11 @@ pub(super) mod defs {
         pub flags: SemaphoreCreateFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for SemaphoreCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SEMAPHORE_CREATE_INFO;
     }
+
     impl Default for SemaphoreCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -5369,12 +6163,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SemaphoreCreateInfo<'a> {
         pub fn flags(mut self, flags: SemaphoreCreateFlags) -> Self {
             self.flags = flags;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryPoolCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -5387,9 +6183,11 @@ pub(super) mod defs {
         pub pipeline_statistics: QueryPipelineStatisticFlags,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for QueryPoolCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::QUERY_POOL_CREATE_INFO;
     }
+
     impl Default for QueryPoolCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -5403,19 +6201,23 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> QueryPoolCreateInfo<'a> {
         pub fn flags(mut self, flags: QueryPoolCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn query_type(mut self, query_type: QueryType) -> Self {
             self.query_type = query_type;
             self
         }
+
         pub fn query_count(mut self, query_count: u32) -> Self {
             self.query_count = query_count;
             self
         }
+
         pub fn pipeline_statistics(
             mut self,
             pipeline_statistics: QueryPipelineStatisticFlags,
@@ -5424,6 +6226,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFramebufferCreateInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -5439,9 +6242,11 @@ pub(super) mod defs {
         pub layers: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for FramebufferCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::FRAMEBUFFER_CREATE_INFO;
     }
+
     impl Default for FramebufferCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -5458,33 +6263,40 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> FramebufferCreateInfo<'a> {
         pub fn flags(mut self, flags: FramebufferCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn render_pass(mut self, render_pass: RenderPass) -> Self {
             self.render_pass = render_pass;
             self
         }
+
         pub fn attachments(mut self, attachments: &'a [ImageView]) -> Self {
             self.attachment_count = attachments.len().try_into().unwrap();
             self.p_attachments = attachments.as_ptr();
             self
         }
+
         pub fn width(mut self, width: u32) -> Self {
             self.width = width;
             self
         }
+
         pub fn height(mut self, height: u32) -> Self {
             self.height = height;
             self
         }
+
         pub fn layers(mut self, layers: u32) -> Self {
             self.layers = layers;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDrawIndirectCommand.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -5494,24 +6306,29 @@ pub(super) mod defs {
         pub first_vertex: u32,
         pub first_instance: u32,
     }
+
     impl DrawIndirectCommand {
         pub fn vertex_count(mut self, vertex_count: u32) -> Self {
             self.vertex_count = vertex_count;
             self
         }
+
         pub fn instance_count(mut self, instance_count: u32) -> Self {
             self.instance_count = instance_count;
             self
         }
+
         pub fn first_vertex(mut self, first_vertex: u32) -> Self {
             self.first_vertex = first_vertex;
             self
         }
+
         pub fn first_instance(mut self, first_instance: u32) -> Self {
             self.first_instance = first_instance;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDrawIndexedIndirectCommand.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -5522,28 +6339,34 @@ pub(super) mod defs {
         pub vertex_offset: i32,
         pub first_instance: u32,
     }
+
     impl DrawIndexedIndirectCommand {
         pub fn index_count(mut self, index_count: u32) -> Self {
             self.index_count = index_count;
             self
         }
+
         pub fn instance_count(mut self, instance_count: u32) -> Self {
             self.instance_count = instance_count;
             self
         }
+
         pub fn first_index(mut self, first_index: u32) -> Self {
             self.first_index = first_index;
             self
         }
+
         pub fn vertex_offset(mut self, vertex_offset: i32) -> Self {
             self.vertex_offset = vertex_offset;
             self
         }
+
         pub fn first_instance(mut self, first_instance: u32) -> Self {
             self.first_instance = first_instance;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDispatchIndirectCommand.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -5552,20 +6375,24 @@ pub(super) mod defs {
         pub y: u32,
         pub z: u32,
     }
+
     impl DispatchIndirectCommand {
         pub fn x(mut self, x: u32) -> Self {
             self.x = x;
             self
         }
+
         pub fn y(mut self, y: u32) -> Self {
             self.y = y;
             self
         }
+
         pub fn z(mut self, z: u32) -> Self {
             self.z = z;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubmitInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -5581,9 +6408,11 @@ pub(super) mod defs {
         pub p_signal_semaphores: *const Semaphore,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for SubmitInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SUBMIT_INFO;
     }
+
     impl Default for SubmitInfo<'_> {
         fn default() -> Self {
             Self {
@@ -5600,12 +6429,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SubmitInfo<'a> {
         pub fn wait_semaphores(mut self, wait_semaphores: &'a [Semaphore]) -> Self {
             self.wait_semaphore_count = wait_semaphores.len().try_into().unwrap();
             self.p_wait_semaphores = wait_semaphores.as_ptr();
             self
         }
+
         pub fn wait_dst_stage_mask(
             mut self,
             wait_dst_stage_mask: &'a [PipelineStageFlags],
@@ -5614,17 +6445,20 @@ pub(super) mod defs {
             self.p_wait_dst_stage_mask = wait_dst_stage_mask.as_ptr();
             self
         }
+
         pub fn command_buffers(mut self, command_buffers: &'a [CommandBuffer]) -> Self {
             self.command_buffer_count = command_buffers.len().try_into().unwrap();
             self.p_command_buffers = command_buffers.as_ptr();
             self
         }
+
         pub fn signal_semaphores(mut self, signal_semaphores: &'a [Semaphore]) -> Self {
             self.signal_semaphore_count = signal_semaphores.len().try_into().unwrap();
             self.p_signal_semaphores = signal_semaphores.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClearColorValue.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -5638,6 +6472,7 @@ pub(super) mod defs {
             unsafe { core::mem::zeroed() }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClearValue.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -5650,10 +6485,12 @@ pub(super) mod defs {
             unsafe { core::mem::zeroed() }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageLayout.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ImageLayout(i32);
+
     impl ImageLayout {
         /// Implicit layout an image is when its contents are undefined due to various reasons (e.g. right after creation)
         pub const UNDEFINED: Self = Self(0);
@@ -5675,60 +6512,79 @@ pub(super) mod defs {
         pub const PREINITIALIZED: Self = Self(8);
         // VK_ARM_tensors
         pub const TENSOR_ALIASING_ARM: Self = Self(1000460000);
+
         // VK_EXT_attachment_feedback_loop_layout
         pub const ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT: Self = Self(1000339000);
+
         // VK_EXT_fragment_density_map
         pub const FRAGMENT_DENSITY_MAP_OPTIMAL_EXT: Self = Self(1000218000);
+
         // VK_EXT_zero_initialize_device_memory
         pub const ZERO_INITIALIZED_EXT: Self = Self(1000620000);
+
         // VK_KHR_dynamic_rendering_local_read
         pub const RENDERING_LOCAL_READ_KHR: Self = Self::RENDERING_LOCAL_READ;
+
         // VK_KHR_fragment_shading_rate
         pub const FRAGMENT_SHADING_RATE_ATTACHMENT_OPTIMAL_KHR: Self = Self(1000164003);
+
         // VK_KHR_maintenance2
         pub const DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL_KHR: Self =
             Self::DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL;
         pub const DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL_KHR: Self =
             Self::DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL;
+
         // VK_KHR_separate_depth_stencil_layouts
         pub const DEPTH_ATTACHMENT_OPTIMAL_KHR: Self = Self::DEPTH_ATTACHMENT_OPTIMAL;
         pub const DEPTH_READ_ONLY_OPTIMAL_KHR: Self = Self::DEPTH_READ_ONLY_OPTIMAL;
         pub const STENCIL_ATTACHMENT_OPTIMAL_KHR: Self = Self::STENCIL_ATTACHMENT_OPTIMAL;
         pub const STENCIL_READ_ONLY_OPTIMAL_KHR: Self = Self::STENCIL_READ_ONLY_OPTIMAL;
+
         // VK_KHR_shared_presentable_image
         pub const SHARED_PRESENT_KHR: Self = Self(1000111000);
+
         // VK_KHR_swapchain
         pub const PRESENT_SRC_KHR: Self = Self(1000001002);
+
         // VK_KHR_synchronization2
         pub const READ_ONLY_OPTIMAL_KHR: Self = Self::READ_ONLY_OPTIMAL;
         pub const ATTACHMENT_OPTIMAL_KHR: Self = Self::ATTACHMENT_OPTIMAL;
+
         // VK_KHR_video_decode_queue
         pub const VIDEO_DECODE_DST_KHR: Self = Self(1000024000);
         pub const VIDEO_DECODE_SRC_KHR: Self = Self(1000024001);
         pub const VIDEO_DECODE_DPB_KHR: Self = Self(1000024002);
+
         // VK_KHR_video_encode_quantization_map
         pub const VIDEO_ENCODE_QUANTIZATION_MAP_KHR: Self = Self(1000553000);
+
         // VK_KHR_video_encode_queue
         pub const VIDEO_ENCODE_DST_KHR: Self = Self(1000299000);
         pub const VIDEO_ENCODE_SRC_KHR: Self = Self(1000299001);
         pub const VIDEO_ENCODE_DPB_KHR: Self = Self(1000299002);
+
         // VK_NV_shading_rate_image
         pub const SHADING_RATE_OPTIMAL_NV: Self =
             Self::FRAGMENT_SHADING_RATE_ATTACHMENT_OPTIMAL_KHR;
+
         // VK_VERSION_1_1
         pub const DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL: Self = Self(1000117000);
         pub const DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL: Self = Self(1000117001);
+
         // VK_VERSION_1_2
         pub const DEPTH_ATTACHMENT_OPTIMAL: Self = Self(1000241000);
         pub const DEPTH_READ_ONLY_OPTIMAL: Self = Self(1000241001);
         pub const STENCIL_ATTACHMENT_OPTIMAL: Self = Self(1000241002);
         pub const STENCIL_READ_ONLY_OPTIMAL: Self = Self(1000241003);
+
         // VK_VERSION_1_3
         pub const READ_ONLY_OPTIMAL: Self = Self(1000314000);
         pub const ATTACHMENT_OPTIMAL: Self = Self(1000314001);
+
         // VK_VERSION_1_4
         pub const RENDERING_LOCAL_READ: Self = Self(1000232000);
     }
+
     impl fmt::Debug for ImageLayout {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -5783,21 +6639,26 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentLoadOp.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct AttachmentLoadOp(i32);
+
     impl AttachmentLoadOp {
         pub const LOAD: Self = Self(0);
         pub const CLEAR: Self = Self(1);
         pub const DONT_CARE: Self = Self(2);
         // VK_EXT_load_store_op_none
         pub const NONE_EXT: Self = Self::NONE;
+
         // VK_KHR_load_store_op_none
         pub const NONE_KHR: Self = Self::NONE;
+
         // VK_VERSION_1_4
         pub const NONE: Self = Self(1000400000);
     }
+
     impl fmt::Debug for AttachmentLoadOp {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -5814,22 +6675,28 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentStoreOp.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct AttachmentStoreOp(i32);
+
     impl AttachmentStoreOp {
         pub const STORE: Self = Self(0);
         pub const DONT_CARE: Self = Self(1);
         // VK_EXT_load_store_op_none
         pub const NONE_EXT: Self = Self::NONE;
+
         // VK_KHR_dynamic_rendering
         pub const NONE_KHR: Self = Self::NONE;
+
         // VK_QCOM_render_pass_store_ops
         pub const NONE_QCOM: Self = Self::NONE;
+
         // VK_VERSION_1_3
         pub const NONE: Self = Self(1000301000);
     }
+
     impl fmt::Debug for AttachmentStoreOp {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -5845,15 +6712,18 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageType.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ImageType(i32);
+
     impl ImageType {
         pub const _1D: Self = Self(0);
         pub const _2D: Self = Self(1);
         pub const _3D: Self = Self(2);
     }
+
     impl fmt::Debug for ImageType {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -5869,16 +6739,19 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageTiling.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ImageTiling(i32);
+
     impl ImageTiling {
         pub const OPTIMAL: Self = Self(0);
         pub const LINEAR: Self = Self(1);
         // VK_EXT_image_drm_format_modifier
         pub const DRM_FORMAT_MODIFIER_EXT: Self = Self(1000158000);
     }
+
     impl fmt::Debug for ImageTiling {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -5894,10 +6767,12 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageViewType.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ImageViewType(i32);
+
     impl ImageViewType {
         pub const _1D: Self = Self(0);
         pub const _2D: Self = Self(1);
@@ -5907,6 +6782,7 @@ pub(super) mod defs {
         pub const _2D_ARRAY: Self = Self(5);
         pub const CUBE_ARRAY: Self = Self(6);
     }
+
     impl fmt::Debug for ImageViewType {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -5926,14 +6802,17 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferLevel.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct CommandBufferLevel(i32);
+
     impl CommandBufferLevel {
         pub const PRIMARY: Self = Self(0);
         pub const SECONDARY: Self = Self(1);
     }
+
     impl fmt::Debug for CommandBufferLevel {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -5948,10 +6827,12 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkComponentSwizzle.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ComponentSwizzle(i32);
+
     impl ComponentSwizzle {
         pub const IDENTITY: Self = Self(0);
         pub const ZERO: Self = Self(1);
@@ -5961,6 +6842,7 @@ pub(super) mod defs {
         pub const B: Self = Self(5);
         pub const A: Self = Self(6);
     }
+
     impl fmt::Debug for ComponentSwizzle {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -5980,10 +6862,12 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorType.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DescriptorType(i32);
+
     impl DescriptorType {
         pub const SAMPLER: Self = Self(0);
         pub const COMBINED_IMAGE_SAMPLER: Self = Self(1);
@@ -5998,24 +6882,33 @@ pub(super) mod defs {
         pub const INPUT_ATTACHMENT: Self = Self(10);
         // VK_ARM_tensors
         pub const TENSOR_ARM: Self = Self(1000460000);
+
         // VK_EXT_inline_uniform_block
         pub const INLINE_UNIFORM_BLOCK_EXT: Self = Self::INLINE_UNIFORM_BLOCK;
+
         // VK_EXT_mutable_descriptor_type
         pub const MUTABLE_EXT: Self = Self(1000351000);
+
         // VK_KHR_acceleration_structure
         pub const ACCELERATION_STRUCTURE_KHR: Self = Self(1000150000);
+
         // VK_NV_partitioned_acceleration_structure
         pub const PARTITIONED_ACCELERATION_STRUCTURE_NV: Self = Self(1000570000);
+
         // VK_NV_ray_tracing
         pub const ACCELERATION_STRUCTURE_NV: Self = Self(1000165000);
+
         // VK_QCOM_image_processing
         pub const SAMPLE_WEIGHT_IMAGE_QCOM: Self = Self(1000440000);
         pub const BLOCK_MATCH_IMAGE_QCOM: Self = Self(1000440001);
+
         // VK_VALVE_mutable_descriptor_type
         pub const MUTABLE_VALVE: Self = Self::MUTABLE_EXT;
+
         // VK_VERSION_1_3
         pub const INLINE_UNIFORM_BLOCK: Self = Self(1000138000);
     }
+
     impl fmt::Debug for DescriptorType {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -6049,41 +6942,54 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryType.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct QueryType(i32);
+
     impl QueryType {
         pub const OCCLUSION: Self = Self(0);
         pub const PIPELINE_STATISTICS: Self = Self(1);
         pub const TIMESTAMP: Self = Self(2);
         // VK_EXT_mesh_shader
         pub const MESH_PRIMITIVES_GENERATED_EXT: Self = Self(1000328000);
+
         // VK_EXT_opacity_micromap
         pub const MICROMAP_SERIALIZATION_SIZE_EXT: Self = Self(1000396000);
         pub const MICROMAP_COMPACTED_SIZE_EXT: Self = Self(1000396001);
+
         // VK_EXT_primitives_generated_query
         pub const PRIMITIVES_GENERATED_EXT: Self = Self(1000382000);
+
         // VK_EXT_transform_feedback
         pub const TRANSFORM_FEEDBACK_STREAM_EXT: Self = Self(1000028004);
+
         // VK_INTEL_performance_query
         pub const PERFORMANCE_QUERY_INTEL: Self = Self(1000210000);
+
         // VK_KHR_acceleration_structure
         pub const ACCELERATION_STRUCTURE_COMPACTED_SIZE_KHR: Self = Self(1000150000);
         pub const ACCELERATION_STRUCTURE_SERIALIZATION_SIZE_KHR: Self = Self(1000150001);
+
         // VK_KHR_performance_query
         pub const PERFORMANCE_QUERY_KHR: Self = Self(1000116000);
+
         // VK_KHR_ray_tracing_maintenance1
         pub const ACCELERATION_STRUCTURE_SERIALIZATION_BOTTOM_LEVEL_POINTERS_KHR: Self =
             Self(1000386000);
         pub const ACCELERATION_STRUCTURE_SIZE_KHR: Self = Self(1000386001);
+
         // VK_KHR_video_encode_queue
         pub const VIDEO_ENCODE_FEEDBACK_KHR: Self = Self(1000299000);
+
         // VK_KHR_video_queue
         pub const RESULT_STATUS_ONLY_KHR: Self = Self(1000023000);
+
         // VK_NV_ray_tracing
         pub const ACCELERATION_STRUCTURE_COMPACTED_SIZE_NV: Self = Self(1000165000);
     }
+
     impl fmt::Debug for QueryType {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -6121,10 +7027,12 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBorderColor.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct BorderColor(i32);
+
     impl BorderColor {
         pub const FLOAT_TRANSPARENT_BLACK: Self = Self(0);
         pub const INT_TRANSPARENT_BLACK: Self = Self(1);
@@ -6136,6 +7044,7 @@ pub(super) mod defs {
         pub const FLOAT_CUSTOM_EXT: Self = Self(1000287003);
         pub const INT_CUSTOM_EXT: Self = Self(1000287004);
     }
+
     impl fmt::Debug for BorderColor {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -6156,24 +7065,31 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineBindPoint.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PipelineBindPoint(i32);
+
     impl PipelineBindPoint {
         pub const GRAPHICS: Self = Self(0);
         pub const COMPUTE: Self = Self(1);
         // VK_AMDX_shader_enqueue
         pub const EXECUTION_GRAPH_AMDX: Self = Self(1000134000);
+
         // VK_ARM_data_graph
         pub const DATA_GRAPH_ARM: Self = Self(1000507000);
+
         // VK_HUAWEI_subpass_shading
         pub const SUBPASS_SHADING_HUAWEI: Self = Self(1000369003);
+
         // VK_KHR_ray_tracing_pipeline
         pub const RAY_TRACING_KHR: Self = Self(1000165000);
+
         // VK_NV_ray_tracing
         pub const RAY_TRACING_NV: Self = Self::RAY_TRACING_KHR;
     }
+
     impl fmt::Debug for PipelineBindPoint {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -6192,15 +7108,18 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCacheHeaderVersion.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PipelineCacheHeaderVersion(i32);
+
     impl PipelineCacheHeaderVersion {
         pub const ONE: Self = Self(1);
         // VK_QCOM_data_graph_model
         pub const DATA_GRAPH_QCOM: Self = Self(1000629000);
     }
+
     impl fmt::Debug for PipelineCacheHeaderVersion {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -6215,10 +7134,12 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPrimitiveTopology.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PrimitiveTopology(i32);
+
     impl PrimitiveTopology {
         pub const POINT_LIST: Self = Self(0);
         pub const LINE_LIST: Self = Self(1);
@@ -6232,6 +7153,7 @@ pub(super) mod defs {
         pub const TRIANGLE_STRIP_WITH_ADJACENCY: Self = Self(9);
         pub const PATCH_LIST: Self = Self(10);
     }
+
     impl fmt::Debug for PrimitiveTopology {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -6255,14 +7177,17 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSharingMode.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct SharingMode(i32);
+
     impl SharingMode {
         pub const EXCLUSIVE: Self = Self(0);
         pub const CONCURRENT: Self = Self(1);
     }
+
     impl fmt::Debug for SharingMode {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -6277,24 +7202,31 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndexType.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct IndexType(i32);
+
     impl IndexType {
         pub const UINT16: Self = Self(0);
         pub const UINT32: Self = Self(1);
         // VK_EXT_index_type_uint8
         pub const UINT8_EXT: Self = Self::UINT8;
+
         // VK_KHR_acceleration_structure
         pub const NONE_KHR: Self = Self(1000165000);
+
         // VK_KHR_index_type_uint8
         pub const UINT8_KHR: Self = Self::UINT8;
+
         // VK_NV_ray_tracing
         pub const NONE_NV: Self = Self::NONE_KHR;
+
         // VK_VERSION_1_4
         pub const UINT8: Self = Self(1000265000);
     }
+
     impl fmt::Debug for IndexType {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -6311,18 +7243,22 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFilter.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct Filter(i32);
+
     impl Filter {
         pub const NEAREST: Self = Self(0);
         pub const LINEAR: Self = Self(1);
         // VK_EXT_filter_cubic
         pub const CUBIC_EXT: Self = Self(1000015000);
+
         // VK_IMG_filter_cubic
         pub const CUBIC_IMG: Self = Self::CUBIC_EXT;
     }
+
     impl fmt::Debug for Filter {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -6338,16 +7274,19 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSamplerMipmapMode.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct SamplerMipmapMode(i32);
+
     impl SamplerMipmapMode {
         /// Choose nearest mip level
         pub const NEAREST: Self = Self(0);
         /// Linear filter between mip levels
         pub const LINEAR: Self = Self(1);
     }
+
     impl fmt::Debug for SamplerMipmapMode {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -6362,10 +7301,12 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSamplerAddressMode.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct SamplerAddressMode(i32);
+
     impl SamplerAddressMode {
         pub const REPEAT: Self = Self(0);
         pub const MIRRORED_REPEAT: Self = Self(1);
@@ -6375,6 +7316,7 @@ pub(super) mod defs {
         pub const MIRROR_CLAMP_TO_EDGE: Self = Self(4);
         pub const MIRROR_CLAMP_TO_EDGE_KHR: Self = Self::MIRROR_CLAMP_TO_EDGE;
     }
+
     impl fmt::Debug for SamplerAddressMode {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -6392,10 +7334,12 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCompareOp.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct CompareOp(i32);
+
     impl CompareOp {
         pub const NEVER: Self = Self(0);
         pub const LESS: Self = Self(1);
@@ -6406,6 +7350,7 @@ pub(super) mod defs {
         pub const GREATER_OR_EQUAL: Self = Self(6);
         pub const ALWAYS: Self = Self(7);
     }
+
     impl fmt::Debug for CompareOp {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -6426,10 +7371,12 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPolygonMode.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PolygonMode(i32);
+
     impl PolygonMode {
         pub const FILL: Self = Self(0);
         pub const LINE: Self = Self(1);
@@ -6437,6 +7384,7 @@ pub(super) mod defs {
         // VK_NV_fill_rectangle
         pub const FILL_RECTANGLE_NV: Self = Self(1000153000);
     }
+
     impl fmt::Debug for PolygonMode {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -6453,14 +7401,17 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFrontFace.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct FrontFace(i32);
+
     impl FrontFace {
         pub const COUNTER_CLOCKWISE: Self = Self(0);
         pub const CLOCKWISE: Self = Self(1);
     }
+
     impl fmt::Debug for FrontFace {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -6475,10 +7426,12 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBlendFactor.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct BlendFactor(i32);
+
     impl BlendFactor {
         pub const ZERO: Self = Self(0);
         pub const ONE: Self = Self(1);
@@ -6500,6 +7453,7 @@ pub(super) mod defs {
         pub const SRC1_ALPHA: Self = Self(17);
         pub const ONE_MINUS_SRC1_ALPHA: Self = Self(18);
     }
+
     impl fmt::Debug for BlendFactor {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -6531,10 +7485,12 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBlendOp.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct BlendOp(i32);
+
     impl BlendOp {
         pub const ADD: Self = Self(0);
         pub const SUBTRACT: Self = Self(1);
@@ -6589,6 +7545,7 @@ pub(super) mod defs {
         pub const GREEN_EXT: Self = Self(1000148044);
         pub const BLUE_EXT: Self = Self(1000148045);
     }
+
     impl fmt::Debug for BlendOp {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -6652,10 +7609,12 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkStencilOp.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StencilOp(i32);
+
     impl StencilOp {
         pub const KEEP: Self = Self(0);
         pub const ZERO: Self = Self(1);
@@ -6666,6 +7625,7 @@ pub(super) mod defs {
         pub const INCREMENT_AND_WRAP: Self = Self(6);
         pub const DECREMENT_AND_WRAP: Self = Self(7);
     }
+
     impl fmt::Debug for StencilOp {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -6686,10 +7646,12 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkLogicOp.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct LogicOp(i32);
+
     impl LogicOp {
         pub const CLEAR: Self = Self(0);
         pub const AND: Self = Self(1);
@@ -6708,6 +7670,7 @@ pub(super) mod defs {
         pub const NAND: Self = Self(14);
         pub const SET: Self = Self(15);
     }
+
     impl fmt::Debug for LogicOp {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -6736,13 +7699,16 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkInternalAllocationType.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct InternalAllocationType(i32);
+
     impl InternalAllocationType {
         pub const EXECUTABLE: Self = Self(0);
     }
+
     impl fmt::Debug for InternalAllocationType {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -6756,10 +7722,12 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSystemAllocationScope.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct SystemAllocationScope(i32);
+
     impl SystemAllocationScope {
         pub const COMMAND: Self = Self(0);
         pub const OBJECT: Self = Self(1);
@@ -6767,6 +7735,7 @@ pub(super) mod defs {
         pub const DEVICE: Self = Self(3);
         pub const INSTANCE: Self = Self(4);
     }
+
     impl fmt::Debug for SystemAllocationScope {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -6784,10 +7753,12 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceType.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PhysicalDeviceType(i32);
+
     impl PhysicalDeviceType {
         pub const OTHER: Self = Self(0);
         pub const INTEGRATED_GPU: Self = Self(1);
@@ -6795,6 +7766,7 @@ pub(super) mod defs {
         pub const VIRTUAL_GPU: Self = Self(3);
         pub const CPU: Self = Self(4);
     }
+
     impl fmt::Debug for PhysicalDeviceType {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -6812,14 +7784,17 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVertexInputRate.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct VertexInputRate(i32);
+
     impl VertexInputRate {
         pub const VERTEX: Self = Self(0);
         pub const INSTANCE: Self = Self(1);
     }
+
     impl fmt::Debug for VertexInputRate {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -6834,10 +7809,12 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFormat.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct Format(i32);
+
     impl Format {
         pub const UNDEFINED: Self = Self(0);
         pub const R4G4_UNORM_PACK8: Self = Self(1);
@@ -7039,11 +8016,14 @@ pub(super) mod defs {
         pub const R14X2G14X2B14X2A14X2_UNORM_4PACK16_ARM: Self = Self(1000609011);
         pub const G14X2_B14X2R14X2_2PLANE_420_UNORM_3PACK16_ARM: Self = Self(1000609012);
         pub const G14X2_B14X2R14X2_2PLANE_422_UNORM_3PACK16_ARM: Self = Self(1000609013);
+
         // VK_ARM_tensors
         pub const R8_BOOL_ARM: Self = Self(1000460000);
+
         // VK_EXT_4444_formats
         pub const A4R4G4B4_UNORM_PACK16_EXT: Self = Self::A4R4G4B4_UNORM_PACK16;
         pub const A4B4G4R4_UNORM_PACK16_EXT: Self = Self::A4B4G4R4_UNORM_PACK16;
+
         // VK_EXT_texture_compression_astc_3d
         pub const ASTC_3X3X3_UNORM_BLOCK_EXT: Self = Self(1000288000);
         pub const ASTC_3X3X3_SRGB_BLOCK_EXT: Self = Self(1000288001);
@@ -7075,6 +8055,7 @@ pub(super) mod defs {
         pub const ASTC_6X6X6_UNORM_BLOCK_EXT: Self = Self(1000288027);
         pub const ASTC_6X6X6_SRGB_BLOCK_EXT: Self = Self(1000288028);
         pub const ASTC_6X6X6_SFLOAT_BLOCK_EXT: Self = Self(1000288029);
+
         // VK_EXT_texture_compression_astc_hdr
         pub const ASTC_4X4_SFLOAT_BLOCK_EXT: Self = Self::ASTC_4X4_SFLOAT_BLOCK;
         pub const ASTC_5X4_SFLOAT_BLOCK_EXT: Self = Self::ASTC_5X4_SFLOAT_BLOCK;
@@ -7090,6 +8071,7 @@ pub(super) mod defs {
         pub const ASTC_10X10_SFLOAT_BLOCK_EXT: Self = Self::ASTC_10X10_SFLOAT_BLOCK;
         pub const ASTC_12X10_SFLOAT_BLOCK_EXT: Self = Self::ASTC_12X10_SFLOAT_BLOCK;
         pub const ASTC_12X12_SFLOAT_BLOCK_EXT: Self = Self::ASTC_12X12_SFLOAT_BLOCK;
+
         // VK_EXT_ycbcr_2plane_444_formats
         pub const G8_B8R8_2PLANE_444_UNORM_EXT: Self = Self::G8_B8R8_2PLANE_444_UNORM;
         pub const G10X6_B10X6R10X6_2PLANE_444_UNORM_3PACK16_EXT: Self =
@@ -7097,6 +8079,7 @@ pub(super) mod defs {
         pub const G12X4_B12X4R12X4_2PLANE_444_UNORM_3PACK16_EXT: Self =
             Self::G12X4_B12X4R12X4_2PLANE_444_UNORM_3PACK16;
         pub const G16_B16R16_2PLANE_444_UNORM_EXT: Self = Self::G16_B16R16_2PLANE_444_UNORM;
+
         // VK_IMG_format_pvrtc
         pub const PVRTC1_2BPP_UNORM_BLOCK_IMG: Self = Self(1000054000);
         pub const PVRTC1_4BPP_UNORM_BLOCK_IMG: Self = Self(1000054001);
@@ -7106,9 +8089,11 @@ pub(super) mod defs {
         pub const PVRTC1_4BPP_SRGB_BLOCK_IMG: Self = Self(1000054005);
         pub const PVRTC2_2BPP_SRGB_BLOCK_IMG: Self = Self(1000054006);
         pub const PVRTC2_4BPP_SRGB_BLOCK_IMG: Self = Self(1000054007);
+
         // VK_KHR_maintenance5
         pub const A1B5G5R5_UNORM_PACK16_KHR: Self = Self::A1B5G5R5_UNORM_PACK16;
         pub const A8_UNORM_KHR: Self = Self::A8_UNORM;
+
         // VK_KHR_sampler_ycbcr_conversion
         pub const G8B8G8R8_422_UNORM_KHR: Self = Self::G8B8G8R8_422_UNORM;
         pub const B8G8R8G8_422_UNORM_KHR: Self = Self::B8G8R8G8_422_UNORM;
@@ -7160,9 +8145,11 @@ pub(super) mod defs {
         pub const G16_B16_R16_3PLANE_422_UNORM_KHR: Self = Self::G16_B16_R16_3PLANE_422_UNORM;
         pub const G16_B16R16_2PLANE_422_UNORM_KHR: Self = Self::G16_B16R16_2PLANE_422_UNORM;
         pub const G16_B16_R16_3PLANE_444_UNORM_KHR: Self = Self::G16_B16_R16_3PLANE_444_UNORM;
+
         // VK_NV_optical_flow
         pub const R16G16_SFIXED5_NV: Self = Self(1000464000);
         pub const R16G16_S10_5_NV: Self = Self::R16G16_SFIXED5_NV;
+
         // VK_VERSION_1_1
         pub const G8B8G8R8_422_UNORM: Self = Self(1000156000);
         pub const B8G8R8G8_422_UNORM: Self = Self(1000156001);
@@ -7198,6 +8185,7 @@ pub(super) mod defs {
         pub const G16_B16_R16_3PLANE_422_UNORM: Self = Self(1000156031);
         pub const G16_B16R16_2PLANE_422_UNORM: Self = Self(1000156032);
         pub const G16_B16_R16_3PLANE_444_UNORM: Self = Self(1000156033);
+
         // VK_VERSION_1_3
         pub const G8_B8R8_2PLANE_444_UNORM: Self = Self(1000330000);
         pub const G10X6_B10X6R10X6_2PLANE_444_UNORM_3PACK16: Self = Self(1000330001);
@@ -7219,10 +8207,12 @@ pub(super) mod defs {
         pub const ASTC_10X10_SFLOAT_BLOCK: Self = Self(1000066011);
         pub const ASTC_12X10_SFLOAT_BLOCK: Self = Self(1000066012);
         pub const ASTC_12X12_SFLOAT_BLOCK: Self = Self(1000066013);
+
         // VK_VERSION_1_4
         pub const A1B5G5R5_UNORM_PACK16: Self = Self(1000470000);
         pub const A8_UNORM: Self = Self(1000470001);
     }
+
     impl fmt::Debug for Format {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -7578,10 +8568,12 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkStructureType.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct StructureType(i32);
+
     impl StructureType {
         pub const APPLICATION_INFO: Self = Self(0);
         pub const INSTANCE_CREATE_INFO: Self = Self(1);
@@ -7638,44 +8630,58 @@ pub(super) mod defs {
         pub const PHYSICAL_DEVICE_DENSE_GEOMETRY_FORMAT_FEATURES_AMDX: Self = Self(1000478000);
         pub const ACCELERATION_STRUCTURE_DENSE_GEOMETRY_FORMAT_TRIANGLES_DATA_AMDX: Self =
             Self(1000478001);
+
         // VK_AMDX_shader_enqueue
         pub const PHYSICAL_DEVICE_SHADER_ENQUEUE_FEATURES_AMDX: Self = Self(1000134000);
         pub const PHYSICAL_DEVICE_SHADER_ENQUEUE_PROPERTIES_AMDX: Self = Self(1000134001);
         pub const EXECUTION_GRAPH_PIPELINE_SCRATCH_SIZE_AMDX: Self = Self(1000134002);
         pub const EXECUTION_GRAPH_PIPELINE_CREATE_INFO_AMDX: Self = Self(1000134003);
         pub const PIPELINE_SHADER_STAGE_NODE_CREATE_INFO_AMDX: Self = Self(1000134004);
+
         // VK_AMD_anti_lag
         pub const PHYSICAL_DEVICE_ANTI_LAG_FEATURES_AMD: Self = Self(1000476000);
         pub const ANTI_LAG_DATA_AMD: Self = Self(1000476001);
         pub const ANTI_LAG_PRESENTATION_INFO_AMD: Self = Self(1000476002);
+
         // VK_AMD_device_coherent_memory
         pub const PHYSICAL_DEVICE_COHERENT_MEMORY_FEATURES_AMD: Self = Self(1000229000);
+
         // VK_AMD_display_native_hdr
         pub const DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD: Self = Self(1000213000);
         pub const SWAPCHAIN_DISPLAY_NATIVE_HDR_CREATE_INFO_AMD: Self = Self(1000213001);
+
         // VK_AMD_memory_overallocation_behavior
         pub const DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD: Self = Self(1000189000);
+
         // VK_AMD_mixed_attachment_samples
         pub const ATTACHMENT_SAMPLE_COUNT_INFO_AMD: Self = Self(1000044008);
+
         // VK_AMD_pipeline_compiler_control
         pub const PIPELINE_COMPILER_CONTROL_CREATE_INFO_AMD: Self = Self(1000183000);
+
         // VK_AMD_rasterization_order
         pub const PIPELINE_RASTERIZATION_STATE_RASTERIZATION_ORDER_AMD: Self = Self(1000018000);
+
         // VK_AMD_shader_core_properties
         pub const PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_AMD: Self = Self(1000185000);
+
         // VK_AMD_shader_core_properties2
         pub const PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_2_AMD: Self = Self(1000227000);
+
         // VK_AMD_shader_early_and_late_fragment_tests
         pub const PHYSICAL_DEVICE_SHADER_EARLY_AND_LATE_FRAGMENT_TESTS_FEATURES_AMD: Self =
             Self(1000321000);
+
         // VK_AMD_texture_gather_bias_lod
         pub const TEXTURE_LOD_GATHER_FORMAT_PROPERTIES_AMD: Self = Self(1000041000);
+
         // VK_ANDROID_external_format_resolve
         pub const PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_FEATURES_ANDROID: Self = Self(1000468000);
         pub const PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_PROPERTIES_ANDROID: Self =
             Self(1000468001);
         pub const ANDROID_HARDWARE_BUFFER_FORMAT_RESOLVE_PROPERTIES_ANDROID: Self =
             Self(1000468002);
+
         // VK_ANDROID_external_memory_android_hardware_buffer
         pub const ANDROID_HARDWARE_BUFFER_USAGE_ANDROID: Self = Self(1000129000);
         pub const ANDROID_HARDWARE_BUFFER_PROPERTIES_ANDROID: Self = Self(1000129001);
@@ -7684,6 +8690,7 @@ pub(super) mod defs {
         pub const MEMORY_GET_ANDROID_HARDWARE_BUFFER_INFO_ANDROID: Self = Self(1000129004);
         pub const EXTERNAL_FORMAT_ANDROID: Self = Self(1000129005);
         pub const ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_2_ANDROID: Self = Self(1000129006);
+
         // VK_ARM_data_graph
         pub const DATA_GRAPH_PIPELINE_CREATE_INFO_ARM: Self = Self(1000507000);
         pub const DATA_GRAPH_PIPELINE_SESSION_CREATE_INFO_ARM: Self = Self(1000507001);
@@ -7708,8 +8715,10 @@ pub(super) mod defs {
             Self(1000507019);
         pub const DATA_GRAPH_PIPELINE_CONSTANT_TENSOR_SEMI_STRUCTURED_SPARSITY_INFO_ARM: Self =
             Self(1000507015);
+
         // VK_ARM_format_pack
         pub const PHYSICAL_DEVICE_FORMAT_PACK_FEATURES_ARM: Self = Self(1000609000);
+
         // VK_ARM_performance_counters_by_region
         pub const PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_FEATURES_ARM: Self =
             Self(1000605000);
@@ -7719,26 +8728,33 @@ pub(super) mod defs {
         pub const PERFORMANCE_COUNTER_DESCRIPTION_ARM: Self = Self(1000605003);
         pub const RENDER_PASS_PERFORMANCE_COUNTERS_BY_REGION_BEGIN_INFO_ARM: Self =
             Self(1000605004);
+
         // VK_ARM_pipeline_opacity_micromap
         pub const PHYSICAL_DEVICE_PIPELINE_OPACITY_MICROMAP_FEATURES_ARM: Self = Self(1000596000);
+
         // VK_ARM_rasterization_order_attachment_access
         pub const PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_ARM: Self =
             Self::PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT;
+
         // VK_ARM_render_pass_striped
         pub const PHYSICAL_DEVICE_RENDER_PASS_STRIPED_FEATURES_ARM: Self = Self(1000424000);
         pub const PHYSICAL_DEVICE_RENDER_PASS_STRIPED_PROPERTIES_ARM: Self = Self(1000424001);
         pub const RENDER_PASS_STRIPE_BEGIN_INFO_ARM: Self = Self(1000424002);
         pub const RENDER_PASS_STRIPE_INFO_ARM: Self = Self(1000424003);
         pub const RENDER_PASS_STRIPE_SUBMIT_INFO_ARM: Self = Self(1000424004);
+
         // VK_ARM_scheduling_controls
         pub const DEVICE_QUEUE_SHADER_CORE_CONTROL_CREATE_INFO_ARM: Self = Self(1000417000);
         pub const PHYSICAL_DEVICE_SCHEDULING_CONTROLS_FEATURES_ARM: Self = Self(1000417001);
         pub const PHYSICAL_DEVICE_SCHEDULING_CONTROLS_PROPERTIES_ARM: Self = Self(1000417002);
+
         // VK_ARM_shader_core_builtins
         pub const PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_FEATURES_ARM: Self = Self(1000497000);
         pub const PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_PROPERTIES_ARM: Self = Self(1000497001);
+
         // VK_ARM_shader_core_properties
         pub const PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_ARM: Self = Self(1000415000);
+
         // VK_ARM_tensors
         pub const TENSOR_CREATE_INFO_ARM: Self = Self(1000460000);
         pub const TENSOR_VIEW_CREATE_INFO_ARM: Self = Self(1000460001);
@@ -7764,82 +8780,104 @@ pub(super) mod defs {
         pub const TENSOR_CAPTURE_DESCRIPTOR_DATA_INFO_ARM: Self = Self(1000460021);
         pub const TENSOR_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_ARM: Self = Self(1000460022);
         pub const FRAME_BOUNDARY_TENSORS_ARM: Self = Self(1000460023);
+
         // VK_EXT_4444_formats
         pub const PHYSICAL_DEVICE_4444_FORMATS_FEATURES_EXT: Self = Self(1000340000);
+
         // VK_EXT_astc_decode_mode
         pub const IMAGE_VIEW_ASTC_DECODE_MODE_EXT: Self = Self(1000067000);
         pub const PHYSICAL_DEVICE_ASTC_DECODE_FEATURES_EXT: Self = Self(1000067001);
+
         // VK_EXT_attachment_feedback_loop_dynamic_state
         pub const PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_DYNAMIC_STATE_FEATURES_EXT: Self =
             Self(1000524000);
+
         // VK_EXT_attachment_feedback_loop_layout
         pub const PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_LAYOUT_FEATURES_EXT: Self =
             Self(1000339000);
+
         // VK_EXT_blend_operation_advanced
         pub const PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_FEATURES_EXT: Self = Self(1000148000);
         pub const PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_PROPERTIES_EXT: Self = Self(1000148001);
         pub const PIPELINE_COLOR_BLEND_ADVANCED_STATE_CREATE_INFO_EXT: Self = Self(1000148002);
+
         // VK_EXT_border_color_swizzle
         pub const PHYSICAL_DEVICE_BORDER_COLOR_SWIZZLE_FEATURES_EXT: Self = Self(1000411000);
         pub const SAMPLER_BORDER_COLOR_COMPONENT_MAPPING_CREATE_INFO_EXT: Self = Self(1000411001);
+
         // VK_EXT_buffer_device_address
         pub const PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES_EXT: Self = Self(1000244000);
         pub const BUFFER_DEVICE_ADDRESS_CREATE_INFO_EXT: Self = Self(1000244002);
         pub const PHYSICAL_DEVICE_BUFFER_ADDRESS_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES_EXT;
         pub const BUFFER_DEVICE_ADDRESS_INFO_EXT: Self = Self::BUFFER_DEVICE_ADDRESS_INFO;
+
         // VK_EXT_calibrated_timestamps
         pub const CALIBRATED_TIMESTAMP_INFO_EXT: Self = Self::CALIBRATED_TIMESTAMP_INFO_KHR;
+
         // VK_EXT_color_write_enable
         pub const PHYSICAL_DEVICE_COLOR_WRITE_ENABLE_FEATURES_EXT: Self = Self(1000381000);
         pub const PIPELINE_COLOR_WRITE_CREATE_INFO_EXT: Self = Self(1000381001);
+
         // VK_EXT_conditional_rendering
         pub const COMMAND_BUFFER_INHERITANCE_CONDITIONAL_RENDERING_INFO_EXT: Self =
             Self(1000081000);
         pub const PHYSICAL_DEVICE_CONDITIONAL_RENDERING_FEATURES_EXT: Self = Self(1000081001);
         pub const CONDITIONAL_RENDERING_BEGIN_INFO_EXT: Self = Self(1000081002);
+
         // VK_EXT_conservative_rasterization
         pub const PHYSICAL_DEVICE_CONSERVATIVE_RASTERIZATION_PROPERTIES_EXT: Self =
             Self(1000101000);
         pub const PIPELINE_RASTERIZATION_CONSERVATIVE_STATE_CREATE_INFO_EXT: Self =
             Self(1000101001);
+
         // VK_EXT_custom_border_color
         pub const SAMPLER_CUSTOM_BORDER_COLOR_CREATE_INFO_EXT: Self = Self(1000287000);
         pub const PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_PROPERTIES_EXT: Self = Self(1000287001);
         pub const PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_FEATURES_EXT: Self = Self(1000287002);
+
         // VK_EXT_custom_resolve
         pub const PHYSICAL_DEVICE_CUSTOM_RESOLVE_FEATURES_EXT: Self = Self(1000628000);
         pub const BEGIN_CUSTOM_RESOLVE_INFO_EXT: Self = Self(1000628001);
         pub const CUSTOM_RESOLVE_CREATE_INFO_EXT: Self = Self(1000628002);
+
         // VK_EXT_debug_marker
         pub const DEBUG_MARKER_OBJECT_NAME_INFO_EXT: Self = Self(1000022000);
         pub const DEBUG_MARKER_OBJECT_TAG_INFO_EXT: Self = Self(1000022001);
         pub const DEBUG_MARKER_MARKER_INFO_EXT: Self = Self(1000022002);
+
         // VK_EXT_debug_report
         pub const DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT: Self = Self(1000011000);
         pub const DEBUG_REPORT_CREATE_INFO_EXT: Self = Self::DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT;
+
         // VK_EXT_debug_utils
         pub const DEBUG_UTILS_OBJECT_NAME_INFO_EXT: Self = Self(1000128000);
         pub const DEBUG_UTILS_OBJECT_TAG_INFO_EXT: Self = Self(1000128001);
         pub const DEBUG_UTILS_LABEL_EXT: Self = Self(1000128002);
         pub const DEBUG_UTILS_MESSENGER_CALLBACK_DATA_EXT: Self = Self(1000128003);
         pub const DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT: Self = Self(1000128004);
+
         // VK_EXT_depth_bias_control
         pub const PHYSICAL_DEVICE_DEPTH_BIAS_CONTROL_FEATURES_EXT: Self = Self(1000283000);
         pub const DEPTH_BIAS_INFO_EXT: Self = Self(1000283001);
         pub const DEPTH_BIAS_REPRESENTATION_INFO_EXT: Self = Self(1000283002);
+
         // VK_EXT_depth_clamp_control
         pub const PHYSICAL_DEVICE_DEPTH_CLAMP_CONTROL_FEATURES_EXT: Self = Self(1000582000);
         pub const PIPELINE_VIEWPORT_DEPTH_CLAMP_CONTROL_CREATE_INFO_EXT: Self = Self(1000582001);
+
         // VK_EXT_depth_clamp_zero_one
         pub const PHYSICAL_DEVICE_DEPTH_CLAMP_ZERO_ONE_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_DEPTH_CLAMP_ZERO_ONE_FEATURES_KHR;
+
         // VK_EXT_depth_clip_control
         pub const PHYSICAL_DEVICE_DEPTH_CLIP_CONTROL_FEATURES_EXT: Self = Self(1000355000);
         pub const PIPELINE_VIEWPORT_DEPTH_CLIP_CONTROL_CREATE_INFO_EXT: Self = Self(1000355001);
+
         // VK_EXT_depth_clip_enable
         pub const PHYSICAL_DEVICE_DEPTH_CLIP_ENABLE_FEATURES_EXT: Self = Self(1000102000);
         pub const PIPELINE_RASTERIZATION_DEPTH_CLIP_STATE_CREATE_INFO_EXT: Self = Self(1000102001);
+
         // VK_EXT_descriptor_buffer
         pub const PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_PROPERTIES_EXT: Self = Self(1000316000);
         pub const PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_DENSITY_MAP_PROPERTIES_EXT: Self =
@@ -7856,6 +8894,7 @@ pub(super) mod defs {
         pub const DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT: Self =
             Self(1000316012);
         pub const ACCELERATION_STRUCTURE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT: Self = Self(1000316009);
+
         // VK_EXT_descriptor_heap
         pub const TEXEL_BUFFER_DESCRIPTOR_INFO_EXT: Self = Self(1000135000);
         pub const IMAGE_DESCRIPTOR_INFO_EXT: Self = Self(1000135001);
@@ -7872,6 +8911,7 @@ pub(super) mod defs {
         pub const INDIRECT_COMMANDS_LAYOUT_PUSH_DATA_TOKEN_NV: Self = Self(1000135012);
         pub const SUBSAMPLED_IMAGE_FORMAT_PROPERTIES_EXT: Self = Self(1000135013);
         pub const PHYSICAL_DEVICE_DESCRIPTOR_HEAP_TENSOR_PROPERTIES_ARM: Self = Self(1000135014);
+
         // VK_EXT_descriptor_indexing
         pub const DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO_EXT: Self =
             Self::DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO;
@@ -7883,13 +8923,16 @@ pub(super) mod defs {
             Self::DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO;
         pub const DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT_EXT: Self =
             Self::DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT;
+
         // VK_EXT_device_address_binding_report
         pub const PHYSICAL_DEVICE_ADDRESS_BINDING_REPORT_FEATURES_EXT: Self = Self(1000354000);
         pub const DEVICE_ADDRESS_BINDING_CALLBACK_DATA_EXT: Self = Self(1000354001);
+
         // VK_EXT_device_fault
         pub const PHYSICAL_DEVICE_FAULT_FEATURES_EXT: Self = Self(1000341000);
         pub const DEVICE_FAULT_COUNTS_EXT: Self = Self(1000341001);
         pub const DEVICE_FAULT_INFO_EXT: Self = Self(1000341002);
+
         // VK_EXT_device_generated_commands
         pub const PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_EXT: Self = Self(1000572000);
         pub const PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_EXT: Self = Self(1000572001);
@@ -7905,85 +8948,110 @@ pub(super) mod defs {
         pub const INDIRECT_EXECUTION_SET_SHADER_LAYOUT_INFO_EXT: Self = Self(1000572012);
         pub const GENERATED_COMMANDS_PIPELINE_INFO_EXT: Self = Self(1000572013);
         pub const GENERATED_COMMANDS_SHADER_INFO_EXT: Self = Self(1000572014);
+
         // VK_EXT_device_memory_report
         pub const PHYSICAL_DEVICE_DEVICE_MEMORY_REPORT_FEATURES_EXT: Self = Self(1000284000);
         pub const DEVICE_DEVICE_MEMORY_REPORT_CREATE_INFO_EXT: Self = Self(1000284001);
         pub const DEVICE_MEMORY_REPORT_CALLBACK_DATA_EXT: Self = Self(1000284002);
+
         // VK_EXT_directfb_surface
         pub const DIRECTFB_SURFACE_CREATE_INFO_EXT: Self = Self(1000346000);
+
         // VK_EXT_discard_rectangles
         pub const PHYSICAL_DEVICE_DISCARD_RECTANGLE_PROPERTIES_EXT: Self = Self(1000099000);
         pub const PIPELINE_DISCARD_RECTANGLE_STATE_CREATE_INFO_EXT: Self = Self(1000099001);
+
         // VK_EXT_display_control
         pub const DISPLAY_POWER_INFO_EXT: Self = Self(1000091000);
         pub const DEVICE_EVENT_INFO_EXT: Self = Self(1000091001);
         pub const DISPLAY_EVENT_INFO_EXT: Self = Self(1000091002);
         pub const SWAPCHAIN_COUNTER_CREATE_INFO_EXT: Self = Self(1000091003);
+
         // VK_EXT_display_surface_counter
         pub const SURFACE_CAPABILITIES_2_EXT: Self = Self(1000090000);
         pub const SURFACE_CAPABILITIES2_EXT: Self = Self::SURFACE_CAPABILITIES_2_EXT;
+
         // VK_EXT_dynamic_rendering_unused_attachments
         pub const PHYSICAL_DEVICE_DYNAMIC_RENDERING_UNUSED_ATTACHMENTS_FEATURES_EXT: Self =
             Self(1000499000);
+
         // VK_EXT_extended_dynamic_state
         pub const PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_FEATURES_EXT: Self = Self(1000267000);
+
         // VK_EXT_extended_dynamic_state2
         pub const PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_2_FEATURES_EXT: Self = Self(1000377000);
+
         // VK_EXT_extended_dynamic_state3
         pub const PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_FEATURES_EXT: Self = Self(1000455000);
         pub const PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_PROPERTIES_EXT: Self = Self(1000455001);
+
         // VK_EXT_external_memory_acquire_unmodified
         pub const EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT: Self = Self(1000453000);
+
         // VK_EXT_external_memory_host
         pub const IMPORT_MEMORY_HOST_POINTER_INFO_EXT: Self = Self(1000178000);
         pub const MEMORY_HOST_POINTER_PROPERTIES_EXT: Self = Self(1000178001);
         pub const PHYSICAL_DEVICE_EXTERNAL_MEMORY_HOST_PROPERTIES_EXT: Self = Self(1000178002);
+
         // VK_EXT_external_memory_metal
         pub const IMPORT_MEMORY_METAL_HANDLE_INFO_EXT: Self = Self(1000602000);
         pub const MEMORY_METAL_HANDLE_PROPERTIES_EXT: Self = Self(1000602001);
         pub const MEMORY_GET_METAL_HANDLE_INFO_EXT: Self = Self(1000602002);
+
         // VK_EXT_filter_cubic
         pub const PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT: Self = Self(1000170000);
         pub const FILTER_CUBIC_IMAGE_VIEW_IMAGE_FORMAT_PROPERTIES_EXT: Self = Self(1000170001);
+
         // VK_EXT_fragment_density_map
         pub const PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_FEATURES_EXT: Self = Self(1000218000);
         pub const PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_PROPERTIES_EXT: Self = Self(1000218001);
         pub const RENDER_PASS_FRAGMENT_DENSITY_MAP_CREATE_INFO_EXT: Self = Self(1000218002);
         pub const RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_INFO_EXT: Self = Self(1000044007);
+
         // VK_EXT_fragment_density_map2
         pub const PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_2_FEATURES_EXT: Self = Self(1000332000);
         pub const PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_2_PROPERTIES_EXT: Self = Self(1000332001);
+
         // VK_EXT_fragment_density_map_offset
         pub const PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_EXT: Self = Self(1000425000);
         pub const PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_EXT: Self =
             Self(1000425001);
         pub const RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT: Self = Self(1000425002);
         pub const RENDERING_END_INFO_EXT: Self = Self::RENDERING_END_INFO_KHR;
+
         // VK_EXT_fragment_shader_interlock
         pub const PHYSICAL_DEVICE_FRAGMENT_SHADER_INTERLOCK_FEATURES_EXT: Self = Self(1000251000);
+
         // VK_EXT_frame_boundary
         pub const PHYSICAL_DEVICE_FRAME_BOUNDARY_FEATURES_EXT: Self = Self(1000375000);
         pub const FRAME_BOUNDARY_EXT: Self = Self(1000375001);
+
         // VK_EXT_full_screen_exclusive
         pub const SURFACE_FULL_SCREEN_EXCLUSIVE_INFO_EXT: Self = Self(1000255000);
         pub const SURFACE_CAPABILITIES_FULL_SCREEN_EXCLUSIVE_EXT: Self = Self(1000255002);
         pub const SURFACE_FULL_SCREEN_EXCLUSIVE_WIN32_INFO_EXT: Self = Self(1000255001);
+
         // VK_EXT_global_priority
         pub const DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO_EXT: Self =
             Self::DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO;
+
         // VK_EXT_global_priority_query
         pub const PHYSICAL_DEVICE_GLOBAL_PRIORITY_QUERY_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_GLOBAL_PRIORITY_QUERY_FEATURES;
         pub const QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES_EXT: Self =
             Self::QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES;
+
         // VK_EXT_graphics_pipeline_library
         pub const PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_FEATURES_EXT: Self = Self(1000320000);
         pub const PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_PROPERTIES_EXT: Self = Self(1000320001);
         pub const GRAPHICS_PIPELINE_LIBRARY_CREATE_INFO_EXT: Self = Self(1000320002);
+
         // VK_EXT_hdr_metadata
         pub const HDR_METADATA_EXT: Self = Self(1000105000);
+
         // VK_EXT_headless_surface
         pub const HEADLESS_SURFACE_CREATE_INFO_EXT: Self = Self(1000256000);
+
         // VK_EXT_host_image_copy
         pub const PHYSICAL_DEVICE_HOST_IMAGE_COPY_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_HOST_IMAGE_COPY_FEATURES;
@@ -7999,20 +9067,25 @@ pub(super) mod defs {
         pub const SUBRESOURCE_HOST_MEMCPY_SIZE_EXT: Self = Self::SUBRESOURCE_HOST_MEMCPY_SIZE;
         pub const HOST_IMAGE_COPY_DEVICE_PERFORMANCE_QUERY_EXT: Self =
             Self::HOST_IMAGE_COPY_DEVICE_PERFORMANCE_QUERY;
+
         // VK_EXT_host_query_reset
         pub const PHYSICAL_DEVICE_HOST_QUERY_RESET_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_HOST_QUERY_RESET_FEATURES;
+
         // VK_EXT_image_2d_view_of_3d
         pub const PHYSICAL_DEVICE_IMAGE_2D_VIEW_OF_3D_FEATURES_EXT: Self = Self(1000393000);
+
         // VK_EXT_image_compression_control
         pub const PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_FEATURES_EXT: Self = Self(1000338000);
         pub const IMAGE_COMPRESSION_CONTROL_EXT: Self = Self(1000338001);
         pub const IMAGE_COMPRESSION_PROPERTIES_EXT: Self = Self(1000338004);
         pub const SUBRESOURCE_LAYOUT_2_EXT: Self = Self::SUBRESOURCE_LAYOUT_2;
         pub const IMAGE_SUBRESOURCE_2_EXT: Self = Self::IMAGE_SUBRESOURCE_2;
+
         // VK_EXT_image_compression_control_swapchain
         pub const PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_SWAPCHAIN_FEATURES_EXT: Self =
             Self(1000437000);
+
         // VK_EXT_image_drm_format_modifier
         pub const DRM_FORMAT_MODIFIER_PROPERTIES_LIST_EXT: Self = Self(1000158000);
         pub const PHYSICAL_DEVICE_IMAGE_DRM_FORMAT_MODIFIER_INFO_EXT: Self = Self(1000158002);
@@ -8020,18 +9093,23 @@ pub(super) mod defs {
         pub const IMAGE_DRM_FORMAT_MODIFIER_EXPLICIT_CREATE_INFO_EXT: Self = Self(1000158004);
         pub const IMAGE_DRM_FORMAT_MODIFIER_PROPERTIES_EXT: Self = Self(1000158005);
         pub const DRM_FORMAT_MODIFIER_PROPERTIES_LIST_2_EXT: Self = Self(1000158006);
+
         // VK_EXT_image_robustness
         pub const PHYSICAL_DEVICE_IMAGE_ROBUSTNESS_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_IMAGE_ROBUSTNESS_FEATURES;
+
         // VK_EXT_image_sliced_view_of_3d
         pub const PHYSICAL_DEVICE_IMAGE_SLICED_VIEW_OF_3D_FEATURES_EXT: Self = Self(1000418000);
         pub const IMAGE_VIEW_SLICED_CREATE_INFO_EXT: Self = Self(1000418001);
+
         // VK_EXT_image_view_min_lod
         pub const PHYSICAL_DEVICE_IMAGE_VIEW_MIN_LOD_FEATURES_EXT: Self = Self(1000391000);
         pub const IMAGE_VIEW_MIN_LOD_CREATE_INFO_EXT: Self = Self(1000391001);
+
         // VK_EXT_index_type_uint8
         pub const PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES;
+
         // VK_EXT_inline_uniform_block
         pub const PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_FEATURES;
@@ -8041,13 +9119,17 @@ pub(super) mod defs {
             Self::WRITE_DESCRIPTOR_SET_INLINE_UNIFORM_BLOCK;
         pub const DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO_EXT: Self =
             Self::DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO;
+
         // VK_EXT_layer_settings
         pub const LAYER_SETTINGS_CREATE_INFO_EXT: Self = Self(1000496000);
+
         // VK_EXT_legacy_dithering
         pub const PHYSICAL_DEVICE_LEGACY_DITHERING_FEATURES_EXT: Self = Self(1000465000);
+
         // VK_EXT_legacy_vertex_attributes
         pub const PHYSICAL_DEVICE_LEGACY_VERTEX_ATTRIBUTES_FEATURES_EXT: Self = Self(1000495000);
         pub const PHYSICAL_DEVICE_LEGACY_VERTEX_ATTRIBUTES_PROPERTIES_EXT: Self = Self(1000495001);
+
         // VK_EXT_line_rasterization
         pub const PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES;
@@ -8055,22 +9137,28 @@ pub(super) mod defs {
             Self::PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO;
         pub const PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES_EXT: Self =
             Self::PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES;
+
         // VK_EXT_map_memory_placed
         pub const PHYSICAL_DEVICE_MAP_MEMORY_PLACED_FEATURES_EXT: Self = Self(1000272000);
         pub const PHYSICAL_DEVICE_MAP_MEMORY_PLACED_PROPERTIES_EXT: Self = Self(1000272001);
         pub const MEMORY_MAP_PLACED_INFO_EXT: Self = Self(1000272002);
+
         // VK_EXT_memory_budget
         pub const PHYSICAL_DEVICE_MEMORY_BUDGET_PROPERTIES_EXT: Self = Self(1000237000);
+
         // VK_EXT_memory_decompression
         pub const PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_EXT: Self = Self(1000427000);
         pub const PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_EXT: Self = Self(1000427001);
         pub const DECOMPRESS_MEMORY_INFO_EXT: Self = Self(1000550002);
+
         // VK_EXT_memory_priority
         pub const PHYSICAL_DEVICE_MEMORY_PRIORITY_FEATURES_EXT: Self = Self(1000238000);
         pub const MEMORY_PRIORITY_ALLOCATE_INFO_EXT: Self = Self(1000238001);
+
         // VK_EXT_mesh_shader
         pub const PHYSICAL_DEVICE_MESH_SHADER_FEATURES_EXT: Self = Self(1000328000);
         pub const PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_EXT: Self = Self(1000328001);
+
         // VK_EXT_metal_objects
         pub const EXPORT_METAL_OBJECT_CREATE_INFO_EXT: Self = Self(1000311000);
         pub const EXPORT_METAL_OBJECTS_INFO_EXT: Self = Self(1000311001);
@@ -8084,24 +9172,31 @@ pub(super) mod defs {
         pub const IMPORT_METAL_IO_SURFACE_INFO_EXT: Self = Self(1000311009);
         pub const EXPORT_METAL_SHARED_EVENT_INFO_EXT: Self = Self(1000311010);
         pub const IMPORT_METAL_SHARED_EVENT_INFO_EXT: Self = Self(1000311011);
+
         // VK_EXT_metal_surface
         pub const METAL_SURFACE_CREATE_INFO_EXT: Self = Self(1000217000);
+
         // VK_EXT_multi_draw
         pub const PHYSICAL_DEVICE_MULTI_DRAW_FEATURES_EXT: Self = Self(1000392000);
         pub const PHYSICAL_DEVICE_MULTI_DRAW_PROPERTIES_EXT: Self = Self(1000392001);
+
         // VK_EXT_multisampled_render_to_single_sampled
         pub const PHYSICAL_DEVICE_MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_FEATURES_EXT: Self =
             Self(1000376000);
         pub const SUBPASS_RESOLVE_PERFORMANCE_QUERY_EXT: Self = Self(1000376001);
         pub const MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_INFO_EXT: Self = Self(1000376002);
+
         // VK_EXT_mutable_descriptor_type
         pub const PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT: Self = Self(1000351000);
         pub const MUTABLE_DESCRIPTOR_TYPE_CREATE_INFO_EXT: Self = Self(1000351002);
+
         // VK_EXT_nested_command_buffer
         pub const PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_FEATURES_EXT: Self = Self(1000451000);
         pub const PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_PROPERTIES_EXT: Self = Self(1000451001);
+
         // VK_EXT_non_seamless_cube_map
         pub const PHYSICAL_DEVICE_NON_SEAMLESS_CUBE_MAP_FEATURES_EXT: Self = Self(1000422000);
+
         // VK_EXT_opacity_micromap
         pub const MICROMAP_BUILD_INFO_EXT: Self = Self(1000396000);
         pub const MICROMAP_VERSION_INFO_EXT: Self = Self(1000396001);
@@ -8113,38 +9208,49 @@ pub(super) mod defs {
         pub const MICROMAP_CREATE_INFO_EXT: Self = Self(1000396007);
         pub const MICROMAP_BUILD_SIZES_INFO_EXT: Self = Self(1000396008);
         pub const ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_EXT: Self = Self(1000396009);
+
         // VK_EXT_pageable_device_local_memory
         pub const PHYSICAL_DEVICE_PAGEABLE_DEVICE_LOCAL_MEMORY_FEATURES_EXT: Self =
             Self(1000412000);
+
         // VK_EXT_pci_bus_info
         pub const PHYSICAL_DEVICE_PCI_BUS_INFO_PROPERTIES_EXT: Self = Self(1000212000);
+
         // VK_EXT_physical_device_drm
         pub const PHYSICAL_DEVICE_DRM_PROPERTIES_EXT: Self = Self(1000353000);
+
         // VK_EXT_pipeline_creation_cache_control
         pub const PHYSICAL_DEVICE_PIPELINE_CREATION_CACHE_CONTROL_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_PIPELINE_CREATION_CACHE_CONTROL_FEATURES;
+
         // VK_EXT_pipeline_creation_feedback
         pub const PIPELINE_CREATION_FEEDBACK_CREATE_INFO_EXT: Self =
             Self::PIPELINE_CREATION_FEEDBACK_CREATE_INFO;
+
         // VK_EXT_pipeline_library_group_handles
         pub const PHYSICAL_DEVICE_PIPELINE_LIBRARY_GROUP_HANDLES_FEATURES_EXT: Self =
             Self(1000498000);
+
         // VK_EXT_pipeline_properties
         pub const PIPELINE_PROPERTIES_IDENTIFIER_EXT: Self = Self(1000372000);
         pub const PHYSICAL_DEVICE_PIPELINE_PROPERTIES_FEATURES_EXT: Self = Self(1000372001);
         pub const PIPELINE_INFO_EXT: Self = Self::PIPELINE_INFO_KHR;
+
         // VK_EXT_pipeline_protected_access
         pub const PHYSICAL_DEVICE_PIPELINE_PROTECTED_ACCESS_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_PIPELINE_PROTECTED_ACCESS_FEATURES;
+
         // VK_EXT_pipeline_robustness
         pub const PIPELINE_ROBUSTNESS_CREATE_INFO_EXT: Self = Self::PIPELINE_ROBUSTNESS_CREATE_INFO;
         pub const PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_FEATURES;
         pub const PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_PROPERTIES_EXT: Self =
             Self::PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_PROPERTIES;
+
         // VK_EXT_present_mode_fifo_latest_ready
         pub const PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_KHR;
+
         // VK_EXT_present_timing
         pub const PHYSICAL_DEVICE_PRESENT_TIMING_FEATURES_EXT: Self = Self(1000208000);
         pub const SWAPCHAIN_TIMING_PROPERTIES_EXT: Self = Self(1000208001);
@@ -8156,73 +9262,94 @@ pub(super) mod defs {
         pub const PAST_PRESENTATION_TIMING_EXT: Self = Self(1000208007);
         pub const PRESENT_TIMING_SURFACE_CAPABILITIES_EXT: Self = Self(1000208008);
         pub const SWAPCHAIN_CALIBRATED_TIMESTAMP_INFO_EXT: Self = Self(1000208009);
+
         // VK_EXT_primitive_topology_list_restart
         pub const PHYSICAL_DEVICE_PRIMITIVE_TOPOLOGY_LIST_RESTART_FEATURES_EXT: Self =
             Self(1000356000);
+
         // VK_EXT_primitives_generated_query
         pub const PHYSICAL_DEVICE_PRIMITIVES_GENERATED_QUERY_FEATURES_EXT: Self = Self(1000382000);
+
         // VK_EXT_private_data
         pub const PHYSICAL_DEVICE_PRIVATE_DATA_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_PRIVATE_DATA_FEATURES;
         pub const DEVICE_PRIVATE_DATA_CREATE_INFO_EXT: Self = Self::DEVICE_PRIVATE_DATA_CREATE_INFO;
         pub const PRIVATE_DATA_SLOT_CREATE_INFO_EXT: Self = Self::PRIVATE_DATA_SLOT_CREATE_INFO;
+
         // VK_EXT_provoking_vertex
         pub const PHYSICAL_DEVICE_PROVOKING_VERTEX_FEATURES_EXT: Self = Self(1000254000);
         pub const PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT: Self =
             Self(1000254001);
         pub const PHYSICAL_DEVICE_PROVOKING_VERTEX_PROPERTIES_EXT: Self = Self(1000254002);
+
         // VK_EXT_rasterization_order_attachment_access
         pub const PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT: Self =
             Self(1000342000);
+
         // VK_EXT_ray_tracing_invocation_reorder
         pub const PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_EXT: Self =
             Self(1000581000);
         pub const PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_EXT: Self =
             Self(1000581001);
+
         // VK_EXT_rgba10x6_formats
         pub const PHYSICAL_DEVICE_RGBA10X6_FORMATS_FEATURES_EXT: Self = Self(1000344000);
+
         // VK_EXT_robustness2
         pub const PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_KHR;
         pub const PHYSICAL_DEVICE_ROBUSTNESS_2_PROPERTIES_EXT: Self =
             Self::PHYSICAL_DEVICE_ROBUSTNESS_2_PROPERTIES_KHR;
+
         // VK_EXT_sample_locations
         pub const SAMPLE_LOCATIONS_INFO_EXT: Self = Self(1000143000);
         pub const RENDER_PASS_SAMPLE_LOCATIONS_BEGIN_INFO_EXT: Self = Self(1000143001);
         pub const PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT: Self = Self(1000143002);
         pub const PHYSICAL_DEVICE_SAMPLE_LOCATIONS_PROPERTIES_EXT: Self = Self(1000143003);
         pub const MULTISAMPLE_PROPERTIES_EXT: Self = Self(1000143004);
+
         // VK_EXT_sampler_filter_minmax
         pub const PHYSICAL_DEVICE_SAMPLER_FILTER_MINMAX_PROPERTIES_EXT: Self =
             Self::PHYSICAL_DEVICE_SAMPLER_FILTER_MINMAX_PROPERTIES;
         pub const SAMPLER_REDUCTION_MODE_CREATE_INFO_EXT: Self =
             Self::SAMPLER_REDUCTION_MODE_CREATE_INFO;
+
         // VK_EXT_scalar_block_layout
         pub const PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES;
+
         // VK_EXT_separate_stencil_usage
         pub const IMAGE_STENCIL_USAGE_CREATE_INFO_EXT: Self = Self::IMAGE_STENCIL_USAGE_CREATE_INFO;
+
         // VK_EXT_shader_64bit_indexing
         pub const PHYSICAL_DEVICE_SHADER_64_BIT_INDEXING_FEATURES_EXT: Self = Self(1000627000);
+
         // VK_EXT_shader_atomic_float
         pub const PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_FEATURES_EXT: Self = Self(1000260000);
+
         // VK_EXT_shader_atomic_float2
         pub const PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_2_FEATURES_EXT: Self = Self(1000273000);
+
         // VK_EXT_shader_demote_to_helper_invocation
         pub const PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES;
+
         // VK_EXT_shader_float8
         pub const PHYSICAL_DEVICE_SHADER_FLOAT8_FEATURES_EXT: Self = Self(1000567000);
+
         // VK_EXT_shader_image_atomic_int64
         pub const PHYSICAL_DEVICE_SHADER_IMAGE_ATOMIC_INT64_FEATURES_EXT: Self = Self(1000234000);
+
         // VK_EXT_shader_long_vector
         pub const PHYSICAL_DEVICE_SHADER_LONG_VECTOR_FEATURES_EXT: Self = Self(1000635000);
         pub const PHYSICAL_DEVICE_SHADER_LONG_VECTOR_PROPERTIES_EXT: Self = Self(1000635001);
+
         // VK_EXT_shader_module_identifier
         pub const PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_FEATURES_EXT: Self = Self(1000462000);
         pub const PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_PROPERTIES_EXT: Self = Self(1000462001);
         pub const PIPELINE_SHADER_STAGE_MODULE_IDENTIFIER_CREATE_INFO_EXT: Self = Self(1000462002);
         pub const SHADER_MODULE_IDENTIFIER_EXT: Self = Self(1000462003);
+
         // VK_EXT_shader_object
         pub const PHYSICAL_DEVICE_SHADER_OBJECT_FEATURES_EXT: Self = Self(1000482000);
         pub const PHYSICAL_DEVICE_SHADER_OBJECT_PROPERTIES_EXT: Self = Self(1000482001);
@@ -8231,17 +9358,22 @@ pub(super) mod defs {
         pub const VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT: Self = Self(1000352002);
         pub const SHADER_REQUIRED_SUBGROUP_SIZE_CREATE_INFO_EXT: Self =
             Self::PIPELINE_SHADER_STAGE_REQUIRED_SUBGROUP_SIZE_CREATE_INFO;
+
         // VK_EXT_shader_replicated_composites
         pub const PHYSICAL_DEVICE_SHADER_REPLICATED_COMPOSITES_FEATURES_EXT: Self =
             Self(1000564000);
+
         // VK_EXT_shader_subgroup_partitioned
         pub const PHYSICAL_DEVICE_SHADER_SUBGROUP_PARTITIONED_FEATURES_EXT: Self = Self(1000662000);
+
         // VK_EXT_shader_tile_image
         pub const PHYSICAL_DEVICE_SHADER_TILE_IMAGE_FEATURES_EXT: Self = Self(1000395000);
         pub const PHYSICAL_DEVICE_SHADER_TILE_IMAGE_PROPERTIES_EXT: Self = Self(1000395001);
+
         // VK_EXT_shader_uniform_buffer_unsized_array
         pub const PHYSICAL_DEVICE_SHADER_UNIFORM_BUFFER_UNSIZED_ARRAY_FEATURES_EXT: Self =
             Self(1000642000);
+
         // VK_EXT_subgroup_size_control
         pub const PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_PROPERTIES_EXT: Self =
             Self::PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_PROPERTIES;
@@ -8249,17 +9381,20 @@ pub(super) mod defs {
             Self::PIPELINE_SHADER_STAGE_REQUIRED_SUBGROUP_SIZE_CREATE_INFO;
         pub const PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_FEATURES;
+
         // VK_EXT_subpass_merge_feedback
         pub const PHYSICAL_DEVICE_SUBPASS_MERGE_FEEDBACK_FEATURES_EXT: Self = Self(1000458000);
         pub const RENDER_PASS_CREATION_CONTROL_EXT: Self = Self(1000458001);
         pub const RENDER_PASS_CREATION_FEEDBACK_CREATE_INFO_EXT: Self = Self(1000458002);
         pub const RENDER_PASS_SUBPASS_FEEDBACK_CREATE_INFO_EXT: Self = Self(1000458003);
+
         // VK_EXT_surface_maintenance1
         pub const SURFACE_PRESENT_MODE_EXT: Self = Self::SURFACE_PRESENT_MODE_KHR;
         pub const SURFACE_PRESENT_SCALING_CAPABILITIES_EXT: Self =
             Self::SURFACE_PRESENT_SCALING_CAPABILITIES_KHR;
         pub const SURFACE_PRESENT_MODE_COMPATIBILITY_EXT: Self =
             Self::SURFACE_PRESENT_MODE_COMPATIBILITY_KHR;
+
         // VK_EXT_swapchain_maintenance1
         pub const PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR;
@@ -8270,45 +9405,60 @@ pub(super) mod defs {
         pub const SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_EXT: Self =
             Self::SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_KHR;
         pub const RELEASE_SWAPCHAIN_IMAGES_INFO_EXT: Self = Self::RELEASE_SWAPCHAIN_IMAGES_INFO_KHR;
+
         // VK_EXT_texel_buffer_alignment
         pub const PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_FEATURES_EXT: Self = Self(1000281000);
         pub const PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES_EXT: Self =
             Self::PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES;
+
         // VK_EXT_texture_compression_astc_3d
         pub const PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_3D_FEATURES_EXT: Self = Self(1000288000);
+
         // VK_EXT_texture_compression_astc_hdr
         pub const PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_HDR_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_HDR_FEATURES;
+
         // VK_EXT_tooling_info
         pub const PHYSICAL_DEVICE_TOOL_PROPERTIES_EXT: Self = Self::PHYSICAL_DEVICE_TOOL_PROPERTIES;
+
         // VK_EXT_transform_feedback
         pub const PHYSICAL_DEVICE_TRANSFORM_FEEDBACK_FEATURES_EXT: Self = Self(1000028000);
         pub const PHYSICAL_DEVICE_TRANSFORM_FEEDBACK_PROPERTIES_EXT: Self = Self(1000028001);
         pub const PIPELINE_RASTERIZATION_STATE_STREAM_CREATE_INFO_EXT: Self = Self(1000028002);
+
         // VK_EXT_validation_cache
         pub const VALIDATION_CACHE_CREATE_INFO_EXT: Self = Self(1000160000);
         pub const SHADER_MODULE_VALIDATION_CACHE_CREATE_INFO_EXT: Self = Self(1000160001);
+
         // VK_EXT_validation_features
         pub const VALIDATION_FEATURES_EXT: Self = Self(1000247000);
+
         // VK_EXT_validation_flags
         pub const VALIDATION_FLAGS_EXT: Self = Self(1000061000);
+
         // VK_EXT_vertex_attribute_divisor
         pub const PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES_EXT: Self = Self(1000190000);
         pub const PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO_EXT: Self =
             Self::PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO;
         pub const PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES_EXT: Self =
             Self::PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES;
+
         // VK_EXT_vertex_attribute_robustness
         pub const PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_ROBUSTNESS_FEATURES_EXT: Self = Self(1000608000);
+
         // VK_EXT_vertex_input_dynamic_state
         pub const PHYSICAL_DEVICE_VERTEX_INPUT_DYNAMIC_STATE_FEATURES_EXT: Self = Self(1000352000);
+
         // VK_EXT_ycbcr_2plane_444_formats
         pub const PHYSICAL_DEVICE_YCBCR_2_PLANE_444_FORMATS_FEATURES_EXT: Self = Self(1000330000);
+
         // VK_EXT_ycbcr_image_arrays
         pub const PHYSICAL_DEVICE_YCBCR_IMAGE_ARRAYS_FEATURES_EXT: Self = Self(1000252000);
+
         // VK_EXT_zero_initialize_device_memory
         pub const PHYSICAL_DEVICE_ZERO_INITIALIZE_DEVICE_MEMORY_FEATURES_EXT: Self =
             Self(1000620000);
+
         // VK_FUCHSIA_buffer_collection
         pub const BUFFER_COLLECTION_CREATE_INFO_FUCHSIA: Self = Self(1000366000);
         pub const IMPORT_MEMORY_BUFFER_COLLECTION_FUCHSIA: Self = Self(1000366001);
@@ -8320,37 +9470,49 @@ pub(super) mod defs {
         pub const IMAGE_FORMAT_CONSTRAINTS_INFO_FUCHSIA: Self = Self(1000366007);
         pub const SYSMEM_COLOR_SPACE_FUCHSIA: Self = Self(1000366008);
         pub const BUFFER_COLLECTION_CONSTRAINTS_INFO_FUCHSIA: Self = Self(1000366009);
+
         // VK_FUCHSIA_external_memory
         pub const IMPORT_MEMORY_ZIRCON_HANDLE_INFO_FUCHSIA: Self = Self(1000364000);
         pub const MEMORY_ZIRCON_HANDLE_PROPERTIES_FUCHSIA: Self = Self(1000364001);
         pub const MEMORY_GET_ZIRCON_HANDLE_INFO_FUCHSIA: Self = Self(1000364002);
+
         // VK_FUCHSIA_external_semaphore
         pub const IMPORT_SEMAPHORE_ZIRCON_HANDLE_INFO_FUCHSIA: Self = Self(1000365000);
         pub const SEMAPHORE_GET_ZIRCON_HANDLE_INFO_FUCHSIA: Self = Self(1000365001);
+
         // VK_FUCHSIA_imagepipe_surface
         pub const IMAGEPIPE_SURFACE_CREATE_INFO_FUCHSIA: Self = Self(1000214000);
+
         // VK_GGP_frame_token
         pub const PRESENT_FRAME_TOKEN_GGP: Self = Self(1000191000);
+
         // VK_GGP_stream_descriptor_surface
         pub const STREAM_DESCRIPTOR_SURFACE_CREATE_INFO_GGP: Self = Self(1000049000);
+
         // VK_GOOGLE_display_timing
         pub const PRESENT_TIMES_INFO_GOOGLE: Self = Self(1000092000);
+
         // VK_HUAWEI_cluster_culling_shader
         pub const PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_FEATURES_HUAWEI: Self = Self(1000404000);
         pub const PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_PROPERTIES_HUAWEI: Self = Self(1000404001);
         pub const PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_VRS_FEATURES_HUAWEI: Self =
             Self(1000404002);
+
         // VK_HUAWEI_hdr_vivid
         pub const PHYSICAL_DEVICE_HDR_VIVID_FEATURES_HUAWEI: Self = Self(1000590000);
         pub const HDR_VIVID_DYNAMIC_METADATA_HUAWEI: Self = Self(1000590001);
+
         // VK_HUAWEI_invocation_mask
         pub const PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI: Self = Self(1000370000);
+
         // VK_HUAWEI_subpass_shading
         pub const SUBPASS_SHADING_PIPELINE_CREATE_INFO_HUAWEI: Self = Self(1000369000);
         pub const PHYSICAL_DEVICE_SUBPASS_SHADING_FEATURES_HUAWEI: Self = Self(1000369001);
         pub const PHYSICAL_DEVICE_SUBPASS_SHADING_PROPERTIES_HUAWEI: Self = Self(1000369002);
+
         // VK_IMG_relaxed_line_rasterization
         pub const PHYSICAL_DEVICE_RELAXED_LINE_RASTERIZATION_FEATURES_IMG: Self = Self(1000110000);
+
         // VK_INTEL_performance_query
         pub const QUERY_POOL_PERFORMANCE_QUERY_CREATE_INFO_INTEL: Self = Self(1000210000);
         pub const INITIALIZE_PERFORMANCE_API_INFO_INTEL: Self = Self(1000210001);
@@ -8360,15 +9522,19 @@ pub(super) mod defs {
         pub const PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL: Self = Self(1000210005);
         pub const QUERY_POOL_CREATE_INFO_INTEL: Self =
             Self::QUERY_POOL_PERFORMANCE_QUERY_CREATE_INFO_INTEL;
+
         // VK_INTEL_shader_integer_functions2
         pub const PHYSICAL_DEVICE_SHADER_INTEGER_FUNCTIONS_2_FEATURES_INTEL: Self =
             Self(1000209000);
+
         // VK_KHR_16bit_storage
         pub const PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES_KHR: Self =
             Self::PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES;
+
         // VK_KHR_8bit_storage
         pub const PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES_KHR: Self =
             Self::PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES;
+
         // VK_KHR_acceleration_structure
         pub const WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_KHR: Self = Self(1000150007);
         pub const ACCELERATION_STRUCTURE_BUILD_GEOMETRY_INFO_KHR: Self = Self(1000150000);
@@ -8385,11 +9551,14 @@ pub(super) mod defs {
         pub const PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_PROPERTIES_KHR: Self = Self(1000150014);
         pub const ACCELERATION_STRUCTURE_CREATE_INFO_KHR: Self = Self(1000150017);
         pub const ACCELERATION_STRUCTURE_BUILD_SIZES_INFO_KHR: Self = Self(1000150020);
+
         // VK_KHR_android_surface
         pub const ANDROID_SURFACE_CREATE_INFO_KHR: Self = Self(1000008000);
+
         // VK_KHR_bind_memory2
         pub const BIND_BUFFER_MEMORY_INFO_KHR: Self = Self::BIND_BUFFER_MEMORY_INFO;
         pub const BIND_IMAGE_MEMORY_INFO_KHR: Self = Self::BIND_IMAGE_MEMORY_INFO;
+
         // VK_KHR_buffer_device_address
         pub const PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES_KHR: Self =
             Self::PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES;
@@ -8400,16 +9569,20 @@ pub(super) mod defs {
             Self::MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO;
         pub const DEVICE_MEMORY_OPAQUE_CAPTURE_ADDRESS_INFO_KHR: Self =
             Self::DEVICE_MEMORY_OPAQUE_CAPTURE_ADDRESS_INFO;
+
         // VK_KHR_calibrated_timestamps
         pub const CALIBRATED_TIMESTAMP_INFO_KHR: Self = Self(1000184000);
+
         // VK_KHR_compute_shader_derivatives
         pub const PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_FEATURES_KHR: Self = Self(1000201000);
         pub const PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_PROPERTIES_KHR: Self =
             Self(1000511000);
+
         // VK_KHR_cooperative_matrix
         pub const PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_KHR: Self = Self(1000506000);
         pub const COOPERATIVE_MATRIX_PROPERTIES_KHR: Self = Self(1000506001);
         pub const PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_KHR: Self = Self(1000506002);
+
         // VK_KHR_copy_commands2
         pub const COPY_BUFFER_INFO_2_KHR: Self = Self::COPY_BUFFER_INFO_2;
         pub const COPY_IMAGE_INFO_2_KHR: Self = Self::COPY_IMAGE_INFO_2;
@@ -8422,11 +9595,13 @@ pub(super) mod defs {
         pub const IMAGE_BLIT_2_KHR: Self = Self::IMAGE_BLIT_2;
         pub const BUFFER_IMAGE_COPY_2_KHR: Self = Self::BUFFER_IMAGE_COPY_2;
         pub const IMAGE_RESOLVE_2_KHR: Self = Self::IMAGE_RESOLVE_2;
+
         // VK_KHR_copy_memory_indirect
         pub const PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_KHR: Self = Self(1000549000);
         pub const PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR: Self = Self(1000426001);
         pub const COPY_MEMORY_INDIRECT_INFO_KHR: Self = Self(1000549002);
         pub const COPY_MEMORY_TO_IMAGE_INDIRECT_INFO_KHR: Self = Self(1000549003);
+
         // VK_KHR_create_renderpass2
         pub const ATTACHMENT_DESCRIPTION_2_KHR: Self = Self::ATTACHMENT_DESCRIPTION_2;
         pub const ATTACHMENT_REFERENCE_2_KHR: Self = Self::ATTACHMENT_REFERENCE_2;
@@ -8435,19 +9610,24 @@ pub(super) mod defs {
         pub const RENDER_PASS_CREATE_INFO_2_KHR: Self = Self::RENDER_PASS_CREATE_INFO_2;
         pub const SUBPASS_BEGIN_INFO_KHR: Self = Self::SUBPASS_BEGIN_INFO;
         pub const SUBPASS_END_INFO_KHR: Self = Self::SUBPASS_END_INFO;
+
         // VK_KHR_dedicated_allocation
         pub const MEMORY_DEDICATED_REQUIREMENTS_KHR: Self = Self::MEMORY_DEDICATED_REQUIREMENTS;
         pub const MEMORY_DEDICATED_ALLOCATE_INFO_KHR: Self = Self::MEMORY_DEDICATED_ALLOCATE_INFO;
+
         // VK_KHR_depth_clamp_zero_one
         pub const PHYSICAL_DEVICE_DEPTH_CLAMP_ZERO_ONE_FEATURES_KHR: Self = Self(1000421000);
+
         // VK_KHR_depth_stencil_resolve
         pub const PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES_KHR: Self =
             Self::PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES;
         pub const SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE_KHR: Self =
             Self::SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE;
+
         // VK_KHR_descriptor_update_template
         pub const DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO_KHR: Self =
             Self::DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO;
+
         // VK_KHR_device_group
         pub const DEVICE_GROUP_PRESENT_CAPABILITIES_KHR: Self = Self(1000060007);
         pub const IMAGE_SWAPCHAIN_CREATE_INFO_KHR: Self = Self(1000060008);
@@ -8466,18 +9646,23 @@ pub(super) mod defs {
             Self::BIND_BUFFER_MEMORY_DEVICE_GROUP_INFO;
         pub const BIND_IMAGE_MEMORY_DEVICE_GROUP_INFO_KHR: Self =
             Self::BIND_IMAGE_MEMORY_DEVICE_GROUP_INFO;
+
         // VK_KHR_device_group_creation
         pub const PHYSICAL_DEVICE_GROUP_PROPERTIES_KHR: Self =
             Self::PHYSICAL_DEVICE_GROUP_PROPERTIES;
         pub const DEVICE_GROUP_DEVICE_CREATE_INFO_KHR: Self = Self::DEVICE_GROUP_DEVICE_CREATE_INFO;
+
         // VK_KHR_display
         pub const DISPLAY_MODE_CREATE_INFO_KHR: Self = Self(1000002000);
         pub const DISPLAY_SURFACE_CREATE_INFO_KHR: Self = Self(1000002001);
+
         // VK_KHR_display_swapchain
         pub const DISPLAY_PRESENT_INFO_KHR: Self = Self(1000003000);
+
         // VK_KHR_driver_properties
         pub const PHYSICAL_DEVICE_DRIVER_PROPERTIES_KHR: Self =
             Self::PHYSICAL_DEVICE_DRIVER_PROPERTIES;
+
         // VK_KHR_dynamic_rendering
         pub const RENDERING_INFO_KHR: Self = Self::RENDERING_INFO;
         pub const RENDERING_ATTACHMENT_INFO_KHR: Self = Self::RENDERING_ATTACHMENT_INFO;
@@ -8486,6 +9671,7 @@ pub(super) mod defs {
             Self::PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES;
         pub const COMMAND_BUFFER_INHERITANCE_RENDERING_INFO_KHR: Self =
             Self::COMMAND_BUFFER_INHERITANCE_RENDERING_INFO;
+
         // VK_KHR_dynamic_rendering_local_read
         pub const PHYSICAL_DEVICE_DYNAMIC_RENDERING_LOCAL_READ_FEATURES_KHR: Self =
             Self::PHYSICAL_DEVICE_DYNAMIC_RENDERING_LOCAL_READ_FEATURES;
@@ -8493,26 +9679,32 @@ pub(super) mod defs {
             Self::RENDERING_ATTACHMENT_LOCATION_INFO;
         pub const RENDERING_INPUT_ATTACHMENT_INDEX_INFO_KHR: Self =
             Self::RENDERING_INPUT_ATTACHMENT_INDEX_INFO;
+
         // VK_KHR_external_fence
         pub const EXPORT_FENCE_CREATE_INFO_KHR: Self = Self::EXPORT_FENCE_CREATE_INFO;
+
         // VK_KHR_external_fence_capabilities
         pub const PHYSICAL_DEVICE_EXTERNAL_FENCE_INFO_KHR: Self =
             Self::PHYSICAL_DEVICE_EXTERNAL_FENCE_INFO;
         pub const EXTERNAL_FENCE_PROPERTIES_KHR: Self = Self::EXTERNAL_FENCE_PROPERTIES;
         pub const PHYSICAL_DEVICE_ID_PROPERTIES_KHR: Self = Self::PHYSICAL_DEVICE_ID_PROPERTIES;
+
         // VK_KHR_external_fence_fd
         pub const IMPORT_FENCE_FD_INFO_KHR: Self = Self(1000115000);
         pub const FENCE_GET_FD_INFO_KHR: Self = Self(1000115001);
+
         // VK_KHR_external_fence_win32
         pub const IMPORT_FENCE_WIN32_HANDLE_INFO_KHR: Self = Self(1000114000);
         pub const EXPORT_FENCE_WIN32_HANDLE_INFO_KHR: Self = Self(1000114001);
         pub const FENCE_GET_WIN32_HANDLE_INFO_KHR: Self = Self(1000114002);
+
         // VK_KHR_external_memory
         pub const EXTERNAL_MEMORY_BUFFER_CREATE_INFO_KHR: Self =
             Self::EXTERNAL_MEMORY_BUFFER_CREATE_INFO;
         pub const EXTERNAL_MEMORY_IMAGE_CREATE_INFO_KHR: Self =
             Self::EXTERNAL_MEMORY_IMAGE_CREATE_INFO;
         pub const EXPORT_MEMORY_ALLOCATE_INFO_KHR: Self = Self::EXPORT_MEMORY_ALLOCATE_INFO;
+
         // VK_KHR_external_memory_capabilities
         pub const PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO_KHR: Self =
             Self::PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO;
@@ -8521,35 +9713,44 @@ pub(super) mod defs {
         pub const PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO_KHR: Self =
             Self::PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO;
         pub const EXTERNAL_BUFFER_PROPERTIES_KHR: Self = Self::EXTERNAL_BUFFER_PROPERTIES;
+
         // VK_KHR_external_memory_fd
         pub const IMPORT_MEMORY_FD_INFO_KHR: Self = Self(1000074000);
         pub const MEMORY_FD_PROPERTIES_KHR: Self = Self(1000074001);
         pub const MEMORY_GET_FD_INFO_KHR: Self = Self(1000074002);
+
         // VK_KHR_external_memory_win32
         pub const IMPORT_MEMORY_WIN32_HANDLE_INFO_KHR: Self = Self(1000073000);
         pub const EXPORT_MEMORY_WIN32_HANDLE_INFO_KHR: Self = Self(1000073001);
         pub const MEMORY_WIN32_HANDLE_PROPERTIES_KHR: Self = Self(1000073002);
         pub const MEMORY_GET_WIN32_HANDLE_INFO_KHR: Self = Self(1000073003);
+
         // VK_KHR_external_semaphore
         pub const EXPORT_SEMAPHORE_CREATE_INFO_KHR: Self = Self::EXPORT_SEMAPHORE_CREATE_INFO;
+
         // VK_KHR_external_semaphore_capabilities
         pub const PHYSICAL_DEVICE_EXTERNAL_SEMAPHORE_INFO_KHR: Self =
             Self::PHYSICAL_DEVICE_EXTERNAL_SEMAPHORE_INFO;
         pub const EXTERNAL_SEMAPHORE_PROPERTIES_KHR: Self = Self::EXTERNAL_SEMAPHORE_PROPERTIES;
+
         // VK_KHR_external_semaphore_fd
         pub const IMPORT_SEMAPHORE_FD_INFO_KHR: Self = Self(1000079000);
         pub const SEMAPHORE_GET_FD_INFO_KHR: Self = Self(1000079001);
+
         // VK_KHR_external_semaphore_win32
         pub const IMPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR: Self = Self(1000078000);
         pub const EXPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR: Self = Self(1000078001);
         pub const D3D12_FENCE_SUBMIT_INFO_KHR: Self = Self(1000078002);
         pub const SEMAPHORE_GET_WIN32_HANDLE_INFO_KHR: Self = Self(1000078003);
+
         // VK_KHR_format_feature_flags2
         pub const FORMAT_PROPERTIES_3_KHR: Self = Self::FORMAT_PROPERTIES_3;
+
         // VK_KHR_fragment_shader_barycentric
         pub const PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_FEATURES_KHR: Self = Self(1000203000);
         pub const PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_PROPERTIES_KHR: Self =
             Self(1000322000);
+
         // VK_KHR_fragment_shading_rate
         pub const FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR: Self = Self(1000226000);
         pub const PIPELINE_FRAGMENT_SHADING_RATE_STATE_CREATE_INFO_KHR: Self = Self(1000226001);
@@ -8557,12 +9758,14 @@ pub(super) mod defs {
         pub const PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_FEATURES_KHR: Self = Self(1000226003);
         pub const PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR: Self = Self(1000226004);
         pub const RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR: Self = Self(1000044006);
+
         // VK_KHR_get_display_properties2
         pub const DISPLAY_PROPERTIES_2_KHR: Self = Self(1000121000);
         pub const DISPLAY_PLANE_PROPERTIES_2_KHR: Self = Self(1000121001);
         pub const DISPLAY_MODE_PROPERTIES_2_KHR: Self = Self(1000121002);
         pub const DISPLAY_PLANE_INFO_2_KHR: Self = Self(1000121003);
         pub const DISPLAY_PLANE_CAPABILITIES_2_KHR: Self = Self(1000121004);
+
         // VK_KHR_get_memory_requirements2
         pub const BUFFER_MEMORY_REQUIREMENTS_INFO_2_KHR: Self =
             Self::BUFFER_MEMORY_REQUIREMENTS_INFO_2;
@@ -8573,6 +9776,7 @@ pub(super) mod defs {
         pub const MEMORY_REQUIREMENTS_2_KHR: Self = Self::MEMORY_REQUIREMENTS_2;
         pub const SPARSE_IMAGE_MEMORY_REQUIREMENTS_2_KHR: Self =
             Self::SPARSE_IMAGE_MEMORY_REQUIREMENTS_2;
+
         // VK_KHR_get_physical_device_properties2
         pub const PHYSICAL_DEVICE_FEATURES_2_KHR: Self = Self::PHYSICAL_DEVICE_FEATURES_2;
         pub const PHYSICAL_DEVICE_PROPERTIES_2_KHR: Self = Self::PHYSICAL_DEVICE_PROPERTIES_2;
@@ -8587,10 +9791,12 @@ pub(super) mod defs {
             Self::SPARSE_IMAGE_FORMAT_PROPERTIES_2;
         pub const PHYSICAL_DEVICE_SPARSE_IMAGE_FORMAT_INFO_2_KHR: Self =
             Self::PHYSICAL_DEVICE_SPARSE_IMAGE_FORMAT_INFO_2;
+
         // VK_KHR_get_surface_capabilities2
         pub const PHYSICAL_DEVICE_SURFACE_INFO_2_KHR: Self = Self(1000119000);
         pub const SURFACE_CAPABILITIES_2_KHR: Self = Self(1000119001);
         pub const SURFACE_FORMAT_2_KHR: Self = Self(1000119002);
+
         // VK_KHR_global_priority
         pub const DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO_KHR: Self =
             Self::DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO;
@@ -8598,8 +9804,10 @@ pub(super) mod defs {
             Self::PHYSICAL_DEVICE_GLOBAL_PRIORITY_QUERY_FEATURES;
         pub const QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES_KHR: Self =
             Self::QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES;
+
         // VK_KHR_image_format_list
         pub const IMAGE_FORMAT_LIST_CREATE_INFO_KHR: Self = Self::IMAGE_FORMAT_LIST_CREATE_INFO;
+
         // VK_KHR_imageless_framebuffer
         pub const PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES_KHR: Self =
             Self::PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES;
@@ -8609,14 +9817,18 @@ pub(super) mod defs {
             Self::FRAMEBUFFER_ATTACHMENT_IMAGE_INFO;
         pub const RENDER_PASS_ATTACHMENT_BEGIN_INFO_KHR: Self =
             Self::RENDER_PASS_ATTACHMENT_BEGIN_INFO;
+
         // VK_KHR_incremental_present
         pub const PRESENT_REGIONS_KHR: Self = Self(1000084000);
+
         // VK_KHR_index_type_uint8
         pub const PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES_KHR: Self =
             Self::PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES;
+
         // VK_KHR_internally_synchronized_queues
         pub const PHYSICAL_DEVICE_INTERNALLY_SYNCHRONIZED_QUEUES_FEATURES_KHR: Self =
             Self(1000504000);
+
         // VK_KHR_line_rasterization
         pub const PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES_KHR: Self =
             Self::PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES;
@@ -8624,12 +9836,14 @@ pub(super) mod defs {
             Self::PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO;
         pub const PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES_KHR: Self =
             Self::PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES;
+
         // VK_KHR_maintenance10
         pub const PHYSICAL_DEVICE_MAINTENANCE_10_FEATURES_KHR: Self = Self(1000630000);
         pub const PHYSICAL_DEVICE_MAINTENANCE_10_PROPERTIES_KHR: Self = Self(1000630001);
         pub const RENDERING_ATTACHMENT_FLAGS_INFO_KHR: Self = Self(1000630002);
         pub const RENDERING_END_INFO_KHR: Self = Self(1000619003);
         pub const RESOLVE_IMAGE_MODE_INFO_KHR: Self = Self(1000630004);
+
         // VK_KHR_maintenance2
         pub const PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES_KHR: Self =
             Self::PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES;
@@ -8638,10 +9852,12 @@ pub(super) mod defs {
         pub const IMAGE_VIEW_USAGE_CREATE_INFO_KHR: Self = Self::IMAGE_VIEW_USAGE_CREATE_INFO;
         pub const PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO_KHR: Self =
             Self::PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO;
+
         // VK_KHR_maintenance3
         pub const PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES_KHR: Self =
             Self::PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES;
         pub const DESCRIPTOR_SET_LAYOUT_SUPPORT_KHR: Self = Self::DESCRIPTOR_SET_LAYOUT_SUPPORT;
+
         // VK_KHR_maintenance4
         pub const PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES_KHR: Self =
             Self::PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES;
@@ -8651,6 +9867,7 @@ pub(super) mod defs {
             Self::DEVICE_BUFFER_MEMORY_REQUIREMENTS;
         pub const DEVICE_IMAGE_MEMORY_REQUIREMENTS_KHR: Self =
             Self::DEVICE_IMAGE_MEMORY_REQUIREMENTS;
+
         // VK_KHR_maintenance5
         pub const PHYSICAL_DEVICE_MAINTENANCE_5_FEATURES_KHR: Self =
             Self::PHYSICAL_DEVICE_MAINTENANCE_5_FEATURES;
@@ -8664,6 +9881,7 @@ pub(super) mod defs {
             Self::PIPELINE_CREATE_FLAGS_2_CREATE_INFO;
         pub const BUFFER_USAGE_FLAGS_2_CREATE_INFO_KHR: Self =
             Self::BUFFER_USAGE_FLAGS_2_CREATE_INFO;
+
         // VK_KHR_maintenance6
         pub const SET_DESCRIPTOR_BUFFER_OFFSETS_INFO_EXT: Self = Self(1000545007);
         pub const BIND_DESCRIPTOR_BUFFER_EMBEDDED_SAMPLERS_INFO_EXT: Self = Self(1000545008);
@@ -8677,22 +9895,27 @@ pub(super) mod defs {
         pub const PUSH_DESCRIPTOR_SET_INFO_KHR: Self = Self::PUSH_DESCRIPTOR_SET_INFO;
         pub const PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO_KHR: Self =
             Self::PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO;
+
         // VK_KHR_maintenance7
         pub const PHYSICAL_DEVICE_MAINTENANCE_7_FEATURES_KHR: Self = Self(1000562000);
         pub const PHYSICAL_DEVICE_MAINTENANCE_7_PROPERTIES_KHR: Self = Self(1000562001);
         pub const PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_LIST_KHR: Self = Self(1000562002);
         pub const PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_KHR: Self = Self(1000562003);
         pub const PHYSICAL_DEVICE_LAYERED_API_VULKAN_PROPERTIES_KHR: Self = Self(1000562004);
+
         // VK_KHR_maintenance8
         pub const PHYSICAL_DEVICE_MAINTENANCE_8_FEATURES_KHR: Self = Self(1000574000);
         pub const MEMORY_BARRIER_ACCESS_FLAGS_3_KHR: Self = Self(1000574002);
+
         // VK_KHR_maintenance9
         pub const PHYSICAL_DEVICE_MAINTENANCE_9_FEATURES_KHR: Self = Self(1000584000);
         pub const PHYSICAL_DEVICE_MAINTENANCE_9_PROPERTIES_KHR: Self = Self(1000584001);
         pub const QUEUE_FAMILY_OWNERSHIP_TRANSFER_PROPERTIES_KHR: Self = Self(1000584002);
+
         // VK_KHR_map_memory2
         pub const MEMORY_MAP_INFO_KHR: Self = Self::MEMORY_MAP_INFO;
         pub const MEMORY_UNMAP_INFO_KHR: Self = Self::MEMORY_UNMAP_INFO;
+
         // VK_KHR_multiview
         pub const RENDER_PASS_MULTIVIEW_CREATE_INFO_KHR: Self =
             Self::RENDER_PASS_MULTIVIEW_CREATE_INFO;
@@ -8700,6 +9923,7 @@ pub(super) mod defs {
             Self::PHYSICAL_DEVICE_MULTIVIEW_FEATURES;
         pub const PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES_KHR: Self =
             Self::PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES;
+
         // VK_KHR_performance_query
         pub const PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR: Self = Self(1000116000);
         pub const PHYSICAL_DEVICE_PERFORMANCE_QUERY_PROPERTIES_KHR: Self = Self(1000116001);
@@ -8708,6 +9932,7 @@ pub(super) mod defs {
         pub const ACQUIRE_PROFILING_LOCK_INFO_KHR: Self = Self(1000116004);
         pub const PERFORMANCE_COUNTER_KHR: Self = Self(1000116005);
         pub const PERFORMANCE_COUNTER_DESCRIPTION_KHR: Self = Self(1000116006);
+
         // VK_KHR_pipeline_binary
         pub const PHYSICAL_DEVICE_PIPELINE_BINARY_FEATURES_KHR: Self = Self(1000483000);
         pub const PIPELINE_BINARY_CREATE_INFO_KHR: Self = Self(1000483001);
@@ -8719,6 +9944,7 @@ pub(super) mod defs {
         pub const PIPELINE_CREATE_INFO_KHR: Self = Self(1000483007);
         pub const DEVICE_PIPELINE_BINARY_INTERNAL_CACHE_CONTROL_KHR: Self = Self(1000483008);
         pub const PIPELINE_BINARY_HANDLES_INFO_KHR: Self = Self(1000483009);
+
         // VK_KHR_pipeline_executable_properties
         pub const PHYSICAL_DEVICE_PIPELINE_EXECUTABLE_PROPERTIES_FEATURES_KHR: Self =
             Self(1000269000);
@@ -8727,45 +9953,59 @@ pub(super) mod defs {
         pub const PIPELINE_EXECUTABLE_INFO_KHR: Self = Self(1000269003);
         pub const PIPELINE_EXECUTABLE_STATISTIC_KHR: Self = Self(1000269004);
         pub const PIPELINE_EXECUTABLE_INTERNAL_REPRESENTATION_KHR: Self = Self(1000269005);
+
         // VK_KHR_pipeline_library
         pub const PIPELINE_LIBRARY_CREATE_INFO_KHR: Self = Self(1000290000);
+
         // VK_KHR_portability_subset
         pub const PHYSICAL_DEVICE_PORTABILITY_SUBSET_FEATURES_KHR: Self = Self(1000163000);
         pub const PHYSICAL_DEVICE_PORTABILITY_SUBSET_PROPERTIES_KHR: Self = Self(1000163001);
+
         // VK_KHR_present_id
         pub const PRESENT_ID_KHR: Self = Self(1000294000);
         pub const PHYSICAL_DEVICE_PRESENT_ID_FEATURES_KHR: Self = Self(1000294001);
+
         // VK_KHR_present_id2
         pub const SURFACE_CAPABILITIES_PRESENT_ID_2_KHR: Self = Self(1000479000);
         pub const PRESENT_ID_2_KHR: Self = Self(1000479001);
         pub const PHYSICAL_DEVICE_PRESENT_ID_2_FEATURES_KHR: Self = Self(1000479002);
+
         // VK_KHR_present_mode_fifo_latest_ready
         pub const PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_KHR: Self =
             Self(1000361000);
+
         // VK_KHR_present_wait
         pub const PHYSICAL_DEVICE_PRESENT_WAIT_FEATURES_KHR: Self = Self(1000248000);
+
         // VK_KHR_present_wait2
         pub const SURFACE_CAPABILITIES_PRESENT_WAIT_2_KHR: Self = Self(1000480000);
         pub const PHYSICAL_DEVICE_PRESENT_WAIT_2_FEATURES_KHR: Self = Self(1000480001);
         pub const PRESENT_WAIT_2_INFO_KHR: Self = Self(1000480002);
+
         // VK_KHR_push_descriptor
         pub const PHYSICAL_DEVICE_PUSH_DESCRIPTOR_PROPERTIES_KHR: Self =
             Self::PHYSICAL_DEVICE_PUSH_DESCRIPTOR_PROPERTIES;
+
         // VK_KHR_ray_query
         pub const PHYSICAL_DEVICE_RAY_QUERY_FEATURES_KHR: Self = Self(1000348013);
+
         // VK_KHR_ray_tracing_maintenance1
         pub const PHYSICAL_DEVICE_RAY_TRACING_MAINTENANCE_1_FEATURES_KHR: Self = Self(1000386000);
+
         // VK_KHR_ray_tracing_pipeline
         pub const PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_FEATURES_KHR: Self = Self(1000347000);
         pub const PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR: Self = Self(1000347001);
         pub const RAY_TRACING_PIPELINE_CREATE_INFO_KHR: Self = Self(1000150015);
         pub const RAY_TRACING_SHADER_GROUP_CREATE_INFO_KHR: Self = Self(1000150016);
         pub const RAY_TRACING_PIPELINE_INTERFACE_CREATE_INFO_KHR: Self = Self(1000150018);
+
         // VK_KHR_ray_tracing_position_fetch
         pub const PHYSICAL_DEVICE_RAY_TRACING_POSITION_FETCH_FEATURES_KHR: Self = Self(1000481000);
+
         // VK_KHR_robustness2
         pub const PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_KHR: Self = Self(1000286000);
         pub const PHYSICAL_DEVICE_ROBUSTNESS_2_PROPERTIES_KHR: Self = Self(1000286001);
+
         // VK_KHR_sampler_ycbcr_conversion
         pub const SAMPLER_YCBCR_CONVERSION_CREATE_INFO_KHR: Self =
             Self::SAMPLER_YCBCR_CONVERSION_CREATE_INFO;
@@ -8777,6 +10017,7 @@ pub(super) mod defs {
             Self::PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES;
         pub const SAMPLER_YCBCR_CONVERSION_IMAGE_FORMAT_PROPERTIES_KHR: Self =
             Self::SAMPLER_YCBCR_CONVERSION_IMAGE_FORMAT_PROPERTIES;
+
         // VK_KHR_separate_depth_stencil_layouts
         pub const PHYSICAL_DEVICE_SEPARATE_DEPTH_STENCIL_LAYOUTS_FEATURES_KHR: Self =
             Self::PHYSICAL_DEVICE_SEPARATE_DEPTH_STENCIL_LAYOUTS_FEATURES;
@@ -8784,67 +10025,89 @@ pub(super) mod defs {
             Self::ATTACHMENT_REFERENCE_STENCIL_LAYOUT;
         pub const ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT_KHR: Self =
             Self::ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT;
+
         // VK_KHR_shader_atomic_int64
         pub const PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES_KHR: Self =
             Self::PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES;
+
         // VK_KHR_shader_bfloat16
         pub const PHYSICAL_DEVICE_SHADER_BFLOAT16_FEATURES_KHR: Self = Self(1000141000);
+
         // VK_KHR_shader_clock
         pub const PHYSICAL_DEVICE_SHADER_CLOCK_FEATURES_KHR: Self = Self(1000181000);
+
         // VK_KHR_shader_expect_assume
         pub const PHYSICAL_DEVICE_SHADER_EXPECT_ASSUME_FEATURES_KHR: Self =
             Self::PHYSICAL_DEVICE_SHADER_EXPECT_ASSUME_FEATURES;
+
         // VK_KHR_shader_float16_int8
         pub const PHYSICAL_DEVICE_SHADER_FLOAT16_INT8_FEATURES_KHR: Self =
             Self::PHYSICAL_DEVICE_SHADER_FLOAT16_INT8_FEATURES;
         pub const PHYSICAL_DEVICE_FLOAT16_INT8_FEATURES_KHR: Self =
             Self::PHYSICAL_DEVICE_SHADER_FLOAT16_INT8_FEATURES;
+
         // VK_KHR_shader_float_controls
         pub const PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES_KHR: Self =
             Self::PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES;
+
         // VK_KHR_shader_float_controls2
         pub const PHYSICAL_DEVICE_SHADER_FLOAT_CONTROLS_2_FEATURES_KHR: Self =
             Self::PHYSICAL_DEVICE_SHADER_FLOAT_CONTROLS_2_FEATURES;
+
         // VK_KHR_shader_fma
         pub const PHYSICAL_DEVICE_SHADER_FMA_FEATURES_KHR: Self = Self(1000579000);
+
         // VK_KHR_shader_integer_dot_product
         pub const PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_FEATURES_KHR: Self =
             Self::PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_FEATURES;
         pub const PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_PROPERTIES_KHR: Self =
             Self::PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_PROPERTIES;
+
         // VK_KHR_shader_maximal_reconvergence
         pub const PHYSICAL_DEVICE_SHADER_MAXIMAL_RECONVERGENCE_FEATURES_KHR: Self =
             Self(1000434000);
+
         // VK_KHR_shader_quad_control
         pub const PHYSICAL_DEVICE_SHADER_QUAD_CONTROL_FEATURES_KHR: Self = Self(1000235000);
+
         // VK_KHR_shader_relaxed_extended_instruction
         pub const PHYSICAL_DEVICE_SHADER_RELAXED_EXTENDED_INSTRUCTION_FEATURES_KHR: Self =
             Self(1000558000);
+
         // VK_KHR_shader_subgroup_extended_types
         pub const PHYSICAL_DEVICE_SHADER_SUBGROUP_EXTENDED_TYPES_FEATURES_KHR: Self =
             Self::PHYSICAL_DEVICE_SHADER_SUBGROUP_EXTENDED_TYPES_FEATURES;
+
         // VK_KHR_shader_subgroup_rotate
         pub const PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES_KHR: Self =
             Self::PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES;
+
         // VK_KHR_shader_subgroup_uniform_control_flow
         pub const PHYSICAL_DEVICE_SHADER_SUBGROUP_UNIFORM_CONTROL_FLOW_FEATURES_KHR: Self =
             Self(1000323000);
+
         // VK_KHR_shader_terminate_invocation
         pub const PHYSICAL_DEVICE_SHADER_TERMINATE_INVOCATION_FEATURES_KHR: Self =
             Self::PHYSICAL_DEVICE_SHADER_TERMINATE_INVOCATION_FEATURES;
+
         // VK_KHR_shader_untyped_pointers
         pub const PHYSICAL_DEVICE_SHADER_UNTYPED_POINTERS_FEATURES_KHR: Self = Self(1000387000);
+
         // VK_KHR_shared_presentable_image
         pub const SHARED_PRESENT_SURFACE_CAPABILITIES_KHR: Self = Self(1000111000);
+
         // VK_KHR_surface_maintenance1
         pub const SURFACE_PRESENT_MODE_KHR: Self = Self(1000274000);
         pub const SURFACE_PRESENT_SCALING_CAPABILITIES_KHR: Self = Self(1000274001);
         pub const SURFACE_PRESENT_MODE_COMPATIBILITY_KHR: Self = Self(1000274002);
+
         // VK_KHR_surface_protected_capabilities
         pub const SURFACE_PROTECTED_CAPABILITIES_KHR: Self = Self(1000239000);
+
         // VK_KHR_swapchain
         pub const SWAPCHAIN_CREATE_INFO_KHR: Self = Self(1000001000);
         pub const PRESENT_INFO_KHR: Self = Self(1000001001);
+
         // VK_KHR_swapchain_maintenance1
         pub const PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR: Self = Self(1000275000);
         pub const SWAPCHAIN_PRESENT_FENCE_INFO_KHR: Self = Self(1000275001);
@@ -8852,6 +10115,7 @@ pub(super) mod defs {
         pub const SWAPCHAIN_PRESENT_MODE_INFO_KHR: Self = Self(1000275003);
         pub const SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_KHR: Self = Self(1000275004);
         pub const RELEASE_SWAPCHAIN_IMAGES_INFO_KHR: Self = Self(1000275005);
+
         // VK_KHR_synchronization2
         pub const MEMORY_BARRIER_2_KHR: Self = Self::MEMORY_BARRIER_2;
         pub const BUFFER_MEMORY_BARRIER_2_KHR: Self = Self::BUFFER_MEMORY_BARRIER_2;
@@ -8862,6 +10126,7 @@ pub(super) mod defs {
         pub const COMMAND_BUFFER_SUBMIT_INFO_KHR: Self = Self::COMMAND_BUFFER_SUBMIT_INFO;
         pub const PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES_KHR: Self =
             Self::PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES;
+
         // VK_KHR_timeline_semaphore
         pub const PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES_KHR: Self =
             Self::PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES;
@@ -8871,17 +10136,21 @@ pub(super) mod defs {
         pub const TIMELINE_SEMAPHORE_SUBMIT_INFO_KHR: Self = Self::TIMELINE_SEMAPHORE_SUBMIT_INFO;
         pub const SEMAPHORE_WAIT_INFO_KHR: Self = Self::SEMAPHORE_WAIT_INFO;
         pub const SEMAPHORE_SIGNAL_INFO_KHR: Self = Self::SEMAPHORE_SIGNAL_INFO;
+
         // VK_KHR_unified_image_layouts
         pub const PHYSICAL_DEVICE_UNIFIED_IMAGE_LAYOUTS_FEATURES_KHR: Self = Self(1000527000);
         pub const ATTACHMENT_FEEDBACK_LOOP_INFO_EXT: Self = Self(1000527001);
+
         // VK_KHR_uniform_buffer_standard_layout
         pub const PHYSICAL_DEVICE_UNIFORM_BUFFER_STANDARD_LAYOUT_FEATURES_KHR: Self =
             Self::PHYSICAL_DEVICE_UNIFORM_BUFFER_STANDARD_LAYOUT_FEATURES;
+
         // VK_KHR_variable_pointers
         pub const PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES_KHR: Self =
             Self::PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES;
         pub const PHYSICAL_DEVICE_VARIABLE_POINTER_FEATURES_KHR: Self =
             Self::PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES_KHR;
+
         // VK_KHR_vertex_attribute_divisor
         pub const PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES_KHR: Self =
             Self::PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES;
@@ -8889,12 +10158,14 @@ pub(super) mod defs {
             Self::PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO;
         pub const PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES_KHR: Self =
             Self::PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES;
+
         // VK_KHR_video_decode_av1
         pub const VIDEO_DECODE_AV1_CAPABILITIES_KHR: Self = Self(1000512000);
         pub const VIDEO_DECODE_AV1_PICTURE_INFO_KHR: Self = Self(1000512001);
         pub const VIDEO_DECODE_AV1_PROFILE_INFO_KHR: Self = Self(1000512003);
         pub const VIDEO_DECODE_AV1_SESSION_PARAMETERS_CREATE_INFO_KHR: Self = Self(1000512004);
         pub const VIDEO_DECODE_AV1_DPB_SLOT_INFO_KHR: Self = Self(1000512005);
+
         // VK_KHR_video_decode_h264
         pub const VIDEO_DECODE_H264_CAPABILITIES_KHR: Self = Self(1000040000);
         pub const VIDEO_DECODE_H264_PICTURE_INFO_KHR: Self = Self(1000040001);
@@ -8902,6 +10173,7 @@ pub(super) mod defs {
         pub const VIDEO_DECODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR: Self = Self(1000040004);
         pub const VIDEO_DECODE_H264_SESSION_PARAMETERS_ADD_INFO_KHR: Self = Self(1000040005);
         pub const VIDEO_DECODE_H264_DPB_SLOT_INFO_KHR: Self = Self(1000040006);
+
         // VK_KHR_video_decode_h265
         pub const VIDEO_DECODE_H265_CAPABILITIES_KHR: Self = Self(1000187000);
         pub const VIDEO_DECODE_H265_SESSION_PARAMETERS_CREATE_INFO_KHR: Self = Self(1000187001);
@@ -8909,15 +10181,18 @@ pub(super) mod defs {
         pub const VIDEO_DECODE_H265_PROFILE_INFO_KHR: Self = Self(1000187003);
         pub const VIDEO_DECODE_H265_PICTURE_INFO_KHR: Self = Self(1000187004);
         pub const VIDEO_DECODE_H265_DPB_SLOT_INFO_KHR: Self = Self(1000187005);
+
         // VK_KHR_video_decode_queue
         pub const VIDEO_DECODE_INFO_KHR: Self = Self(1000024000);
         pub const VIDEO_DECODE_CAPABILITIES_KHR: Self = Self(1000024001);
         pub const VIDEO_DECODE_USAGE_INFO_KHR: Self = Self(1000024002);
+
         // VK_KHR_video_decode_vp9
         pub const PHYSICAL_DEVICE_VIDEO_DECODE_VP9_FEATURES_KHR: Self = Self(1000514000);
         pub const VIDEO_DECODE_VP9_CAPABILITIES_KHR: Self = Self(1000514001);
         pub const VIDEO_DECODE_VP9_PICTURE_INFO_KHR: Self = Self(1000514002);
         pub const VIDEO_DECODE_VP9_PROFILE_INFO_KHR: Self = Self(1000514003);
+
         // VK_KHR_video_encode_av1
         pub const VIDEO_ENCODE_AV1_CAPABILITIES_KHR: Self = Self(1000513000);
         pub const VIDEO_ENCODE_AV1_SESSION_PARAMETERS_CREATE_INFO_KHR: Self = Self(1000513001);
@@ -8930,6 +10205,7 @@ pub(super) mod defs {
         pub const VIDEO_ENCODE_AV1_QUALITY_LEVEL_PROPERTIES_KHR: Self = Self(1000513008);
         pub const VIDEO_ENCODE_AV1_SESSION_CREATE_INFO_KHR: Self = Self(1000513009);
         pub const VIDEO_ENCODE_AV1_GOP_REMAINING_FRAME_INFO_KHR: Self = Self(1000513010);
+
         // VK_KHR_video_encode_h264
         pub const VIDEO_ENCODE_H264_CAPABILITIES_KHR: Self = Self(1000038000);
         pub const VIDEO_ENCODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR: Self = Self(1000038001);
@@ -8945,6 +10221,7 @@ pub(super) mod defs {
         pub const VIDEO_ENCODE_H264_QUALITY_LEVEL_PROPERTIES_KHR: Self = Self(1000038011);
         pub const VIDEO_ENCODE_H264_SESSION_PARAMETERS_GET_INFO_KHR: Self = Self(1000038012);
         pub const VIDEO_ENCODE_H264_SESSION_PARAMETERS_FEEDBACK_INFO_KHR: Self = Self(1000038013);
+
         // VK_KHR_video_encode_h265
         pub const VIDEO_ENCODE_H265_CAPABILITIES_KHR: Self = Self(1000039000);
         pub const VIDEO_ENCODE_H265_SESSION_PARAMETERS_CREATE_INFO_KHR: Self = Self(1000039001);
@@ -8960,12 +10237,14 @@ pub(super) mod defs {
         pub const VIDEO_ENCODE_H265_QUALITY_LEVEL_PROPERTIES_KHR: Self = Self(1000039012);
         pub const VIDEO_ENCODE_H265_SESSION_PARAMETERS_GET_INFO_KHR: Self = Self(1000039013);
         pub const VIDEO_ENCODE_H265_SESSION_PARAMETERS_FEEDBACK_INFO_KHR: Self = Self(1000039014);
+
         // VK_KHR_video_encode_intra_refresh
         pub const VIDEO_ENCODE_INTRA_REFRESH_CAPABILITIES_KHR: Self = Self(1000552000);
         pub const VIDEO_ENCODE_SESSION_INTRA_REFRESH_CREATE_INFO_KHR: Self = Self(1000552001);
         pub const VIDEO_ENCODE_INTRA_REFRESH_INFO_KHR: Self = Self(1000552002);
         pub const VIDEO_REFERENCE_INTRA_REFRESH_INFO_KHR: Self = Self(1000552003);
         pub const PHYSICAL_DEVICE_VIDEO_ENCODE_INTRA_REFRESH_FEATURES_KHR: Self = Self(1000552004);
+
         // VK_KHR_video_encode_quantization_map
         pub const VIDEO_ENCODE_QUANTIZATION_MAP_CAPABILITIES_KHR: Self = Self(1000553000);
         pub const VIDEO_FORMAT_QUANTIZATION_MAP_PROPERTIES_KHR: Self = Self(1000553001);
@@ -8979,6 +10258,7 @@ pub(super) mod defs {
         pub const VIDEO_FORMAT_H265_QUANTIZATION_MAP_PROPERTIES_KHR: Self = Self(1000553006);
         pub const VIDEO_ENCODE_AV1_QUANTIZATION_MAP_CAPABILITIES_KHR: Self = Self(1000553007);
         pub const VIDEO_FORMAT_AV1_QUANTIZATION_MAP_PROPERTIES_KHR: Self = Self(1000553008);
+
         // VK_KHR_video_encode_queue
         pub const VIDEO_ENCODE_INFO_KHR: Self = Self(1000299000);
         pub const VIDEO_ENCODE_RATE_CONTROL_INFO_KHR: Self = Self(1000299001);
@@ -8991,14 +10271,17 @@ pub(super) mod defs {
         pub const VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR: Self = Self(1000299008);
         pub const VIDEO_ENCODE_SESSION_PARAMETERS_GET_INFO_KHR: Self = Self(1000299009);
         pub const VIDEO_ENCODE_SESSION_PARAMETERS_FEEDBACK_INFO_KHR: Self = Self(1000299010);
+
         // VK_KHR_video_maintenance1
         pub const PHYSICAL_DEVICE_VIDEO_MAINTENANCE_1_FEATURES_KHR: Self = Self(1000515000);
         pub const VIDEO_INLINE_QUERY_INFO_KHR: Self = Self(1000515001);
+
         // VK_KHR_video_maintenance2
         pub const PHYSICAL_DEVICE_VIDEO_MAINTENANCE_2_FEATURES_KHR: Self = Self(1000586000);
         pub const VIDEO_DECODE_H264_INLINE_SESSION_PARAMETERS_INFO_KHR: Self = Self(1000586001);
         pub const VIDEO_DECODE_H265_INLINE_SESSION_PARAMETERS_INFO_KHR: Self = Self(1000586002);
         pub const VIDEO_DECODE_AV1_INLINE_SESSION_PARAMETERS_INFO_KHR: Self = Self(1000586003);
+
         // VK_KHR_video_queue
         pub const VIDEO_PROFILE_INFO_KHR: Self = Self(1000023000);
         pub const VIDEO_CAPABILITIES_KHR: Self = Self(1000023001);
@@ -9017,54 +10300,73 @@ pub(super) mod defs {
         pub const PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR: Self = Self(1000023014);
         pub const VIDEO_FORMAT_PROPERTIES_KHR: Self = Self(1000023015);
         pub const QUEUE_FAMILY_QUERY_RESULT_STATUS_PROPERTIES_KHR: Self = Self(1000023016);
+
         // VK_KHR_vulkan_memory_model
         pub const PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES_KHR: Self =
             Self::PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES;
+
         // VK_KHR_wayland_surface
         pub const WAYLAND_SURFACE_CREATE_INFO_KHR: Self = Self(1000006000);
+
         // VK_KHR_win32_keyed_mutex
         pub const WIN32_KEYED_MUTEX_ACQUIRE_RELEASE_INFO_KHR: Self = Self(1000075000);
+
         // VK_KHR_win32_surface
         pub const WIN32_SURFACE_CREATE_INFO_KHR: Self = Self(1000009000);
+
         // VK_KHR_workgroup_memory_explicit_layout
         pub const PHYSICAL_DEVICE_WORKGROUP_MEMORY_EXPLICIT_LAYOUT_FEATURES_KHR: Self =
             Self(1000336000);
+
         // VK_KHR_xcb_surface
         pub const XCB_SURFACE_CREATE_INFO_KHR: Self = Self(1000005000);
+
         // VK_KHR_xlib_surface
         pub const XLIB_SURFACE_CREATE_INFO_KHR: Self = Self(1000004000);
+
         // VK_KHR_zero_initialize_workgroup_memory
         pub const PHYSICAL_DEVICE_ZERO_INITIALIZE_WORKGROUP_MEMORY_FEATURES_KHR: Self =
             Self::PHYSICAL_DEVICE_ZERO_INITIALIZE_WORKGROUP_MEMORY_FEATURES;
+
         // VK_LUNARG_direct_driver_loading
         pub const DIRECT_DRIVER_LOADING_INFO_LUNARG: Self = Self(1000459000);
         pub const DIRECT_DRIVER_LOADING_LIST_LUNARG: Self = Self(1000459001);
+
         // VK_MESA_image_alignment_control
         pub const PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_FEATURES_MESA: Self = Self(1000575000);
         pub const PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_PROPERTIES_MESA: Self = Self(1000575001);
         pub const IMAGE_ALIGNMENT_CONTROL_CREATE_INFO_MESA: Self = Self(1000575002);
+
         // VK_MSFT_layered_driver
         pub const PHYSICAL_DEVICE_LAYERED_DRIVER_PROPERTIES_MSFT: Self = Self(1000530000);
+
         // VK_MVK_ios_surface
         pub const IOS_SURFACE_CREATE_INFO_MVK: Self = Self(1000122000);
+
         // VK_MVK_macos_surface
         pub const MACOS_SURFACE_CREATE_INFO_MVK: Self = Self(1000123000);
+
         // VK_NN_vi_surface
         pub const VI_SURFACE_CREATE_INFO_NN: Self = Self(1000062000);
+
         // VK_NVX_binary_import
         pub const CU_MODULE_CREATE_INFO_NVX: Self = Self(1000029000);
         pub const CU_FUNCTION_CREATE_INFO_NVX: Self = Self(1000029001);
         pub const CU_LAUNCH_INFO_NVX: Self = Self(1000029002);
         pub const CU_MODULE_TEXTURING_MODE_CREATE_INFO_NVX: Self = Self(1000029004);
+
         // VK_NVX_image_view_handle
         pub const IMAGE_VIEW_HANDLE_INFO_NVX: Self = Self(1000030000);
         pub const IMAGE_VIEW_ADDRESS_PROPERTIES_NVX: Self = Self(1000030001);
+
         // VK_NVX_multiview_per_view_attributes
         pub const PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_ATTRIBUTES_PROPERTIES_NVX: Self =
             Self(1000097000);
         pub const MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX: Self = Self(1000044009);
+
         // VK_NV_clip_space_w_scaling
         pub const PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV: Self = Self(1000087000);
+
         // VK_NV_cluster_acceleration_structure
         pub const PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_FEATURES_NV: Self =
             Self(1000569000);
@@ -9078,61 +10380,77 @@ pub(super) mod defs {
         pub const CLUSTER_ACCELERATION_STRUCTURE_COMMANDS_INFO_NV: Self = Self(1000569006);
         pub const RAY_TRACING_PIPELINE_CLUSTER_ACCELERATION_STRUCTURE_CREATE_INFO_NV: Self =
             Self(1000569007);
+
         // VK_NV_command_buffer_inheritance
         pub const PHYSICAL_DEVICE_COMMAND_BUFFER_INHERITANCE_FEATURES_NV: Self = Self(1000559000);
+
         // VK_NV_compute_occupancy_priority
         pub const COMPUTE_OCCUPANCY_PRIORITY_PARAMETERS_NV: Self = Self(1000645000);
         pub const PHYSICAL_DEVICE_COMPUTE_OCCUPANCY_PRIORITY_FEATURES_NV: Self = Self(1000645001);
+
         // VK_NV_compute_shader_derivatives
         pub const PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_FEATURES_NV: Self =
             Self::PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_FEATURES_KHR;
+
         // VK_NV_cooperative_matrix
         pub const PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_NV: Self = Self(1000249000);
         pub const COOPERATIVE_MATRIX_PROPERTIES_NV: Self = Self(1000249001);
         pub const PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_NV: Self = Self(1000249002);
+
         // VK_NV_cooperative_matrix2
         pub const PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_FEATURES_NV: Self = Self(1000593000);
         pub const COOPERATIVE_MATRIX_FLEXIBLE_DIMENSIONS_PROPERTIES_NV: Self = Self(1000593001);
         pub const PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_PROPERTIES_NV: Self = Self(1000593002);
+
         // VK_NV_cooperative_vector
         pub const PHYSICAL_DEVICE_COOPERATIVE_VECTOR_FEATURES_NV: Self = Self(1000491000);
         pub const PHYSICAL_DEVICE_COOPERATIVE_VECTOR_PROPERTIES_NV: Self = Self(1000491001);
         pub const COOPERATIVE_VECTOR_PROPERTIES_NV: Self = Self(1000491002);
         pub const CONVERT_COOPERATIVE_VECTOR_MATRIX_INFO_NV: Self = Self(1000491004);
+
         // VK_NV_copy_memory_indirect
         pub const PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_NV: Self = Self(1000426000);
         pub const PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_NV: Self =
             Self::PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR;
+
         // VK_NV_corner_sampled_image
         pub const PHYSICAL_DEVICE_CORNER_SAMPLED_IMAGE_FEATURES_NV: Self = Self(1000050000);
+
         // VK_NV_coverage_reduction_mode
         pub const PHYSICAL_DEVICE_COVERAGE_REDUCTION_MODE_FEATURES_NV: Self = Self(1000250000);
         pub const PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV: Self = Self(1000250001);
         pub const FRAMEBUFFER_MIXED_SAMPLES_COMBINATION_NV: Self = Self(1000250002);
+
         // VK_NV_cuda_kernel_launch
         pub const CUDA_MODULE_CREATE_INFO_NV: Self = Self(1000307000);
         pub const CUDA_FUNCTION_CREATE_INFO_NV: Self = Self(1000307001);
         pub const CUDA_LAUNCH_INFO_NV: Self = Self(1000307002);
         pub const PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_FEATURES_NV: Self = Self(1000307003);
         pub const PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_PROPERTIES_NV: Self = Self(1000307004);
+
         // VK_NV_dedicated_allocation
         pub const DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV: Self = Self(1000026000);
         pub const DEDICATED_ALLOCATION_BUFFER_CREATE_INFO_NV: Self = Self(1000026001);
         pub const DEDICATED_ALLOCATION_MEMORY_ALLOCATE_INFO_NV: Self = Self(1000026002);
+
         // VK_NV_dedicated_allocation_image_aliasing
         pub const PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV: Self =
             Self(1000240000);
+
         // VK_NV_descriptor_pool_overallocation
         pub const PHYSICAL_DEVICE_DESCRIPTOR_POOL_OVERALLOCATION_FEATURES_NV: Self =
             Self(1000546000);
+
         // VK_NV_device_diagnostic_checkpoints
         pub const CHECKPOINT_DATA_NV: Self = Self(1000206000);
         pub const QUEUE_FAMILY_CHECKPOINT_PROPERTIES_NV: Self = Self(1000206001);
         pub const QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV: Self = Self(1000314008);
         pub const CHECKPOINT_DATA_2_NV: Self = Self(1000314009);
+
         // VK_NV_device_diagnostics_config
         pub const PHYSICAL_DEVICE_DIAGNOSTICS_CONFIG_FEATURES_NV: Self = Self(1000300000);
         pub const DEVICE_DIAGNOSTICS_CONFIG_CREATE_INFO_NV: Self = Self(1000300001);
+
         // VK_NV_device_generated_commands
         pub const PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_NV: Self = Self(1000277000);
         pub const GRAPHICS_SHADER_GROUP_CREATE_INFO_NV: Self = Self(1000277001);
@@ -9142,58 +10460,74 @@ pub(super) mod defs {
         pub const GENERATED_COMMANDS_INFO_NV: Self = Self(1000277005);
         pub const GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_NV: Self = Self(1000277006);
         pub const PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_NV: Self = Self(1000277007);
+
         // VK_NV_device_generated_commands_compute
         pub const PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV: Self =
             Self(1000428000);
         pub const COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV: Self = Self(1000428001);
         pub const PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV: Self = Self(1000428002);
+
         // VK_NV_displacement_micromap
         pub const PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_FEATURES_NV: Self = Self(1000397000);
         pub const PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_PROPERTIES_NV: Self = Self(1000397001);
         pub const ACCELERATION_STRUCTURE_TRIANGLES_DISPLACEMENT_MICROMAP_NV: Self =
             Self(1000397002);
+
         // VK_NV_display_stereo
         pub const DISPLAY_SURFACE_STEREO_CREATE_INFO_NV: Self = Self(1000551000);
         pub const DISPLAY_MODE_STEREO_PROPERTIES_NV: Self = Self(1000551001);
+
         // VK_NV_extended_sparse_address_space
         pub const PHYSICAL_DEVICE_EXTENDED_SPARSE_ADDRESS_SPACE_FEATURES_NV: Self =
             Self(1000492000);
         pub const PHYSICAL_DEVICE_EXTENDED_SPARSE_ADDRESS_SPACE_PROPERTIES_NV: Self =
             Self(1000492001);
+
         // VK_NV_external_compute_queue
         pub const EXTERNAL_COMPUTE_QUEUE_DEVICE_CREATE_INFO_NV: Self = Self(1000556000);
         pub const EXTERNAL_COMPUTE_QUEUE_CREATE_INFO_NV: Self = Self(1000556001);
         pub const EXTERNAL_COMPUTE_QUEUE_DATA_PARAMS_NV: Self = Self(1000556002);
         pub const PHYSICAL_DEVICE_EXTERNAL_COMPUTE_QUEUE_PROPERTIES_NV: Self = Self(1000556003);
+
         // VK_NV_external_memory
         pub const EXTERNAL_MEMORY_IMAGE_CREATE_INFO_NV: Self = Self(1000056000);
         pub const EXPORT_MEMORY_ALLOCATE_INFO_NV: Self = Self(1000056001);
+
         // VK_NV_external_memory_rdma
         pub const MEMORY_GET_REMOTE_ADDRESS_INFO_NV: Self = Self(1000371000);
         pub const PHYSICAL_DEVICE_EXTERNAL_MEMORY_RDMA_FEATURES_NV: Self = Self(1000371001);
+
         // VK_NV_external_memory_win32
         pub const IMPORT_MEMORY_WIN32_HANDLE_INFO_NV: Self = Self(1000057000);
         pub const EXPORT_MEMORY_WIN32_HANDLE_INFO_NV: Self = Self(1000057001);
+
         // VK_NV_fragment_coverage_to_color
         pub const PIPELINE_COVERAGE_TO_COLOR_STATE_CREATE_INFO_NV: Self = Self(1000149000);
+
         // VK_NV_fragment_shader_barycentric
         pub const PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_FEATURES_NV: Self =
             Self::PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_FEATURES_KHR;
+
         // VK_NV_fragment_shading_rate_enums
         pub const PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_PROPERTIES_NV: Self =
             Self(1000326000);
         pub const PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_FEATURES_NV: Self = Self(1000326001);
         pub const PIPELINE_FRAGMENT_SHADING_RATE_ENUM_STATE_CREATE_INFO_NV: Self = Self(1000326002);
+
         // VK_NV_framebuffer_mixed_samples
         pub const PIPELINE_COVERAGE_MODULATION_STATE_CREATE_INFO_NV: Self = Self(1000152000);
         pub const ATTACHMENT_SAMPLE_COUNT_INFO_NV: Self = Self::ATTACHMENT_SAMPLE_COUNT_INFO_AMD;
+
         // VK_NV_inherited_viewport_scissor
         pub const PHYSICAL_DEVICE_INHERITED_VIEWPORT_SCISSOR_FEATURES_NV: Self = Self(1000278000);
         pub const COMMAND_BUFFER_INHERITANCE_VIEWPORT_SCISSOR_INFO_NV: Self = Self(1000278001);
+
         // VK_NV_linear_color_attachment
         pub const PHYSICAL_DEVICE_LINEAR_COLOR_ATTACHMENT_FEATURES_NV: Self = Self(1000430000);
+
         // VK_NV_low_latency
         pub const QUERY_LOW_LATENCY_SUPPORT_NV: Self = Self(1000310000);
+
         // VK_NV_low_latency2
         pub const LATENCY_SLEEP_MODE_INFO_NV: Self = Self(1000505000);
         pub const LATENCY_SLEEP_INFO_NV: Self = Self(1000505001);
@@ -9204,14 +10538,17 @@ pub(super) mod defs {
         pub const OUT_OF_BAND_QUEUE_TYPE_INFO_NV: Self = Self(1000505006);
         pub const SWAPCHAIN_LATENCY_CREATE_INFO_NV: Self = Self(1000505007);
         pub const LATENCY_SURFACE_CAPABILITIES_NV: Self = Self(1000505008);
+
         // VK_NV_memory_decompression
         pub const PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_NV: Self =
             Self::PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_EXT;
         pub const PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_NV: Self =
             Self::PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_EXT;
+
         // VK_NV_mesh_shader
         pub const PHYSICAL_DEVICE_MESH_SHADER_FEATURES_NV: Self = Self(1000202000);
         pub const PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_NV: Self = Self(1000202001);
+
         // VK_NV_optical_flow
         pub const PHYSICAL_DEVICE_OPTICAL_FLOW_FEATURES_NV: Self = Self(1000464000);
         pub const PHYSICAL_DEVICE_OPTICAL_FLOW_PROPERTIES_NV: Self = Self(1000464001);
@@ -9220,6 +10557,7 @@ pub(super) mod defs {
         pub const OPTICAL_FLOW_SESSION_CREATE_INFO_NV: Self = Self(1000464004);
         pub const OPTICAL_FLOW_EXECUTE_INFO_NV: Self = Self(1000464005);
         pub const OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV: Self = Self(1000464010);
+
         // VK_NV_partitioned_acceleration_structure
         pub const PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_FEATURES_NV: Self =
             Self(1000570000);
@@ -9230,21 +10568,27 @@ pub(super) mod defs {
         pub const PARTITIONED_ACCELERATION_STRUCTURE_INSTANCES_INPUT_NV: Self = Self(1000570003);
         pub const BUILD_PARTITIONED_ACCELERATION_STRUCTURE_INFO_NV: Self = Self(1000570004);
         pub const PARTITIONED_ACCELERATION_STRUCTURE_FLAGS_NV: Self = Self(1000570005);
+
         // VK_NV_per_stage_descriptor_set
         pub const PHYSICAL_DEVICE_PER_STAGE_DESCRIPTOR_SET_FEATURES_NV: Self = Self(1000516000);
+
         // VK_NV_present_barrier
         pub const PHYSICAL_DEVICE_PRESENT_BARRIER_FEATURES_NV: Self = Self(1000292000);
         pub const SURFACE_CAPABILITIES_PRESENT_BARRIER_NV: Self = Self(1000292001);
         pub const SWAPCHAIN_PRESENT_BARRIER_CREATE_INFO_NV: Self = Self(1000292002);
+
         // VK_NV_present_metering
         pub const SET_PRESENT_CONFIG_NV: Self = Self(1000613000);
         pub const PHYSICAL_DEVICE_PRESENT_METERING_FEATURES_NV: Self = Self(1000613001);
+
         // VK_NV_push_constant_bank
         pub const PUSH_CONSTANT_BANK_INFO_NV: Self = Self(1000580000);
         pub const PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_FEATURES_NV: Self = Self(1000580001);
         pub const PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_PROPERTIES_NV: Self = Self(1000580002);
+
         // VK_NV_raw_access_chains
         pub const PHYSICAL_DEVICE_RAW_ACCESS_CHAINS_FEATURES_NV: Self = Self(1000555000);
+
         // VK_NV_ray_tracing
         pub const RAY_TRACING_PIPELINE_CREATE_INFO_NV: Self = Self(1000165000);
         pub const ACCELERATION_STRUCTURE_CREATE_INFO_NV: Self = Self(1000165001);
@@ -9257,37 +10601,47 @@ pub(super) mod defs {
         pub const PHYSICAL_DEVICE_RAY_TRACING_PROPERTIES_NV: Self = Self(1000165009);
         pub const RAY_TRACING_SHADER_GROUP_CREATE_INFO_NV: Self = Self(1000165011);
         pub const ACCELERATION_STRUCTURE_INFO_NV: Self = Self(1000165012);
+
         // VK_NV_ray_tracing_invocation_reorder
         pub const PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_NV: Self =
             Self(1000490000);
         pub const PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_NV: Self =
             Self(1000490001);
+
         // VK_NV_ray_tracing_linear_swept_spheres
         pub const PHYSICAL_DEVICE_RAY_TRACING_LINEAR_SWEPT_SPHERES_FEATURES_NV: Self =
             Self(1000429008);
         pub const ACCELERATION_STRUCTURE_GEOMETRY_LINEAR_SWEPT_SPHERES_DATA_NV: Self =
             Self(1000429009);
         pub const ACCELERATION_STRUCTURE_GEOMETRY_SPHERES_DATA_NV: Self = Self(1000429010);
+
         // VK_NV_ray_tracing_motion_blur
         pub const ACCELERATION_STRUCTURE_GEOMETRY_MOTION_TRIANGLES_DATA_NV: Self = Self(1000327000);
         pub const PHYSICAL_DEVICE_RAY_TRACING_MOTION_BLUR_FEATURES_NV: Self = Self(1000327001);
         pub const ACCELERATION_STRUCTURE_MOTION_INFO_NV: Self = Self(1000327002);
+
         // VK_NV_ray_tracing_validation
         pub const PHYSICAL_DEVICE_RAY_TRACING_VALIDATION_FEATURES_NV: Self = Self(1000568000);
+
         // VK_NV_representative_fragment_test
         pub const PHYSICAL_DEVICE_REPRESENTATIVE_FRAGMENT_TEST_FEATURES_NV: Self = Self(1000166000);
         pub const PIPELINE_REPRESENTATIVE_FRAGMENT_TEST_STATE_CREATE_INFO_NV: Self =
             Self(1000166001);
+
         // VK_NV_scissor_exclusive
         pub const PIPELINE_VIEWPORT_EXCLUSIVE_SCISSOR_STATE_CREATE_INFO_NV: Self = Self(1000205000);
         pub const PHYSICAL_DEVICE_EXCLUSIVE_SCISSOR_FEATURES_NV: Self = Self(1000205002);
+
         // VK_NV_shader_atomic_float16_vector
         pub const PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT16_VECTOR_FEATURES_NV: Self = Self(1000563000);
+
         // VK_NV_shader_image_footprint
         pub const PHYSICAL_DEVICE_SHADER_IMAGE_FOOTPRINT_FEATURES_NV: Self = Self(1000204000);
+
         // VK_NV_shader_sm_builtins
         pub const PHYSICAL_DEVICE_SHADER_SM_BUILTINS_FEATURES_NV: Self = Self(1000154000);
         pub const PHYSICAL_DEVICE_SHADER_SM_BUILTINS_PROPERTIES_NV: Self = Self(1000154001);
+
         // VK_NV_shading_rate_image
         pub const PIPELINE_VIEWPORT_SHADING_RATE_IMAGE_STATE_CREATE_INFO_NV: Self =
             Self(1000164000);
@@ -9295,10 +10649,13 @@ pub(super) mod defs {
         pub const PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV: Self = Self(1000164002);
         pub const PIPELINE_VIEWPORT_COARSE_SAMPLE_ORDER_STATE_CREATE_INFO_NV: Self =
             Self(1000164005);
+
         // VK_NV_viewport_swizzle
         pub const PIPELINE_VIEWPORT_SWIZZLE_STATE_CREATE_INFO_NV: Self = Self(1000098000);
+
         // VK_NV_win32_keyed_mutex
         pub const WIN32_KEYED_MUTEX_ACQUIRE_RELEASE_INFO_NV: Self = Self(1000058000);
+
         // VK_OHOS_external_memory
         pub const NATIVE_BUFFER_USAGE_OHOS: Self = Self(1000452000);
         pub const NATIVE_BUFFER_PROPERTIES_OHOS: Self = Self(1000452001);
@@ -9306,17 +10663,22 @@ pub(super) mod defs {
         pub const IMPORT_NATIVE_BUFFER_INFO_OHOS: Self = Self(1000452003);
         pub const MEMORY_GET_NATIVE_BUFFER_INFO_OHOS: Self = Self(1000452004);
         pub const EXTERNAL_FORMAT_OHOS: Self = Self(1000452005);
+
         // VK_OHOS_surface
         pub const SURFACE_CREATE_INFO_OHOS: Self = Self(1000685000);
+
         // VK_QCOM_data_graph_model
         pub const PHYSICAL_DEVICE_DATA_GRAPH_MODEL_FEATURES_QCOM: Self = Self(1000629000);
         pub const DATA_GRAPH_PIPELINE_BUILTIN_MODEL_CREATE_INFO_QCOM: Self = Self(1000629001);
+
         // VK_QCOM_filter_cubic_clamp
         pub const PHYSICAL_DEVICE_CUBIC_CLAMP_FEATURES_QCOM: Self = Self(1000521000);
+
         // VK_QCOM_filter_cubic_weights
         pub const SAMPLER_CUBIC_WEIGHTS_CREATE_INFO_QCOM: Self = Self(1000519000);
         pub const PHYSICAL_DEVICE_CUBIC_WEIGHTS_FEATURES_QCOM: Self = Self(1000519001);
         pub const BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM: Self = Self(1000519002);
+
         // VK_QCOM_fragment_density_map_offset
         pub const PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_QCOM: Self =
             Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_EXT;
@@ -9324,37 +10686,46 @@ pub(super) mod defs {
             Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_EXT;
         pub const SUBPASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_QCOM: Self =
             Self::RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT;
+
         // VK_QCOM_image_processing
         pub const PHYSICAL_DEVICE_IMAGE_PROCESSING_FEATURES_QCOM: Self = Self(1000440000);
         pub const PHYSICAL_DEVICE_IMAGE_PROCESSING_PROPERTIES_QCOM: Self = Self(1000440001);
         pub const IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM: Self = Self(1000440002);
+
         // VK_QCOM_image_processing2
         pub const PHYSICAL_DEVICE_IMAGE_PROCESSING_2_FEATURES_QCOM: Self = Self(1000518000);
         pub const PHYSICAL_DEVICE_IMAGE_PROCESSING_2_PROPERTIES_QCOM: Self = Self(1000518001);
         pub const SAMPLER_BLOCK_MATCH_WINDOW_CREATE_INFO_QCOM: Self = Self(1000518002);
+
         // VK_QCOM_multiview_per_view_render_areas
         pub const PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_RENDER_AREAS_FEATURES_QCOM: Self =
             Self(1000510000);
         pub const MULTIVIEW_PER_VIEW_RENDER_AREAS_RENDER_PASS_BEGIN_INFO_QCOM: Self =
             Self(1000510001);
+
         // VK_QCOM_multiview_per_view_viewports
         pub const PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_VIEWPORTS_FEATURES_QCOM: Self =
             Self(1000488000);
+
         // VK_QCOM_render_pass_transform
         pub const COMMAND_BUFFER_INHERITANCE_RENDER_PASS_TRANSFORM_INFO_QCOM: Self =
             Self(1000282000);
         pub const RENDER_PASS_TRANSFORM_BEGIN_INFO_QCOM: Self = Self(1000282001);
+
         // VK_QCOM_rotated_copy_commands
         pub const COPY_COMMAND_TRANSFORM_INFO_QCOM: Self = Self(1000333000);
+
         // VK_QCOM_tile_memory_heap
         pub const PHYSICAL_DEVICE_TILE_MEMORY_HEAP_FEATURES_QCOM: Self = Self(1000547000);
         pub const PHYSICAL_DEVICE_TILE_MEMORY_HEAP_PROPERTIES_QCOM: Self = Self(1000547001);
         pub const TILE_MEMORY_REQUIREMENTS_QCOM: Self = Self(1000547002);
         pub const TILE_MEMORY_BIND_INFO_QCOM: Self = Self(1000547003);
         pub const TILE_MEMORY_SIZE_INFO_QCOM: Self = Self(1000547004);
+
         // VK_QCOM_tile_properties
         pub const PHYSICAL_DEVICE_TILE_PROPERTIES_FEATURES_QCOM: Self = Self(1000484000);
         pub const TILE_PROPERTIES_QCOM: Self = Self(1000484001);
+
         // VK_QCOM_tile_shading
         pub const PHYSICAL_DEVICE_TILE_SHADING_FEATURES_QCOM: Self = Self(1000309000);
         pub const PHYSICAL_DEVICE_TILE_SHADING_PROPERTIES_QCOM: Self = Self(1000309001);
@@ -9362,9 +10733,11 @@ pub(super) mod defs {
         pub const PER_TILE_BEGIN_INFO_QCOM: Self = Self(1000309003);
         pub const PER_TILE_END_INFO_QCOM: Self = Self(1000309004);
         pub const DISPATCH_TILE_INFO_QCOM: Self = Self(1000309005);
+
         // VK_QCOM_ycbcr_degamma
         pub const PHYSICAL_DEVICE_YCBCR_DEGAMMA_FEATURES_QCOM: Self = Self(1000520000);
         pub const SAMPLER_YCBCR_CONVERSION_YCBCR_DEGAMMA_CREATE_INFO_QCOM: Self = Self(1000520001);
+
         // VK_QNX_external_memory_screen_buffer
         pub const SCREEN_BUFFER_PROPERTIES_QNX: Self = Self(1000529000);
         pub const SCREEN_BUFFER_FORMAT_PROPERTIES_QNX: Self = Self(1000529001);
@@ -9372,36 +10745,44 @@ pub(super) mod defs {
         pub const EXTERNAL_FORMAT_QNX: Self = Self(1000529003);
         pub const PHYSICAL_DEVICE_EXTERNAL_MEMORY_SCREEN_BUFFER_FEATURES_QNX: Self =
             Self(1000529004);
+
         // VK_QNX_screen_surface
         pub const SCREEN_SURFACE_CREATE_INFO_QNX: Self = Self(1000378000);
+
         // VK_SEC_amigo_profiling
         pub const PHYSICAL_DEVICE_AMIGO_PROFILING_FEATURES_SEC: Self = Self(1000485000);
         pub const AMIGO_PROFILING_SUBMIT_INFO_SEC: Self = Self(1000485001);
+
         // VK_SEC_pipeline_cache_incremental_mode
         pub const PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC: Self =
             Self(1000637000);
+
         // VK_VALVE_descriptor_set_host_mapping
         pub const PHYSICAL_DEVICE_DESCRIPTOR_SET_HOST_MAPPING_FEATURES_VALVE: Self =
             Self(1000420000);
         pub const DESCRIPTOR_SET_BINDING_REFERENCE_VALVE: Self = Self(1000420001);
         pub const DESCRIPTOR_SET_LAYOUT_HOST_MAPPING_INFO_VALVE: Self = Self(1000420002);
+
         // VK_VALVE_fragment_density_map_layered
         pub const PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_FEATURES_VALVE: Self =
             Self(1000611000);
         pub const PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_PROPERTIES_VALVE: Self =
             Self(1000611001);
         pub const PIPELINE_FRAGMENT_DENSITY_MAP_LAYERED_CREATE_INFO_VALVE: Self = Self(1000611002);
+
         // VK_VALVE_mutable_descriptor_type
         pub const PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_VALVE: Self =
             Self::PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT;
         pub const MUTABLE_DESCRIPTOR_TYPE_CREATE_INFO_VALVE: Self =
             Self::MUTABLE_DESCRIPTOR_TYPE_CREATE_INFO_EXT;
+
         // VK_VALVE_video_encode_rgb_conversion
         pub const PHYSICAL_DEVICE_VIDEO_ENCODE_RGB_CONVERSION_FEATURES_VALVE: Self =
             Self(1000390000);
         pub const VIDEO_ENCODE_RGB_CONVERSION_CAPABILITIES_VALVE: Self = Self(1000390001);
         pub const VIDEO_ENCODE_PROFILE_RGB_CONVERSION_INFO_VALVE: Self = Self(1000390002);
         pub const VIDEO_ENCODE_SESSION_RGB_CONVERSION_CREATE_INFO_VALVE: Self = Self(1000390003);
+
         // VK_VERSION_1_1
         pub const BIND_BUFFER_MEMORY_INFO: Self = Self(1000157000);
         pub const BIND_IMAGE_MEMORY_INFO: Self = Self(1000157001);
@@ -9472,6 +10853,7 @@ pub(super) mod defs {
             Self::PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES;
         pub const PHYSICAL_DEVICE_SHADER_DRAW_PARAMETER_FEATURES: Self =
             Self::PHYSICAL_DEVICE_SHADER_DRAW_PARAMETERS_FEATURES;
+
         // VK_VERSION_1_2
         pub const IMAGE_FORMAT_LIST_CREATE_INFO: Self = Self(1000147000);
         pub const PHYSICAL_DEVICE_DRIVER_PROPERTIES: Self = Self(1000196000);
@@ -9523,6 +10905,7 @@ pub(super) mod defs {
         pub const PHYSICAL_DEVICE_VULKAN_1_1_PROPERTIES: Self = Self(50);
         pub const PHYSICAL_DEVICE_VULKAN_1_2_FEATURES: Self = Self(51);
         pub const PHYSICAL_DEVICE_VULKAN_1_2_PROPERTIES: Self = Self(52);
+
         // VK_VERSION_1_3
         pub const PHYSICAL_DEVICE_TOOL_PROPERTIES: Self = Self(1000245000);
         pub const PHYSICAL_DEVICE_PRIVATE_DATA_FEATURES: Self = Self(1000295000);
@@ -9578,6 +10961,7 @@ pub(super) mod defs {
         pub const COMMAND_BUFFER_INHERITANCE_RENDERING_INFO: Self = Self(1000044004);
         pub const PHYSICAL_DEVICE_VULKAN_1_3_FEATURES: Self = Self(53);
         pub const PHYSICAL_DEVICE_VULKAN_1_3_PROPERTIES: Self = Self(54);
+
         // VK_VERSION_1_4
         pub const DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO: Self = Self(1000174000);
         pub const PHYSICAL_DEVICE_GLOBAL_PRIORITY_QUERY_FEATURES: Self = Self(1000388000);
@@ -9630,6 +11014,7 @@ pub(super) mod defs {
         pub const PHYSICAL_DEVICE_VULKAN_1_4_FEATURES: Self = Self(55);
         pub const PHYSICAL_DEVICE_VULKAN_1_4_PROPERTIES: Self = Self(56);
     }
+
     impl fmt::Debug for StructureType {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -12459,19 +13844,23 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassContents.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct SubpassContents(i32);
+
     impl SubpassContents {
         pub const INLINE: Self = Self(0);
         pub const SECONDARY_COMMAND_BUFFERS: Self = Self(1);
         // VK_EXT_nested_command_buffer
         pub const INLINE_AND_SECONDARY_COMMAND_BUFFERS_EXT: Self =
             Self::INLINE_AND_SECONDARY_COMMAND_BUFFERS_KHR;
+
         // VK_KHR_maintenance7
         pub const INLINE_AND_SECONDARY_COMMAND_BUFFERS_KHR: Self = Self(1000451000);
     }
+
     impl fmt::Debug for SubpassContents {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -12489,10 +13878,12 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkResult.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct Result(i32);
+
     impl Result {
         /// Command completed successfully
         pub const SUCCESS: Self = Self(0);
@@ -12535,53 +13926,73 @@ pub(super) mod defs {
         // VK_EXT_buffer_device_address
         pub const ERROR_INVALID_DEVICE_ADDRESS_EXT: Self =
             Self::ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS;
+
         // VK_EXT_debug_report
         pub const ERROR_VALIDATION_FAILED_EXT: Self = Self::ERROR_VALIDATION_FAILED;
+
         // VK_EXT_descriptor_indexing
         pub const ERROR_FRAGMENTATION_EXT: Self = Self::ERROR_FRAGMENTATION;
+
         // VK_EXT_full_screen_exclusive
         pub const ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT: Self = Self(-1000255000);
+
         // VK_EXT_global_priority
         pub const ERROR_NOT_PERMITTED_EXT: Self = Self::ERROR_NOT_PERMITTED;
+
         // VK_EXT_image_compression_control
         pub const ERROR_COMPRESSION_EXHAUSTED_EXT: Self = Self(-1000338000);
+
         // VK_EXT_image_drm_format_modifier
         pub const ERROR_INVALID_DRM_FORMAT_MODIFIER_PLANE_LAYOUT_EXT: Self = Self(-1000158000);
+
         // VK_EXT_pipeline_creation_cache_control
         pub const PIPELINE_COMPILE_REQUIRED_EXT: Self = Self::PIPELINE_COMPILE_REQUIRED;
         pub const ERROR_PIPELINE_COMPILE_REQUIRED_EXT: Self = Self::PIPELINE_COMPILE_REQUIRED;
+
         // VK_EXT_present_timing
         pub const ERROR_PRESENT_TIMING_QUEUE_FULL_EXT: Self = Self(-1000208000);
+
         // VK_EXT_shader_object
         pub const INCOMPATIBLE_SHADER_BINARY_EXT: Self = Self(1000482000);
         pub const ERROR_INCOMPATIBLE_SHADER_BINARY_EXT: Self = Self::INCOMPATIBLE_SHADER_BINARY_EXT;
+
         // VK_KHR_buffer_device_address
         pub const ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR: Self =
             Self::ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS;
+
         // VK_KHR_deferred_host_operations
         pub const THREAD_IDLE_KHR: Self = Self(1000268000);
         pub const THREAD_DONE_KHR: Self = Self(1000268001);
         pub const OPERATION_DEFERRED_KHR: Self = Self(1000268002);
         pub const OPERATION_NOT_DEFERRED_KHR: Self = Self(1000268003);
+
         // VK_KHR_display_swapchain
         pub const ERROR_INCOMPATIBLE_DISPLAY_KHR: Self = Self(-1000003001);
+
         // VK_KHR_external_memory
         pub const ERROR_INVALID_EXTERNAL_HANDLE_KHR: Self = Self::ERROR_INVALID_EXTERNAL_HANDLE;
+
         // VK_KHR_global_priority
         pub const ERROR_NOT_PERMITTED_KHR: Self = Self::ERROR_NOT_PERMITTED;
+
         // VK_KHR_maintenance1
         pub const ERROR_OUT_OF_POOL_MEMORY_KHR: Self = Self::ERROR_OUT_OF_POOL_MEMORY;
+
         // VK_KHR_pipeline_binary
         pub const PIPELINE_BINARY_MISSING_KHR: Self = Self(1000483000);
         pub const ERROR_NOT_ENOUGH_SPACE_KHR: Self = Self(-1000483000);
+
         // VK_KHR_surface
         pub const ERROR_SURFACE_LOST_KHR: Self = Self(-1000000000);
         pub const ERROR_NATIVE_WINDOW_IN_USE_KHR: Self = Self(-1000000001);
+
         // VK_KHR_swapchain
         pub const SUBOPTIMAL_KHR: Self = Self(1000001003);
         pub const ERROR_OUT_OF_DATE_KHR: Self = Self(-1000001004);
+
         // VK_KHR_video_encode_queue
         pub const ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR: Self = Self(-1000299000);
+
         // VK_KHR_video_queue
         pub const ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR: Self = Self(-1000023000);
         pub const ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR: Self = Self(-1000023001);
@@ -12589,21 +14000,28 @@ pub(super) mod defs {
         pub const ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR: Self = Self(-1000023003);
         pub const ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR: Self = Self(-1000023004);
         pub const ERROR_VIDEO_STD_VERSION_NOT_SUPPORTED_KHR: Self = Self(-1000023005);
+
         // VK_NV_glsl_shader
         pub const ERROR_INVALID_SHADER_NV: Self = Self(-1000012000);
+
         // VK_VERSION_1_0
         pub const ERROR_VALIDATION_FAILED: Self = Self(-1000011001);
+
         // VK_VERSION_1_1
         pub const ERROR_OUT_OF_POOL_MEMORY: Self = Self(-1000069000);
         pub const ERROR_INVALID_EXTERNAL_HANDLE: Self = Self(-1000072003);
+
         // VK_VERSION_1_2
         pub const ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS: Self = Self(-1000257000);
         pub const ERROR_FRAGMENTATION: Self = Self(-1000161000);
+
         // VK_VERSION_1_3
         pub const PIPELINE_COMPILE_REQUIRED: Self = Self(1000297000);
+
         // VK_VERSION_1_4
         pub const ERROR_NOT_PERMITTED: Self = Self(-1000174001);
     }
+
     impl fmt::Debug for Result {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -12688,10 +14106,12 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDynamicState.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DynamicState(i32);
+
     impl DynamicState {
         pub const VIEWPORT: Self = Self(0);
         pub const SCISSOR: Self = Self(1);
@@ -12704,14 +14124,18 @@ pub(super) mod defs {
         pub const STENCIL_REFERENCE: Self = Self(8);
         // VK_EXT_attachment_feedback_loop_dynamic_state
         pub const ATTACHMENT_FEEDBACK_LOOP_ENABLE_EXT: Self = Self(1000524000);
+
         // VK_EXT_color_write_enable
         pub const COLOR_WRITE_ENABLE_EXT: Self = Self(1000381000);
+
         // VK_EXT_depth_clamp_control
         pub const DEPTH_CLAMP_RANGE_EXT: Self = Self(1000582000);
+
         // VK_EXT_discard_rectangles
         pub const DISCARD_RECTANGLE_EXT: Self = Self(1000099000);
         pub const DISCARD_RECTANGLE_ENABLE_EXT: Self = Self(1000099001);
         pub const DISCARD_RECTANGLE_MODE_EXT: Self = Self(1000099002);
+
         // VK_EXT_extended_dynamic_state
         pub const CULL_MODE_EXT: Self = Self::CULL_MODE;
         pub const FRONT_FACE_EXT: Self = Self::FRONT_FACE;
@@ -12725,12 +14149,14 @@ pub(super) mod defs {
         pub const DEPTH_BOUNDS_TEST_ENABLE_EXT: Self = Self::DEPTH_BOUNDS_TEST_ENABLE;
         pub const STENCIL_TEST_ENABLE_EXT: Self = Self::STENCIL_TEST_ENABLE;
         pub const STENCIL_OP_EXT: Self = Self::STENCIL_OP;
+
         // VK_EXT_extended_dynamic_state2
         pub const PATCH_CONTROL_POINTS_EXT: Self = Self(1000377000);
         pub const LOGIC_OP_EXT: Self = Self(1000377003);
         pub const RASTERIZER_DISCARD_ENABLE_EXT: Self = Self::RASTERIZER_DISCARD_ENABLE;
         pub const DEPTH_BIAS_ENABLE_EXT: Self = Self::DEPTH_BIAS_ENABLE;
         pub const PRIMITIVE_RESTART_ENABLE_EXT: Self = Self::PRIMITIVE_RESTART_ENABLE;
+
         // VK_EXT_extended_dynamic_state3
         pub const DEPTH_CLAMP_ENABLE_EXT: Self = Self(1000455003);
         pub const POLYGON_MODE_EXT: Self = Self(1000455004);
@@ -12763,26 +14189,36 @@ pub(super) mod defs {
         pub const SHADING_RATE_IMAGE_ENABLE_NV: Self = Self(1000455030);
         pub const REPRESENTATIVE_FRAGMENT_TEST_ENABLE_NV: Self = Self(1000455031);
         pub const COVERAGE_REDUCTION_MODE_NV: Self = Self(1000455032);
+
         // VK_EXT_line_rasterization
         pub const LINE_STIPPLE_EXT: Self = Self::LINE_STIPPLE;
+
         // VK_EXT_sample_locations
         pub const SAMPLE_LOCATIONS_EXT: Self = Self(1000143000);
+
         // VK_EXT_vertex_input_dynamic_state
         pub const VERTEX_INPUT_EXT: Self = Self(1000352000);
+
         // VK_KHR_fragment_shading_rate
         pub const FRAGMENT_SHADING_RATE_KHR: Self = Self(1000226000);
+
         // VK_KHR_line_rasterization
         pub const LINE_STIPPLE_KHR: Self = Self::LINE_STIPPLE;
+
         // VK_KHR_ray_tracing_pipeline
         pub const RAY_TRACING_PIPELINE_STACK_SIZE_KHR: Self = Self(1000347000);
+
         // VK_NV_clip_space_w_scaling
         pub const VIEWPORT_W_SCALING_NV: Self = Self(1000087000);
+
         // VK_NV_scissor_exclusive
         pub const EXCLUSIVE_SCISSOR_ENABLE_NV: Self = Self(1000205000);
         pub const EXCLUSIVE_SCISSOR_NV: Self = Self(1000205001);
+
         // VK_NV_shading_rate_image
         pub const VIEWPORT_SHADING_RATE_PALETTE_NV: Self = Self(1000164004);
         pub const VIEWPORT_COARSE_SAMPLE_ORDER_NV: Self = Self(1000164006);
+
         // VK_VERSION_1_3
         pub const CULL_MODE: Self = Self(1000267000);
         pub const FRONT_FACE: Self = Self(1000267001);
@@ -12799,9 +14235,11 @@ pub(super) mod defs {
         pub const RASTERIZER_DISCARD_ENABLE: Self = Self(1000377001);
         pub const DEPTH_BIAS_ENABLE: Self = Self(1000377002);
         pub const PRIMITIVE_RESTART_ENABLE: Self = Self(1000377004);
+
         // VK_VERSION_1_4
         pub const LINE_STIPPLE: Self = Self(1000259000);
     }
+
     impl fmt::Debug for DynamicState {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -12901,10 +14339,12 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkObjectType.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ObjectType(i32);
+
     impl ObjectType {
         pub const UNKNOWN: Self = Self(0);
         pub const INSTANCE: Self = Self(1);
@@ -12934,71 +14374,99 @@ pub(super) mod defs {
         pub const COMMAND_POOL: Self = Self(25);
         // VK_ARM_data_graph
         pub const DATA_GRAPH_PIPELINE_SESSION_ARM: Self = Self(1000507000);
+
         // VK_ARM_tensors
         pub const TENSOR_ARM: Self = Self(1000460000);
         pub const TENSOR_VIEW_ARM: Self = Self(1000460001);
+
         // VK_EXT_debug_report
         pub const DEBUG_REPORT_CALLBACK_EXT: Self = Self(1000011000);
+
         // VK_EXT_debug_utils
         pub const DEBUG_UTILS_MESSENGER_EXT: Self = Self(1000128000);
+
         // VK_EXT_device_generated_commands
         pub const INDIRECT_COMMANDS_LAYOUT_EXT: Self = Self(1000572000);
         pub const INDIRECT_EXECUTION_SET_EXT: Self = Self(1000572001);
+
         // VK_EXT_opacity_micromap
         pub const MICROMAP_EXT: Self = Self(1000396000);
+
         // VK_EXT_private_data
         pub const PRIVATE_DATA_SLOT_EXT: Self = Self::PRIVATE_DATA_SLOT;
+
         // VK_EXT_shader_object
         pub const SHADER_EXT: Self = Self(1000482000);
+
         // VK_EXT_validation_cache
         pub const VALIDATION_CACHE_EXT: Self = Self(1000160000);
+
         // VK_FUCHSIA_buffer_collection
         /// VkBufferCollectionFUCHSIA
         pub const BUFFER_COLLECTION_FUCHSIA: Self = Self(1000366000);
+
         // VK_INTEL_performance_query
         pub const PERFORMANCE_CONFIGURATION_INTEL: Self = Self(1000210000);
+
         // VK_KHR_acceleration_structure
         pub const ACCELERATION_STRUCTURE_KHR: Self = Self(1000150000);
+
         // VK_KHR_deferred_host_operations
         pub const DEFERRED_OPERATION_KHR: Self = Self(1000268000);
+
         // VK_KHR_descriptor_update_template
         pub const DESCRIPTOR_UPDATE_TEMPLATE_KHR: Self = Self::DESCRIPTOR_UPDATE_TEMPLATE;
+
         // VK_KHR_display
         pub const DISPLAY_KHR: Self = Self(1000002000);
         pub const DISPLAY_MODE_KHR: Self = Self(1000002001);
+
         // VK_KHR_pipeline_binary
         pub const PIPELINE_BINARY_KHR: Self = Self(1000483000);
+
         // VK_KHR_sampler_ycbcr_conversion
         pub const SAMPLER_YCBCR_CONVERSION_KHR: Self = Self::SAMPLER_YCBCR_CONVERSION;
+
         // VK_KHR_surface
         pub const SURFACE_KHR: Self = Self(1000000000);
+
         // VK_KHR_swapchain
         pub const SWAPCHAIN_KHR: Self = Self(1000001000);
+
         // VK_KHR_video_queue
         /// VkVideoSessionKHR
         pub const VIDEO_SESSION_KHR: Self = Self(1000023000);
         /// VkVideoSessionParametersKHR
         pub const VIDEO_SESSION_PARAMETERS_KHR: Self = Self(1000023001);
+
         // VK_NVX_binary_import
         pub const CU_MODULE_NVX: Self = Self(1000029000);
         pub const CU_FUNCTION_NVX: Self = Self(1000029001);
+
         // VK_NV_cuda_kernel_launch
         pub const CUDA_MODULE_NV: Self = Self(1000307000);
         pub const CUDA_FUNCTION_NV: Self = Self(1000307001);
+
         // VK_NV_device_generated_commands
         pub const INDIRECT_COMMANDS_LAYOUT_NV: Self = Self(1000277000);
+
         // VK_NV_external_compute_queue
         pub const EXTERNAL_COMPUTE_QUEUE_NV: Self = Self(1000556000);
+
         // VK_NV_optical_flow
         pub const OPTICAL_FLOW_SESSION_NV: Self = Self(1000464000);
+
         // VK_NV_ray_tracing
         pub const ACCELERATION_STRUCTURE_NV: Self = Self(1000165000);
+
         // VK_VERSION_1_1
         pub const DESCRIPTOR_UPDATE_TEMPLATE: Self = Self(1000085000);
         pub const SAMPLER_YCBCR_CONVERSION: Self = Self(1000156000);
+
         // VK_VERSION_1_3
         pub const PRIVATE_DATA_SLOT: Self = Self(1000295000);
     }
+
     impl fmt::Debug for ObjectType {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -13069,10 +14537,12 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVendorId.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct VendorId(i32);
+
     impl VendorId {
         /// Khronos vendor ID
         pub const KHRONOS: Self = Self(0x10000);
@@ -13091,6 +14561,7 @@ pub(super) mod defs {
         /// Mobileye vendor ID
         pub const MOBILEYE: Self = Self(0x10007);
     }
+
     impl fmt::Debug for VendorId {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -13111,68 +14582,84 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFramebufferCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct FramebufferCreateFlags(Flags);
     vk_bitflags_wrapped!(FramebufferCreateFlags, Flags);
+
     impl FramebufferCreateFlags {
         // VK_KHR_imageless_framebuffer
         pub const IMAGELESS_KHR: Self = Self::IMAGELESS;
+
         // VK_VERSION_1_2
         pub const IMAGELESS: Self = Self(FramebufferCreateFlagBits::IMAGELESS.0);
     }
+
     impl fmt::Debug for FramebufferCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[(FramebufferCreateFlags::IMAGELESS.0, "IMAGELESS")];
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFramebufferCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct FramebufferCreateFlagBits(u32);
+
     impl FramebufferCreateFlagBits {
         // VK_KHR_imageless_framebuffer
         pub const IMAGELESS_KHR: Self = Self::IMAGELESS;
+
         // VK_VERSION_1_2
         pub const IMAGELESS: Self = Self(1 << 0);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryPoolCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct QueryPoolCreateFlags(Flags);
     vk_bitflags_wrapped!(QueryPoolCreateFlags, Flags);
+
     impl QueryPoolCreateFlags {
         // VK_KHR_maintenance9
         pub const RESET_KHR: Self = Self(QueryPoolCreateFlagBits::RESET_KHR.0);
     }
+
     impl fmt::Debug for QueryPoolCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[(QueryPoolCreateFlags::RESET_KHR.0, "RESET_KHR")];
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryPoolCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct QueryPoolCreateFlagBits(u32);
+
     impl QueryPoolCreateFlagBits {
         // VK_KHR_maintenance9
         pub const RESET_KHR: Self = Self(1 << 0);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct RenderPassCreateFlags(Flags);
     vk_bitflags_wrapped!(RenderPassCreateFlags, Flags);
+
     impl RenderPassCreateFlags {
         // VK_QCOM_render_pass_transform
         pub const TRANSFORM_QCOM: Self = Self(RenderPassCreateFlagBits::TRANSFORM_QCOM.0);
+
         // VK_VALVE_fragment_density_map_layered
         pub const PER_LAYER_FRAGMENT_DENSITY_VALVE: Self =
             Self(RenderPassCreateFlagBits::PER_LAYER_FRAGMENT_DENSITY_VALVE.0);
     }
+
     impl fmt::Debug for RenderPassCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -13185,36 +14672,45 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct RenderPassCreateFlagBits(u32);
+
     impl RenderPassCreateFlagBits {
         // VK_QCOM_render_pass_transform
         pub const TRANSFORM_QCOM: Self = Self(1 << 1);
+
         // VK_VALVE_fragment_density_map_layered
         pub const PER_LAYER_FRAGMENT_DENSITY_VALVE: Self = Self(1 << 2);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSamplerCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SamplerCreateFlags(Flags);
     vk_bitflags_wrapped!(SamplerCreateFlags, Flags);
+
     impl SamplerCreateFlags {
         // VK_EXT_descriptor_buffer
         pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self =
             Self(SamplerCreateFlagBits::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT.0);
+
         // VK_EXT_fragment_density_map
         pub const SUBSAMPLED_EXT: Self = Self(SamplerCreateFlagBits::SUBSAMPLED_EXT.0);
         pub const SUBSAMPLED_COARSE_RECONSTRUCTION_EXT: Self =
             Self(SamplerCreateFlagBits::SUBSAMPLED_COARSE_RECONSTRUCTION_EXT.0);
+
         // VK_EXT_non_seamless_cube_map
         pub const NON_SEAMLESS_CUBE_MAP_EXT: Self =
             Self(SamplerCreateFlagBits::NON_SEAMLESS_CUBE_MAP_EXT.0);
+
         // VK_QCOM_image_processing
         pub const IMAGE_PROCESSING_QCOM: Self =
             Self(SamplerCreateFlagBits::IMAGE_PROCESSING_QCOM.0);
     }
+
     impl fmt::Debug for SamplerCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -13239,31 +14735,39 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSamplerCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SamplerCreateFlagBits(u32);
+
     impl SamplerCreateFlagBits {
         // VK_EXT_descriptor_buffer
         pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self = Self(1 << 3);
+
         // VK_EXT_fragment_density_map
         pub const SUBSAMPLED_EXT: Self = Self(1 << 0);
         pub const SUBSAMPLED_COARSE_RECONSTRUCTION_EXT: Self = Self(1 << 1);
+
         // VK_EXT_non_seamless_cube_map
         pub const NON_SEAMLESS_CUBE_MAP_EXT: Self = Self(1 << 2);
+
         // VK_QCOM_image_processing
         pub const IMAGE_PROCESSING_QCOM: Self = Self(1 << 4);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineLayoutCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineLayoutCreateFlags(Flags);
     vk_bitflags_wrapped!(PipelineLayoutCreateFlags, Flags);
+
     impl PipelineLayoutCreateFlags {
         // VK_EXT_graphics_pipeline_library
         pub const INDEPENDENT_SETS_EXT: Self =
             Self(PipelineLayoutCreateFlagBits::INDEPENDENT_SETS_EXT.0);
     }
+
     impl fmt::Debug for PipelineLayoutCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[(
@@ -13273,29 +14777,36 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineLayoutCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineLayoutCreateFlagBits(u32);
+
     impl PipelineLayoutCreateFlagBits {
         // VK_EXT_graphics_pipeline_library
         pub const INDEPENDENT_SETS_EXT: Self = Self(1 << 1);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCacheCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineCacheCreateFlags(Flags);
     vk_bitflags_wrapped!(PipelineCacheCreateFlags, Flags);
+
     impl PipelineCacheCreateFlags {
         // VK_EXT_pipeline_creation_cache_control
         pub const EXTERNALLY_SYNCHRONIZED_EXT: Self = Self::EXTERNALLY_SYNCHRONIZED;
+
         // VK_KHR_maintenance8
         pub const INTERNALLY_SYNCHRONIZED_MERGE_KHR: Self =
             Self(PipelineCacheCreateFlagBits::INTERNALLY_SYNCHRONIZED_MERGE_KHR.0);
+
         // VK_VERSION_1_3
         pub const EXTERNALLY_SYNCHRONIZED: Self =
             Self(PipelineCacheCreateFlagBits::EXTERNALLY_SYNCHRONIZED.0);
     }
+
     impl fmt::Debug for PipelineCacheCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -13311,33 +14822,41 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCacheCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineCacheCreateFlagBits(u32);
+
     impl PipelineCacheCreateFlagBits {
         // VK_EXT_pipeline_creation_cache_control
         pub const EXTERNALLY_SYNCHRONIZED_EXT: Self = Self::EXTERNALLY_SYNCHRONIZED;
+
         // VK_KHR_maintenance8
         pub const INTERNALLY_SYNCHRONIZED_MERGE_KHR: Self = Self(1 << 3);
+
         // VK_VERSION_1_3
         pub const EXTERNALLY_SYNCHRONIZED: Self = Self(1 << 0);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineDepthStencilStateCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineDepthStencilStateCreateFlags(Flags);
     vk_bitflags_wrapped!(PipelineDepthStencilStateCreateFlags, Flags);
+
     impl PipelineDepthStencilStateCreateFlags {
         // VK_ARM_rasterization_order_attachment_access
         pub const RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_ARM: Self =
             Self::RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT;
         pub const RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_ARM: Self =
             Self::RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT;
+
         // VK_EXT_rasterization_order_attachment_access
         pub const RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT: Self = Self(PipelineDepthStencilStateCreateFlagBits::RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT.0);
         pub const RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT: Self = Self(PipelineDepthStencilStateCreateFlagBits::RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT.0);
     }
+
     impl fmt::Debug for PipelineDepthStencilStateCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -13347,44 +14866,53 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineDepthStencilStateCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineDepthStencilStateCreateFlagBits(u32);
+
     impl PipelineDepthStencilStateCreateFlagBits {
         // VK_ARM_rasterization_order_attachment_access
         pub const RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_ARM: Self =
             Self::RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT;
         pub const RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_ARM: Self =
             Self::RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT;
+
         // VK_EXT_rasterization_order_attachment_access
         pub const RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT: Self = Self(1 << 0);
         pub const RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT: Self = Self(1 << 1);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineDynamicStateCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineDynamicStateCreateFlags(Flags);
     vk_bitflags_wrapped!(PipelineDynamicStateCreateFlags, Flags);
+
     impl fmt::Debug for PipelineDynamicStateCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineColorBlendStateCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineColorBlendStateCreateFlags(Flags);
     vk_bitflags_wrapped!(PipelineColorBlendStateCreateFlags, Flags);
+
     impl PipelineColorBlendStateCreateFlags {
         // VK_ARM_rasterization_order_attachment_access
         pub const RASTERIZATION_ORDER_ATTACHMENT_ACCESS_ARM: Self =
             Self::RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXT;
+
         // VK_EXT_rasterization_order_attachment_access
         pub const RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXT: Self = Self(
             PipelineColorBlendStateCreateFlagBits::RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXT.0,
         );
     }
+
     impl fmt::Debug for PipelineColorBlendStateCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[(
@@ -13394,92 +14922,111 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineColorBlendStateCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineColorBlendStateCreateFlagBits(u32);
+
     impl PipelineColorBlendStateCreateFlagBits {
         // VK_ARM_rasterization_order_attachment_access
         pub const RASTERIZATION_ORDER_ATTACHMENT_ACCESS_ARM: Self =
             Self::RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXT;
+
         // VK_EXT_rasterization_order_attachment_access
         pub const RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXT: Self = Self(1 << 0);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineMultisampleStateCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineMultisampleStateCreateFlags(Flags);
     vk_bitflags_wrapped!(PipelineMultisampleStateCreateFlags, Flags);
+
     impl fmt::Debug for PipelineMultisampleStateCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineRasterizationStateCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineRasterizationStateCreateFlags(Flags);
     vk_bitflags_wrapped!(PipelineRasterizationStateCreateFlags, Flags);
+
     impl fmt::Debug for PipelineRasterizationStateCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineViewportStateCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineViewportStateCreateFlags(Flags);
     vk_bitflags_wrapped!(PipelineViewportStateCreateFlags, Flags);
+
     impl fmt::Debug for PipelineViewportStateCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineTessellationStateCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineTessellationStateCreateFlags(Flags);
     vk_bitflags_wrapped!(PipelineTessellationStateCreateFlags, Flags);
+
     impl fmt::Debug for PipelineTessellationStateCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineInputAssemblyStateCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineInputAssemblyStateCreateFlags(Flags);
     vk_bitflags_wrapped!(PipelineInputAssemblyStateCreateFlags, Flags);
+
     impl fmt::Debug for PipelineInputAssemblyStateCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineVertexInputStateCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineVertexInputStateCreateFlags(Flags);
     vk_bitflags_wrapped!(PipelineVertexInputStateCreateFlags, Flags);
+
     impl fmt::Debug for PipelineVertexInputStateCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineShaderStageCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineShaderStageCreateFlags(Flags);
     vk_bitflags_wrapped!(PipelineShaderStageCreateFlags, Flags);
+
     impl PipelineShaderStageCreateFlags {
         // VK_EXT_subgroup_size_control
         pub const ALLOW_VARYING_SUBGROUP_SIZE_EXT: Self = Self::ALLOW_VARYING_SUBGROUP_SIZE;
         pub const REQUIRE_FULL_SUBGROUPS_EXT: Self = Self::REQUIRE_FULL_SUBGROUPS;
+
         // VK_VERSION_1_3
         pub const ALLOW_VARYING_SUBGROUP_SIZE: Self =
             Self(PipelineShaderStageCreateFlagBits::ALLOW_VARYING_SUBGROUP_SIZE.0);
         pub const REQUIRE_FULL_SUBGROUPS: Self =
             Self(PipelineShaderStageCreateFlagBits::REQUIRE_FULL_SUBGROUPS.0);
     }
+
     impl fmt::Debug for PipelineShaderStageCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -13495,50 +15042,64 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineShaderStageCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineShaderStageCreateFlagBits(u32);
+
     impl PipelineShaderStageCreateFlagBits {
         // VK_EXT_subgroup_size_control
         pub const ALLOW_VARYING_SUBGROUP_SIZE_EXT: Self = Self::ALLOW_VARYING_SUBGROUP_SIZE;
         pub const REQUIRE_FULL_SUBGROUPS_EXT: Self = Self::REQUIRE_FULL_SUBGROUPS;
+
         // VK_VERSION_1_3
         pub const ALLOW_VARYING_SUBGROUP_SIZE: Self = Self(1 << 0);
         pub const REQUIRE_FULL_SUBGROUPS: Self = Self(1 << 1);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetLayoutCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DescriptorSetLayoutCreateFlags(Flags);
     vk_bitflags_wrapped!(DescriptorSetLayoutCreateFlags, Flags);
+
     impl DescriptorSetLayoutCreateFlags {
         // VK_EXT_descriptor_buffer
         pub const DESCRIPTOR_BUFFER_EXT: Self =
             Self(DescriptorSetLayoutCreateFlagBits::DESCRIPTOR_BUFFER_EXT.0);
         pub const EMBEDDED_IMMUTABLE_SAMPLERS_EXT: Self =
             Self(DescriptorSetLayoutCreateFlagBits::EMBEDDED_IMMUTABLE_SAMPLERS_EXT.0);
+
         // VK_EXT_descriptor_indexing
         pub const UPDATE_AFTER_BIND_POOL_EXT: Self = Self::UPDATE_AFTER_BIND_POOL;
+
         // VK_EXT_mutable_descriptor_type
         pub const HOST_ONLY_POOL_EXT: Self =
             Self(DescriptorSetLayoutCreateFlagBits::HOST_ONLY_POOL_EXT.0);
+
         // VK_KHR_push_descriptor
         pub const PUSH_DESCRIPTOR_KHR: Self = Self::PUSH_DESCRIPTOR;
+
         // VK_NV_device_generated_commands_compute
         pub const INDIRECT_BINDABLE_NV: Self =
             Self(DescriptorSetLayoutCreateFlagBits::INDIRECT_BINDABLE_NV.0);
+
         // VK_NV_per_stage_descriptor_set
         pub const PER_STAGE_NV: Self = Self(DescriptorSetLayoutCreateFlagBits::PER_STAGE_NV.0);
+
         // VK_VALVE_mutable_descriptor_type
         pub const HOST_ONLY_POOL_VALVE: Self = Self::HOST_ONLY_POOL_EXT;
+
         // VK_VERSION_1_2
         pub const UPDATE_AFTER_BIND_POOL: Self =
             Self(DescriptorSetLayoutCreateFlagBits::UPDATE_AFTER_BIND_POOL.0);
+
         // VK_VERSION_1_4
         pub const PUSH_DESCRIPTOR: Self =
             Self(DescriptorSetLayoutCreateFlagBits::PUSH_DESCRIPTOR.0);
     }
+
     impl fmt::Debug for DescriptorSetLayoutCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -13574,51 +15135,66 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetLayoutCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DescriptorSetLayoutCreateFlagBits(u32);
+
     impl DescriptorSetLayoutCreateFlagBits {
         // VK_EXT_descriptor_buffer
         pub const DESCRIPTOR_BUFFER_EXT: Self = Self(1 << 4);
         pub const EMBEDDED_IMMUTABLE_SAMPLERS_EXT: Self = Self(1 << 5);
+
         // VK_EXT_descriptor_indexing
         pub const UPDATE_AFTER_BIND_POOL_EXT: Self = Self::UPDATE_AFTER_BIND_POOL;
+
         // VK_EXT_mutable_descriptor_type
         pub const HOST_ONLY_POOL_EXT: Self = Self(1 << 2);
+
         // VK_KHR_push_descriptor
         pub const PUSH_DESCRIPTOR_KHR: Self = Self::PUSH_DESCRIPTOR;
+
         // VK_NV_device_generated_commands_compute
         pub const INDIRECT_BINDABLE_NV: Self = Self(1 << 7);
+
         // VK_NV_per_stage_descriptor_set
         pub const PER_STAGE_NV: Self = Self(1 << 6);
+
         // VK_VALVE_mutable_descriptor_type
         pub const HOST_ONLY_POOL_VALVE: Self = Self::HOST_ONLY_POOL_EXT;
+
         // VK_VERSION_1_2
         pub const UPDATE_AFTER_BIND_POOL: Self = Self(1 << 1);
+
         // VK_VERSION_1_4
         pub const PUSH_DESCRIPTOR: Self = Self(1 << 0);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferViewCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct BufferViewCreateFlags(Flags);
     vk_bitflags_wrapped!(BufferViewCreateFlags, Flags);
+
     impl fmt::Debug for BufferViewCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkInstanceCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct InstanceCreateFlags(Flags);
     vk_bitflags_wrapped!(InstanceCreateFlags, Flags);
+
     impl InstanceCreateFlags {
         // VK_KHR_portability_enumeration
         pub const ENUMERATE_PORTABILITY_KHR: Self =
             Self(InstanceCreateFlagBits::ENUMERATE_PORTABILITY_KHR.0);
     }
+
     impl fmt::Debug for InstanceCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[(
@@ -13628,37 +15204,45 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkInstanceCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct InstanceCreateFlagBits(u32);
+
     impl InstanceCreateFlagBits {
         // VK_KHR_portability_enumeration
         pub const ENUMERATE_PORTABILITY_KHR: Self = Self(1 << 0);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DeviceCreateFlags(Flags);
     vk_bitflags_wrapped!(DeviceCreateFlags, Flags);
+
     impl fmt::Debug for DeviceCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceQueueCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DeviceQueueCreateFlags(Flags);
     vk_bitflags_wrapped!(DeviceQueueCreateFlags, Flags);
+
     impl DeviceQueueCreateFlags {
         // VK_KHR_internally_synchronized_queues
         pub const INTERNALLY_SYNCHRONIZED_KHR: Self =
             Self(DeviceQueueCreateFlagBits::INTERNALLY_SYNCHRONIZED_KHR.0);
+
         // VK_VERSION_1_1
         /// Queue is a protected-capable device queue
         pub const PROTECTED: Self = Self(DeviceQueueCreateFlagBits::PROTECTED.0);
     }
+
     impl fmt::Debug for DeviceQueueCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -13671,22 +15255,27 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceQueueCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DeviceQueueCreateFlagBits(u32);
+
     impl DeviceQueueCreateFlagBits {
         // VK_KHR_internally_synchronized_queues
         pub const INTERNALLY_SYNCHRONIZED_KHR: Self = Self(1 << 2);
+
         // VK_VERSION_1_1
         /// Queue is a protected-capable device queue
         pub const PROTECTED: Self = Self(1 << 0);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct QueueFlags(Flags);
     vk_bitflags_wrapped!(QueueFlags, Flags);
+
     impl QueueFlags {
         /// Queue supports graphics operations
         pub const GRAPHICS: Self = Self(QueueFlagBits::GRAPHICS.0);
@@ -13698,16 +15287,21 @@ pub(super) mod defs {
         pub const SPARSE_BINDING: Self = Self(QueueFlagBits::SPARSE_BINDING.0);
         // VK_ARM_data_graph
         pub const DATA_GRAPH_ARM: Self = Self(QueueFlagBits::DATA_GRAPH_ARM.0);
+
         // VK_KHR_video_decode_queue
         pub const VIDEO_DECODE_KHR: Self = Self(QueueFlagBits::VIDEO_DECODE_KHR.0);
+
         // VK_KHR_video_encode_queue
         pub const VIDEO_ENCODE_KHR: Self = Self(QueueFlagBits::VIDEO_ENCODE_KHR.0);
+
         // VK_NV_optical_flow
         pub const OPTICAL_FLOW_NV: Self = Self(QueueFlagBits::OPTICAL_FLOW_NV.0);
+
         // VK_VERSION_1_1
         /// Queues may support protected operations
         pub const PROTECTED: Self = Self(QueueFlagBits::PROTECTED.0);
     }
+
     impl fmt::Debug for QueueFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -13724,10 +15318,12 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct QueueFlagBits(u32);
+
     impl QueueFlagBits {
         /// Queue supports graphics operations
         pub const GRAPHICS: Self = Self(1 << 0);
@@ -13739,21 +15335,27 @@ pub(super) mod defs {
         pub const SPARSE_BINDING: Self = Self(1 << 3);
         // VK_ARM_data_graph
         pub const DATA_GRAPH_ARM: Self = Self(1 << 10);
+
         // VK_KHR_video_decode_queue
         pub const VIDEO_DECODE_KHR: Self = Self(1 << 5);
+
         // VK_KHR_video_encode_queue
         pub const VIDEO_ENCODE_KHR: Self = Self(1 << 6);
+
         // VK_NV_optical_flow
         pub const OPTICAL_FLOW_NV: Self = Self(1 << 8);
+
         // VK_VERSION_1_1
         /// Queues may support protected operations
         pub const PROTECTED: Self = Self(1 << 4);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryPropertyFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct MemoryPropertyFlags(Flags);
     vk_bitflags_wrapped!(MemoryPropertyFlags, Flags);
+
     impl MemoryPropertyFlags {
         /// If otherwise stated, then allocate memory on device
         pub const DEVICE_LOCAL: Self = Self(MemoryPropertyFlagBits::DEVICE_LOCAL.0);
@@ -13768,12 +15370,15 @@ pub(super) mod defs {
         // VK_AMD_device_coherent_memory
         pub const DEVICE_COHERENT_AMD: Self = Self(MemoryPropertyFlagBits::DEVICE_COHERENT_AMD.0);
         pub const DEVICE_UNCACHED_AMD: Self = Self(MemoryPropertyFlagBits::DEVICE_UNCACHED_AMD.0);
+
         // VK_NV_external_memory_rdma
         pub const RDMA_CAPABLE_NV: Self = Self(MemoryPropertyFlagBits::RDMA_CAPABLE_NV.0);
+
         // VK_VERSION_1_1
         /// Memory is protected
         pub const PROTECTED: Self = Self(MemoryPropertyFlagBits::PROTECTED.0);
     }
+
     impl fmt::Debug for MemoryPropertyFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -13796,10 +15401,12 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryPropertyFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct MemoryPropertyFlagBits(u32);
+
     impl MemoryPropertyFlagBits {
         /// If otherwise stated, then allocate memory on device
         pub const DEVICE_LOCAL: Self = Self(1 << 0);
@@ -13814,28 +15421,35 @@ pub(super) mod defs {
         // VK_AMD_device_coherent_memory
         pub const DEVICE_COHERENT_AMD: Self = Self(1 << 6);
         pub const DEVICE_UNCACHED_AMD: Self = Self(1 << 7);
+
         // VK_NV_external_memory_rdma
         pub const RDMA_CAPABLE_NV: Self = Self(1 << 8);
+
         // VK_VERSION_1_1
         /// Memory is protected
         pub const PROTECTED: Self = Self(1 << 5);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryHeapFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct MemoryHeapFlags(Flags);
     vk_bitflags_wrapped!(MemoryHeapFlags, Flags);
+
     impl MemoryHeapFlags {
         /// If set, heap represents device memory
         pub const DEVICE_LOCAL: Self = Self(MemoryHeapFlagBits::DEVICE_LOCAL.0);
         // VK_KHR_device_group_creation
         pub const MULTI_INSTANCE_KHR: Self = Self::MULTI_INSTANCE;
+
         // VK_QCOM_tile_memory_heap
         pub const TILE_MEMORY_QCOM: Self = Self(MemoryHeapFlagBits::TILE_MEMORY_QCOM.0);
+
         // VK_VERSION_1_1
         /// If set, heap allocations allocate multiple instances by default
         pub const MULTI_INSTANCE: Self = Self(MemoryHeapFlagBits::MULTI_INSTANCE.0);
     }
+
     impl fmt::Debug for MemoryHeapFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -13846,26 +15460,32 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryHeapFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct MemoryHeapFlagBits(u32);
+
     impl MemoryHeapFlagBits {
         /// If set, heap represents device memory
         pub const DEVICE_LOCAL: Self = Self(1 << 0);
         // VK_KHR_device_group_creation
         pub const MULTI_INSTANCE_KHR: Self = Self::MULTI_INSTANCE;
+
         // VK_QCOM_tile_memory_heap
         pub const TILE_MEMORY_QCOM: Self = Self(1 << 3);
+
         // VK_VERSION_1_1
         /// If set, heap allocations allocate multiple instances by default
         pub const MULTI_INSTANCE: Self = Self(1 << 1);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccessFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct AccessFlags(Flags);
     vk_bitflags_wrapped!(AccessFlags, Flags);
+
     impl AccessFlags {
         /// Controls coherency of indirect command reads
         pub const INDIRECT_COMMAND_READ: Self = Self(AccessFlagBits::INDIRECT_COMMAND_READ.0);
@@ -13906,18 +15526,22 @@ pub(super) mod defs {
         // VK_EXT_blend_operation_advanced
         pub const COLOR_ATTACHMENT_READ_NONCOHERENT_EXT: Self =
             Self(AccessFlagBits::COLOR_ATTACHMENT_READ_NONCOHERENT_EXT.0);
+
         // VK_EXT_conditional_rendering
         /// read access flag for reading conditional rendering predicate
         pub const CONDITIONAL_RENDERING_READ_EXT: Self =
             Self(AccessFlagBits::CONDITIONAL_RENDERING_READ_EXT.0);
+
         // VK_EXT_device_generated_commands
         pub const COMMAND_PREPROCESS_READ_EXT: Self =
             Self(AccessFlagBits::COMMAND_PREPROCESS_READ_EXT.0);
         pub const COMMAND_PREPROCESS_WRITE_EXT: Self =
             Self(AccessFlagBits::COMMAND_PREPROCESS_WRITE_EXT.0);
+
         // VK_EXT_fragment_density_map
         pub const FRAGMENT_DENSITY_MAP_READ_EXT: Self =
             Self(AccessFlagBits::FRAGMENT_DENSITY_MAP_READ_EXT.0);
+
         // VK_EXT_transform_feedback
         pub const TRANSFORM_FEEDBACK_WRITE_EXT: Self =
             Self(AccessFlagBits::TRANSFORM_FEEDBACK_WRITE_EXT.0);
@@ -13925,28 +15549,36 @@ pub(super) mod defs {
             Self(AccessFlagBits::TRANSFORM_FEEDBACK_COUNTER_READ_EXT.0);
         pub const TRANSFORM_FEEDBACK_COUNTER_WRITE_EXT: Self =
             Self(AccessFlagBits::TRANSFORM_FEEDBACK_COUNTER_WRITE_EXT.0);
+
         // VK_KHR_acceleration_structure
         pub const ACCELERATION_STRUCTURE_READ_KHR: Self =
             Self(AccessFlagBits::ACCELERATION_STRUCTURE_READ_KHR.0);
         pub const ACCELERATION_STRUCTURE_WRITE_KHR: Self =
             Self(AccessFlagBits::ACCELERATION_STRUCTURE_WRITE_KHR.0);
+
         // VK_KHR_fragment_shading_rate
         pub const FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR: Self =
             Self(AccessFlagBits::FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR.0);
+
         // VK_KHR_synchronization2
         pub const NONE_KHR: Self = Self::NONE;
+
         // VK_NV_device_generated_commands
         pub const COMMAND_PREPROCESS_READ_NV: Self = Self::COMMAND_PREPROCESS_READ_EXT;
         pub const COMMAND_PREPROCESS_WRITE_NV: Self = Self::COMMAND_PREPROCESS_WRITE_EXT;
+
         // VK_NV_ray_tracing
         pub const ACCELERATION_STRUCTURE_READ_NV: Self = Self::ACCELERATION_STRUCTURE_READ_KHR;
         pub const ACCELERATION_STRUCTURE_WRITE_NV: Self = Self::ACCELERATION_STRUCTURE_WRITE_KHR;
+
         // VK_NV_shading_rate_image
         pub const SHADING_RATE_IMAGE_READ_NV: Self =
             Self::FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR;
+
         // VK_VERSION_1_3
         pub const NONE: Self = Self(0);
     }
+
     impl fmt::Debug for AccessFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -14036,10 +15668,12 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccessFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct AccessFlagBits(u32);
+
     impl AccessFlagBits {
         /// Controls coherency of indirect command reads
         pub const INDIRECT_COMMAND_READ: Self = Self(1 << 0);
@@ -14077,38 +15711,49 @@ pub(super) mod defs {
         pub const MEMORY_WRITE: Self = Self(1 << 16);
         // VK_EXT_blend_operation_advanced
         pub const COLOR_ATTACHMENT_READ_NONCOHERENT_EXT: Self = Self(1 << 19);
+
         // VK_EXT_conditional_rendering
         /// read access flag for reading conditional rendering predicate
         pub const CONDITIONAL_RENDERING_READ_EXT: Self = Self(1 << 20);
+
         // VK_EXT_device_generated_commands
         pub const COMMAND_PREPROCESS_READ_EXT: Self = Self(1 << 17);
         pub const COMMAND_PREPROCESS_WRITE_EXT: Self = Self(1 << 18);
+
         // VK_EXT_fragment_density_map
         pub const FRAGMENT_DENSITY_MAP_READ_EXT: Self = Self(1 << 24);
+
         // VK_EXT_transform_feedback
         pub const TRANSFORM_FEEDBACK_WRITE_EXT: Self = Self(1 << 25);
         pub const TRANSFORM_FEEDBACK_COUNTER_READ_EXT: Self = Self(1 << 26);
         pub const TRANSFORM_FEEDBACK_COUNTER_WRITE_EXT: Self = Self(1 << 27);
+
         // VK_KHR_acceleration_structure
         pub const ACCELERATION_STRUCTURE_READ_KHR: Self = Self(1 << 21);
         pub const ACCELERATION_STRUCTURE_WRITE_KHR: Self = Self(1 << 22);
+
         // VK_KHR_fragment_shading_rate
         pub const FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR: Self = Self(1 << 23);
+
         // VK_NV_device_generated_commands
         pub const COMMAND_PREPROCESS_READ_NV: Self = Self::COMMAND_PREPROCESS_READ_EXT;
         pub const COMMAND_PREPROCESS_WRITE_NV: Self = Self::COMMAND_PREPROCESS_WRITE_EXT;
+
         // VK_NV_ray_tracing
         pub const ACCELERATION_STRUCTURE_READ_NV: Self = Self::ACCELERATION_STRUCTURE_READ_KHR;
         pub const ACCELERATION_STRUCTURE_WRITE_NV: Self = Self::ACCELERATION_STRUCTURE_WRITE_KHR;
+
         // VK_NV_shading_rate_image
         pub const SHADING_RATE_IMAGE_READ_NV: Self =
             Self::FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR;
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferUsageFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct BufferUsageFlags(Flags);
     vk_bitflags_wrapped!(BufferUsageFlags, Flags);
+
     impl BufferUsageFlags {
         /// Can be used as a source of transfer operations
         pub const TRANSFER_SRC: Self = Self(BufferUsageFlagBits::TRANSFER_SRC.0);
@@ -14131,12 +15776,15 @@ pub(super) mod defs {
         // VK_AMDX_shader_enqueue
         pub const EXECUTION_GRAPH_SCRATCH_AMDX: Self =
             Self(BufferUsageFlagBits::EXECUTION_GRAPH_SCRATCH_AMDX.0);
+
         // VK_EXT_buffer_device_address
         pub const SHADER_DEVICE_ADDRESS_EXT: Self = Self::SHADER_DEVICE_ADDRESS;
+
         // VK_EXT_conditional_rendering
         /// Specifies the buffer can be used as predicate in conditional rendering
         pub const CONDITIONAL_RENDERING_EXT: Self =
             Self(BufferUsageFlagBits::CONDITIONAL_RENDERING_EXT.0);
+
         // VK_EXT_descriptor_buffer
         pub const SAMPLER_DESCRIPTOR_BUFFER_EXT: Self =
             Self(BufferUsageFlagBits::SAMPLER_DESCRIPTOR_BUFFER_EXT.0);
@@ -14144,40 +15792,52 @@ pub(super) mod defs {
             Self(BufferUsageFlagBits::RESOURCE_DESCRIPTOR_BUFFER_EXT.0);
         pub const PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT: Self =
             Self(BufferUsageFlagBits::PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT.0);
+
         // VK_EXT_descriptor_heap
         pub const DESCRIPTOR_HEAP_EXT: Self = Self(BufferUsageFlagBits::DESCRIPTOR_HEAP_EXT.0);
+
         // VK_EXT_opacity_micromap
         pub const MICROMAP_BUILD_INPUT_READ_ONLY_EXT: Self =
             Self(BufferUsageFlagBits::MICROMAP_BUILD_INPUT_READ_ONLY_EXT.0);
         pub const MICROMAP_STORAGE_EXT: Self = Self(BufferUsageFlagBits::MICROMAP_STORAGE_EXT.0);
+
         // VK_EXT_transform_feedback
         pub const TRANSFORM_FEEDBACK_BUFFER_EXT: Self =
             Self(BufferUsageFlagBits::TRANSFORM_FEEDBACK_BUFFER_EXT.0);
         pub const TRANSFORM_FEEDBACK_COUNTER_BUFFER_EXT: Self =
             Self(BufferUsageFlagBits::TRANSFORM_FEEDBACK_COUNTER_BUFFER_EXT.0);
+
         // VK_KHR_acceleration_structure
         pub const ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR: Self =
             Self(BufferUsageFlagBits::ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR.0);
         pub const ACCELERATION_STRUCTURE_STORAGE_KHR: Self =
             Self(BufferUsageFlagBits::ACCELERATION_STRUCTURE_STORAGE_KHR.0);
+
         // VK_KHR_buffer_device_address
         pub const SHADER_DEVICE_ADDRESS_KHR: Self = Self::SHADER_DEVICE_ADDRESS;
+
         // VK_KHR_ray_tracing_pipeline
         pub const SHADER_BINDING_TABLE_KHR: Self =
             Self(BufferUsageFlagBits::SHADER_BINDING_TABLE_KHR.0);
+
         // VK_KHR_video_decode_queue
         pub const VIDEO_DECODE_SRC_KHR: Self = Self(BufferUsageFlagBits::VIDEO_DECODE_SRC_KHR.0);
         pub const VIDEO_DECODE_DST_KHR: Self = Self(BufferUsageFlagBits::VIDEO_DECODE_DST_KHR.0);
+
         // VK_KHR_video_encode_queue
         pub const VIDEO_ENCODE_DST_KHR: Self = Self(BufferUsageFlagBits::VIDEO_ENCODE_DST_KHR.0);
         pub const VIDEO_ENCODE_SRC_KHR: Self = Self(BufferUsageFlagBits::VIDEO_ENCODE_SRC_KHR.0);
+
         // VK_NV_ray_tracing
         pub const RAY_TRACING_NV: Self = Self::SHADER_BINDING_TABLE_KHR;
+
         // VK_QCOM_tile_memory_heap
         pub const TILE_MEMORY_QCOM: Self = Self(BufferUsageFlagBits::TILE_MEMORY_QCOM.0);
+
         // VK_VERSION_1_2
         pub const SHADER_DEVICE_ADDRESS: Self = Self(BufferUsageFlagBits::SHADER_DEVICE_ADDRESS.0);
     }
+
     impl fmt::Debug for BufferUsageFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -14273,10 +15933,12 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferUsageFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct BufferUsageFlagBits(u32);
+
     impl BufferUsageFlagBits {
         /// Can be used as a source of transfer operations
         pub const TRANSFER_SRC: Self = Self(1 << 0);
@@ -14298,48 +15960,64 @@ pub(super) mod defs {
         pub const INDIRECT_BUFFER: Self = Self(1 << 8);
         // VK_AMDX_shader_enqueue
         pub const EXECUTION_GRAPH_SCRATCH_AMDX: Self = Self(1 << 25);
+
         // VK_EXT_buffer_device_address
         pub const SHADER_DEVICE_ADDRESS_EXT: Self = Self::SHADER_DEVICE_ADDRESS;
+
         // VK_EXT_conditional_rendering
         /// Specifies the buffer can be used as predicate in conditional rendering
         pub const CONDITIONAL_RENDERING_EXT: Self = Self(1 << 9);
+
         // VK_EXT_descriptor_buffer
         pub const SAMPLER_DESCRIPTOR_BUFFER_EXT: Self = Self(1 << 21);
         pub const RESOURCE_DESCRIPTOR_BUFFER_EXT: Self = Self(1 << 22);
         pub const PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT: Self = Self(1 << 26);
+
         // VK_EXT_descriptor_heap
         pub const DESCRIPTOR_HEAP_EXT: Self = Self(1 << 28);
+
         // VK_EXT_opacity_micromap
         pub const MICROMAP_BUILD_INPUT_READ_ONLY_EXT: Self = Self(1 << 23);
         pub const MICROMAP_STORAGE_EXT: Self = Self(1 << 24);
+
         // VK_EXT_transform_feedback
         pub const TRANSFORM_FEEDBACK_BUFFER_EXT: Self = Self(1 << 11);
         pub const TRANSFORM_FEEDBACK_COUNTER_BUFFER_EXT: Self = Self(1 << 12);
+
         // VK_KHR_acceleration_structure
         pub const ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR: Self = Self(1 << 19);
         pub const ACCELERATION_STRUCTURE_STORAGE_KHR: Self = Self(1 << 20);
+
         // VK_KHR_buffer_device_address
         pub const SHADER_DEVICE_ADDRESS_KHR: Self = Self::SHADER_DEVICE_ADDRESS;
+
         // VK_KHR_ray_tracing_pipeline
         pub const SHADER_BINDING_TABLE_KHR: Self = Self(1 << 10);
+
         // VK_KHR_video_decode_queue
         pub const VIDEO_DECODE_SRC_KHR: Self = Self(1 << 13);
         pub const VIDEO_DECODE_DST_KHR: Self = Self(1 << 14);
+
         // VK_KHR_video_encode_queue
         pub const VIDEO_ENCODE_DST_KHR: Self = Self(1 << 15);
         pub const VIDEO_ENCODE_SRC_KHR: Self = Self(1 << 16);
+
         // VK_NV_ray_tracing
         pub const RAY_TRACING_NV: Self = Self::SHADER_BINDING_TABLE_KHR;
+
         // VK_QCOM_tile_memory_heap
         pub const TILE_MEMORY_QCOM: Self = Self(1 << 27);
+
         // VK_VERSION_1_2
         pub const SHADER_DEVICE_ADDRESS: Self = Self(1 << 17);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct BufferCreateFlags(Flags);
     vk_bitflags_wrapped!(BufferCreateFlags, Flags);
+
     impl BufferCreateFlags {
         /// Buffer should support sparse backing
         pub const SPARSE_BINDING: Self = Self(BufferCreateFlagBits::SPARSE_BINDING.0);
@@ -14349,21 +16027,27 @@ pub(super) mod defs {
         pub const SPARSE_ALIASED: Self = Self(BufferCreateFlagBits::SPARSE_ALIASED.0);
         // VK_EXT_buffer_device_address
         pub const DEVICE_ADDRESS_CAPTURE_REPLAY_EXT: Self = Self::DEVICE_ADDRESS_CAPTURE_REPLAY;
+
         // VK_EXT_descriptor_buffer
         pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self =
             Self(BufferCreateFlagBits::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT.0);
+
         // VK_KHR_buffer_device_address
         pub const DEVICE_ADDRESS_CAPTURE_REPLAY_KHR: Self = Self::DEVICE_ADDRESS_CAPTURE_REPLAY;
+
         // VK_KHR_video_maintenance1
         pub const VIDEO_PROFILE_INDEPENDENT_KHR: Self =
             Self(BufferCreateFlagBits::VIDEO_PROFILE_INDEPENDENT_KHR.0);
+
         // VK_VERSION_1_1
         /// Buffer requires protected memory
         pub const PROTECTED: Self = Self(BufferCreateFlagBits::PROTECTED.0);
+
         // VK_VERSION_1_2
         pub const DEVICE_ADDRESS_CAPTURE_REPLAY: Self =
             Self(BufferCreateFlagBits::DEVICE_ADDRESS_CAPTURE_REPLAY.0);
     }
+
     impl fmt::Debug for BufferCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -14387,10 +16071,12 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct BufferCreateFlagBits(u32);
+
     impl BufferCreateFlagBits {
         /// Buffer should support sparse backing
         pub const SPARSE_BINDING: Self = Self(1 << 0);
@@ -14400,23 +16086,30 @@ pub(super) mod defs {
         pub const SPARSE_ALIASED: Self = Self(1 << 2);
         // VK_EXT_buffer_device_address
         pub const DEVICE_ADDRESS_CAPTURE_REPLAY_EXT: Self = Self::DEVICE_ADDRESS_CAPTURE_REPLAY;
+
         // VK_EXT_descriptor_buffer
         pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self = Self(1 << 5);
+
         // VK_KHR_buffer_device_address
         pub const DEVICE_ADDRESS_CAPTURE_REPLAY_KHR: Self = Self::DEVICE_ADDRESS_CAPTURE_REPLAY;
+
         // VK_KHR_video_maintenance1
         pub const VIDEO_PROFILE_INDEPENDENT_KHR: Self = Self(1 << 6);
+
         // VK_VERSION_1_1
         /// Buffer requires protected memory
         pub const PROTECTED: Self = Self(1 << 3);
+
         // VK_VERSION_1_2
         pub const DEVICE_ADDRESS_CAPTURE_REPLAY: Self = Self(1 << 4);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderStageFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ShaderStageFlags(Flags);
     vk_bitflags_wrapped!(ShaderStageFlags, Flags);
+
     impl ShaderStageFlags {
         pub const VERTEX: Self = Self(ShaderStageFlagBits::VERTEX.0);
         pub const TESSELLATION_CONTROL: Self = Self(ShaderStageFlagBits::TESSELLATION_CONTROL.0);
@@ -14430,12 +16123,15 @@ pub(super) mod defs {
         // VK_EXT_mesh_shader
         pub const TASK_EXT: Self = Self(ShaderStageFlagBits::TASK_EXT.0);
         pub const MESH_EXT: Self = Self(ShaderStageFlagBits::MESH_EXT.0);
+
         // VK_HUAWEI_cluster_culling_shader
         pub const CLUSTER_CULLING_HUAWEI: Self =
             Self(ShaderStageFlagBits::CLUSTER_CULLING_HUAWEI.0);
+
         // VK_HUAWEI_subpass_shading
         pub const SUBPASS_SHADING_HUAWEI: Self =
             Self(ShaderStageFlagBits::SUBPASS_SHADING_HUAWEI.0);
+
         // VK_KHR_ray_tracing_pipeline
         pub const RAYGEN_KHR: Self = Self(ShaderStageFlagBits::RAYGEN_KHR.0);
         pub const ANY_HIT_KHR: Self = Self(ShaderStageFlagBits::ANY_HIT_KHR.0);
@@ -14443,9 +16139,11 @@ pub(super) mod defs {
         pub const MISS_KHR: Self = Self(ShaderStageFlagBits::MISS_KHR.0);
         pub const INTERSECTION_KHR: Self = Self(ShaderStageFlagBits::INTERSECTION_KHR.0);
         pub const CALLABLE_KHR: Self = Self(ShaderStageFlagBits::CALLABLE_KHR.0);
+
         // VK_NV_mesh_shader
         pub const TASK_NV: Self = Self::TASK_EXT;
         pub const MESH_NV: Self = Self::MESH_EXT;
+
         // VK_NV_ray_tracing
         pub const RAYGEN_NV: Self = Self::RAYGEN_KHR;
         pub const ANY_HIT_NV: Self = Self::ANY_HIT_KHR;
@@ -14454,6 +16152,7 @@ pub(super) mod defs {
         pub const INTERSECTION_NV: Self = Self::INTERSECTION_KHR;
         pub const CALLABLE_NV: Self = Self::CALLABLE_KHR;
     }
+
     impl fmt::Debug for ShaderStageFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -14489,10 +16188,12 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderStageFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ShaderStageFlagBits(u32);
+
     impl ShaderStageFlagBits {
         pub const VERTEX: Self = Self(1 << 0);
         pub const TESSELLATION_CONTROL: Self = Self(1 << 1);
@@ -14503,10 +16204,13 @@ pub(super) mod defs {
         // VK_EXT_mesh_shader
         pub const TASK_EXT: Self = Self(1 << 6);
         pub const MESH_EXT: Self = Self(1 << 7);
+
         // VK_HUAWEI_cluster_culling_shader
         pub const CLUSTER_CULLING_HUAWEI: Self = Self(1 << 19);
+
         // VK_HUAWEI_subpass_shading
         pub const SUBPASS_SHADING_HUAWEI: Self = Self(1 << 14);
+
         // VK_KHR_ray_tracing_pipeline
         pub const RAYGEN_KHR: Self = Self(1 << 8);
         pub const ANY_HIT_KHR: Self = Self(1 << 9);
@@ -14514,9 +16218,11 @@ pub(super) mod defs {
         pub const MISS_KHR: Self = Self(1 << 11);
         pub const INTERSECTION_KHR: Self = Self(1 << 12);
         pub const CALLABLE_KHR: Self = Self(1 << 13);
+
         // VK_NV_mesh_shader
         pub const TASK_NV: Self = Self::TASK_EXT;
         pub const MESH_NV: Self = Self::MESH_EXT;
+
         // VK_NV_ray_tracing
         pub const RAYGEN_NV: Self = Self::RAYGEN_KHR;
         pub const ANY_HIT_NV: Self = Self::ANY_HIT_KHR;
@@ -14525,11 +16231,13 @@ pub(super) mod defs {
         pub const INTERSECTION_NV: Self = Self::INTERSECTION_KHR;
         pub const CALLABLE_NV: Self = Self::CALLABLE_KHR;
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageUsageFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageUsageFlags(Flags);
     vk_bitflags_wrapped!(ImageUsageFlags, Flags);
+
     impl ImageUsageFlags {
         /// Can be used as a source of transfer operations
         pub const TRANSFER_SRC: Self = Self(ImageUsageFlagBits::TRANSFER_SRC.0);
@@ -14550,43 +16258,56 @@ pub(super) mod defs {
         pub const INPUT_ATTACHMENT: Self = Self(ImageUsageFlagBits::INPUT_ATTACHMENT.0);
         // VK_ARM_tensors
         pub const TENSOR_ALIASING_ARM: Self = Self(ImageUsageFlagBits::TENSOR_ALIASING_ARM.0);
+
         // VK_EXT_attachment_feedback_loop_layout
         pub const ATTACHMENT_FEEDBACK_LOOP_EXT: Self =
             Self(ImageUsageFlagBits::ATTACHMENT_FEEDBACK_LOOP_EXT.0);
+
         // VK_EXT_fragment_density_map
         pub const FRAGMENT_DENSITY_MAP_EXT: Self =
             Self(ImageUsageFlagBits::FRAGMENT_DENSITY_MAP_EXT.0);
+
         // VK_EXT_host_image_copy
         pub const HOST_TRANSFER_EXT: Self = Self::HOST_TRANSFER;
+
         // VK_HUAWEI_invocation_mask
         pub const INVOCATION_MASK_HUAWEI: Self = Self(ImageUsageFlagBits::INVOCATION_MASK_HUAWEI.0);
+
         // VK_KHR_fragment_shading_rate
         pub const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self =
             Self(ImageUsageFlagBits::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0);
+
         // VK_KHR_video_decode_queue
         pub const VIDEO_DECODE_DST_KHR: Self = Self(ImageUsageFlagBits::VIDEO_DECODE_DST_KHR.0);
         pub const VIDEO_DECODE_SRC_KHR: Self = Self(ImageUsageFlagBits::VIDEO_DECODE_SRC_KHR.0);
         pub const VIDEO_DECODE_DPB_KHR: Self = Self(ImageUsageFlagBits::VIDEO_DECODE_DPB_KHR.0);
+
         // VK_KHR_video_encode_quantization_map
         pub const VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR: Self =
             Self(ImageUsageFlagBits::VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR.0);
         pub const VIDEO_ENCODE_EMPHASIS_MAP_KHR: Self =
             Self(ImageUsageFlagBits::VIDEO_ENCODE_EMPHASIS_MAP_KHR.0);
+
         // VK_KHR_video_encode_queue
         pub const VIDEO_ENCODE_DST_KHR: Self = Self(ImageUsageFlagBits::VIDEO_ENCODE_DST_KHR.0);
         pub const VIDEO_ENCODE_SRC_KHR: Self = Self(ImageUsageFlagBits::VIDEO_ENCODE_SRC_KHR.0);
         pub const VIDEO_ENCODE_DPB_KHR: Self = Self(ImageUsageFlagBits::VIDEO_ENCODE_DPB_KHR.0);
+
         // VK_NV_shading_rate_image
         pub const SHADING_RATE_IMAGE_NV: Self = Self::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
+
         // VK_QCOM_image_processing
         pub const SAMPLE_WEIGHT_QCOM: Self = Self(ImageUsageFlagBits::SAMPLE_WEIGHT_QCOM.0);
         pub const SAMPLE_BLOCK_MATCH_QCOM: Self =
             Self(ImageUsageFlagBits::SAMPLE_BLOCK_MATCH_QCOM.0);
+
         // VK_QCOM_tile_memory_heap
         pub const TILE_MEMORY_QCOM: Self = Self(ImageUsageFlagBits::TILE_MEMORY_QCOM.0);
+
         // VK_VERSION_1_4
         pub const HOST_TRANSFER: Self = Self(ImageUsageFlagBits::HOST_TRANSFER.0);
     }
+
     impl fmt::Debug for ImageUsageFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -14667,10 +16388,12 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageUsageFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ImageUsageFlagBits(u32);
+
     impl ImageUsageFlagBits {
         /// Can be used as a source of transfer operations
         pub const TRANSFER_SRC: Self = Self(1 << 0);
@@ -14690,42 +16413,56 @@ pub(super) mod defs {
         pub const INPUT_ATTACHMENT: Self = Self(1 << 7);
         // VK_ARM_tensors
         pub const TENSOR_ALIASING_ARM: Self = Self(1 << 23);
+
         // VK_EXT_attachment_feedback_loop_layout
         pub const ATTACHMENT_FEEDBACK_LOOP_EXT: Self = Self(1 << 19);
+
         // VK_EXT_fragment_density_map
         pub const FRAGMENT_DENSITY_MAP_EXT: Self = Self(1 << 9);
+
         // VK_EXT_host_image_copy
         pub const HOST_TRANSFER_EXT: Self = Self::HOST_TRANSFER;
+
         // VK_HUAWEI_invocation_mask
         pub const INVOCATION_MASK_HUAWEI: Self = Self(1 << 18);
+
         // VK_KHR_fragment_shading_rate
         pub const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self = Self(1 << 8);
+
         // VK_KHR_video_decode_queue
         pub const VIDEO_DECODE_DST_KHR: Self = Self(1 << 10);
         pub const VIDEO_DECODE_SRC_KHR: Self = Self(1 << 11);
         pub const VIDEO_DECODE_DPB_KHR: Self = Self(1 << 12);
+
         // VK_KHR_video_encode_quantization_map
         pub const VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR: Self = Self(1 << 25);
         pub const VIDEO_ENCODE_EMPHASIS_MAP_KHR: Self = Self(1 << 26);
+
         // VK_KHR_video_encode_queue
         pub const VIDEO_ENCODE_DST_KHR: Self = Self(1 << 13);
         pub const VIDEO_ENCODE_SRC_KHR: Self = Self(1 << 14);
         pub const VIDEO_ENCODE_DPB_KHR: Self = Self(1 << 15);
+
         // VK_NV_shading_rate_image
         pub const SHADING_RATE_IMAGE_NV: Self = Self::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
+
         // VK_QCOM_image_processing
         pub const SAMPLE_WEIGHT_QCOM: Self = Self(1 << 20);
         pub const SAMPLE_BLOCK_MATCH_QCOM: Self = Self(1 << 21);
+
         // VK_QCOM_tile_memory_heap
         pub const TILE_MEMORY_QCOM: Self = Self(1 << 27);
+
         // VK_VERSION_1_4
         pub const HOST_TRANSFER: Self = Self(1 << 22);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageCreateFlags(Flags);
     vk_bitflags_wrapped!(ImageCreateFlags, Flags);
+
     impl ImageCreateFlags {
         /// Image should support sparse backing
         pub const SPARSE_BINDING: Self = Self(ImageCreateFlagBits::SPARSE_BINDING.0);
@@ -14740,42 +16477,57 @@ pub(super) mod defs {
         // VK_EXT_descriptor_buffer
         pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self =
             Self::DESCRIPTOR_HEAP_CAPTURE_REPLAY_EXT;
+
         // VK_EXT_descriptor_heap
         pub const DESCRIPTOR_HEAP_CAPTURE_REPLAY_EXT: Self =
             Self(ImageCreateFlagBits::DESCRIPTOR_HEAP_CAPTURE_REPLAY_EXT.0);
+
         // VK_EXT_fragment_density_map
         pub const SUBSAMPLED_EXT: Self = Self(ImageCreateFlagBits::SUBSAMPLED_EXT.0);
+
         // VK_EXT_fragment_density_map_offset
         pub const FRAGMENT_DENSITY_MAP_OFFSET_EXT: Self =
             Self(ImageCreateFlagBits::FRAGMENT_DENSITY_MAP_OFFSET_EXT.0);
+
         // VK_EXT_image_2d_view_of_3d
         /// Image is created with a layout where individual slices are capable of being used as 2D images
         pub const _2D_VIEW_COMPATIBLE_EXT: Self =
             Self(ImageCreateFlagBits::_2D_VIEW_COMPATIBLE_EXT.0);
+
         // VK_EXT_multisampled_render_to_single_sampled
         pub const MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_EXT: Self =
             Self(ImageCreateFlagBits::MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_EXT.0);
+
         // VK_EXT_sample_locations
         pub const SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_EXT: Self =
             Self(ImageCreateFlagBits::SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_EXT.0);
+
         // VK_KHR_bind_memory2
         pub const ALIAS_KHR: Self = Self::ALIAS;
+
         // VK_KHR_device_group
         pub const SPLIT_INSTANCE_BIND_REGIONS_KHR: Self = Self::SPLIT_INSTANCE_BIND_REGIONS;
+
         // VK_KHR_maintenance1
         pub const _2D_ARRAY_COMPATIBLE_KHR: Self = Self::_2D_ARRAY_COMPATIBLE;
+
         // VK_KHR_maintenance2
         pub const BLOCK_TEXEL_VIEW_COMPATIBLE_KHR: Self = Self::BLOCK_TEXEL_VIEW_COMPATIBLE;
         pub const EXTENDED_USAGE_KHR: Self = Self::EXTENDED_USAGE;
+
         // VK_KHR_sampler_ycbcr_conversion
         pub const DISJOINT_KHR: Self = Self::DISJOINT;
+
         // VK_KHR_video_maintenance1
         pub const VIDEO_PROFILE_INDEPENDENT_KHR: Self =
             Self(ImageCreateFlagBits::VIDEO_PROFILE_INDEPENDENT_KHR.0);
+
         // VK_NV_corner_sampled_image
         pub const CORNER_SAMPLED_NV: Self = Self(ImageCreateFlagBits::CORNER_SAMPLED_NV.0);
+
         // VK_QCOM_fragment_density_map_offset
         pub const FRAGMENT_DENSITY_MAP_OFFSET_QCOM: Self = Self::FRAGMENT_DENSITY_MAP_OFFSET_EXT;
+
         // VK_VERSION_1_1
         /// The 3D image can be viewed as a 2D or 2D array image
         pub const _2D_ARRAY_COMPATIBLE: Self = Self(ImageCreateFlagBits::_2D_ARRAY_COMPATIBLE.0);
@@ -14790,6 +16542,7 @@ pub(super) mod defs {
         /// Image requires protected memory
         pub const PROTECTED: Self = Self(ImageCreateFlagBits::PROTECTED.0);
     }
+
     impl fmt::Debug for ImageCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -14844,10 +16597,12 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ImageCreateFlagBits(u32);
+
     impl ImageCreateFlagBits {
         /// Image should support sparse backing
         pub const SPARSE_BINDING: Self = Self(1 << 0);
@@ -14862,36 +16617,51 @@ pub(super) mod defs {
         // VK_EXT_descriptor_buffer
         pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self =
             Self::DESCRIPTOR_HEAP_CAPTURE_REPLAY_EXT;
+
         // VK_EXT_descriptor_heap
         pub const DESCRIPTOR_HEAP_CAPTURE_REPLAY_EXT: Self = Self(1 << 16);
+
         // VK_EXT_fragment_density_map
         pub const SUBSAMPLED_EXT: Self = Self(1 << 14);
+
         // VK_EXT_fragment_density_map_offset
         pub const FRAGMENT_DENSITY_MAP_OFFSET_EXT: Self = Self(1 << 15);
+
         // VK_EXT_image_2d_view_of_3d
         /// Image is created with a layout where individual slices are capable of being used as 2D images
         pub const _2D_VIEW_COMPATIBLE_EXT: Self = Self(1 << 17);
+
         // VK_EXT_multisampled_render_to_single_sampled
         pub const MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_EXT: Self = Self(1 << 18);
+
         // VK_EXT_sample_locations
         pub const SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_EXT: Self = Self(1 << 12);
+
         // VK_KHR_bind_memory2
         pub const ALIAS_KHR: Self = Self::ALIAS;
+
         // VK_KHR_device_group
         pub const SPLIT_INSTANCE_BIND_REGIONS_KHR: Self = Self::SPLIT_INSTANCE_BIND_REGIONS;
+
         // VK_KHR_maintenance1
         pub const _2D_ARRAY_COMPATIBLE_KHR: Self = Self::_2D_ARRAY_COMPATIBLE;
+
         // VK_KHR_maintenance2
         pub const BLOCK_TEXEL_VIEW_COMPATIBLE_KHR: Self = Self::BLOCK_TEXEL_VIEW_COMPATIBLE;
         pub const EXTENDED_USAGE_KHR: Self = Self::EXTENDED_USAGE;
+
         // VK_KHR_sampler_ycbcr_conversion
         pub const DISJOINT_KHR: Self = Self::DISJOINT;
+
         // VK_KHR_video_maintenance1
         pub const VIDEO_PROFILE_INDEPENDENT_KHR: Self = Self(1 << 20);
+
         // VK_NV_corner_sampled_image
         pub const CORNER_SAMPLED_NV: Self = Self(1 << 13);
+
         // VK_QCOM_fragment_density_map_offset
         pub const FRAGMENT_DENSITY_MAP_OFFSET_QCOM: Self = Self::FRAGMENT_DENSITY_MAP_OFFSET_EXT;
+
         // VK_VERSION_1_1
         /// The 3D image can be viewed as a 2D or 2D array image
         pub const _2D_ARRAY_COMPATIBLE: Self = Self(1 << 5);
@@ -14904,22 +16674,27 @@ pub(super) mod defs {
         /// Image requires protected memory
         pub const PROTECTED: Self = Self(1 << 11);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageViewCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageViewCreateFlags(Flags);
     vk_bitflags_wrapped!(ImageViewCreateFlags, Flags);
+
     impl ImageViewCreateFlags {
         // VK_EXT_descriptor_buffer
         pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self =
             Self(ImageViewCreateFlagBits::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT.0);
+
         // VK_EXT_fragment_density_map
         pub const FRAGMENT_DENSITY_MAP_DYNAMIC_EXT: Self =
             Self(ImageViewCreateFlagBits::FRAGMENT_DENSITY_MAP_DYNAMIC_EXT.0);
+
         // VK_EXT_fragment_density_map2
         pub const FRAGMENT_DENSITY_MAP_DEFERRED_EXT: Self =
             Self(ImageViewCreateFlagBits::FRAGMENT_DENSITY_MAP_DEFERRED_EXT.0);
     }
+
     impl fmt::Debug for ImageViewCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -14939,23 +16714,29 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageViewCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ImageViewCreateFlagBits(u32);
+
     impl ImageViewCreateFlagBits {
         // VK_EXT_descriptor_buffer
         pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self = Self(1 << 2);
+
         // VK_EXT_fragment_density_map
         pub const FRAGMENT_DENSITY_MAP_DYNAMIC_EXT: Self = Self(1 << 0);
+
         // VK_EXT_fragment_density_map2
         pub const FRAGMENT_DENSITY_MAP_DEFERRED_EXT: Self = Self(1 << 1);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineCreateFlags(Flags);
     vk_bitflags_wrapped!(PipelineCreateFlags, Flags);
+
     impl PipelineCreateFlags {
         pub const DISABLE_OPTIMIZATION: Self = Self(PipelineCreateFlagBits::DISABLE_OPTIMIZATION.0);
         pub const ALLOW_DERIVATIVES: Self = Self(PipelineCreateFlagBits::ALLOW_DERIVATIVES.0);
@@ -14965,44 +16746,55 @@ pub(super) mod defs {
             Self(PipelineCreateFlagBits::COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT.0);
         pub const DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT: Self =
             Self(PipelineCreateFlagBits::DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT.0);
+
         // VK_EXT_descriptor_buffer
         pub const DESCRIPTOR_BUFFER_EXT: Self =
             Self(PipelineCreateFlagBits::DESCRIPTOR_BUFFER_EXT.0);
+
         // VK_EXT_fragment_density_map
         pub const RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT: Self =
             Self(PipelineCreateFlagBits::RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT.0);
         pub const PIPELINE_RASTERIZATION_STATE_CREATE_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT: Self =
             Self::RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT;
+
         // VK_EXT_graphics_pipeline_library
         pub const LINK_TIME_OPTIMIZATION_EXT: Self =
             Self(PipelineCreateFlagBits::LINK_TIME_OPTIMIZATION_EXT.0);
         pub const RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT: Self =
             Self(PipelineCreateFlagBits::RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT.0);
+
         // VK_EXT_opacity_micromap
         pub const RAY_TRACING_OPACITY_MICROMAP_EXT: Self =
             Self(PipelineCreateFlagBits::RAY_TRACING_OPACITY_MICROMAP_EXT.0);
+
         // VK_EXT_pipeline_creation_cache_control
         pub const FAIL_ON_PIPELINE_COMPILE_REQUIRED_EXT: Self =
             Self::FAIL_ON_PIPELINE_COMPILE_REQUIRED;
         pub const EARLY_RETURN_ON_FAILURE_EXT: Self = Self::EARLY_RETURN_ON_FAILURE;
+
         // VK_EXT_pipeline_protected_access
         pub const NO_PROTECTED_ACCESS_EXT: Self = Self::NO_PROTECTED_ACCESS;
         pub const PROTECTED_ACCESS_ONLY_EXT: Self = Self::PROTECTED_ACCESS_ONLY;
+
         // VK_KHR_device_group
         pub const VIEW_INDEX_FROM_DEVICE_INDEX_KHR: Self = Self::VIEW_INDEX_FROM_DEVICE_INDEX;
         pub const DISPATCH_BASE_KHR: Self = Self::DISPATCH_BASE;
+
         // VK_KHR_fragment_shading_rate
         pub const RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self =
             Self(PipelineCreateFlagBits::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0);
         pub const PIPELINE_RASTERIZATION_STATE_CREATE_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self =
             Self::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
+
         // VK_KHR_pipeline_executable_properties
         pub const CAPTURE_STATISTICS_KHR: Self =
             Self(PipelineCreateFlagBits::CAPTURE_STATISTICS_KHR.0);
         pub const CAPTURE_INTERNAL_REPRESENTATIONS_KHR: Self =
             Self(PipelineCreateFlagBits::CAPTURE_INTERNAL_REPRESENTATIONS_KHR.0);
+
         // VK_KHR_pipeline_library
         pub const LIBRARY_KHR: Self = Self(PipelineCreateFlagBits::LIBRARY_KHR.0);
+
         // VK_KHR_ray_tracing_pipeline
         pub const RAY_TRACING_SKIP_TRIANGLES_KHR: Self =
             Self(PipelineCreateFlagBits::RAY_TRACING_SKIP_TRIANGLES_KHR.0);
@@ -15018,30 +16810,38 @@ pub(super) mod defs {
             Self(PipelineCreateFlagBits::RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_KHR.0);
         pub const RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_KHR: Self =
             Self(PipelineCreateFlagBits::RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_KHR.0);
+
         // VK_NV_device_generated_commands
         pub const INDIRECT_BINDABLE_NV: Self = Self(PipelineCreateFlagBits::INDIRECT_BINDABLE_NV.0);
+
         // VK_NV_displacement_micromap
         pub const RAY_TRACING_DISPLACEMENT_MICROMAP_NV: Self =
             Self(PipelineCreateFlagBits::RAY_TRACING_DISPLACEMENT_MICROMAP_NV.0);
+
         // VK_NV_ray_tracing
         pub const DEFER_COMPILE_NV: Self = Self(PipelineCreateFlagBits::DEFER_COMPILE_NV.0);
+
         // VK_NV_ray_tracing_motion_blur
         pub const RAY_TRACING_ALLOW_MOTION_NV: Self =
             Self(PipelineCreateFlagBits::RAY_TRACING_ALLOW_MOTION_NV.0);
+
         // VK_VERSION_1_1
         pub const VIEW_INDEX_FROM_DEVICE_INDEX: Self =
             Self(PipelineCreateFlagBits::VIEW_INDEX_FROM_DEVICE_INDEX.0);
         pub const DISPATCH_BASE: Self = Self(PipelineCreateFlagBits::DISPATCH_BASE.0);
+
         // VK_VERSION_1_3
         pub const FAIL_ON_PIPELINE_COMPILE_REQUIRED: Self =
             Self(PipelineCreateFlagBits::FAIL_ON_PIPELINE_COMPILE_REQUIRED.0);
         pub const EARLY_RETURN_ON_FAILURE: Self =
             Self(PipelineCreateFlagBits::EARLY_RETURN_ON_FAILURE.0);
+
         // VK_VERSION_1_4
         pub const NO_PROTECTED_ACCESS: Self = Self(PipelineCreateFlagBits::NO_PROTECTED_ACCESS.0);
         pub const PROTECTED_ACCESS_ONLY: Self =
             Self(PipelineCreateFlagBits::PROTECTED_ACCESS_ONLY.0);
     }
+
     impl fmt::Debug for PipelineCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -15161,10 +16961,12 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineCreateFlagBits(u32);
+
     impl PipelineCreateFlagBits {
         pub const DISABLE_OPTIMIZATION: Self = Self(1 << 0);
         pub const ALLOW_DERIVATIVES: Self = Self(1 << 1);
@@ -15172,36 +16974,47 @@ pub(super) mod defs {
         // VK_EXT_attachment_feedback_loop_layout
         pub const COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT: Self = Self(1 << 25);
         pub const DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT: Self = Self(1 << 26);
+
         // VK_EXT_descriptor_buffer
         pub const DESCRIPTOR_BUFFER_EXT: Self = Self(1 << 29);
+
         // VK_EXT_fragment_density_map
         pub const RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT: Self = Self(1 << 22);
         pub const PIPELINE_RASTERIZATION_STATE_CREATE_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT: Self =
             Self::RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT;
+
         // VK_EXT_graphics_pipeline_library
         pub const LINK_TIME_OPTIMIZATION_EXT: Self = Self(1 << 10);
         pub const RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT: Self = Self(1 << 23);
+
         // VK_EXT_opacity_micromap
         pub const RAY_TRACING_OPACITY_MICROMAP_EXT: Self = Self(1 << 24);
+
         // VK_EXT_pipeline_creation_cache_control
         pub const FAIL_ON_PIPELINE_COMPILE_REQUIRED_EXT: Self =
             Self::FAIL_ON_PIPELINE_COMPILE_REQUIRED;
         pub const EARLY_RETURN_ON_FAILURE_EXT: Self = Self::EARLY_RETURN_ON_FAILURE;
+
         // VK_EXT_pipeline_protected_access
         pub const NO_PROTECTED_ACCESS_EXT: Self = Self::NO_PROTECTED_ACCESS;
         pub const PROTECTED_ACCESS_ONLY_EXT: Self = Self::PROTECTED_ACCESS_ONLY;
+
         // VK_KHR_device_group
         pub const VIEW_INDEX_FROM_DEVICE_INDEX_KHR: Self = Self::VIEW_INDEX_FROM_DEVICE_INDEX;
         pub const DISPATCH_BASE_KHR: Self = Self::DISPATCH_BASE;
+
         // VK_KHR_fragment_shading_rate
         pub const RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self = Self(1 << 21);
         pub const PIPELINE_RASTERIZATION_STATE_CREATE_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self =
             Self::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
+
         // VK_KHR_pipeline_executable_properties
         pub const CAPTURE_STATISTICS_KHR: Self = Self(1 << 6);
         pub const CAPTURE_INTERNAL_REPRESENTATIONS_KHR: Self = Self(1 << 7);
+
         // VK_KHR_pipeline_library
         pub const LIBRARY_KHR: Self = Self(1 << 11);
+
         // VK_KHR_ray_tracing_pipeline
         pub const RAY_TRACING_SKIP_TRIANGLES_KHR: Self = Self(1 << 12);
         pub const RAY_TRACING_SKIP_AABBS_KHR: Self = Self(1 << 13);
@@ -15210,35 +17023,45 @@ pub(super) mod defs {
         pub const RAY_TRACING_NO_NULL_MISS_SHADERS_KHR: Self = Self(1 << 16);
         pub const RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_KHR: Self = Self(1 << 17);
         pub const RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_KHR: Self = Self(1 << 19);
+
         // VK_NV_device_generated_commands
         pub const INDIRECT_BINDABLE_NV: Self = Self(1 << 18);
+
         // VK_NV_displacement_micromap
         pub const RAY_TRACING_DISPLACEMENT_MICROMAP_NV: Self = Self(1 << 28);
+
         // VK_NV_ray_tracing
         pub const DEFER_COMPILE_NV: Self = Self(1 << 5);
+
         // VK_NV_ray_tracing_motion_blur
         pub const RAY_TRACING_ALLOW_MOTION_NV: Self = Self(1 << 20);
+
         // VK_VERSION_1_1
         pub const VIEW_INDEX_FROM_DEVICE_INDEX: Self = Self(1 << 3);
         pub const DISPATCH_BASE: Self = Self(1 << 4);
+
         // VK_VERSION_1_3
         pub const FAIL_ON_PIPELINE_COMPILE_REQUIRED: Self = Self(1 << 8);
         pub const EARLY_RETURN_ON_FAILURE: Self = Self(1 << 9);
+
         // VK_VERSION_1_4
         pub const NO_PROTECTED_ACCESS: Self = Self(1 << 27);
         pub const PROTECTED_ACCESS_ONLY: Self = Self(1 << 30);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkColorComponentFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ColorComponentFlags(Flags);
     vk_bitflags_wrapped!(ColorComponentFlags, Flags);
+
     impl ColorComponentFlags {
         pub const R: Self = Self(ColorComponentFlagBits::R.0);
         pub const G: Self = Self(ColorComponentFlagBits::G.0);
         pub const B: Self = Self(ColorComponentFlagBits::B.0);
         pub const A: Self = Self(ColorComponentFlagBits::A.0);
     }
+
     impl fmt::Debug for ColorComponentFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -15250,52 +17073,63 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkColorComponentFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ColorComponentFlagBits(u32);
+
     impl ColorComponentFlagBits {
         pub const R: Self = Self(1 << 0);
         pub const G: Self = Self(1 << 1);
         pub const B: Self = Self(1 << 2);
         pub const A: Self = Self(1 << 3);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFenceCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct FenceCreateFlags(Flags);
     vk_bitflags_wrapped!(FenceCreateFlags, Flags);
+
     impl FenceCreateFlags {
         pub const SIGNALED: Self = Self(FenceCreateFlagBits::SIGNALED.0);
     }
+
     impl fmt::Debug for FenceCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[(FenceCreateFlags::SIGNALED.0, "SIGNALED")];
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFenceCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct FenceCreateFlagBits(u32);
+
     impl FenceCreateFlagBits {
         pub const SIGNALED: Self = Self(1 << 0);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSemaphoreCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SemaphoreCreateFlags(Flags);
     vk_bitflags_wrapped!(SemaphoreCreateFlags, Flags);
+
     impl fmt::Debug for SemaphoreCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFormatFeatureFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct FormatFeatureFlags(Flags);
     vk_bitflags_wrapped!(FormatFeatureFlags, Flags);
+
     impl FormatFeatureFlags {
         /// Format can be used for sampled images (SAMPLED_IMAGE and COMBINED_IMAGE_SAMPLER descriptor types)
         pub const SAMPLED_IMAGE: Self = Self(FormatFeatureFlagBits::SAMPLED_IMAGE.0);
@@ -15330,22 +17164,29 @@ pub(super) mod defs {
         // VK_EXT_filter_cubic
         pub const SAMPLED_IMAGE_FILTER_CUBIC_EXT: Self =
             Self(FormatFeatureFlagBits::SAMPLED_IMAGE_FILTER_CUBIC_EXT.0);
+
         // VK_EXT_fragment_density_map
         pub const FRAGMENT_DENSITY_MAP_EXT: Self =
             Self(FormatFeatureFlagBits::FRAGMENT_DENSITY_MAP_EXT.0);
+
         // VK_EXT_sampler_filter_minmax
         pub const SAMPLED_IMAGE_FILTER_MINMAX_EXT: Self = Self::SAMPLED_IMAGE_FILTER_MINMAX;
+
         // VK_IMG_filter_cubic
         pub const SAMPLED_IMAGE_FILTER_CUBIC_IMG: Self = Self::SAMPLED_IMAGE_FILTER_CUBIC_EXT;
+
         // VK_KHR_acceleration_structure
         pub const ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR: Self =
             Self(FormatFeatureFlagBits::ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR.0);
+
         // VK_KHR_fragment_shading_rate
         pub const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self =
             Self(FormatFeatureFlagBits::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0);
+
         // VK_KHR_maintenance1
         pub const TRANSFER_SRC_KHR: Self = Self::TRANSFER_SRC;
         pub const TRANSFER_DST_KHR: Self = Self::TRANSFER_DST;
+
         // VK_KHR_sampler_ycbcr_conversion
         pub const MIDPOINT_CHROMA_SAMPLES_KHR: Self = Self::MIDPOINT_CHROMA_SAMPLES;
         pub const SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_KHR: Self =
@@ -15358,14 +17199,17 @@ pub(super) mod defs {
             Self = Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE;
         pub const DISJOINT_KHR: Self = Self::DISJOINT;
         pub const COSITED_CHROMA_SAMPLES_KHR: Self = Self::COSITED_CHROMA_SAMPLES;
+
         // VK_KHR_video_decode_queue
         pub const VIDEO_DECODE_OUTPUT_KHR: Self =
             Self(FormatFeatureFlagBits::VIDEO_DECODE_OUTPUT_KHR.0);
         pub const VIDEO_DECODE_DPB_KHR: Self = Self(FormatFeatureFlagBits::VIDEO_DECODE_DPB_KHR.0);
+
         // VK_KHR_video_encode_queue
         pub const VIDEO_ENCODE_INPUT_KHR: Self =
             Self(FormatFeatureFlagBits::VIDEO_ENCODE_INPUT_KHR.0);
         pub const VIDEO_ENCODE_DPB_KHR: Self = Self(FormatFeatureFlagBits::VIDEO_ENCODE_DPB_KHR.0);
+
         // VK_VERSION_1_1
         /// Format can be used as the source image of image transfer commands
         pub const TRANSFER_SRC: Self = Self(FormatFeatureFlagBits::TRANSFER_SRC.0);
@@ -15390,11 +17234,13 @@ pub(super) mod defs {
         /// Format can have cosited rather than midpoint chroma samples
         pub const COSITED_CHROMA_SAMPLES: Self =
             Self(FormatFeatureFlagBits::COSITED_CHROMA_SAMPLES.0);
+
         // VK_VERSION_1_2
         /// Format can be used with min/max reduction filtering
         pub const SAMPLED_IMAGE_FILTER_MINMAX: Self =
             Self(FormatFeatureFlagBits::SAMPLED_IMAGE_FILTER_MINMAX.0);
     }
+
     impl fmt::Debug for FormatFeatureFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -15433,10 +17279,12 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFormatFeatureFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct FormatFeatureFlagBits(u32);
+
     impl FormatFeatureFlagBits {
         /// Format can be used for sampled images (SAMPLED_IMAGE and COMBINED_IMAGE_SAMPLER descriptor types)
         pub const SAMPLED_IMAGE: Self = Self(1 << 0);
@@ -15466,19 +17314,26 @@ pub(super) mod defs {
         pub const SAMPLED_IMAGE_FILTER_LINEAR: Self = Self(1 << 12);
         // VK_EXT_filter_cubic
         pub const SAMPLED_IMAGE_FILTER_CUBIC_EXT: Self = Self(1 << 13);
+
         // VK_EXT_fragment_density_map
         pub const FRAGMENT_DENSITY_MAP_EXT: Self = Self(1 << 24);
+
         // VK_EXT_sampler_filter_minmax
         pub const SAMPLED_IMAGE_FILTER_MINMAX_EXT: Self = Self::SAMPLED_IMAGE_FILTER_MINMAX;
+
         // VK_IMG_filter_cubic
         pub const SAMPLED_IMAGE_FILTER_CUBIC_IMG: Self = Self::SAMPLED_IMAGE_FILTER_CUBIC_EXT;
+
         // VK_KHR_acceleration_structure
         pub const ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR: Self = Self(1 << 29);
+
         // VK_KHR_fragment_shading_rate
         pub const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self = Self(1 << 30);
+
         // VK_KHR_maintenance1
         pub const TRANSFER_SRC_KHR: Self = Self::TRANSFER_SRC;
         pub const TRANSFER_DST_KHR: Self = Self::TRANSFER_DST;
+
         // VK_KHR_sampler_ycbcr_conversion
         pub const MIDPOINT_CHROMA_SAMPLES_KHR: Self = Self::MIDPOINT_CHROMA_SAMPLES;
         pub const SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_KHR: Self =
@@ -15491,12 +17346,15 @@ pub(super) mod defs {
             Self = Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE;
         pub const DISJOINT_KHR: Self = Self::DISJOINT;
         pub const COSITED_CHROMA_SAMPLES_KHR: Self = Self::COSITED_CHROMA_SAMPLES;
+
         // VK_KHR_video_decode_queue
         pub const VIDEO_DECODE_OUTPUT_KHR: Self = Self(1 << 25);
         pub const VIDEO_DECODE_DPB_KHR: Self = Self(1 << 26);
+
         // VK_KHR_video_encode_queue
         pub const VIDEO_ENCODE_INPUT_KHR: Self = Self(1 << 27);
         pub const VIDEO_ENCODE_DPB_KHR: Self = Self(1 << 28);
+
         // VK_VERSION_1_1
         /// Format can be used as the source image of image transfer commands
         pub const TRANSFER_SRC: Self = Self(1 << 14);
@@ -15517,38 +17375,46 @@ pub(super) mod defs {
         pub const DISJOINT: Self = Self(1 << 22);
         /// Format can have cosited rather than midpoint chroma samples
         pub const COSITED_CHROMA_SAMPLES: Self = Self(1 << 23);
+
         // VK_VERSION_1_2
         /// Format can be used with min/max reduction filtering
         pub const SAMPLED_IMAGE_FILTER_MINMAX: Self = Self(1 << 16);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryControlFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct QueryControlFlags(Flags);
     vk_bitflags_wrapped!(QueryControlFlags, Flags);
+
     impl QueryControlFlags {
         /// Require precise results to be collected by the query
         pub const PRECISE: Self = Self(QueryControlFlagBits::PRECISE.0);
     }
+
     impl fmt::Debug for QueryControlFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[(QueryControlFlags::PRECISE.0, "PRECISE")];
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryControlFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct QueryControlFlagBits(u32);
+
     impl QueryControlFlagBits {
         /// Require precise results to be collected by the query
         pub const PRECISE: Self = Self(1 << 0);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryResultFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct QueryResultFlags(Flags);
     vk_bitflags_wrapped!(QueryResultFlags, Flags);
+
     impl QueryResultFlags {
         /// Results of the queries are written to the destination buffer as 64-bit values
         pub const _64: Self = Self(QueryResultFlagBits::_64.0);
@@ -15561,6 +17427,7 @@ pub(super) mod defs {
         // VK_KHR_video_queue
         pub const WITH_STATUS_KHR: Self = Self(QueryResultFlagBits::WITH_STATUS_KHR.0);
     }
+
     impl fmt::Debug for QueryResultFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -15573,10 +17440,12 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryResultFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct QueryResultFlagBits(u32);
+
     impl QueryResultFlagBits {
         /// Results of the queries are written to the destination buffer as 64-bit values
         pub const _64: Self = Self(1 << 0);
@@ -15589,48 +17458,59 @@ pub(super) mod defs {
         // VK_KHR_video_queue
         pub const WITH_STATUS_KHR: Self = Self(1 << 4);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderModuleCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ShaderModuleCreateFlags(Flags);
     vk_bitflags_wrapped!(ShaderModuleCreateFlags, Flags);
+
     impl fmt::Debug for ShaderModuleCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkEventCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct EventCreateFlags(Flags);
     vk_bitflags_wrapped!(EventCreateFlags, Flags);
+
     impl EventCreateFlags {
         // VK_KHR_synchronization2
         pub const DEVICE_ONLY_KHR: Self = Self::DEVICE_ONLY;
+
         // VK_VERSION_1_3
         pub const DEVICE_ONLY: Self = Self(EventCreateFlagBits::DEVICE_ONLY.0);
     }
+
     impl fmt::Debug for EventCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[(EventCreateFlags::DEVICE_ONLY.0, "DEVICE_ONLY")];
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkEventCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct EventCreateFlagBits(u32);
+
     impl EventCreateFlagBits {
         // VK_KHR_synchronization2
         pub const DEVICE_ONLY_KHR: Self = Self::DEVICE_ONLY;
+
         // VK_VERSION_1_3
         pub const DEVICE_ONLY: Self = Self(1 << 0);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandPoolCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct CommandPoolCreateFlags(Flags);
     vk_bitflags_wrapped!(CommandPoolCreateFlags, Flags);
+
     impl CommandPoolCreateFlags {
         /// Command buffers have a short lifetime
         pub const TRANSIENT: Self = Self(CommandPoolCreateFlagBits::TRANSIENT.0);
@@ -15641,6 +17521,7 @@ pub(super) mod defs {
         /// Command buffers allocated from pool are protected command buffers
         pub const PROTECTED: Self = Self(CommandPoolCreateFlagBits::PROTECTED.0);
     }
+
     impl fmt::Debug for CommandPoolCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -15654,10 +17535,12 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandPoolCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct CommandPoolCreateFlagBits(u32);
+
     impl CommandPoolCreateFlagBits {
         /// Command buffers have a short lifetime
         pub const TRANSIENT: Self = Self(1 << 0);
@@ -15667,15 +17550,18 @@ pub(super) mod defs {
         /// Command buffers allocated from pool are protected command buffers
         pub const PROTECTED: Self = Self(1 << 2);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandPoolResetFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct CommandPoolResetFlags(Flags);
     vk_bitflags_wrapped!(CommandPoolResetFlags, Flags);
+
     impl CommandPoolResetFlags {
         /// Release resources owned by the pool
         pub const RELEASE_RESOURCES: Self = Self(CommandPoolResetFlagBits::RELEASE_RESOURCES.0);
     }
+
     impl fmt::Debug for CommandPoolResetFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[(
@@ -15685,23 +17571,28 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandPoolResetFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct CommandPoolResetFlagBits(u32);
+
     impl CommandPoolResetFlagBits {
         /// Release resources owned by the pool
         pub const RELEASE_RESOURCES: Self = Self(1 << 0);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferResetFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct CommandBufferResetFlags(Flags);
     vk_bitflags_wrapped!(CommandBufferResetFlags, Flags);
+
     impl CommandBufferResetFlags {
         /// Release resources owned by the buffer
         pub const RELEASE_RESOURCES: Self = Self(CommandBufferResetFlagBits::RELEASE_RESOURCES.0);
     }
+
     impl fmt::Debug for CommandBufferResetFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[(
@@ -15711,19 +17602,23 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferResetFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct CommandBufferResetFlagBits(u32);
+
     impl CommandBufferResetFlagBits {
         /// Release resources owned by the buffer
         pub const RELEASE_RESOURCES: Self = Self(1 << 0);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferUsageFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct CommandBufferUsageFlags(Flags);
     vk_bitflags_wrapped!(CommandBufferUsageFlags, Flags);
+
     impl CommandBufferUsageFlags {
         pub const ONE_TIME_SUBMIT: Self = Self(CommandBufferUsageFlagBits::ONE_TIME_SUBMIT.0);
         pub const RENDER_PASS_CONTINUE: Self =
@@ -15731,6 +17626,7 @@ pub(super) mod defs {
         /// Command buffer may be submitted/executed more than once simultaneously
         pub const SIMULTANEOUS_USE: Self = Self(CommandBufferUsageFlagBits::SIMULTANEOUS_USE.0);
     }
+
     impl fmt::Debug for CommandBufferUsageFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -15750,21 +17646,25 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferUsageFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct CommandBufferUsageFlagBits(u32);
+
     impl CommandBufferUsageFlagBits {
         pub const ONE_TIME_SUBMIT: Self = Self(1 << 0);
         pub const RENDER_PASS_CONTINUE: Self = Self(1 << 1);
         /// Command buffer may be submitted/executed more than once simultaneously
         pub const SIMULTANEOUS_USE: Self = Self(1 << 2);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryPipelineStatisticFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct QueryPipelineStatisticFlags(Flags);
     vk_bitflags_wrapped!(QueryPipelineStatisticFlags, Flags);
+
     impl QueryPipelineStatisticFlags {
         pub const INPUT_ASSEMBLY_VERTICES: Self =
             Self(QueryPipelineStatisticFlagBits::INPUT_ASSEMBLY_VERTICES.0);
@@ -15793,10 +17693,12 @@ pub(super) mod defs {
             Self(QueryPipelineStatisticFlagBits::TASK_SHADER_INVOCATIONS_EXT.0);
         pub const MESH_SHADER_INVOCATIONS_EXT: Self =
             Self(QueryPipelineStatisticFlagBits::MESH_SHADER_INVOCATIONS_EXT.0);
+
         // VK_HUAWEI_cluster_culling_shader
         pub const CLUSTER_CULLING_SHADER_INVOCATIONS_HUAWEI: Self =
             Self(QueryPipelineStatisticFlagBits::CLUSTER_CULLING_SHADER_INVOCATIONS_HUAWEI.0);
     }
+
     impl fmt::Debug for QueryPipelineStatisticFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -15860,10 +17762,12 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryPipelineStatisticFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct QueryPipelineStatisticFlagBits(u32);
+
     impl QueryPipelineStatisticFlagBits {
         pub const INPUT_ASSEMBLY_VERTICES: Self = Self(1 << 0);
         pub const INPUT_ASSEMBLY_PRIMITIVES: Self = Self(1 << 1);
@@ -15879,37 +17783,45 @@ pub(super) mod defs {
         // VK_EXT_mesh_shader
         pub const TASK_SHADER_INVOCATIONS_EXT: Self = Self(1 << 11);
         pub const MESH_SHADER_INVOCATIONS_EXT: Self = Self(1 << 12);
+
         // VK_HUAWEI_cluster_culling_shader
         pub const CLUSTER_CULLING_SHADER_INVOCATIONS_HUAWEI: Self = Self(1 << 13);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryMapFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct MemoryMapFlags(Flags);
     vk_bitflags_wrapped!(MemoryMapFlags, Flags);
+
     impl MemoryMapFlags {
         // VK_EXT_map_memory_placed
         pub const PLACED_EXT: Self = Self(MemoryMapFlagBits::PLACED_EXT.0);
     }
+
     impl fmt::Debug for MemoryMapFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[(MemoryMapFlags::PLACED_EXT.0, "PLACED_EXT")];
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryMapFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct MemoryMapFlagBits(u32);
+
     impl MemoryMapFlagBits {
         // VK_EXT_map_memory_placed
         pub const PLACED_EXT: Self = Self(1 << 0);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageAspectFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageAspectFlags(Flags);
     vk_bitflags_wrapped!(ImageAspectFlags, Flags);
+
     impl ImageAspectFlags {
         pub const COLOR: Self = Self(ImageAspectFlagBits::COLOR.0);
         pub const DEPTH: Self = Self(ImageAspectFlagBits::DEPTH.0);
@@ -15920,19 +17832,24 @@ pub(super) mod defs {
         pub const MEMORY_PLANE_1_EXT: Self = Self(ImageAspectFlagBits::MEMORY_PLANE_1_EXT.0);
         pub const MEMORY_PLANE_2_EXT: Self = Self(ImageAspectFlagBits::MEMORY_PLANE_2_EXT.0);
         pub const MEMORY_PLANE_3_EXT: Self = Self(ImageAspectFlagBits::MEMORY_PLANE_3_EXT.0);
+
         // VK_KHR_maintenance4
         pub const NONE_KHR: Self = Self::NONE;
+
         // VK_KHR_sampler_ycbcr_conversion
         pub const PLANE_0_KHR: Self = Self::PLANE_0;
         pub const PLANE_1_KHR: Self = Self::PLANE_1;
         pub const PLANE_2_KHR: Self = Self::PLANE_2;
+
         // VK_VERSION_1_1
         pub const PLANE_0: Self = Self(ImageAspectFlagBits::PLANE_0.0);
         pub const PLANE_1: Self = Self(ImageAspectFlagBits::PLANE_1.0);
         pub const PLANE_2: Self = Self(ImageAspectFlagBits::PLANE_2.0);
+
         // VK_VERSION_1_3
         pub const NONE: Self = Self(0);
     }
+
     impl fmt::Debug for ImageAspectFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -15951,10 +17868,12 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageAspectFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ImageAspectFlagBits(u32);
+
     impl ImageAspectFlagBits {
         pub const COLOR: Self = Self(1 << 0);
         pub const DEPTH: Self = Self(1 << 1);
@@ -15965,43 +17884,52 @@ pub(super) mod defs {
         pub const MEMORY_PLANE_1_EXT: Self = Self(1 << 8);
         pub const MEMORY_PLANE_2_EXT: Self = Self(1 << 9);
         pub const MEMORY_PLANE_3_EXT: Self = Self(1 << 10);
+
         // VK_KHR_sampler_ycbcr_conversion
         pub const PLANE_0_KHR: Self = Self::PLANE_0;
         pub const PLANE_1_KHR: Self = Self::PLANE_1;
         pub const PLANE_2_KHR: Self = Self::PLANE_2;
+
         // VK_VERSION_1_1
         pub const PLANE_0: Self = Self(1 << 4);
         pub const PLANE_1: Self = Self(1 << 5);
         pub const PLANE_2: Self = Self(1 << 6);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseMemoryBindFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SparseMemoryBindFlags(Flags);
     vk_bitflags_wrapped!(SparseMemoryBindFlags, Flags);
+
     impl SparseMemoryBindFlags {
         /// Operation binds resource metadata to memory
         pub const METADATA: Self = Self(SparseMemoryBindFlagBits::METADATA.0);
     }
+
     impl fmt::Debug for SparseMemoryBindFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[(SparseMemoryBindFlags::METADATA.0, "METADATA")];
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseMemoryBindFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SparseMemoryBindFlagBits(u32);
+
     impl SparseMemoryBindFlagBits {
         /// Operation binds resource metadata to memory
         pub const METADATA: Self = Self(1 << 0);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseImageFormatFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SparseImageFormatFlags(Flags);
     vk_bitflags_wrapped!(SparseImageFormatFlags, Flags);
+
     impl SparseImageFormatFlags {
         /// Image uses a single mip tail region for all array layers
         pub const SINGLE_MIPTAIL: Self = Self(SparseImageFormatFlagBits::SINGLE_MIPTAIL.0);
@@ -16011,6 +17939,7 @@ pub(super) mod defs {
         pub const NONSTANDARD_BLOCK_SIZE: Self =
             Self(SparseImageFormatFlagBits::NONSTANDARD_BLOCK_SIZE.0);
     }
+
     impl fmt::Debug for SparseImageFormatFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -16027,10 +17956,12 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseImageFormatFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SparseImageFormatFlagBits(u32);
+
     impl SparseImageFormatFlagBits {
         /// Image uses a single mip tail region for all array layers
         pub const SINGLE_MIPTAIL: Self = Self(1 << 0);
@@ -16039,11 +17970,13 @@ pub(super) mod defs {
         /// Image uses a non-standard sparse image block dimensions
         pub const NONSTANDARD_BLOCK_SIZE: Self = Self(1 << 2);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassDescriptionFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SubpassDescriptionFlags(Flags);
     vk_bitflags_wrapped!(SubpassDescriptionFlags, Flags);
+
     impl SubpassDescriptionFlags {
         // VK_ARM_rasterization_order_attachment_access
         pub const RASTERIZATION_ORDER_ATTACHMENT_COLOR_ACCESS_ARM: Self =
@@ -16052,13 +17985,16 @@ pub(super) mod defs {
             Self::RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT;
         pub const RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_ARM: Self =
             Self::RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT;
+
         // VK_EXT_custom_resolve
         pub const FRAGMENT_REGION_EXT: Self =
             Self(SubpassDescriptionFlagBits::FRAGMENT_REGION_EXT.0);
         pub const CUSTOM_RESOLVE_EXT: Self = Self(SubpassDescriptionFlagBits::CUSTOM_RESOLVE_EXT.0);
+
         // VK_EXT_legacy_dithering
         pub const ENABLE_LEGACY_DITHERING_EXT: Self =
             Self(SubpassDescriptionFlagBits::ENABLE_LEGACY_DITHERING_EXT.0);
+
         // VK_EXT_rasterization_order_attachment_access
         pub const RASTERIZATION_ORDER_ATTACHMENT_COLOR_ACCESS_EXT: Self =
             Self(SubpassDescriptionFlagBits::RASTERIZATION_ORDER_ATTACHMENT_COLOR_ACCESS_EXT.0);
@@ -16066,18 +18002,22 @@ pub(super) mod defs {
             Self(SubpassDescriptionFlagBits::RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT.0);
         pub const RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT: Self =
             Self(SubpassDescriptionFlagBits::RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT.0);
+
         // VK_NVX_multiview_per_view_attributes
         pub const PER_VIEW_ATTRIBUTES_NVX: Self =
             Self(SubpassDescriptionFlagBits::PER_VIEW_ATTRIBUTES_NVX.0);
         pub const PER_VIEW_POSITION_X_ONLY_NVX: Self =
             Self(SubpassDescriptionFlagBits::PER_VIEW_POSITION_X_ONLY_NVX.0);
+
         // VK_QCOM_render_pass_shader_resolve
         pub const FRAGMENT_REGION_QCOM: Self = Self::FRAGMENT_REGION_EXT;
         pub const SHADER_RESOLVE_QCOM: Self = Self::CUSTOM_RESOLVE_EXT;
+
         // VK_QCOM_tile_shading
         pub const TILE_SHADING_APRON_QCOM: Self =
             Self(SubpassDescriptionFlagBits::TILE_SHADING_APRON_QCOM.0);
     }
+
     impl fmt::Debug for SubpassDescriptionFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -16121,10 +18061,12 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassDescriptionFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SubpassDescriptionFlagBits(u32);
+
     impl SubpassDescriptionFlagBits {
         // VK_ARM_rasterization_order_attachment_access
         pub const RASTERIZATION_ORDER_ATTACHMENT_COLOR_ACCESS_ARM: Self =
@@ -16133,29 +18075,37 @@ pub(super) mod defs {
             Self::RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT;
         pub const RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_ARM: Self =
             Self::RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT;
+
         // VK_EXT_custom_resolve
         pub const FRAGMENT_REGION_EXT: Self = Self(1 << 2);
         pub const CUSTOM_RESOLVE_EXT: Self = Self(1 << 3);
+
         // VK_EXT_legacy_dithering
         pub const ENABLE_LEGACY_DITHERING_EXT: Self = Self(1 << 7);
+
         // VK_EXT_rasterization_order_attachment_access
         pub const RASTERIZATION_ORDER_ATTACHMENT_COLOR_ACCESS_EXT: Self = Self(1 << 4);
         pub const RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT: Self = Self(1 << 5);
         pub const RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT: Self = Self(1 << 6);
+
         // VK_NVX_multiview_per_view_attributes
         pub const PER_VIEW_ATTRIBUTES_NVX: Self = Self(1 << 0);
         pub const PER_VIEW_POSITION_X_ONLY_NVX: Self = Self(1 << 1);
+
         // VK_QCOM_render_pass_shader_resolve
         pub const FRAGMENT_REGION_QCOM: Self = Self::FRAGMENT_REGION_EXT;
         pub const SHADER_RESOLVE_QCOM: Self = Self::CUSTOM_RESOLVE_EXT;
+
         // VK_QCOM_tile_shading
         pub const TILE_SHADING_APRON_QCOM: Self = Self(1 << 8);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineStageFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineStageFlags(Flags);
     vk_bitflags_wrapped!(PipelineStageFlags, Flags);
+
     impl PipelineStageFlags {
         /// Before subsequent commands are processed
         pub const TOP_OF_PIPE: Self = Self(PipelineStageFlagBits::TOP_OF_PIPE.0);
@@ -16198,42 +18148,56 @@ pub(super) mod defs {
         /// A pipeline stage for conditional rendering predicate fetch
         pub const CONDITIONAL_RENDERING_EXT: Self =
             Self(PipelineStageFlagBits::CONDITIONAL_RENDERING_EXT.0);
+
         // VK_EXT_device_generated_commands
         pub const COMMAND_PREPROCESS_EXT: Self =
             Self(PipelineStageFlagBits::COMMAND_PREPROCESS_EXT.0);
+
         // VK_EXT_fragment_density_map
         pub const FRAGMENT_DENSITY_PROCESS_EXT: Self =
             Self(PipelineStageFlagBits::FRAGMENT_DENSITY_PROCESS_EXT.0);
+
         // VK_EXT_mesh_shader
         pub const TASK_SHADER_EXT: Self = Self(PipelineStageFlagBits::TASK_SHADER_EXT.0);
         pub const MESH_SHADER_EXT: Self = Self(PipelineStageFlagBits::MESH_SHADER_EXT.0);
+
         // VK_EXT_transform_feedback
         pub const TRANSFORM_FEEDBACK_EXT: Self =
             Self(PipelineStageFlagBits::TRANSFORM_FEEDBACK_EXT.0);
+
         // VK_KHR_acceleration_structure
         pub const ACCELERATION_STRUCTURE_BUILD_KHR: Self =
             Self(PipelineStageFlagBits::ACCELERATION_STRUCTURE_BUILD_KHR.0);
+
         // VK_KHR_fragment_shading_rate
         pub const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self =
             Self(PipelineStageFlagBits::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0);
+
         // VK_KHR_ray_tracing_pipeline
         pub const RAY_TRACING_SHADER_KHR: Self =
             Self(PipelineStageFlagBits::RAY_TRACING_SHADER_KHR.0);
+
         // VK_KHR_synchronization2
         pub const NONE_KHR: Self = Self::NONE;
+
         // VK_NV_device_generated_commands
         pub const COMMAND_PREPROCESS_NV: Self = Self::COMMAND_PREPROCESS_EXT;
+
         // VK_NV_mesh_shader
         pub const TASK_SHADER_NV: Self = Self::TASK_SHADER_EXT;
         pub const MESH_SHADER_NV: Self = Self::MESH_SHADER_EXT;
+
         // VK_NV_ray_tracing
         pub const RAY_TRACING_SHADER_NV: Self = Self::RAY_TRACING_SHADER_KHR;
         pub const ACCELERATION_STRUCTURE_BUILD_NV: Self = Self::ACCELERATION_STRUCTURE_BUILD_KHR;
+
         // VK_NV_shading_rate_image
         pub const SHADING_RATE_IMAGE_NV: Self = Self::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
+
         // VK_VERSION_1_3
         pub const NONE: Self = Self(0);
     }
+
     impl fmt::Debug for PipelineStageFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -16303,10 +18267,12 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineStageFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PipelineStageFlagBits(u32);
+
     impl PipelineStageFlagBits {
         /// Before subsequent commands are processed
         pub const TOP_OF_PIPE: Self = Self(1 << 0);
@@ -16345,37 +18311,50 @@ pub(super) mod defs {
         // VK_EXT_conditional_rendering
         /// A pipeline stage for conditional rendering predicate fetch
         pub const CONDITIONAL_RENDERING_EXT: Self = Self(1 << 18);
+
         // VK_EXT_device_generated_commands
         pub const COMMAND_PREPROCESS_EXT: Self = Self(1 << 17);
+
         // VK_EXT_fragment_density_map
         pub const FRAGMENT_DENSITY_PROCESS_EXT: Self = Self(1 << 23);
+
         // VK_EXT_mesh_shader
         pub const TASK_SHADER_EXT: Self = Self(1 << 19);
         pub const MESH_SHADER_EXT: Self = Self(1 << 20);
+
         // VK_EXT_transform_feedback
         pub const TRANSFORM_FEEDBACK_EXT: Self = Self(1 << 24);
+
         // VK_KHR_acceleration_structure
         pub const ACCELERATION_STRUCTURE_BUILD_KHR: Self = Self(1 << 25);
+
         // VK_KHR_fragment_shading_rate
         pub const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self = Self(1 << 22);
+
         // VK_KHR_ray_tracing_pipeline
         pub const RAY_TRACING_SHADER_KHR: Self = Self(1 << 21);
+
         // VK_NV_device_generated_commands
         pub const COMMAND_PREPROCESS_NV: Self = Self::COMMAND_PREPROCESS_EXT;
+
         // VK_NV_mesh_shader
         pub const TASK_SHADER_NV: Self = Self::TASK_SHADER_EXT;
         pub const MESH_SHADER_NV: Self = Self::MESH_SHADER_EXT;
+
         // VK_NV_ray_tracing
         pub const RAY_TRACING_SHADER_NV: Self = Self::RAY_TRACING_SHADER_KHR;
         pub const ACCELERATION_STRUCTURE_BUILD_NV: Self = Self::ACCELERATION_STRUCTURE_BUILD_KHR;
+
         // VK_NV_shading_rate_image
         pub const SHADING_RATE_IMAGE_NV: Self = Self::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSampleCountFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SampleCountFlags(Flags);
     vk_bitflags_wrapped!(SampleCountFlags, Flags);
+
     impl SampleCountFlags {
         /// Sample count 1 supported
         pub const _1: Self = Self(SampleCountFlagBits::_1.0);
@@ -16392,6 +18371,7 @@ pub(super) mod defs {
         /// Sample count 64 supported
         pub const _64: Self = Self(SampleCountFlagBits::_64.0);
     }
+
     impl fmt::Debug for SampleCountFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -16406,10 +18386,12 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSampleCountFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SampleCountFlagBits(u32);
+
     impl SampleCountFlagBits {
         /// Sample count 1 supported
         pub const _1: Self = Self(1 << 0);
@@ -16426,11 +18408,13 @@ pub(super) mod defs {
         /// Sample count 64 supported
         pub const _64: Self = Self(1 << 6);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentDescriptionFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct AttachmentDescriptionFlags(Flags);
     vk_bitflags_wrapped!(AttachmentDescriptionFlags, Flags);
+
     impl AttachmentDescriptionFlags {
         /// The attachment may alias physical memory of another attachment in the same render pass
         pub const MAY_ALIAS: Self = Self(AttachmentDescriptionFlagBits::MAY_ALIAS.0);
@@ -16440,6 +18424,7 @@ pub(super) mod defs {
         pub const RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR: Self =
             Self(AttachmentDescriptionFlagBits::RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR.0);
     }
+
     impl fmt::Debug for AttachmentDescriptionFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -16456,10 +18441,12 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentDescriptionFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct AttachmentDescriptionFlagBits(u32);
+
     impl AttachmentDescriptionFlagBits {
         /// The attachment may alias physical memory of another attachment in the same render pass
         pub const MAY_ALIAS: Self = Self(1 << 0);
@@ -16467,11 +18454,13 @@ pub(super) mod defs {
         pub const RESOLVE_SKIP_TRANSFER_FUNCTION_KHR: Self = Self(1 << 1);
         pub const RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR: Self = Self(1 << 2);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkStencilFaceFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct StencilFaceFlags(Flags);
     vk_bitflags_wrapped!(StencilFaceFlags, Flags);
+
     impl StencilFaceFlags {
         /// Front face
         pub const FRONT: Self = Self(StencilFaceFlagBits::FRONT.0);
@@ -16481,6 +18470,7 @@ pub(super) mod defs {
         /// Front and back faces
         pub const FRONT_AND_BACK: Self = Self(0x00000003);
     }
+
     impl fmt::Debug for StencilFaceFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -16490,27 +18480,32 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkStencilFaceFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct StencilFaceFlagBits(u32);
+
     impl StencilFaceFlagBits {
         /// Front face
         pub const FRONT: Self = Self(1 << 0);
         /// Back face
         pub const BACK: Self = Self(1 << 1);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCullModeFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct CullModeFlags(Flags);
     vk_bitflags_wrapped!(CullModeFlags, Flags);
+
     impl CullModeFlags {
         pub const FRONT: Self = Self(CullModeFlagBits::FRONT.0);
         pub const BACK: Self = Self(CullModeFlagBits::BACK.0);
         pub const NONE: Self = Self(0);
         pub const FRONT_AND_BACK: Self = Self(0x00000003);
     }
+
     impl fmt::Debug for CullModeFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -16520,37 +18515,46 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCullModeFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct CullModeFlagBits(u32);
+
     impl CullModeFlagBits {
         pub const FRONT: Self = Self(1 << 0);
         pub const BACK: Self = Self(1 << 1);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorPoolCreateFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DescriptorPoolCreateFlags(Flags);
     vk_bitflags_wrapped!(DescriptorPoolCreateFlags, Flags);
+
     impl DescriptorPoolCreateFlags {
         /// Descriptor sets may be freed individually
         pub const FREE_DESCRIPTOR_SET: Self =
             Self(DescriptorPoolCreateFlagBits::FREE_DESCRIPTOR_SET.0);
         // VK_EXT_descriptor_indexing
         pub const UPDATE_AFTER_BIND_EXT: Self = Self::UPDATE_AFTER_BIND;
+
         // VK_EXT_mutable_descriptor_type
         pub const HOST_ONLY_EXT: Self = Self(DescriptorPoolCreateFlagBits::HOST_ONLY_EXT.0);
+
         // VK_NV_descriptor_pool_overallocation
         pub const ALLOW_OVERALLOCATION_SETS_NV: Self =
             Self(DescriptorPoolCreateFlagBits::ALLOW_OVERALLOCATION_SETS_NV.0);
         pub const ALLOW_OVERALLOCATION_POOLS_NV: Self =
             Self(DescriptorPoolCreateFlagBits::ALLOW_OVERALLOCATION_POOLS_NV.0);
+
         // VK_VALVE_mutable_descriptor_type
         pub const HOST_ONLY_VALVE: Self = Self::HOST_ONLY_EXT;
+
         // VK_VERSION_1_2
         pub const UPDATE_AFTER_BIND: Self = Self(DescriptorPoolCreateFlagBits::UPDATE_AFTER_BIND.0);
     }
+
     impl fmt::Debug for DescriptorPoolCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -16575,60 +18579,76 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorPoolCreateFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DescriptorPoolCreateFlagBits(u32);
+
     impl DescriptorPoolCreateFlagBits {
         /// Descriptor sets may be freed individually
         pub const FREE_DESCRIPTOR_SET: Self = Self(1 << 0);
         // VK_EXT_descriptor_indexing
         pub const UPDATE_AFTER_BIND_EXT: Self = Self::UPDATE_AFTER_BIND;
+
         // VK_EXT_mutable_descriptor_type
         pub const HOST_ONLY_EXT: Self = Self(1 << 2);
+
         // VK_NV_descriptor_pool_overallocation
         pub const ALLOW_OVERALLOCATION_SETS_NV: Self = Self(1 << 3);
         pub const ALLOW_OVERALLOCATION_POOLS_NV: Self = Self(1 << 4);
+
         // VK_VALVE_mutable_descriptor_type
         pub const HOST_ONLY_VALVE: Self = Self::HOST_ONLY_EXT;
+
         // VK_VERSION_1_2
         pub const UPDATE_AFTER_BIND: Self = Self(1 << 1);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorPoolResetFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DescriptorPoolResetFlags(Flags);
     vk_bitflags_wrapped!(DescriptorPoolResetFlags, Flags);
+
     impl fmt::Debug for DescriptorPoolResetFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDependencyFlags.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DependencyFlags(Flags);
     vk_bitflags_wrapped!(DependencyFlags, Flags);
+
     impl DependencyFlags {
         /// Dependency is per pixel region
         pub const BY_REGION: Self = Self(DependencyFlagBits::BY_REGION.0);
         // VK_EXT_attachment_feedback_loop_layout
         /// Dependency may be a feedback loop
         pub const FEEDBACK_LOOP_EXT: Self = Self(DependencyFlagBits::FEEDBACK_LOOP_EXT.0);
+
         // VK_KHR_device_group
         pub const DEVICE_GROUP_KHR: Self = Self::DEVICE_GROUP;
+
         // VK_KHR_maintenance8
         pub const QUEUE_FAMILY_OWNERSHIP_TRANSFER_USE_ALL_STAGES_KHR: Self =
             Self(DependencyFlagBits::QUEUE_FAMILY_OWNERSHIP_TRANSFER_USE_ALL_STAGES_KHR.0);
+
         // VK_KHR_maintenance9
         pub const ASYMMETRIC_EVENT_KHR: Self = Self(DependencyFlagBits::ASYMMETRIC_EVENT_KHR.0);
+
         // VK_KHR_multiview
         pub const VIEW_LOCAL_KHR: Self = Self::VIEW_LOCAL;
+
         // VK_VERSION_1_1
         pub const VIEW_LOCAL: Self = Self(DependencyFlagBits::VIEW_LOCAL.0);
         /// Dependency is across devices
         pub const DEVICE_GROUP: Self = Self(DependencyFlagBits::DEVICE_GROUP.0);
     }
+
     impl fmt::Debug for DependencyFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -16648,29 +18668,37 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDependencyFlagBits.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DependencyFlagBits(u32);
+
     impl DependencyFlagBits {
         /// Dependency is per pixel region
         pub const BY_REGION: Self = Self(1 << 0);
         // VK_EXT_attachment_feedback_loop_layout
         /// Dependency may be a feedback loop
         pub const FEEDBACK_LOOP_EXT: Self = Self(1 << 3);
+
         // VK_KHR_device_group
         pub const DEVICE_GROUP_KHR: Self = Self::DEVICE_GROUP;
+
         // VK_KHR_maintenance8
         pub const QUEUE_FAMILY_OWNERSHIP_TRANSFER_USE_ALL_STAGES_KHR: Self = Self(1 << 5);
+
         // VK_KHR_maintenance9
         pub const ASYMMETRIC_EVENT_KHR: Self = Self(1 << 6);
+
         // VK_KHR_multiview
         pub const VIEW_LOCAL_KHR: Self = Self::VIEW_LOCAL;
+
         // VK_VERSION_1_1
         pub const VIEW_LOCAL: Self = Self(1 << 1);
         /// Dependency is across devices
         pub const DEVICE_GROUP: Self = Self(1 << 2);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/PFN_vkInternalAllocationNotification.html>
     pub type PFN_vkInternalAllocationNotification = unsafe extern "system" fn(
         p_user_data: *mut c_void,
@@ -16705,6 +18733,7 @@ pub(super) mod defs {
         unsafe extern "system" fn(p_user_data: *mut c_void, p_memory: *mut c_void);
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/PFN_vkVoidFunction.html>
     pub type PFN_vkVoidFunction = unsafe extern "system" fn();
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateInstance.html>
     pub type PFN_vkCreateInstance = unsafe extern "system" fn(
         p_create_info: *const InstanceCreateInfo<'_>,
@@ -17607,11 +19636,13 @@ pub(super) mod defs {
         p_command_buffers: *const CommandBuffer,
     );
 }
+
 pub struct EntryFn {
     create_instance: PFN_vkCreateInstance,
     enumerate_instance_extension_properties: PFN_vkEnumerateInstanceExtensionProperties,
     enumerate_instance_layer_properties: PFN_vkEnumerateInstanceLayerProperties,
 }
+
 impl EntryFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -17632,6 +19663,7 @@ impl EntryFn {
         }
     }
 }
+
 impl EntryFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateInstance.html>
     pub unsafe fn create_instance(
@@ -17650,6 +19682,7 @@ impl EntryFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumerateInstanceExtensionProperties.html>
     pub unsafe fn enumerate_instance_extension_properties(
         &self,
@@ -17680,6 +19713,7 @@ impl EntryFn {
             Ok(result)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumerateInstanceLayerProperties.html>
     pub unsafe fn enumerate_instance_layer_properties(
         &self,
@@ -17707,6 +19741,7 @@ impl EntryFn {
         }
     }
 }
+
 pub struct InstanceFn {
     destroy_instance: PFN_vkDestroyInstance,
     enumerate_physical_devices: PFN_vkEnumeratePhysicalDevices,
@@ -17723,6 +19758,7 @@ pub struct InstanceFn {
     get_physical_device_sparse_image_format_properties:
         PFN_vkGetPhysicalDeviceSparseImageFormatProperties,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -17773,6 +19809,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyInstance.html>
     pub unsafe fn destroy_instance(
@@ -17782,6 +19819,7 @@ impl InstanceFn {
     ) {
         unsafe { (self.destroy_instance)(instance, allocator.to_raw_ptr()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumeratePhysicalDevices.html>
     pub unsafe fn enumerate_physical_devices(
         &self,
@@ -17812,6 +19850,7 @@ impl InstanceFn {
             Ok(result)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFeatures.html>
     pub unsafe fn get_physical_device_features(
         &self,
@@ -17823,6 +19862,7 @@ impl InstanceFn {
             features.assume_init()
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFormatProperties.html>
     pub unsafe fn get_physical_device_format_properties(
         &self,
@@ -17839,6 +19879,7 @@ impl InstanceFn {
             format_properties.assume_init()
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceImageFormatProperties.html>
     pub unsafe fn get_physical_device_image_format_properties(
         &self,
@@ -17867,6 +19908,7 @@ impl InstanceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceProperties.html>
     pub unsafe fn get_physical_device_properties(
         &self,
@@ -17878,6 +19920,7 @@ impl InstanceFn {
             properties.assume_init()
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceQueueFamilyProperties.html>
     pub unsafe fn get_physical_device_queue_family_properties(
         &self,
@@ -17901,6 +19944,7 @@ impl InstanceFn {
             queue_family_properties.set_len(len.try_into().unwrap());
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceMemoryProperties.html>
     pub unsafe fn get_physical_device_memory_properties(
         &self,
@@ -17915,6 +19959,7 @@ impl InstanceFn {
             memory_properties.assume_init()
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetInstanceProcAddr.html>
     pub unsafe fn get_instance_proc_addr(
         &self,
@@ -17923,6 +19968,7 @@ impl InstanceFn {
     ) -> PFN_vkVoidFunction {
         unsafe { (self.get_instance_proc_addr)(instance, name.as_ptr() as _) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDevice.html>
     pub unsafe fn create_device(
         &self,
@@ -17945,6 +19991,7 @@ impl InstanceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumerateDeviceExtensionProperties.html>
     pub unsafe fn enumerate_device_extension_properties(
         &self,
@@ -17977,6 +20024,7 @@ impl InstanceFn {
             Ok(result)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumerateDeviceLayerProperties.html>
     pub unsafe fn enumerate_device_layer_properties(
         &self,
@@ -18007,6 +20055,7 @@ impl InstanceFn {
             Ok(result)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSparseImageFormatProperties.html>
     pub unsafe fn get_physical_device_sparse_image_format_properties(
         &self,
@@ -18041,6 +20090,7 @@ impl InstanceFn {
         }
     }
 }
+
 pub struct DeviceFn {
     get_device_proc_addr: PFN_vkGetDeviceProcAddr,
     destroy_device: PFN_vkDestroyDevice,
@@ -18164,6 +20214,7 @@ pub struct DeviceFn {
     cmd_next_subpass: PFN_vkCmdNextSubpass,
     cmd_end_render_pass: PFN_vkCmdEndRenderPass,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -18475,11 +20526,13 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceProcAddr.html>
     pub unsafe fn get_device_proc_addr(&self, device: Device, name: &CStr) -> PFN_vkVoidFunction {
         unsafe { (self.get_device_proc_addr)(device, name.as_ptr() as _) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDevice.html>
     pub unsafe fn destroy_device(
         &self,
@@ -18488,6 +20541,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_device)(device, allocator.to_raw_ptr()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceQueue.html>
     pub unsafe fn get_device_queue(
         &self,
@@ -18501,6 +20555,7 @@ impl DeviceFn {
             queue.assume_init()
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueSubmit.html>
     pub unsafe fn queue_submit(
         &self,
@@ -18522,6 +20577,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueWaitIdle.html>
     pub unsafe fn queue_wait_idle(&self, queue: Queue) -> crate::Result<()> {
         unsafe {
@@ -18533,6 +20589,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDeviceWaitIdle.html>
     pub unsafe fn device_wait_idle(&self, device: Device) -> crate::Result<()> {
         unsafe {
@@ -18544,6 +20601,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAllocateMemory.html>
     pub unsafe fn allocate_memory(
         &self,
@@ -18566,6 +20624,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkFreeMemory.html>
     pub unsafe fn free_memory(
         &self,
@@ -18575,6 +20634,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.free_memory)(device, memory, allocator.to_raw_ptr()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkMapMemory.html>
     pub unsafe fn map_memory(
         &self,
@@ -18594,10 +20654,12 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUnmapMemory.html>
     pub unsafe fn unmap_memory(&self, device: Device, memory: DeviceMemory) {
         unsafe { (self.unmap_memory)(device, memory) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkFlushMappedMemoryRanges.html>
     pub unsafe fn flush_mapped_memory_ranges(
         &self,
@@ -18617,6 +20679,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkInvalidateMappedMemoryRanges.html>
     pub unsafe fn invalidate_mapped_memory_ranges(
         &self,
@@ -18636,6 +20699,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceMemoryCommitment.html>
     pub unsafe fn get_device_memory_commitment(
         &self,
@@ -18652,6 +20716,7 @@ impl DeviceFn {
             committed_memory_in_bytes.assume_init()
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindBufferMemory.html>
     pub unsafe fn bind_buffer_memory(
         &self,
@@ -18669,6 +20734,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindImageMemory.html>
     pub unsafe fn bind_image_memory(
         &self,
@@ -18686,6 +20752,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferMemoryRequirements.html>
     pub unsafe fn get_buffer_memory_requirements(
         &self,
@@ -18698,6 +20765,7 @@ impl DeviceFn {
             memory_requirements.assume_init()
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageMemoryRequirements.html>
     pub unsafe fn get_image_memory_requirements(
         &self,
@@ -18710,6 +20778,7 @@ impl DeviceFn {
             memory_requirements.assume_init()
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageSparseMemoryRequirements.html>
     pub unsafe fn get_image_sparse_memory_requirements(
         &self,
@@ -18738,6 +20807,7 @@ impl DeviceFn {
             sparse_memory_requirements.set_len(len.try_into().unwrap());
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueBindSparse.html>
     pub unsafe fn queue_bind_sparse(
         &self,
@@ -18759,6 +20829,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateFence.html>
     pub unsafe fn create_fence(
         &self,
@@ -18781,6 +20852,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyFence.html>
     pub unsafe fn destroy_fence(
         &self,
@@ -18790,6 +20862,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_fence)(device, fence, allocator.to_raw_ptr()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkResetFences.html>
     pub unsafe fn reset_fences(&self, device: Device, fences: &[Fence]) -> crate::Result<()> {
         unsafe {
@@ -18805,6 +20878,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetFenceStatus.html>
     pub unsafe fn get_fence_status(&self, device: Device, fence: Fence) -> crate::Result<()> {
         unsafe {
@@ -18816,6 +20890,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkWaitForFences.html>
     pub unsafe fn wait_for_fences(
         &self,
@@ -18839,6 +20914,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSemaphore.html>
     pub unsafe fn create_semaphore(
         &self,
@@ -18861,6 +20937,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroySemaphore.html>
     pub unsafe fn destroy_semaphore(
         &self,
@@ -18870,6 +20947,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_semaphore)(device, semaphore, allocator.to_raw_ptr()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateQueryPool.html>
     pub unsafe fn create_query_pool(
         &self,
@@ -18892,6 +20970,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyQueryPool.html>
     pub unsafe fn destroy_query_pool(
         &self,
@@ -18901,6 +20980,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_query_pool)(device, query_pool, allocator.to_raw_ptr()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetQueryPoolResults.html>
     pub unsafe fn get_query_pool_results(
         &self,
@@ -18930,6 +21010,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateBuffer.html>
     pub unsafe fn create_buffer(
         &self,
@@ -18952,6 +21033,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyBuffer.html>
     pub unsafe fn destroy_buffer(
         &self,
@@ -18961,6 +21043,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_buffer)(device, buffer, allocator.to_raw_ptr()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateImage.html>
     pub unsafe fn create_image(
         &self,
@@ -18983,6 +21066,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyImage.html>
     pub unsafe fn destroy_image(
         &self,
@@ -18992,6 +21076,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_image)(device, image, allocator.to_raw_ptr()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageSubresourceLayout.html>
     pub unsafe fn get_image_subresource_layout(
         &self,
@@ -19005,6 +21090,7 @@ impl DeviceFn {
             layout.assume_init()
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateImageView.html>
     pub unsafe fn create_image_view(
         &self,
@@ -19027,6 +21113,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyImageView.html>
     pub unsafe fn destroy_image_view(
         &self,
@@ -19036,6 +21123,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_image_view)(device, image_view, allocator.to_raw_ptr()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateCommandPool.html>
     pub unsafe fn create_command_pool(
         &self,
@@ -19058,6 +21146,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyCommandPool.html>
     pub unsafe fn destroy_command_pool(
         &self,
@@ -19067,6 +21156,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_command_pool)(device, command_pool, allocator.to_raw_ptr()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkResetCommandPool.html>
     pub unsafe fn reset_command_pool(
         &self,
@@ -19083,6 +21173,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAllocateCommandBuffers.html>
     pub unsafe fn allocate_command_buffers(
         &self,
@@ -19103,6 +21194,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkFreeCommandBuffers.html>
     pub unsafe fn free_command_buffers(
         &self,
@@ -19119,6 +21211,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBeginCommandBuffer.html>
     pub unsafe fn begin_command_buffer(
         &self,
@@ -19134,6 +21227,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEndCommandBuffer.html>
     pub unsafe fn end_command_buffer(&self, command_buffer: CommandBuffer) -> crate::Result<()> {
         unsafe {
@@ -19145,6 +21239,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkResetCommandBuffer.html>
     pub unsafe fn reset_command_buffer(
         &self,
@@ -19160,6 +21255,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyBuffer.html>
     pub unsafe fn cmd_copy_buffer(
         &self,
@@ -19178,6 +21274,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyImage.html>
     pub unsafe fn cmd_copy_image(
         &self,
@@ -19200,6 +21297,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyBufferToImage.html>
     pub unsafe fn cmd_copy_buffer_to_image(
         &self,
@@ -19220,6 +21318,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyImageToBuffer.html>
     pub unsafe fn cmd_copy_image_to_buffer(
         &self,
@@ -19240,6 +21339,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdUpdateBuffer.html>
     pub unsafe fn cmd_update_buffer(
         &self,
@@ -19258,6 +21358,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdFillBuffer.html>
     pub unsafe fn cmd_fill_buffer(
         &self,
@@ -19269,6 +21370,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_fill_buffer)(command_buffer, dst_buffer, dst_offset, size, data) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPipelineBarrier.html>
     pub unsafe fn cmd_pipeline_barrier(
         &self,
@@ -19295,6 +21397,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginQuery.html>
     pub unsafe fn cmd_begin_query(
         &self,
@@ -19305,6 +21408,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_begin_query)(command_buffer, query_pool, query, flags) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndQuery.html>
     pub unsafe fn cmd_end_query(
         &self,
@@ -19314,6 +21418,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_end_query)(command_buffer, query_pool, query) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdResetQueryPool.html>
     pub unsafe fn cmd_reset_query_pool(
         &self,
@@ -19324,6 +21429,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_reset_query_pool)(command_buffer, query_pool, first_query, query_count) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWriteTimestamp.html>
     pub unsafe fn cmd_write_timestamp(
         &self,
@@ -19334,6 +21440,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_write_timestamp)(command_buffer, pipeline_stage, query_pool, query) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyQueryPoolResults.html>
     pub unsafe fn cmd_copy_query_pool_results(
         &self,
@@ -19359,6 +21466,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdExecuteCommands.html>
     pub unsafe fn cmd_execute_commands(
         &self,
@@ -19373,6 +21481,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateEvent.html>
     pub unsafe fn create_event(
         &self,
@@ -19395,6 +21504,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyEvent.html>
     pub unsafe fn destroy_event(
         &self,
@@ -19404,6 +21514,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_event)(device, event, allocator.to_raw_ptr()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetEventStatus.html>
     pub unsafe fn get_event_status(&self, device: Device, event: Event) -> crate::Result<()> {
         unsafe {
@@ -19415,6 +21526,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetEvent.html>
     pub unsafe fn set_event(&self, device: Device, event: Event) -> crate::Result<()> {
         unsafe {
@@ -19426,6 +21538,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkResetEvent.html>
     pub unsafe fn reset_event(&self, device: Device, event: Event) -> crate::Result<()> {
         unsafe {
@@ -19437,6 +21550,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateBufferView.html>
     pub unsafe fn create_buffer_view(
         &self,
@@ -19459,6 +21573,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyBufferView.html>
     pub unsafe fn destroy_buffer_view(
         &self,
@@ -19468,6 +21583,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_buffer_view)(device, buffer_view, allocator.to_raw_ptr()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateShaderModule.html>
     pub unsafe fn create_shader_module(
         &self,
@@ -19490,6 +21606,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyShaderModule.html>
     pub unsafe fn destroy_shader_module(
         &self,
@@ -19499,6 +21616,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_shader_module)(device, shader_module, allocator.to_raw_ptr()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreatePipelineCache.html>
     pub unsafe fn create_pipeline_cache(
         &self,
@@ -19521,6 +21639,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyPipelineCache.html>
     pub unsafe fn destroy_pipeline_cache(
         &self,
@@ -19530,6 +21649,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_pipeline_cache)(device, pipeline_cache, allocator.to_raw_ptr()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineCacheData.html>
     pub unsafe fn get_pipeline_cache_data(
         &self,
@@ -19558,6 +21678,7 @@ impl DeviceFn {
             Ok(result)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkMergePipelineCaches.html>
     pub unsafe fn merge_pipeline_caches(
         &self,
@@ -19579,6 +21700,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateComputePipelines.html>
     pub unsafe fn create_compute_pipelines(
         &self,
@@ -19604,6 +21726,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyPipeline.html>
     pub unsafe fn destroy_pipeline(
         &self,
@@ -19613,6 +21736,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_pipeline)(device, pipeline, allocator.to_raw_ptr()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreatePipelineLayout.html>
     pub unsafe fn create_pipeline_layout(
         &self,
@@ -19635,6 +21759,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyPipelineLayout.html>
     pub unsafe fn destroy_pipeline_layout(
         &self,
@@ -19644,6 +21769,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_pipeline_layout)(device, pipeline_layout, allocator.to_raw_ptr()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSampler.html>
     pub unsafe fn create_sampler(
         &self,
@@ -19666,6 +21792,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroySampler.html>
     pub unsafe fn destroy_sampler(
         &self,
@@ -19675,6 +21802,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_sampler)(device, sampler, allocator.to_raw_ptr()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDescriptorSetLayout.html>
     pub unsafe fn create_descriptor_set_layout(
         &self,
@@ -19697,6 +21825,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDescriptorSetLayout.html>
     pub unsafe fn destroy_descriptor_set_layout(
         &self,
@@ -19712,6 +21841,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDescriptorPool.html>
     pub unsafe fn create_descriptor_pool(
         &self,
@@ -19734,6 +21864,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDescriptorPool.html>
     pub unsafe fn destroy_descriptor_pool(
         &self,
@@ -19743,6 +21874,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_descriptor_pool)(device, descriptor_pool, allocator.to_raw_ptr()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkResetDescriptorPool.html>
     pub unsafe fn reset_descriptor_pool(
         &self,
@@ -19759,6 +21891,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAllocateDescriptorSets.html>
     pub unsafe fn allocate_descriptor_sets(
         &self,
@@ -19779,6 +21912,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkFreeDescriptorSets.html>
     pub unsafe fn free_descriptor_sets(
         &self,
@@ -19800,6 +21934,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUpdateDescriptorSets.html>
     pub unsafe fn update_descriptor_sets(
         &self,
@@ -19817,6 +21952,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindPipeline.html>
     pub unsafe fn cmd_bind_pipeline(
         &self,
@@ -19826,6 +21962,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_bind_pipeline)(command_buffer, pipeline_bind_point, pipeline) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindDescriptorSets.html>
     pub unsafe fn cmd_bind_descriptor_sets(
         &self,
@@ -19849,6 +21986,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdClearColorImage.html>
     pub unsafe fn cmd_clear_color_image(
         &self,
@@ -19869,6 +22007,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDispatch.html>
     pub unsafe fn cmd_dispatch(
         &self,
@@ -19879,6 +22018,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_dispatch)(command_buffer, group_count_x, group_count_y, group_count_z) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDispatchIndirect.html>
     pub unsafe fn cmd_dispatch_indirect(
         &self,
@@ -19888,6 +22028,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_dispatch_indirect)(command_buffer, buffer, offset) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetEvent.html>
     pub unsafe fn cmd_set_event(
         &self,
@@ -19897,6 +22038,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_event)(command_buffer, event, stage_mask) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdResetEvent.html>
     pub unsafe fn cmd_reset_event(
         &self,
@@ -19906,6 +22048,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_reset_event)(command_buffer, event, stage_mask) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWaitEvents.html>
     pub unsafe fn cmd_wait_events(
         &self,
@@ -19933,6 +22076,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushConstants.html>
     pub unsafe fn cmd_push_constants(
         &self,
@@ -19953,6 +22097,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateGraphicsPipelines.html>
     pub unsafe fn create_graphics_pipelines(
         &self,
@@ -19978,6 +22123,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateFramebuffer.html>
     pub unsafe fn create_framebuffer(
         &self,
@@ -20000,6 +22146,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyFramebuffer.html>
     pub unsafe fn destroy_framebuffer(
         &self,
@@ -20009,6 +22156,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_framebuffer)(device, framebuffer, allocator.to_raw_ptr()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateRenderPass.html>
     pub unsafe fn create_render_pass(
         &self,
@@ -20031,6 +22179,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyRenderPass.html>
     pub unsafe fn destroy_render_pass(
         &self,
@@ -20040,6 +22189,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.destroy_render_pass)(device, render_pass, allocator.to_raw_ptr()) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRenderAreaGranularity.html>
     pub unsafe fn get_render_area_granularity(
         &self,
@@ -20052,6 +22202,7 @@ impl DeviceFn {
             granularity.assume_init()
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetViewport.html>
     pub unsafe fn cmd_set_viewport(
         &self,
@@ -20068,6 +22219,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetScissor.html>
     pub unsafe fn cmd_set_scissor(
         &self,
@@ -20084,10 +22236,12 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLineWidth.html>
     pub unsafe fn cmd_set_line_width(&self, command_buffer: CommandBuffer, line_width: f32) {
         unsafe { (self.cmd_set_line_width)(command_buffer, line_width) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthBias.html>
     pub unsafe fn cmd_set_depth_bias(
         &self,
@@ -20105,6 +22259,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetBlendConstants.html>
     pub unsafe fn cmd_set_blend_constants(
         &self,
@@ -20113,6 +22268,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_blend_constants)(command_buffer, blend_constants) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthBounds.html>
     pub unsafe fn cmd_set_depth_bounds(
         &self,
@@ -20122,6 +22278,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_depth_bounds)(command_buffer, min_depth_bounds, max_depth_bounds) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetStencilCompareMask.html>
     pub unsafe fn cmd_set_stencil_compare_mask(
         &self,
@@ -20131,6 +22288,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_stencil_compare_mask)(command_buffer, face_mask, compare_mask) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetStencilWriteMask.html>
     pub unsafe fn cmd_set_stencil_write_mask(
         &self,
@@ -20140,6 +22298,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_stencil_write_mask)(command_buffer, face_mask, write_mask) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetStencilReference.html>
     pub unsafe fn cmd_set_stencil_reference(
         &self,
@@ -20149,6 +22308,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_set_stencil_reference)(command_buffer, face_mask, reference) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindIndexBuffer.html>
     pub unsafe fn cmd_bind_index_buffer(
         &self,
@@ -20159,6 +22319,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_bind_index_buffer)(command_buffer, buffer, offset, index_type) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindVertexBuffers.html>
     pub unsafe fn cmd_bind_vertex_buffers(
         &self,
@@ -20177,6 +22338,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDraw.html>
     pub unsafe fn cmd_draw(
         &self,
@@ -20196,6 +22358,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawIndexed.html>
     pub unsafe fn cmd_draw_indexed(
         &self,
@@ -20217,6 +22380,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawIndirect.html>
     pub unsafe fn cmd_draw_indirect(
         &self,
@@ -20228,6 +22392,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_draw_indirect)(command_buffer, buffer, offset, draw_count, stride) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawIndexedIndirect.html>
     pub unsafe fn cmd_draw_indexed_indirect(
         &self,
@@ -20241,6 +22406,7 @@ impl DeviceFn {
             (self.cmd_draw_indexed_indirect)(command_buffer, buffer, offset, draw_count, stride)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBlitImage.html>
     pub unsafe fn cmd_blit_image(
         &self,
@@ -20265,6 +22431,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdClearDepthStencilImage.html>
     pub unsafe fn cmd_clear_depth_stencil_image(
         &self,
@@ -20285,6 +22452,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdClearAttachments.html>
     pub unsafe fn cmd_clear_attachments(
         &self,
@@ -20302,6 +22470,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdResolveImage.html>
     pub unsafe fn cmd_resolve_image(
         &self,
@@ -20324,6 +22493,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginRenderPass.html>
     pub unsafe fn cmd_begin_render_pass(
         &self,
@@ -20333,6 +22503,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_begin_render_pass)(command_buffer, render_pass_begin, contents) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdNextSubpass.html>
     pub unsafe fn cmd_next_subpass(
         &self,
@@ -20341,6 +22512,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_next_subpass)(command_buffer, contents) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndRenderPass.html>
     pub unsafe fn cmd_end_render_pass(&self, command_buffer: CommandBuffer) {
         unsafe { (self.cmd_end_render_pass)(command_buffer) }

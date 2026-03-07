@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePortabilitySubsetFeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -31,15 +33,18 @@ pub(super) mod defs {
         pub vertex_attribute_access_beyond_stride: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePortabilitySubsetFeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PORTABILITY_SUBSET_FEATURES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDevicePortabilitySubsetFeaturesKHR<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePortabilitySubsetFeaturesKHR<'a> {}
+
     impl Default for PhysicalDevicePortabilitySubsetFeaturesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -64,6 +69,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDevicePortabilitySubsetFeaturesKHR<'a> {
         pub fn constant_alpha_color_blend_factors(
             mut self,
@@ -72,10 +78,12 @@ pub(super) mod defs {
             self.constant_alpha_color_blend_factors = constant_alpha_color_blend_factors.into();
             self
         }
+
         pub fn events(mut self, events: bool) -> Self {
             self.events = events.into();
             self
         }
+
         pub fn image_view_format_reinterpretation(
             mut self,
             image_view_format_reinterpretation: bool,
@@ -83,34 +91,42 @@ pub(super) mod defs {
             self.image_view_format_reinterpretation = image_view_format_reinterpretation.into();
             self
         }
+
         pub fn image_view_format_swizzle(mut self, image_view_format_swizzle: bool) -> Self {
             self.image_view_format_swizzle = image_view_format_swizzle.into();
             self
         }
+
         pub fn image_view2_d_on3_d_image(mut self, image_view2_d_on3_d_image: bool) -> Self {
             self.image_view2_d_on3_d_image = image_view2_d_on3_d_image.into();
             self
         }
+
         pub fn multisample_array_image(mut self, multisample_array_image: bool) -> Self {
             self.multisample_array_image = multisample_array_image.into();
             self
         }
+
         pub fn mutable_comparison_samplers(mut self, mutable_comparison_samplers: bool) -> Self {
             self.mutable_comparison_samplers = mutable_comparison_samplers.into();
             self
         }
+
         pub fn point_polygons(mut self, point_polygons: bool) -> Self {
             self.point_polygons = point_polygons.into();
             self
         }
+
         pub fn sampler_mip_lod_bias(mut self, sampler_mip_lod_bias: bool) -> Self {
             self.sampler_mip_lod_bias = sampler_mip_lod_bias.into();
             self
         }
+
         pub fn separate_stencil_mask_ref(mut self, separate_stencil_mask_ref: bool) -> Self {
             self.separate_stencil_mask_ref = separate_stencil_mask_ref.into();
             self
         }
+
         pub fn shader_sample_rate_interpolation_functions(
             mut self,
             shader_sample_rate_interpolation_functions: bool,
@@ -119,18 +135,22 @@ pub(super) mod defs {
                 shader_sample_rate_interpolation_functions.into();
             self
         }
+
         pub fn tessellation_isolines(mut self, tessellation_isolines: bool) -> Self {
             self.tessellation_isolines = tessellation_isolines.into();
             self
         }
+
         pub fn tessellation_point_mode(mut self, tessellation_point_mode: bool) -> Self {
             self.tessellation_point_mode = tessellation_point_mode.into();
             self
         }
+
         pub fn triangle_fans(mut self, triangle_fans: bool) -> Self {
             self.triangle_fans = triangle_fans.into();
             self
         }
+
         pub fn vertex_attribute_access_beyond_stride(
             mut self,
             vertex_attribute_access_beyond_stride: bool,
@@ -140,6 +160,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePortabilitySubsetPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -149,14 +170,17 @@ pub(super) mod defs {
         pub min_vertex_input_binding_stride_alignment: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePortabilitySubsetPropertiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PORTABILITY_SUBSET_PROPERTIES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDevicePortabilitySubsetPropertiesKHR<'a>
     {
     }
+
     impl Default for PhysicalDevicePortabilitySubsetPropertiesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -167,6 +191,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDevicePortabilitySubsetPropertiesKHR<'a> {
         pub fn min_vertex_input_binding_stride_alignment(
             mut self,

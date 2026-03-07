@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     handle_nondispatchable!(
         DisplayKHR,
         DISPLAY_KHR,
@@ -18,6 +20,7 @@ pub(super) mod defs {
         DISPLAY_MODE_KHR,
         doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayModeKHR.html>"
     );
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -31,6 +34,7 @@ pub(super) mod defs {
         pub persistent_content: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     impl Default for DisplayPropertiesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -45,23 +49,28 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DisplayPropertiesKHR<'a> {
         pub fn display(mut self, display: DisplayKHR) -> Self {
             self.display = display;
             self
         }
+
         pub fn display_name(mut self, display_name: &'a CStr) -> Self {
             self.display_name = display_name.as_ptr();
             self
         }
+
         pub fn physical_dimensions(mut self, physical_dimensions: Extent2D) -> Self {
             self.physical_dimensions = physical_dimensions;
             self
         }
+
         pub fn physical_resolution(mut self, physical_resolution: Extent2D) -> Self {
             self.physical_resolution = physical_resolution;
             self
         }
+
         pub fn supported_transforms(
             mut self,
             supported_transforms: SurfaceTransformFlagsKHR,
@@ -69,15 +78,18 @@ pub(super) mod defs {
             self.supported_transforms = supported_transforms;
             self
         }
+
         pub fn plane_reorder_possible(mut self, plane_reorder_possible: bool) -> Self {
             self.plane_reorder_possible = plane_reorder_possible.into();
             self
         }
+
         pub fn persistent_content(mut self, persistent_content: bool) -> Self {
             self.persistent_content = persistent_content.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPlanePropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -85,16 +97,19 @@ pub(super) mod defs {
         pub current_display: DisplayKHR,
         pub current_stack_index: u32,
     }
+
     impl DisplayPlanePropertiesKHR {
         pub fn current_display(mut self, current_display: DisplayKHR) -> Self {
             self.current_display = current_display;
             self
         }
+
         pub fn current_stack_index(mut self, current_stack_index: u32) -> Self {
             self.current_stack_index = current_stack_index;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayModeParametersKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -102,16 +117,19 @@ pub(super) mod defs {
         pub visible_region: Extent2D,
         pub refresh_rate: u32,
     }
+
     impl DisplayModeParametersKHR {
         pub fn visible_region(mut self, visible_region: Extent2D) -> Self {
             self.visible_region = visible_region;
             self
         }
+
         pub fn refresh_rate(mut self, refresh_rate: u32) -> Self {
             self.refresh_rate = refresh_rate;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayModePropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -119,16 +137,19 @@ pub(super) mod defs {
         pub display_mode: DisplayModeKHR,
         pub parameters: DisplayModeParametersKHR,
     }
+
     impl DisplayModePropertiesKHR {
         pub fn display_mode(mut self, display_mode: DisplayModeKHR) -> Self {
             self.display_mode = display_mode;
             self
         }
+
         pub fn parameters(mut self, parameters: DisplayModeParametersKHR) -> Self {
             self.parameters = parameters;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayModeCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -139,9 +160,11 @@ pub(super) mod defs {
         pub parameters: DisplayModeParametersKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DisplayModeCreateInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DISPLAY_MODE_CREATE_INFO_KHR;
     }
+
     impl Default for DisplayModeCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -153,16 +176,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DisplayModeCreateInfoKHR<'a> {
         pub fn flags(mut self, flags: DisplayModeCreateFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn parameters(mut self, parameters: DisplayModeParametersKHR) -> Self {
             self.parameters = parameters;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPlaneCapabilitiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -177,44 +203,54 @@ pub(super) mod defs {
         pub min_dst_extent: Extent2D,
         pub max_dst_extent: Extent2D,
     }
+
     impl DisplayPlaneCapabilitiesKHR {
         pub fn supported_alpha(mut self, supported_alpha: DisplayPlaneAlphaFlagsKHR) -> Self {
             self.supported_alpha = supported_alpha;
             self
         }
+
         pub fn min_src_position(mut self, min_src_position: Offset2D) -> Self {
             self.min_src_position = min_src_position;
             self
         }
+
         pub fn max_src_position(mut self, max_src_position: Offset2D) -> Self {
             self.max_src_position = max_src_position;
             self
         }
+
         pub fn min_src_extent(mut self, min_src_extent: Extent2D) -> Self {
             self.min_src_extent = min_src_extent;
             self
         }
+
         pub fn max_src_extent(mut self, max_src_extent: Extent2D) -> Self {
             self.max_src_extent = max_src_extent;
             self
         }
+
         pub fn min_dst_position(mut self, min_dst_position: Offset2D) -> Self {
             self.min_dst_position = min_dst_position;
             self
         }
+
         pub fn max_dst_position(mut self, max_dst_position: Offset2D) -> Self {
             self.max_dst_position = max_dst_position;
             self
         }
+
         pub fn min_dst_extent(mut self, min_dst_extent: Extent2D) -> Self {
             self.min_dst_extent = min_dst_extent;
             self
         }
+
         pub fn max_dst_extent(mut self, max_dst_extent: Extent2D) -> Self {
             self.max_dst_extent = max_dst_extent;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplaySurfaceCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -231,9 +267,11 @@ pub(super) mod defs {
         pub image_extent: Extent2D,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DisplaySurfaceCreateInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DISPLAY_SURFACE_CREATE_INFO_KHR;
     }
+
     impl Default for DisplaySurfaceCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -251,45 +289,55 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DisplaySurfaceCreateInfoKHR<'a> {
         pub fn flags(mut self, flags: DisplaySurfaceCreateFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn display_mode(mut self, display_mode: DisplayModeKHR) -> Self {
             self.display_mode = display_mode;
             self
         }
+
         pub fn plane_index(mut self, plane_index: u32) -> Self {
             self.plane_index = plane_index;
             self
         }
+
         pub fn plane_stack_index(mut self, plane_stack_index: u32) -> Self {
             self.plane_stack_index = plane_stack_index;
             self
         }
+
         pub fn transform(mut self, transform: SurfaceTransformFlagBitsKHR) -> Self {
             self.transform = transform;
             self
         }
+
         pub fn global_alpha(mut self, global_alpha: f32) -> Self {
             self.global_alpha = global_alpha;
             self
         }
+
         pub fn alpha_mode(mut self, alpha_mode: DisplayPlaneAlphaFlagBitsKHR) -> Self {
             self.alpha_mode = alpha_mode;
             self
         }
+
         pub fn image_extent(mut self, image_extent: Extent2D) -> Self {
             self.image_extent = image_extent;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPlaneAlphaFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DisplayPlaneAlphaFlagsKHR(Flags);
     vk_bitflags_wrapped!(DisplayPlaneAlphaFlagsKHR, Flags);
+
     impl DisplayPlaneAlphaFlagsKHR {
         pub const OPAQUE_KHR: Self = Self(DisplayPlaneAlphaFlagBitsKHR::OPAQUE_KHR.0);
         pub const GLOBAL_KHR: Self = Self(DisplayPlaneAlphaFlagBitsKHR::GLOBAL_KHR.0);
@@ -297,6 +345,7 @@ pub(super) mod defs {
         pub const PER_PIXEL_PREMULTIPLIED_KHR: Self =
             Self(DisplayPlaneAlphaFlagBitsKHR::PER_PIXEL_PREMULTIPLIED_KHR.0);
     }
+
     impl fmt::Debug for DisplayPlaneAlphaFlagsKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -311,21 +360,25 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPlaneAlphaFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct DisplayPlaneAlphaFlagBitsKHR(u32);
+
     impl DisplayPlaneAlphaFlagBitsKHR {
         pub const OPAQUE_KHR: Self = Self(1 << 0);
         pub const GLOBAL_KHR: Self = Self(1 << 1);
         pub const PER_PIXEL_KHR: Self = Self(1 << 2);
         pub const PER_PIXEL_PREMULTIPLIED_KHR: Self = Self(1 << 3);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceTransformFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SurfaceTransformFlagsKHR(Flags);
     vk_bitflags_wrapped!(SurfaceTransformFlagsKHR, Flags);
+
     impl SurfaceTransformFlagsKHR {
         pub const IDENTITY_KHR: Self = Self(SurfaceTransformFlagBitsKHR::IDENTITY_KHR.0);
         pub const ROTATE_90_KHR: Self = Self(SurfaceTransformFlagBitsKHR::ROTATE_90_KHR.0);
@@ -341,6 +394,7 @@ pub(super) mod defs {
             Self(SurfaceTransformFlagBitsKHR::HORIZONTAL_MIRROR_ROTATE_270_KHR.0);
         pub const INHERIT_KHR: Self = Self(SurfaceTransformFlagBitsKHR::INHERIT_KHR.0);
     }
+
     impl fmt::Debug for SurfaceTransformFlagsKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -369,10 +423,12 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceTransformFlagBitsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct SurfaceTransformFlagBitsKHR(u32);
+
     impl SurfaceTransformFlagBitsKHR {
         pub const IDENTITY_KHR: Self = Self(1 << 0);
         pub const ROTATE_90_KHR: Self = Self(1 << 1);
@@ -384,26 +440,31 @@ pub(super) mod defs {
         pub const HORIZONTAL_MIRROR_ROTATE_270_KHR: Self = Self(1 << 7);
         pub const INHERIT_KHR: Self = Self(1 << 8);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayModeCreateFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DisplayModeCreateFlagsKHR(Flags);
     vk_bitflags_wrapped!(DisplayModeCreateFlagsKHR, Flags);
+
     impl fmt::Debug for DisplayModeCreateFlagsKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplaySurfaceCreateFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DisplaySurfaceCreateFlagsKHR(Flags);
     vk_bitflags_wrapped!(DisplaySurfaceCreateFlagsKHR, Flags);
+
     impl fmt::Debug for DisplaySurfaceCreateFlagsKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDisplayPropertiesKHR.html>
     pub type PFN_vkGetPhysicalDeviceDisplayPropertiesKHR = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
@@ -456,6 +517,7 @@ pub(super) mod defs {
         p_surface: *mut SurfaceKHR,
     ) -> vk::Result;
 }
+
 pub struct InstanceFn {
     get_physical_device_display_properties_khr: PFN_vkGetPhysicalDeviceDisplayPropertiesKHR,
     get_physical_device_display_plane_properties_khr:
@@ -466,6 +528,7 @@ pub struct InstanceFn {
     get_display_plane_capabilities_khr: PFN_vkGetDisplayPlaneCapabilitiesKHR,
     create_display_plane_surface_khr: PFN_vkCreateDisplayPlaneSurfaceKHR,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -499,6 +562,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDisplayPropertiesKHR.html>
     pub unsafe fn get_physical_device_display_properties_khr<'a>(
@@ -530,6 +594,7 @@ impl InstanceFn {
             Ok(result)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDisplayPlanePropertiesKHR.html>
     pub unsafe fn get_physical_device_display_plane_properties_khr(
         &self,
@@ -560,6 +625,7 @@ impl InstanceFn {
             Ok(result)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDisplayPlaneSupportedDisplaysKHR.html>
     pub unsafe fn get_display_plane_supported_displays_khr(
         &self,
@@ -592,6 +658,7 @@ impl InstanceFn {
             Ok(result)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDisplayModePropertiesKHR.html>
     pub unsafe fn get_display_mode_properties_khr(
         &self,
@@ -624,6 +691,7 @@ impl InstanceFn {
             Ok(result)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDisplayModeKHR.html>
     pub unsafe fn create_display_mode_khr(
         &self,
@@ -648,6 +716,7 @@ impl InstanceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDisplayPlaneCapabilitiesKHR.html>
     pub unsafe fn get_display_plane_capabilities_khr(
         &self,
@@ -670,6 +739,7 @@ impl InstanceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDisplayPlaneSurfaceKHR.html>
     pub unsafe fn create_display_plane_surface_khr(
         &self,

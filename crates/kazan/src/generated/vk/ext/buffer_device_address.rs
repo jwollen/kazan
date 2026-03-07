@@ -2,18 +2,21 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceBufferAddressFeaturesEXT.html>
     pub type PhysicalDeviceBufferAddressFeaturesEXT<'a> =
         PhysicalDeviceBufferDeviceAddressFeaturesEXT<'a>;
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferDeviceAddressInfoEXT.html>
     pub type BufferDeviceAddressInfoEXT<'a> = BufferDeviceAddressInfo<'a>;
     pub type PFN_vkGetBufferDeviceAddressEXT = PFN_vkGetBufferDeviceAddress;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceBufferDeviceAddressFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -25,15 +28,18 @@ pub(super) mod defs {
         pub buffer_device_address_multi_device: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceBufferDeviceAddressFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceBufferDeviceAddressFeaturesEXT<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceBufferDeviceAddressFeaturesEXT<'a> {}
+
     impl Default for PhysicalDeviceBufferDeviceAddressFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -46,11 +52,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceBufferDeviceAddressFeaturesEXT<'a> {
         pub fn buffer_device_address(mut self, buffer_device_address: bool) -> Self {
             self.buffer_device_address = buffer_device_address.into();
             self
         }
+
         pub fn buffer_device_address_capture_replay(
             mut self,
             buffer_device_address_capture_replay: bool,
@@ -58,6 +66,7 @@ pub(super) mod defs {
             self.buffer_device_address_capture_replay = buffer_device_address_capture_replay.into();
             self
         }
+
         pub fn buffer_device_address_multi_device(
             mut self,
             buffer_device_address_multi_device: bool,
@@ -66,6 +75,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferDeviceAddressCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -75,10 +85,13 @@ pub(super) mod defs {
         pub device_address: DeviceAddress,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for BufferDeviceAddressCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::BUFFER_DEVICE_ADDRESS_CREATE_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<BufferCreateInfo<'a>> for BufferDeviceAddressCreateInfoEXT<'a> {}
+
     impl Default for BufferDeviceAddressCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -89,6 +102,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> BufferDeviceAddressCreateInfoEXT<'a> {
         pub fn device_address(mut self, device_address: DeviceAddress) -> Self {
             self.device_address = device_address;
@@ -96,9 +110,11 @@ pub(super) mod defs {
         }
     }
 }
+
 pub struct DeviceFn {
     get_buffer_device_address_ext: PFN_vkGetBufferDeviceAddress,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -112,6 +128,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferDeviceAddressEXT.html>
     pub unsafe fn get_buffer_device_address_ext(

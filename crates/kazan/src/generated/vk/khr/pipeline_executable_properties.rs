@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,10 +19,12 @@ pub(super) mod defs {
         pub pipeline_executable_info: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePipelineExecutablePropertiesFeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PIPELINE_EXECUTABLE_PROPERTIES_FEATURES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDevicePipelineExecutablePropertiesFeaturesKHR<'a>
     {
@@ -29,6 +33,7 @@ pub(super) mod defs {
         for PhysicalDevicePipelineExecutablePropertiesFeaturesKHR<'a>
     {
     }
+
     impl Default for PhysicalDevicePipelineExecutablePropertiesFeaturesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -39,12 +44,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDevicePipelineExecutablePropertiesFeaturesKHR<'a> {
         pub fn pipeline_executable_info(mut self, pipeline_executable_info: bool) -> Self {
             self.pipeline_executable_info = pipeline_executable_info.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -54,9 +61,11 @@ pub(super) mod defs {
         pub pipeline: Pipeline,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_INFO_KHR;
     }
+
     impl Default for PipelineInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -67,12 +76,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineInfoKHR<'a> {
         pub fn pipeline(mut self, pipeline: Pipeline) -> Self {
             self.pipeline = pipeline;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineExecutablePropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -85,9 +96,11 @@ pub(super) mod defs {
         pub subgroup_size: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineExecutablePropertiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_EXECUTABLE_PROPERTIES_KHR;
     }
+
     impl Default for PipelineExecutablePropertiesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -101,16 +114,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineExecutablePropertiesKHR<'a> {
         pub fn stages(mut self, stages: ShaderStageFlags) -> Self {
             self.stages = stages;
             self
         }
+
         pub fn subgroup_size(mut self, subgroup_size: u32) -> Self {
             self.subgroup_size = subgroup_size;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineExecutableInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -121,9 +137,11 @@ pub(super) mod defs {
         pub executable_index: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineExecutableInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_EXECUTABLE_INFO_KHR;
     }
+
     impl Default for PipelineExecutableInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -135,16 +153,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineExecutableInfoKHR<'a> {
         pub fn pipeline(mut self, pipeline: Pipeline) -> Self {
             self.pipeline = pipeline;
             self
         }
+
         pub fn executable_index(mut self, executable_index: u32) -> Self {
             self.executable_index = executable_index;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineExecutableStatisticKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -157,9 +178,11 @@ pub(super) mod defs {
         pub value: PipelineExecutableStatisticValueKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineExecutableStatisticKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_EXECUTABLE_STATISTIC_KHR;
     }
+
     impl Default for PipelineExecutableStatisticKHR<'_> {
         fn default() -> Self {
             Self {
@@ -173,16 +196,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineExecutableStatisticKHR<'a> {
         pub fn format(mut self, format: PipelineExecutableStatisticFormatKHR) -> Self {
             self.format = format;
             self
         }
+
         pub fn value(mut self, value: PipelineExecutableStatisticValueKHR) -> Self {
             self.value = value;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineExecutableInternalRepresentationKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -196,10 +222,12 @@ pub(super) mod defs {
         pub p_data: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineExecutableInternalRepresentationKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_EXECUTABLE_INTERNAL_REPRESENTATION_KHR;
     }
+
     impl Default for PipelineExecutableInternalRepresentationKHR<'_> {
         fn default() -> Self {
             Self {
@@ -214,17 +242,20 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineExecutableInternalRepresentationKHR<'a> {
         pub fn is_text(mut self, is_text: bool) -> Self {
             self.is_text = is_text.into();
             self
         }
+
         pub fn data(mut self, data: &'a mut [u8]) -> Self {
             self.data_size = data.len().try_into().unwrap();
             self.p_data = data.as_mut_ptr() as _;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineExecutableStatisticValueKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -239,16 +270,19 @@ pub(super) mod defs {
             unsafe { core::mem::zeroed() }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineExecutableStatisticFormatKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct PipelineExecutableStatisticFormatKHR(i32);
+
     impl PipelineExecutableStatisticFormatKHR {
         pub const BOOL32_KHR: Self = Self(0);
         pub const INT64_KHR: Self = Self(1);
         pub const UINT64_KHR: Self = Self(2);
         pub const FLOAT64_KHR: Self = Self(3);
     }
+
     impl fmt::Debug for PipelineExecutableStatisticFormatKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -265,6 +299,7 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineExecutablePropertiesKHR.html>
     pub type PFN_vkGetPipelineExecutablePropertiesKHR = unsafe extern "system" fn(
         device: Device,
@@ -290,12 +325,14 @@ pub(super) mod defs {
             p_internal_representations: *mut PipelineExecutableInternalRepresentationKHR<'_>,
         ) -> vk::Result;
 }
+
 pub struct DeviceFn {
     get_pipeline_executable_properties_khr: PFN_vkGetPipelineExecutablePropertiesKHR,
     get_pipeline_executable_statistics_khr: PFN_vkGetPipelineExecutableStatisticsKHR,
     get_pipeline_executable_internal_representations_khr:
         PFN_vkGetPipelineExecutableInternalRepresentationsKHR,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -316,6 +353,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineExecutablePropertiesKHR.html>
     pub unsafe fn get_pipeline_executable_properties_khr<'a>(
@@ -349,6 +387,7 @@ impl DeviceFn {
             Ok(result)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineExecutableStatisticsKHR.html>
     pub unsafe fn get_pipeline_executable_statistics_khr<'a>(
         &self,
@@ -381,6 +420,7 @@ impl DeviceFn {
             Ok(result)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineExecutableInternalRepresentationsKHR.html>
     pub unsafe fn get_pipeline_executable_internal_representations_khr<'a>(
         &self,

@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalFormatResolveFeaturesANDROID.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,10 +19,12 @@ pub(super) mod defs {
         pub external_format_resolve: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExternalFormatResolveFeaturesANDROID<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_FEATURES_ANDROID;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceExternalFormatResolveFeaturesANDROID<'a>
     {
@@ -29,6 +33,7 @@ pub(super) mod defs {
         for PhysicalDeviceExternalFormatResolveFeaturesANDROID<'a>
     {
     }
+
     impl Default for PhysicalDeviceExternalFormatResolveFeaturesANDROID<'_> {
         fn default() -> Self {
             Self {
@@ -39,12 +44,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceExternalFormatResolveFeaturesANDROID<'a> {
         pub fn external_format_resolve(mut self, external_format_resolve: bool) -> Self {
             self.external_format_resolve = external_format_resolve.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalFormatResolvePropertiesANDROID.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -56,14 +63,17 @@ pub(super) mod defs {
         pub external_format_resolve_chroma_offset_y: ChromaLocation,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExternalFormatResolvePropertiesANDROID<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_PROPERTIES_ANDROID;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceExternalFormatResolvePropertiesANDROID<'a>
     {
     }
+
     impl Default for PhysicalDeviceExternalFormatResolvePropertiesANDROID<'_> {
         fn default() -> Self {
             Self {
@@ -76,6 +86,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceExternalFormatResolvePropertiesANDROID<'a> {
         pub fn null_color_attachment_with_external_format_resolve(
             mut self,
@@ -85,6 +96,7 @@ pub(super) mod defs {
                 null_color_attachment_with_external_format_resolve.into();
             self
         }
+
         pub fn external_format_resolve_chroma_offset_x(
             mut self,
             external_format_resolve_chroma_offset_x: ChromaLocation,
@@ -92,6 +104,7 @@ pub(super) mod defs {
             self.external_format_resolve_chroma_offset_x = external_format_resolve_chroma_offset_x;
             self
         }
+
         pub fn external_format_resolve_chroma_offset_y(
             mut self,
             external_format_resolve_chroma_offset_y: ChromaLocation,
@@ -100,6 +113,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAndroidHardwareBufferFormatResolvePropertiesANDROID.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -109,14 +123,17 @@ pub(super) mod defs {
         pub color_attachment_format: Format,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for AndroidHardwareBufferFormatResolvePropertiesANDROID<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::ANDROID_HARDWARE_BUFFER_FORMAT_RESOLVE_PROPERTIES_ANDROID;
     }
+
     unsafe impl<'a> Extends<AndroidHardwareBufferPropertiesANDROID<'a>>
         for AndroidHardwareBufferFormatResolvePropertiesANDROID<'a>
     {
     }
+
     impl Default for AndroidHardwareBufferFormatResolvePropertiesANDROID<'_> {
         fn default() -> Self {
             Self {
@@ -127,6 +144,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> AndroidHardwareBufferFormatResolvePropertiesANDROID<'a> {
         pub fn color_attachment_format(mut self, color_attachment_format: Format) -> Self {
             self.color_attachment_format = color_attachment_format;

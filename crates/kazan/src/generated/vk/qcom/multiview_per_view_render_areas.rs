@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,10 +19,12 @@ pub(super) mod defs {
         pub multiview_per_view_render_areas: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_RENDER_AREAS_FEATURES_QCOM;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM<'a>
     {
@@ -29,6 +33,7 @@ pub(super) mod defs {
         for PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM<'a>
     {
     }
+
     impl Default for PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM<'_> {
         fn default() -> Self {
             Self {
@@ -39,6 +44,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM<'a> {
         pub fn multiview_per_view_render_areas(
             mut self,
@@ -48,6 +54,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -58,10 +65,12 @@ pub(super) mod defs {
         pub p_per_view_render_areas: *const Rect2D,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::MULTIVIEW_PER_VIEW_RENDER_AREAS_RENDER_PASS_BEGIN_INFO_QCOM;
     }
+
     unsafe impl<'a> Extends<RenderPassBeginInfo<'a>>
         for MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM<'a>
     {
@@ -70,6 +79,7 @@ pub(super) mod defs {
         for MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM<'a>
     {
     }
+
     impl Default for MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM<'_> {
         fn default() -> Self {
             Self {
@@ -81,6 +91,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM<'a> {
         pub fn per_view_render_areas(mut self, per_view_render_areas: &'a [Rect2D]) -> Self {
             self.per_view_render_area_count = per_view_render_areas.len().try_into().unwrap();

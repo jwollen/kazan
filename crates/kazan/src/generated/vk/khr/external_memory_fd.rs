@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportMemoryFdInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,10 +20,13 @@ pub(super) mod defs {
         pub fd: c_int,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportMemoryFdInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_MEMORY_FD_INFO_KHR;
     }
+
     unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ImportMemoryFdInfoKHR<'a> {}
+
     impl Default for ImportMemoryFdInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -33,16 +38,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ImportMemoryFdInfoKHR<'a> {
         pub fn handle_type(mut self, handle_type: ExternalMemoryHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
         }
+
         pub fn fd(mut self, fd: c_int) -> Self {
             self.fd = fd;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryFdPropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -52,9 +60,11 @@ pub(super) mod defs {
         pub memory_type_bits: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for MemoryFdPropertiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_FD_PROPERTIES_KHR;
     }
+
     impl Default for MemoryFdPropertiesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -65,12 +75,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> MemoryFdPropertiesKHR<'a> {
         pub fn memory_type_bits(mut self, memory_type_bits: u32) -> Self {
             self.memory_type_bits = memory_type_bits;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryGetFdInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -81,9 +93,11 @@ pub(super) mod defs {
         pub handle_type: ExternalMemoryHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for MemoryGetFdInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_GET_FD_INFO_KHR;
     }
+
     impl Default for MemoryGetFdInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -95,16 +109,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> MemoryGetFdInfoKHR<'a> {
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
         }
+
         pub fn handle_type(mut self, handle_type: ExternalMemoryHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryFdKHR.html>
     pub type PFN_vkGetMemoryFdKHR = unsafe extern "system" fn(
         device: Device,
@@ -119,10 +136,12 @@ pub(super) mod defs {
         p_memory_fd_properties: *mut MemoryFdPropertiesKHR<'_>,
     ) -> vk::Result;
 }
+
 pub struct DeviceFn {
     get_memory_fd_khr: PFN_vkGetMemoryFdKHR,
     get_memory_fd_properties_khr: PFN_vkGetMemoryFdPropertiesKHR,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -139,6 +158,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryFdKHR.html>
     pub unsafe fn get_memory_fd_khr(
@@ -156,6 +176,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryFdPropertiesKHR.html>
     pub unsafe fn get_memory_fd_properties_khr(
         &self,

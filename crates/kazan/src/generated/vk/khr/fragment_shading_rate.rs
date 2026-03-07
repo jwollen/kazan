@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFragmentShadingRateAttachmentInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,11 +20,14 @@ pub(super) mod defs {
         pub shading_rate_attachment_texel_size: Extent2D,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for FragmentShadingRateAttachmentInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR;
     }
+
     unsafe impl<'a> Extends<SubpassDescription2<'a>> for FragmentShadingRateAttachmentInfoKHR<'a> {}
+
     impl Default for FragmentShadingRateAttachmentInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -34,6 +39,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> FragmentShadingRateAttachmentInfoKHR<'a> {
         pub fn fragment_shading_rate_attachment(
             mut self,
@@ -42,6 +48,7 @@ pub(super) mod defs {
             self.p_fragment_shading_rate_attachment = fragment_shading_rate_attachment;
             self
         }
+
         pub fn shading_rate_attachment_texel_size(
             mut self,
             shading_rate_attachment_texel_size: Extent2D,
@@ -50,6 +57,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineFragmentShadingRateStateCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -60,14 +68,17 @@ pub(super) mod defs {
         pub combiner_ops: [FragmentShadingRateCombinerOpKHR; 2],
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineFragmentShadingRateStateCreateInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_FRAGMENT_SHADING_RATE_STATE_CREATE_INFO_KHR;
     }
+
     unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>>
         for PipelineFragmentShadingRateStateCreateInfoKHR<'a>
     {
     }
+
     impl Default for PipelineFragmentShadingRateStateCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -79,16 +90,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineFragmentShadingRateStateCreateInfoKHR<'a> {
         pub fn fragment_size(mut self, fragment_size: Extent2D) -> Self {
             self.fragment_size = fragment_size;
             self
         }
+
         pub fn combiner_ops(mut self, combiner_ops: [FragmentShadingRateCombinerOpKHR; 2]) -> Self {
             self.combiner_ops = combiner_ops;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentShadingRateFeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -100,15 +114,18 @@ pub(super) mod defs {
         pub attachment_fragment_shading_rate: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentShadingRateFeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_FEATURES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceFragmentShadingRateFeaturesKHR<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceFragmentShadingRateFeaturesKHR<'a> {}
+
     impl Default for PhysicalDeviceFragmentShadingRateFeaturesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -121,6 +138,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceFragmentShadingRateFeaturesKHR<'a> {
         pub fn pipeline_fragment_shading_rate(
             mut self,
@@ -129,6 +147,7 @@ pub(super) mod defs {
             self.pipeline_fragment_shading_rate = pipeline_fragment_shading_rate.into();
             self
         }
+
         pub fn primitive_fragment_shading_rate(
             mut self,
             primitive_fragment_shading_rate: bool,
@@ -136,6 +155,7 @@ pub(super) mod defs {
             self.primitive_fragment_shading_rate = primitive_fragment_shading_rate.into();
             self
         }
+
         pub fn attachment_fragment_shading_rate(
             mut self,
             attachment_fragment_shading_rate: bool,
@@ -144,6 +164,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentShadingRatePropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -169,14 +190,17 @@ pub(super) mod defs {
         pub fragment_shading_rate_strict_multiply_combiner: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentShadingRatePropertiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_PROPERTIES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceFragmentShadingRatePropertiesKHR<'a>
     {
     }
+
     impl Default for PhysicalDeviceFragmentShadingRatePropertiesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -203,6 +227,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceFragmentShadingRatePropertiesKHR<'a> {
         pub fn min_fragment_shading_rate_attachment_texel_size(
             mut self,
@@ -212,6 +237,7 @@ pub(super) mod defs {
                 min_fragment_shading_rate_attachment_texel_size;
             self
         }
+
         pub fn max_fragment_shading_rate_attachment_texel_size(
             mut self,
             max_fragment_shading_rate_attachment_texel_size: Extent2D,
@@ -220,6 +246,7 @@ pub(super) mod defs {
                 max_fragment_shading_rate_attachment_texel_size;
             self
         }
+
         pub fn max_fragment_shading_rate_attachment_texel_size_aspect_ratio(
             mut self,
             max_fragment_shading_rate_attachment_texel_size_aspect_ratio: u32,
@@ -228,6 +255,7 @@ pub(super) mod defs {
                 max_fragment_shading_rate_attachment_texel_size_aspect_ratio;
             self
         }
+
         pub fn primitive_fragment_shading_rate_with_multiple_viewports(
             mut self,
             primitive_fragment_shading_rate_with_multiple_viewports: bool,
@@ -236,6 +264,7 @@ pub(super) mod defs {
                 primitive_fragment_shading_rate_with_multiple_viewports.into();
             self
         }
+
         pub fn layered_shading_rate_attachments(
             mut self,
             layered_shading_rate_attachments: bool,
@@ -243,6 +272,7 @@ pub(super) mod defs {
             self.layered_shading_rate_attachments = layered_shading_rate_attachments.into();
             self
         }
+
         pub fn fragment_shading_rate_non_trivial_combiner_ops(
             mut self,
             fragment_shading_rate_non_trivial_combiner_ops: bool,
@@ -251,10 +281,12 @@ pub(super) mod defs {
                 fragment_shading_rate_non_trivial_combiner_ops.into();
             self
         }
+
         pub fn max_fragment_size(mut self, max_fragment_size: Extent2D) -> Self {
             self.max_fragment_size = max_fragment_size;
             self
         }
+
         pub fn max_fragment_size_aspect_ratio(
             mut self,
             max_fragment_size_aspect_ratio: u32,
@@ -262,6 +294,7 @@ pub(super) mod defs {
             self.max_fragment_size_aspect_ratio = max_fragment_size_aspect_ratio;
             self
         }
+
         pub fn max_fragment_shading_rate_coverage_samples(
             mut self,
             max_fragment_shading_rate_coverage_samples: u32,
@@ -270,6 +303,7 @@ pub(super) mod defs {
                 max_fragment_shading_rate_coverage_samples;
             self
         }
+
         pub fn max_fragment_shading_rate_rasterization_samples(
             mut self,
             max_fragment_shading_rate_rasterization_samples: SampleCountFlagBits,
@@ -278,6 +312,7 @@ pub(super) mod defs {
                 max_fragment_shading_rate_rasterization_samples;
             self
         }
+
         pub fn fragment_shading_rate_with_shader_depth_stencil_writes(
             mut self,
             fragment_shading_rate_with_shader_depth_stencil_writes: bool,
@@ -286,6 +321,7 @@ pub(super) mod defs {
                 fragment_shading_rate_with_shader_depth_stencil_writes.into();
             self
         }
+
         pub fn fragment_shading_rate_with_sample_mask(
             mut self,
             fragment_shading_rate_with_sample_mask: bool,
@@ -294,6 +330,7 @@ pub(super) mod defs {
                 fragment_shading_rate_with_sample_mask.into();
             self
         }
+
         pub fn fragment_shading_rate_with_shader_sample_mask(
             mut self,
             fragment_shading_rate_with_shader_sample_mask: bool,
@@ -302,6 +339,7 @@ pub(super) mod defs {
                 fragment_shading_rate_with_shader_sample_mask.into();
             self
         }
+
         pub fn fragment_shading_rate_with_conservative_rasterization(
             mut self,
             fragment_shading_rate_with_conservative_rasterization: bool,
@@ -310,6 +348,7 @@ pub(super) mod defs {
                 fragment_shading_rate_with_conservative_rasterization.into();
             self
         }
+
         pub fn fragment_shading_rate_with_fragment_shader_interlock(
             mut self,
             fragment_shading_rate_with_fragment_shader_interlock: bool,
@@ -318,6 +357,7 @@ pub(super) mod defs {
                 fragment_shading_rate_with_fragment_shader_interlock.into();
             self
         }
+
         pub fn fragment_shading_rate_with_custom_sample_locations(
             mut self,
             fragment_shading_rate_with_custom_sample_locations: bool,
@@ -326,6 +366,7 @@ pub(super) mod defs {
                 fragment_shading_rate_with_custom_sample_locations.into();
             self
         }
+
         pub fn fragment_shading_rate_strict_multiply_combiner(
             mut self,
             fragment_shading_rate_strict_multiply_combiner: bool,
@@ -335,6 +376,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentShadingRateKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -345,10 +387,12 @@ pub(super) mod defs {
         pub fragment_size: Extent2D,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentShadingRateKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR;
     }
+
     impl Default for PhysicalDeviceFragmentShadingRateKHR<'_> {
         fn default() -> Self {
             Self {
@@ -360,16 +404,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceFragmentShadingRateKHR<'a> {
         pub fn sample_counts(mut self, sample_counts: SampleCountFlags) -> Self {
             self.sample_counts = sample_counts;
             self
         }
+
         pub fn fragment_size(mut self, fragment_size: Extent2D) -> Self {
             self.fragment_size = fragment_size;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderingFragmentShadingRateAttachmentInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -381,11 +428,14 @@ pub(super) mod defs {
         pub shading_rate_attachment_texel_size: Extent2D,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for RenderingFragmentShadingRateAttachmentInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR;
     }
+
     unsafe impl<'a> Extends<RenderingInfo<'a>> for RenderingFragmentShadingRateAttachmentInfoKHR<'a> {}
+
     impl Default for RenderingFragmentShadingRateAttachmentInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -398,15 +448,18 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> RenderingFragmentShadingRateAttachmentInfoKHR<'a> {
         pub fn image_view(mut self, image_view: ImageView) -> Self {
             self.image_view = image_view;
             self
         }
+
         pub fn image_layout(mut self, image_layout: ImageLayout) -> Self {
             self.image_layout = image_layout;
             self
         }
+
         pub fn shading_rate_attachment_texel_size(
             mut self,
             shading_rate_attachment_texel_size: Extent2D,
@@ -415,10 +468,12 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFragmentShadingRateCombinerOpKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct FragmentShadingRateCombinerOpKHR(i32);
+
     impl FragmentShadingRateCombinerOpKHR {
         pub const KEEP_KHR: Self = Self(0);
         pub const REPLACE_KHR: Self = Self(1);
@@ -426,6 +481,7 @@ pub(super) mod defs {
         pub const MAX_KHR: Self = Self(3);
         pub const MUL_KHR: Self = Self(4);
     }
+
     impl fmt::Debug for FragmentShadingRateCombinerOpKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -443,6 +499,7 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetFragmentShadingRateKHR.html>
     pub type PFN_vkCmdSetFragmentShadingRateKHR = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
@@ -457,9 +514,11 @@ pub(super) mod defs {
             p_fragment_shading_rates: *mut PhysicalDeviceFragmentShadingRateKHR<'_>,
         ) -> vk::Result;
 }
+
 pub struct InstanceFn {
     get_physical_device_fragment_shading_rates_khr: PFN_vkGetPhysicalDeviceFragmentShadingRatesKHR,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -474,6 +533,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFragmentShadingRatesKHR.html>
     pub unsafe fn get_physical_device_fragment_shading_rates_khr<'a>(
@@ -506,9 +566,11 @@ impl InstanceFn {
         }
     }
 }
+
 pub struct DeviceFn {
     cmd_set_fragment_shading_rate_khr: PFN_vkCmdSetFragmentShadingRateKHR,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -522,6 +584,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetFragmentShadingRateKHR.html>
     pub unsafe fn cmd_set_fragment_shading_rate_khr(

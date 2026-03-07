@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceInheritedViewportScissorFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,10 +19,12 @@ pub(super) mod defs {
         pub inherited_viewport_scissor2_d: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceInheritedViewportScissorFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_INHERITED_VIEWPORT_SCISSOR_FEATURES_NV;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceInheritedViewportScissorFeaturesNV<'a>
     {
@@ -29,6 +33,7 @@ pub(super) mod defs {
         for PhysicalDeviceInheritedViewportScissorFeaturesNV<'a>
     {
     }
+
     impl Default for PhysicalDeviceInheritedViewportScissorFeaturesNV<'_> {
         fn default() -> Self {
             Self {
@@ -39,6 +44,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceInheritedViewportScissorFeaturesNV<'a> {
         pub fn inherited_viewport_scissor2_d(
             mut self,
@@ -48,6 +54,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferInheritanceViewportScissorInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -59,14 +66,17 @@ pub(super) mod defs {
         pub p_viewport_depths: *const Viewport,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for CommandBufferInheritanceViewportScissorInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::COMMAND_BUFFER_INHERITANCE_VIEWPORT_SCISSOR_INFO_NV;
     }
+
     unsafe impl<'a> Extends<CommandBufferInheritanceInfo<'a>>
         for CommandBufferInheritanceViewportScissorInfoNV<'a>
     {
     }
+
     impl Default for CommandBufferInheritanceViewportScissorInfoNV<'_> {
         fn default() -> Self {
             Self {
@@ -79,15 +89,18 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> CommandBufferInheritanceViewportScissorInfoNV<'a> {
         pub fn viewport_scissor2_d(mut self, viewport_scissor2_d: bool) -> Self {
             self.viewport_scissor2_d = viewport_scissor2_d.into();
             self
         }
+
         pub fn viewport_depth_count(mut self, viewport_depth_count: u32) -> Self {
             self.viewport_depth_count = viewport_depth_count;
             self
         }
+
         pub fn viewport_depths(mut self, viewport_depths: &'a Viewport) -> Self {
             self.p_viewport_depths = viewport_depths;
             self

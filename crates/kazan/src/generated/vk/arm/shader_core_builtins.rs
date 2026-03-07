@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderCoreBuiltinsPropertiesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -19,14 +21,17 @@ pub(super) mod defs {
         pub shader_warps_per_core: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderCoreBuiltinsPropertiesARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_PROPERTIES_ARM;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceShaderCoreBuiltinsPropertiesARM<'a>
     {
     }
+
     impl Default for PhysicalDeviceShaderCoreBuiltinsPropertiesARM<'_> {
         fn default() -> Self {
             Self {
@@ -39,20 +44,24 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceShaderCoreBuiltinsPropertiesARM<'a> {
         pub fn shader_core_mask(mut self, shader_core_mask: u64) -> Self {
             self.shader_core_mask = shader_core_mask;
             self
         }
+
         pub fn shader_core_count(mut self, shader_core_count: u32) -> Self {
             self.shader_core_count = shader_core_count;
             self
         }
+
         pub fn shader_warps_per_core(mut self, shader_warps_per_core: u32) -> Self {
             self.shader_warps_per_core = shader_warps_per_core;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderCoreBuiltinsFeaturesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -62,15 +71,18 @@ pub(super) mod defs {
         pub shader_core_builtins: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderCoreBuiltinsFeaturesARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_FEATURES_ARM;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceShaderCoreBuiltinsFeaturesARM<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceShaderCoreBuiltinsFeaturesARM<'a> {}
+
     impl Default for PhysicalDeviceShaderCoreBuiltinsFeaturesARM<'_> {
         fn default() -> Self {
             Self {
@@ -81,6 +93,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceShaderCoreBuiltinsFeaturesARM<'a> {
         pub fn shader_core_builtins(mut self, shader_core_builtins: bool) -> Self {
             self.shader_core_builtins = shader_core_builtins.into();

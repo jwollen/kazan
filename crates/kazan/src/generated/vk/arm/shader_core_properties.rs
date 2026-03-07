@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderCorePropertiesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -19,14 +21,17 @@ pub(super) mod defs {
         pub fma_rate: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderCorePropertiesARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_ARM;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceShaderCorePropertiesARM<'a>
     {
     }
+
     impl Default for PhysicalDeviceShaderCorePropertiesARM<'_> {
         fn default() -> Self {
             Self {
@@ -39,15 +44,18 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceShaderCorePropertiesARM<'a> {
         pub fn pixel_rate(mut self, pixel_rate: u32) -> Self {
             self.pixel_rate = pixel_rate;
             self
         }
+
         pub fn texel_rate(mut self, texel_rate: u32) -> Self {
             self.texel_rate = texel_rate;
             self
         }
+
         pub fn fma_rate(mut self, fma_rate: u32) -> Self {
             self.fma_rate = fma_rate;
             self

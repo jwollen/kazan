@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDrmFormatModifierPropertiesListEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,11 +20,14 @@ pub(super) mod defs {
         pub p_drm_format_modifier_properties: *mut DrmFormatModifierPropertiesEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DrmFormatModifierPropertiesListEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DRM_FORMAT_MODIFIER_PROPERTIES_LIST_EXT;
     }
+
     unsafe impl<'a> Extends<FormatProperties2<'a>> for DrmFormatModifierPropertiesListEXT<'a> {}
+
     impl Default for DrmFormatModifierPropertiesListEXT<'_> {
         fn default() -> Self {
             Self {
@@ -34,6 +39,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DrmFormatModifierPropertiesListEXT<'a> {
         pub fn drm_format_modifier_properties(
             mut self,
@@ -45,6 +51,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDrmFormatModifierPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -53,11 +60,13 @@ pub(super) mod defs {
         pub drm_format_modifier_plane_count: u32,
         pub drm_format_modifier_tiling_features: FormatFeatureFlags,
     }
+
     impl DrmFormatModifierPropertiesEXT {
         pub fn drm_format_modifier(mut self, drm_format_modifier: u64) -> Self {
             self.drm_format_modifier = drm_format_modifier;
             self
         }
+
         pub fn drm_format_modifier_plane_count(
             mut self,
             drm_format_modifier_plane_count: u32,
@@ -65,6 +74,7 @@ pub(super) mod defs {
             self.drm_format_modifier_plane_count = drm_format_modifier_plane_count;
             self
         }
+
         pub fn drm_format_modifier_tiling_features(
             mut self,
             drm_format_modifier_tiling_features: FormatFeatureFlags,
@@ -73,6 +83,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceImageDrmFormatModifierInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -85,14 +96,17 @@ pub(super) mod defs {
         pub p_queue_family_indices: *const u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceImageDrmFormatModifierInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_IMAGE_DRM_FORMAT_MODIFIER_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceImageFormatInfo2<'a>>
         for PhysicalDeviceImageDrmFormatModifierInfoEXT<'a>
     {
     }
+
     impl Default for PhysicalDeviceImageDrmFormatModifierInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -106,21 +120,25 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceImageDrmFormatModifierInfoEXT<'a> {
         pub fn drm_format_modifier(mut self, drm_format_modifier: u64) -> Self {
             self.drm_format_modifier = drm_format_modifier;
             self
         }
+
         pub fn sharing_mode(mut self, sharing_mode: SharingMode) -> Self {
             self.sharing_mode = sharing_mode;
             self
         }
+
         pub fn queue_family_indices(mut self, queue_family_indices: &'a [u32]) -> Self {
             self.queue_family_index_count = queue_family_indices.len().try_into().unwrap();
             self.p_queue_family_indices = queue_family_indices.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageDrmFormatModifierListCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -131,11 +149,14 @@ pub(super) mod defs {
         pub p_drm_format_modifiers: *const u64,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ImageDrmFormatModifierListCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::IMAGE_DRM_FORMAT_MODIFIER_LIST_CREATE_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ImageDrmFormatModifierListCreateInfoEXT<'a> {}
+
     impl Default for ImageDrmFormatModifierListCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -147,6 +168,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ImageDrmFormatModifierListCreateInfoEXT<'a> {
         pub fn drm_format_modifiers(mut self, drm_format_modifiers: &'a [u64]) -> Self {
             self.drm_format_modifier_count = drm_format_modifiers.len().try_into().unwrap();
@@ -154,6 +176,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageDrmFormatModifierExplicitCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -165,11 +188,14 @@ pub(super) mod defs {
         pub p_plane_layouts: *const SubresourceLayout,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ImageDrmFormatModifierExplicitCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::IMAGE_DRM_FORMAT_MODIFIER_EXPLICIT_CREATE_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ImageDrmFormatModifierExplicitCreateInfoEXT<'a> {}
+
     impl Default for ImageDrmFormatModifierExplicitCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -182,17 +208,20 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ImageDrmFormatModifierExplicitCreateInfoEXT<'a> {
         pub fn drm_format_modifier(mut self, drm_format_modifier: u64) -> Self {
             self.drm_format_modifier = drm_format_modifier;
             self
         }
+
         pub fn plane_layouts(mut self, plane_layouts: &'a [SubresourceLayout]) -> Self {
             self.drm_format_modifier_plane_count = plane_layouts.len().try_into().unwrap();
             self.p_plane_layouts = plane_layouts.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageDrmFormatModifierPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -202,10 +231,12 @@ pub(super) mod defs {
         pub drm_format_modifier: u64,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ImageDrmFormatModifierPropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::IMAGE_DRM_FORMAT_MODIFIER_PROPERTIES_EXT;
     }
+
     impl Default for ImageDrmFormatModifierPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -216,12 +247,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ImageDrmFormatModifierPropertiesEXT<'a> {
         pub fn drm_format_modifier(mut self, drm_format_modifier: u64) -> Self {
             self.drm_format_modifier = drm_format_modifier;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDrmFormatModifierPropertiesList2EXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -232,11 +265,14 @@ pub(super) mod defs {
         pub p_drm_format_modifier_properties: *mut DrmFormatModifierProperties2EXT,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DrmFormatModifierPropertiesList2EXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DRM_FORMAT_MODIFIER_PROPERTIES_LIST_2_EXT;
     }
+
     unsafe impl<'a> Extends<FormatProperties2<'a>> for DrmFormatModifierPropertiesList2EXT<'a> {}
+
     impl Default for DrmFormatModifierPropertiesList2EXT<'_> {
         fn default() -> Self {
             Self {
@@ -248,6 +284,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DrmFormatModifierPropertiesList2EXT<'a> {
         pub fn drm_format_modifier_properties(
             mut self,
@@ -259,6 +296,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDrmFormatModifierProperties2EXT.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -267,11 +305,13 @@ pub(super) mod defs {
         pub drm_format_modifier_plane_count: u32,
         pub drm_format_modifier_tiling_features: FormatFeatureFlags2,
     }
+
     impl DrmFormatModifierProperties2EXT {
         pub fn drm_format_modifier(mut self, drm_format_modifier: u64) -> Self {
             self.drm_format_modifier = drm_format_modifier;
             self
         }
+
         pub fn drm_format_modifier_plane_count(
             mut self,
             drm_format_modifier_plane_count: u32,
@@ -279,6 +319,7 @@ pub(super) mod defs {
             self.drm_format_modifier_plane_count = drm_format_modifier_plane_count;
             self
         }
+
         pub fn drm_format_modifier_tiling_features(
             mut self,
             drm_format_modifier_tiling_features: FormatFeatureFlags2,
@@ -287,6 +328,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageDrmFormatModifierPropertiesEXT.html>
     pub type PFN_vkGetImageDrmFormatModifierPropertiesEXT = unsafe extern "system" fn(
         device: Device,
@@ -295,9 +337,11 @@ pub(super) mod defs {
     )
         -> vk::Result;
 }
+
 pub struct DeviceFn {
     get_image_drm_format_modifier_properties_ext: PFN_vkGetImageDrmFormatModifierPropertiesEXT,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -312,6 +356,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageDrmFormatModifierPropertiesEXT.html>
     pub unsafe fn get_image_drm_format_modifier_properties_ext(

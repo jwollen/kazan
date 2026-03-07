@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkWin32SurfaceCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -19,9 +21,11 @@ pub(super) mod defs {
         pub hwnd: HWND,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for Win32SurfaceCreateInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::WIN32_SURFACE_CREATE_INFO_KHR;
     }
+
     impl Default for Win32SurfaceCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -34,30 +38,36 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> Win32SurfaceCreateInfoKHR<'a> {
         pub fn flags(mut self, flags: Win32SurfaceCreateFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn hinstance(mut self, hinstance: HINSTANCE) -> Self {
             self.hinstance = hinstance;
             self
         }
+
         pub fn hwnd(mut self, hwnd: HWND) -> Self {
             self.hwnd = hwnd;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkWin32SurfaceCreateFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct Win32SurfaceCreateFlagsKHR(Flags);
     vk_bitflags_wrapped!(Win32SurfaceCreateFlagsKHR, Flags);
+
     impl fmt::Debug for Win32SurfaceCreateFlagsKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateWin32SurfaceKHR.html>
     pub type PFN_vkCreateWin32SurfaceKHR = unsafe extern "system" fn(
         instance: Instance,
@@ -72,11 +82,13 @@ pub(super) mod defs {
             queue_family_index: u32,
         ) -> Bool32;
 }
+
 pub struct InstanceFn {
     create_win32_surface_khr: PFN_vkCreateWin32SurfaceKHR,
     get_physical_device_win32_presentation_support_khr:
         PFN_vkGetPhysicalDeviceWin32PresentationSupportKHR,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -94,6 +106,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateWin32SurfaceKHR.html>
     pub unsafe fn create_win32_surface_khr(
@@ -117,6 +130,7 @@ impl InstanceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceWin32PresentationSupportKHR.html>
     pub unsafe fn get_physical_device_win32_presentation_support_khr(
         &self,

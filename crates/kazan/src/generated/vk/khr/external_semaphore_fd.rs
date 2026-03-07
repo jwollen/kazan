@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportSemaphoreFdInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -20,9 +22,11 @@ pub(super) mod defs {
         pub fd: c_int,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportSemaphoreFdInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_SEMAPHORE_FD_INFO_KHR;
     }
+
     impl Default for ImportSemaphoreFdInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -36,24 +40,29 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ImportSemaphoreFdInfoKHR<'a> {
         pub fn semaphore(mut self, semaphore: Semaphore) -> Self {
             self.semaphore = semaphore;
             self
         }
+
         pub fn flags(mut self, flags: SemaphoreImportFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn handle_type(mut self, handle_type: ExternalSemaphoreHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
         }
+
         pub fn fd(mut self, fd: c_int) -> Self {
             self.fd = fd;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSemaphoreGetFdInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -64,9 +73,11 @@ pub(super) mod defs {
         pub handle_type: ExternalSemaphoreHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for SemaphoreGetFdInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SEMAPHORE_GET_FD_INFO_KHR;
     }
+
     impl Default for SemaphoreGetFdInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -78,16 +89,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SemaphoreGetFdInfoKHR<'a> {
         pub fn semaphore(mut self, semaphore: Semaphore) -> Self {
             self.semaphore = semaphore;
             self
         }
+
         pub fn handle_type(mut self, handle_type: ExternalSemaphoreHandleTypeFlagBits) -> Self {
             self.handle_type = handle_type;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSemaphoreFdKHR.html>
     pub type PFN_vkGetSemaphoreFdKHR = unsafe extern "system" fn(
         device: Device,
@@ -100,10 +114,12 @@ pub(super) mod defs {
         p_import_semaphore_fd_info: *const ImportSemaphoreFdInfoKHR<'_>,
     ) -> vk::Result;
 }
+
 pub struct DeviceFn {
     import_semaphore_fd_khr: PFN_vkImportSemaphoreFdKHR,
     get_semaphore_fd_khr: PFN_vkGetSemaphoreFdKHR,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -120,6 +136,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportSemaphoreFdKHR.html>
     pub unsafe fn import_semaphore_fd_khr(
@@ -136,6 +153,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSemaphoreFdKHR.html>
     pub unsafe fn get_semaphore_fd_khr(
         &self,

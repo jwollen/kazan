@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTileMemoryBindInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,10 +19,13 @@ pub(super) mod defs {
         pub memory: DeviceMemory,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for TileMemoryBindInfoQCOM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::TILE_MEMORY_BIND_INFO_QCOM;
     }
+
     unsafe impl<'a> Extends<CommandBufferInheritanceInfo<'a>> for TileMemoryBindInfoQCOM<'a> {}
+
     impl Default for TileMemoryBindInfoQCOM<'_> {
         fn default() -> Self {
             Self {
@@ -31,12 +36,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> TileMemoryBindInfoQCOM<'a> {
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTileMemoryHeapFeaturesQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -46,15 +53,18 @@ pub(super) mod defs {
         pub tile_memory_heap: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceTileMemoryHeapFeaturesQCOM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_TILE_MEMORY_HEAP_FEATURES_QCOM;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceTileMemoryHeapFeaturesQCOM<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceTileMemoryHeapFeaturesQCOM<'a> {}
+
     impl Default for PhysicalDeviceTileMemoryHeapFeaturesQCOM<'_> {
         fn default() -> Self {
             Self {
@@ -65,12 +75,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceTileMemoryHeapFeaturesQCOM<'a> {
         pub fn tile_memory_heap(mut self, tile_memory_heap: bool) -> Self {
             self.tile_memory_heap = tile_memory_heap.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTileMemoryHeapPropertiesQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -81,14 +93,17 @@ pub(super) mod defs {
         pub tile_buffer_transfers: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceTileMemoryHeapPropertiesQCOM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_TILE_MEMORY_HEAP_PROPERTIES_QCOM;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceTileMemoryHeapPropertiesQCOM<'a>
     {
     }
+
     impl Default for PhysicalDeviceTileMemoryHeapPropertiesQCOM<'_> {
         fn default() -> Self {
             Self {
@@ -100,16 +115,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceTileMemoryHeapPropertiesQCOM<'a> {
         pub fn queue_submit_boundary(mut self, queue_submit_boundary: bool) -> Self {
             self.queue_submit_boundary = queue_submit_boundary.into();
             self
         }
+
         pub fn tile_buffer_transfers(mut self, tile_buffer_transfers: bool) -> Self {
             self.tile_buffer_transfers = tile_buffer_transfers.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTileMemorySizeInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -119,12 +137,15 @@ pub(super) mod defs {
         pub size: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for TileMemorySizeInfoQCOM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::TILE_MEMORY_SIZE_INFO_QCOM;
     }
+
     unsafe impl<'a> Extends<RenderPassCreateInfo<'a>> for TileMemorySizeInfoQCOM<'a> {}
     unsafe impl<'a> Extends<RenderPassCreateInfo2<'a>> for TileMemorySizeInfoQCOM<'a> {}
     unsafe impl<'a> Extends<RenderingInfo<'a>> for TileMemorySizeInfoQCOM<'a> {}
+
     impl Default for TileMemorySizeInfoQCOM<'_> {
         fn default() -> Self {
             Self {
@@ -135,12 +156,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> TileMemorySizeInfoQCOM<'a> {
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTileMemoryRequirementsQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -151,10 +174,13 @@ pub(super) mod defs {
         pub alignment: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for TileMemoryRequirementsQCOM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::TILE_MEMORY_REQUIREMENTS_QCOM;
     }
+
     unsafe impl<'a> Extends<MemoryRequirements2<'a>> for TileMemoryRequirementsQCOM<'a> {}
+
     impl Default for TileMemoryRequirementsQCOM<'_> {
         fn default() -> Self {
             Self {
@@ -166,25 +192,30 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> TileMemoryRequirementsQCOM<'a> {
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
         }
+
         pub fn alignment(mut self, alignment: DeviceSize) -> Self {
             self.alignment = alignment;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindTileMemoryQCOM.html>
     pub type PFN_vkCmdBindTileMemoryQCOM = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
         p_tile_memory_bind_info: *const TileMemoryBindInfoQCOM<'_>,
     );
 }
+
 pub struct DeviceFn {
     cmd_bind_tile_memory_qcom: PFN_vkCmdBindTileMemoryQCOM,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -198,6 +229,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindTileMemoryQCOM.html>
     pub unsafe fn cmd_bind_tile_memory_qcom(

@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDeviceMemoryReportFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,15 +19,18 @@ pub(super) mod defs {
         pub device_memory_report: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDeviceMemoryReportFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_DEVICE_MEMORY_REPORT_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceDeviceMemoryReportFeaturesEXT<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceDeviceMemoryReportFeaturesEXT<'a> {}
+
     impl Default for PhysicalDeviceDeviceMemoryReportFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -36,12 +41,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceDeviceMemoryReportFeaturesEXT<'a> {
         pub fn device_memory_report(mut self, device_memory_report: bool) -> Self {
             self.device_memory_report = device_memory_report.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceDeviceMemoryReportCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -53,11 +60,14 @@ pub(super) mod defs {
         pub p_user_data: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DeviceDeviceMemoryReportCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DEVICE_DEVICE_MEMORY_REPORT_CREATE_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for DeviceDeviceMemoryReportCreateInfoEXT<'a> {}
+
     impl Default for DeviceDeviceMemoryReportCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -70,11 +80,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DeviceDeviceMemoryReportCreateInfoEXT<'a> {
         pub fn flags(mut self, flags: DeviceMemoryReportFlagsEXT) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn pfn_user_callback(
             mut self,
             pfn_user_callback: PFN_vkDeviceMemoryReportCallbackEXT,
@@ -82,11 +94,13 @@ pub(super) mod defs {
             self.pfn_user_callback = Some(pfn_user_callback);
             self
         }
+
         pub fn user_data(mut self, user_data: *mut c_void) -> Self {
             self.p_user_data = user_data;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceMemoryReportCallbackDataEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -102,9 +116,11 @@ pub(super) mod defs {
         pub heap_index: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DeviceMemoryReportCallbackDataEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_MEMORY_REPORT_CALLBACK_DATA_EXT;
     }
+
     impl Default for DeviceMemoryReportCallbackDataEXT<'_> {
         fn default() -> Self {
             Self {
@@ -121,40 +137,49 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DeviceMemoryReportCallbackDataEXT<'a> {
         pub fn flags(mut self, flags: DeviceMemoryReportFlagsEXT) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn ty(mut self, ty: DeviceMemoryReportEventTypeEXT) -> Self {
             self.ty = ty;
             self
         }
+
         pub fn memory_object_id(mut self, memory_object_id: u64) -> Self {
             self.memory_object_id = memory_object_id;
             self
         }
+
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
         }
+
         pub fn object_type(mut self, object_type: ObjectType) -> Self {
             self.object_type = object_type;
             self
         }
+
         pub fn object_handle(mut self, object_handle: u64) -> Self {
             self.object_handle = object_handle;
             self
         }
+
         pub fn heap_index(mut self, heap_index: u32) -> Self {
             self.heap_index = heap_index;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceMemoryReportEventTypeEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DeviceMemoryReportEventTypeEXT(i32);
+
     impl DeviceMemoryReportEventTypeEXT {
         pub const ALLOCATE_EXT: Self = Self(0);
         pub const FREE_EXT: Self = Self(1);
@@ -162,6 +187,7 @@ pub(super) mod defs {
         pub const UNIMPORT_EXT: Self = Self(3);
         pub const ALLOCATION_FAILED_EXT: Self = Self(4);
     }
+
     impl fmt::Debug for DeviceMemoryReportEventTypeEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -179,16 +205,19 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceMemoryReportFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DeviceMemoryReportFlagsEXT(Flags);
     vk_bitflags_wrapped!(DeviceMemoryReportFlagsEXT, Flags);
+
     impl fmt::Debug for DeviceMemoryReportFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/PFN_vkDeviceMemoryReportCallbackEXT.html>
     pub type PFN_vkDeviceMemoryReportCallbackEXT = unsafe extern "system" fn(
         p_callback_data: *const DeviceMemoryReportCallbackDataEXT<'_>,

@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalImageFormatPropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -17,6 +19,7 @@ pub(super) mod defs {
         pub export_from_imported_handle_types: ExternalMemoryHandleTypeFlagsNV,
         pub compatible_handle_types: ExternalMemoryHandleTypeFlagsNV,
     }
+
     impl ExternalImageFormatPropertiesNV {
         pub fn image_format_properties(
             mut self,
@@ -25,6 +28,7 @@ pub(super) mod defs {
             self.image_format_properties = image_format_properties;
             self
         }
+
         pub fn external_memory_features(
             mut self,
             external_memory_features: ExternalMemoryFeatureFlagsNV,
@@ -32,6 +36,7 @@ pub(super) mod defs {
             self.external_memory_features = external_memory_features;
             self
         }
+
         pub fn export_from_imported_handle_types(
             mut self,
             export_from_imported_handle_types: ExternalMemoryHandleTypeFlagsNV,
@@ -39,6 +44,7 @@ pub(super) mod defs {
             self.export_from_imported_handle_types = export_from_imported_handle_types;
             self
         }
+
         pub fn compatible_handle_types(
             mut self,
             compatible_handle_types: ExternalMemoryHandleTypeFlagsNV,
@@ -47,11 +53,13 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalMemoryHandleTypeFlagsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ExternalMemoryHandleTypeFlagsNV(Flags);
     vk_bitflags_wrapped!(ExternalMemoryHandleTypeFlagsNV, Flags);
+
     impl ExternalMemoryHandleTypeFlagsNV {
         pub const OPAQUE_WIN32_NV: Self =
             Self(ExternalMemoryHandleTypeFlagBitsNV::OPAQUE_WIN32_NV.0);
@@ -61,6 +69,7 @@ pub(super) mod defs {
         pub const D3D11_IMAGE_KMT_NV: Self =
             Self(ExternalMemoryHandleTypeFlagBitsNV::D3D11_IMAGE_KMT_NV.0);
     }
+
     impl fmt::Debug for ExternalMemoryHandleTypeFlagsNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -84,27 +93,32 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalMemoryHandleTypeFlagBitsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ExternalMemoryHandleTypeFlagBitsNV(u32);
+
     impl ExternalMemoryHandleTypeFlagBitsNV {
         pub const OPAQUE_WIN32_NV: Self = Self(1 << 0);
         pub const OPAQUE_WIN32_KMT_NV: Self = Self(1 << 1);
         pub const D3D11_IMAGE_NV: Self = Self(1 << 2);
         pub const D3D11_IMAGE_KMT_NV: Self = Self(1 << 3);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalMemoryFeatureFlagsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ExternalMemoryFeatureFlagsNV(Flags);
     vk_bitflags_wrapped!(ExternalMemoryFeatureFlagsNV, Flags);
+
     impl ExternalMemoryFeatureFlagsNV {
         pub const DEDICATED_ONLY_NV: Self =
             Self(ExternalMemoryFeatureFlagBitsNV::DEDICATED_ONLY_NV.0);
         pub const EXPORTABLE_NV: Self = Self(ExternalMemoryFeatureFlagBitsNV::EXPORTABLE_NV.0);
         pub const IMPORTABLE_NV: Self = Self(ExternalMemoryFeatureFlagBitsNV::IMPORTABLE_NV.0);
     }
+
     impl fmt::Debug for ExternalMemoryFeatureFlagsNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -124,15 +138,18 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalMemoryFeatureFlagBitsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ExternalMemoryFeatureFlagBitsNV(u32);
+
     impl ExternalMemoryFeatureFlagBitsNV {
         pub const DEDICATED_ONLY_NV: Self = Self(1 << 0);
         pub const EXPORTABLE_NV: Self = Self(1 << 1);
         pub const IMPORTABLE_NV: Self = Self(1 << 2);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceExternalImageFormatPropertiesNV.html>
     pub type PFN_vkGetPhysicalDeviceExternalImageFormatPropertiesNV =
         unsafe extern "system" fn(
@@ -146,10 +163,12 @@ pub(super) mod defs {
             p_external_image_format_properties: *mut ExternalImageFormatPropertiesNV,
         ) -> vk::Result;
 }
+
 pub struct InstanceFn {
     get_physical_device_external_image_format_properties_nv:
         PFN_vkGetPhysicalDeviceExternalImageFormatPropertiesNV,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -164,6 +183,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceExternalImageFormatPropertiesNV.html>
     pub unsafe fn get_physical_device_external_image_format_properties_nv(

@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkXcbSurfaceCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -19,9 +21,11 @@ pub(super) mod defs {
         pub window: xcb_window_t,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for XcbSurfaceCreateInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::XCB_SURFACE_CREATE_INFO_KHR;
     }
+
     impl Default for XcbSurfaceCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -34,30 +38,36 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> XcbSurfaceCreateInfoKHR<'a> {
         pub fn flags(mut self, flags: XcbSurfaceCreateFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn connection(mut self, connection: *mut xcb_connection_t) -> Self {
             self.connection = connection;
             self
         }
+
         pub fn window(mut self, window: xcb_window_t) -> Self {
             self.window = window;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkXcbSurfaceCreateFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct XcbSurfaceCreateFlagsKHR(Flags);
     vk_bitflags_wrapped!(XcbSurfaceCreateFlagsKHR, Flags);
+
     impl fmt::Debug for XcbSurfaceCreateFlagsKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateXcbSurfaceKHR.html>
     pub type PFN_vkCreateXcbSurfaceKHR = unsafe extern "system" fn(
         instance: Instance,
@@ -74,11 +84,13 @@ pub(super) mod defs {
     )
         -> Bool32;
 }
+
 pub struct InstanceFn {
     create_xcb_surface_khr: PFN_vkCreateXcbSurfaceKHR,
     get_physical_device_xcb_presentation_support_khr:
         PFN_vkGetPhysicalDeviceXcbPresentationSupportKHR,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -96,6 +108,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateXcbSurfaceKHR.html>
     pub unsafe fn create_xcb_surface_khr(
@@ -119,6 +132,7 @@ impl InstanceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceXcbPresentationSupportKHR.html>
     pub unsafe fn get_physical_device_xcb_presentation_support_khr(
         &self,

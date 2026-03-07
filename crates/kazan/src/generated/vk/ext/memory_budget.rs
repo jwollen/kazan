@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMemoryBudgetPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,14 +20,17 @@ pub(super) mod defs {
         pub heap_usage: [DeviceSize; MAX_MEMORY_HEAPS as usize],
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMemoryBudgetPropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_MEMORY_BUDGET_PROPERTIES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceMemoryProperties2<'a>>
         for PhysicalDeviceMemoryBudgetPropertiesEXT<'a>
     {
     }
+
     impl Default for PhysicalDeviceMemoryBudgetPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -37,11 +42,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceMemoryBudgetPropertiesEXT<'a> {
         pub fn heap_budget(mut self, heap_budget: [DeviceSize; MAX_MEMORY_HEAPS as usize]) -> Self {
             self.heap_budget = heap_budget;
             self
         }
+
         pub fn heap_usage(mut self, heap_usage: [DeviceSize; MAX_MEMORY_HEAPS as usize]) -> Self {
             self.heap_usage = heap_usage;
             self

@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFeatures2KHR.html>
     pub type PhysicalDeviceFeatures2KHR<'a> = PhysicalDeviceFeatures2<'a>;
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceProperties2KHR.html>
@@ -37,6 +39,7 @@ pub(super) mod defs {
     pub type PFN_vkGetPhysicalDeviceSparseImageFormatProperties2KHR =
         PFN_vkGetPhysicalDeviceSparseImageFormatProperties2;
 }
+
 pub struct InstanceFn {
     get_physical_device_features2_khr: PFN_vkGetPhysicalDeviceFeatures2,
     get_physical_device_properties2_khr: PFN_vkGetPhysicalDeviceProperties2,
@@ -47,6 +50,7 @@ pub struct InstanceFn {
     get_physical_device_sparse_image_format_properties2_khr:
         PFN_vkGetPhysicalDeviceSparseImageFormatProperties2,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -83,6 +87,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFeatures2KHR.html>
     pub unsafe fn get_physical_device_features2_khr(
@@ -92,6 +97,7 @@ impl InstanceFn {
     ) {
         unsafe { (self.get_physical_device_features2_khr)(physical_device, features) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceProperties2KHR.html>
     pub unsafe fn get_physical_device_properties2_khr(
         &self,
@@ -100,6 +106,7 @@ impl InstanceFn {
     ) {
         unsafe { (self.get_physical_device_properties2_khr)(physical_device, properties) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFormatProperties2KHR.html>
     pub unsafe fn get_physical_device_format_properties2_khr(
         &self,
@@ -115,6 +122,7 @@ impl InstanceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceImageFormatProperties2KHR.html>
     pub unsafe fn get_physical_device_image_format_properties2_khr(
         &self,
@@ -135,6 +143,7 @@ impl InstanceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceQueueFamilyProperties2KHR.html>
     pub unsafe fn get_physical_device_queue_family_properties2_khr<'a>(
         &self,
@@ -158,6 +167,7 @@ impl InstanceFn {
             queue_family_properties.set_len(len.try_into().unwrap());
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceMemoryProperties2KHR.html>
     pub unsafe fn get_physical_device_memory_properties2_khr(
         &self,
@@ -168,6 +178,7 @@ impl InstanceFn {
             (self.get_physical_device_memory_properties2_khr)(physical_device, memory_properties)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSparseImageFormatProperties2KHR.html>
     pub unsafe fn get_physical_device_sparse_image_format_properties2_khr<'a>(
         &self,

@@ -2,15 +2,18 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderingEndInfoEXT.html>
     pub type RenderingEndInfoEXT<'a> = RenderingEndInfoKHR<'a>;
     pub type PFN_vkCmdEndRendering2EXT = PFN_vkCmdEndRendering2KHR;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -20,10 +23,12 @@ pub(super) mod defs {
         pub fragment_density_map_offset: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT<'a>
     {
@@ -32,6 +37,7 @@ pub(super) mod defs {
         for PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT<'a>
     {
     }
+
     impl Default for PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -42,12 +48,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT<'a> {
         pub fn fragment_density_map_offset(mut self, fragment_density_map_offset: bool) -> Self {
             self.fragment_density_map_offset = fragment_density_map_offset.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -57,14 +65,17 @@ pub(super) mod defs {
         pub fragment_density_offset_granularity: Extent2D,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentDensityMapOffsetPropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceFragmentDensityMapOffsetPropertiesEXT<'a>
     {
     }
+
     impl Default for PhysicalDeviceFragmentDensityMapOffsetPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -75,6 +86,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceFragmentDensityMapOffsetPropertiesEXT<'a> {
         pub fn fragment_density_offset_granularity(
             mut self,
@@ -84,6 +96,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassFragmentDensityMapOffsetEndInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -94,15 +107,18 @@ pub(super) mod defs {
         pub p_fragment_density_offsets: *const Offset2D,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for RenderPassFragmentDensityMapOffsetEndInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<SubpassEndInfo<'a>> for RenderPassFragmentDensityMapOffsetEndInfoEXT<'a> {}
     unsafe impl<'a> Extends<RenderingEndInfoKHR<'a>>
         for RenderPassFragmentDensityMapOffsetEndInfoEXT<'a>
     {
     }
+
     impl Default for RenderPassFragmentDensityMapOffsetEndInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -114,6 +130,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> RenderPassFragmentDensityMapOffsetEndInfoEXT<'a> {
         pub fn fragment_density_offsets(
             mut self,
@@ -125,9 +142,11 @@ pub(super) mod defs {
         }
     }
 }
+
 pub struct DeviceFn {
     cmd_end_rendering2_ext: PFN_vkCmdEndRendering2KHR,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -141,6 +160,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndRendering2EXT.html>
     pub unsafe fn cmd_end_rendering2_ext(

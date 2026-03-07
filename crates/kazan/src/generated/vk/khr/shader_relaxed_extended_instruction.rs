@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,12 +19,14 @@ pub(super) mod defs {
         pub shader_relaxed_extended_instruction: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a>
         for PhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR<'a>
     {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_RELAXED_EXTENDED_INSTRUCTION_FEATURES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR<'a>
     {
@@ -31,6 +35,7 @@ pub(super) mod defs {
         for PhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR<'a>
     {
     }
+
     impl Default for PhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -41,6 +46,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR<'a> {
         pub fn shader_relaxed_extended_instruction(
             mut self,

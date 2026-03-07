@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWriteBufferMarkerAMD.html>
     pub type PFN_vkCmdWriteBufferMarkerAMD = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
@@ -25,10 +27,12 @@ pub(super) mod defs {
         marker: u32,
     );
 }
+
 pub struct DeviceFn {
     cmd_write_buffer_marker_amd: PFN_vkCmdWriteBufferMarkerAMD,
     cmd_write_buffer_marker2_amd: Option<PFN_vkCmdWriteBufferMarker2AMD>,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -43,6 +47,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWriteBufferMarkerAMD.html>
     pub unsafe fn cmd_write_buffer_marker_amd(
@@ -63,6 +68,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWriteBufferMarker2AMD.html>
     pub unsafe fn cmd_write_buffer_marker2_amd(
         &self,

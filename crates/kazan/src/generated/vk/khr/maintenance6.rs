@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance6FeaturesKHR.html>
     pub type PhysicalDeviceMaintenance6FeaturesKHR<'a> = PhysicalDeviceMaintenance6Features<'a>;
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMaintenance6PropertiesKHR.html>
@@ -26,6 +28,7 @@ pub(super) mod defs {
     pub type PFN_vkCmdPushConstants2KHR = PFN_vkCmdPushConstants2;
     pub type PFN_vkCmdPushDescriptorSet2KHR = PFN_vkCmdPushDescriptorSet2;
     pub type PFN_vkCmdPushDescriptorSetWithTemplate2KHR = PFN_vkCmdPushDescriptorSetWithTemplate2;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSetDescriptorBufferOffsetsInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -40,9 +43,11 @@ pub(super) mod defs {
         pub p_offsets: *const DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for SetDescriptorBufferOffsetsInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SET_DESCRIPTOR_BUFFER_OFFSETS_INFO_EXT;
     }
+
     impl Default for SetDescriptorBufferOffsetsInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -58,30 +63,36 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SetDescriptorBufferOffsetsInfoEXT<'a> {
         pub fn stage_flags(mut self, stage_flags: ShaderStageFlags) -> Self {
             self.stage_flags = stage_flags;
             self
         }
+
         pub fn layout(mut self, layout: PipelineLayout) -> Self {
             self.layout = layout;
             self
         }
+
         pub fn first_set(mut self, first_set: u32) -> Self {
             self.first_set = first_set;
             self
         }
+
         pub fn buffer_indices(mut self, buffer_indices: &'a [u32]) -> Self {
             self.set_count = buffer_indices.len().try_into().unwrap();
             self.p_buffer_indices = buffer_indices.as_ptr();
             self
         }
+
         pub fn offsets(mut self, offsets: &'a [DeviceSize]) -> Self {
             self.set_count = offsets.len().try_into().unwrap();
             self.p_offsets = offsets.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindDescriptorBufferEmbeddedSamplersInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -93,10 +104,12 @@ pub(super) mod defs {
         pub set: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for BindDescriptorBufferEmbeddedSamplersInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::BIND_DESCRIPTOR_BUFFER_EMBEDDED_SAMPLERS_INFO_EXT;
     }
+
     impl Default for BindDescriptorBufferEmbeddedSamplersInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -109,20 +122,24 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> BindDescriptorBufferEmbeddedSamplersInfoEXT<'a> {
         pub fn stage_flags(mut self, stage_flags: ShaderStageFlags) -> Self {
             self.stage_flags = stage_flags;
             self
         }
+
         pub fn layout(mut self, layout: PipelineLayout) -> Self {
             self.layout = layout;
             self
         }
+
         pub fn set(mut self, set: u32) -> Self {
             self.set = set;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDescriptorBufferOffsets2EXT.html>
     pub type PFN_vkCmdSetDescriptorBufferOffsets2EXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
@@ -134,6 +151,7 @@ pub(super) mod defs {
     p_bind_descriptor_buffer_embedded_samplers_info: *const BindDescriptorBufferEmbeddedSamplersInfoEXT<'_>,
 );
 }
+
 pub struct DeviceFn {
     cmd_bind_descriptor_sets2_khr: PFN_vkCmdBindDescriptorSets2,
     cmd_push_constants2_khr: PFN_vkCmdPushConstants2,
@@ -143,6 +161,7 @@ pub struct DeviceFn {
     cmd_bind_descriptor_buffer_embedded_samplers2_ext:
         Option<PFN_vkCmdBindDescriptorBufferEmbeddedSamplers2EXT>,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -169,6 +188,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindDescriptorSets2KHR.html>
     pub unsafe fn cmd_bind_descriptor_sets2_khr(
@@ -178,6 +198,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_bind_descriptor_sets2_khr)(command_buffer, bind_descriptor_sets_info) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushConstants2KHR.html>
     pub unsafe fn cmd_push_constants2_khr(
         &self,
@@ -186,6 +207,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_push_constants2_khr)(command_buffer, push_constants_info) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushDescriptorSet2KHR.html>
     pub unsafe fn cmd_push_descriptor_set2_khr(
         &self,
@@ -196,6 +218,7 @@ impl DeviceFn {
             (self.cmd_push_descriptor_set2_khr.unwrap())(command_buffer, push_descriptor_set_info)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushDescriptorSetWithTemplate2KHR.html>
     pub unsafe fn cmd_push_descriptor_set_with_template2_khr(
         &self,
@@ -209,6 +232,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDescriptorBufferOffsets2EXT.html>
     pub unsafe fn cmd_set_descriptor_buffer_offsets2_ext(
         &self,
@@ -222,6 +246,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindDescriptorBufferEmbeddedSamplers2EXT.html>
     pub unsafe fn cmd_bind_descriptor_buffer_embedded_samplers2_ext(
         &self,

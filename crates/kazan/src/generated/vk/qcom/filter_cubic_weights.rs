@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCubicWeightsFeaturesQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,15 +19,18 @@ pub(super) mod defs {
         pub selectable_cubic_weights: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCubicWeightsFeaturesQCOM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_CUBIC_WEIGHTS_FEATURES_QCOM;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceCubicWeightsFeaturesQCOM<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceCubicWeightsFeaturesQCOM<'a> {}
+
     impl Default for PhysicalDeviceCubicWeightsFeaturesQCOM<'_> {
         fn default() -> Self {
             Self {
@@ -36,12 +41,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceCubicWeightsFeaturesQCOM<'a> {
         pub fn selectable_cubic_weights(mut self, selectable_cubic_weights: bool) -> Self {
             self.selectable_cubic_weights = selectable_cubic_weights.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSamplerCubicWeightsCreateInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -51,10 +58,13 @@ pub(super) mod defs {
         pub cubic_weights: CubicFilterWeightsQCOM,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for SamplerCubicWeightsCreateInfoQCOM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SAMPLER_CUBIC_WEIGHTS_CREATE_INFO_QCOM;
     }
+
     unsafe impl<'a> Extends<SamplerCreateInfo<'a>> for SamplerCubicWeightsCreateInfoQCOM<'a> {}
+
     impl Default for SamplerCubicWeightsCreateInfoQCOM<'_> {
         fn default() -> Self {
             Self {
@@ -65,12 +75,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SamplerCubicWeightsCreateInfoQCOM<'a> {
         pub fn cubic_weights(mut self, cubic_weights: CubicFilterWeightsQCOM) -> Self {
             self.cubic_weights = cubic_weights;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBlitImageCubicWeightsInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -80,10 +92,13 @@ pub(super) mod defs {
         pub cubic_weights: CubicFilterWeightsQCOM,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for BlitImageCubicWeightsInfoQCOM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM;
     }
+
     unsafe impl<'a> Extends<BlitImageInfo2<'a>> for BlitImageCubicWeightsInfoQCOM<'a> {}
+
     impl Default for BlitImageCubicWeightsInfoQCOM<'_> {
         fn default() -> Self {
             Self {
@@ -94,22 +109,26 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> BlitImageCubicWeightsInfoQCOM<'a> {
         pub fn cubic_weights(mut self, cubic_weights: CubicFilterWeightsQCOM) -> Self {
             self.cubic_weights = cubic_weights;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCubicFilterWeightsQCOM.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct CubicFilterWeightsQCOM(i32);
+
     impl CubicFilterWeightsQCOM {
         pub const CATMULL_ROM_QCOM: Self = Self(0);
         pub const ZERO_TANGENT_CARDINAL_QCOM: Self = Self(1);
         pub const B_SPLINE_QCOM: Self = Self(2);
         pub const MITCHELL_NETRAVALI_QCOM: Self = Self(3);
     }
+
     impl fmt::Debug for CubicFilterWeightsQCOM {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {

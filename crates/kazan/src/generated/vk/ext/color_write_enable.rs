@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceColorWriteEnableFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,15 +19,18 @@ pub(super) mod defs {
         pub color_write_enable: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceColorWriteEnableFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_COLOR_WRITE_ENABLE_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceColorWriteEnableFeaturesEXT<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceColorWriteEnableFeaturesEXT<'a> {}
+
     impl Default for PhysicalDeviceColorWriteEnableFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -36,12 +41,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceColorWriteEnableFeaturesEXT<'a> {
         pub fn color_write_enable(mut self, color_write_enable: bool) -> Self {
             self.color_write_enable = color_write_enable.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineColorWriteCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -52,13 +59,16 @@ pub(super) mod defs {
         pub p_color_write_enables: *const Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineColorWriteCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_COLOR_WRITE_CREATE_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<PipelineColorBlendStateCreateInfo<'a>>
         for PipelineColorWriteCreateInfoEXT<'a>
     {
     }
+
     impl Default for PipelineColorWriteCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -70,6 +80,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineColorWriteCreateInfoEXT<'a> {
         pub fn color_write_enables(mut self, color_write_enables: &'a [Bool32]) -> Self {
             self.attachment_count = color_write_enables.len().try_into().unwrap();
@@ -77,6 +88,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetColorWriteEnableEXT.html>
     pub type PFN_vkCmdSetColorWriteEnableEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
@@ -84,9 +96,11 @@ pub(super) mod defs {
         p_color_write_enables: *const Bool32,
     );
 }
+
 pub struct DeviceFn {
     cmd_set_color_write_enable_ext: PFN_vkCmdSetColorWriteEnableEXT,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -100,6 +114,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetColorWriteEnableEXT.html>
     pub unsafe fn cmd_set_color_write_enable_ext(

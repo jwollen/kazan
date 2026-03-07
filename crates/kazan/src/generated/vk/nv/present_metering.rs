@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSetPresentConfigNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,10 +20,13 @@ pub(super) mod defs {
         pub present_config_feedback: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for SetPresentConfigNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SET_PRESENT_CONFIG_NV;
     }
+
     unsafe impl<'a> Extends<PresentInfoKHR<'a>> for SetPresentConfigNV<'a> {}
+
     impl Default for SetPresentConfigNV<'_> {
         fn default() -> Self {
             Self {
@@ -33,16 +38,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SetPresentConfigNV<'a> {
         pub fn num_frames_per_batch(mut self, num_frames_per_batch: u32) -> Self {
             self.num_frames_per_batch = num_frames_per_batch;
             self
         }
+
         pub fn present_config_feedback(mut self, present_config_feedback: u32) -> Self {
             self.present_config_feedback = present_config_feedback;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePresentMeteringFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -52,15 +60,18 @@ pub(super) mod defs {
         pub present_metering: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePresentMeteringFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PRESENT_METERING_FEATURES_NV;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDevicePresentMeteringFeaturesNV<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePresentMeteringFeaturesNV<'a> {}
+
     impl Default for PhysicalDevicePresentMeteringFeaturesNV<'_> {
         fn default() -> Self {
             Self {
@@ -71,6 +82,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDevicePresentMeteringFeaturesNV<'a> {
         pub fn present_metering(mut self, present_metering: bool) -> Self {
             self.present_metering = present_metering.into();

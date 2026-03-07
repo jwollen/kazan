@@ -2,13 +2,16 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     pub const MAX_VIDEO_AV1_REFERENCES_PER_FRAME_KHR: u32 = 7;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeAV1ProfileInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -19,11 +22,14 @@ pub(super) mod defs {
         pub film_grain_support: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeAV1ProfileInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_AV1_PROFILE_INFO_KHR;
     }
+
     unsafe impl<'a> Extends<VideoProfileInfoKHR<'a>> for VideoDecodeAV1ProfileInfoKHR<'a> {}
     unsafe impl<'a> Extends<QueryPoolCreateInfo<'a>> for VideoDecodeAV1ProfileInfoKHR<'a> {}
+
     impl Default for VideoDecodeAV1ProfileInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -35,16 +41,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> VideoDecodeAV1ProfileInfoKHR<'a> {
         pub fn std_profile(mut self, std_profile: StdVideoAV1Profile) -> Self {
             self.std_profile = std_profile;
             self
         }
+
         pub fn film_grain_support(mut self, film_grain_support: bool) -> Self {
             self.film_grain_support = film_grain_support.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeAV1CapabilitiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -54,10 +63,13 @@ pub(super) mod defs {
         pub max_level: StdVideoAV1Level,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeAV1CapabilitiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_AV1_CAPABILITIES_KHR;
     }
+
     unsafe impl<'a> Extends<VideoCapabilitiesKHR<'a>> for VideoDecodeAV1CapabilitiesKHR<'a> {}
+
     impl Default for VideoDecodeAV1CapabilitiesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -68,12 +80,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> VideoDecodeAV1CapabilitiesKHR<'a> {
         pub fn max_level(mut self, max_level: StdVideoAV1Level) -> Self {
             self.max_level = max_level;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeAV1SessionParametersCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -83,14 +97,17 @@ pub(super) mod defs {
         pub p_std_sequence_header: *const StdVideoAV1SequenceHeader<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeAV1SessionParametersCreateInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::VIDEO_DECODE_AV1_SESSION_PARAMETERS_CREATE_INFO_KHR;
     }
+
     unsafe impl<'a> Extends<VideoSessionParametersCreateInfoKHR<'a>>
         for VideoDecodeAV1SessionParametersCreateInfoKHR<'a>
     {
     }
+
     impl Default for VideoDecodeAV1SessionParametersCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -101,6 +118,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> VideoDecodeAV1SessionParametersCreateInfoKHR<'a> {
         pub fn std_sequence_header(
             mut self,
@@ -110,6 +128,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeAV1PictureInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -124,10 +143,13 @@ pub(super) mod defs {
         pub p_tile_sizes: *const u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeAV1PictureInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_AV1_PICTURE_INFO_KHR;
     }
+
     unsafe impl<'a> Extends<VideoDecodeInfoKHR<'a>> for VideoDecodeAV1PictureInfoKHR<'a> {}
+
     impl Default for VideoDecodeAV1PictureInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -143,6 +165,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> VideoDecodeAV1PictureInfoKHR<'a> {
         pub fn std_picture_info(
             mut self,
@@ -151,6 +174,7 @@ pub(super) mod defs {
             self.p_std_picture_info = std_picture_info;
             self
         }
+
         pub fn reference_name_slot_indices(
             mut self,
             reference_name_slot_indices: [i32; MAX_VIDEO_AV1_REFERENCES_PER_FRAME_KHR as usize],
@@ -158,21 +182,25 @@ pub(super) mod defs {
             self.reference_name_slot_indices = reference_name_slot_indices;
             self
         }
+
         pub fn frame_header_offset(mut self, frame_header_offset: u32) -> Self {
             self.frame_header_offset = frame_header_offset;
             self
         }
+
         pub fn tile_offsets(mut self, tile_offsets: &'a [u32]) -> Self {
             self.tile_count = tile_offsets.len().try_into().unwrap();
             self.p_tile_offsets = tile_offsets.as_ptr();
             self
         }
+
         pub fn tile_sizes(mut self, tile_sizes: &'a [u32]) -> Self {
             self.tile_count = tile_sizes.len().try_into().unwrap();
             self.p_tile_sizes = tile_sizes.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeAV1DpbSlotInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -182,10 +210,13 @@ pub(super) mod defs {
         pub p_std_reference_info: *const StdVideoDecodeAV1ReferenceInfo,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeAV1DpbSlotInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_AV1_DPB_SLOT_INFO_KHR;
     }
+
     unsafe impl<'a> Extends<VideoReferenceSlotInfoKHR<'a>> for VideoDecodeAV1DpbSlotInfoKHR<'a> {}
+
     impl Default for VideoDecodeAV1DpbSlotInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -196,6 +227,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> VideoDecodeAV1DpbSlotInfoKHR<'a> {
         pub fn std_reference_info(
             mut self,

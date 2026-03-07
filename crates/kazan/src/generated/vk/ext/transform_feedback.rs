@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTransformFeedbackFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,15 +20,18 @@ pub(super) mod defs {
         pub geometry_streams: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceTransformFeedbackFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_TRANSFORM_FEEDBACK_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceTransformFeedbackFeaturesEXT<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceTransformFeedbackFeaturesEXT<'a> {}
+
     impl Default for PhysicalDeviceTransformFeedbackFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -38,16 +43,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceTransformFeedbackFeaturesEXT<'a> {
         pub fn transform_feedback(mut self, transform_feedback: bool) -> Self {
             self.transform_feedback = transform_feedback.into();
             self
         }
+
         pub fn geometry_streams(mut self, geometry_streams: bool) -> Self {
             self.geometry_streams = geometry_streams.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTransformFeedbackPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -66,14 +74,17 @@ pub(super) mod defs {
         pub transform_feedback_draw: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceTransformFeedbackPropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_TRANSFORM_FEEDBACK_PROPERTIES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceTransformFeedbackPropertiesEXT<'a>
     {
     }
+
     impl Default for PhysicalDeviceTransformFeedbackPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -93,6 +104,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceTransformFeedbackPropertiesEXT<'a> {
         pub fn max_transform_feedback_streams(
             mut self,
@@ -101,6 +113,7 @@ pub(super) mod defs {
             self.max_transform_feedback_streams = max_transform_feedback_streams;
             self
         }
+
         pub fn max_transform_feedback_buffers(
             mut self,
             max_transform_feedback_buffers: u32,
@@ -108,6 +121,7 @@ pub(super) mod defs {
             self.max_transform_feedback_buffers = max_transform_feedback_buffers;
             self
         }
+
         pub fn max_transform_feedback_buffer_size(
             mut self,
             max_transform_feedback_buffer_size: DeviceSize,
@@ -115,6 +129,7 @@ pub(super) mod defs {
             self.max_transform_feedback_buffer_size = max_transform_feedback_buffer_size;
             self
         }
+
         pub fn max_transform_feedback_stream_data_size(
             mut self,
             max_transform_feedback_stream_data_size: u32,
@@ -122,6 +137,7 @@ pub(super) mod defs {
             self.max_transform_feedback_stream_data_size = max_transform_feedback_stream_data_size;
             self
         }
+
         pub fn max_transform_feedback_buffer_data_size(
             mut self,
             max_transform_feedback_buffer_data_size: u32,
@@ -129,6 +145,7 @@ pub(super) mod defs {
             self.max_transform_feedback_buffer_data_size = max_transform_feedback_buffer_data_size;
             self
         }
+
         pub fn max_transform_feedback_buffer_data_stride(
             mut self,
             max_transform_feedback_buffer_data_stride: u32,
@@ -137,10 +154,12 @@ pub(super) mod defs {
                 max_transform_feedback_buffer_data_stride;
             self
         }
+
         pub fn transform_feedback_queries(mut self, transform_feedback_queries: bool) -> Self {
             self.transform_feedback_queries = transform_feedback_queries.into();
             self
         }
+
         pub fn transform_feedback_streams_lines_triangles(
             mut self,
             transform_feedback_streams_lines_triangles: bool,
@@ -149,6 +168,7 @@ pub(super) mod defs {
                 transform_feedback_streams_lines_triangles.into();
             self
         }
+
         pub fn transform_feedback_rasterization_stream_select(
             mut self,
             transform_feedback_rasterization_stream_select: bool,
@@ -157,11 +177,13 @@ pub(super) mod defs {
                 transform_feedback_rasterization_stream_select.into();
             self
         }
+
         pub fn transform_feedback_draw(mut self, transform_feedback_draw: bool) -> Self {
             self.transform_feedback_draw = transform_feedback_draw.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineRasterizationStateStreamCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -172,14 +194,17 @@ pub(super) mod defs {
         pub rasterization_stream: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineRasterizationStateStreamCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_RASTERIZATION_STATE_STREAM_CREATE_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<PipelineRasterizationStateCreateInfo<'a>>
         for PipelineRasterizationStateStreamCreateInfoEXT<'a>
     {
     }
+
     impl Default for PipelineRasterizationStateStreamCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -191,26 +216,31 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineRasterizationStateStreamCreateInfoEXT<'a> {
         pub fn flags(mut self, flags: PipelineRasterizationStateStreamCreateFlagsEXT) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn rasterization_stream(mut self, rasterization_stream: u32) -> Self {
             self.rasterization_stream = rasterization_stream;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineRasterizationStateStreamCreateFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineRasterizationStateStreamCreateFlagsEXT(Flags);
     vk_bitflags_wrapped!(PipelineRasterizationStateStreamCreateFlagsEXT, Flags);
+
     impl fmt::Debug for PipelineRasterizationStateStreamCreateFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindTransformFeedbackBuffersEXT.html>
     pub type PFN_vkCmdBindTransformFeedbackBuffersEXT = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
@@ -262,6 +292,7 @@ pub(super) mod defs {
         vertex_stride: u32,
     );
 }
+
 pub struct DeviceFn {
     cmd_bind_transform_feedback_buffers_ext: PFN_vkCmdBindTransformFeedbackBuffersEXT,
     cmd_begin_transform_feedback_ext: PFN_vkCmdBeginTransformFeedbackEXT,
@@ -270,6 +301,7 @@ pub struct DeviceFn {
     cmd_end_query_indexed_ext: PFN_vkCmdEndQueryIndexedEXT,
     cmd_draw_indirect_byte_count_ext: PFN_vkCmdDrawIndirectByteCountEXT,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -298,6 +330,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindTransformFeedbackBuffersEXT.html>
     pub unsafe fn cmd_bind_transform_feedback_buffers_ext(
@@ -319,6 +352,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginTransformFeedbackEXT.html>
     pub unsafe fn cmd_begin_transform_feedback_ext(
         &self,
@@ -337,6 +371,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndTransformFeedbackEXT.html>
     pub unsafe fn cmd_end_transform_feedback_ext(
         &self,
@@ -355,6 +390,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginQueryIndexedEXT.html>
     pub unsafe fn cmd_begin_query_indexed_ext(
         &self,
@@ -368,6 +404,7 @@ impl DeviceFn {
             (self.cmd_begin_query_indexed_ext)(command_buffer, query_pool, query, flags, index)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndQueryIndexedEXT.html>
     pub unsafe fn cmd_end_query_indexed_ext(
         &self,
@@ -378,6 +415,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_end_query_indexed_ext)(command_buffer, query_pool, query, index) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawIndirectByteCountEXT.html>
     pub unsafe fn cmd_draw_indirect_byte_count_ext(
         &self,

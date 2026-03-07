@@ -2,13 +2,16 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     pub const STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE: u32 = 8;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeH265PictureInfoFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -18,19 +21,23 @@ pub(super) mod defs {
         pub is_reference: u32,
         pub short_term_ref_pic_set_sps_flag: u32,
     }
+
     impl StdVideoDecodeH265PictureInfoFlags {
         pub fn irap_pic_flag(mut self, irap_pic_flag: u32) -> Self {
             self.irap_pic_flag = irap_pic_flag;
             self
         }
+
         pub fn idr_pic_flag(mut self, idr_pic_flag: u32) -> Self {
             self.idr_pic_flag = idr_pic_flag;
             self
         }
+
         pub fn is_reference(mut self, is_reference: u32) -> Self {
             self.is_reference = is_reference;
             self
         }
+
         pub fn short_term_ref_pic_set_sps_flag(
             mut self,
             short_term_ref_pic_set_sps_flag: u32,
@@ -39,6 +46,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeH265PictureInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -55,6 +63,7 @@ pub(super) mod defs {
         pub ref_pic_set_st_curr_after: [u8; STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE as usize],
         pub ref_pic_set_lt_curr: [u8; STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE as usize],
     }
+
     impl Default for StdVideoDecodeH265PictureInfo {
         fn default() -> Self {
             Self {
@@ -72,31 +81,38 @@ pub(super) mod defs {
             }
         }
     }
+
     impl StdVideoDecodeH265PictureInfo {
         pub fn flags(mut self, flags: StdVideoDecodeH265PictureInfoFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn sps_video_parameter_set_id(mut self, sps_video_parameter_set_id: u8) -> Self {
             self.sps_video_parameter_set_id = sps_video_parameter_set_id;
             self
         }
+
         pub fn pps_seq_parameter_set_id(mut self, pps_seq_parameter_set_id: u8) -> Self {
             self.pps_seq_parameter_set_id = pps_seq_parameter_set_id;
             self
         }
+
         pub fn pps_pic_parameter_set_id(mut self, pps_pic_parameter_set_id: u8) -> Self {
             self.pps_pic_parameter_set_id = pps_pic_parameter_set_id;
             self
         }
+
         pub fn num_delta_pocs_of_ref_rps_idx(mut self, num_delta_pocs_of_ref_rps_idx: u8) -> Self {
             self.num_delta_pocs_of_ref_rps_idx = num_delta_pocs_of_ref_rps_idx;
             self
         }
+
         pub fn pic_order_cnt_val(mut self, pic_order_cnt_val: i32) -> Self {
             self.pic_order_cnt_val = pic_order_cnt_val;
             self
         }
+
         pub fn num_bits_for_st_ref_pic_set_in_slice(
             mut self,
             num_bits_for_st_ref_pic_set_in_slice: u16,
@@ -104,10 +120,12 @@ pub(super) mod defs {
             self.num_bits_for_st_ref_pic_set_in_slice = num_bits_for_st_ref_pic_set_in_slice;
             self
         }
+
         pub fn reserved(mut self, reserved: u16) -> Self {
             self.reserved = reserved;
             self
         }
+
         pub fn ref_pic_set_st_curr_before(
             mut self,
             ref_pic_set_st_curr_before: [u8; STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE as usize],
@@ -115,6 +133,7 @@ pub(super) mod defs {
             self.ref_pic_set_st_curr_before = ref_pic_set_st_curr_before;
             self
         }
+
         pub fn ref_pic_set_st_curr_after(
             mut self,
             ref_pic_set_st_curr_after: [u8; STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE as usize],
@@ -122,6 +141,7 @@ pub(super) mod defs {
             self.ref_pic_set_st_curr_after = ref_pic_set_st_curr_after;
             self
         }
+
         pub fn ref_pic_set_lt_curr(
             mut self,
             ref_pic_set_lt_curr: [u8; STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE as usize],
@@ -130,6 +150,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeH265ReferenceInfoFlags.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -137,16 +158,19 @@ pub(super) mod defs {
         pub used_for_long_term_reference: u32,
         pub unused_for_reference: u32,
     }
+
     impl StdVideoDecodeH265ReferenceInfoFlags {
         pub fn used_for_long_term_reference(mut self, used_for_long_term_reference: u32) -> Self {
             self.used_for_long_term_reference = used_for_long_term_reference;
             self
         }
+
         pub fn unused_for_reference(mut self, unused_for_reference: u32) -> Self {
             self.unused_for_reference = unused_for_reference;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeH265ReferenceInfo.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -154,11 +178,13 @@ pub(super) mod defs {
         pub flags: StdVideoDecodeH265ReferenceInfoFlags,
         pub pic_order_cnt_val: i32,
     }
+
     impl StdVideoDecodeH265ReferenceInfo {
         pub fn flags(mut self, flags: StdVideoDecodeH265ReferenceInfoFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn pic_order_cnt_val(mut self, pic_order_cnt_val: i32) -> Self {
             self.pic_order_cnt_val = pic_order_cnt_val;
             self

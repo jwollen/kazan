@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferUsageFlags2CreateInfoKHR.html>
     pub type BufferUsageFlags2CreateInfoKHR<'a> = BufferUsageFlags2CreateInfo<'a>;
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCreateFlags2CreateInfoKHR.html>
@@ -33,12 +35,14 @@ pub(super) mod defs {
     pub type PFN_vkGetImageSubresourceLayout2KHR = PFN_vkGetImageSubresourceLayout2;
     pub type PFN_vkGetDeviceImageSubresourceLayoutKHR = PFN_vkGetDeviceImageSubresourceLayout;
 }
+
 pub struct DeviceFn {
     cmd_bind_index_buffer2_khr: PFN_vkCmdBindIndexBuffer2,
     get_rendering_area_granularity_khr: PFN_vkGetRenderingAreaGranularity,
     get_device_image_subresource_layout_khr: PFN_vkGetDeviceImageSubresourceLayout,
     get_image_subresource_layout2_khr: PFN_vkGetImageSubresourceLayout2,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -61,6 +65,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindIndexBuffer2KHR.html>
     pub unsafe fn cmd_bind_index_buffer2_khr(
@@ -75,6 +80,7 @@ impl DeviceFn {
             (self.cmd_bind_index_buffer2_khr)(command_buffer, buffer, offset, size, index_type)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRenderingAreaGranularityKHR.html>
     pub unsafe fn get_rendering_area_granularity_khr(
         &self,
@@ -91,6 +97,7 @@ impl DeviceFn {
             granularity.assume_init()
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceImageSubresourceLayoutKHR.html>
     pub unsafe fn get_device_image_subresource_layout_khr(
         &self,
@@ -100,6 +107,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.get_device_image_subresource_layout_khr)(device, info, layout) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageSubresourceLayout2KHR.html>
     pub unsafe fn get_image_subresource_layout2_khr(
         &self,

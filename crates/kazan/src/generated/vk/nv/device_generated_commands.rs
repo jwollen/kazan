@@ -2,17 +2,20 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     handle_nondispatchable!(
         IndirectCommandsLayoutNV,
         INDIRECT_COMMANDS_LAYOUT_NV,
         doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectCommandsLayoutNV.html>"
     );
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDeviceGeneratedCommandsFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -22,10 +25,12 @@ pub(super) mod defs {
         pub device_generated_commands: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_NV;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'a>
     {
@@ -34,6 +39,7 @@ pub(super) mod defs {
         for PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'a>
     {
     }
+
     impl Default for PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'_> {
         fn default() -> Self {
             Self {
@@ -44,12 +50,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'a> {
         pub fn device_generated_commands(mut self, device_generated_commands: bool) -> Self {
             self.device_generated_commands = device_generated_commands.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -67,14 +75,17 @@ pub(super) mod defs {
         pub min_indirect_commands_buffer_offset_alignment: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDeviceGeneratedCommandsPropertiesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_NV;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceDeviceGeneratedCommandsPropertiesNV<'a>
     {
     }
+
     impl Default for PhysicalDeviceDeviceGeneratedCommandsPropertiesNV<'_> {
         fn default() -> Self {
             Self {
@@ -93,6 +104,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceDeviceGeneratedCommandsPropertiesNV<'a> {
         pub fn max_graphics_shader_group_count(
             mut self,
@@ -101,10 +113,12 @@ pub(super) mod defs {
             self.max_graphics_shader_group_count = max_graphics_shader_group_count;
             self
         }
+
         pub fn max_indirect_sequence_count(mut self, max_indirect_sequence_count: u32) -> Self {
             self.max_indirect_sequence_count = max_indirect_sequence_count;
             self
         }
+
         pub fn max_indirect_commands_token_count(
             mut self,
             max_indirect_commands_token_count: u32,
@@ -112,6 +126,7 @@ pub(super) mod defs {
             self.max_indirect_commands_token_count = max_indirect_commands_token_count;
             self
         }
+
         pub fn max_indirect_commands_stream_count(
             mut self,
             max_indirect_commands_stream_count: u32,
@@ -119,6 +134,7 @@ pub(super) mod defs {
             self.max_indirect_commands_stream_count = max_indirect_commands_stream_count;
             self
         }
+
         pub fn max_indirect_commands_token_offset(
             mut self,
             max_indirect_commands_token_offset: u32,
@@ -126,6 +142,7 @@ pub(super) mod defs {
             self.max_indirect_commands_token_offset = max_indirect_commands_token_offset;
             self
         }
+
         pub fn max_indirect_commands_stream_stride(
             mut self,
             max_indirect_commands_stream_stride: u32,
@@ -133,6 +150,7 @@ pub(super) mod defs {
             self.max_indirect_commands_stream_stride = max_indirect_commands_stream_stride;
             self
         }
+
         pub fn min_sequences_count_buffer_offset_alignment(
             mut self,
             min_sequences_count_buffer_offset_alignment: u32,
@@ -141,6 +159,7 @@ pub(super) mod defs {
                 min_sequences_count_buffer_offset_alignment;
             self
         }
+
         pub fn min_sequences_index_buffer_offset_alignment(
             mut self,
             min_sequences_index_buffer_offset_alignment: u32,
@@ -149,6 +168,7 @@ pub(super) mod defs {
                 min_sequences_index_buffer_offset_alignment;
             self
         }
+
         pub fn min_indirect_commands_buffer_offset_alignment(
             mut self,
             min_indirect_commands_buffer_offset_alignment: u32,
@@ -158,6 +178,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGraphicsShaderGroupCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -170,9 +191,11 @@ pub(super) mod defs {
         pub p_tessellation_state: *const PipelineTessellationStateCreateInfo<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for GraphicsShaderGroupCreateInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::GRAPHICS_SHADER_GROUP_CREATE_INFO_NV;
     }
+
     impl Default for GraphicsShaderGroupCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
@@ -186,12 +209,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> GraphicsShaderGroupCreateInfoNV<'a> {
         pub fn stages(mut self, stages: &'a [PipelineShaderStageCreateInfo<'a>]) -> Self {
             self.stage_count = stages.len().try_into().unwrap();
             self.p_stages = stages.as_ptr();
             self
         }
+
         pub fn vertex_input_state(
             mut self,
             vertex_input_state: &'a PipelineVertexInputStateCreateInfo<'a>,
@@ -199,6 +224,7 @@ pub(super) mod defs {
             self.p_vertex_input_state = vertex_input_state;
             self
         }
+
         pub fn tessellation_state(
             mut self,
             tessellation_state: &'a PipelineTessellationStateCreateInfo<'a>,
@@ -207,6 +233,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGraphicsPipelineShaderGroupsCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -219,14 +246,17 @@ pub(super) mod defs {
         pub p_pipelines: *const Pipeline,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for GraphicsPipelineShaderGroupsCreateInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::GRAPHICS_PIPELINE_SHADER_GROUPS_CREATE_INFO_NV;
     }
+
     unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>>
         for GraphicsPipelineShaderGroupsCreateInfoNV<'a>
     {
     }
+
     impl Default for GraphicsPipelineShaderGroupsCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
@@ -240,30 +270,35 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> GraphicsPipelineShaderGroupsCreateInfoNV<'a> {
         pub fn groups(mut self, groups: &'a [GraphicsShaderGroupCreateInfoNV<'a>]) -> Self {
             self.group_count = groups.len().try_into().unwrap();
             self.p_groups = groups.as_ptr();
             self
         }
+
         pub fn pipelines(mut self, pipelines: &'a [Pipeline]) -> Self {
             self.pipeline_count = pipelines.len().try_into().unwrap();
             self.p_pipelines = pipelines.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindShaderGroupIndirectCommandNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct BindShaderGroupIndirectCommandNV {
         pub group_index: u32,
     }
+
     impl BindShaderGroupIndirectCommandNV {
         pub fn group_index(mut self, group_index: u32) -> Self {
             self.group_index = group_index;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindIndexBufferIndirectCommandNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -272,20 +307,24 @@ pub(super) mod defs {
         pub size: u32,
         pub index_type: IndexType,
     }
+
     impl BindIndexBufferIndirectCommandNV {
         pub fn buffer_address(mut self, buffer_address: DeviceAddress) -> Self {
             self.buffer_address = buffer_address;
             self
         }
+
         pub fn size(mut self, size: u32) -> Self {
             self.size = size;
             self
         }
+
         pub fn index_type(mut self, index_type: IndexType) -> Self {
             self.index_type = index_type;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindVertexBufferIndirectCommandNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -294,32 +333,38 @@ pub(super) mod defs {
         pub size: u32,
         pub stride: u32,
     }
+
     impl BindVertexBufferIndirectCommandNV {
         pub fn buffer_address(mut self, buffer_address: DeviceAddress) -> Self {
             self.buffer_address = buffer_address;
             self
         }
+
         pub fn size(mut self, size: u32) -> Self {
             self.size = size;
             self
         }
+
         pub fn stride(mut self, stride: u32) -> Self {
             self.stride = stride;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSetStateFlagsIndirectCommandNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
     pub struct SetStateFlagsIndirectCommandNV {
         pub data: u32,
     }
+
     impl SetStateFlagsIndirectCommandNV {
         pub fn data(mut self, data: u32) -> Self {
             self.data = data;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectCommandsStreamNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -327,16 +372,19 @@ pub(super) mod defs {
         pub buffer: Buffer,
         pub offset: DeviceSize,
     }
+
     impl IndirectCommandsStreamNV {
         pub fn buffer(mut self, buffer: Buffer) -> Self {
             self.buffer = buffer;
             self
         }
+
         pub fn offset(mut self, offset: DeviceSize) -> Self {
             self.offset = offset;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectCommandsLayoutTokenNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -358,9 +406,11 @@ pub(super) mod defs {
         pub p_index_type_values: *const u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for IndirectCommandsLayoutTokenNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::INDIRECT_COMMANDS_LAYOUT_TOKEN_NV;
     }
+
     impl Default for IndirectCommandsLayoutTokenNV<'_> {
         fn default() -> Self {
             Self {
@@ -383,27 +433,33 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> IndirectCommandsLayoutTokenNV<'a> {
         pub fn token_type(mut self, token_type: IndirectCommandsTokenTypeNV) -> Self {
             self.token_type = token_type;
             self
         }
+
         pub fn stream(mut self, stream: u32) -> Self {
             self.stream = stream;
             self
         }
+
         pub fn offset(mut self, offset: u32) -> Self {
             self.offset = offset;
             self
         }
+
         pub fn vertex_binding_unit(mut self, vertex_binding_unit: u32) -> Self {
             self.vertex_binding_unit = vertex_binding_unit;
             self
         }
+
         pub fn vertex_dynamic_stride(mut self, vertex_dynamic_stride: bool) -> Self {
             self.vertex_dynamic_stride = vertex_dynamic_stride.into();
             self
         }
+
         pub fn pushconstant_pipeline_layout(
             mut self,
             pushconstant_pipeline_layout: PipelineLayout,
@@ -411,6 +467,7 @@ pub(super) mod defs {
             self.pushconstant_pipeline_layout = pushconstant_pipeline_layout;
             self
         }
+
         pub fn pushconstant_shader_stage_flags(
             mut self,
             pushconstant_shader_stage_flags: ShaderStageFlags,
@@ -418,29 +475,35 @@ pub(super) mod defs {
             self.pushconstant_shader_stage_flags = pushconstant_shader_stage_flags;
             self
         }
+
         pub fn pushconstant_offset(mut self, pushconstant_offset: u32) -> Self {
             self.pushconstant_offset = pushconstant_offset;
             self
         }
+
         pub fn pushconstant_size(mut self, pushconstant_size: u32) -> Self {
             self.pushconstant_size = pushconstant_size;
             self
         }
+
         pub fn indirect_state_flags(mut self, indirect_state_flags: IndirectStateFlagsNV) -> Self {
             self.indirect_state_flags = indirect_state_flags;
             self
         }
+
         pub fn index_types(mut self, index_types: &'a [IndexType]) -> Self {
             self.index_type_count = index_types.len().try_into().unwrap();
             self.p_index_types = index_types.as_ptr();
             self
         }
+
         pub fn index_type_values(mut self, index_type_values: &'a [u32]) -> Self {
             self.index_type_count = index_type_values.len().try_into().unwrap();
             self.p_index_type_values = index_type_values.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectCommandsLayoutCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -455,10 +518,12 @@ pub(super) mod defs {
         pub p_stream_strides: *const u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for IndirectCommandsLayoutCreateInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_NV;
     }
+
     impl Default for IndirectCommandsLayoutCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
@@ -474,26 +539,31 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> IndirectCommandsLayoutCreateInfoNV<'a> {
         pub fn flags(mut self, flags: IndirectCommandsLayoutUsageFlagsNV) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn pipeline_bind_point(mut self, pipeline_bind_point: PipelineBindPoint) -> Self {
             self.pipeline_bind_point = pipeline_bind_point;
             self
         }
+
         pub fn tokens(mut self, tokens: &'a [IndirectCommandsLayoutTokenNV<'a>]) -> Self {
             self.token_count = tokens.len().try_into().unwrap();
             self.p_tokens = tokens.as_ptr();
             self
         }
+
         pub fn stream_strides(mut self, stream_strides: &'a [u32]) -> Self {
             self.stream_count = stream_strides.len().try_into().unwrap();
             self.p_stream_strides = stream_strides.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGeneratedCommandsInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -515,9 +585,11 @@ pub(super) mod defs {
         pub sequences_index_offset: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for GeneratedCommandsInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::GENERATED_COMMANDS_INFO_NV;
     }
+
     impl Default for GeneratedCommandsInfoNV<'_> {
         fn default() -> Self {
             Self {
@@ -540,15 +612,18 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> GeneratedCommandsInfoNV<'a> {
         pub fn pipeline_bind_point(mut self, pipeline_bind_point: PipelineBindPoint) -> Self {
             self.pipeline_bind_point = pipeline_bind_point;
             self
         }
+
         pub fn pipeline(mut self, pipeline: Pipeline) -> Self {
             self.pipeline = pipeline;
             self
         }
+
         pub fn indirect_commands_layout(
             mut self,
             indirect_commands_layout: IndirectCommandsLayoutNV,
@@ -556,44 +631,54 @@ pub(super) mod defs {
             self.indirect_commands_layout = indirect_commands_layout;
             self
         }
+
         pub fn streams(mut self, streams: &'a [IndirectCommandsStreamNV]) -> Self {
             self.stream_count = streams.len().try_into().unwrap();
             self.p_streams = streams.as_ptr();
             self
         }
+
         pub fn sequences_count(mut self, sequences_count: u32) -> Self {
             self.sequences_count = sequences_count;
             self
         }
+
         pub fn preprocess_buffer(mut self, preprocess_buffer: Buffer) -> Self {
             self.preprocess_buffer = preprocess_buffer;
             self
         }
+
         pub fn preprocess_offset(mut self, preprocess_offset: DeviceSize) -> Self {
             self.preprocess_offset = preprocess_offset;
             self
         }
+
         pub fn preprocess_size(mut self, preprocess_size: DeviceSize) -> Self {
             self.preprocess_size = preprocess_size;
             self
         }
+
         pub fn sequences_count_buffer(mut self, sequences_count_buffer: Buffer) -> Self {
             self.sequences_count_buffer = sequences_count_buffer;
             self
         }
+
         pub fn sequences_count_offset(mut self, sequences_count_offset: DeviceSize) -> Self {
             self.sequences_count_offset = sequences_count_offset;
             self
         }
+
         pub fn sequences_index_buffer(mut self, sequences_index_buffer: Buffer) -> Self {
             self.sequences_index_buffer = sequences_index_buffer;
             self
         }
+
         pub fn sequences_index_offset(mut self, sequences_index_offset: DeviceSize) -> Self {
             self.sequences_index_offset = sequences_index_offset;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGeneratedCommandsMemoryRequirementsInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -606,10 +691,12 @@ pub(super) mod defs {
         pub max_sequences_count: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for GeneratedCommandsMemoryRequirementsInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_NV;
     }
+
     impl Default for GeneratedCommandsMemoryRequirementsInfoNV<'_> {
         fn default() -> Self {
             Self {
@@ -623,15 +710,18 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> GeneratedCommandsMemoryRequirementsInfoNV<'a> {
         pub fn pipeline_bind_point(mut self, pipeline_bind_point: PipelineBindPoint) -> Self {
             self.pipeline_bind_point = pipeline_bind_point;
             self
         }
+
         pub fn pipeline(mut self, pipeline: Pipeline) -> Self {
             self.pipeline = pipeline;
             self
         }
+
         pub fn indirect_commands_layout(
             mut self,
             indirect_commands_layout: IndirectCommandsLayoutNV,
@@ -639,15 +729,18 @@ pub(super) mod defs {
             self.indirect_commands_layout = indirect_commands_layout;
             self
         }
+
         pub fn max_sequences_count(mut self, max_sequences_count: u32) -> Self {
             self.max_sequences_count = max_sequences_count;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectCommandsTokenTypeNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct IndirectCommandsTokenTypeNV(i32);
+
     impl IndirectCommandsTokenTypeNV {
         pub const SHADER_GROUP_NV: Self = Self(0);
         pub const STATE_FLAGS_NV: Self = Self(1);
@@ -659,12 +752,15 @@ pub(super) mod defs {
         pub const DRAW_TASKS_NV: Self = Self(7);
         // VK_EXT_descriptor_heap
         pub const PUSH_DATA_NV: Self = Self(1000135000);
+
         // VK_EXT_mesh_shader
         pub const DRAW_MESH_TASKS_NV: Self = Self(1000328000);
+
         // VK_NV_device_generated_commands_compute
         pub const PIPELINE_NV: Self = Self(1000428003);
         pub const DISPATCH_NV: Self = Self(1000428004);
     }
+
     impl fmt::Debug for IndirectCommandsTokenTypeNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -689,11 +785,13 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectCommandsLayoutUsageFlagsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct IndirectCommandsLayoutUsageFlagsNV(Flags);
     vk_bitflags_wrapped!(IndirectCommandsLayoutUsageFlagsNV, Flags);
+
     impl IndirectCommandsLayoutUsageFlagsNV {
         pub const EXPLICIT_PREPROCESS_NV: Self =
             Self(IndirectCommandsLayoutUsageFlagBitsNV::EXPLICIT_PREPROCESS_NV.0);
@@ -702,6 +800,7 @@ pub(super) mod defs {
         pub const UNORDERED_SEQUENCES_NV: Self =
             Self(IndirectCommandsLayoutUsageFlagBitsNV::UNORDERED_SEQUENCES_NV.0);
     }
+
     impl fmt::Debug for IndirectCommandsLayoutUsageFlagsNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -721,23 +820,28 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectCommandsLayoutUsageFlagBitsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct IndirectCommandsLayoutUsageFlagBitsNV(u32);
+
     impl IndirectCommandsLayoutUsageFlagBitsNV {
         pub const EXPLICIT_PREPROCESS_NV: Self = Self(1 << 0);
         pub const INDEXED_SEQUENCES_NV: Self = Self(1 << 1);
         pub const UNORDERED_SEQUENCES_NV: Self = Self(1 << 2);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectStateFlagsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct IndirectStateFlagsNV(Flags);
     vk_bitflags_wrapped!(IndirectStateFlagsNV, Flags);
+
     impl IndirectStateFlagsNV {
         pub const FLAG_FRONTFACE_NV: Self = Self(IndirectStateFlagBitsNV::FLAG_FRONTFACE_NV.0);
     }
+
     impl fmt::Debug for IndirectStateFlagsNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[(
@@ -747,13 +851,16 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectStateFlagBitsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct IndirectStateFlagBitsNV(u32);
+
     impl IndirectStateFlagBitsNV {
         pub const FLAG_FRONTFACE_NV: Self = Self(1 << 0);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdExecuteGeneratedCommandsNV.html>
     pub type PFN_vkCmdExecuteGeneratedCommandsNV = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
@@ -792,6 +899,7 @@ pub(super) mod defs {
         p_allocator: *const AllocationCallbacks<'_>,
     );
 }
+
 pub struct DeviceFn {
     get_generated_commands_memory_requirements_nv: PFN_vkGetGeneratedCommandsMemoryRequirementsNV,
     cmd_preprocess_generated_commands_nv: PFN_vkCmdPreprocessGeneratedCommandsNV,
@@ -800,6 +908,7 @@ pub struct DeviceFn {
     create_indirect_commands_layout_nv: PFN_vkCreateIndirectCommandsLayoutNV,
     destroy_indirect_commands_layout_nv: PFN_vkDestroyIndirectCommandsLayoutNV,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -829,6 +938,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetGeneratedCommandsMemoryRequirementsNV.html>
     pub unsafe fn get_generated_commands_memory_requirements_nv(
@@ -841,6 +951,7 @@ impl DeviceFn {
             (self.get_generated_commands_memory_requirements_nv)(device, info, memory_requirements)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPreprocessGeneratedCommandsNV.html>
     pub unsafe fn cmd_preprocess_generated_commands_nv(
         &self,
@@ -851,6 +962,7 @@ impl DeviceFn {
             (self.cmd_preprocess_generated_commands_nv)(command_buffer, generated_commands_info)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdExecuteGeneratedCommandsNV.html>
     pub unsafe fn cmd_execute_generated_commands_nv(
         &self,
@@ -866,6 +978,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindPipelineShaderGroupNV.html>
     pub unsafe fn cmd_bind_pipeline_shader_group_nv(
         &self,
@@ -883,6 +996,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateIndirectCommandsLayoutNV.html>
     pub unsafe fn create_indirect_commands_layout_nv(
         &self,
@@ -905,6 +1019,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyIndirectCommandsLayoutNV.html>
     pub unsafe fn destroy_indirect_commands_layout_nv(
         &self,

@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkXlibSurfaceCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -19,9 +21,11 @@ pub(super) mod defs {
         pub window: Window,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for XlibSurfaceCreateInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::XLIB_SURFACE_CREATE_INFO_KHR;
     }
+
     impl Default for XlibSurfaceCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -34,30 +38,36 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> XlibSurfaceCreateInfoKHR<'a> {
         pub fn flags(mut self, flags: XlibSurfaceCreateFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn dpy(mut self, dpy: *mut Display) -> Self {
             self.dpy = dpy;
             self
         }
+
         pub fn window(mut self, window: Window) -> Self {
             self.window = window;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkXlibSurfaceCreateFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct XlibSurfaceCreateFlagsKHR(Flags);
     vk_bitflags_wrapped!(XlibSurfaceCreateFlagsKHR, Flags);
+
     impl fmt::Debug for XlibSurfaceCreateFlagsKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateXlibSurfaceKHR.html>
     pub type PFN_vkCreateXlibSurfaceKHR = unsafe extern "system" fn(
         instance: Instance,
@@ -74,11 +84,13 @@ pub(super) mod defs {
             visual_id: VisualID,
         ) -> Bool32;
 }
+
 pub struct InstanceFn {
     create_xlib_surface_khr: PFN_vkCreateXlibSurfaceKHR,
     get_physical_device_xlib_presentation_support_khr:
         PFN_vkGetPhysicalDeviceXlibPresentationSupportKHR,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -96,6 +108,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateXlibSurfaceKHR.html>
     pub unsafe fn create_xlib_surface_khr(
@@ -119,6 +132,7 @@ impl InstanceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceXlibPresentationSupportKHR.html>
     pub unsafe fn get_physical_device_xlib_presentation_support_khr(
         &self,

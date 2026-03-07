@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCompressionControlEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -19,12 +21,15 @@ pub(super) mod defs {
         pub p_fixed_rate_flags: *mut ImageCompressionFixedRateFlagsEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ImageCompressionControlEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_COMPRESSION_CONTROL_EXT;
     }
+
     unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ImageCompressionControlEXT<'a> {}
     unsafe impl<'a> Extends<SwapchainCreateInfoKHR<'a>> for ImageCompressionControlEXT<'a> {}
     unsafe impl<'a> Extends<PhysicalDeviceImageFormatInfo2<'a>> for ImageCompressionControlEXT<'a> {}
+
     impl Default for ImageCompressionControlEXT<'_> {
         fn default() -> Self {
             Self {
@@ -37,11 +42,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ImageCompressionControlEXT<'a> {
         pub fn flags(mut self, flags: ImageCompressionFlagsEXT) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn fixed_rate_flags(
             mut self,
             fixed_rate_flags: &'a mut [ImageCompressionFixedRateFlagsEXT],
@@ -51,6 +58,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceImageCompressionControlFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -60,10 +68,12 @@ pub(super) mod defs {
         pub image_compression_control: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceImageCompressionControlFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceImageCompressionControlFeaturesEXT<'a>
     {
@@ -72,6 +82,7 @@ pub(super) mod defs {
         for PhysicalDeviceImageCompressionControlFeaturesEXT<'a>
     {
     }
+
     impl Default for PhysicalDeviceImageCompressionControlFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -82,12 +93,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceImageCompressionControlFeaturesEXT<'a> {
         pub fn image_compression_control(mut self, image_compression_control: bool) -> Self {
             self.image_compression_control = image_compression_control.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCompressionPropertiesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -98,12 +111,15 @@ pub(super) mod defs {
         pub image_compression_fixed_rate_flags: ImageCompressionFixedRateFlagsEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ImageCompressionPropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_COMPRESSION_PROPERTIES_EXT;
     }
+
     unsafe impl<'a> Extends<ImageFormatProperties2<'a>> for ImageCompressionPropertiesEXT<'a> {}
     unsafe impl<'a> Extends<SurfaceFormat2KHR<'a>> for ImageCompressionPropertiesEXT<'a> {}
     unsafe impl<'a> Extends<SubresourceLayout2<'a>> for ImageCompressionPropertiesEXT<'a> {}
+
     impl Default for ImageCompressionPropertiesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -115,6 +131,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ImageCompressionPropertiesEXT<'a> {
         pub fn image_compression_flags(
             mut self,
@@ -123,6 +140,7 @@ pub(super) mod defs {
             self.image_compression_flags = image_compression_flags;
             self
         }
+
         pub fn image_compression_fixed_rate_flags(
             mut self,
             image_compression_fixed_rate_flags: ImageCompressionFixedRateFlagsEXT,
@@ -131,11 +149,13 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCompressionFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageCompressionFlagsEXT(Flags);
     vk_bitflags_wrapped!(ImageCompressionFlagsEXT, Flags);
+
     impl ImageCompressionFlagsEXT {
         pub const FIXED_RATE_DEFAULT_EXT: Self =
             Self(ImageCompressionFlagBitsEXT::FIXED_RATE_DEFAULT_EXT.0);
@@ -144,6 +164,7 @@ pub(super) mod defs {
         pub const DISABLED_EXT: Self = Self(ImageCompressionFlagBitsEXT::DISABLED_EXT.0);
         pub const DEFAULT: Self = Self(0);
     }
+
     impl fmt::Debug for ImageCompressionFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -160,20 +181,24 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCompressionFlagBitsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ImageCompressionFlagBitsEXT(u32);
+
     impl ImageCompressionFlagBitsEXT {
         pub const FIXED_RATE_DEFAULT_EXT: Self = Self(1 << 0);
         pub const FIXED_RATE_EXPLICIT_EXT: Self = Self(1 << 1);
         pub const DISABLED_EXT: Self = Self(1 << 2);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCompressionFixedRateFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageCompressionFixedRateFlagsEXT(Flags);
     vk_bitflags_wrapped!(ImageCompressionFixedRateFlagsEXT, Flags);
+
     impl ImageCompressionFixedRateFlagsEXT {
         pub const _1BPC_EXT: Self = Self(ImageCompressionFixedRateFlagBitsEXT::_1BPC_EXT.0);
         pub const _2BPC_EXT: Self = Self(ImageCompressionFixedRateFlagBitsEXT::_2BPC_EXT.0);
@@ -201,6 +226,7 @@ pub(super) mod defs {
         pub const _24BPC_EXT: Self = Self(ImageCompressionFixedRateFlagBitsEXT::_24BPC_EXT.0);
         pub const NONE: Self = Self(0);
     }
+
     impl fmt::Debug for ImageCompressionFixedRateFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -277,10 +303,12 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCompressionFixedRateFlagBitsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ImageCompressionFixedRateFlagBitsEXT(u32);
+
     impl ImageCompressionFixedRateFlagBitsEXT {
         pub const _1BPC_EXT: Self = Self(1 << 0);
         pub const _2BPC_EXT: Self = Self(1 << 1);
@@ -308,9 +336,11 @@ pub(super) mod defs {
         pub const _24BPC_EXT: Self = Self(1 << 23);
     }
 }
+
 pub struct DeviceFn {
     get_image_subresource_layout2_ext: PFN_vkGetImageSubresourceLayout2,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -324,6 +354,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageSubresourceLayout2EXT.html>
     pub unsafe fn get_image_subresource_layout2_ext(

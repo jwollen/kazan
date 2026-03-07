@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDepthClampControlFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,15 +19,18 @@ pub(super) mod defs {
         pub depth_clamp_control: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDepthClampControlFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_DEPTH_CLAMP_CONTROL_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceDepthClampControlFeaturesEXT<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceDepthClampControlFeaturesEXT<'a> {}
+
     impl Default for PhysicalDeviceDepthClampControlFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -36,12 +41,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceDepthClampControlFeaturesEXT<'a> {
         pub fn depth_clamp_control(mut self, depth_clamp_control: bool) -> Self {
             self.depth_clamp_control = depth_clamp_control.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineViewportDepthClampControlCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -52,14 +59,17 @@ pub(super) mod defs {
         pub p_depth_clamp_range: *const DepthClampRangeEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineViewportDepthClampControlCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_VIEWPORT_DEPTH_CLAMP_CONTROL_CREATE_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<PipelineViewportStateCreateInfo<'a>>
         for PipelineViewportDepthClampControlCreateInfoEXT<'a>
     {
     }
+
     impl Default for PipelineViewportDepthClampControlCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -71,16 +81,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PipelineViewportDepthClampControlCreateInfoEXT<'a> {
         pub fn depth_clamp_mode(mut self, depth_clamp_mode: DepthClampModeEXT) -> Self {
             self.depth_clamp_mode = depth_clamp_mode;
             self
         }
+
         pub fn depth_clamp_range(mut self, depth_clamp_range: &'a DepthClampRangeEXT) -> Self {
             self.p_depth_clamp_range = depth_clamp_range;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDepthClampRangeEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -88,24 +101,29 @@ pub(super) mod defs {
         pub min_depth_clamp: f32,
         pub max_depth_clamp: f32,
     }
+
     impl DepthClampRangeEXT {
         pub fn min_depth_clamp(mut self, min_depth_clamp: f32) -> Self {
             self.min_depth_clamp = min_depth_clamp;
             self
         }
+
         pub fn max_depth_clamp(mut self, max_depth_clamp: f32) -> Self {
             self.max_depth_clamp = max_depth_clamp;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDepthClampModeEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct DepthClampModeEXT(i32);
+
     impl DepthClampModeEXT {
         pub const VIEWPORT_RANGE_EXT: Self = Self(0);
         pub const USER_DEFINED_RANGE_EXT: Self = Self(1);
     }
+
     impl fmt::Debug for DepthClampModeEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -121,9 +139,11 @@ pub(super) mod defs {
         }
     }
 }
+
 pub struct DeviceFn {
     cmd_set_depth_clamp_range_ext: PFN_vkCmdSetDepthClampRangeEXT,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -137,6 +157,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthClampRangeEXT.html>
     pub unsafe fn cmd_set_depth_clamp_range_ext(

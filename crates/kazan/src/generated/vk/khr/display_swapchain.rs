@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPresentInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -19,10 +21,13 @@ pub(super) mod defs {
         pub persistent: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DisplayPresentInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DISPLAY_PRESENT_INFO_KHR;
     }
+
     unsafe impl<'a> Extends<PresentInfoKHR<'a>> for DisplayPresentInfoKHR<'a> {}
+
     impl Default for DisplayPresentInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -35,20 +40,24 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DisplayPresentInfoKHR<'a> {
         pub fn src_rect(mut self, src_rect: Rect2D) -> Self {
             self.src_rect = src_rect;
             self
         }
+
         pub fn dst_rect(mut self, dst_rect: Rect2D) -> Self {
             self.dst_rect = dst_rect;
             self
         }
+
         pub fn persistent(mut self, persistent: bool) -> Self {
             self.persistent = persistent.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSharedSwapchainsKHR.html>
     pub type PFN_vkCreateSharedSwapchainsKHR = unsafe extern "system" fn(
         device: Device,
@@ -58,9 +67,11 @@ pub(super) mod defs {
         p_swapchains: *mut SwapchainKHR,
     ) -> vk::Result;
 }
+
 pub struct DeviceFn {
     create_shared_swapchains_khr: PFN_vkCreateSharedSwapchainsKHR,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -74,6 +85,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSharedSwapchainsKHR.html>
     pub unsafe fn create_shared_swapchains_khr(

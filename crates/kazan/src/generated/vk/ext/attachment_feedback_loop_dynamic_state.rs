@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,12 +19,14 @@ pub(super) mod defs {
         pub attachment_feedback_loop_dynamic_state: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a>
         for PhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT<'a>
     {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_DYNAMIC_STATE_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT<'a>
     {
@@ -31,6 +35,7 @@ pub(super) mod defs {
         for PhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT<'a>
     {
     }
+
     impl Default for PhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -41,6 +46,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT<'a> {
         pub fn attachment_feedback_loop_dynamic_state(
             mut self,
@@ -51,13 +57,16 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetAttachmentFeedbackLoopEnableEXT.html>
     pub type PFN_vkCmdSetAttachmentFeedbackLoopEnableEXT =
         unsafe extern "system" fn(command_buffer: CommandBuffer, aspect_mask: ImageAspectFlags);
 }
+
 pub struct DeviceFn {
     cmd_set_attachment_feedback_loop_enable_ext: PFN_vkCmdSetAttachmentFeedbackLoopEnableEXT,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -72,6 +81,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetAttachmentFeedbackLoopEnableEXT.html>
     pub unsafe fn cmd_set_attachment_feedback_loop_enable_ext(

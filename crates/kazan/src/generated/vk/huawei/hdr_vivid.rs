@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkHdrVividDynamicMetadataHUAWEI.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,10 +20,13 @@ pub(super) mod defs {
         pub p_dynamic_metadata: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for HdrVividDynamicMetadataHUAWEI<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::HDR_VIVID_DYNAMIC_METADATA_HUAWEI;
     }
+
     unsafe impl<'a> Extends<HdrMetadataEXT<'a>> for HdrVividDynamicMetadataHUAWEI<'a> {}
+
     impl Default for HdrVividDynamicMetadataHUAWEI<'_> {
         fn default() -> Self {
             Self {
@@ -33,6 +38,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> HdrVividDynamicMetadataHUAWEI<'a> {
         pub fn dynamic_metadata(mut self, dynamic_metadata: &'a [u8]) -> Self {
             self.dynamic_metadata_size = dynamic_metadata.len().try_into().unwrap();
@@ -40,6 +46,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceHdrVividFeaturesHUAWEI.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -49,12 +56,15 @@ pub(super) mod defs {
         pub hdr_vivid: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceHdrVividFeaturesHUAWEI<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_HDR_VIVID_FEATURES_HUAWEI;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceHdrVividFeaturesHUAWEI<'a> {}
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceHdrVividFeaturesHUAWEI<'a> {}
+
     impl Default for PhysicalDeviceHdrVividFeaturesHUAWEI<'_> {
         fn default() -> Self {
             Self {
@@ -65,6 +75,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceHdrVividFeaturesHUAWEI<'a> {
         pub fn hdr_vivid(mut self, hdr_vivid: bool) -> Self {
             self.hdr_vivid = hdr_vivid.into();

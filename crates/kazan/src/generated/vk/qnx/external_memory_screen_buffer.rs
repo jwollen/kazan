@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportScreenBufferInfoQNX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,10 +19,13 @@ pub(super) mod defs {
         pub buffer: *mut _screen_buffer,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportScreenBufferInfoQNX<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_SCREEN_BUFFER_INFO_QNX;
     }
+
     unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ImportScreenBufferInfoQNX<'a> {}
+
     impl Default for ImportScreenBufferInfoQNX<'_> {
         fn default() -> Self {
             Self {
@@ -31,12 +36,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ImportScreenBufferInfoQNX<'a> {
         pub fn buffer(mut self, buffer: *mut _screen_buffer) -> Self {
             self.buffer = buffer;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkScreenBufferPropertiesQNX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -47,9 +54,11 @@ pub(super) mod defs {
         pub memory_type_bits: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ScreenBufferPropertiesQNX<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SCREEN_BUFFER_PROPERTIES_QNX;
     }
+
     impl Default for ScreenBufferPropertiesQNX<'_> {
         fn default() -> Self {
             Self {
@@ -61,16 +70,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ScreenBufferPropertiesQNX<'a> {
         pub fn allocation_size(mut self, allocation_size: DeviceSize) -> Self {
             self.allocation_size = allocation_size;
             self
         }
+
         pub fn memory_type_bits(mut self, memory_type_bits: u32) -> Self {
             self.memory_type_bits = memory_type_bits;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkScreenBufferFormatPropertiesQNX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -88,10 +100,13 @@ pub(super) mod defs {
         pub suggested_y_chroma_offset: ChromaLocation,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ScreenBufferFormatPropertiesQNX<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SCREEN_BUFFER_FORMAT_PROPERTIES_QNX;
     }
+
     unsafe impl<'a> Extends<ScreenBufferPropertiesQNX<'a>> for ScreenBufferFormatPropertiesQNX<'a> {}
+
     impl Default for ScreenBufferFormatPropertiesQNX<'_> {
         fn default() -> Self {
             Self {
@@ -110,23 +125,28 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ScreenBufferFormatPropertiesQNX<'a> {
         pub fn format(mut self, format: Format) -> Self {
             self.format = format;
             self
         }
+
         pub fn external_format(mut self, external_format: u64) -> Self {
             self.external_format = external_format;
             self
         }
+
         pub fn screen_usage(mut self, screen_usage: u64) -> Self {
             self.screen_usage = screen_usage;
             self
         }
+
         pub fn format_features(mut self, format_features: FormatFeatureFlags) -> Self {
             self.format_features = format_features;
             self
         }
+
         pub fn sampler_ycbcr_conversion_components(
             mut self,
             sampler_ycbcr_conversion_components: ComponentMapping,
@@ -134,6 +154,7 @@ pub(super) mod defs {
             self.sampler_ycbcr_conversion_components = sampler_ycbcr_conversion_components;
             self
         }
+
         pub fn suggested_ycbcr_model(
             mut self,
             suggested_ycbcr_model: SamplerYcbcrModelConversion,
@@ -141,10 +162,12 @@ pub(super) mod defs {
             self.suggested_ycbcr_model = suggested_ycbcr_model;
             self
         }
+
         pub fn suggested_ycbcr_range(mut self, suggested_ycbcr_range: SamplerYcbcrRange) -> Self {
             self.suggested_ycbcr_range = suggested_ycbcr_range;
             self
         }
+
         pub fn suggested_x_chroma_offset(
             mut self,
             suggested_x_chroma_offset: ChromaLocation,
@@ -152,6 +175,7 @@ pub(super) mod defs {
             self.suggested_x_chroma_offset = suggested_x_chroma_offset;
             self
         }
+
         pub fn suggested_y_chroma_offset(
             mut self,
             suggested_y_chroma_offset: ChromaLocation,
@@ -160,6 +184,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalFormatQNX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -169,11 +194,14 @@ pub(super) mod defs {
         pub external_format: u64,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ExternalFormatQNX<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_FORMAT_QNX;
     }
+
     unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ExternalFormatQNX<'a> {}
     unsafe impl<'a> Extends<SamplerYcbcrConversionCreateInfo<'a>> for ExternalFormatQNX<'a> {}
+
     impl Default for ExternalFormatQNX<'_> {
         fn default() -> Self {
             Self {
@@ -184,12 +212,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ExternalFormatQNX<'a> {
         pub fn external_format(mut self, external_format: u64) -> Self {
             self.external_format = external_format;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalMemoryScreenBufferFeaturesQNX.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -199,10 +229,12 @@ pub(super) mod defs {
         pub screen_buffer_import: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExternalMemoryScreenBufferFeaturesQNX<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_EXTERNAL_MEMORY_SCREEN_BUFFER_FEATURES_QNX;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceExternalMemoryScreenBufferFeaturesQNX<'a>
     {
@@ -211,6 +243,7 @@ pub(super) mod defs {
         for PhysicalDeviceExternalMemoryScreenBufferFeaturesQNX<'a>
     {
     }
+
     impl Default for PhysicalDeviceExternalMemoryScreenBufferFeaturesQNX<'_> {
         fn default() -> Self {
             Self {
@@ -221,12 +254,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceExternalMemoryScreenBufferFeaturesQNX<'a> {
         pub fn screen_buffer_import(mut self, screen_buffer_import: bool) -> Self {
             self.screen_buffer_import = screen_buffer_import.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetScreenBufferPropertiesQNX.html>
     pub type PFN_vkGetScreenBufferPropertiesQNX = unsafe extern "system" fn(
         device: Device,
@@ -234,9 +269,11 @@ pub(super) mod defs {
         p_properties: *mut ScreenBufferPropertiesQNX<'_>,
     ) -> vk::Result;
 }
+
 pub struct DeviceFn {
     get_screen_buffer_properties_qnx: PFN_vkGetScreenBufferPropertiesQNX,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -250,6 +287,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetScreenBufferPropertiesQNX.html>
     pub unsafe fn get_screen_buffer_properties_qnx(

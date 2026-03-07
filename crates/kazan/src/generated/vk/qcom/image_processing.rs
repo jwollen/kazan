@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageViewSampleWeightCreateInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -19,11 +21,14 @@ pub(super) mod defs {
         pub num_phases: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ImageViewSampleWeightCreateInfoQCOM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM;
     }
+
     unsafe impl<'a> Extends<ImageViewCreateInfo<'a>> for ImageViewSampleWeightCreateInfoQCOM<'a> {}
+
     impl Default for ImageViewSampleWeightCreateInfoQCOM<'_> {
         fn default() -> Self {
             Self {
@@ -36,20 +41,24 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ImageViewSampleWeightCreateInfoQCOM<'a> {
         pub fn filter_center(mut self, filter_center: Offset2D) -> Self {
             self.filter_center = filter_center;
             self
         }
+
         pub fn filter_size(mut self, filter_size: Extent2D) -> Self {
             self.filter_size = filter_size;
             self
         }
+
         pub fn num_phases(mut self, num_phases: u32) -> Self {
             self.num_phases = num_phases;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceImageProcessingFeaturesQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -61,15 +70,18 @@ pub(super) mod defs {
         pub texture_block_match: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceImageProcessingFeaturesQCOM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_IMAGE_PROCESSING_FEATURES_QCOM;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceImageProcessingFeaturesQCOM<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceImageProcessingFeaturesQCOM<'a> {}
+
     impl Default for PhysicalDeviceImageProcessingFeaturesQCOM<'_> {
         fn default() -> Self {
             Self {
@@ -82,20 +94,24 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceImageProcessingFeaturesQCOM<'a> {
         pub fn texture_sample_weighted(mut self, texture_sample_weighted: bool) -> Self {
             self.texture_sample_weighted = texture_sample_weighted.into();
             self
         }
+
         pub fn texture_box_filter(mut self, texture_box_filter: bool) -> Self {
             self.texture_box_filter = texture_box_filter.into();
             self
         }
+
         pub fn texture_block_match(mut self, texture_block_match: bool) -> Self {
             self.texture_block_match = texture_block_match.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceImageProcessingPropertiesQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -108,14 +124,17 @@ pub(super) mod defs {
         pub max_box_filter_block_size: Extent2D,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceImageProcessingPropertiesQCOM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_IMAGE_PROCESSING_PROPERTIES_QCOM;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceImageProcessingPropertiesQCOM<'a>
     {
     }
+
     impl Default for PhysicalDeviceImageProcessingPropertiesQCOM<'_> {
         fn default() -> Self {
             Self {
@@ -129,11 +148,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceImageProcessingPropertiesQCOM<'a> {
         pub fn max_weight_filter_phases(mut self, max_weight_filter_phases: u32) -> Self {
             self.max_weight_filter_phases = max_weight_filter_phases;
             self
         }
+
         pub fn max_weight_filter_dimension(
             mut self,
             max_weight_filter_dimension: Extent2D,
@@ -141,10 +162,12 @@ pub(super) mod defs {
             self.max_weight_filter_dimension = max_weight_filter_dimension;
             self
         }
+
         pub fn max_block_match_region(mut self, max_block_match_region: Extent2D) -> Self {
             self.max_block_match_region = max_block_match_region;
             self
         }
+
         pub fn max_box_filter_block_size(mut self, max_box_filter_block_size: Extent2D) -> Self {
             self.max_box_filter_block_size = max_box_filter_block_size;
             self

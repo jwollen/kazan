@@ -190,7 +190,7 @@ pub fn generate_commands(
                 writeln!(file, "{}: {},", name, ty).unwrap();
             }
         }
-        writeln!(file, "}}").unwrap();
+        writeln!(file, "}}\n").unwrap();
 
         writeln!(file, "impl {} {{", fn_type_name).unwrap();
         writeln!(file, "pub unsafe fn load(load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>) -> core::result::Result<Self, MissingEntryPointError> {{").unwrap();
@@ -210,7 +210,7 @@ pub fn generate_commands(
                 }
             }
         }
-        writeln!(file, "}}) }} }} }}").unwrap();
+        writeln!(file, "}}) }} }} }}\n").unwrap();
 
         writeln!(file, "impl {} {{", fn_type_name).unwrap();
         for command_group in &command_groups {
@@ -218,7 +218,7 @@ pub fn generate_commands(
                 write_command_wrapper(file, analysis, command);
             }
         }
-        writeln!(file, "}}").unwrap();
+        writeln!(file, "}}\n").unwrap();
     };
 
     generate_commands(CommandType::Entry, "EntryFn");
@@ -713,8 +713,7 @@ pub fn write_command_wrapper(
         write_fn_body(file, analysis, &wrapper, info.optional, ok_codes_override.as_ref(), false);
     }
 
-    writeln!(file, "}}").unwrap();
-    writeln!(file, "}}").unwrap();
+    writeln!(file, "}} }}\n").unwrap();
 }
 
 fn write_enumeration_fn_body(

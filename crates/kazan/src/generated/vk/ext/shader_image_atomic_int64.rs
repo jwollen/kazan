@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,10 +20,12 @@ pub(super) mod defs {
         pub sparse_image_int64_atomics: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderImageAtomicInt64FeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_IMAGE_ATOMIC_INT64_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceShaderImageAtomicInt64FeaturesEXT<'a>
     {
@@ -30,6 +34,7 @@ pub(super) mod defs {
         for PhysicalDeviceShaderImageAtomicInt64FeaturesEXT<'a>
     {
     }
+
     impl Default for PhysicalDeviceShaderImageAtomicInt64FeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -41,11 +46,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceShaderImageAtomicInt64FeaturesEXT<'a> {
         pub fn shader_image_int64_atomics(mut self, shader_image_int64_atomics: bool) -> Self {
             self.shader_image_int64_atomics = shader_image_int64_atomics.into();
             self
         }
+
         pub fn sparse_image_int64_atomics(mut self, sparse_image_int64_atomics: bool) -> Self {
             self.sparse_image_int64_atomics = sparse_image_int64_atomics.into();
             self

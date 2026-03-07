@@ -2,21 +2,25 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceToolPropertiesEXT.html>
     pub type PhysicalDeviceToolPropertiesEXT<'a> = PhysicalDeviceToolProperties<'a>;
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkToolPurposeFlagsEXT.html>
     pub type ToolPurposeFlagsEXT = ToolPurposeFlags;
     pub type PFN_vkGetPhysicalDeviceToolPropertiesEXT = PFN_vkGetPhysicalDeviceToolProperties;
 }
+
 pub struct InstanceFn {
     get_physical_device_tool_properties_ext: PFN_vkGetPhysicalDeviceToolProperties,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -30,6 +34,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceToolPropertiesEXT.html>
     pub unsafe fn get_physical_device_tool_properties_ext<'a>(

@@ -2,18 +2,21 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     handle_nondispatchable!(
         ValidationCacheEXT,
         VALIDATION_CACHE_EXT,
         doc =
             "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkValidationCacheEXT.html>"
     );
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkValidationCacheCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -25,9 +28,11 @@ pub(super) mod defs {
         pub p_initial_data: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ValidationCacheCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VALIDATION_CACHE_CREATE_INFO_EXT;
     }
+
     impl Default for ValidationCacheCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -40,17 +45,20 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ValidationCacheCreateInfoEXT<'a> {
         pub fn flags(mut self, flags: ValidationCacheCreateFlagsEXT) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn initial_data(mut self, initial_data: &'a [u8]) -> Self {
             self.initial_data_size = initial_data.len().try_into().unwrap();
             self.p_initial_data = initial_data.as_ptr() as _;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderModuleValidationCacheCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -60,10 +68,12 @@ pub(super) mod defs {
         pub validation_cache: ValidationCacheEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ShaderModuleValidationCacheCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::SHADER_MODULE_VALIDATION_CACHE_CREATE_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<ShaderModuleCreateInfo<'a>>
         for ShaderModuleValidationCacheCreateInfoEXT<'a>
     {
@@ -72,6 +82,7 @@ pub(super) mod defs {
         for ShaderModuleValidationCacheCreateInfoEXT<'a>
     {
     }
+
     impl Default for ShaderModuleValidationCacheCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -82,19 +93,23 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ShaderModuleValidationCacheCreateInfoEXT<'a> {
         pub fn validation_cache(mut self, validation_cache: ValidationCacheEXT) -> Self {
             self.validation_cache = validation_cache;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkValidationCacheHeaderVersionEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ValidationCacheHeaderVersionEXT(i32);
+
     impl ValidationCacheHeaderVersionEXT {
         pub const ONE_EXT: Self = Self(1);
     }
+
     impl fmt::Debug for ValidationCacheHeaderVersionEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -108,16 +123,19 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkValidationCacheCreateFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ValidationCacheCreateFlagsEXT(Flags);
     vk_bitflags_wrapped!(ValidationCacheCreateFlagsEXT, Flags);
+
     impl fmt::Debug for ValidationCacheCreateFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateValidationCacheEXT.html>
     pub type PFN_vkCreateValidationCacheEXT = unsafe extern "system" fn(
         device: Device,
@@ -146,12 +164,14 @@ pub(super) mod defs {
         p_src_caches: *const ValidationCacheEXT,
     ) -> vk::Result;
 }
+
 pub struct DeviceFn {
     create_validation_cache_ext: PFN_vkCreateValidationCacheEXT,
     destroy_validation_cache_ext: PFN_vkDestroyValidationCacheEXT,
     merge_validation_caches_ext: PFN_vkMergeValidationCachesEXT,
     get_validation_cache_data_ext: PFN_vkGetValidationCacheDataEXT,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -174,6 +194,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateValidationCacheEXT.html>
     pub unsafe fn create_validation_cache_ext(
@@ -197,6 +218,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyValidationCacheEXT.html>
     pub unsafe fn destroy_validation_cache_ext(
         &self,
@@ -208,6 +230,7 @@ impl DeviceFn {
             (self.destroy_validation_cache_ext)(device, validation_cache, allocator.to_raw_ptr())
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkMergeValidationCachesEXT.html>
     pub unsafe fn merge_validation_caches_ext(
         &self,
@@ -229,6 +252,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetValidationCacheDataEXT.html>
     pub unsafe fn get_validation_cache_data_ext(
         &self,

@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingMotionBlurFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,15 +20,18 @@ pub(super) mod defs {
         pub ray_tracing_motion_blur_pipeline_trace_rays_indirect: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRayTracingMotionBlurFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_RAY_TRACING_MOTION_BLUR_FEATURES_NV;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceRayTracingMotionBlurFeaturesNV<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceRayTracingMotionBlurFeaturesNV<'a> {}
+
     impl Default for PhysicalDeviceRayTracingMotionBlurFeaturesNV<'_> {
         fn default() -> Self {
             Self {
@@ -38,11 +43,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceRayTracingMotionBlurFeaturesNV<'a> {
         pub fn ray_tracing_motion_blur(mut self, ray_tracing_motion_blur: bool) -> Self {
             self.ray_tracing_motion_blur = ray_tracing_motion_blur.into();
             self
         }
+
         pub fn ray_tracing_motion_blur_pipeline_trace_rays_indirect(
             mut self,
             ray_tracing_motion_blur_pipeline_trace_rays_indirect: bool,
@@ -52,6 +59,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureGeometryMotionTrianglesDataNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -61,14 +69,17 @@ pub(super) mod defs {
         pub vertex_data: DeviceOrHostAddressConstKHR<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureGeometryMotionTrianglesDataNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::ACCELERATION_STRUCTURE_GEOMETRY_MOTION_TRIANGLES_DATA_NV;
     }
+
     unsafe impl<'a> Extends<AccelerationStructureGeometryTrianglesDataKHR<'a>>
         for AccelerationStructureGeometryMotionTrianglesDataNV<'a>
     {
     }
+
     impl Default for AccelerationStructureGeometryMotionTrianglesDataNV<'_> {
         fn default() -> Self {
             Self {
@@ -79,12 +90,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> AccelerationStructureGeometryMotionTrianglesDataNV<'a> {
         pub fn vertex_data(mut self, vertex_data: DeviceOrHostAddressConstKHR<'a>) -> Self {
             self.vertex_data = vertex_data;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureMotionInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -95,13 +108,16 @@ pub(super) mod defs {
         pub flags: AccelerationStructureMotionInfoFlagsNV,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureMotionInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::ACCELERATION_STRUCTURE_MOTION_INFO_NV;
     }
+
     unsafe impl<'a> Extends<AccelerationStructureCreateInfoKHR<'a>>
         for AccelerationStructureMotionInfoNV<'a>
     {
     }
+
     impl Default for AccelerationStructureMotionInfoNV<'_> {
         fn default() -> Self {
             Self {
@@ -113,16 +129,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> AccelerationStructureMotionInfoNV<'a> {
         pub fn max_instances(mut self, max_instances: u32) -> Self {
             self.max_instances = max_instances;
             self
         }
+
         pub fn flags(mut self, flags: AccelerationStructureMotionInfoFlagsNV) -> Self {
             self.flags = flags;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSRTDataNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -144,72 +163,89 @@ pub(super) mod defs {
         pub ty: f32,
         pub tz: f32,
     }
+
     impl SRTDataNV {
         pub fn sx(mut self, sx: f32) -> Self {
             self.sx = sx;
             self
         }
+
         pub fn a(mut self, a: f32) -> Self {
             self.a = a;
             self
         }
+
         pub fn b(mut self, b: f32) -> Self {
             self.b = b;
             self
         }
+
         pub fn pvx(mut self, pvx: f32) -> Self {
             self.pvx = pvx;
             self
         }
+
         pub fn sy(mut self, sy: f32) -> Self {
             self.sy = sy;
             self
         }
+
         pub fn c(mut self, c: f32) -> Self {
             self.c = c;
             self
         }
+
         pub fn pvy(mut self, pvy: f32) -> Self {
             self.pvy = pvy;
             self
         }
+
         pub fn sz(mut self, sz: f32) -> Self {
             self.sz = sz;
             self
         }
+
         pub fn pvz(mut self, pvz: f32) -> Self {
             self.pvz = pvz;
             self
         }
+
         pub fn qx(mut self, qx: f32) -> Self {
             self.qx = qx;
             self
         }
+
         pub fn qy(mut self, qy: f32) -> Self {
             self.qy = qy;
             self
         }
+
         pub fn qz(mut self, qz: f32) -> Self {
             self.qz = qz;
             self
         }
+
         pub fn qw(mut self, qw: f32) -> Self {
             self.qw = qw;
             self
         }
+
         pub fn tx(mut self, tx: f32) -> Self {
             self.tx = tx;
             self
         }
+
         pub fn ty(mut self, ty: f32) -> Self {
             self.ty = ty;
             self
         }
+
         pub fn tz(mut self, tz: f32) -> Self {
             self.tz = tz;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureSRTMotionInstanceNV.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -222,23 +258,28 @@ pub(super) mod defs {
         pub flags: GeometryInstanceFlagsKHR,
         pub acceleration_structure_reference: u64,
     }
+
     impl AccelerationStructureSRTMotionInstanceNV {
         pub fn transform_t0(mut self, transform_t0: SRTDataNV) -> Self {
             self.transform_t0 = transform_t0;
             self
         }
+
         pub fn transform_t1(mut self, transform_t1: SRTDataNV) -> Self {
             self.transform_t1 = transform_t1;
             self
         }
+
         pub fn instance_custom_index(mut self, instance_custom_index: u32) -> Self {
             self.instance_custom_index = instance_custom_index;
             self
         }
+
         pub fn mask(mut self, mask: u32) -> Self {
             self.mask = mask;
             self
         }
+
         pub fn instance_shader_binding_table_record_offset(
             mut self,
             instance_shader_binding_table_record_offset: u32,
@@ -247,10 +288,12 @@ pub(super) mod defs {
                 instance_shader_binding_table_record_offset;
             self
         }
+
         pub fn flags(mut self, flags: GeometryInstanceFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn acceleration_structure_reference(
             mut self,
             acceleration_structure_reference: u64,
@@ -259,6 +302,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureMatrixMotionInstanceNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -271,6 +315,7 @@ pub(super) mod defs {
         pub flags: GeometryInstanceFlagsKHR,
         pub acceleration_structure_reference: u64,
     }
+
     impl Default for AccelerationStructureMatrixMotionInstanceNV {
         fn default() -> Self {
             Self {
@@ -284,23 +329,28 @@ pub(super) mod defs {
             }
         }
     }
+
     impl AccelerationStructureMatrixMotionInstanceNV {
         pub fn transform_t0(mut self, transform_t0: TransformMatrixKHR) -> Self {
             self.transform_t0 = transform_t0;
             self
         }
+
         pub fn transform_t1(mut self, transform_t1: TransformMatrixKHR) -> Self {
             self.transform_t1 = transform_t1;
             self
         }
+
         pub fn instance_custom_index(mut self, instance_custom_index: u32) -> Self {
             self.instance_custom_index = instance_custom_index;
             self
         }
+
         pub fn mask(mut self, mask: u32) -> Self {
             self.mask = mask;
             self
         }
+
         pub fn instance_shader_binding_table_record_offset(
             mut self,
             instance_shader_binding_table_record_offset: u32,
@@ -309,10 +359,12 @@ pub(super) mod defs {
                 instance_shader_binding_table_record_offset;
             self
         }
+
         pub fn flags(mut self, flags: GeometryInstanceFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn acceleration_structure_reference(
             mut self,
             acceleration_structure_reference: u64,
@@ -321,6 +373,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureMotionInstanceNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -329,6 +382,7 @@ pub(super) mod defs {
         pub flags: AccelerationStructureMotionInstanceFlagsNV,
         pub data: AccelerationStructureMotionInstanceDataNV,
     }
+
     impl Default for AccelerationStructureMotionInstanceNV {
         fn default() -> Self {
             Self {
@@ -338,20 +392,24 @@ pub(super) mod defs {
             }
         }
     }
+
     impl AccelerationStructureMotionInstanceNV {
         pub fn ty(mut self, ty: AccelerationStructureMotionInstanceTypeNV) -> Self {
             self.ty = ty;
             self
         }
+
         pub fn flags(mut self, flags: AccelerationStructureMotionInstanceFlagsNV) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn data(mut self, data: AccelerationStructureMotionInstanceDataNV) -> Self {
             self.data = data;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureMotionInstanceDataNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -365,15 +423,18 @@ pub(super) mod defs {
             unsafe { core::mem::zeroed() }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureMotionInstanceTypeNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct AccelerationStructureMotionInstanceTypeNV(i32);
+
     impl AccelerationStructureMotionInstanceTypeNV {
         pub const STATIC_NV: Self = Self(0);
         pub const MATRIX_MOTION_NV: Self = Self(1);
         pub const SRT_MOTION_NV: Self = Self(2);
     }
+
     impl fmt::Debug for AccelerationStructureMotionInstanceTypeNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -389,21 +450,25 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureMotionInfoFlagsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct AccelerationStructureMotionInfoFlagsNV(Flags);
     vk_bitflags_wrapped!(AccelerationStructureMotionInfoFlagsNV, Flags);
+
     impl fmt::Debug for AccelerationStructureMotionInfoFlagsNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureMotionInstanceFlagsNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct AccelerationStructureMotionInstanceFlagsNV(Flags);
     vk_bitflags_wrapped!(AccelerationStructureMotionInstanceFlagsNV, Flags);
+
     impl fmt::Debug for AccelerationStructureMotionInstanceFlagsNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             debug_flags(f, &[], self.0)

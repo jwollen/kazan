@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,10 +19,12 @@ pub(super) mod defs {
         pub mutable_descriptor_type: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMutableDescriptorTypeFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceMutableDescriptorTypeFeaturesEXT<'a>
     {
@@ -29,6 +33,7 @@ pub(super) mod defs {
         for PhysicalDeviceMutableDescriptorTypeFeaturesEXT<'a>
     {
     }
+
     impl Default for PhysicalDeviceMutableDescriptorTypeFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -39,12 +44,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceMutableDescriptorTypeFeaturesEXT<'a> {
         pub fn mutable_descriptor_type(mut self, mutable_descriptor_type: bool) -> Self {
             self.mutable_descriptor_type = mutable_descriptor_type.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMutableDescriptorTypeListEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -53,6 +60,7 @@ pub(super) mod defs {
         pub p_descriptor_types: *const DescriptorType,
         pub _marker: PhantomData<&'a ()>,
     }
+
     impl Default for MutableDescriptorTypeListEXT<'_> {
         fn default() -> Self {
             Self {
@@ -62,6 +70,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> MutableDescriptorTypeListEXT<'a> {
         pub fn descriptor_types(mut self, descriptor_types: &'a [DescriptorType]) -> Self {
             self.descriptor_type_count = descriptor_types.len().try_into().unwrap();
@@ -69,6 +78,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMutableDescriptorTypeCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -79,15 +89,18 @@ pub(super) mod defs {
         pub p_mutable_descriptor_type_lists: *const MutableDescriptorTypeListEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for MutableDescriptorTypeCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::MUTABLE_DESCRIPTOR_TYPE_CREATE_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<DescriptorSetLayoutCreateInfo<'a>>
         for MutableDescriptorTypeCreateInfoEXT<'a>
     {
     }
     unsafe impl<'a> Extends<DescriptorPoolCreateInfo<'a>> for MutableDescriptorTypeCreateInfoEXT<'a> {}
+
     impl Default for MutableDescriptorTypeCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -99,6 +112,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> MutableDescriptorTypeCreateInfoEXT<'a> {
         pub fn mutable_descriptor_type_lists(
             mut self,

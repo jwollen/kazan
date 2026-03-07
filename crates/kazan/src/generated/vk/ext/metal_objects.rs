@@ -2,18 +2,21 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     pub type MTLDevice_id = *const c_void;
     pub type MTLCommandQueue_id = *const c_void;
     pub type MTLBuffer_id = *const c_void;
     pub type MTLTexture_id = *const c_void;
     pub type MTLSharedEvent_id = *const c_void;
     pub type IOSurfaceRef = *const c_void;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalObjectCreateInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -23,9 +26,11 @@ pub(super) mod defs {
         pub export_object_type: ExportMetalObjectTypeFlagBitsEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ExportMetalObjectCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_METAL_OBJECT_CREATE_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<InstanceCreateInfo<'a>> for ExportMetalObjectCreateInfoEXT<'a> {}
     unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ExportMetalObjectCreateInfoEXT<'a> {}
     unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ExportMetalObjectCreateInfoEXT<'a> {}
@@ -33,6 +38,7 @@ pub(super) mod defs {
     unsafe impl<'a> Extends<BufferViewCreateInfo<'a>> for ExportMetalObjectCreateInfoEXT<'a> {}
     unsafe impl<'a> Extends<SemaphoreCreateInfo<'a>> for ExportMetalObjectCreateInfoEXT<'a> {}
     unsafe impl<'a> Extends<EventCreateInfo<'a>> for ExportMetalObjectCreateInfoEXT<'a> {}
+
     impl Default for ExportMetalObjectCreateInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -43,6 +49,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ExportMetalObjectCreateInfoEXT<'a> {
         pub fn export_object_type(
             mut self,
@@ -52,6 +59,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalObjectsInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -60,9 +68,11 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ExportMetalObjectsInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_METAL_OBJECTS_INFO_EXT;
     }
+
     impl Default for ExportMetalObjectsInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -72,7 +82,9 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ExportMetalObjectsInfoEXT<'a> {}
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalDeviceInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -82,10 +94,13 @@ pub(super) mod defs {
         pub mtl_device: MTLDevice_id,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ExportMetalDeviceInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_METAL_DEVICE_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<ExportMetalObjectsInfoEXT<'a>> for ExportMetalDeviceInfoEXT<'a> {}
+
     impl Default for ExportMetalDeviceInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -96,12 +111,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ExportMetalDeviceInfoEXT<'a> {
         pub fn mtl_device(mut self, mtl_device: MTLDevice_id) -> Self {
             self.mtl_device = mtl_device;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalCommandQueueInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -112,10 +129,13 @@ pub(super) mod defs {
         pub mtl_command_queue: MTLCommandQueue_id,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ExportMetalCommandQueueInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_METAL_COMMAND_QUEUE_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<ExportMetalObjectsInfoEXT<'a>> for ExportMetalCommandQueueInfoEXT<'a> {}
+
     impl Default for ExportMetalCommandQueueInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -127,16 +147,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ExportMetalCommandQueueInfoEXT<'a> {
         pub fn queue(mut self, queue: Queue) -> Self {
             self.queue = queue;
             self
         }
+
         pub fn mtl_command_queue(mut self, mtl_command_queue: MTLCommandQueue_id) -> Self {
             self.mtl_command_queue = mtl_command_queue;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalBufferInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -147,10 +170,13 @@ pub(super) mod defs {
         pub mtl_buffer: MTLBuffer_id,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ExportMetalBufferInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_METAL_BUFFER_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<ExportMetalObjectsInfoEXT<'a>> for ExportMetalBufferInfoEXT<'a> {}
+
     impl Default for ExportMetalBufferInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -162,16 +188,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ExportMetalBufferInfoEXT<'a> {
         pub fn memory(mut self, memory: DeviceMemory) -> Self {
             self.memory = memory;
             self
         }
+
         pub fn mtl_buffer(mut self, mtl_buffer: MTLBuffer_id) -> Self {
             self.mtl_buffer = mtl_buffer;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportMetalBufferInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -181,10 +210,13 @@ pub(super) mod defs {
         pub mtl_buffer: MTLBuffer_id,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportMetalBufferInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_METAL_BUFFER_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ImportMetalBufferInfoEXT<'a> {}
+
     impl Default for ImportMetalBufferInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -195,12 +227,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ImportMetalBufferInfoEXT<'a> {
         pub fn mtl_buffer(mut self, mtl_buffer: MTLBuffer_id) -> Self {
             self.mtl_buffer = mtl_buffer;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalTextureInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -214,10 +248,13 @@ pub(super) mod defs {
         pub mtl_texture: MTLTexture_id,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ExportMetalTextureInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_METAL_TEXTURE_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<ExportMetalObjectsInfoEXT<'a>> for ExportMetalTextureInfoEXT<'a> {}
+
     impl Default for ExportMetalTextureInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -232,28 +269,34 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ExportMetalTextureInfoEXT<'a> {
         pub fn image(mut self, image: Image) -> Self {
             self.image = image;
             self
         }
+
         pub fn image_view(mut self, image_view: ImageView) -> Self {
             self.image_view = image_view;
             self
         }
+
         pub fn buffer_view(mut self, buffer_view: BufferView) -> Self {
             self.buffer_view = buffer_view;
             self
         }
+
         pub fn plane(mut self, plane: ImageAspectFlagBits) -> Self {
             self.plane = plane;
             self
         }
+
         pub fn mtl_texture(mut self, mtl_texture: MTLTexture_id) -> Self {
             self.mtl_texture = mtl_texture;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportMetalTextureInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -264,10 +307,13 @@ pub(super) mod defs {
         pub mtl_texture: MTLTexture_id,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportMetalTextureInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_METAL_TEXTURE_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ImportMetalTextureInfoEXT<'a> {}
+
     impl Default for ImportMetalTextureInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -279,16 +325,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ImportMetalTextureInfoEXT<'a> {
         pub fn plane(mut self, plane: ImageAspectFlagBits) -> Self {
             self.plane = plane;
             self
         }
+
         pub fn mtl_texture(mut self, mtl_texture: MTLTexture_id) -> Self {
             self.mtl_texture = mtl_texture;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalIOSurfaceInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -299,10 +348,13 @@ pub(super) mod defs {
         pub io_surface: IOSurfaceRef,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ExportMetalIOSurfaceInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_METAL_IO_SURFACE_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<ExportMetalObjectsInfoEXT<'a>> for ExportMetalIOSurfaceInfoEXT<'a> {}
+
     impl Default for ExportMetalIOSurfaceInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -314,16 +366,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ExportMetalIOSurfaceInfoEXT<'a> {
         pub fn image(mut self, image: Image) -> Self {
             self.image = image;
             self
         }
+
         pub fn io_surface(mut self, io_surface: IOSurfaceRef) -> Self {
             self.io_surface = io_surface;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportMetalIOSurfaceInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -333,10 +388,13 @@ pub(super) mod defs {
         pub io_surface: IOSurfaceRef,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportMetalIOSurfaceInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_METAL_IO_SURFACE_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ImportMetalIOSurfaceInfoEXT<'a> {}
+
     impl Default for ImportMetalIOSurfaceInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -347,12 +405,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ImportMetalIOSurfaceInfoEXT<'a> {
         pub fn io_surface(mut self, io_surface: IOSurfaceRef) -> Self {
             self.io_surface = io_surface;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalSharedEventInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -364,10 +424,13 @@ pub(super) mod defs {
         pub mtl_shared_event: MTLSharedEvent_id,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ExportMetalSharedEventInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_METAL_SHARED_EVENT_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<ExportMetalObjectsInfoEXT<'a>> for ExportMetalSharedEventInfoEXT<'a> {}
+
     impl Default for ExportMetalSharedEventInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -380,20 +443,24 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ExportMetalSharedEventInfoEXT<'a> {
         pub fn semaphore(mut self, semaphore: Semaphore) -> Self {
             self.semaphore = semaphore;
             self
         }
+
         pub fn event(mut self, event: Event) -> Self {
             self.event = event;
             self
         }
+
         pub fn mtl_shared_event(mut self, mtl_shared_event: MTLSharedEvent_id) -> Self {
             self.mtl_shared_event = mtl_shared_event;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportMetalSharedEventInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -403,11 +470,14 @@ pub(super) mod defs {
         pub mtl_shared_event: MTLSharedEvent_id,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportMetalSharedEventInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_METAL_SHARED_EVENT_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<SemaphoreCreateInfo<'a>> for ImportMetalSharedEventInfoEXT<'a> {}
     unsafe impl<'a> Extends<EventCreateInfo<'a>> for ImportMetalSharedEventInfoEXT<'a> {}
+
     impl Default for ImportMetalSharedEventInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -418,17 +488,20 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ImportMetalSharedEventInfoEXT<'a> {
         pub fn mtl_shared_event(mut self, mtl_shared_event: MTLSharedEvent_id) -> Self {
             self.mtl_shared_event = mtl_shared_event;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalObjectTypeFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ExportMetalObjectTypeFlagsEXT(Flags);
     vk_bitflags_wrapped!(ExportMetalObjectTypeFlagsEXT, Flags);
+
     impl ExportMetalObjectTypeFlagsEXT {
         pub const METAL_DEVICE_EXT: Self =
             Self(ExportMetalObjectTypeFlagBitsEXT::METAL_DEVICE_EXT.0);
@@ -443,6 +516,7 @@ pub(super) mod defs {
         pub const METAL_SHARED_EVENT_EXT: Self =
             Self(ExportMetalObjectTypeFlagBitsEXT::METAL_SHARED_EVENT_EXT.0);
     }
+
     impl fmt::Debug for ExportMetalObjectTypeFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
@@ -474,10 +548,12 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalObjectTypeFlagBitsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct ExportMetalObjectTypeFlagBitsEXT(u32);
+
     impl ExportMetalObjectTypeFlagBitsEXT {
         pub const METAL_DEVICE_EXT: Self = Self(1 << 0);
         pub const METAL_COMMAND_QUEUE_EXT: Self = Self(1 << 1);
@@ -486,15 +562,18 @@ pub(super) mod defs {
         pub const METAL_IOSURFACE_EXT: Self = Self(1 << 4);
         pub const METAL_SHARED_EVENT_EXT: Self = Self(1 << 5);
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkExportMetalObjectsEXT.html>
     pub type PFN_vkExportMetalObjectsEXT = unsafe extern "system" fn(
         device: Device,
         p_metal_objects_info: *mut ExportMetalObjectsInfoEXT<'_>,
     );
 }
+
 pub struct DeviceFn {
     export_metal_objects_ext: PFN_vkExportMetalObjectsEXT,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -508,6 +587,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkExportMetalObjectsEXT.html>
     pub unsafe fn export_metal_objects_ext(

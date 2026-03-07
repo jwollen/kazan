@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyCommandTransformInfoQCOM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,11 +19,14 @@ pub(super) mod defs {
         pub transform: SurfaceTransformFlagBitsKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for CopyCommandTransformInfoQCOM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::COPY_COMMAND_TRANSFORM_INFO_QCOM;
     }
+
     unsafe impl<'a> Extends<BufferImageCopy2<'a>> for CopyCommandTransformInfoQCOM<'a> {}
     unsafe impl<'a> Extends<ImageBlit2<'a>> for CopyCommandTransformInfoQCOM<'a> {}
+
     impl Default for CopyCommandTransformInfoQCOM<'_> {
         fn default() -> Self {
             Self {
@@ -32,6 +37,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> CopyCommandTransformInfoQCOM<'a> {
         pub fn transform(mut self, transform: SurfaceTransformFlagBitsKHR) -> Self {
             self.transform = transform;

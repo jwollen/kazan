@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugMarkerObjectNameInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -19,9 +21,11 @@ pub(super) mod defs {
         pub p_object_name: *const c_char,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DebugMarkerObjectNameInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DEBUG_MARKER_OBJECT_NAME_INFO_EXT;
     }
+
     impl Default for DebugMarkerObjectNameInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -34,20 +38,24 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DebugMarkerObjectNameInfoEXT<'a> {
         pub fn object_type(mut self, object_type: DebugReportObjectTypeEXT) -> Self {
             self.object_type = object_type;
             self
         }
+
         pub fn object(mut self, object: u64) -> Self {
             self.object = object;
             self
         }
+
         pub fn object_name(mut self, object_name: &'a CStr) -> Self {
             self.p_object_name = object_name.as_ptr();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugMarkerObjectTagInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -61,9 +69,11 @@ pub(super) mod defs {
         pub p_tag: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DebugMarkerObjectTagInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DEBUG_MARKER_OBJECT_TAG_INFO_EXT;
     }
+
     impl Default for DebugMarkerObjectTagInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -78,25 +88,30 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DebugMarkerObjectTagInfoEXT<'a> {
         pub fn object_type(mut self, object_type: DebugReportObjectTypeEXT) -> Self {
             self.object_type = object_type;
             self
         }
+
         pub fn object(mut self, object: u64) -> Self {
             self.object = object;
             self
         }
+
         pub fn tag_name(mut self, tag_name: u64) -> Self {
             self.tag_name = tag_name;
             self
         }
+
         pub fn tag(mut self, tag: &'a [u8]) -> Self {
             self.tag_size = tag.len().try_into().unwrap();
             self.p_tag = tag.as_ptr() as _;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugMarkerMarkerInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -107,9 +122,11 @@ pub(super) mod defs {
         pub color: [f32; 4],
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DebugMarkerMarkerInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DEBUG_MARKER_MARKER_INFO_EXT;
     }
+
     impl Default for DebugMarkerMarkerInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -121,16 +138,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DebugMarkerMarkerInfoEXT<'a> {
         pub fn marker_name(mut self, marker_name: &'a CStr) -> Self {
             self.p_marker_name = marker_name.as_ptr();
             self
         }
+
         pub fn color(mut self, color: [f32; 4]) -> Self {
             self.color = color;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDebugMarkerSetObjectNameEXT.html>
     pub type PFN_vkDebugMarkerSetObjectNameEXT = unsafe extern "system" fn(
         device: Device,
@@ -154,6 +174,7 @@ pub(super) mod defs {
         p_marker_info: *const DebugMarkerMarkerInfoEXT<'_>,
     );
 }
+
 pub struct DeviceFn {
     debug_marker_set_object_tag_ext: PFN_vkDebugMarkerSetObjectTagEXT,
     debug_marker_set_object_name_ext: PFN_vkDebugMarkerSetObjectNameEXT,
@@ -161,6 +182,7 @@ pub struct DeviceFn {
     cmd_debug_marker_end_ext: PFN_vkCmdDebugMarkerEndEXT,
     cmd_debug_marker_insert_ext: PFN_vkCmdDebugMarkerInsertEXT,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -186,6 +208,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDebugMarkerSetObjectTagEXT.html>
     pub unsafe fn debug_marker_set_object_tag_ext(
@@ -202,6 +225,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDebugMarkerSetObjectNameEXT.html>
     pub unsafe fn debug_marker_set_object_name_ext(
         &self,
@@ -217,6 +241,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDebugMarkerBeginEXT.html>
     pub unsafe fn cmd_debug_marker_begin_ext(
         &self,
@@ -225,10 +250,12 @@ impl DeviceFn {
     ) {
         unsafe { (self.cmd_debug_marker_begin_ext)(command_buffer, marker_info) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDebugMarkerEndEXT.html>
     pub unsafe fn cmd_debug_marker_end_ext(&self, command_buffer: CommandBuffer) {
         unsafe { (self.cmd_debug_marker_end_ext)(command_buffer) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDebugMarkerInsertEXT.html>
     pub unsafe fn cmd_debug_marker_insert_ext(
         &self,

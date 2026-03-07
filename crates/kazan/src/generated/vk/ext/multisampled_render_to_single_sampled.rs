@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,12 +19,14 @@ pub(super) mod defs {
         pub multisampled_render_to_single_sampled: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a>
         for PhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT<'a>
     {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_FEATURES_EXT;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT<'a>
     {
@@ -31,6 +35,7 @@ pub(super) mod defs {
         for PhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT<'a>
     {
     }
+
     impl Default for PhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT<'_> {
         fn default() -> Self {
             Self {
@@ -41,6 +46,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT<'a> {
         pub fn multisampled_render_to_single_sampled(
             mut self,
@@ -51,6 +57,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassResolvePerformanceQueryEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -60,10 +67,13 @@ pub(super) mod defs {
         pub optimal: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for SubpassResolvePerformanceQueryEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SUBPASS_RESOLVE_PERFORMANCE_QUERY_EXT;
     }
+
     unsafe impl<'a> Extends<FormatProperties2<'a>> for SubpassResolvePerformanceQueryEXT<'a> {}
+
     impl Default for SubpassResolvePerformanceQueryEXT<'_> {
         fn default() -> Self {
             Self {
@@ -74,12 +84,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SubpassResolvePerformanceQueryEXT<'a> {
         pub fn optimal(mut self, optimal: bool) -> Self {
             self.optimal = optimal.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMultisampledRenderToSingleSampledInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -90,12 +102,15 @@ pub(super) mod defs {
         pub rasterization_samples: SampleCountFlagBits,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for MultisampledRenderToSingleSampledInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_INFO_EXT;
     }
+
     unsafe impl<'a> Extends<SubpassDescription2<'a>> for MultisampledRenderToSingleSampledInfoEXT<'a> {}
     unsafe impl<'a> Extends<RenderingInfo<'a>> for MultisampledRenderToSingleSampledInfoEXT<'a> {}
+
     impl Default for MultisampledRenderToSingleSampledInfoEXT<'_> {
         fn default() -> Self {
             Self {
@@ -107,6 +122,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> MultisampledRenderToSingleSampledInfoEXT<'a> {
         pub fn multisampled_render_to_single_sampled_enable(
             mut self,
@@ -116,6 +132,7 @@ pub(super) mod defs {
                 multisampled_render_to_single_sampled_enable.into();
             self
         }
+
         pub fn rasterization_samples(mut self, rasterization_samples: SampleCountFlagBits) -> Self {
             self.rasterization_samples = rasterization_samples;
             self

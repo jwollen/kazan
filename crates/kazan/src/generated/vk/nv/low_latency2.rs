@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkLatencySleepModeInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -19,9 +21,11 @@ pub(super) mod defs {
         pub minimum_interval_us: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for LatencySleepModeInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::LATENCY_SLEEP_MODE_INFO_NV;
     }
+
     impl Default for LatencySleepModeInfoNV<'_> {
         fn default() -> Self {
             Self {
@@ -34,20 +38,24 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> LatencySleepModeInfoNV<'a> {
         pub fn low_latency_mode(mut self, low_latency_mode: bool) -> Self {
             self.low_latency_mode = low_latency_mode.into();
             self
         }
+
         pub fn low_latency_boost(mut self, low_latency_boost: bool) -> Self {
             self.low_latency_boost = low_latency_boost.into();
             self
         }
+
         pub fn minimum_interval_us(mut self, minimum_interval_us: u32) -> Self {
             self.minimum_interval_us = minimum_interval_us;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkLatencySleepInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -58,9 +66,11 @@ pub(super) mod defs {
         pub value: u64,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for LatencySleepInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::LATENCY_SLEEP_INFO_NV;
     }
+
     impl Default for LatencySleepInfoNV<'_> {
         fn default() -> Self {
             Self {
@@ -72,16 +82,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> LatencySleepInfoNV<'a> {
         pub fn signal_semaphore(mut self, signal_semaphore: Semaphore) -> Self {
             self.signal_semaphore = signal_semaphore;
             self
         }
+
         pub fn value(mut self, value: u64) -> Self {
             self.value = value;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSetLatencyMarkerInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -92,9 +105,11 @@ pub(super) mod defs {
         pub marker: LatencyMarkerNV,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for SetLatencyMarkerInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SET_LATENCY_MARKER_INFO_NV;
     }
+
     impl Default for SetLatencyMarkerInfoNV<'_> {
         fn default() -> Self {
             Self {
@@ -106,16 +121,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SetLatencyMarkerInfoNV<'a> {
         pub fn present_id(mut self, present_id: u64) -> Self {
             self.present_id = present_id;
             self
         }
+
         pub fn marker(mut self, marker: LatencyMarkerNV) -> Self {
             self.marker = marker;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGetLatencyMarkerInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -126,9 +144,11 @@ pub(super) mod defs {
         pub p_timings: *mut LatencyTimingsFrameReportNV<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for GetLatencyMarkerInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::GET_LATENCY_MARKER_INFO_NV;
     }
+
     impl Default for GetLatencyMarkerInfoNV<'_> {
         fn default() -> Self {
             Self {
@@ -140,6 +160,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> GetLatencyMarkerInfoNV<'a> {
         pub fn timings(mut self, timings: &'a mut [LatencyTimingsFrameReportNV<'a>]) -> Self {
             self.timing_count = timings.len().try_into().unwrap();
@@ -147,6 +168,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkLatencyTimingsFrameReportNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -169,9 +191,11 @@ pub(super) mod defs {
         pub gpu_render_end_time_us: u64,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for LatencyTimingsFrameReportNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::LATENCY_TIMINGS_FRAME_REPORT_NV;
     }
+
     impl Default for LatencyTimingsFrameReportNV<'_> {
         fn default() -> Self {
             Self {
@@ -195,64 +219,79 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> LatencyTimingsFrameReportNV<'a> {
         pub fn present_id(mut self, present_id: u64) -> Self {
             self.present_id = present_id;
             self
         }
+
         pub fn input_sample_time_us(mut self, input_sample_time_us: u64) -> Self {
             self.input_sample_time_us = input_sample_time_us;
             self
         }
+
         pub fn sim_start_time_us(mut self, sim_start_time_us: u64) -> Self {
             self.sim_start_time_us = sim_start_time_us;
             self
         }
+
         pub fn sim_end_time_us(mut self, sim_end_time_us: u64) -> Self {
             self.sim_end_time_us = sim_end_time_us;
             self
         }
+
         pub fn render_submit_start_time_us(mut self, render_submit_start_time_us: u64) -> Self {
             self.render_submit_start_time_us = render_submit_start_time_us;
             self
         }
+
         pub fn render_submit_end_time_us(mut self, render_submit_end_time_us: u64) -> Self {
             self.render_submit_end_time_us = render_submit_end_time_us;
             self
         }
+
         pub fn present_start_time_us(mut self, present_start_time_us: u64) -> Self {
             self.present_start_time_us = present_start_time_us;
             self
         }
+
         pub fn present_end_time_us(mut self, present_end_time_us: u64) -> Self {
             self.present_end_time_us = present_end_time_us;
             self
         }
+
         pub fn driver_start_time_us(mut self, driver_start_time_us: u64) -> Self {
             self.driver_start_time_us = driver_start_time_us;
             self
         }
+
         pub fn driver_end_time_us(mut self, driver_end_time_us: u64) -> Self {
             self.driver_end_time_us = driver_end_time_us;
             self
         }
+
         pub fn os_render_queue_start_time_us(mut self, os_render_queue_start_time_us: u64) -> Self {
             self.os_render_queue_start_time_us = os_render_queue_start_time_us;
             self
         }
+
         pub fn os_render_queue_end_time_us(mut self, os_render_queue_end_time_us: u64) -> Self {
             self.os_render_queue_end_time_us = os_render_queue_end_time_us;
             self
         }
+
         pub fn gpu_render_start_time_us(mut self, gpu_render_start_time_us: u64) -> Self {
             self.gpu_render_start_time_us = gpu_render_start_time_us;
             self
         }
+
         pub fn gpu_render_end_time_us(mut self, gpu_render_end_time_us: u64) -> Self {
             self.gpu_render_end_time_us = gpu_render_end_time_us;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOutOfBandQueueTypeInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -262,9 +301,11 @@ pub(super) mod defs {
         pub queue_type: OutOfBandQueueTypeNV,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for OutOfBandQueueTypeInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::OUT_OF_BAND_QUEUE_TYPE_INFO_NV;
     }
+
     impl Default for OutOfBandQueueTypeInfoNV<'_> {
         fn default() -> Self {
             Self {
@@ -275,12 +316,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> OutOfBandQueueTypeInfoNV<'a> {
         pub fn queue_type(mut self, queue_type: OutOfBandQueueTypeNV) -> Self {
             self.queue_type = queue_type;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkLatencySubmissionPresentIdNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -290,11 +333,14 @@ pub(super) mod defs {
         pub present_id: u64,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for LatencySubmissionPresentIdNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::LATENCY_SUBMISSION_PRESENT_ID_NV;
     }
+
     unsafe impl<'a> Extends<SubmitInfo<'a>> for LatencySubmissionPresentIdNV<'a> {}
     unsafe impl<'a> Extends<SubmitInfo2<'a>> for LatencySubmissionPresentIdNV<'a> {}
+
     impl Default for LatencySubmissionPresentIdNV<'_> {
         fn default() -> Self {
             Self {
@@ -305,12 +351,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> LatencySubmissionPresentIdNV<'a> {
         pub fn present_id(mut self, present_id: u64) -> Self {
             self.present_id = present_id;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSwapchainLatencyCreateInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -320,10 +368,13 @@ pub(super) mod defs {
         pub latency_mode_enable: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for SwapchainLatencyCreateInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SWAPCHAIN_LATENCY_CREATE_INFO_NV;
     }
+
     unsafe impl<'a> Extends<SwapchainCreateInfoKHR<'a>> for SwapchainLatencyCreateInfoNV<'a> {}
+
     impl Default for SwapchainLatencyCreateInfoNV<'_> {
         fn default() -> Self {
             Self {
@@ -334,12 +385,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> SwapchainLatencyCreateInfoNV<'a> {
         pub fn latency_mode_enable(mut self, latency_mode_enable: bool) -> Self {
             self.latency_mode_enable = latency_mode_enable.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkLatencySurfaceCapabilitiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -350,10 +403,13 @@ pub(super) mod defs {
         pub p_present_modes: *mut PresentModeKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for LatencySurfaceCapabilitiesNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::LATENCY_SURFACE_CAPABILITIES_NV;
     }
+
     unsafe impl<'a> Extends<SurfaceCapabilities2KHR<'a>> for LatencySurfaceCapabilitiesNV<'a> {}
+
     impl Default for LatencySurfaceCapabilitiesNV<'_> {
         fn default() -> Self {
             Self {
@@ -365,6 +421,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> LatencySurfaceCapabilitiesNV<'a> {
         pub fn present_modes(mut self, present_modes: &'a mut [PresentModeKHR]) -> Self {
             self.present_mode_count = present_modes.len().try_into().unwrap();
@@ -372,10 +429,12 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkLatencyMarkerNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct LatencyMarkerNV(i32);
+
     impl LatencyMarkerNV {
         pub const SIMULATION_START_NV: Self = Self(0);
         pub const SIMULATION_END_NV: Self = Self(1);
@@ -390,6 +449,7 @@ pub(super) mod defs {
         pub const OUT_OF_BAND_PRESENT_START_NV: Self = Self(10);
         pub const OUT_OF_BAND_PRESENT_END_NV: Self = Self(11);
     }
+
     impl fmt::Debug for LatencyMarkerNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -416,14 +476,17 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOutOfBandQueueTypeNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct OutOfBandQueueTypeNV(i32);
+
     impl OutOfBandQueueTypeNV {
         pub const RENDER_NV: Self = Self(0);
         pub const PRESENT_NV: Self = Self(1);
     }
+
     impl fmt::Debug for OutOfBandQueueTypeNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -438,6 +501,7 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetLatencySleepModeNV.html>
     pub type PFN_vkSetLatencySleepModeNV = unsafe extern "system" fn(
         device: Device,
@@ -468,6 +532,7 @@ pub(super) mod defs {
         p_queue_type_info: *const OutOfBandQueueTypeInfoNV<'_>,
     );
 }
+
 pub struct DeviceFn {
     set_latency_sleep_mode_nv: PFN_vkSetLatencySleepModeNV,
     latency_sleep_nv: PFN_vkLatencySleepNV,
@@ -475,6 +540,7 @@ pub struct DeviceFn {
     get_latency_timings_nv: PFN_vkGetLatencyTimingsNV,
     queue_notify_out_of_band_nv: PFN_vkQueueNotifyOutOfBandNV,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -500,6 +566,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetLatencySleepModeNV.html>
     pub unsafe fn set_latency_sleep_mode_nv(
@@ -517,6 +584,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkLatencySleepNV.html>
     pub unsafe fn latency_sleep_nv(
         &self,
@@ -533,6 +601,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetLatencyMarkerNV.html>
     pub unsafe fn set_latency_marker_nv(
         &self,
@@ -542,6 +611,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.set_latency_marker_nv)(device, swapchain, latency_marker_info) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetLatencyTimingsNV.html>
     pub unsafe fn get_latency_timings_nv(
         &self,
@@ -551,6 +621,7 @@ impl DeviceFn {
     ) {
         unsafe { (self.get_latency_timings_nv)(device, swapchain, latency_marker_info) }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueNotifyOutOfBandNV.html>
     pub unsafe fn queue_notify_out_of_band_nv(
         &self,

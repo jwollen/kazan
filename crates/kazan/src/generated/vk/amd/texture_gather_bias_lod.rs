@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTextureLODGatherFormatPropertiesAMD.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,11 +19,14 @@ pub(super) mod defs {
         pub supports_texture_gather_lod_bias_amd: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for TextureLODGatherFormatPropertiesAMD<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::TEXTURE_LOD_GATHER_FORMAT_PROPERTIES_AMD;
     }
+
     unsafe impl<'a> Extends<ImageFormatProperties2<'a>> for TextureLODGatherFormatPropertiesAMD<'a> {}
+
     impl Default for TextureLODGatherFormatPropertiesAMD<'_> {
         fn default() -> Self {
             Self {
@@ -32,6 +37,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> TextureLODGatherFormatPropertiesAMD<'a> {
         pub fn supports_texture_gather_lod_bias_amd(
             mut self,

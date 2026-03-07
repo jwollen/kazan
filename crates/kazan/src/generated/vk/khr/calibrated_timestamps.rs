@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCalibratedTimestampInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,9 +19,11 @@ pub(super) mod defs {
         pub time_domain: TimeDomainKHR,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for CalibratedTimestampInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::CALIBRATED_TIMESTAMP_INFO_KHR;
     }
+
     impl Default for CalibratedTimestampInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -30,16 +34,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> CalibratedTimestampInfoKHR<'a> {
         pub fn time_domain(mut self, time_domain: TimeDomainKHR) -> Self {
             self.time_domain = time_domain;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTimeDomainKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct TimeDomainKHR(i32);
+
     impl TimeDomainKHR {
         pub const DEVICE_KHR: Self = Self(0);
         pub const CLOCK_MONOTONIC_KHR: Self = Self(1);
@@ -50,10 +57,12 @@ pub(super) mod defs {
         pub const CLOCK_MONOTONIC_EXT: Self = Self::CLOCK_MONOTONIC_KHR;
         pub const CLOCK_MONOTONIC_RAW_EXT: Self = Self::CLOCK_MONOTONIC_RAW_KHR;
         pub const QUERY_PERFORMANCE_COUNTER_EXT: Self = Self::QUERY_PERFORMANCE_COUNTER_KHR;
+
         // VK_EXT_present_timing
         pub const PRESENT_STAGE_LOCAL_EXT: Self = Self(1000208000);
         pub const SWAPCHAIN_LOCAL_EXT: Self = Self(1000208001);
     }
+
     impl fmt::Debug for TimeDomainKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -72,6 +81,7 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceCalibrateableTimeDomainsKHR.html>
     pub type PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsKHR =
         unsafe extern "system" fn(
@@ -88,10 +98,12 @@ pub(super) mod defs {
         p_max_deviation: *mut u64,
     ) -> vk::Result;
 }
+
 pub struct InstanceFn {
     get_physical_device_calibrateable_time_domains_khr:
         PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsKHR,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -106,6 +118,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceCalibrateableTimeDomainsKHR.html>
     pub unsafe fn get_physical_device_calibrateable_time_domains_khr(
@@ -138,9 +151,11 @@ impl InstanceFn {
         }
     }
 }
+
 pub struct DeviceFn {
     get_calibrated_timestamps_khr: PFN_vkGetCalibratedTimestampsKHR,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -154,6 +169,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetCalibratedTimestampsKHR.html>
     pub unsafe fn get_calibrated_timestamps_khr(

@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSamplerYcbcrModelConversionKHR.html>
     pub type SamplerYcbcrModelConversionKHR = SamplerYcbcrModelConversion;
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSamplerYcbcrRangeKHR.html>
@@ -33,10 +35,12 @@ pub(super) mod defs {
     pub type PFN_vkCreateSamplerYcbcrConversionKHR = PFN_vkCreateSamplerYcbcrConversion;
     pub type PFN_vkDestroySamplerYcbcrConversionKHR = PFN_vkDestroySamplerYcbcrConversion;
 }
+
 pub struct DeviceFn {
     create_sampler_ycbcr_conversion_khr: PFN_vkCreateSamplerYcbcrConversion,
     destroy_sampler_ycbcr_conversion_khr: PFN_vkDestroySamplerYcbcrConversion,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -53,6 +57,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSamplerYcbcrConversionKHR.html>
     pub unsafe fn create_sampler_ycbcr_conversion_khr(
@@ -76,6 +81,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroySamplerYcbcrConversionKHR.html>
     pub unsafe fn destroy_sampler_ycbcr_conversion_khr(
         &self,

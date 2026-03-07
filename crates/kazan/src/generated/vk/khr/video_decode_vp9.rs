@@ -2,13 +2,16 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     pub const MAX_VIDEO_VP9_REFERENCES_PER_FRAME_KHR: u32 = 3;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVideoDecodeVP9FeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,15 +21,18 @@ pub(super) mod defs {
         pub video_decode_vp9: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVideoDecodeVP9FeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_VIDEO_DECODE_VP9_FEATURES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceVideoDecodeVP9FeaturesKHR<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceVideoDecodeVP9FeaturesKHR<'a> {}
+
     impl Default for PhysicalDeviceVideoDecodeVP9FeaturesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -37,12 +43,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceVideoDecodeVP9FeaturesKHR<'a> {
         pub fn video_decode_vp9(mut self, video_decode_vp9: bool) -> Self {
             self.video_decode_vp9 = video_decode_vp9.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeVP9ProfileInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -52,11 +60,14 @@ pub(super) mod defs {
         pub std_profile: StdVideoVP9Profile,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeVP9ProfileInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_VP9_PROFILE_INFO_KHR;
     }
+
     unsafe impl<'a> Extends<VideoProfileInfoKHR<'a>> for VideoDecodeVP9ProfileInfoKHR<'a> {}
     unsafe impl<'a> Extends<QueryPoolCreateInfo<'a>> for VideoDecodeVP9ProfileInfoKHR<'a> {}
+
     impl Default for VideoDecodeVP9ProfileInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -67,12 +78,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> VideoDecodeVP9ProfileInfoKHR<'a> {
         pub fn std_profile(mut self, std_profile: StdVideoVP9Profile) -> Self {
             self.std_profile = std_profile;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeVP9CapabilitiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -82,10 +95,13 @@ pub(super) mod defs {
         pub max_level: StdVideoVP9Level,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeVP9CapabilitiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_VP9_CAPABILITIES_KHR;
     }
+
     unsafe impl<'a> Extends<VideoCapabilitiesKHR<'a>> for VideoDecodeVP9CapabilitiesKHR<'a> {}
+
     impl Default for VideoDecodeVP9CapabilitiesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -96,12 +112,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> VideoDecodeVP9CapabilitiesKHR<'a> {
         pub fn max_level(mut self, max_level: StdVideoVP9Level) -> Self {
             self.max_level = max_level;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeVP9PictureInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -115,10 +133,13 @@ pub(super) mod defs {
         pub tiles_offset: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeVP9PictureInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_VP9_PICTURE_INFO_KHR;
     }
+
     unsafe impl<'a> Extends<VideoDecodeInfoKHR<'a>> for VideoDecodeVP9PictureInfoKHR<'a> {}
+
     impl Default for VideoDecodeVP9PictureInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -133,6 +154,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> VideoDecodeVP9PictureInfoKHR<'a> {
         pub fn std_picture_info(
             mut self,
@@ -141,6 +163,7 @@ pub(super) mod defs {
             self.p_std_picture_info = std_picture_info;
             self
         }
+
         pub fn reference_name_slot_indices(
             mut self,
             reference_name_slot_indices: [i32; MAX_VIDEO_VP9_REFERENCES_PER_FRAME_KHR as usize],
@@ -148,14 +171,17 @@ pub(super) mod defs {
             self.reference_name_slot_indices = reference_name_slot_indices;
             self
         }
+
         pub fn uncompressed_header_offset(mut self, uncompressed_header_offset: u32) -> Self {
             self.uncompressed_header_offset = uncompressed_header_offset;
             self
         }
+
         pub fn compressed_header_offset(mut self, compressed_header_offset: u32) -> Self {
             self.compressed_header_offset = compressed_header_offset;
             self
         }
+
         pub fn tiles_offset(mut self, tiles_offset: u32) -> Self {
             self.tiles_offset = tiles_offset;
             self

@@ -2,13 +2,16 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     pub const SHADER_UNUSED_KHR: u32 = !0;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRayTracingShaderGroupCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -23,10 +26,12 @@ pub(super) mod defs {
         pub p_shader_group_capture_replay_handle: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for RayTracingShaderGroupCreateInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::RAY_TRACING_SHADER_GROUP_CREATE_INFO_KHR;
     }
+
     impl Default for RayTracingShaderGroupCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -42,27 +47,33 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> RayTracingShaderGroupCreateInfoKHR<'a> {
         pub fn ty(mut self, ty: RayTracingShaderGroupTypeKHR) -> Self {
             self.ty = ty;
             self
         }
+
         pub fn general_shader(mut self, general_shader: u32) -> Self {
             self.general_shader = general_shader;
             self
         }
+
         pub fn closest_hit_shader(mut self, closest_hit_shader: u32) -> Self {
             self.closest_hit_shader = closest_hit_shader;
             self
         }
+
         pub fn any_hit_shader(mut self, any_hit_shader: u32) -> Self {
             self.any_hit_shader = any_hit_shader;
             self
         }
+
         pub fn intersection_shader(mut self, intersection_shader: u32) -> Self {
             self.intersection_shader = intersection_shader;
             self
         }
+
         pub fn shader_group_capture_replay_handle(
             mut self,
             shader_group_capture_replay_handle: *const c_void,
@@ -71,6 +82,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRayTracingPipelineCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -91,9 +103,11 @@ pub(super) mod defs {
         pub base_pipeline_index: i32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for RayTracingPipelineCreateInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::RAY_TRACING_PIPELINE_CREATE_INFO_KHR;
     }
+
     impl Default for RayTracingPipelineCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -115,21 +129,25 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> RayTracingPipelineCreateInfoKHR<'a> {
         pub fn flags(mut self, flags: PipelineCreateFlags) -> Self {
             self.flags = flags;
             self
         }
+
         pub fn stages(mut self, stages: &'a [PipelineShaderStageCreateInfo<'a>]) -> Self {
             self.stage_count = stages.len().try_into().unwrap();
             self.p_stages = stages.as_ptr();
             self
         }
+
         pub fn groups(mut self, groups: &'a [RayTracingShaderGroupCreateInfoKHR<'a>]) -> Self {
             self.group_count = groups.len().try_into().unwrap();
             self.p_groups = groups.as_ptr();
             self
         }
+
         pub fn max_pipeline_ray_recursion_depth(
             mut self,
             max_pipeline_ray_recursion_depth: u32,
@@ -137,10 +155,12 @@ pub(super) mod defs {
             self.max_pipeline_ray_recursion_depth = max_pipeline_ray_recursion_depth;
             self
         }
+
         pub fn library_info(mut self, library_info: &'a PipelineLibraryCreateInfoKHR<'a>) -> Self {
             self.p_library_info = library_info;
             self
         }
+
         pub fn library_interface(
             mut self,
             library_interface: &'a RayTracingPipelineInterfaceCreateInfoKHR<'a>,
@@ -148,6 +168,7 @@ pub(super) mod defs {
             self.p_library_interface = library_interface;
             self
         }
+
         pub fn dynamic_state(
             mut self,
             dynamic_state: &'a PipelineDynamicStateCreateInfo<'a>,
@@ -155,19 +176,23 @@ pub(super) mod defs {
             self.p_dynamic_state = dynamic_state;
             self
         }
+
         pub fn layout(mut self, layout: PipelineLayout) -> Self {
             self.layout = layout;
             self
         }
+
         pub fn base_pipeline_handle(mut self, base_pipeline_handle: Pipeline) -> Self {
             self.base_pipeline_handle = base_pipeline_handle;
             self
         }
+
         pub fn base_pipeline_index(mut self, base_pipeline_index: i32) -> Self {
             self.base_pipeline_index = base_pipeline_index;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingPipelineFeaturesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -181,15 +206,18 @@ pub(super) mod defs {
         pub ray_traversal_primitive_culling: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRayTracingPipelineFeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_FEATURES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceRayTracingPipelineFeaturesKHR<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceRayTracingPipelineFeaturesKHR<'a> {}
+
     impl Default for PhysicalDeviceRayTracingPipelineFeaturesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -204,11 +232,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceRayTracingPipelineFeaturesKHR<'a> {
         pub fn ray_tracing_pipeline(mut self, ray_tracing_pipeline: bool) -> Self {
             self.ray_tracing_pipeline = ray_tracing_pipeline.into();
             self
         }
+
         pub fn ray_tracing_pipeline_shader_group_handle_capture_replay(
             mut self,
             ray_tracing_pipeline_shader_group_handle_capture_replay: bool,
@@ -217,6 +247,7 @@ pub(super) mod defs {
                 ray_tracing_pipeline_shader_group_handle_capture_replay.into();
             self
         }
+
         pub fn ray_tracing_pipeline_shader_group_handle_capture_replay_mixed(
             mut self,
             ray_tracing_pipeline_shader_group_handle_capture_replay_mixed: bool,
@@ -225,6 +256,7 @@ pub(super) mod defs {
                 ray_tracing_pipeline_shader_group_handle_capture_replay_mixed.into();
             self
         }
+
         pub fn ray_tracing_pipeline_trace_rays_indirect(
             mut self,
             ray_tracing_pipeline_trace_rays_indirect: bool,
@@ -233,6 +265,7 @@ pub(super) mod defs {
                 ray_tracing_pipeline_trace_rays_indirect.into();
             self
         }
+
         pub fn ray_traversal_primitive_culling(
             mut self,
             ray_traversal_primitive_culling: bool,
@@ -241,6 +274,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingPipelinePropertiesKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -257,14 +291,17 @@ pub(super) mod defs {
         pub max_ray_hit_attribute_size: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRayTracingPipelinePropertiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceRayTracingPipelinePropertiesKHR<'a>
     {
     }
+
     impl Default for PhysicalDeviceRayTracingPipelinePropertiesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -282,23 +319,28 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceRayTracingPipelinePropertiesKHR<'a> {
         pub fn shader_group_handle_size(mut self, shader_group_handle_size: u32) -> Self {
             self.shader_group_handle_size = shader_group_handle_size;
             self
         }
+
         pub fn max_ray_recursion_depth(mut self, max_ray_recursion_depth: u32) -> Self {
             self.max_ray_recursion_depth = max_ray_recursion_depth;
             self
         }
+
         pub fn max_shader_group_stride(mut self, max_shader_group_stride: u32) -> Self {
             self.max_shader_group_stride = max_shader_group_stride;
             self
         }
+
         pub fn shader_group_base_alignment(mut self, shader_group_base_alignment: u32) -> Self {
             self.shader_group_base_alignment = shader_group_base_alignment;
             self
         }
+
         pub fn shader_group_handle_capture_replay_size(
             mut self,
             shader_group_handle_capture_replay_size: u32,
@@ -306,6 +348,7 @@ pub(super) mod defs {
             self.shader_group_handle_capture_replay_size = shader_group_handle_capture_replay_size;
             self
         }
+
         pub fn max_ray_dispatch_invocation_count(
             mut self,
             max_ray_dispatch_invocation_count: u32,
@@ -313,15 +356,18 @@ pub(super) mod defs {
             self.max_ray_dispatch_invocation_count = max_ray_dispatch_invocation_count;
             self
         }
+
         pub fn shader_group_handle_alignment(mut self, shader_group_handle_alignment: u32) -> Self {
             self.shader_group_handle_alignment = shader_group_handle_alignment;
             self
         }
+
         pub fn max_ray_hit_attribute_size(mut self, max_ray_hit_attribute_size: u32) -> Self {
             self.max_ray_hit_attribute_size = max_ray_hit_attribute_size;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkStridedDeviceAddressRegionKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -330,20 +376,24 @@ pub(super) mod defs {
         pub stride: DeviceSize,
         pub size: DeviceSize,
     }
+
     impl StridedDeviceAddressRegionKHR {
         pub fn device_address(mut self, device_address: DeviceAddress) -> Self {
             self.device_address = device_address;
             self
         }
+
         pub fn stride(mut self, stride: DeviceSize) -> Self {
             self.stride = stride;
             self
         }
+
         pub fn size(mut self, size: DeviceSize) -> Self {
             self.size = size;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTraceRaysIndirectCommandKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone, Default)]
@@ -352,20 +402,24 @@ pub(super) mod defs {
         pub height: u32,
         pub depth: u32,
     }
+
     impl TraceRaysIndirectCommandKHR {
         pub fn width(mut self, width: u32) -> Self {
             self.width = width;
             self
         }
+
         pub fn height(mut self, height: u32) -> Self {
             self.height = height;
             self
         }
+
         pub fn depth(mut self, depth: u32) -> Self {
             self.depth = depth;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRayTracingPipelineInterfaceCreateInfoKHR.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -376,10 +430,12 @@ pub(super) mod defs {
         pub max_pipeline_ray_hit_attribute_size: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for RayTracingPipelineInterfaceCreateInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::RAY_TRACING_PIPELINE_INTERFACE_CREATE_INFO_KHR;
     }
+
     impl Default for RayTracingPipelineInterfaceCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {
@@ -391,11 +447,13 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> RayTracingPipelineInterfaceCreateInfoKHR<'a> {
         pub fn max_pipeline_ray_payload_size(mut self, max_pipeline_ray_payload_size: u32) -> Self {
             self.max_pipeline_ray_payload_size = max_pipeline_ray_payload_size;
             self
         }
+
         pub fn max_pipeline_ray_hit_attribute_size(
             mut self,
             max_pipeline_ray_hit_attribute_size: u32,
@@ -404,10 +462,12 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRayTracingShaderGroupTypeKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct RayTracingShaderGroupTypeKHR(i32);
+
     impl RayTracingShaderGroupTypeKHR {
         pub const GENERAL_KHR: Self = Self(0);
         pub const TRIANGLES_HIT_GROUP_KHR: Self = Self(1);
@@ -417,6 +477,7 @@ pub(super) mod defs {
         pub const TRIANGLES_HIT_GROUP_NV: Self = Self::TRIANGLES_HIT_GROUP_KHR;
         pub const PROCEDURAL_HIT_GROUP_NV: Self = Self::PROCEDURAL_HIT_GROUP_KHR;
     }
+
     impl fmt::Debug for RayTracingShaderGroupTypeKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -432,16 +493,19 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderGroupShaderKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ShaderGroupShaderKHR(i32);
+
     impl ShaderGroupShaderKHR {
         pub const GENERAL_KHR: Self = Self(0);
         pub const CLOSEST_HIT_KHR: Self = Self(1);
         pub const ANY_HIT_KHR: Self = Self(2);
         pub const INTERSECTION_KHR: Self = Self(3);
     }
+
     impl fmt::Debug for ShaderGroupShaderKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -458,6 +522,7 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdTraceRaysKHR.html>
     pub type PFN_vkCmdTraceRaysKHR = unsafe extern "system" fn(
         command_buffer: CommandBuffer,
@@ -520,6 +585,7 @@ pub(super) mod defs {
     pub type PFN_vkCmdSetRayTracingPipelineStackSizeKHR =
         unsafe extern "system" fn(command_buffer: CommandBuffer, pipeline_stack_size: u32);
 }
+
 pub struct DeviceFn {
     cmd_trace_rays_khr: PFN_vkCmdTraceRaysKHR,
     create_ray_tracing_pipelines_khr: PFN_vkCreateRayTracingPipelinesKHR,
@@ -530,6 +596,7 @@ pub struct DeviceFn {
     get_ray_tracing_shader_group_stack_size_khr: PFN_vkGetRayTracingShaderGroupStackSizeKHR,
     cmd_set_ray_tracing_pipeline_stack_size_khr: PFN_vkCmdSetRayTracingPipelineStackSizeKHR,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -564,6 +631,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdTraceRaysKHR.html>
     pub unsafe fn cmd_trace_rays_khr(
@@ -590,6 +658,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateRayTracingPipelinesKHR.html>
     pub unsafe fn create_ray_tracing_pipelines_khr(
         &self,
@@ -617,6 +686,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRayTracingShaderGroupHandlesKHR.html>
     pub unsafe fn get_ray_tracing_shader_group_handles_khr(
         &self,
@@ -642,6 +712,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRayTracingCaptureReplayShaderGroupHandlesKHR.html>
     pub unsafe fn get_ray_tracing_capture_replay_shader_group_handles_khr(
         &self,
@@ -667,6 +738,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdTraceRaysIndirectKHR.html>
     pub unsafe fn cmd_trace_rays_indirect_khr(
         &self,
@@ -688,6 +760,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRayTracingShaderGroupStackSizeKHR.html>
     pub unsafe fn get_ray_tracing_shader_group_stack_size_khr(
         &self,
@@ -705,6 +778,7 @@ impl DeviceFn {
             )
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetRayTracingPipelineStackSizeKHR.html>
     pub unsafe fn cmd_set_ray_tracing_pipeline_stack_size_khr(
         &self,

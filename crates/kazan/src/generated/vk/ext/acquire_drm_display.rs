@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireDrmDisplayEXT.html>
     pub type PFN_vkAcquireDrmDisplayEXT = unsafe extern "system" fn(
         physical_device: PhysicalDevice,
@@ -22,10 +24,12 @@ pub(super) mod defs {
         display: *mut DisplayKHR,
     ) -> vk::Result;
 }
+
 pub struct InstanceFn {
     acquire_drm_display_ext: PFN_vkAcquireDrmDisplayEXT,
     get_drm_display_ext: PFN_vkGetDrmDisplayEXT,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -42,6 +46,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireDrmDisplayEXT.html>
     pub unsafe fn acquire_drm_display_ext(
@@ -59,6 +64,7 @@ impl InstanceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDrmDisplayEXT.html>
     pub unsafe fn get_drm_display_ext(
         &self,

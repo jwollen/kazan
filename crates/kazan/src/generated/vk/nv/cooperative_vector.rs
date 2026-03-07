@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCooperativeVectorFeaturesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -18,15 +20,18 @@ pub(super) mod defs {
         pub cooperative_vector_training: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCooperativeVectorFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_COOPERATIVE_VECTOR_FEATURES_NV;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceCooperativeVectorFeaturesNV<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceCooperativeVectorFeaturesNV<'a> {}
+
     impl Default for PhysicalDeviceCooperativeVectorFeaturesNV<'_> {
         fn default() -> Self {
             Self {
@@ -38,16 +43,19 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceCooperativeVectorFeaturesNV<'a> {
         pub fn cooperative_vector(mut self, cooperative_vector: bool) -> Self {
             self.cooperative_vector = cooperative_vector.into();
             self
         }
+
         pub fn cooperative_vector_training(mut self, cooperative_vector_training: bool) -> Self {
             self.cooperative_vector_training = cooperative_vector_training.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCooperativeVectorPropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -62,9 +70,11 @@ pub(super) mod defs {
         pub transpose: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for CooperativeVectorPropertiesNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::COOPERATIVE_VECTOR_PROPERTIES_NV;
     }
+
     impl Default for CooperativeVectorPropertiesNV<'_> {
         fn default() -> Self {
             Self {
@@ -80,32 +90,39 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> CooperativeVectorPropertiesNV<'a> {
         pub fn input_type(mut self, input_type: ComponentTypeKHR) -> Self {
             self.input_type = input_type;
             self
         }
+
         pub fn input_interpretation(mut self, input_interpretation: ComponentTypeKHR) -> Self {
             self.input_interpretation = input_interpretation;
             self
         }
+
         pub fn matrix_interpretation(mut self, matrix_interpretation: ComponentTypeKHR) -> Self {
             self.matrix_interpretation = matrix_interpretation;
             self
         }
+
         pub fn bias_interpretation(mut self, bias_interpretation: ComponentTypeKHR) -> Self {
             self.bias_interpretation = bias_interpretation;
             self
         }
+
         pub fn result_type(mut self, result_type: ComponentTypeKHR) -> Self {
             self.result_type = result_type;
             self
         }
+
         pub fn transpose(mut self, transpose: bool) -> Self {
             self.transpose = transpose.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCooperativeVectorPropertiesNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -118,14 +135,17 @@ pub(super) mod defs {
         pub max_cooperative_vector_components: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCooperativeVectorPropertiesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_COOPERATIVE_VECTOR_PROPERTIES_NV;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceCooperativeVectorPropertiesNV<'a>
     {
     }
+
     impl Default for PhysicalDeviceCooperativeVectorPropertiesNV<'_> {
         fn default() -> Self {
             Self {
@@ -139,6 +159,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceCooperativeVectorPropertiesNV<'a> {
         pub fn cooperative_vector_supported_stages(
             mut self,
@@ -147,6 +168,7 @@ pub(super) mod defs {
             self.cooperative_vector_supported_stages = cooperative_vector_supported_stages;
             self
         }
+
         pub fn cooperative_vector_training_float16_accumulation(
             mut self,
             cooperative_vector_training_float16_accumulation: bool,
@@ -155,6 +177,7 @@ pub(super) mod defs {
                 cooperative_vector_training_float16_accumulation.into();
             self
         }
+
         pub fn cooperative_vector_training_float32_accumulation(
             mut self,
             cooperative_vector_training_float32_accumulation: bool,
@@ -163,6 +186,7 @@ pub(super) mod defs {
                 cooperative_vector_training_float32_accumulation.into();
             self
         }
+
         pub fn max_cooperative_vector_components(
             mut self,
             max_cooperative_vector_components: u32,
@@ -171,6 +195,7 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkConvertCooperativeVectorMatrixInfoNV.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -191,10 +216,12 @@ pub(super) mod defs {
         pub dst_stride: usize,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for ConvertCooperativeVectorMatrixInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::CONVERT_COOPERATIVE_VECTOR_MATRIX_INFO_NV;
     }
+
     impl Default for ConvertCooperativeVectorMatrixInfoNV<'_> {
         fn default() -> Self {
             Self {
@@ -216,66 +243,81 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> ConvertCooperativeVectorMatrixInfoNV<'a> {
         pub fn src_size(mut self, src_size: usize) -> Self {
             self.src_size = src_size;
             self
         }
+
         pub fn src_data(mut self, src_data: DeviceOrHostAddressConstKHR<'a>) -> Self {
             self.src_data = src_data;
             self
         }
+
         pub fn dst_size(mut self, dst_size: &'a mut usize) -> Self {
             self.p_dst_size = dst_size;
             self
         }
+
         pub fn dst_data(mut self, dst_data: DeviceOrHostAddressKHR<'a>) -> Self {
             self.dst_data = dst_data;
             self
         }
+
         pub fn src_component_type(mut self, src_component_type: ComponentTypeKHR) -> Self {
             self.src_component_type = src_component_type;
             self
         }
+
         pub fn dst_component_type(mut self, dst_component_type: ComponentTypeKHR) -> Self {
             self.dst_component_type = dst_component_type;
             self
         }
+
         pub fn num_rows(mut self, num_rows: u32) -> Self {
             self.num_rows = num_rows;
             self
         }
+
         pub fn num_columns(mut self, num_columns: u32) -> Self {
             self.num_columns = num_columns;
             self
         }
+
         pub fn src_layout(mut self, src_layout: CooperativeVectorMatrixLayoutNV) -> Self {
             self.src_layout = src_layout;
             self
         }
+
         pub fn src_stride(mut self, src_stride: usize) -> Self {
             self.src_stride = src_stride;
             self
         }
+
         pub fn dst_layout(mut self, dst_layout: CooperativeVectorMatrixLayoutNV) -> Self {
             self.dst_layout = dst_layout;
             self
         }
+
         pub fn dst_stride(mut self, dst_stride: usize) -> Self {
             self.dst_stride = dst_stride;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCooperativeVectorMatrixLayoutNV.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct CooperativeVectorMatrixLayoutNV(i32);
+
     impl CooperativeVectorMatrixLayoutNV {
         pub const ROW_MAJOR_NV: Self = Self(0);
         pub const COLUMN_MAJOR_NV: Self = Self(1);
         pub const INFERENCING_OPTIMAL_NV: Self = Self(2);
         pub const TRAINING_OPTIMAL_NV: Self = Self(3);
     }
+
     impl fmt::Debug for CooperativeVectorMatrixLayoutNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
@@ -292,6 +334,7 @@ pub(super) mod defs {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceCooperativeVectorPropertiesNV.html>
     pub type PFN_vkGetPhysicalDeviceCooperativeVectorPropertiesNV =
         unsafe extern "system" fn(
@@ -311,10 +354,12 @@ pub(super) mod defs {
         p_infos: *const ConvertCooperativeVectorMatrixInfoNV<'_>,
     );
 }
+
 pub struct InstanceFn {
     get_physical_device_cooperative_vector_properties_nv:
         PFN_vkGetPhysicalDeviceCooperativeVectorPropertiesNV,
 }
+
 impl InstanceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -329,6 +374,7 @@ impl InstanceFn {
         }
     }
 }
+
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceCooperativeVectorPropertiesNV.html>
     pub unsafe fn get_physical_device_cooperative_vector_properties_nv<'a>(
@@ -361,10 +407,12 @@ impl InstanceFn {
         }
     }
 }
+
 pub struct DeviceFn {
     convert_cooperative_vector_matrix_nv: PFN_vkConvertCooperativeVectorMatrixNV,
     cmd_convert_cooperative_vector_matrix_nv: PFN_vkCmdConvertCooperativeVectorMatrixNV,
 }
+
 impl DeviceFn {
     pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
@@ -381,6 +429,7 @@ impl DeviceFn {
         }
     }
 }
+
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkConvertCooperativeVectorMatrixNV.html>
     pub unsafe fn convert_cooperative_vector_matrix_nv(
@@ -397,6 +446,7 @@ impl DeviceFn {
             }
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdConvertCooperativeVectorMatrixNV.html>
     pub unsafe fn cmd_convert_cooperative_vector_matrix_nv(
         &self,

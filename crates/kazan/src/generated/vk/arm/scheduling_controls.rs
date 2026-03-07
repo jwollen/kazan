@@ -2,12 +2,14 @@
 use crate::{vk::Result as VkResult, vk::*, *};
 use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
     use core::ffi::{CStr, c_char, c_int, c_void};
     use core::fmt;
     use core::marker::PhantomData;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceQueueShaderCoreControlCreateInfoARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -17,15 +19,18 @@ pub(super) mod defs {
         pub shader_core_count: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for DeviceQueueShaderCoreControlCreateInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DEVICE_QUEUE_SHADER_CORE_CONTROL_CREATE_INFO_ARM;
     }
+
     unsafe impl<'a> Extends<DeviceQueueCreateInfo<'a>>
         for DeviceQueueShaderCoreControlCreateInfoARM<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for DeviceQueueShaderCoreControlCreateInfoARM<'a> {}
+
     impl Default for DeviceQueueShaderCoreControlCreateInfoARM<'_> {
         fn default() -> Self {
             Self {
@@ -36,12 +41,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> DeviceQueueShaderCoreControlCreateInfoARM<'a> {
         pub fn shader_core_count(mut self, shader_core_count: u32) -> Self {
             self.shader_core_count = shader_core_count;
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSchedulingControlsFeaturesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -51,15 +58,18 @@ pub(super) mod defs {
         pub scheduling_controls: Bool32,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSchedulingControlsFeaturesARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SCHEDULING_CONTROLS_FEATURES_ARM;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
         for PhysicalDeviceSchedulingControlsFeaturesARM<'a>
     {
     }
     unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceSchedulingControlsFeaturesARM<'a> {}
+
     impl Default for PhysicalDeviceSchedulingControlsFeaturesARM<'_> {
         fn default() -> Self {
             Self {
@@ -70,12 +80,14 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceSchedulingControlsFeaturesARM<'a> {
         pub fn scheduling_controls(mut self, scheduling_controls: bool) -> Self {
             self.scheduling_controls = scheduling_controls.into();
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSchedulingControlsPropertiesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -85,14 +97,17 @@ pub(super) mod defs {
         pub scheduling_controls_flags: PhysicalDeviceSchedulingControlsFlagsARM,
         pub _marker: PhantomData<&'a ()>,
     }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSchedulingControlsPropertiesARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SCHEDULING_CONTROLS_PROPERTIES_ARM;
     }
+
     unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
         for PhysicalDeviceSchedulingControlsPropertiesARM<'a>
     {
     }
+
     impl Default for PhysicalDeviceSchedulingControlsPropertiesARM<'_> {
         fn default() -> Self {
             Self {
@@ -103,6 +118,7 @@ pub(super) mod defs {
             }
         }
     }
+
     impl<'a> PhysicalDeviceSchedulingControlsPropertiesARM<'a> {
         pub fn scheduling_controls_flags(
             mut self,
@@ -112,15 +128,18 @@ pub(super) mod defs {
             self
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSchedulingControlsFlagsARM.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PhysicalDeviceSchedulingControlsFlagsARM(Flags64);
     vk_bitflags_wrapped!(PhysicalDeviceSchedulingControlsFlagsARM, Flags64);
+
     impl PhysicalDeviceSchedulingControlsFlagsARM {
         pub const SHADER_CORE_COUNT_ARM: Self =
             Self(PhysicalDeviceSchedulingControlsFlagBitsARM::SHADER_CORE_COUNT_ARM.0);
     }
+
     impl fmt::Debug for PhysicalDeviceSchedulingControlsFlagsARM {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags64, &str)] = &[(
@@ -130,10 +149,12 @@ pub(super) mod defs {
             debug_flags(f, KNOWN, self.0)
         }
     }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSchedulingControlsFlagBitsARM.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
     pub struct PhysicalDeviceSchedulingControlsFlagBitsARM(u64);
+
     impl PhysicalDeviceSchedulingControlsFlagBitsARM {
         pub const SHADER_CORE_COUNT_ARM: Self = Self(1 << 0);
     }
