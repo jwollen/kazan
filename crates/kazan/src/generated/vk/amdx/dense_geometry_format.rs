@@ -1,3 +1,4 @@
+#![cfg(feature = "provisional")]
 //! <https://registry.khronos.org/vulkan/specs/latest/man/html/VK_AMDX_dense_geometry_format.html>
 #![allow(unused_imports)]
 use crate::{vk::Result as VkResult, vk::*, *};

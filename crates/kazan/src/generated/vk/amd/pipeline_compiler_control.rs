@@ -48,6 +48,7 @@ pub(super) mod defs {
         for PipelineCompilerControlCreateInfoAMD<'a>
     {
     }
+    #[cfg(feature = "provisional")]
     unsafe impl<'a> Extends<ExecutionGraphPipelineCreateInfoAMDX<'a>>
         for PipelineCompilerControlCreateInfoAMD<'a>
     {

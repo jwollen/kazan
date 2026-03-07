@@ -780,6 +780,7 @@ pub(super) mod defs {
         for AccelerationStructureTrianglesOpacityMicromapEXT<'a>
     {
     }
+    #[cfg(feature = "provisional")]
     unsafe impl<'a> Extends<AccelerationStructureDenseGeometryFormatTrianglesDataAMDX<'a>>
         for AccelerationStructureTrianglesOpacityMicromapEXT<'a>
     {

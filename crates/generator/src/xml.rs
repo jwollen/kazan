@@ -949,6 +949,7 @@ pub struct Extension {
     pub name: &'static str,
     pub number: Option<u32>,
     pub ty: Option<&'static str>,
+    pub provisional: bool,
     pub requires: Vec<Require>,
 }
 
@@ -958,6 +959,7 @@ impl Extension {
             name: attribute(node, "name").unwrap(),
             number: attribute(node, "number").map(|value| value.parse().unwrap()),
             ty: attribute(node, "type"),
+            provisional: attribute(node, "provisional") == Some("true"),
             requires: node
                 .children()
                 .filter(|child| child.has_tag_name("require"))

@@ -1,3 +1,4 @@
+#![cfg(feature = "provisional")]
 //! <https://registry.khronos.org/vulkan/specs/latest/man/html/VK_KHR_portability_subset.html>
 #![allow(unused_imports)]
 use crate::{vk::Result as VkResult, vk::*, *};

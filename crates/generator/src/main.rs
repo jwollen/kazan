@@ -41,7 +41,12 @@ fn generate(analysis: &analysis::Analysis) {
 
     let _ = fs::remove_dir_all(output_dir);
 
-    let mut vendor_modules = BTreeMap::new();
+    struct ModuleEntry {
+        name: String,
+        provisional: bool,
+    }
+
+    let mut vendor_modules: BTreeMap<Option<String>, Vec<ModuleEntry>> = BTreeMap::new();
 
     // Build ownership map: for each item, determine which module should define it.
     // Prefer the module whose vendor tag matches the item's vendor suffix.
@@ -96,10 +101,11 @@ fn generate(analysis: &analysis::Analysis) {
             name: module_name,
         } = module.name();
 
+        let provisional = matches!(module, Module::Extension(ext) if ext.provisional);
         vendor_modules
             .entry(vendor.clone())
             .or_insert_with(Vec::new)
-            .push(module_name.clone());
+            .push(ModuleEntry { name: module_name.clone(), provisional });
 
         let vendor_path = match vendor {
             Some(ref vendor) => format!("{}/{}", output_dir, vendor),
@@ -108,6 +114,10 @@ fn generate(analysis: &analysis::Analysis) {
 
         fs::create_dir_all(&vendor_path).unwrap();
         let mut file = File::create(format!("{}/{}.rs", &vendor_path, module_name)).unwrap();
+
+        if provisional {
+            writeln!(file, "#![cfg(feature = \"provisional\")]").unwrap();
+        }
 
         if let Module::Extension(extension) = module {
             writeln!(
@@ -181,7 +191,7 @@ fn generate(analysis: &analysis::Analysis) {
     fs::create_dir_all(output_dir).unwrap();
     let mut mod_file = File::create(format!("{}/mod.rs", output_dir)).unwrap();
 
-    for (vendor, names) in &vendor_modules {
+    for (vendor, entries) in &vendor_modules {
         if let Some(vendor) = vendor {
             writeln!(mod_file, "pub mod {};", vendor).unwrap();
             writeln!(mod_file, "pub use {}::defs::*;", vendor).unwrap();
@@ -189,20 +199,22 @@ fn generate(analysis: &analysis::Analysis) {
             fs::create_dir_all(format!("{}/{}", output_dir, vendor)).unwrap();
             let mut file = File::create(format!("{}/{}/mod.rs", output_dir, vendor)).unwrap();
 
-            for name in names {
-                writeln!(file, "pub mod {};", name).unwrap();
+            for entry in entries {
+                let cfg = if entry.provisional { "#[cfg(feature = \"provisional\")]\n" } else { "" };
+                write!(file, "pub mod {};\n", entry.name).unwrap();
             }
 
             writeln!(file, "pub(super) mod defs {{").unwrap();
             writeln!(file, "use super::*;").unwrap();
-            for name in names {
-                writeln!(file, "pub use {}::defs::*;", name).unwrap();
+            for entry in entries {
+                let cfg = if entry.provisional { "#[cfg(feature = \"provisional\")]\n" } else { "" };
+                write!(file, "{}pub use {}::defs::*;\n", cfg, entry.name).unwrap();
             }
             writeln!(file, "}}").unwrap();
         } else {
-            for name in names {
-                writeln!(mod_file, "pub mod {};", name).unwrap();
-                writeln!(mod_file, "pub use {}::defs::*;", name).unwrap();
+            for entry in entries {
+                writeln!(mod_file, "pub mod {};", entry.name).unwrap();
+                writeln!(mod_file, "pub use {}::defs::*;", entry.name).unwrap();
             }
         }
     }

@@ -210,6 +210,7 @@ pub(super) mod defs {
     pub use pipeline_executable_properties::defs::*;
     pub use pipeline_library::defs::*;
     pub use portability_enumeration::defs::*;
+    #[cfg(feature = "provisional")]
     pub use portability_subset::defs::*;
     pub use present_id::defs::*;
     pub use present_id2::defs::*;

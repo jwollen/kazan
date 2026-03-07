@@ -347,11 +347,14 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
     }
 
     for extends in &ty.structextends {
-        let ty = ctype_to_rust_type_str(extends);
+        let rust_ty = ctype_to_rust_type_str(extends);
+        if analysis.is_provisional_type(extends) {
+            writeln!(file, "#[cfg(feature = \"provisional\")]").unwrap();
+        }
         writeln!(
             file,
             "unsafe impl<'a> Extends<{}<'a>> for {}<'a> {{}}",
-            ty, info.name
+            rust_ty, info.name
         )
         .unwrap();
     }

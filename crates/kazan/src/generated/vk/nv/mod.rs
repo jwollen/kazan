@@ -76,6 +76,7 @@ pub(super) mod defs {
     pub use copy_memory_indirect::defs::*;
     pub use corner_sampled_image::defs::*;
     pub use coverage_reduction_mode::defs::*;
+    #[cfg(feature = "provisional")]
     pub use cuda_kernel_launch::defs::*;
     pub use dedicated_allocation::defs::*;
     pub use dedicated_allocation_image_aliasing::defs::*;
@@ -84,6 +85,7 @@ pub(super) mod defs {
     pub use device_diagnostics_config::defs::*;
     pub use device_generated_commands::defs::*;
     pub use device_generated_commands_compute::defs::*;
+    #[cfg(feature = "provisional")]
     pub use displacement_micromap::defs::*;
     pub use display_stereo::defs::*;
     pub use extended_sparse_address_space::defs::*;
@@ -109,6 +111,7 @@ pub(super) mod defs {
     pub use partitioned_acceleration_structure::defs::*;
     pub use per_stage_descriptor_set::defs::*;
     pub use present_barrier::defs::*;
+    #[cfg(feature = "provisional")]
     pub use present_metering::defs::*;
     pub use push_constant_bank::defs::*;
     pub use raw_access_chains::defs::*;

@@ -789,6 +789,7 @@ pub(super) mod defs {
         for PipelineCreationFeedbackCreateInfo<'a>
     {
     }
+    #[cfg(feature = "provisional")]
     unsafe impl<'a> Extends<ExecutionGraphPipelineCreateInfoAMDX<'a>>
         for PipelineCreationFeedbackCreateInfo<'a>
     {
