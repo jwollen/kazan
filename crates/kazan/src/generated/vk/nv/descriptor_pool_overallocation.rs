@@ -20,6 +20,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceDescriptorPoolOverallocationFeaturesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceDescriptorPoolOverallocationFeaturesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "descriptor_pool_overallocation",
+                    &self.descriptor_pool_overallocation,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDescriptorPoolOverallocationFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_DESCRIPTOR_POOL_OVERALLOCATION_FEATURES_NV;

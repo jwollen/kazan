@@ -22,6 +22,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ConditionalRenderingBeginInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ConditionalRenderingBeginInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("buffer", &self.buffer)
+                .field("offset", &self.offset)
+                .field("flags", &self.flags)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ConditionalRenderingBeginInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::CONDITIONAL_RENDERING_BEGIN_INFO_EXT;
     }
@@ -66,6 +78,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for CommandBufferInheritanceConditionalRenderingInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CommandBufferInheritanceConditionalRenderingInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "conditional_rendering_enable",
+                    &self.conditional_rendering_enable,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for CommandBufferInheritanceConditionalRenderingInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::COMMAND_BUFFER_INHERITANCE_CONDITIONAL_RENDERING_INFO_EXT;
@@ -103,6 +128,20 @@ pub(super) mod defs {
         pub conditional_rendering: Bool32,
         pub inherited_conditional_rendering: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceConditionalRenderingFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceConditionalRenderingFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("conditional_rendering", &self.conditional_rendering)
+                .field(
+                    "inherited_conditional_rendering",
+                    &self.inherited_conditional_rendering,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceConditionalRenderingFeaturesEXT<'a> {
@@ -166,7 +205,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkConditionalRenderingFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct ConditionalRenderingFlagBitsEXT(u32);
 
     impl ConditionalRenderingFlagBitsEXT {

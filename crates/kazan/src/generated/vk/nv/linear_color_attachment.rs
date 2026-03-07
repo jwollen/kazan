@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceLinearColorAttachmentFeaturesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceLinearColorAttachmentFeaturesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("linear_color_attachment", &self.linear_color_attachment)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceLinearColorAttachmentFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_LINEAR_COLOR_ATTACHMENT_FEATURES_NV;

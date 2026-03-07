@@ -20,6 +20,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "multisampled_render_to_single_sampled",
+                    &self.multisampled_render_to_single_sampled,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a>
         for PhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT<'a>
     {
@@ -68,6 +81,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SubpassResolvePerformanceQueryEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SubpassResolvePerformanceQueryEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("optimal", &self.optimal)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SubpassResolvePerformanceQueryEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SUBPASS_RESOLVE_PERFORMANCE_QUERY_EXT;
     }
@@ -101,6 +124,20 @@ pub(super) mod defs {
         pub multisampled_render_to_single_sampled_enable: Bool32,
         pub rasterization_samples: SampleCountFlagBits,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for MultisampledRenderToSingleSampledInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MultisampledRenderToSingleSampledInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "multisampled_render_to_single_sampled_enable",
+                    &self.multisampled_render_to_single_sampled_enable,
+                )
+                .field("rasterization_samples", &self.rasterization_samples)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for MultisampledRenderToSingleSampledInfoEXT<'a> {

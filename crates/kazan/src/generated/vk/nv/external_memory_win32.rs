@@ -21,6 +21,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImportMemoryWin32HandleInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImportMemoryWin32HandleInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("handle_type", &self.handle_type)
+                .field("handle", &self.handle)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportMemoryWin32HandleInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_MEMORY_WIN32_HANDLE_INFO_NV;
     }
@@ -60,6 +71,17 @@ pub(super) mod defs {
         pub p_attributes: *const SECURITY_ATTRIBUTES,
         pub dw_access: DWORD,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ExportMemoryWin32HandleInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExportMemoryWin32HandleInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_attributes", &self.p_attributes)
+                .field("dw_access", &self.dw_access)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ExportMemoryWin32HandleInfoNV<'a> {

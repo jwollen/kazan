@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceShaderUntypedPointersFeaturesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceShaderUntypedPointersFeaturesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("shader_untyped_pointers", &self.shader_untyped_pointers)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderUntypedPointersFeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_UNTYPED_POINTERS_FEATURES_KHR;

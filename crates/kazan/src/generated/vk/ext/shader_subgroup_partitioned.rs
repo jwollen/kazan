@@ -20,6 +20,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceShaderSubgroupPartitionedFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceShaderSubgroupPartitionedFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "shader_subgroup_partitioned",
+                    &self.shader_subgroup_partitioned,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderSubgroupPartitionedFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_SUBGROUP_PARTITIONED_FEATURES_EXT;

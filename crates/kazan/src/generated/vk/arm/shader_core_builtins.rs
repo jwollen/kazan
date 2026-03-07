@@ -22,6 +22,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceShaderCoreBuiltinsPropertiesARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceShaderCoreBuiltinsPropertiesARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("shader_core_mask", &self.shader_core_mask)
+                .field("shader_core_count", &self.shader_core_count)
+                .field("shader_warps_per_core", &self.shader_warps_per_core)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderCoreBuiltinsPropertiesARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_PROPERTIES_ARM;
@@ -70,6 +82,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub shader_core_builtins: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceShaderCoreBuiltinsFeaturesARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceShaderCoreBuiltinsFeaturesARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("shader_core_builtins", &self.shader_core_builtins)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderCoreBuiltinsFeaturesARM<'a> {

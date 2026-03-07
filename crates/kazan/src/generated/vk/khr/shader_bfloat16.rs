@@ -22,6 +22,24 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceShaderBfloat16FeaturesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceShaderBfloat16FeaturesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("shader_b_float16_type", &self.shader_b_float16_type)
+                .field(
+                    "shader_b_float16_dot_product",
+                    &self.shader_b_float16_dot_product,
+                )
+                .field(
+                    "shader_b_float16_cooperative_matrix",
+                    &self.shader_b_float16_cooperative_matrix,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderBfloat16FeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_BFLOAT16_FEATURES_KHR;

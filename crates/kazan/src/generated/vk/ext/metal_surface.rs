@@ -23,6 +23,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for MetalSurfaceCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MetalSurfaceCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("p_layer", &self.p_layer)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for MetalSurfaceCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::METAL_SURFACE_CREATE_INFO_EXT;
     }

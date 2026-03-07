@@ -12,7 +12,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTraceRaysIndirectCommand2KHR.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct TraceRaysIndirectCommand2KHR {
         pub raygen_shader_record_address: DeviceAddress,
         pub raygen_shader_record_size: DeviceSize,
@@ -141,6 +141,20 @@ pub(super) mod defs {
         pub ray_tracing_maintenance1: Bool32,
         pub ray_tracing_pipeline_trace_rays_indirect2: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceRayTracingMaintenance1FeaturesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceRayTracingMaintenance1FeaturesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("ray_tracing_maintenance1", &self.ray_tracing_maintenance1)
+                .field(
+                    "ray_tracing_pipeline_trace_rays_indirect2",
+                    &self.ray_tracing_pipeline_trace_rays_indirect2,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRayTracingMaintenance1FeaturesKHR<'a> {

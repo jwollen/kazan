@@ -12,7 +12,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMultiDrawInfoEXT.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct MultiDrawInfoEXT {
         pub first_vertex: u32,
         pub vertex_count: u32,
@@ -32,7 +32,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMultiDrawIndexedInfoEXT.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct MultiDrawIndexedInfoEXT {
         pub first_index: u32,
         pub index_count: u32,
@@ -64,6 +64,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub max_multi_draw_count: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceMultiDrawPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceMultiDrawPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("max_multi_draw_count", &self.max_multi_draw_count)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMultiDrawPropertiesEXT<'a> {
@@ -102,6 +112,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub multi_draw: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceMultiDrawFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceMultiDrawFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("multi_draw", &self.multi_draw)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMultiDrawFeaturesEXT<'a> {

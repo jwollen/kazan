@@ -21,6 +21,23 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceComputeShaderDerivativesFeaturesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceComputeShaderDerivativesFeaturesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "compute_derivative_group_quads",
+                    &self.compute_derivative_group_quads,
+                )
+                .field(
+                    "compute_derivative_group_linear",
+                    &self.compute_derivative_group_linear,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceComputeShaderDerivativesFeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_FEATURES_KHR;
@@ -73,6 +90,19 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub mesh_and_task_shader_derivatives: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceComputeShaderDerivativesPropertiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceComputeShaderDerivativesPropertiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "mesh_and_task_shader_derivatives",
+                    &self.mesh_and_task_shader_derivatives,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceComputeShaderDerivativesPropertiesKHR<'a> {

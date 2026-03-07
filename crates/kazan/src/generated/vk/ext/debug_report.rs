@@ -28,6 +28,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DebugReportCallbackCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DebugReportCallbackCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("pfn_callback", &self.pfn_callback.map(|f| f as *const ()))
+                .field("p_user_data", &self.p_user_data)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DebugReportCallbackCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT;
     }
@@ -217,7 +229,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugReportFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct DebugReportFlagBitsEXT(u32);
 
     impl DebugReportFlagBitsEXT {

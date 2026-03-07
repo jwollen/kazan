@@ -20,6 +20,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceClusterAccelerationStructureFeaturesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceClusterAccelerationStructureFeaturesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "cluster_acceleration_structure",
+                    &self.cluster_acceleration_structure,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceClusterAccelerationStructureFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_FEATURES_NV;
@@ -70,6 +83,38 @@ pub(super) mod defs {
         pub cluster_template_bounds_byte_alignment: u32,
         pub max_cluster_geometry_index: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceClusterAccelerationStructurePropertiesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceClusterAccelerationStructurePropertiesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("max_vertices_per_cluster", &self.max_vertices_per_cluster)
+                .field("max_triangles_per_cluster", &self.max_triangles_per_cluster)
+                .field(
+                    "cluster_scratch_byte_alignment",
+                    &self.cluster_scratch_byte_alignment,
+                )
+                .field("cluster_byte_alignment", &self.cluster_byte_alignment)
+                .field(
+                    "cluster_template_byte_alignment",
+                    &self.cluster_template_byte_alignment,
+                )
+                .field(
+                    "cluster_bottom_level_byte_alignment",
+                    &self.cluster_bottom_level_byte_alignment,
+                )
+                .field(
+                    "cluster_template_bounds_byte_alignment",
+                    &self.cluster_template_bounds_byte_alignment,
+                )
+                .field(
+                    "max_cluster_geometry_index",
+                    &self.max_cluster_geometry_index,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceClusterAccelerationStructurePropertiesNV<'a> {
@@ -156,7 +201,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkStridedDeviceAddressNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StridedDeviceAddressNV {
         pub start_address: DeviceAddress,
         pub stride_in_bytes: DeviceSize,
@@ -182,6 +227,19 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub allow_cluster_acceleration_structure: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for RayTracingPipelineClusterAccelerationStructureCreateInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RayTracingPipelineClusterAccelerationStructureCreateInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "allow_cluster_acceleration_structure",
+                    &self.allow_cluster_acceleration_structure,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a>
@@ -219,7 +277,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct ClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV {
         pub geometry_index: u32,
         pub reserved: u32,
@@ -245,7 +303,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureMoveObjectsInfoNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct ClusterAccelerationStructureMoveObjectsInfoNV {
         pub src_acceleration_structure: DeviceAddress,
     }
@@ -262,7 +320,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct ClusterAccelerationStructureBuildClustersBottomLevelInfoNV {
         pub cluster_references_count: u32,
         pub cluster_references_stride: u32,
@@ -288,7 +346,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureGetTemplateIndicesInfoNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct ClusterAccelerationStructureGetTemplateIndicesInfoNV {
         pub cluster_template_address: DeviceAddress,
     }
@@ -302,7 +360,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureBuildTriangleClusterInfoNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct ClusterAccelerationStructureBuildTriangleClusterInfoNV {
         pub cluster_id: u32,
         pub cluster_flags: ClusterAccelerationStructureClusterFlagsNV,
@@ -431,7 +489,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct ClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV {
         pub cluster_id: u32,
         pub cluster_flags: ClusterAccelerationStructureClusterFlagsNV,
@@ -569,7 +627,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureInstantiateClusterInfoNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct ClusterAccelerationStructureInstantiateClusterInfoNV {
         pub cluster_id_offset: u32,
         pub geometry_index_offset: u32,
@@ -614,6 +672,20 @@ pub(super) mod defs {
         pub max_total_cluster_count: u32,
         pub max_cluster_count_per_acceleration_structure: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ClusterAccelerationStructureClustersBottomLevelInputNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ClusterAccelerationStructureClustersBottomLevelInputNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("max_total_cluster_count", &self.max_total_cluster_count)
+                .field(
+                    "max_cluster_count_per_acceleration_structure",
+                    &self.max_cluster_count_per_acceleration_structure,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ClusterAccelerationStructureClustersBottomLevelInputNV<'a> {
@@ -664,6 +736,32 @@ pub(super) mod defs {
         pub max_total_vertex_count: u32,
         pub min_position_truncate_bit_count: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ClusterAccelerationStructureTriangleClusterInputNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ClusterAccelerationStructureTriangleClusterInputNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("vertex_format", &self.vertex_format)
+                .field("max_geometry_index_value", &self.max_geometry_index_value)
+                .field(
+                    "max_cluster_unique_geometry_count",
+                    &self.max_cluster_unique_geometry_count,
+                )
+                .field(
+                    "max_cluster_triangle_count",
+                    &self.max_cluster_triangle_count,
+                )
+                .field("max_cluster_vertex_count", &self.max_cluster_vertex_count)
+                .field("max_total_triangle_count", &self.max_total_triangle_count)
+                .field("max_total_vertex_count", &self.max_total_vertex_count)
+                .field(
+                    "min_position_truncate_bit_count",
+                    &self.min_position_truncate_bit_count,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ClusterAccelerationStructureTriangleClusterInputNV<'a> {
@@ -749,6 +847,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ClusterAccelerationStructureMoveObjectsInputNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ClusterAccelerationStructureMoveObjectsInputNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("ty", &self.ty)
+                .field("no_move_overlap", &self.no_move_overlap)
+                .field("max_moved_bytes", &self.max_moved_bytes)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ClusterAccelerationStructureMoveObjectsInputNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::CLUSTER_ACCELERATION_STRUCTURE_MOVE_OBJECTS_INPUT_NV;
@@ -796,6 +906,23 @@ pub(super) mod defs {
         pub op_mode: ClusterAccelerationStructureOpModeNV,
         pub op_input: ClusterAccelerationStructureOpInputNV<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ClusterAccelerationStructureInputInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ClusterAccelerationStructureInputInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "max_acceleration_structure_count",
+                    &self.max_acceleration_structure_count,
+                )
+                .field("flags", &self.flags)
+                .field("op_type", &self.op_type)
+                .field("op_mode", &self.op_mode)
+                .field("op_input", &self.op_input)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ClusterAccelerationStructureInputInfoNV<'a> {
@@ -863,6 +990,23 @@ pub(super) mod defs {
         pub src_infos_count: DeviceAddress,
         pub address_resolution_flags: ClusterAccelerationStructureAddressResolutionFlagsNV,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ClusterAccelerationStructureCommandsInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ClusterAccelerationStructureCommandsInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("input", &self.input)
+                .field("dst_implicit_data", &self.dst_implicit_data)
+                .field("scratch_data", &self.scratch_data)
+                .field("dst_addresses_array", &self.dst_addresses_array)
+                .field("dst_sizes_array", &self.dst_sizes_array)
+                .field("src_infos_array", &self.src_infos_array)
+                .field("src_infos_count", &self.src_infos_count)
+                .field("address_resolution_flags", &self.address_resolution_flags)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ClusterAccelerationStructureCommandsInfoNV<'a> {
@@ -946,6 +1090,14 @@ pub(super) mod defs {
         pub p_move_objects: *mut ClusterAccelerationStructureMoveObjectsInputNV<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
+    impl fmt::Debug for ClusterAccelerationStructureOpInputNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ClusterAccelerationStructureOpInputNV")
+                .finish()
+        }
+    }
+
     impl Default for ClusterAccelerationStructureOpInputNV<'_> {
         fn default() -> Self {
             unsafe { core::mem::zeroed() }
@@ -1080,7 +1232,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureGeometryFlagBitsNV.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct ClusterAccelerationStructureGeometryFlagBitsNV(u32);
 
     impl ClusterAccelerationStructureGeometryFlagBitsNV {
@@ -1113,7 +1265,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureClusterFlagBitsNV.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct ClusterAccelerationStructureClusterFlagBitsNV(u32);
 
     impl ClusterAccelerationStructureClusterFlagBitsNV {
@@ -1163,7 +1315,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureAddressResolutionFlagBitsNV.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct ClusterAccelerationStructureAddressResolutionFlagBitsNV(u32);
 
     impl ClusterAccelerationStructureAddressResolutionFlagBitsNV {
@@ -1212,7 +1364,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureIndexFormatFlagBitsNV.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct ClusterAccelerationStructureIndexFormatFlagBitsNV(u32);
 
     impl ClusterAccelerationStructureIndexFormatFlagBitsNV {

@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceCoherentMemoryFeaturesAMD<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceCoherentMemoryFeaturesAMD")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("device_coherent_memory", &self.device_coherent_memory)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCoherentMemoryFeaturesAMD<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_COHERENT_MEMORY_FEATURES_AMD;

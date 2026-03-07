@@ -27,6 +27,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImportMemoryBufferCollectionFUCHSIA<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImportMemoryBufferCollectionFUCHSIA")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("collection", &self.collection)
+                .field("index", &self.index)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportMemoryBufferCollectionFUCHSIA<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::IMPORT_MEMORY_BUFFER_COLLECTION_FUCHSIA;
@@ -67,6 +78,17 @@ pub(super) mod defs {
         pub collection: BufferCollectionFUCHSIA,
         pub index: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for BufferCollectionImageCreateInfoFUCHSIA<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BufferCollectionImageCreateInfoFUCHSIA")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("collection", &self.collection)
+                .field("index", &self.index)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for BufferCollectionImageCreateInfoFUCHSIA<'a> {
@@ -111,6 +133,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for BufferCollectionBufferCreateInfoFUCHSIA<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BufferCollectionBufferCreateInfoFUCHSIA")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("collection", &self.collection)
+                .field("index", &self.index)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for BufferCollectionBufferCreateInfoFUCHSIA<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::BUFFER_COLLECTION_BUFFER_CREATE_INFO_FUCHSIA;
@@ -150,6 +183,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub collection_token: zx_handle_t,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for BufferCollectionCreateInfoFUCHSIA<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BufferCollectionCreateInfoFUCHSIA")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("collection_token", &self.collection_token)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for BufferCollectionCreateInfoFUCHSIA<'a> {
@@ -192,6 +235,29 @@ pub(super) mod defs {
         pub suggested_x_chroma_offset: ChromaLocation,
         pub suggested_y_chroma_offset: ChromaLocation,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for BufferCollectionPropertiesFUCHSIA<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BufferCollectionPropertiesFUCHSIA")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("memory_type_bits", &self.memory_type_bits)
+                .field("buffer_count", &self.buffer_count)
+                .field("create_info_index", &self.create_info_index)
+                .field("sysmem_pixel_format", &self.sysmem_pixel_format)
+                .field("format_features", &self.format_features)
+                .field("sysmem_color_space_index", &self.sysmem_color_space_index)
+                .field(
+                    "sampler_ycbcr_conversion_components",
+                    &self.sampler_ycbcr_conversion_components,
+                )
+                .field("suggested_ycbcr_model", &self.suggested_ycbcr_model)
+                .field("suggested_ycbcr_range", &self.suggested_ycbcr_range)
+                .field("suggested_x_chroma_offset", &self.suggested_x_chroma_offset)
+                .field("suggested_y_chroma_offset", &self.suggested_y_chroma_offset)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for BufferCollectionPropertiesFUCHSIA<'a> {
@@ -303,6 +369,21 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for BufferConstraintsInfoFUCHSIA<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BufferConstraintsInfoFUCHSIA")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("create_info", &self.create_info)
+                .field("required_format_features", &self.required_format_features)
+                .field(
+                    "buffer_collection_constraints",
+                    &self.buffer_collection_constraints,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for BufferConstraintsInfoFUCHSIA<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::BUFFER_CONSTRAINTS_INFO_FUCHSIA;
     }
@@ -353,6 +434,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SysmemColorSpaceFUCHSIA<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SysmemColorSpaceFUCHSIA")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("color_space", &self.color_space)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SysmemColorSpaceFUCHSIA<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SYSMEM_COLOR_SPACE_FUCHSIA;
     }
@@ -388,6 +479,21 @@ pub(super) mod defs {
         pub color_space_count: u32,
         pub p_color_spaces: *const SysmemColorSpaceFUCHSIA<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ImageFormatConstraintsInfoFUCHSIA<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageFormatConstraintsInfoFUCHSIA")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("image_create_info", &self.image_create_info)
+                .field("required_format_features", &self.required_format_features)
+                .field("flags", &self.flags)
+                .field("sysmem_pixel_format", &self.sysmem_pixel_format)
+                .field("color_space_count", &self.color_space_count)
+                .field("p_color_spaces", &self.p_color_spaces)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ImageFormatConstraintsInfoFUCHSIA<'a> {
@@ -454,6 +560,22 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImageConstraintsInfoFUCHSIA<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageConstraintsInfoFUCHSIA")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("format_constraints_count", &self.format_constraints_count)
+                .field("p_format_constraints", &self.p_format_constraints)
+                .field(
+                    "buffer_collection_constraints",
+                    &self.buffer_collection_constraints,
+                )
+                .field("flags", &self.flags)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImageConstraintsInfoFUCHSIA<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_CONSTRAINTS_INFO_FUCHSIA;
     }
@@ -508,6 +630,29 @@ pub(super) mod defs {
         pub min_buffer_count_for_dedicated_slack: u32,
         pub min_buffer_count_for_shared_slack: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for BufferCollectionConstraintsInfoFUCHSIA<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BufferCollectionConstraintsInfoFUCHSIA")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("min_buffer_count", &self.min_buffer_count)
+                .field("max_buffer_count", &self.max_buffer_count)
+                .field(
+                    "min_buffer_count_for_camping",
+                    &self.min_buffer_count_for_camping,
+                )
+                .field(
+                    "min_buffer_count_for_dedicated_slack",
+                    &self.min_buffer_count_for_dedicated_slack,
+                )
+                .field(
+                    "min_buffer_count_for_shared_slack",
+                    &self.min_buffer_count_for_shared_slack,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for BufferCollectionConstraintsInfoFUCHSIA<'a> {
@@ -624,7 +769,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageConstraintsInfoFlagBitsFUCHSIA.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct ImageConstraintsInfoFlagBitsFUCHSIA(u32);
 
     impl ImageConstraintsInfoFlagBitsFUCHSIA {

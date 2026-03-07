@@ -20,6 +20,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoEncodeQuantizationMapCapabilitiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeQuantizationMapCapabilitiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "max_quantization_map_extent",
+                    &self.max_quantization_map_extent,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoEncodeQuantizationMapCapabilitiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::VIDEO_ENCODE_QUANTIZATION_MAP_CAPABILITIES_KHR;
@@ -60,6 +73,17 @@ pub(super) mod defs {
         pub min_qp_delta: i32,
         pub max_qp_delta: i32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoEncodeH264QuantizationMapCapabilitiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeH264QuantizationMapCapabilitiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("min_qp_delta", &self.min_qp_delta)
+                .field("max_qp_delta", &self.max_qp_delta)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoEncodeH264QuantizationMapCapabilitiesKHR<'a> {
@@ -107,6 +131,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoEncodeH265QuantizationMapCapabilitiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeH265QuantizationMapCapabilitiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("min_qp_delta", &self.min_qp_delta)
+                .field("max_qp_delta", &self.max_qp_delta)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoEncodeH265QuantizationMapCapabilitiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::VIDEO_ENCODE_H265_QUANTIZATION_MAP_CAPABILITIES_KHR;
@@ -150,6 +185,17 @@ pub(super) mod defs {
         pub min_q_index_delta: i32,
         pub max_q_index_delta: i32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoEncodeAV1QuantizationMapCapabilitiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeAV1QuantizationMapCapabilitiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("min_q_index_delta", &self.min_q_index_delta)
+                .field("max_q_index_delta", &self.max_q_index_delta)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoEncodeAV1QuantizationMapCapabilitiesKHR<'a> {
@@ -196,6 +242,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoFormatQuantizationMapPropertiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoFormatQuantizationMapPropertiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "quantization_map_texel_size",
+                    &self.quantization_map_texel_size,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoFormatQuantizationMapPropertiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::VIDEO_FORMAT_QUANTIZATION_MAP_PROPERTIES_KHR;
@@ -237,6 +296,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoFormatH265QuantizationMapPropertiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoFormatH265QuantizationMapPropertiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("compatible_ctb_sizes", &self.compatible_ctb_sizes)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoFormatH265QuantizationMapPropertiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::VIDEO_FORMAT_H265_QUANTIZATION_MAP_PROPERTIES_KHR;
@@ -276,6 +345,19 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub compatible_superblock_sizes: VideoEncodeAV1SuperblockSizeFlagsKHR,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoFormatAV1QuantizationMapPropertiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoFormatAV1QuantizationMapPropertiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "compatible_superblock_sizes",
+                    &self.compatible_superblock_sizes,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoFormatAV1QuantizationMapPropertiesKHR<'a> {
@@ -320,6 +402,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoEncodeQuantizationMapInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeQuantizationMapInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("quantization_map", &self.quantization_map)
+                .field("quantization_map_extent", &self.quantization_map_extent)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoEncodeQuantizationMapInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_ENCODE_QUANTIZATION_MAP_INFO_KHR;
     }
@@ -358,6 +451,19 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub quantization_map_texel_size: Extent2D,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoEncodeQuantizationMapSessionParametersCreateInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeQuantizationMapSessionParametersCreateInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "quantization_map_texel_size",
+                    &self.quantization_map_texel_size,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a>
@@ -401,6 +507,19 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub video_encode_quantization_map: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "video_encode_quantization_map",
+                    &self.video_encode_quantization_map,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR<'a> {

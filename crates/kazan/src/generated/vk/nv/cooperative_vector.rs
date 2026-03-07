@@ -21,6 +21,20 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceCooperativeVectorFeaturesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceCooperativeVectorFeaturesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("cooperative_vector", &self.cooperative_vector)
+                .field(
+                    "cooperative_vector_training",
+                    &self.cooperative_vector_training,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCooperativeVectorFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_COOPERATIVE_VECTOR_FEATURES_NV;
@@ -69,6 +83,21 @@ pub(super) mod defs {
         pub result_type: ComponentTypeKHR,
         pub transpose: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for CooperativeVectorPropertiesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CooperativeVectorPropertiesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("input_type", &self.input_type)
+                .field("input_interpretation", &self.input_interpretation)
+                .field("matrix_interpretation", &self.matrix_interpretation)
+                .field("bias_interpretation", &self.bias_interpretation)
+                .field("result_type", &self.result_type)
+                .field("transpose", &self.transpose)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for CooperativeVectorPropertiesNV<'a> {
@@ -134,6 +163,31 @@ pub(super) mod defs {
         pub cooperative_vector_training_float32_accumulation: Bool32,
         pub max_cooperative_vector_components: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceCooperativeVectorPropertiesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceCooperativeVectorPropertiesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "cooperative_vector_supported_stages",
+                    &self.cooperative_vector_supported_stages,
+                )
+                .field(
+                    "cooperative_vector_training_float16_accumulation",
+                    &self.cooperative_vector_training_float16_accumulation,
+                )
+                .field(
+                    "cooperative_vector_training_float32_accumulation",
+                    &self.cooperative_vector_training_float32_accumulation,
+                )
+                .field(
+                    "max_cooperative_vector_components",
+                    &self.max_cooperative_vector_components,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCooperativeVectorPropertiesNV<'a> {
@@ -215,6 +269,27 @@ pub(super) mod defs {
         pub dst_layout: CooperativeVectorMatrixLayoutNV,
         pub dst_stride: usize,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ConvertCooperativeVectorMatrixInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ConvertCooperativeVectorMatrixInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src_size", &self.src_size)
+                .field("src_data", &self.src_data)
+                .field("p_dst_size", &self.p_dst_size)
+                .field("dst_data", &self.dst_data)
+                .field("src_component_type", &self.src_component_type)
+                .field("dst_component_type", &self.dst_component_type)
+                .field("num_rows", &self.num_rows)
+                .field("num_columns", &self.num_columns)
+                .field("src_layout", &self.src_layout)
+                .field("src_stride", &self.src_stride)
+                .field("dst_layout", &self.dst_layout)
+                .field("dst_stride", &self.dst_stride)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ConvertCooperativeVectorMatrixInfoNV<'a> {

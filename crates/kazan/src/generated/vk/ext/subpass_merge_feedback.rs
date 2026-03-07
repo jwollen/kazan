@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for RenderPassCreationControlEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RenderPassCreationControlEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("disallow_merging", &self.disallow_merging)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for RenderPassCreationControlEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::RENDER_PASS_CREATION_CONTROL_EXT;
     }
@@ -47,7 +57,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassCreationFeedbackInfoEXT.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct RenderPassCreationFeedbackInfoEXT {
         pub post_merge_subpass_count: u32,
     }
@@ -67,6 +77,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub p_render_pass_feedback: *mut RenderPassCreationFeedbackInfoEXT,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for RenderPassCreationFeedbackCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RenderPassCreationFeedbackCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_render_pass_feedback", &self.p_render_pass_feedback)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for RenderPassCreationFeedbackCreateInfoEXT<'a> {
@@ -106,6 +126,19 @@ pub(super) mod defs {
         pub post_merge_index: u32,
     }
 
+    impl fmt::Debug for RenderPassSubpassFeedbackInfoEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RenderPassSubpassFeedbackInfoEXT")
+                .field("subpass_merge_status", &self.subpass_merge_status)
+                .field(
+                    "description",
+                    &wrap_c_str_slice_until_nul(&self.description),
+                )
+                .field("post_merge_index", &self.post_merge_index)
+                .finish()
+        }
+    }
+
     impl Default for RenderPassSubpassFeedbackInfoEXT {
         fn default() -> Self {
             Self {
@@ -136,6 +169,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub p_subpass_feedback: *mut RenderPassSubpassFeedbackInfoEXT,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for RenderPassSubpassFeedbackCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RenderPassSubpassFeedbackCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_subpass_feedback", &self.p_subpass_feedback)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for RenderPassSubpassFeedbackCreateInfoEXT<'a> {
@@ -174,6 +217,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub subpass_merge_feedback: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceSubpassMergeFeedbackFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("subpass_merge_feedback", &self.subpass_merge_feedback)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'a> {

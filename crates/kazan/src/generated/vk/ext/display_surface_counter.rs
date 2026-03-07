@@ -30,6 +30,29 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SurfaceCapabilities2EXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SurfaceCapabilities2EXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("min_image_count", &self.min_image_count)
+                .field("max_image_count", &self.max_image_count)
+                .field("current_extent", &self.current_extent)
+                .field("min_image_extent", &self.min_image_extent)
+                .field("max_image_extent", &self.max_image_extent)
+                .field("max_image_array_layers", &self.max_image_array_layers)
+                .field("supported_transforms", &self.supported_transforms)
+                .field("current_transform", &self.current_transform)
+                .field("supported_composite_alpha", &self.supported_composite_alpha)
+                .field("supported_usage_flags", &self.supported_usage_flags)
+                .field(
+                    "supported_surface_counters",
+                    &self.supported_surface_counters,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SurfaceCapabilities2EXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SURFACE_CAPABILITIES_2_EXT;
     }
@@ -140,7 +163,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceCounterFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct SurfaceCounterFlagBitsEXT(u32);
 
     impl SurfaceCounterFlagBitsEXT {

@@ -22,6 +22,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceExternalMemoryRDMAFeaturesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceExternalMemoryRDMAFeaturesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("external_memory_rdma", &self.external_memory_rdma)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExternalMemoryRDMAFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_EXTERNAL_MEMORY_RDMA_FEATURES_NV;
@@ -60,6 +70,17 @@ pub(super) mod defs {
         pub memory: DeviceMemory,
         pub handle_type: ExternalMemoryHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for MemoryGetRemoteAddressInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MemoryGetRemoteAddressInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("memory", &self.memory)
+                .field("handle_type", &self.handle_type)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for MemoryGetRemoteAddressInfoNV<'a> {

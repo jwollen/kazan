@@ -19,6 +19,15 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for BeginCustomResolveInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BeginCustomResolveInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for BeginCustomResolveInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::BEGIN_CUSTOM_RESOLVE_INFO_EXT;
     }
@@ -43,6 +52,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub custom_resolve: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceCustomResolveFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceCustomResolveFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("custom_resolve", &self.custom_resolve)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCustomResolveFeaturesEXT<'a> {
@@ -86,6 +105,23 @@ pub(super) mod defs {
         pub depth_attachment_format: Format,
         pub stencil_attachment_format: Format,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for CustomResolveCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CustomResolveCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("custom_resolve", &self.custom_resolve)
+                .field("color_attachment_count", &self.color_attachment_count)
+                .field(
+                    "p_color_attachment_formats",
+                    &self.p_color_attachment_formats,
+                )
+                .field("depth_attachment_format", &self.depth_attachment_format)
+                .field("stencil_attachment_format", &self.stencil_attachment_format)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for CustomResolveCreateInfoEXT<'a> {

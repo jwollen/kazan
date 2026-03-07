@@ -20,6 +20,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceImageCompressionControlSwapchainFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceImageCompressionControlSwapchainFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "image_compression_control_swapchain",
+                    &self.image_compression_control_swapchain,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a>
         for PhysicalDeviceImageCompressionControlSwapchainFeaturesEXT<'a>
     {

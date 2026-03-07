@@ -12,7 +12,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkXYColorEXT.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct XYColorEXT {
         pub x: f32,
         pub y: f32,
@@ -45,6 +45,26 @@ pub(super) mod defs {
         pub max_content_light_level: f32,
         pub max_frame_average_light_level: f32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for HdrMetadataEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("HdrMetadataEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("display_primary_red", &self.display_primary_red)
+                .field("display_primary_green", &self.display_primary_green)
+                .field("display_primary_blue", &self.display_primary_blue)
+                .field("white_point", &self.white_point)
+                .field("max_luminance", &self.max_luminance)
+                .field("min_luminance", &self.min_luminance)
+                .field("max_content_light_level", &self.max_content_light_level)
+                .field(
+                    "max_frame_average_light_level",
+                    &self.max_frame_average_light_level,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for HdrMetadataEXT<'a> {

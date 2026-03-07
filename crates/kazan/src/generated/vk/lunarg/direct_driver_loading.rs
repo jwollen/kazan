@@ -21,6 +21,20 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DirectDriverLoadingInfoLUNARG<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DirectDriverLoadingInfoLUNARG")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field(
+                    "pfn_get_instance_proc_addr",
+                    &self.pfn_get_instance_proc_addr.map(|f| f as *const ()),
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DirectDriverLoadingInfoLUNARG<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DIRECT_DRIVER_LOADING_INFO_LUNARG;
     }
@@ -62,6 +76,18 @@ pub(super) mod defs {
         pub driver_count: u32,
         pub p_drivers: *const DirectDriverLoadingInfoLUNARG<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DirectDriverLoadingListLUNARG<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DirectDriverLoadingListLUNARG")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("mode", &self.mode)
+                .field("driver_count", &self.driver_count)
+                .field("p_drivers", &self.p_drivers)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DirectDriverLoadingListLUNARG<'a> {

@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoEncodeSessionParametersGetInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeSessionParametersGetInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("video_session_parameters", &self.video_session_parameters)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoEncodeSessionParametersGetInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::VIDEO_ENCODE_SESSION_PARAMETERS_GET_INFO_KHR;
@@ -56,6 +66,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoEncodeSessionParametersFeedbackInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeSessionParametersFeedbackInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("has_overrides", &self.has_overrides)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoEncodeSessionParametersFeedbackInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::VIDEO_ENCODE_SESSION_PARAMETERS_FEEDBACK_INFO_KHR;
@@ -89,6 +109,18 @@ pub(super) mod defs {
         pub video_content_hints: VideoEncodeContentFlagsKHR,
         pub tuning_mode: VideoEncodeTuningModeKHR,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoEncodeUsageInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeUsageInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("video_usage_hints", &self.video_usage_hints)
+                .field("video_content_hints", &self.video_content_hints)
+                .field("tuning_mode", &self.tuning_mode)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoEncodeUsageInfoKHR<'a> {
@@ -147,6 +179,27 @@ pub(super) mod defs {
         pub p_reference_slots: *const VideoReferenceSlotInfoKHR<'a>,
         pub preceding_externally_encoded_bytes: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoEncodeInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("dst_buffer", &self.dst_buffer)
+                .field("dst_buffer_offset", &self.dst_buffer_offset)
+                .field("dst_buffer_range", &self.dst_buffer_range)
+                .field("src_picture_resource", &self.src_picture_resource)
+                .field("p_setup_reference_slot", &self.p_setup_reference_slot)
+                .field("reference_slot_count", &self.reference_slot_count)
+                .field("p_reference_slots", &self.p_reference_slots)
+                .field(
+                    "preceding_externally_encoded_bytes",
+                    &self.preceding_externally_encoded_bytes,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoEncodeInfoKHR<'a> {
@@ -237,6 +290,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for QueryPoolVideoEncodeFeedbackCreateInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("QueryPoolVideoEncodeFeedbackCreateInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("encode_feedback_flags", &self.encode_feedback_flags)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for QueryPoolVideoEncodeFeedbackCreateInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR;
@@ -273,6 +336,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub quality_level: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoEncodeQualityLevelInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeQualityLevelInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("quality_level", &self.quality_level)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoEncodeQualityLevelInfoKHR<'a> {
@@ -314,6 +387,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceVideoEncodeQualityLevelInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceVideoEncodeQualityLevelInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_video_profile", &self.p_video_profile)
+                .field("quality_level", &self.quality_level)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVideoEncodeQualityLevelInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR;
@@ -352,6 +436,23 @@ pub(super) mod defs {
         pub preferred_rate_control_mode: VideoEncodeRateControlModeFlagBitsKHR,
         pub preferred_rate_control_layer_count: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoEncodeQualityLevelPropertiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeQualityLevelPropertiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "preferred_rate_control_mode",
+                    &self.preferred_rate_control_mode,
+                )
+                .field(
+                    "preferred_rate_control_layer_count",
+                    &self.preferred_rate_control_layer_count,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoEncodeQualityLevelPropertiesKHR<'a> {
@@ -402,6 +503,24 @@ pub(super) mod defs {
         pub virtual_buffer_size_in_ms: u32,
         pub initial_virtual_buffer_size_in_ms: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoEncodeRateControlInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeRateControlInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("rate_control_mode", &self.rate_control_mode)
+                .field("layer_count", &self.layer_count)
+                .field("p_layers", &self.p_layers)
+                .field("virtual_buffer_size_in_ms", &self.virtual_buffer_size_in_ms)
+                .field(
+                    "initial_virtual_buffer_size_in_ms",
+                    &self.initial_virtual_buffer_size_in_ms,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoEncodeRateControlInfoKHR<'a> {
@@ -474,6 +593,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoEncodeRateControlLayerInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeRateControlLayerInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("average_bitrate", &self.average_bitrate)
+                .field("max_bitrate", &self.max_bitrate)
+                .field("frame_rate_numerator", &self.frame_rate_numerator)
+                .field("frame_rate_denominator", &self.frame_rate_denominator)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoEncodeRateControlLayerInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::VIDEO_ENCODE_RATE_CONTROL_LAYER_INFO_KHR;
@@ -529,6 +661,28 @@ pub(super) mod defs {
         pub encode_input_picture_granularity: Extent2D,
         pub supported_encode_feedback_flags: VideoEncodeFeedbackFlagsKHR,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoEncodeCapabilitiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeCapabilitiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("rate_control_modes", &self.rate_control_modes)
+                .field("max_rate_control_layers", &self.max_rate_control_layers)
+                .field("max_bitrate", &self.max_bitrate)
+                .field("max_quality_levels", &self.max_quality_levels)
+                .field(
+                    "encode_input_picture_granularity",
+                    &self.encode_input_picture_granularity,
+                )
+                .field(
+                    "supported_encode_feedback_flags",
+                    &self.supported_encode_feedback_flags,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoEncodeCapabilitiesKHR<'a> {
@@ -670,7 +824,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct VideoEncodeFlagBitsKHR(u32);
 
     impl VideoEncodeFlagBitsKHR {
@@ -716,7 +870,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeUsageFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct VideoEncodeUsageFlagBitsKHR(u32);
 
     impl VideoEncodeUsageFlagBitsKHR {
@@ -752,7 +906,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeContentFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct VideoEncodeContentFlagBitsKHR(u32);
 
     impl VideoEncodeContentFlagBitsKHR {
@@ -805,7 +959,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeCapabilityFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct VideoEncodeCapabilityFlagBitsKHR(u32);
 
     impl VideoEncodeCapabilityFlagBitsKHR {
@@ -853,7 +1007,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeFeedbackFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct VideoEncodeFeedbackFlagBitsKHR(u32);
 
     impl VideoEncodeFeedbackFlagBitsKHR {
@@ -903,7 +1057,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeRateControlModeFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRateControlModeFlagBitsKHR(u32);
 
     impl VideoEncodeRateControlModeFlagBitsKHR {

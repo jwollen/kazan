@@ -20,6 +20,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceExtendedSparseAddressSpaceFeaturesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceExtendedSparseAddressSpaceFeaturesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "extended_sparse_address_space",
+                    &self.extended_sparse_address_space,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExtendedSparseAddressSpaceFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_EXTENDED_SPARSE_ADDRESS_SPACE_FEATURES_NV;
@@ -65,6 +78,27 @@ pub(super) mod defs {
         pub extended_sparse_image_usage_flags: ImageUsageFlags,
         pub extended_sparse_buffer_usage_flags: BufferUsageFlags,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceExtendedSparseAddressSpacePropertiesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceExtendedSparseAddressSpacePropertiesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "extended_sparse_address_space_size",
+                    &self.extended_sparse_address_space_size,
+                )
+                .field(
+                    "extended_sparse_image_usage_flags",
+                    &self.extended_sparse_image_usage_flags,
+                )
+                .field(
+                    "extended_sparse_buffer_usage_flags",
+                    &self.extended_sparse_buffer_usage_flags,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExtendedSparseAddressSpacePropertiesNV<'a> {

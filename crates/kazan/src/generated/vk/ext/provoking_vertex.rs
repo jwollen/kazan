@@ -21,6 +21,20 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceProvokingVertexFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceProvokingVertexFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("provoking_vertex_last", &self.provoking_vertex_last)
+                .field(
+                    "transform_feedback_preserves_provoking_vertex",
+                    &self.transform_feedback_preserves_provoking_vertex,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceProvokingVertexFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PROVOKING_VERTEX_FEATURES_EXT;
@@ -69,6 +83,23 @@ pub(super) mod defs {
         pub provoking_vertex_mode_per_pipeline: Bool32,
         pub transform_feedback_preserves_triangle_fan_provoking_vertex: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceProvokingVertexPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceProvokingVertexPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "provoking_vertex_mode_per_pipeline",
+                    &self.provoking_vertex_mode_per_pipeline,
+                )
+                .field(
+                    "transform_feedback_preserves_triangle_fan_provoking_vertex",
+                    &self.transform_feedback_preserves_triangle_fan_provoking_vertex,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceProvokingVertexPropertiesEXT<'a> {
@@ -120,6 +151,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub provoking_vertex_mode: ProvokingVertexModeEXT,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PipelineRasterizationProvokingVertexStateCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineRasterizationProvokingVertexStateCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("provoking_vertex_mode", &self.provoking_vertex_mode)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PipelineRasterizationProvokingVertexStateCreateInfoEXT<'a> {

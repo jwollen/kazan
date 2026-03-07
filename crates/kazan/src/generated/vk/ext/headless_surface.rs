@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for HeadlessSurfaceCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("HeadlessSurfaceCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for HeadlessSurfaceCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::HEADLESS_SURFACE_CREATE_INFO_EXT;
     }

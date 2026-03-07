@@ -21,6 +21,23 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for FragmentShadingRateAttachmentInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("FragmentShadingRateAttachmentInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "p_fragment_shading_rate_attachment",
+                    &self.p_fragment_shading_rate_attachment,
+                )
+                .field(
+                    "shading_rate_attachment_texel_size",
+                    &self.shading_rate_attachment_texel_size,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for FragmentShadingRateAttachmentInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR;
@@ -69,6 +86,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PipelineFragmentShadingRateStateCreateInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineFragmentShadingRateStateCreateInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("fragment_size", &self.fragment_size)
+                .field("combiner_ops", &self.combiner_ops)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineFragmentShadingRateStateCreateInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_FRAGMENT_SHADING_RATE_STATE_CREATE_INFO_KHR;
@@ -113,6 +141,27 @@ pub(super) mod defs {
         pub primitive_fragment_shading_rate: Bool32,
         pub attachment_fragment_shading_rate: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceFragmentShadingRateFeaturesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceFragmentShadingRateFeaturesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "pipeline_fragment_shading_rate",
+                    &self.pipeline_fragment_shading_rate,
+                )
+                .field(
+                    "primitive_fragment_shading_rate",
+                    &self.primitive_fragment_shading_rate,
+                )
+                .field(
+                    "attachment_fragment_shading_rate",
+                    &self.attachment_fragment_shading_rate,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentShadingRateFeaturesKHR<'a> {
@@ -189,6 +238,80 @@ pub(super) mod defs {
         pub fragment_shading_rate_with_custom_sample_locations: Bool32,
         pub fragment_shading_rate_strict_multiply_combiner: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceFragmentShadingRatePropertiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceFragmentShadingRatePropertiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "min_fragment_shading_rate_attachment_texel_size",
+                    &self.min_fragment_shading_rate_attachment_texel_size,
+                )
+                .field(
+                    "max_fragment_shading_rate_attachment_texel_size",
+                    &self.max_fragment_shading_rate_attachment_texel_size,
+                )
+                .field(
+                    "max_fragment_shading_rate_attachment_texel_size_aspect_ratio",
+                    &self.max_fragment_shading_rate_attachment_texel_size_aspect_ratio,
+                )
+                .field(
+                    "primitive_fragment_shading_rate_with_multiple_viewports",
+                    &self.primitive_fragment_shading_rate_with_multiple_viewports,
+                )
+                .field(
+                    "layered_shading_rate_attachments",
+                    &self.layered_shading_rate_attachments,
+                )
+                .field(
+                    "fragment_shading_rate_non_trivial_combiner_ops",
+                    &self.fragment_shading_rate_non_trivial_combiner_ops,
+                )
+                .field("max_fragment_size", &self.max_fragment_size)
+                .field(
+                    "max_fragment_size_aspect_ratio",
+                    &self.max_fragment_size_aspect_ratio,
+                )
+                .field(
+                    "max_fragment_shading_rate_coverage_samples",
+                    &self.max_fragment_shading_rate_coverage_samples,
+                )
+                .field(
+                    "max_fragment_shading_rate_rasterization_samples",
+                    &self.max_fragment_shading_rate_rasterization_samples,
+                )
+                .field(
+                    "fragment_shading_rate_with_shader_depth_stencil_writes",
+                    &self.fragment_shading_rate_with_shader_depth_stencil_writes,
+                )
+                .field(
+                    "fragment_shading_rate_with_sample_mask",
+                    &self.fragment_shading_rate_with_sample_mask,
+                )
+                .field(
+                    "fragment_shading_rate_with_shader_sample_mask",
+                    &self.fragment_shading_rate_with_shader_sample_mask,
+                )
+                .field(
+                    "fragment_shading_rate_with_conservative_rasterization",
+                    &self.fragment_shading_rate_with_conservative_rasterization,
+                )
+                .field(
+                    "fragment_shading_rate_with_fragment_shader_interlock",
+                    &self.fragment_shading_rate_with_fragment_shader_interlock,
+                )
+                .field(
+                    "fragment_shading_rate_with_custom_sample_locations",
+                    &self.fragment_shading_rate_with_custom_sample_locations,
+                )
+                .field(
+                    "fragment_shading_rate_strict_multiply_combiner",
+                    &self.fragment_shading_rate_strict_multiply_combiner,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentShadingRatePropertiesKHR<'a> {
@@ -388,6 +511,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceFragmentShadingRateKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceFragmentShadingRateKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("sample_counts", &self.sample_counts)
+                .field("fragment_size", &self.fragment_size)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentShadingRateKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR;
@@ -427,6 +561,21 @@ pub(super) mod defs {
         pub image_layout: ImageLayout,
         pub shading_rate_attachment_texel_size: Extent2D,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for RenderingFragmentShadingRateAttachmentInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RenderingFragmentShadingRateAttachmentInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("image_view", &self.image_view)
+                .field("image_layout", &self.image_layout)
+                .field(
+                    "shading_rate_attachment_texel_size",
+                    &self.shading_rate_attachment_texel_size,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for RenderingFragmentShadingRateAttachmentInfoKHR<'a> {

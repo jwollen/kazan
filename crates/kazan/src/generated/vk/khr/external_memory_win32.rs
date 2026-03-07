@@ -22,6 +22,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImportMemoryWin32HandleInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImportMemoryWin32HandleInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("handle_type", &self.handle_type)
+                .field("handle", &self.handle)
+                .field("name", &self.name)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportMemoryWin32HandleInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_MEMORY_WIN32_HANDLE_INFO_KHR;
     }
@@ -70,6 +82,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ExportMemoryWin32HandleInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExportMemoryWin32HandleInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_attributes", &self.p_attributes)
+                .field("dw_access", &self.dw_access)
+                .field("name", &self.name)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ExportMemoryWin32HandleInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_MEMORY_WIN32_HANDLE_INFO_KHR;
     }
@@ -116,6 +140,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for MemoryWin32HandlePropertiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MemoryWin32HandlePropertiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("memory_type_bits", &self.memory_type_bits)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for MemoryWin32HandlePropertiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_WIN32_HANDLE_PROPERTIES_KHR;
     }
@@ -147,6 +181,17 @@ pub(super) mod defs {
         pub memory: DeviceMemory,
         pub handle_type: ExternalMemoryHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for MemoryGetWin32HandleInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MemoryGetWin32HandleInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("memory", &self.memory)
+                .field("handle_type", &self.handle_type)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for MemoryGetWin32HandleInfoKHR<'a> {

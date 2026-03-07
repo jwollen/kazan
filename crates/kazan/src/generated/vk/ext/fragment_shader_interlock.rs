@@ -22,6 +22,27 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceFragmentShaderInterlockFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceFragmentShaderInterlockFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "fragment_shader_sample_interlock",
+                    &self.fragment_shader_sample_interlock,
+                )
+                .field(
+                    "fragment_shader_pixel_interlock",
+                    &self.fragment_shader_pixel_interlock,
+                )
+                .field(
+                    "fragment_shader_shading_rate_interlock",
+                    &self.fragment_shader_shading_rate_interlock,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentShaderInterlockFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_FRAGMENT_SHADER_INTERLOCK_FEATURES_EXT;

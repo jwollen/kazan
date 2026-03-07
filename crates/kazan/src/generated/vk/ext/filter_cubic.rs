@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceImageViewImageFormatInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceImageViewImageFormatInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("image_view_type", &self.image_view_type)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceImageViewImageFormatInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT;
@@ -57,6 +67,17 @@ pub(super) mod defs {
         pub filter_cubic: Bool32,
         pub filter_cubic_minmax: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for FilterCubicImageViewImageFormatPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("FilterCubicImageViewImageFormatPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("filter_cubic", &self.filter_cubic)
+                .field("filter_cubic_minmax", &self.filter_cubic_minmax)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for FilterCubicImageViewImageFormatPropertiesEXT<'a> {

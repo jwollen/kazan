@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoDecodeH265ProfileInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoDecodeH265ProfileInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("std_profile_idc", &self.std_profile_idc)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeH265ProfileInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_H265_PROFILE_INFO_KHR;
     }
@@ -53,6 +63,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub max_level_idc: StdVideoH265LevelIdc,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoDecodeH265CapabilitiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoDecodeH265CapabilitiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("max_level_idc", &self.max_level_idc)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeH265CapabilitiesKHR<'a> {
@@ -92,6 +112,21 @@ pub(super) mod defs {
         pub std_pps_count: u32,
         pub p_std_pp_ss: *const StdVideoH265PictureParameterSet<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoDecodeH265SessionParametersAddInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoDecodeH265SessionParametersAddInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("std_vps_count", &self.std_vps_count)
+                .field("p_std_vp_ss", &self.p_std_vp_ss)
+                .field("std_sps_count", &self.std_sps_count)
+                .field("p_std_sp_ss", &self.p_std_sp_ss)
+                .field("std_pps_count", &self.std_pps_count)
+                .field("p_std_pp_ss", &self.p_std_pp_ss)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeH265SessionParametersAddInfoKHR<'a> {
@@ -151,6 +186,19 @@ pub(super) mod defs {
         pub max_std_pps_count: u32,
         pub p_parameters_add_info: *const VideoDecodeH265SessionParametersAddInfoKHR<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoDecodeH265SessionParametersCreateInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoDecodeH265SessionParametersCreateInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("max_std_vps_count", &self.max_std_vps_count)
+                .field("max_std_sps_count", &self.max_std_sps_count)
+                .field("max_std_pps_count", &self.max_std_pps_count)
+                .field("p_parameters_add_info", &self.p_parameters_add_info)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeH265SessionParametersCreateInfoKHR<'a> {
@@ -214,6 +262,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoDecodeH265PictureInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoDecodeH265PictureInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_std_picture_info", &self.p_std_picture_info)
+                .field("slice_segment_count", &self.slice_segment_count)
+                .field("p_slice_segment_offsets", &self.p_slice_segment_offsets)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeH265PictureInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_H265_PICTURE_INFO_KHR;
     }
@@ -257,6 +317,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub p_std_reference_info: *const StdVideoDecodeH265ReferenceInfo,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoDecodeH265DpbSlotInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoDecodeH265DpbSlotInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_std_reference_info", &self.p_std_reference_info)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeH265DpbSlotInfoKHR<'a> {

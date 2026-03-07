@@ -20,6 +20,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for TextureLODGatherFormatPropertiesAMD<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("TextureLODGatherFormatPropertiesAMD")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "supports_texture_gather_lod_bias_amd",
+                    &self.supports_texture_gather_lod_bias_amd,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for TextureLODGatherFormatPropertiesAMD<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::TEXTURE_LOD_GATHER_FORMAT_PROPERTIES_AMD;

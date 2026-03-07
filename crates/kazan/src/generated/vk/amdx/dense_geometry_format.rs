@@ -23,6 +23,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceDenseGeometryFormatFeaturesAMDX<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceDenseGeometryFormatFeaturesAMDX")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("dense_geometry_format", &self.dense_geometry_format)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDenseGeometryFormatFeaturesAMDX<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_DENSE_GEOMETRY_FORMAT_FEATURES_AMDX;
@@ -69,6 +79,22 @@ pub(super) mod defs {
         pub max_geometry_index: u32,
         pub format: CompressedTriangleFormatAMDX,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for AccelerationStructureDenseGeometryFormatTrianglesDataAMDX<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AccelerationStructureDenseGeometryFormatTrianglesDataAMDX")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("compressed_data", &self.compressed_data)
+                .field("data_size", &self.data_size)
+                .field("num_triangles", &self.num_triangles)
+                .field("num_vertices", &self.num_vertices)
+                .field("max_primitive_index", &self.max_primitive_index)
+                .field("max_geometry_index", &self.max_geometry_index)
+                .field("format", &self.format)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a>

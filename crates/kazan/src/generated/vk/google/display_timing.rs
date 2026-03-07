@@ -12,7 +12,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRefreshCycleDurationGOOGLE.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct RefreshCycleDurationGOOGLE {
         pub refresh_duration: u64,
     }
@@ -26,7 +26,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPastPresentationTimingGOOGLE.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct PastPresentationTimingGOOGLE {
         pub present_id: u32,
         pub desired_present_time: u64,
@@ -73,6 +73,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PresentTimesInfoGOOGLE<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PresentTimesInfoGOOGLE")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("swapchain_count", &self.swapchain_count)
+                .field("p_times", &self.p_times)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PresentTimesInfoGOOGLE<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PRESENT_TIMES_INFO_GOOGLE;
     }
@@ -101,7 +112,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentTimeGOOGLE.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct PresentTimeGOOGLE {
         pub present_id: u32,
         pub desired_present_time: u64,

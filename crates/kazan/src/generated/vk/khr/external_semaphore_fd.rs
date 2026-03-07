@@ -23,6 +23,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImportSemaphoreFdInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImportSemaphoreFdInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("semaphore", &self.semaphore)
+                .field("flags", &self.flags)
+                .field("handle_type", &self.handle_type)
+                .field("fd", &self.fd)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportSemaphoreFdInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_SEMAPHORE_FD_INFO_KHR;
     }
@@ -72,6 +85,17 @@ pub(super) mod defs {
         pub semaphore: Semaphore,
         pub handle_type: ExternalSemaphoreHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for SemaphoreGetFdInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SemaphoreGetFdInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("semaphore", &self.semaphore)
+                .field("handle_type", &self.handle_type)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for SemaphoreGetFdInfoKHR<'a> {

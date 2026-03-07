@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DisplayNativeHdrSurfaceCapabilitiesAMD<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DisplayNativeHdrSurfaceCapabilitiesAMD")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("local_dimming_support", &self.local_dimming_support)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DisplayNativeHdrSurfaceCapabilitiesAMD<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD;
@@ -56,6 +66,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub local_dimming_enable: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for SwapchainDisplayNativeHdrCreateInfoAMD<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SwapchainDisplayNativeHdrCreateInfoAMD")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("local_dimming_enable", &self.local_dimming_enable)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for SwapchainDisplayNativeHdrCreateInfoAMD<'a> {

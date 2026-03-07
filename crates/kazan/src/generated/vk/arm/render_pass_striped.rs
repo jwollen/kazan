@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceRenderPassStripedFeaturesARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceRenderPassStripedFeaturesARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("render_pass_striped", &self.render_pass_striped)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRenderPassStripedFeaturesARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_RENDER_PASS_STRIPED_FEATURES_ARM;
@@ -58,6 +68,20 @@ pub(super) mod defs {
         pub render_pass_stripe_granularity: Extent2D,
         pub max_render_pass_stripes: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceRenderPassStripedPropertiesARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceRenderPassStripedPropertiesARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "render_pass_stripe_granularity",
+                    &self.render_pass_stripe_granularity,
+                )
+                .field("max_render_pass_stripes", &self.max_render_pass_stripes)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRenderPassStripedPropertiesARM<'a> {
@@ -107,6 +131,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for RenderPassStripeInfoARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RenderPassStripeInfoARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("stripe_area", &self.stripe_area)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for RenderPassStripeInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::RENDER_PASS_STRIPE_INFO_ARM;
     }
@@ -138,6 +172,17 @@ pub(super) mod defs {
         pub stripe_info_count: u32,
         pub p_stripe_infos: *const RenderPassStripeInfoARM<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for RenderPassStripeBeginInfoARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RenderPassStripeBeginInfoARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("stripe_info_count", &self.stripe_info_count)
+                .field("p_stripe_infos", &self.p_stripe_infos)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for RenderPassStripeBeginInfoARM<'a> {
@@ -176,6 +221,20 @@ pub(super) mod defs {
         pub stripe_semaphore_info_count: u32,
         pub p_stripe_semaphore_infos: *const SemaphoreSubmitInfo<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for RenderPassStripeSubmitInfoARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RenderPassStripeSubmitInfoARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "stripe_semaphore_info_count",
+                    &self.stripe_semaphore_info_count,
+                )
+                .field("p_stripe_semaphore_infos", &self.p_stripe_semaphore_infos)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for RenderPassStripeSubmitInfoARM<'a> {

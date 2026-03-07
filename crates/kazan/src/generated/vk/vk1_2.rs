@@ -15,7 +15,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkConformanceVersion.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct ConformanceVersion {
         pub major: u8,
         pub minor: u8,
@@ -58,6 +58,25 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceDriverProperties<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceDriverProperties")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("driver_id", &self.driver_id)
+                .field(
+                    "driver_name",
+                    &wrap_c_str_slice_until_nul(&self.driver_name),
+                )
+                .field(
+                    "driver_info",
+                    &wrap_c_str_slice_until_nul(&self.driver_info),
+                )
+                .field("conformance_version", &self.conformance_version)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDriverProperties<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_DRIVER_PROPERTIES;
     }
@@ -98,6 +117,19 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub shader_subgroup_extended_types: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceShaderSubgroupExtendedTypesFeatures<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceShaderSubgroupExtendedTypesFeatures")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "shader_subgroup_extended_types",
+                    &self.shader_subgroup_extended_types,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderSubgroupExtendedTypesFeatures<'a> {
@@ -144,6 +176,23 @@ pub(super) mod defs {
         pub filter_minmax_single_component_formats: Bool32,
         pub filter_minmax_image_component_mapping: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceSamplerFilterMinmaxProperties<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceSamplerFilterMinmaxProperties")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "filter_minmax_single_component_formats",
+                    &self.filter_minmax_single_component_formats,
+                )
+                .field(
+                    "filter_minmax_image_component_mapping",
+                    &self.filter_minmax_image_component_mapping,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSamplerFilterMinmaxProperties<'a> {
@@ -198,6 +247,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SamplerReductionModeCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SamplerReductionModeCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("reduction_mode", &self.reduction_mode)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SamplerReductionModeCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SAMPLER_REDUCTION_MODE_CREATE_INFO;
     }
@@ -231,6 +290,17 @@ pub(super) mod defs {
         pub view_format_count: u32,
         pub p_view_formats: *const Format,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ImageFormatListCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageFormatListCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("view_format_count", &self.view_format_count)
+                .field("p_view_formats", &self.p_view_formats)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ImageFormatListCreateInfo<'a> {
@@ -270,6 +340,17 @@ pub(super) mod defs {
         pub shader_float16: Bool32,
         pub shader_int8: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceShaderFloat16Int8Features<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceShaderFloat16Int8Features")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("shader_float16", &self.shader_float16)
+                .field("shader_int8", &self.shader_int8)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderFloat16Int8Features<'a> {
@@ -331,6 +412,83 @@ pub(super) mod defs {
         pub shader_rounding_mode_rtz_float32: Bool32,
         pub shader_rounding_mode_rtz_float64: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceFloatControlsProperties<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceFloatControlsProperties")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "denorm_behavior_independence",
+                    &self.denorm_behavior_independence,
+                )
+                .field(
+                    "rounding_mode_independence",
+                    &self.rounding_mode_independence,
+                )
+                .field(
+                    "shader_signed_zero_inf_nan_preserve_float16",
+                    &self.shader_signed_zero_inf_nan_preserve_float16,
+                )
+                .field(
+                    "shader_signed_zero_inf_nan_preserve_float32",
+                    &self.shader_signed_zero_inf_nan_preserve_float32,
+                )
+                .field(
+                    "shader_signed_zero_inf_nan_preserve_float64",
+                    &self.shader_signed_zero_inf_nan_preserve_float64,
+                )
+                .field(
+                    "shader_denorm_preserve_float16",
+                    &self.shader_denorm_preserve_float16,
+                )
+                .field(
+                    "shader_denorm_preserve_float32",
+                    &self.shader_denorm_preserve_float32,
+                )
+                .field(
+                    "shader_denorm_preserve_float64",
+                    &self.shader_denorm_preserve_float64,
+                )
+                .field(
+                    "shader_denorm_flush_to_zero_float16",
+                    &self.shader_denorm_flush_to_zero_float16,
+                )
+                .field(
+                    "shader_denorm_flush_to_zero_float32",
+                    &self.shader_denorm_flush_to_zero_float32,
+                )
+                .field(
+                    "shader_denorm_flush_to_zero_float64",
+                    &self.shader_denorm_flush_to_zero_float64,
+                )
+                .field(
+                    "shader_rounding_mode_rte_float16",
+                    &self.shader_rounding_mode_rte_float16,
+                )
+                .field(
+                    "shader_rounding_mode_rte_float32",
+                    &self.shader_rounding_mode_rte_float32,
+                )
+                .field(
+                    "shader_rounding_mode_rte_float64",
+                    &self.shader_rounding_mode_rte_float64,
+                )
+                .field(
+                    "shader_rounding_mode_rtz_float16",
+                    &self.shader_rounding_mode_rtz_float16,
+                )
+                .field(
+                    "shader_rounding_mode_rtz_float32",
+                    &self.shader_rounding_mode_rtz_float32,
+                )
+                .field(
+                    "shader_rounding_mode_rtz_float64",
+                    &self.shader_rounding_mode_rtz_float64,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFloatControlsProperties<'a> {
@@ -521,6 +679,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceHostQueryResetFeatures<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceHostQueryResetFeatures")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("host_query_reset", &self.host_query_reset)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceHostQueryResetFeatures<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_HOST_QUERY_RESET_FEATURES;
@@ -574,6 +742,92 @@ pub(super) mod defs {
         pub descriptor_binding_variable_descriptor_count: Bool32,
         pub runtime_descriptor_array: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceDescriptorIndexingFeatures<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceDescriptorIndexingFeatures")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "shader_input_attachment_array_dynamic_indexing",
+                    &self.shader_input_attachment_array_dynamic_indexing,
+                )
+                .field(
+                    "shader_uniform_texel_buffer_array_dynamic_indexing",
+                    &self.shader_uniform_texel_buffer_array_dynamic_indexing,
+                )
+                .field(
+                    "shader_storage_texel_buffer_array_dynamic_indexing",
+                    &self.shader_storage_texel_buffer_array_dynamic_indexing,
+                )
+                .field(
+                    "shader_uniform_buffer_array_non_uniform_indexing",
+                    &self.shader_uniform_buffer_array_non_uniform_indexing,
+                )
+                .field(
+                    "shader_sampled_image_array_non_uniform_indexing",
+                    &self.shader_sampled_image_array_non_uniform_indexing,
+                )
+                .field(
+                    "shader_storage_buffer_array_non_uniform_indexing",
+                    &self.shader_storage_buffer_array_non_uniform_indexing,
+                )
+                .field(
+                    "shader_storage_image_array_non_uniform_indexing",
+                    &self.shader_storage_image_array_non_uniform_indexing,
+                )
+                .field(
+                    "shader_input_attachment_array_non_uniform_indexing",
+                    &self.shader_input_attachment_array_non_uniform_indexing,
+                )
+                .field(
+                    "shader_uniform_texel_buffer_array_non_uniform_indexing",
+                    &self.shader_uniform_texel_buffer_array_non_uniform_indexing,
+                )
+                .field(
+                    "shader_storage_texel_buffer_array_non_uniform_indexing",
+                    &self.shader_storage_texel_buffer_array_non_uniform_indexing,
+                )
+                .field(
+                    "descriptor_binding_uniform_buffer_update_after_bind",
+                    &self.descriptor_binding_uniform_buffer_update_after_bind,
+                )
+                .field(
+                    "descriptor_binding_sampled_image_update_after_bind",
+                    &self.descriptor_binding_sampled_image_update_after_bind,
+                )
+                .field(
+                    "descriptor_binding_storage_image_update_after_bind",
+                    &self.descriptor_binding_storage_image_update_after_bind,
+                )
+                .field(
+                    "descriptor_binding_storage_buffer_update_after_bind",
+                    &self.descriptor_binding_storage_buffer_update_after_bind,
+                )
+                .field(
+                    "descriptor_binding_uniform_texel_buffer_update_after_bind",
+                    &self.descriptor_binding_uniform_texel_buffer_update_after_bind,
+                )
+                .field(
+                    "descriptor_binding_storage_texel_buffer_update_after_bind",
+                    &self.descriptor_binding_storage_texel_buffer_update_after_bind,
+                )
+                .field(
+                    "descriptor_binding_update_unused_while_pending",
+                    &self.descriptor_binding_update_unused_while_pending,
+                )
+                .field(
+                    "descriptor_binding_partially_bound",
+                    &self.descriptor_binding_partially_bound,
+                )
+                .field(
+                    "descriptor_binding_variable_descriptor_count",
+                    &self.descriptor_binding_variable_descriptor_count,
+                )
+                .field("runtime_descriptor_array", &self.runtime_descriptor_array)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDescriptorIndexingFeatures<'a> {
@@ -824,6 +1078,107 @@ pub(super) mod defs {
         pub max_descriptor_set_update_after_bind_storage_images: u32,
         pub max_descriptor_set_update_after_bind_input_attachments: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceDescriptorIndexingProperties<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceDescriptorIndexingProperties")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "max_update_after_bind_descriptors_in_all_pools",
+                    &self.max_update_after_bind_descriptors_in_all_pools,
+                )
+                .field(
+                    "shader_uniform_buffer_array_non_uniform_indexing_native",
+                    &self.shader_uniform_buffer_array_non_uniform_indexing_native,
+                )
+                .field(
+                    "shader_sampled_image_array_non_uniform_indexing_native",
+                    &self.shader_sampled_image_array_non_uniform_indexing_native,
+                )
+                .field(
+                    "shader_storage_buffer_array_non_uniform_indexing_native",
+                    &self.shader_storage_buffer_array_non_uniform_indexing_native,
+                )
+                .field(
+                    "shader_storage_image_array_non_uniform_indexing_native",
+                    &self.shader_storage_image_array_non_uniform_indexing_native,
+                )
+                .field(
+                    "shader_input_attachment_array_non_uniform_indexing_native",
+                    &self.shader_input_attachment_array_non_uniform_indexing_native,
+                )
+                .field(
+                    "robust_buffer_access_update_after_bind",
+                    &self.robust_buffer_access_update_after_bind,
+                )
+                .field(
+                    "quad_divergent_implicit_lod",
+                    &self.quad_divergent_implicit_lod,
+                )
+                .field(
+                    "max_per_stage_descriptor_update_after_bind_samplers",
+                    &self.max_per_stage_descriptor_update_after_bind_samplers,
+                )
+                .field(
+                    "max_per_stage_descriptor_update_after_bind_uniform_buffers",
+                    &self.max_per_stage_descriptor_update_after_bind_uniform_buffers,
+                )
+                .field(
+                    "max_per_stage_descriptor_update_after_bind_storage_buffers",
+                    &self.max_per_stage_descriptor_update_after_bind_storage_buffers,
+                )
+                .field(
+                    "max_per_stage_descriptor_update_after_bind_sampled_images",
+                    &self.max_per_stage_descriptor_update_after_bind_sampled_images,
+                )
+                .field(
+                    "max_per_stage_descriptor_update_after_bind_storage_images",
+                    &self.max_per_stage_descriptor_update_after_bind_storage_images,
+                )
+                .field(
+                    "max_per_stage_descriptor_update_after_bind_input_attachments",
+                    &self.max_per_stage_descriptor_update_after_bind_input_attachments,
+                )
+                .field(
+                    "max_per_stage_update_after_bind_resources",
+                    &self.max_per_stage_update_after_bind_resources,
+                )
+                .field(
+                    "max_descriptor_set_update_after_bind_samplers",
+                    &self.max_descriptor_set_update_after_bind_samplers,
+                )
+                .field(
+                    "max_descriptor_set_update_after_bind_uniform_buffers",
+                    &self.max_descriptor_set_update_after_bind_uniform_buffers,
+                )
+                .field(
+                    "max_descriptor_set_update_after_bind_uniform_buffers_dynamic",
+                    &self.max_descriptor_set_update_after_bind_uniform_buffers_dynamic,
+                )
+                .field(
+                    "max_descriptor_set_update_after_bind_storage_buffers",
+                    &self.max_descriptor_set_update_after_bind_storage_buffers,
+                )
+                .field(
+                    "max_descriptor_set_update_after_bind_storage_buffers_dynamic",
+                    &self.max_descriptor_set_update_after_bind_storage_buffers_dynamic,
+                )
+                .field(
+                    "max_descriptor_set_update_after_bind_sampled_images",
+                    &self.max_descriptor_set_update_after_bind_sampled_images,
+                )
+                .field(
+                    "max_descriptor_set_update_after_bind_storage_images",
+                    &self.max_descriptor_set_update_after_bind_storage_images,
+                )
+                .field(
+                    "max_descriptor_set_update_after_bind_input_attachments",
+                    &self.max_descriptor_set_update_after_bind_input_attachments,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDescriptorIndexingProperties<'a> {
@@ -1085,6 +1440,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DescriptorSetLayoutBindingFlagsCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DescriptorSetLayoutBindingFlagsCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("binding_count", &self.binding_count)
+                .field("p_binding_flags", &self.p_binding_flags)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DescriptorSetLayoutBindingFlagsCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO;
@@ -1126,6 +1492,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DescriptorSetVariableDescriptorCountAllocateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DescriptorSetVariableDescriptorCountAllocateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("descriptor_set_count", &self.descriptor_set_count)
+                .field("p_descriptor_counts", &self.p_descriptor_counts)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DescriptorSetVariableDescriptorCountAllocateInfo<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO;
@@ -1164,6 +1541,19 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub max_variable_descriptor_count: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DescriptorSetVariableDescriptorCountLayoutSupport<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DescriptorSetVariableDescriptorCountLayoutSupport")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "max_variable_descriptor_count",
+                    &self.max_variable_descriptor_count,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DescriptorSetVariableDescriptorCountLayoutSupport<'a> {
@@ -1210,6 +1600,24 @@ pub(super) mod defs {
         pub initial_layout: ImageLayout,
         pub final_layout: ImageLayout,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for AttachmentDescription2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AttachmentDescription2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("format", &self.format)
+                .field("samples", &self.samples)
+                .field("load_op", &self.load_op)
+                .field("store_op", &self.store_op)
+                .field("stencil_load_op", &self.stencil_load_op)
+                .field("stencil_store_op", &self.stencil_store_op)
+                .field("initial_layout", &self.initial_layout)
+                .field("final_layout", &self.final_layout)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for AttachmentDescription2<'a> {
@@ -1294,6 +1702,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for AttachmentReference2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AttachmentReference2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("attachment", &self.attachment)
+                .field("layout", &self.layout)
+                .field("aspect_mask", &self.aspect_mask)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for AttachmentReference2<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::ATTACHMENT_REFERENCE_2;
     }
@@ -1346,6 +1766,29 @@ pub(super) mod defs {
         pub preserve_attachment_count: u32,
         pub p_preserve_attachments: *const u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for SubpassDescription2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SubpassDescription2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("pipeline_bind_point", &self.pipeline_bind_point)
+                .field("view_mask", &self.view_mask)
+                .field("input_attachment_count", &self.input_attachment_count)
+                .field("p_input_attachments", &self.p_input_attachments)
+                .field("color_attachment_count", &self.color_attachment_count)
+                .field("p_color_attachments", &self.p_color_attachments)
+                .field("p_resolve_attachments", &self.p_resolve_attachments)
+                .field(
+                    "p_depth_stencil_attachment",
+                    &self.p_depth_stencil_attachment,
+                )
+                .field("preserve_attachment_count", &self.preserve_attachment_count)
+                .field("p_preserve_attachments", &self.p_preserve_attachments)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for SubpassDescription2<'a> {
@@ -1448,6 +1891,23 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SubpassDependency2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SubpassDependency2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src_subpass", &self.src_subpass)
+                .field("dst_subpass", &self.dst_subpass)
+                .field("src_stage_mask", &self.src_stage_mask)
+                .field("dst_stage_mask", &self.dst_stage_mask)
+                .field("src_access_mask", &self.src_access_mask)
+                .field("dst_access_mask", &self.dst_access_mask)
+                .field("dependency_flags", &self.dependency_flags)
+                .field("view_offset", &self.view_offset)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SubpassDependency2<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SUBPASS_DEPENDENCY_2;
     }
@@ -1530,6 +1990,27 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for RenderPassCreateInfo2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RenderPassCreateInfo2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("attachment_count", &self.attachment_count)
+                .field("p_attachments", &self.p_attachments)
+                .field("subpass_count", &self.subpass_count)
+                .field("p_subpasses", &self.p_subpasses)
+                .field("dependency_count", &self.dependency_count)
+                .field("p_dependencies", &self.p_dependencies)
+                .field(
+                    "correlated_view_mask_count",
+                    &self.correlated_view_mask_count,
+                )
+                .field("p_correlated_view_masks", &self.p_correlated_view_masks)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for RenderPassCreateInfo2<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::RENDER_PASS_CREATE_INFO_2;
     }
@@ -1594,6 +2075,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SubpassBeginInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SubpassBeginInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("contents", &self.contents)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SubpassBeginInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SUBPASS_BEGIN_INFO;
     }
@@ -1625,6 +2116,15 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SubpassEndInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SubpassEndInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SubpassEndInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SUBPASS_END_INFO;
     }
@@ -1649,6 +2149,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub timeline_semaphore: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceTimelineSemaphoreFeatures<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceTimelineSemaphoreFeatures")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("timeline_semaphore", &self.timeline_semaphore)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceTimelineSemaphoreFeatures<'a> {
@@ -1688,6 +2198,19 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub max_timeline_semaphore_value_difference: u64,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceTimelineSemaphoreProperties<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceTimelineSemaphoreProperties")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "max_timeline_semaphore_value_difference",
+                    &self.max_timeline_semaphore_value_difference,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceTimelineSemaphoreProperties<'a> {
@@ -1732,6 +2255,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SemaphoreTypeCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SemaphoreTypeCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("semaphore_type", &self.semaphore_type)
+                .field("initial_value", &self.initial_value)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SemaphoreTypeCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SEMAPHORE_TYPE_CREATE_INFO;
     }
@@ -1774,6 +2308,25 @@ pub(super) mod defs {
         pub signal_semaphore_value_count: u32,
         pub p_signal_semaphore_values: *const u64,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for TimelineSemaphoreSubmitInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("TimelineSemaphoreSubmitInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "wait_semaphore_value_count",
+                    &self.wait_semaphore_value_count,
+                )
+                .field("p_wait_semaphore_values", &self.p_wait_semaphore_values)
+                .field(
+                    "signal_semaphore_value_count",
+                    &self.signal_semaphore_value_count,
+                )
+                .field("p_signal_semaphore_values", &self.p_signal_semaphore_values)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for TimelineSemaphoreSubmitInfo<'a> {
@@ -1824,6 +2377,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SemaphoreWaitInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SemaphoreWaitInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("semaphore_count", &self.semaphore_count)
+                .field("p_semaphores", &self.p_semaphores)
+                .field("p_values", &self.p_values)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SemaphoreWaitInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SEMAPHORE_WAIT_INFO;
     }
@@ -1872,6 +2438,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SemaphoreSignalInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SemaphoreSignalInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("semaphore", &self.semaphore)
+                .field("value", &self.value)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SemaphoreSignalInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SEMAPHORE_SIGNAL_INFO;
     }
@@ -1910,6 +2487,24 @@ pub(super) mod defs {
         pub uniform_and_storage_buffer8_bit_access: Bool32,
         pub storage_push_constant8: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDevice8BitStorageFeatures<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDevice8BitStorageFeatures")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "storage_buffer8_bit_access",
+                    &self.storage_buffer8_bit_access,
+                )
+                .field(
+                    "uniform_and_storage_buffer8_bit_access",
+                    &self.uniform_and_storage_buffer8_bit_access,
+                )
+                .field("storage_push_constant8", &self.storage_push_constant8)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevice8BitStorageFeatures<'a> {
@@ -1963,6 +2558,24 @@ pub(super) mod defs {
         pub vulkan_memory_model_device_scope: Bool32,
         pub vulkan_memory_model_availability_visibility_chains: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceVulkanMemoryModelFeatures<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceVulkanMemoryModelFeatures")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("vulkan_memory_model", &self.vulkan_memory_model)
+                .field(
+                    "vulkan_memory_model_device_scope",
+                    &self.vulkan_memory_model_device_scope,
+                )
+                .field(
+                    "vulkan_memory_model_availability_visibility_chains",
+                    &self.vulkan_memory_model_availability_visibility_chains,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVulkanMemoryModelFeatures<'a> {
@@ -2024,6 +2637,23 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceShaderAtomicInt64Features<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceShaderAtomicInt64Features")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "shader_buffer_int64_atomics",
+                    &self.shader_buffer_int64_atomics,
+                )
+                .field(
+                    "shader_shared_int64_atomics",
+                    &self.shader_shared_int64_atomics,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderAtomicInt64Features<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES;
@@ -2070,6 +2700,25 @@ pub(super) mod defs {
         pub independent_resolve_none: Bool32,
         pub independent_resolve: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceDepthStencilResolveProperties<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceDepthStencilResolveProperties")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "supported_depth_resolve_modes",
+                    &self.supported_depth_resolve_modes,
+                )
+                .field(
+                    "supported_stencil_resolve_modes",
+                    &self.supported_stencil_resolve_modes,
+                )
+                .field("independent_resolve_none", &self.independent_resolve_none)
+                .field("independent_resolve", &self.independent_resolve)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDepthStencilResolveProperties<'a> {
@@ -2136,6 +2785,21 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SubpassDescriptionDepthStencilResolve<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SubpassDescriptionDepthStencilResolve")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("depth_resolve_mode", &self.depth_resolve_mode)
+                .field("stencil_resolve_mode", &self.stencil_resolve_mode)
+                .field(
+                    "p_depth_stencil_resolve_attachment",
+                    &self.p_depth_stencil_resolve_attachment,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SubpassDescriptionDepthStencilResolve<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE;
@@ -2186,6 +2850,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImageStencilUsageCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageStencilUsageCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("stencil_usage", &self.stencil_usage)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImageStencilUsageCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_STENCIL_USAGE_CREATE_INFO;
     }
@@ -2219,6 +2893,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub scalar_block_layout: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceScalarBlockLayoutFeatures<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceScalarBlockLayoutFeatures")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("scalar_block_layout", &self.scalar_block_layout)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceScalarBlockLayoutFeatures<'a> {
@@ -2258,6 +2942,19 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub uniform_buffer_standard_layout: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceUniformBufferStandardLayoutFeatures<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceUniformBufferStandardLayoutFeatures")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "uniform_buffer_standard_layout",
+                    &self.uniform_buffer_standard_layout,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceUniformBufferStandardLayoutFeatures<'a> {
@@ -2305,6 +3002,24 @@ pub(super) mod defs {
         pub buffer_device_address_capture_replay: Bool32,
         pub buffer_device_address_multi_device: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceBufferDeviceAddressFeatures<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceBufferDeviceAddressFeatures")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("buffer_device_address", &self.buffer_device_address)
+                .field(
+                    "buffer_device_address_capture_replay",
+                    &self.buffer_device_address_capture_replay,
+                )
+                .field(
+                    "buffer_device_address_multi_device",
+                    &self.buffer_device_address_multi_device,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceBufferDeviceAddressFeatures<'a> {
@@ -2364,6 +3079,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for BufferDeviceAddressInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BufferDeviceAddressInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("buffer", &self.buffer)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for BufferDeviceAddressInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::BUFFER_DEVICE_ADDRESS_INFO;
     }
@@ -2394,6 +3119,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub opaque_capture_address: u64,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for BufferOpaqueCaptureAddressCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BufferOpaqueCaptureAddressCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("opaque_capture_address", &self.opaque_capture_address)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for BufferOpaqueCaptureAddressCreateInfo<'a> {
@@ -2429,6 +3164,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub imageless_framebuffer: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceImagelessFramebufferFeatures<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceImagelessFramebufferFeatures")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("imageless_framebuffer", &self.imageless_framebuffer)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceImagelessFramebufferFeatures<'a> {
@@ -2469,6 +3214,20 @@ pub(super) mod defs {
         pub attachment_image_info_count: u32,
         pub p_attachment_image_infos: *const FramebufferAttachmentImageInfo<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for FramebufferAttachmentsCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("FramebufferAttachmentsCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "attachment_image_info_count",
+                    &self.attachment_image_info_count,
+                )
+                .field("p_attachment_image_infos", &self.p_attachment_image_infos)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for FramebufferAttachmentsCreateInfo<'a> {
@@ -2514,6 +3273,22 @@ pub(super) mod defs {
         pub view_format_count: u32,
         pub p_view_formats: *const Format,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for FramebufferAttachmentImageInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("FramebufferAttachmentImageInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("usage", &self.usage)
+                .field("width", &self.width)
+                .field("height", &self.height)
+                .field("layer_count", &self.layer_count)
+                .field("view_format_count", &self.view_format_count)
+                .field("p_view_formats", &self.p_view_formats)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for FramebufferAttachmentImageInfo<'a> {
@@ -2581,6 +3356,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for RenderPassAttachmentBeginInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RenderPassAttachmentBeginInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("attachment_count", &self.attachment_count)
+                .field("p_attachments", &self.p_attachments)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for RenderPassAttachmentBeginInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::RENDER_PASS_ATTACHMENT_BEGIN_INFO;
     }
@@ -2615,6 +3401,19 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub separate_depth_stencil_layouts: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceSeparateDepthStencilLayoutsFeatures<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceSeparateDepthStencilLayoutsFeatures")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "separate_depth_stencil_layouts",
+                    &self.separate_depth_stencil_layouts,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSeparateDepthStencilLayoutsFeatures<'a> {
@@ -2662,6 +3461,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for AttachmentReferenceStencilLayout<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AttachmentReferenceStencilLayout")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("stencil_layout", &self.stencil_layout)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for AttachmentReferenceStencilLayout<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::ATTACHMENT_REFERENCE_STENCIL_LAYOUT;
     }
@@ -2695,6 +3504,17 @@ pub(super) mod defs {
         pub stencil_initial_layout: ImageLayout,
         pub stencil_final_layout: ImageLayout,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for AttachmentDescriptionStencilLayout<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AttachmentDescriptionStencilLayout")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("stencil_initial_layout", &self.stencil_initial_layout)
+                .field("stencil_final_layout", &self.stencil_final_layout)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for AttachmentDescriptionStencilLayout<'a> {
@@ -2737,6 +3557,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for MemoryOpaqueCaptureAddressAllocateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MemoryOpaqueCaptureAddressAllocateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("opaque_capture_address", &self.opaque_capture_address)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for MemoryOpaqueCaptureAddressAllocateInfo<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO;
@@ -2770,6 +3600,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub memory: DeviceMemory,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DeviceMemoryOpaqueCaptureAddressInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DeviceMemoryOpaqueCaptureAddressInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("memory", &self.memory)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DeviceMemoryOpaqueCaptureAddressInfo<'a> {
@@ -2814,6 +3654,39 @@ pub(super) mod defs {
         pub sampler_ycbcr_conversion: Bool32,
         pub shader_draw_parameters: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceVulkan11Features<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceVulkan11Features")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "storage_buffer16_bit_access",
+                    &self.storage_buffer16_bit_access,
+                )
+                .field(
+                    "uniform_and_storage_buffer16_bit_access",
+                    &self.uniform_and_storage_buffer16_bit_access,
+                )
+                .field("storage_push_constant16", &self.storage_push_constant16)
+                .field("storage_input_output16", &self.storage_input_output16)
+                .field("multiview", &self.multiview)
+                .field("multiview_geometry_shader", &self.multiview_geometry_shader)
+                .field(
+                    "multiview_tessellation_shader",
+                    &self.multiview_tessellation_shader,
+                )
+                .field(
+                    "variable_pointers_storage_buffer",
+                    &self.variable_pointers_storage_buffer,
+                )
+                .field("variable_pointers", &self.variable_pointers)
+                .field("protected_memory", &self.protected_memory)
+                .field("sampler_ycbcr_conversion", &self.sampler_ycbcr_conversion)
+                .field("shader_draw_parameters", &self.shader_draw_parameters)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVulkan11Features<'a> {
@@ -2939,6 +3812,42 @@ pub(super) mod defs {
         pub max_per_set_descriptors: u32,
         pub max_memory_allocation_size: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceVulkan11Properties<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceVulkan11Properties")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("device_uuid", &self.device_uuid)
+                .field("driver_uuid", &self.driver_uuid)
+                .field("device_luid", &self.device_luid)
+                .field("device_node_mask", &self.device_node_mask)
+                .field("device_luid_valid", &self.device_luid_valid)
+                .field("subgroup_size", &self.subgroup_size)
+                .field("subgroup_supported_stages", &self.subgroup_supported_stages)
+                .field(
+                    "subgroup_supported_operations",
+                    &self.subgroup_supported_operations,
+                )
+                .field(
+                    "subgroup_quad_operations_in_all_stages",
+                    &self.subgroup_quad_operations_in_all_stages,
+                )
+                .field("point_clipping_behavior", &self.point_clipping_behavior)
+                .field("max_multiview_view_count", &self.max_multiview_view_count)
+                .field(
+                    "max_multiview_instance_index",
+                    &self.max_multiview_instance_index,
+                )
+                .field("protected_no_fault", &self.protected_no_fault)
+                .field("max_per_set_descriptors", &self.max_per_set_descriptors)
+                .field(
+                    "max_memory_allocation_size",
+                    &self.max_memory_allocation_size,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVulkan11Properties<'a> {
@@ -3119,6 +4028,161 @@ pub(super) mod defs {
         pub shader_output_layer: Bool32,
         pub subgroup_broadcast_dynamic_id: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceVulkan12Features<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceVulkan12Features")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "sampler_mirror_clamp_to_edge",
+                    &self.sampler_mirror_clamp_to_edge,
+                )
+                .field("draw_indirect_count", &self.draw_indirect_count)
+                .field(
+                    "storage_buffer8_bit_access",
+                    &self.storage_buffer8_bit_access,
+                )
+                .field(
+                    "uniform_and_storage_buffer8_bit_access",
+                    &self.uniform_and_storage_buffer8_bit_access,
+                )
+                .field("storage_push_constant8", &self.storage_push_constant8)
+                .field(
+                    "shader_buffer_int64_atomics",
+                    &self.shader_buffer_int64_atomics,
+                )
+                .field(
+                    "shader_shared_int64_atomics",
+                    &self.shader_shared_int64_atomics,
+                )
+                .field("shader_float16", &self.shader_float16)
+                .field("shader_int8", &self.shader_int8)
+                .field("descriptor_indexing", &self.descriptor_indexing)
+                .field(
+                    "shader_input_attachment_array_dynamic_indexing",
+                    &self.shader_input_attachment_array_dynamic_indexing,
+                )
+                .field(
+                    "shader_uniform_texel_buffer_array_dynamic_indexing",
+                    &self.shader_uniform_texel_buffer_array_dynamic_indexing,
+                )
+                .field(
+                    "shader_storage_texel_buffer_array_dynamic_indexing",
+                    &self.shader_storage_texel_buffer_array_dynamic_indexing,
+                )
+                .field(
+                    "shader_uniform_buffer_array_non_uniform_indexing",
+                    &self.shader_uniform_buffer_array_non_uniform_indexing,
+                )
+                .field(
+                    "shader_sampled_image_array_non_uniform_indexing",
+                    &self.shader_sampled_image_array_non_uniform_indexing,
+                )
+                .field(
+                    "shader_storage_buffer_array_non_uniform_indexing",
+                    &self.shader_storage_buffer_array_non_uniform_indexing,
+                )
+                .field(
+                    "shader_storage_image_array_non_uniform_indexing",
+                    &self.shader_storage_image_array_non_uniform_indexing,
+                )
+                .field(
+                    "shader_input_attachment_array_non_uniform_indexing",
+                    &self.shader_input_attachment_array_non_uniform_indexing,
+                )
+                .field(
+                    "shader_uniform_texel_buffer_array_non_uniform_indexing",
+                    &self.shader_uniform_texel_buffer_array_non_uniform_indexing,
+                )
+                .field(
+                    "shader_storage_texel_buffer_array_non_uniform_indexing",
+                    &self.shader_storage_texel_buffer_array_non_uniform_indexing,
+                )
+                .field(
+                    "descriptor_binding_uniform_buffer_update_after_bind",
+                    &self.descriptor_binding_uniform_buffer_update_after_bind,
+                )
+                .field(
+                    "descriptor_binding_sampled_image_update_after_bind",
+                    &self.descriptor_binding_sampled_image_update_after_bind,
+                )
+                .field(
+                    "descriptor_binding_storage_image_update_after_bind",
+                    &self.descriptor_binding_storage_image_update_after_bind,
+                )
+                .field(
+                    "descriptor_binding_storage_buffer_update_after_bind",
+                    &self.descriptor_binding_storage_buffer_update_after_bind,
+                )
+                .field(
+                    "descriptor_binding_uniform_texel_buffer_update_after_bind",
+                    &self.descriptor_binding_uniform_texel_buffer_update_after_bind,
+                )
+                .field(
+                    "descriptor_binding_storage_texel_buffer_update_after_bind",
+                    &self.descriptor_binding_storage_texel_buffer_update_after_bind,
+                )
+                .field(
+                    "descriptor_binding_update_unused_while_pending",
+                    &self.descriptor_binding_update_unused_while_pending,
+                )
+                .field(
+                    "descriptor_binding_partially_bound",
+                    &self.descriptor_binding_partially_bound,
+                )
+                .field(
+                    "descriptor_binding_variable_descriptor_count",
+                    &self.descriptor_binding_variable_descriptor_count,
+                )
+                .field("runtime_descriptor_array", &self.runtime_descriptor_array)
+                .field("sampler_filter_minmax", &self.sampler_filter_minmax)
+                .field("scalar_block_layout", &self.scalar_block_layout)
+                .field("imageless_framebuffer", &self.imageless_framebuffer)
+                .field(
+                    "uniform_buffer_standard_layout",
+                    &self.uniform_buffer_standard_layout,
+                )
+                .field(
+                    "shader_subgroup_extended_types",
+                    &self.shader_subgroup_extended_types,
+                )
+                .field(
+                    "separate_depth_stencil_layouts",
+                    &self.separate_depth_stencil_layouts,
+                )
+                .field("host_query_reset", &self.host_query_reset)
+                .field("timeline_semaphore", &self.timeline_semaphore)
+                .field("buffer_device_address", &self.buffer_device_address)
+                .field(
+                    "buffer_device_address_capture_replay",
+                    &self.buffer_device_address_capture_replay,
+                )
+                .field(
+                    "buffer_device_address_multi_device",
+                    &self.buffer_device_address_multi_device,
+                )
+                .field("vulkan_memory_model", &self.vulkan_memory_model)
+                .field(
+                    "vulkan_memory_model_device_scope",
+                    &self.vulkan_memory_model_device_scope,
+                )
+                .field(
+                    "vulkan_memory_model_availability_visibility_chains",
+                    &self.vulkan_memory_model_availability_visibility_chains,
+                )
+                .field(
+                    "shader_output_viewport_index",
+                    &self.shader_output_viewport_index,
+                )
+                .field("shader_output_layer", &self.shader_output_layer)
+                .field(
+                    "subgroup_broadcast_dynamic_id",
+                    &self.subgroup_broadcast_dynamic_id,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVulkan12Features<'a> {
@@ -3585,6 +4649,211 @@ pub(super) mod defs {
         pub max_timeline_semaphore_value_difference: u64,
         pub framebuffer_integer_color_sample_counts: SampleCountFlags,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceVulkan12Properties<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceVulkan12Properties")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("driver_id", &self.driver_id)
+                .field(
+                    "driver_name",
+                    &wrap_c_str_slice_until_nul(&self.driver_name),
+                )
+                .field(
+                    "driver_info",
+                    &wrap_c_str_slice_until_nul(&self.driver_info),
+                )
+                .field("conformance_version", &self.conformance_version)
+                .field(
+                    "denorm_behavior_independence",
+                    &self.denorm_behavior_independence,
+                )
+                .field(
+                    "rounding_mode_independence",
+                    &self.rounding_mode_independence,
+                )
+                .field(
+                    "shader_signed_zero_inf_nan_preserve_float16",
+                    &self.shader_signed_zero_inf_nan_preserve_float16,
+                )
+                .field(
+                    "shader_signed_zero_inf_nan_preserve_float32",
+                    &self.shader_signed_zero_inf_nan_preserve_float32,
+                )
+                .field(
+                    "shader_signed_zero_inf_nan_preserve_float64",
+                    &self.shader_signed_zero_inf_nan_preserve_float64,
+                )
+                .field(
+                    "shader_denorm_preserve_float16",
+                    &self.shader_denorm_preserve_float16,
+                )
+                .field(
+                    "shader_denorm_preserve_float32",
+                    &self.shader_denorm_preserve_float32,
+                )
+                .field(
+                    "shader_denorm_preserve_float64",
+                    &self.shader_denorm_preserve_float64,
+                )
+                .field(
+                    "shader_denorm_flush_to_zero_float16",
+                    &self.shader_denorm_flush_to_zero_float16,
+                )
+                .field(
+                    "shader_denorm_flush_to_zero_float32",
+                    &self.shader_denorm_flush_to_zero_float32,
+                )
+                .field(
+                    "shader_denorm_flush_to_zero_float64",
+                    &self.shader_denorm_flush_to_zero_float64,
+                )
+                .field(
+                    "shader_rounding_mode_rte_float16",
+                    &self.shader_rounding_mode_rte_float16,
+                )
+                .field(
+                    "shader_rounding_mode_rte_float32",
+                    &self.shader_rounding_mode_rte_float32,
+                )
+                .field(
+                    "shader_rounding_mode_rte_float64",
+                    &self.shader_rounding_mode_rte_float64,
+                )
+                .field(
+                    "shader_rounding_mode_rtz_float16",
+                    &self.shader_rounding_mode_rtz_float16,
+                )
+                .field(
+                    "shader_rounding_mode_rtz_float32",
+                    &self.shader_rounding_mode_rtz_float32,
+                )
+                .field(
+                    "shader_rounding_mode_rtz_float64",
+                    &self.shader_rounding_mode_rtz_float64,
+                )
+                .field(
+                    "max_update_after_bind_descriptors_in_all_pools",
+                    &self.max_update_after_bind_descriptors_in_all_pools,
+                )
+                .field(
+                    "shader_uniform_buffer_array_non_uniform_indexing_native",
+                    &self.shader_uniform_buffer_array_non_uniform_indexing_native,
+                )
+                .field(
+                    "shader_sampled_image_array_non_uniform_indexing_native",
+                    &self.shader_sampled_image_array_non_uniform_indexing_native,
+                )
+                .field(
+                    "shader_storage_buffer_array_non_uniform_indexing_native",
+                    &self.shader_storage_buffer_array_non_uniform_indexing_native,
+                )
+                .field(
+                    "shader_storage_image_array_non_uniform_indexing_native",
+                    &self.shader_storage_image_array_non_uniform_indexing_native,
+                )
+                .field(
+                    "shader_input_attachment_array_non_uniform_indexing_native",
+                    &self.shader_input_attachment_array_non_uniform_indexing_native,
+                )
+                .field(
+                    "robust_buffer_access_update_after_bind",
+                    &self.robust_buffer_access_update_after_bind,
+                )
+                .field(
+                    "quad_divergent_implicit_lod",
+                    &self.quad_divergent_implicit_lod,
+                )
+                .field(
+                    "max_per_stage_descriptor_update_after_bind_samplers",
+                    &self.max_per_stage_descriptor_update_after_bind_samplers,
+                )
+                .field(
+                    "max_per_stage_descriptor_update_after_bind_uniform_buffers",
+                    &self.max_per_stage_descriptor_update_after_bind_uniform_buffers,
+                )
+                .field(
+                    "max_per_stage_descriptor_update_after_bind_storage_buffers",
+                    &self.max_per_stage_descriptor_update_after_bind_storage_buffers,
+                )
+                .field(
+                    "max_per_stage_descriptor_update_after_bind_sampled_images",
+                    &self.max_per_stage_descriptor_update_after_bind_sampled_images,
+                )
+                .field(
+                    "max_per_stage_descriptor_update_after_bind_storage_images",
+                    &self.max_per_stage_descriptor_update_after_bind_storage_images,
+                )
+                .field(
+                    "max_per_stage_descriptor_update_after_bind_input_attachments",
+                    &self.max_per_stage_descriptor_update_after_bind_input_attachments,
+                )
+                .field(
+                    "max_per_stage_update_after_bind_resources",
+                    &self.max_per_stage_update_after_bind_resources,
+                )
+                .field(
+                    "max_descriptor_set_update_after_bind_samplers",
+                    &self.max_descriptor_set_update_after_bind_samplers,
+                )
+                .field(
+                    "max_descriptor_set_update_after_bind_uniform_buffers",
+                    &self.max_descriptor_set_update_after_bind_uniform_buffers,
+                )
+                .field(
+                    "max_descriptor_set_update_after_bind_uniform_buffers_dynamic",
+                    &self.max_descriptor_set_update_after_bind_uniform_buffers_dynamic,
+                )
+                .field(
+                    "max_descriptor_set_update_after_bind_storage_buffers",
+                    &self.max_descriptor_set_update_after_bind_storage_buffers,
+                )
+                .field(
+                    "max_descriptor_set_update_after_bind_storage_buffers_dynamic",
+                    &self.max_descriptor_set_update_after_bind_storage_buffers_dynamic,
+                )
+                .field(
+                    "max_descriptor_set_update_after_bind_sampled_images",
+                    &self.max_descriptor_set_update_after_bind_sampled_images,
+                )
+                .field(
+                    "max_descriptor_set_update_after_bind_storage_images",
+                    &self.max_descriptor_set_update_after_bind_storage_images,
+                )
+                .field(
+                    "max_descriptor_set_update_after_bind_input_attachments",
+                    &self.max_descriptor_set_update_after_bind_input_attachments,
+                )
+                .field(
+                    "supported_depth_resolve_modes",
+                    &self.supported_depth_resolve_modes,
+                )
+                .field(
+                    "supported_stencil_resolve_modes",
+                    &self.supported_stencil_resolve_modes,
+                )
+                .field("independent_resolve_none", &self.independent_resolve_none)
+                .field("independent_resolve", &self.independent_resolve)
+                .field(
+                    "filter_minmax_single_component_formats",
+                    &self.filter_minmax_single_component_formats,
+                )
+                .field(
+                    "filter_minmax_image_component_mapping",
+                    &self.filter_minmax_image_component_mapping,
+                )
+                .field(
+                    "max_timeline_semaphore_value_difference",
+                    &self.max_timeline_semaphore_value_difference,
+                )
+                .field(
+                    "framebuffer_integer_color_sample_counts",
+                    &self.framebuffer_integer_color_sample_counts,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVulkan12Properties<'a> {
@@ -4302,7 +5571,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSemaphoreWaitFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct SemaphoreWaitFlagBits(u32);
 
     impl SemaphoreWaitFlagBits {
@@ -4354,7 +5623,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorBindingFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct DescriptorBindingFlagBits(u32);
 
     impl DescriptorBindingFlagBits {
@@ -4415,7 +5684,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkResolveModeFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct ResolveModeFlagBits(u32);
 
     impl ResolveModeFlagBits {

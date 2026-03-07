@@ -50,6 +50,139 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceExtendedDynamicState3FeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceExtendedDynamicState3FeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "extended_dynamic_state3_tessellation_domain_origin",
+                    &self.extended_dynamic_state3_tessellation_domain_origin,
+                )
+                .field(
+                    "extended_dynamic_state3_depth_clamp_enable",
+                    &self.extended_dynamic_state3_depth_clamp_enable,
+                )
+                .field(
+                    "extended_dynamic_state3_polygon_mode",
+                    &self.extended_dynamic_state3_polygon_mode,
+                )
+                .field(
+                    "extended_dynamic_state3_rasterization_samples",
+                    &self.extended_dynamic_state3_rasterization_samples,
+                )
+                .field(
+                    "extended_dynamic_state3_sample_mask",
+                    &self.extended_dynamic_state3_sample_mask,
+                )
+                .field(
+                    "extended_dynamic_state3_alpha_to_coverage_enable",
+                    &self.extended_dynamic_state3_alpha_to_coverage_enable,
+                )
+                .field(
+                    "extended_dynamic_state3_alpha_to_one_enable",
+                    &self.extended_dynamic_state3_alpha_to_one_enable,
+                )
+                .field(
+                    "extended_dynamic_state3_logic_op_enable",
+                    &self.extended_dynamic_state3_logic_op_enable,
+                )
+                .field(
+                    "extended_dynamic_state3_color_blend_enable",
+                    &self.extended_dynamic_state3_color_blend_enable,
+                )
+                .field(
+                    "extended_dynamic_state3_color_blend_equation",
+                    &self.extended_dynamic_state3_color_blend_equation,
+                )
+                .field(
+                    "extended_dynamic_state3_color_write_mask",
+                    &self.extended_dynamic_state3_color_write_mask,
+                )
+                .field(
+                    "extended_dynamic_state3_rasterization_stream",
+                    &self.extended_dynamic_state3_rasterization_stream,
+                )
+                .field(
+                    "extended_dynamic_state3_conservative_rasterization_mode",
+                    &self.extended_dynamic_state3_conservative_rasterization_mode,
+                )
+                .field(
+                    "extended_dynamic_state3_extra_primitive_overestimation_size",
+                    &self.extended_dynamic_state3_extra_primitive_overestimation_size,
+                )
+                .field(
+                    "extended_dynamic_state3_depth_clip_enable",
+                    &self.extended_dynamic_state3_depth_clip_enable,
+                )
+                .field(
+                    "extended_dynamic_state3_sample_locations_enable",
+                    &self.extended_dynamic_state3_sample_locations_enable,
+                )
+                .field(
+                    "extended_dynamic_state3_color_blend_advanced",
+                    &self.extended_dynamic_state3_color_blend_advanced,
+                )
+                .field(
+                    "extended_dynamic_state3_provoking_vertex_mode",
+                    &self.extended_dynamic_state3_provoking_vertex_mode,
+                )
+                .field(
+                    "extended_dynamic_state3_line_rasterization_mode",
+                    &self.extended_dynamic_state3_line_rasterization_mode,
+                )
+                .field(
+                    "extended_dynamic_state3_line_stipple_enable",
+                    &self.extended_dynamic_state3_line_stipple_enable,
+                )
+                .field(
+                    "extended_dynamic_state3_depth_clip_negative_one_to_one",
+                    &self.extended_dynamic_state3_depth_clip_negative_one_to_one,
+                )
+                .field(
+                    "extended_dynamic_state3_viewport_w_scaling_enable",
+                    &self.extended_dynamic_state3_viewport_w_scaling_enable,
+                )
+                .field(
+                    "extended_dynamic_state3_viewport_swizzle",
+                    &self.extended_dynamic_state3_viewport_swizzle,
+                )
+                .field(
+                    "extended_dynamic_state3_coverage_to_color_enable",
+                    &self.extended_dynamic_state3_coverage_to_color_enable,
+                )
+                .field(
+                    "extended_dynamic_state3_coverage_to_color_location",
+                    &self.extended_dynamic_state3_coverage_to_color_location,
+                )
+                .field(
+                    "extended_dynamic_state3_coverage_modulation_mode",
+                    &self.extended_dynamic_state3_coverage_modulation_mode,
+                )
+                .field(
+                    "extended_dynamic_state3_coverage_modulation_table_enable",
+                    &self.extended_dynamic_state3_coverage_modulation_table_enable,
+                )
+                .field(
+                    "extended_dynamic_state3_coverage_modulation_table",
+                    &self.extended_dynamic_state3_coverage_modulation_table,
+                )
+                .field(
+                    "extended_dynamic_state3_coverage_reduction_mode",
+                    &self.extended_dynamic_state3_coverage_reduction_mode,
+                )
+                .field(
+                    "extended_dynamic_state3_representative_fragment_test_enable",
+                    &self.extended_dynamic_state3_representative_fragment_test_enable,
+                )
+                .field(
+                    "extended_dynamic_state3_shading_rate_image_enable",
+                    &self.extended_dynamic_state3_shading_rate_image_enable,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExtendedDynamicState3FeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_FEATURES_EXT;
@@ -394,6 +527,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceExtendedDynamicState3PropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceExtendedDynamicState3PropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "dynamic_primitive_topology_unrestricted",
+                    &self.dynamic_primitive_topology_unrestricted,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExtendedDynamicState3PropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_PROPERTIES_EXT;
@@ -428,7 +574,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkColorBlendEquationEXT.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct ColorBlendEquationEXT {
         pub src_color_blend_factor: BlendFactor,
         pub dst_color_blend_factor: BlendFactor,
@@ -472,7 +618,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkColorBlendAdvancedEXT.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct ColorBlendAdvancedEXT {
         pub advanced_blend_op: BlendOp,
         pub src_premultiplied: Bool32,

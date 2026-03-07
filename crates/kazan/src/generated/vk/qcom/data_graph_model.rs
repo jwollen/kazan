@@ -14,7 +14,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCacheHeaderVersionDataGraphQCOM.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct PipelineCacheHeaderVersionDataGraphQCOM {
         pub header_size: u32,
         pub header_version: PipelineCacheHeaderVersion,
@@ -75,6 +75,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DataGraphPipelineBuiltinModelCreateInfoQCOM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DataGraphPipelineBuiltinModelCreateInfoQCOM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_operation", &self.p_operation)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DataGraphPipelineBuiltinModelCreateInfoQCOM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DATA_GRAPH_PIPELINE_BUILTIN_MODEL_CREATE_INFO_QCOM;
@@ -114,6 +124,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub data_graph_model: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceDataGraphModelFeaturesQCOM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceDataGraphModelFeaturesQCOM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("data_graph_model", &self.data_graph_model)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDataGraphModelFeaturesQCOM<'a> {

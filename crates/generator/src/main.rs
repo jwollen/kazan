@@ -435,19 +435,26 @@ fn generate_unions(file: &mut impl std::io::Write, analysis: &Analysis, new_item
         if type_info.lifetime_param {
             writeln!(file, "pub _marker: PhantomData<&'a ()>,",).unwrap();
         }
-        writeln!(file, "}}").unwrap();
+        writeln!(file, "}}\n").unwrap();
+        let anon = if type_info.lifetime_param { "<'_>" } else { "" };
         writeln!(
             file,
-            "impl Default for {}{} {{
+            "impl fmt::Debug for {name}{anon} {{
+                fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {{
+                    f.debug_struct(\"{name}\").finish()
+                }}
+            }}\n"
+        )
+        .unwrap();
+        writeln!(
+            file,
+            "impl Default for {name}{anon} {{
                 fn default() -> Self {{
                     unsafe {{ core::mem::zeroed() }}
                 }}
-            }}",
-            name,
-            if type_info.lifetime_param { "<'_>" } else { "" }
+            }}\n"
         )
         .unwrap();
-        writeln!(file).unwrap();
     }
 }
 

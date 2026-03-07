@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoDecodeCapabilitiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoDecodeCapabilitiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeCapabilitiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_CAPABILITIES_KHR;
     }
@@ -52,6 +62,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub video_usage_hints: VideoDecodeUsageFlagsKHR,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoDecodeUsageInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoDecodeUsageInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("video_usage_hints", &self.video_usage_hints)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeUsageInfoKHR<'a> {
@@ -94,6 +114,23 @@ pub(super) mod defs {
         pub reference_slot_count: u32,
         pub p_reference_slots: *const VideoReferenceSlotInfoKHR<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoDecodeInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoDecodeInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("src_buffer", &self.src_buffer)
+                .field("src_buffer_offset", &self.src_buffer_offset)
+                .field("src_buffer_range", &self.src_buffer_range)
+                .field("dst_picture_resource", &self.dst_picture_resource)
+                .field("p_setup_reference_slot", &self.p_setup_reference_slot)
+                .field("reference_slot_count", &self.reference_slot_count)
+                .field("p_reference_slots", &self.p_reference_slots)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeInfoKHR<'a> {
@@ -194,7 +231,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeUsageFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct VideoDecodeUsageFlagBitsKHR(u32);
 
     impl VideoDecodeUsageFlagBitsKHR {
@@ -234,7 +271,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeCapabilityFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct VideoDecodeCapabilityFlagBitsKHR(u32);
 
     impl VideoDecodeCapabilityFlagBitsKHR {

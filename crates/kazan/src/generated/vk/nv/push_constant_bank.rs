@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PushConstantBankInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PushConstantBankInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("bank", &self.bank)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PushConstantBankInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PUSH_CONSTANT_BANK_INFO_NV;
     }
@@ -55,6 +65,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub push_constant_bank: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDevicePushConstantBankFeaturesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDevicePushConstantBankFeaturesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("push_constant_bank", &self.push_constant_bank)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePushConstantBankFeaturesNV<'a> {
@@ -97,6 +117,31 @@ pub(super) mod defs {
         pub max_graphics_push_data_banks: u32,
         pub max_compute_push_data_banks: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDevicePushConstantBankPropertiesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDevicePushConstantBankPropertiesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "max_graphics_push_constant_banks",
+                    &self.max_graphics_push_constant_banks,
+                )
+                .field(
+                    "max_compute_push_constant_banks",
+                    &self.max_compute_push_constant_banks,
+                )
+                .field(
+                    "max_graphics_push_data_banks",
+                    &self.max_graphics_push_data_banks,
+                )
+                .field(
+                    "max_compute_push_data_banks",
+                    &self.max_compute_push_data_banks,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePushConstantBankPropertiesNV<'a> {

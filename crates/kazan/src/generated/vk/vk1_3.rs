@@ -28,6 +28,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DevicePrivateDataCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DevicePrivateDataCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "private_data_slot_request_count",
+                    &self.private_data_slot_request_count,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DevicePrivateDataCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_PRIVATE_DATA_CREATE_INFO;
     }
@@ -65,6 +78,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PrivateDataSlotCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PrivateDataSlotCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PrivateDataSlotCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PRIVATE_DATA_SLOT_CREATE_INFO;
     }
@@ -95,6 +118,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub private_data: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDevicePrivateDataFeatures<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDevicePrivateDataFeatures")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("private_data", &self.private_data)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePrivateDataFeatures<'a> {
@@ -132,6 +165,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DeviceBufferMemoryRequirements<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DeviceBufferMemoryRequirements")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_create_info", &self.p_create_info)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DeviceBufferMemoryRequirements<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_BUFFER_MEMORY_REQUIREMENTS;
     }
@@ -163,6 +206,17 @@ pub(super) mod defs {
         pub p_create_info: *const ImageCreateInfo<'a>,
         pub plane_aspect: ImageAspectFlagBits,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DeviceImageMemoryRequirements<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DeviceImageMemoryRequirements")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_create_info", &self.p_create_info)
+                .field("plane_aspect", &self.plane_aspect)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DeviceImageMemoryRequirements<'a> {
@@ -202,6 +256,20 @@ pub(super) mod defs {
         pub inline_uniform_block: Bool32,
         pub descriptor_binding_inline_uniform_block_update_after_bind: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceInlineUniformBlockFeatures<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceInlineUniformBlockFeatures")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("inline_uniform_block", &self.inline_uniform_block)
+                .field(
+                    "descriptor_binding_inline_uniform_block_update_after_bind",
+                    &self.descriptor_binding_inline_uniform_block_update_after_bind,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceInlineUniformBlockFeatures<'a> {
@@ -255,6 +323,35 @@ pub(super) mod defs {
         pub max_descriptor_set_inline_uniform_blocks: u32,
         pub max_descriptor_set_update_after_bind_inline_uniform_blocks: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceInlineUniformBlockProperties<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceInlineUniformBlockProperties")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "max_inline_uniform_block_size",
+                    &self.max_inline_uniform_block_size,
+                )
+                .field(
+                    "max_per_stage_descriptor_inline_uniform_blocks",
+                    &self.max_per_stage_descriptor_inline_uniform_blocks,
+                )
+                .field(
+                    "max_per_stage_descriptor_update_after_bind_inline_uniform_blocks",
+                    &self.max_per_stage_descriptor_update_after_bind_inline_uniform_blocks,
+                )
+                .field(
+                    "max_descriptor_set_inline_uniform_blocks",
+                    &self.max_descriptor_set_inline_uniform_blocks,
+                )
+                .field(
+                    "max_descriptor_set_update_after_bind_inline_uniform_blocks",
+                    &self.max_descriptor_set_update_after_bind_inline_uniform_blocks,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceInlineUniformBlockProperties<'a> {
@@ -337,6 +434,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for WriteDescriptorSetInlineUniformBlock<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("WriteDescriptorSetInlineUniformBlock")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("data_size", &self.data_size)
+                .field("p_data", &self.p_data)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for WriteDescriptorSetInlineUniformBlock<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::WRITE_DESCRIPTOR_SET_INLINE_UNIFORM_BLOCK;
@@ -372,6 +480,19 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub max_inline_uniform_block_bindings: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DescriptorPoolInlineUniformBlockCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DescriptorPoolInlineUniformBlockCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "max_inline_uniform_block_bindings",
+                    &self.max_inline_uniform_block_bindings,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DescriptorPoolInlineUniformBlockCreateInfo<'a> {
@@ -415,6 +536,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceMaintenance4Features<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceMaintenance4Features")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("maintenance4", &self.maintenance4)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMaintenance4Features<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES;
     }
@@ -448,6 +579,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub max_buffer_size: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceMaintenance4Properties<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceMaintenance4Properties")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("max_buffer_size", &self.max_buffer_size)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMaintenance4Properties<'a> {
@@ -488,6 +629,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceTextureCompressionASTCHDRFeatures<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceTextureCompressionASTCHDRFeatures")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "texture_compression_astc_hdr",
+                    &self.texture_compression_astc_hdr,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceTextureCompressionASTCHDRFeatures<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_HDR_FEATURES;
@@ -522,7 +676,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCreationFeedback.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct PipelineCreationFeedback {
         pub flags: PipelineCreationFeedbackFlags,
         pub duration: u64,
@@ -550,6 +704,27 @@ pub(super) mod defs {
         pub pipeline_stage_creation_feedback_count: u32,
         pub p_pipeline_stage_creation_feedbacks: *mut PipelineCreationFeedback,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PipelineCreationFeedbackCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineCreationFeedbackCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "p_pipeline_creation_feedback",
+                    &self.p_pipeline_creation_feedback,
+                )
+                .field(
+                    "pipeline_stage_creation_feedback_count",
+                    &self.pipeline_stage_creation_feedback_count,
+                )
+                .field(
+                    "p_pipeline_stage_creation_feedbacks",
+                    &self.p_pipeline_stage_creation_feedbacks,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PipelineCreationFeedbackCreateInfo<'a> {
@@ -619,6 +794,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceShaderDemoteToHelperInvocationFeatures<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceShaderDemoteToHelperInvocationFeatures")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "shader_demote_to_helper_invocation",
+                    &self.shader_demote_to_helper_invocation,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderDemoteToHelperInvocationFeatures<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES;
@@ -665,6 +853,31 @@ pub(super) mod defs {
         pub uniform_texel_buffer_offset_alignment_bytes: DeviceSize,
         pub uniform_texel_buffer_offset_single_texel_alignment: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceTexelBufferAlignmentProperties<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceTexelBufferAlignmentProperties")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "storage_texel_buffer_offset_alignment_bytes",
+                    &self.storage_texel_buffer_offset_alignment_bytes,
+                )
+                .field(
+                    "storage_texel_buffer_offset_single_texel_alignment",
+                    &self.storage_texel_buffer_offset_single_texel_alignment,
+                )
+                .field(
+                    "uniform_texel_buffer_offset_alignment_bytes",
+                    &self.uniform_texel_buffer_offset_alignment_bytes,
+                )
+                .field(
+                    "uniform_texel_buffer_offset_single_texel_alignment",
+                    &self.uniform_texel_buffer_offset_single_texel_alignment,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceTexelBufferAlignmentProperties<'a> {
@@ -740,6 +953,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceSubgroupSizeControlFeatures<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceSubgroupSizeControlFeatures")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("subgroup_size_control", &self.subgroup_size_control)
+                .field("compute_full_subgroups", &self.compute_full_subgroups)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSubgroupSizeControlFeatures<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_FEATURES;
@@ -786,6 +1010,25 @@ pub(super) mod defs {
         pub max_compute_workgroup_subgroups: u32,
         pub required_subgroup_size_stages: ShaderStageFlags,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceSubgroupSizeControlProperties<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceSubgroupSizeControlProperties")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("min_subgroup_size", &self.min_subgroup_size)
+                .field("max_subgroup_size", &self.max_subgroup_size)
+                .field(
+                    "max_compute_workgroup_subgroups",
+                    &self.max_compute_workgroup_subgroups,
+                )
+                .field(
+                    "required_subgroup_size_stages",
+                    &self.required_subgroup_size_stages,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSubgroupSizeControlProperties<'a> {
@@ -850,6 +1093,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PipelineShaderStageRequiredSubgroupSizeCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineShaderStageRequiredSubgroupSizeCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("required_subgroup_size", &self.required_subgroup_size)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineShaderStageRequiredSubgroupSizeCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_SHADER_STAGE_REQUIRED_SUBGROUP_SIZE_CREATE_INFO;
@@ -890,6 +1143,19 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub pipeline_creation_cache_control: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDevicePipelineCreationCacheControlFeatures<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDevicePipelineCreationCacheControlFeatures")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "pipeline_creation_cache_control",
+                    &self.pipeline_creation_cache_control,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePipelineCreationCacheControlFeatures<'a> {
@@ -949,6 +1215,51 @@ pub(super) mod defs {
         pub shader_integer_dot_product: Bool32,
         pub maintenance4: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceVulkan13Features<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceVulkan13Features")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("robust_image_access", &self.robust_image_access)
+                .field("inline_uniform_block", &self.inline_uniform_block)
+                .field(
+                    "descriptor_binding_inline_uniform_block_update_after_bind",
+                    &self.descriptor_binding_inline_uniform_block_update_after_bind,
+                )
+                .field(
+                    "pipeline_creation_cache_control",
+                    &self.pipeline_creation_cache_control,
+                )
+                .field("private_data", &self.private_data)
+                .field(
+                    "shader_demote_to_helper_invocation",
+                    &self.shader_demote_to_helper_invocation,
+                )
+                .field(
+                    "shader_terminate_invocation",
+                    &self.shader_terminate_invocation,
+                )
+                .field("subgroup_size_control", &self.subgroup_size_control)
+                .field("compute_full_subgroups", &self.compute_full_subgroups)
+                .field("synchronization2", &self.synchronization2)
+                .field(
+                    "texture_compression_astc_hdr",
+                    &self.texture_compression_astc_hdr,
+                )
+                .field(
+                    "shader_zero_initialize_workgroup_memory",
+                    &self.shader_zero_initialize_workgroup_memory,
+                )
+                .field("dynamic_rendering", &self.dynamic_rendering)
+                .field(
+                    "shader_integer_dot_product",
+                    &self.shader_integer_dot_product,
+                )
+                .field("maintenance4", &self.maintenance4)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVulkan13Features<'a> {
@@ -1127,6 +1438,60 @@ pub(super) mod defs {
         pub uniform_texel_buffer_offset_single_texel_alignment: Bool32,
         pub max_buffer_size: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceVulkan13Properties<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceVulkan13Properties")
+.field("s_type", &self.s_type)
+.field("p_next", &self.p_next)
+.field("min_subgroup_size", &self.min_subgroup_size)
+.field("max_subgroup_size", &self.max_subgroup_size)
+.field("max_compute_workgroup_subgroups", &self.max_compute_workgroup_subgroups)
+.field("required_subgroup_size_stages", &self.required_subgroup_size_stages)
+.field("max_inline_uniform_block_size", &self.max_inline_uniform_block_size)
+.field("max_per_stage_descriptor_inline_uniform_blocks", &self.max_per_stage_descriptor_inline_uniform_blocks)
+.field("max_per_stage_descriptor_update_after_bind_inline_uniform_blocks", &self.max_per_stage_descriptor_update_after_bind_inline_uniform_blocks)
+.field("max_descriptor_set_inline_uniform_blocks", &self.max_descriptor_set_inline_uniform_blocks)
+.field("max_descriptor_set_update_after_bind_inline_uniform_blocks", &self.max_descriptor_set_update_after_bind_inline_uniform_blocks)
+.field("max_inline_uniform_total_size", &self.max_inline_uniform_total_size)
+.field("integer_dot_product8_bit_unsigned_accelerated", &self.integer_dot_product8_bit_unsigned_accelerated)
+.field("integer_dot_product8_bit_signed_accelerated", &self.integer_dot_product8_bit_signed_accelerated)
+.field("integer_dot_product8_bit_mixed_signedness_accelerated", &self.integer_dot_product8_bit_mixed_signedness_accelerated)
+.field("integer_dot_product4x8_bit_packed_unsigned_accelerated", &self.integer_dot_product4x8_bit_packed_unsigned_accelerated)
+.field("integer_dot_product4x8_bit_packed_signed_accelerated", &self.integer_dot_product4x8_bit_packed_signed_accelerated)
+.field("integer_dot_product4x8_bit_packed_mixed_signedness_accelerated", &self.integer_dot_product4x8_bit_packed_mixed_signedness_accelerated)
+.field("integer_dot_product16_bit_unsigned_accelerated", &self.integer_dot_product16_bit_unsigned_accelerated)
+.field("integer_dot_product16_bit_signed_accelerated", &self.integer_dot_product16_bit_signed_accelerated)
+.field("integer_dot_product16_bit_mixed_signedness_accelerated", &self.integer_dot_product16_bit_mixed_signedness_accelerated)
+.field("integer_dot_product32_bit_unsigned_accelerated", &self.integer_dot_product32_bit_unsigned_accelerated)
+.field("integer_dot_product32_bit_signed_accelerated", &self.integer_dot_product32_bit_signed_accelerated)
+.field("integer_dot_product32_bit_mixed_signedness_accelerated", &self.integer_dot_product32_bit_mixed_signedness_accelerated)
+.field("integer_dot_product64_bit_unsigned_accelerated", &self.integer_dot_product64_bit_unsigned_accelerated)
+.field("integer_dot_product64_bit_signed_accelerated", &self.integer_dot_product64_bit_signed_accelerated)
+.field("integer_dot_product64_bit_mixed_signedness_accelerated", &self.integer_dot_product64_bit_mixed_signedness_accelerated)
+.field("integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated", &self.integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated)
+.field("integer_dot_product_accumulating_saturating8_bit_signed_accelerated", &self.integer_dot_product_accumulating_saturating8_bit_signed_accelerated)
+.field("integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated", &self.integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated)
+.field("integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated", &self.integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated)
+.field("integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated", &self.integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated)
+.field("integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated", &self.integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated)
+.field("integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated", &self.integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated)
+.field("integer_dot_product_accumulating_saturating16_bit_signed_accelerated", &self.integer_dot_product_accumulating_saturating16_bit_signed_accelerated)
+.field("integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated", &self.integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated)
+.field("integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated", &self.integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated)
+.field("integer_dot_product_accumulating_saturating32_bit_signed_accelerated", &self.integer_dot_product_accumulating_saturating32_bit_signed_accelerated)
+.field("integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated", &self.integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated)
+.field("integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated", &self.integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated)
+.field("integer_dot_product_accumulating_saturating64_bit_signed_accelerated", &self.integer_dot_product_accumulating_saturating64_bit_signed_accelerated)
+.field("integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated", &self.integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated)
+.field("storage_texel_buffer_offset_alignment_bytes", &self.storage_texel_buffer_offset_alignment_bytes)
+.field("storage_texel_buffer_offset_single_texel_alignment", &self.storage_texel_buffer_offset_single_texel_alignment)
+.field("uniform_texel_buffer_offset_alignment_bytes", &self.uniform_texel_buffer_offset_alignment_bytes)
+.field("uniform_texel_buffer_offset_single_texel_alignment", &self.uniform_texel_buffer_offset_single_texel_alignment)
+.field("max_buffer_size", &self.max_buffer_size)
+.finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVulkan13Properties<'a> {
@@ -1594,6 +1959,23 @@ _marker: PhantomData
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceToolProperties<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceToolProperties")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("name", &wrap_c_str_slice_until_nul(&self.name))
+                .field("version", &wrap_c_str_slice_until_nul(&self.version))
+                .field("purposes", &self.purposes)
+                .field(
+                    "description",
+                    &wrap_c_str_slice_until_nul(&self.description),
+                )
+                .field("layer", &wrap_c_str_slice_until_nul(&self.layer))
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceToolProperties<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_TOOL_PROPERTIES;
     }
@@ -1628,6 +2010,19 @@ _marker: PhantomData
         pub p_next: *mut c_void,
         pub shader_zero_initialize_workgroup_memory: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceZeroInitializeWorkgroupMemoryFeatures<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceZeroInitializeWorkgroupMemoryFeatures")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "shader_zero_initialize_workgroup_memory",
+                    &self.shader_zero_initialize_workgroup_memory,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceZeroInitializeWorkgroupMemoryFeatures<'a> {
@@ -1676,6 +2071,16 @@ _marker: PhantomData
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceImageRobustnessFeatures<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceImageRobustnessFeatures")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("robust_image_access", &self.robust_image_access)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceImageRobustnessFeatures<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_IMAGE_ROBUSTNESS_FEATURES;
@@ -1712,6 +2117,18 @@ _marker: PhantomData
         pub dst_offset: DeviceSize,
         pub size: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for BufferCopy2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BufferCopy2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src_offset", &self.src_offset)
+                .field("dst_offset", &self.dst_offset)
+                .field("size", &self.size)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for BufferCopy2<'a> {
@@ -1760,6 +2177,20 @@ _marker: PhantomData
         pub dst_offset: Offset3D,
         pub extent: Extent3D,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ImageCopy2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageCopy2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src_subresource", &self.src_subresource)
+                .field("src_offset", &self.src_offset)
+                .field("dst_subresource", &self.dst_subresource)
+                .field("dst_offset", &self.dst_offset)
+                .field("extent", &self.extent)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ImageCopy2<'a> {
@@ -1821,6 +2252,19 @@ _marker: PhantomData
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImageBlit2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageBlit2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src_subresource", &self.src_subresource)
+                .field("src_offsets", &self.src_offsets)
+                .field("dst_subresource", &self.dst_subresource)
+                .field("dst_offsets", &self.dst_offsets)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImageBlit2<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_BLIT_2;
     }
@@ -1874,6 +2318,21 @@ _marker: PhantomData
         pub image_offset: Offset3D,
         pub image_extent: Extent3D,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for BufferImageCopy2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BufferImageCopy2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("buffer_offset", &self.buffer_offset)
+                .field("buffer_row_length", &self.buffer_row_length)
+                .field("buffer_image_height", &self.buffer_image_height)
+                .field("image_subresource", &self.image_subresource)
+                .field("image_offset", &self.image_offset)
+                .field("image_extent", &self.image_extent)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for BufferImageCopy2<'a> {
@@ -1942,6 +2401,20 @@ _marker: PhantomData
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImageResolve2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageResolve2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src_subresource", &self.src_subresource)
+                .field("src_offset", &self.src_offset)
+                .field("dst_subresource", &self.dst_subresource)
+                .field("dst_offset", &self.dst_offset)
+                .field("extent", &self.extent)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImageResolve2<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_RESOLVE_2;
     }
@@ -2001,6 +2474,19 @@ _marker: PhantomData
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for CopyBufferInfo2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CopyBufferInfo2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src_buffer", &self.src_buffer)
+                .field("dst_buffer", &self.dst_buffer)
+                .field("region_count", &self.region_count)
+                .field("p_regions", &self.p_regions)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for CopyBufferInfo2<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::COPY_BUFFER_INFO_2;
     }
@@ -2050,6 +2536,21 @@ _marker: PhantomData
         pub region_count: u32,
         pub p_regions: *const ImageCopy2<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for CopyImageInfo2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CopyImageInfo2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src_image", &self.src_image)
+                .field("src_image_layout", &self.src_image_layout)
+                .field("dst_image", &self.dst_image)
+                .field("dst_image_layout", &self.dst_image_layout)
+                .field("region_count", &self.region_count)
+                .field("p_regions", &self.p_regions)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for CopyImageInfo2<'a> {
@@ -2114,6 +2615,22 @@ _marker: PhantomData
         pub p_regions: *const ImageBlit2<'a>,
         pub filter: Filter,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for BlitImageInfo2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BlitImageInfo2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src_image", &self.src_image)
+                .field("src_image_layout", &self.src_image_layout)
+                .field("dst_image", &self.dst_image)
+                .field("dst_image_layout", &self.dst_image_layout)
+                .field("region_count", &self.region_count)
+                .field("p_regions", &self.p_regions)
+                .field("filter", &self.filter)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for BlitImageInfo2<'a> {
@@ -2184,6 +2701,20 @@ _marker: PhantomData
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for CopyBufferToImageInfo2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CopyBufferToImageInfo2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src_buffer", &self.src_buffer)
+                .field("dst_image", &self.dst_image)
+                .field("dst_image_layout", &self.dst_image_layout)
+                .field("region_count", &self.region_count)
+                .field("p_regions", &self.p_regions)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for CopyBufferToImageInfo2<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::COPY_BUFFER_TO_IMAGE_INFO_2;
     }
@@ -2238,6 +2769,20 @@ _marker: PhantomData
         pub region_count: u32,
         pub p_regions: *const BufferImageCopy2<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for CopyImageToBufferInfo2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CopyImageToBufferInfo2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src_image", &self.src_image)
+                .field("src_image_layout", &self.src_image_layout)
+                .field("dst_buffer", &self.dst_buffer)
+                .field("region_count", &self.region_count)
+                .field("p_regions", &self.p_regions)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for CopyImageToBufferInfo2<'a> {
@@ -2295,6 +2840,21 @@ _marker: PhantomData
         pub region_count: u32,
         pub p_regions: *const ImageResolve2<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ResolveImageInfo2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ResolveImageInfo2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src_image", &self.src_image)
+                .field("src_image_layout", &self.src_image_layout)
+                .field("dst_image", &self.dst_image)
+                .field("dst_image_layout", &self.dst_image_layout)
+                .field("region_count", &self.region_count)
+                .field("p_regions", &self.p_regions)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ResolveImageInfo2<'a> {
@@ -2355,6 +2915,19 @@ _marker: PhantomData
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceShaderTerminateInvocationFeatures<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceShaderTerminateInvocationFeatures")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "shader_terminate_invocation",
+                    &self.shader_terminate_invocation,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderTerminateInvocationFeatures<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_TERMINATE_INVOCATION_FEATURES;
@@ -2398,6 +2971,19 @@ _marker: PhantomData
         pub dst_stage_mask: PipelineStageFlags2,
         pub dst_access_mask: AccessFlags2,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for MemoryBarrier2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MemoryBarrier2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src_stage_mask", &self.src_stage_mask)
+                .field("src_access_mask", &self.src_access_mask)
+                .field("dst_stage_mask", &self.dst_stage_mask)
+                .field("dst_access_mask", &self.dst_access_mask)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for MemoryBarrier2<'a> {
@@ -2459,6 +3045,25 @@ _marker: PhantomData
         pub image: Image,
         pub subresource_range: ImageSubresourceRange,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ImageMemoryBarrier2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageMemoryBarrier2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src_stage_mask", &self.src_stage_mask)
+                .field("src_access_mask", &self.src_access_mask)
+                .field("dst_stage_mask", &self.dst_stage_mask)
+                .field("dst_access_mask", &self.dst_access_mask)
+                .field("old_layout", &self.old_layout)
+                .field("new_layout", &self.new_layout)
+                .field("src_queue_family_index", &self.src_queue_family_index)
+                .field("dst_queue_family_index", &self.dst_queue_family_index)
+                .field("image", &self.image)
+                .field("subresource_range", &self.subresource_range)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ImageMemoryBarrier2<'a> {
@@ -2555,6 +3160,24 @@ _marker: PhantomData
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for BufferMemoryBarrier2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BufferMemoryBarrier2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src_stage_mask", &self.src_stage_mask)
+                .field("src_access_mask", &self.src_access_mask)
+                .field("dst_stage_mask", &self.dst_stage_mask)
+                .field("dst_access_mask", &self.dst_access_mask)
+                .field("src_queue_family_index", &self.src_queue_family_index)
+                .field("dst_queue_family_index", &self.dst_queue_family_index)
+                .field("buffer", &self.buffer)
+                .field("offset", &self.offset)
+                .field("size", &self.size)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for BufferMemoryBarrier2<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::BUFFER_MEMORY_BARRIER_2;
     }
@@ -2641,6 +3264,28 @@ _marker: PhantomData
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DependencyInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DependencyInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("dependency_flags", &self.dependency_flags)
+                .field("memory_barrier_count", &self.memory_barrier_count)
+                .field("p_memory_barriers", &self.p_memory_barriers)
+                .field(
+                    "buffer_memory_barrier_count",
+                    &self.buffer_memory_barrier_count,
+                )
+                .field("p_buffer_memory_barriers", &self.p_buffer_memory_barriers)
+                .field(
+                    "image_memory_barrier_count",
+                    &self.image_memory_barrier_count,
+                )
+                .field("p_image_memory_barriers", &self.p_image_memory_barriers)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DependencyInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DEPENDENCY_INFO;
     }
@@ -2706,6 +3351,19 @@ _marker: PhantomData
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SemaphoreSubmitInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SemaphoreSubmitInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("semaphore", &self.semaphore)
+                .field("value", &self.value)
+                .field("stage_mask", &self.stage_mask)
+                .field("device_index", &self.device_index)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SemaphoreSubmitInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SEMAPHORE_SUBMIT_INFO;
     }
@@ -2757,6 +3415,17 @@ _marker: PhantomData
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for CommandBufferSubmitInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CommandBufferSubmitInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("command_buffer", &self.command_buffer)
+                .field("device_mask", &self.device_mask)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for CommandBufferSubmitInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::COMMAND_BUFFER_SUBMIT_INFO;
     }
@@ -2799,6 +3468,25 @@ _marker: PhantomData
         pub signal_semaphore_info_count: u32,
         pub p_signal_semaphore_infos: *const SemaphoreSubmitInfo<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for SubmitInfo2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SubmitInfo2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("wait_semaphore_info_count", &self.wait_semaphore_info_count)
+                .field("p_wait_semaphore_infos", &self.p_wait_semaphore_infos)
+                .field("command_buffer_info_count", &self.command_buffer_info_count)
+                .field("p_command_buffer_infos", &self.p_command_buffer_infos)
+                .field(
+                    "signal_semaphore_info_count",
+                    &self.signal_semaphore_info_count,
+                )
+                .field("p_signal_semaphore_infos", &self.p_signal_semaphore_infos)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for SubmitInfo2<'a> {
@@ -2866,6 +3554,16 @@ _marker: PhantomData
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceSynchronization2Features<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceSynchronization2Features")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("synchronization2", &self.synchronization2)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSynchronization2Features<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES;
@@ -2903,6 +3601,19 @@ _marker: PhantomData
         pub p_next: *mut c_void,
         pub shader_integer_dot_product: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceShaderIntegerDotProductFeatures<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceShaderIntegerDotProductFeatures")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "shader_integer_dot_product",
+                    &self.shader_integer_dot_product,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderIntegerDotProductFeatures<'a> {
@@ -2975,6 +3686,45 @@ _marker: PhantomData
         pub integer_dot_product_accumulating_saturating64_bit_signed_accelerated: Bool32,
         pub integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceShaderIntegerDotProductProperties<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceShaderIntegerDotProductProperties")
+.field("s_type", &self.s_type)
+.field("p_next", &self.p_next)
+.field("integer_dot_product8_bit_unsigned_accelerated", &self.integer_dot_product8_bit_unsigned_accelerated)
+.field("integer_dot_product8_bit_signed_accelerated", &self.integer_dot_product8_bit_signed_accelerated)
+.field("integer_dot_product8_bit_mixed_signedness_accelerated", &self.integer_dot_product8_bit_mixed_signedness_accelerated)
+.field("integer_dot_product4x8_bit_packed_unsigned_accelerated", &self.integer_dot_product4x8_bit_packed_unsigned_accelerated)
+.field("integer_dot_product4x8_bit_packed_signed_accelerated", &self.integer_dot_product4x8_bit_packed_signed_accelerated)
+.field("integer_dot_product4x8_bit_packed_mixed_signedness_accelerated", &self.integer_dot_product4x8_bit_packed_mixed_signedness_accelerated)
+.field("integer_dot_product16_bit_unsigned_accelerated", &self.integer_dot_product16_bit_unsigned_accelerated)
+.field("integer_dot_product16_bit_signed_accelerated", &self.integer_dot_product16_bit_signed_accelerated)
+.field("integer_dot_product16_bit_mixed_signedness_accelerated", &self.integer_dot_product16_bit_mixed_signedness_accelerated)
+.field("integer_dot_product32_bit_unsigned_accelerated", &self.integer_dot_product32_bit_unsigned_accelerated)
+.field("integer_dot_product32_bit_signed_accelerated", &self.integer_dot_product32_bit_signed_accelerated)
+.field("integer_dot_product32_bit_mixed_signedness_accelerated", &self.integer_dot_product32_bit_mixed_signedness_accelerated)
+.field("integer_dot_product64_bit_unsigned_accelerated", &self.integer_dot_product64_bit_unsigned_accelerated)
+.field("integer_dot_product64_bit_signed_accelerated", &self.integer_dot_product64_bit_signed_accelerated)
+.field("integer_dot_product64_bit_mixed_signedness_accelerated", &self.integer_dot_product64_bit_mixed_signedness_accelerated)
+.field("integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated", &self.integer_dot_product_accumulating_saturating8_bit_unsigned_accelerated)
+.field("integer_dot_product_accumulating_saturating8_bit_signed_accelerated", &self.integer_dot_product_accumulating_saturating8_bit_signed_accelerated)
+.field("integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated", &self.integer_dot_product_accumulating_saturating8_bit_mixed_signedness_accelerated)
+.field("integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated", &self.integer_dot_product_accumulating_saturating4x8_bit_packed_unsigned_accelerated)
+.field("integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated", &self.integer_dot_product_accumulating_saturating4x8_bit_packed_signed_accelerated)
+.field("integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated", &self.integer_dot_product_accumulating_saturating4x8_bit_packed_mixed_signedness_accelerated)
+.field("integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated", &self.integer_dot_product_accumulating_saturating16_bit_unsigned_accelerated)
+.field("integer_dot_product_accumulating_saturating16_bit_signed_accelerated", &self.integer_dot_product_accumulating_saturating16_bit_signed_accelerated)
+.field("integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated", &self.integer_dot_product_accumulating_saturating16_bit_mixed_signedness_accelerated)
+.field("integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated", &self.integer_dot_product_accumulating_saturating32_bit_unsigned_accelerated)
+.field("integer_dot_product_accumulating_saturating32_bit_signed_accelerated", &self.integer_dot_product_accumulating_saturating32_bit_signed_accelerated)
+.field("integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated", &self.integer_dot_product_accumulating_saturating32_bit_mixed_signedness_accelerated)
+.field("integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated", &self.integer_dot_product_accumulating_saturating64_bit_unsigned_accelerated)
+.field("integer_dot_product_accumulating_saturating64_bit_signed_accelerated", &self.integer_dot_product_accumulating_saturating64_bit_signed_accelerated)
+.field("integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated", &self.integer_dot_product_accumulating_saturating64_bit_mixed_signedness_accelerated)
+.finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderIntegerDotProductProperties<'a> {
@@ -3316,6 +4066,18 @@ _marker: PhantomData
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for FormatProperties3<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("FormatProperties3")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("linear_tiling_features", &self.linear_tiling_features)
+                .field("optimal_tiling_features", &self.optimal_tiling_features)
+                .field("buffer_features", &self.buffer_features)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for FormatProperties3<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::FORMAT_PROPERTIES_3;
     }
@@ -3370,6 +4132,23 @@ _marker: PhantomData
         pub depth_attachment_format: Format,
         pub stencil_attachment_format: Format,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PipelineRenderingCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineRenderingCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("view_mask", &self.view_mask)
+                .field("color_attachment_count", &self.color_attachment_count)
+                .field(
+                    "p_color_attachment_formats",
+                    &self.p_color_attachment_formats,
+                )
+                .field("depth_attachment_format", &self.depth_attachment_format)
+                .field("stencil_attachment_format", &self.stencil_attachment_format)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PipelineRenderingCreateInfo<'a> {
@@ -3431,6 +4210,23 @@ _marker: PhantomData
         pub p_depth_attachment: *const RenderingAttachmentInfo<'a>,
         pub p_stencil_attachment: *const RenderingAttachmentInfo<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for RenderingInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RenderingInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("render_area", &self.render_area)
+                .field("layer_count", &self.layer_count)
+                .field("view_mask", &self.view_mask)
+                .field("color_attachment_count", &self.color_attachment_count)
+                .field("p_color_attachments", &self.p_color_attachments)
+                .field("p_depth_attachment", &self.p_depth_attachment)
+                .field("p_stencil_attachment", &self.p_stencil_attachment)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for RenderingInfo<'a> {
@@ -3519,6 +4315,23 @@ _marker: PhantomData
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for RenderingAttachmentInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RenderingAttachmentInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("image_view", &self.image_view)
+                .field("image_layout", &self.image_layout)
+                .field("resolve_mode", &self.resolve_mode)
+                .field("resolve_image_view", &self.resolve_image_view)
+                .field("resolve_image_layout", &self.resolve_image_layout)
+                .field("load_op", &self.load_op)
+                .field("store_op", &self.store_op)
+                .field("clear_value", &self.clear_value)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for RenderingAttachmentInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::RENDERING_ATTACHMENT_INFO;
     }
@@ -3593,6 +4406,16 @@ _marker: PhantomData
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceDynamicRenderingFeatures<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceDynamicRenderingFeatures")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("dynamic_rendering", &self.dynamic_rendering)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDynamicRenderingFeatures<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES;
@@ -3636,6 +4459,25 @@ _marker: PhantomData
         pub stencil_attachment_format: Format,
         pub rasterization_samples: SampleCountFlagBits,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for CommandBufferInheritanceRenderingInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CommandBufferInheritanceRenderingInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("view_mask", &self.view_mask)
+                .field("color_attachment_count", &self.color_attachment_count)
+                .field(
+                    "p_color_attachment_formats",
+                    &self.p_color_attachment_formats,
+                )
+                .field("depth_attachment_format", &self.depth_attachment_format)
+                .field("stencil_attachment_format", &self.stencil_attachment_format)
+                .field("rasterization_samples", &self.rasterization_samples)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for CommandBufferInheritanceRenderingInfo<'a> {
@@ -3747,7 +4589,7 @@ _marker: PhantomData
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCreationFeedbackFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct PipelineCreationFeedbackFlagBits(u32);
 
     impl PipelineCreationFeedbackFlagBits {
@@ -4047,7 +4889,7 @@ _marker: PhantomData
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccessFlagBits2.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct AccessFlagBits2(u64);
 
     impl AccessFlagBits2 {
@@ -4407,7 +5249,7 @@ _marker: PhantomData
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineStageFlagBits2.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct PipelineStageFlagBits2(u64);
 
     impl PipelineStageFlagBits2 {
@@ -4748,7 +5590,7 @@ _marker: PhantomData
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFormatFeatureFlagBits2.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct FormatFeatureFlagBits2(u64);
 
     impl FormatFeatureFlagBits2 {
@@ -4952,7 +5794,7 @@ _marker: PhantomData
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderingFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct RenderingFlagBits(u32);
 
     impl RenderingFlagBits {
@@ -5031,7 +5873,7 @@ _marker: PhantomData
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkToolPurposeFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct ToolPurposeFlagBits(u32);
 
     impl ToolPurposeFlagBits {
@@ -5071,7 +5913,7 @@ _marker: PhantomData
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubmitFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct SubmitFlagBits(u32);
 
     impl SubmitFlagBits {

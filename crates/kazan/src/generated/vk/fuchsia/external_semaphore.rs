@@ -23,6 +23,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImportSemaphoreZirconHandleInfoFUCHSIA<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImportSemaphoreZirconHandleInfoFUCHSIA")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("semaphore", &self.semaphore)
+                .field("flags", &self.flags)
+                .field("handle_type", &self.handle_type)
+                .field("zircon_handle", &self.zircon_handle)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportSemaphoreZirconHandleInfoFUCHSIA<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::IMPORT_SEMAPHORE_ZIRCON_HANDLE_INFO_FUCHSIA;
@@ -73,6 +86,17 @@ pub(super) mod defs {
         pub semaphore: Semaphore,
         pub handle_type: ExternalSemaphoreHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for SemaphoreGetZirconHandleInfoFUCHSIA<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SemaphoreGetZirconHandleInfoFUCHSIA")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("semaphore", &self.semaphore)
+                .field("handle_type", &self.handle_type)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for SemaphoreGetZirconHandleInfoFUCHSIA<'a> {

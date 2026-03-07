@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceMaintenance9FeaturesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceMaintenance9FeaturesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("maintenance9", &self.maintenance9)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMaintenance9FeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_MAINTENANCE_9_FEATURES_KHR;
@@ -55,6 +65,23 @@ pub(super) mod defs {
         pub image2_d_view_of3_d_sparse: Bool32,
         pub default_vertex_attribute_value: DefaultVertexAttributeValueKHR,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceMaintenance9PropertiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceMaintenance9PropertiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "image2_d_view_of3_d_sparse",
+                    &self.image2_d_view_of3_d_sparse,
+                )
+                .field(
+                    "default_vertex_attribute_value",
+                    &self.default_vertex_attribute_value,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMaintenance9PropertiesKHR<'a> {
@@ -102,6 +129,19 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub optimal_image_transfer_to_queue_families: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for QueueFamilyOwnershipTransferPropertiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("QueueFamilyOwnershipTransferPropertiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "optimal_image_transfer_to_queue_families",
+                    &self.optimal_image_transfer_to_queue_families,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for QueueFamilyOwnershipTransferPropertiesKHR<'a> {

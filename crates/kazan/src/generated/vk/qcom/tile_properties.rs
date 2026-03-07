@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceTilePropertiesFeaturesQCOM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceTilePropertiesFeaturesQCOM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("tile_properties", &self.tile_properties)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceTilePropertiesFeaturesQCOM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_TILE_PROPERTIES_FEATURES_QCOM;
@@ -59,6 +69,18 @@ pub(super) mod defs {
         pub apron_size: Extent2D,
         pub origin: Offset2D,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for TilePropertiesQCOM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("TilePropertiesQCOM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("tile_size", &self.tile_size)
+                .field("apron_size", &self.apron_size)
+                .field("origin", &self.origin)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for TilePropertiesQCOM<'a> {

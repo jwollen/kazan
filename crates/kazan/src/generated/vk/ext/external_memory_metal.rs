@@ -21,6 +21,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImportMemoryMetalHandleInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImportMemoryMetalHandleInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("handle_type", &self.handle_type)
+                .field("handle", &self.handle)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportMemoryMetalHandleInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_MEMORY_METAL_HANDLE_INFO_EXT;
     }
@@ -61,6 +72,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for MemoryMetalHandlePropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MemoryMetalHandlePropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("memory_type_bits", &self.memory_type_bits)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for MemoryMetalHandlePropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_METAL_HANDLE_PROPERTIES_EXT;
     }
@@ -92,6 +113,17 @@ pub(super) mod defs {
         pub memory: DeviceMemory,
         pub handle_type: ExternalMemoryHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for MemoryGetMetalHandleInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MemoryGetMetalHandleInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("memory", &self.memory)
+                .field("handle_type", &self.handle_type)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for MemoryGetMetalHandleInfoEXT<'a> {

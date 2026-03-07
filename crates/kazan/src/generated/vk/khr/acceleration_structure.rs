@@ -27,6 +27,20 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for WriteDescriptorSetAccelerationStructureKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("WriteDescriptorSetAccelerationStructureKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "acceleration_structure_count",
+                    &self.acceleration_structure_count,
+                )
+                .field("p_acceleration_structures", &self.p_acceleration_structures)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for WriteDescriptorSetAccelerationStructureKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_KHR;
@@ -69,6 +83,32 @@ pub(super) mod defs {
         pub acceleration_structure_host_commands: Bool32,
         pub descriptor_binding_acceleration_structure_update_after_bind: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceAccelerationStructureFeaturesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceAccelerationStructureFeaturesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("acceleration_structure", &self.acceleration_structure)
+                .field(
+                    "acceleration_structure_capture_replay",
+                    &self.acceleration_structure_capture_replay,
+                )
+                .field(
+                    "acceleration_structure_indirect_build",
+                    &self.acceleration_structure_indirect_build,
+                )
+                .field(
+                    "acceleration_structure_host_commands",
+                    &self.acceleration_structure_host_commands,
+                )
+                .field(
+                    "descriptor_binding_acceleration_structure_update_after_bind",
+                    &self.descriptor_binding_acceleration_structure_update_after_bind,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceAccelerationStructureFeaturesKHR<'a> {
@@ -157,6 +197,38 @@ pub(super) mod defs {
         pub max_descriptor_set_update_after_bind_acceleration_structures: u32,
         pub min_acceleration_structure_scratch_offset_alignment: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceAccelerationStructurePropertiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceAccelerationStructurePropertiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("max_geometry_count", &self.max_geometry_count)
+                .field("max_instance_count", &self.max_instance_count)
+                .field("max_primitive_count", &self.max_primitive_count)
+                .field(
+                    "max_per_stage_descriptor_acceleration_structures",
+                    &self.max_per_stage_descriptor_acceleration_structures,
+                )
+                .field(
+                    "max_per_stage_descriptor_update_after_bind_acceleration_structures",
+                    &self.max_per_stage_descriptor_update_after_bind_acceleration_structures,
+                )
+                .field(
+                    "max_descriptor_set_acceleration_structures",
+                    &self.max_descriptor_set_acceleration_structures,
+                )
+                .field(
+                    "max_descriptor_set_update_after_bind_acceleration_structures",
+                    &self.max_descriptor_set_update_after_bind_acceleration_structures,
+                )
+                .field(
+                    "min_acceleration_structure_scratch_offset_alignment",
+                    &self.min_acceleration_structure_scratch_offset_alignment,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceAccelerationStructurePropertiesKHR<'a> {
@@ -266,6 +338,22 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for AccelerationStructureGeometryTrianglesDataKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AccelerationStructureGeometryTrianglesDataKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("vertex_format", &self.vertex_format)
+                .field("vertex_data", &self.vertex_data)
+                .field("vertex_stride", &self.vertex_stride)
+                .field("max_vertex", &self.max_vertex)
+                .field("index_type", &self.index_type)
+                .field("index_data", &self.index_data)
+                .field("transform_data", &self.transform_data)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureGeometryTrianglesDataKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::ACCELERATION_STRUCTURE_GEOMETRY_TRIANGLES_DATA_KHR;
@@ -336,6 +424,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for AccelerationStructureGeometryAabbsDataKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AccelerationStructureGeometryAabbsDataKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("data", &self.data)
+                .field("stride", &self.stride)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureGeometryAabbsDataKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::ACCELERATION_STRUCTURE_GEOMETRY_AABBS_DATA_KHR;
@@ -374,6 +473,17 @@ pub(super) mod defs {
         pub array_of_pointers: Bool32,
         pub data: DeviceOrHostAddressConstKHR<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for AccelerationStructureGeometryInstancesDataKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AccelerationStructureGeometryInstancesDataKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("array_of_pointers", &self.array_of_pointers)
+                .field("data", &self.data)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureGeometryInstancesDataKHR<'a> {
@@ -415,6 +525,18 @@ pub(super) mod defs {
         pub geometry: AccelerationStructureGeometryDataKHR<'a>,
         pub flags: GeometryFlagsKHR,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for AccelerationStructureGeometryKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AccelerationStructureGeometryKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("geometry_type", &self.geometry_type)
+                .field("geometry", &self.geometry)
+                .field("flags", &self.flags)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureGeometryKHR<'a> {
@@ -467,6 +589,30 @@ pub(super) mod defs {
         pub pp_geometries: *const *const AccelerationStructureGeometryKHR<'a>,
         pub scratch_data: DeviceOrHostAddressKHR<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for AccelerationStructureBuildGeometryInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AccelerationStructureBuildGeometryInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("ty", &self.ty)
+                .field("flags", &self.flags)
+                .field("mode", &self.mode)
+                .field(
+                    "src_acceleration_structure",
+                    &self.src_acceleration_structure,
+                )
+                .field(
+                    "dst_acceleration_structure",
+                    &self.dst_acceleration_structure,
+                )
+                .field("geometry_count", &self.geometry_count)
+                .field("p_geometries", &self.p_geometries)
+                .field("pp_geometries", &self.pp_geometries)
+                .field("scratch_data", &self.scratch_data)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureBuildGeometryInfoKHR<'a> {
@@ -551,7 +697,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureBuildRangeInfoKHR.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct AccelerationStructureBuildRangeInfoKHR {
         pub primitive_count: u32,
         pub primitive_offset: u32,
@@ -594,6 +740,21 @@ pub(super) mod defs {
         pub ty: AccelerationStructureTypeKHR,
         pub device_address: DeviceAddress,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for AccelerationStructureCreateInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AccelerationStructureCreateInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("create_flags", &self.create_flags)
+                .field("buffer", &self.buffer)
+                .field("offset", &self.offset)
+                .field("size", &self.size)
+                .field("ty", &self.ty)
+                .field("device_address", &self.device_address)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureCreateInfoKHR<'a> {
@@ -650,7 +811,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAabbPositionsKHR.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct AabbPositionsKHR {
         pub min_x: f32,
         pub min_y: f32,
@@ -694,7 +855,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTransformMatrixKHR.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct TransformMatrixKHR {
         pub matrix: [[f32; 4]; 3],
     }
@@ -716,7 +877,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureInstanceKHR.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct AccelerationStructureInstanceKHR {
         pub transform: TransformMatrixKHR,
         pub instance_custom_index: u32,
@@ -788,6 +949,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for AccelerationStructureDeviceAddressInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AccelerationStructureDeviceAddressInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("acceleration_structure", &self.acceleration_structure)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureDeviceAddressInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::ACCELERATION_STRUCTURE_DEVICE_ADDRESS_INFO_KHR;
@@ -824,6 +995,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for AccelerationStructureVersionInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AccelerationStructureVersionInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_version_data", &self.p_version_data)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureVersionInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::ACCELERATION_STRUCTURE_VERSION_INFO_KHR;
@@ -852,6 +1033,18 @@ pub(super) mod defs {
         pub dst: AccelerationStructureKHR,
         pub mode: CopyAccelerationStructureModeKHR,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for CopyAccelerationStructureInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CopyAccelerationStructureInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src", &self.src)
+                .field("dst", &self.dst)
+                .field("mode", &self.mode)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for CopyAccelerationStructureInfoKHR<'a> {
@@ -898,6 +1091,18 @@ pub(super) mod defs {
         pub dst: DeviceOrHostAddressKHR<'a>,
         pub mode: CopyAccelerationStructureModeKHR,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for CopyAccelerationStructureToMemoryInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CopyAccelerationStructureToMemoryInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src", &self.src)
+                .field("dst", &self.dst)
+                .field("mode", &self.mode)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for CopyAccelerationStructureToMemoryInfoKHR<'a> {
@@ -947,6 +1152,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for CopyMemoryToAccelerationStructureInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CopyMemoryToAccelerationStructureInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src", &self.src)
+                .field("dst", &self.dst)
+                .field("mode", &self.mode)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for CopyMemoryToAccelerationStructureInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::COPY_MEMORY_TO_ACCELERATION_STRUCTURE_INFO_KHR;
@@ -992,6 +1209,21 @@ pub(super) mod defs {
         pub update_scratch_size: DeviceSize,
         pub build_scratch_size: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for AccelerationStructureBuildSizesInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AccelerationStructureBuildSizesInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "acceleration_structure_size",
+                    &self.acceleration_structure_size,
+                )
+                .field("update_scratch_size", &self.update_scratch_size)
+                .field("build_scratch_size", &self.build_scratch_size)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureBuildSizesInfoKHR<'a> {
@@ -1040,6 +1272,13 @@ pub(super) mod defs {
         pub host_address: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+
+    impl fmt::Debug for DeviceOrHostAddressKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DeviceOrHostAddressKHR").finish()
+        }
+    }
+
     impl Default for DeviceOrHostAddressKHR<'_> {
         fn default() -> Self {
             unsafe { core::mem::zeroed() }
@@ -1054,6 +1293,13 @@ pub(super) mod defs {
         pub host_address: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+
+    impl fmt::Debug for DeviceOrHostAddressConstKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DeviceOrHostAddressConstKHR").finish()
+        }
+    }
+
     impl Default for DeviceOrHostAddressConstKHR<'_> {
         fn default() -> Self {
             unsafe { core::mem::zeroed() }
@@ -1069,6 +1315,14 @@ pub(super) mod defs {
         pub instances: AccelerationStructureGeometryInstancesDataKHR<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
+    impl fmt::Debug for AccelerationStructureGeometryDataKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AccelerationStructureGeometryDataKHR")
+                .finish()
+        }
+    }
+
     impl Default for AccelerationStructureGeometryDataKHR<'_> {
         fn default() -> Self {
             unsafe { core::mem::zeroed() }
@@ -1289,7 +1543,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGeometryFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct GeometryFlagBitsKHR(u32);
 
     impl GeometryFlagBitsKHR {
@@ -1364,7 +1618,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGeometryInstanceFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct GeometryInstanceFlagBitsKHR(u32);
 
     impl GeometryInstanceFlagBitsKHR {
@@ -1485,7 +1739,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBuildAccelerationStructureFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct BuildAccelerationStructureFlagBitsKHR(u32);
 
     impl BuildAccelerationStructureFlagBitsKHR {
@@ -1558,7 +1812,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureCreateFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct AccelerationStructureCreateFlagBitsKHR(u32);
 
     impl AccelerationStructureCreateFlagBitsKHR {

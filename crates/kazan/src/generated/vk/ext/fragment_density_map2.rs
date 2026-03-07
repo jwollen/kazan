@@ -20,6 +20,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceFragmentDensityMap2FeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceFragmentDensityMap2FeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "fragment_density_map_deferred",
+                    &self.fragment_density_map_deferred,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentDensityMap2FeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_2_FEATURES_EXT;
@@ -63,6 +76,28 @@ pub(super) mod defs {
         pub max_subsampled_array_layers: u32,
         pub max_descriptor_set_subsampled_samplers: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceFragmentDensityMap2PropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceFragmentDensityMap2PropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("subsampled_loads", &self.subsampled_loads)
+                .field(
+                    "subsampled_coarse_reconstruction_early_access",
+                    &self.subsampled_coarse_reconstruction_early_access,
+                )
+                .field(
+                    "max_subsampled_array_layers",
+                    &self.max_subsampled_array_layers,
+                )
+                .field(
+                    "max_descriptor_set_subsampled_samplers",
+                    &self.max_descriptor_set_subsampled_samplers,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentDensityMap2PropertiesEXT<'a> {

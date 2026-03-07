@@ -553,7 +553,7 @@ pub fn write_bitmask(
     writeln!(
         file,
         "#[repr(transparent)]
-        #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+        #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
         pub struct {}(u{});\n",
         bitmask_name,
         bitmask.bitwidth.unwrap_or(32),

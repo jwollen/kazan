@@ -24,6 +24,20 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImportSemaphoreWin32HandleInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImportSemaphoreWin32HandleInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("semaphore", &self.semaphore)
+                .field("flags", &self.flags)
+                .field("handle_type", &self.handle_type)
+                .field("handle", &self.handle)
+                .field("name", &self.name)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportSemaphoreWin32HandleInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR;
     }
@@ -82,6 +96,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ExportSemaphoreWin32HandleInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExportSemaphoreWin32HandleInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_attributes", &self.p_attributes)
+                .field("dw_access", &self.dw_access)
+                .field("name", &self.name)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ExportSemaphoreWin32HandleInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR;
     }
@@ -131,6 +157,25 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for D3D12FenceSubmitInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("D3D12FenceSubmitInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "wait_semaphore_values_count",
+                    &self.wait_semaphore_values_count,
+                )
+                .field("p_wait_semaphore_values", &self.p_wait_semaphore_values)
+                .field(
+                    "signal_semaphore_values_count",
+                    &self.signal_semaphore_values_count,
+                )
+                .field("p_signal_semaphore_values", &self.p_signal_semaphore_values)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for D3D12FenceSubmitInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::D3D12_FENCE_SUBMIT_INFO_KHR;
     }
@@ -174,6 +219,17 @@ pub(super) mod defs {
         pub semaphore: Semaphore,
         pub handle_type: ExternalSemaphoreHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for SemaphoreGetWin32HandleInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SemaphoreGetWin32HandleInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("semaphore", &self.semaphore)
+                .field("handle_type", &self.handle_type)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for SemaphoreGetWin32HandleInfoKHR<'a> {

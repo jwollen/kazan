@@ -21,6 +21,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceShaderCoreProperties2AMD<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceShaderCoreProperties2AMD")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("shader_core_features", &self.shader_core_features)
+                .field("active_compute_unit_count", &self.active_compute_unit_count)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderCoreProperties2AMD<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_2_AMD;
@@ -75,7 +86,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderCorePropertiesFlagBitsAMD.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct ShaderCorePropertiesFlagBitsAMD(u32);
 
     impl ShaderCorePropertiesFlagBitsAMD {}

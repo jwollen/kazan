@@ -19,6 +19,15 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for HostAddressRangeEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("HostAddressRangeEXT")
+                .field("address", &self.address)
+                .field("size", &self.size)
+                .finish()
+        }
+    }
+
     impl Default for HostAddressRangeEXT<'_> {
         fn default() -> Self {
             Self {
@@ -46,6 +55,15 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for HostAddressRangeConstEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("HostAddressRangeConstEXT")
+                .field("address", &self.address)
+                .field("size", &self.size)
+                .finish()
+        }
+    }
+
     impl Default for HostAddressRangeConstEXT<'_> {
         fn default() -> Self {
             Self {
@@ -66,7 +84,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceAddressRangeEXT.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct DeviceAddressRangeEXT {
         pub address: DeviceAddress,
         pub size: DeviceSize,
@@ -93,6 +111,17 @@ pub(super) mod defs {
         pub format: Format,
         pub address_range: DeviceAddressRangeEXT,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for TexelBufferDescriptorInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("TexelBufferDescriptorInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("format", &self.format)
+                .field("address_range", &self.address_range)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for TexelBufferDescriptorInfoEXT<'a> {
@@ -134,6 +163,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImageDescriptorInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageDescriptorInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_view", &self.p_view)
+                .field("layout", &self.layout)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImageDescriptorInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_DESCRIPTOR_INFO_EXT;
     }
@@ -171,6 +211,17 @@ pub(super) mod defs {
         pub ty: DescriptorType,
         pub data: ResourceDescriptorDataEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ResourceDescriptorInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ResourceDescriptorInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("ty", &self.ty)
+                .field("data", &self.data)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ResourceDescriptorInfoEXT<'a> {
@@ -211,6 +262,18 @@ pub(super) mod defs {
         pub reserved_range_offset: DeviceSize,
         pub reserved_range_size: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for BindHeapInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BindHeapInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("heap_range", &self.heap_range)
+                .field("reserved_range_offset", &self.reserved_range_offset)
+                .field("reserved_range_size", &self.reserved_range_size)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for BindHeapInfoEXT<'a> {
@@ -258,6 +321,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PushDataInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PushDataInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("offset", &self.offset)
+                .field("data", &self.data)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PushDataInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PUSH_DATA_INFO_EXT;
     }
@@ -296,6 +370,18 @@ pub(super) mod defs {
         pub sampler_heap_offset: u32,
         pub sampler_heap_array_stride: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DescriptorMappingSourceConstantOffsetEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DescriptorMappingSourceConstantOffsetEXT")
+                .field("heap_offset", &self.heap_offset)
+                .field("heap_array_stride", &self.heap_array_stride)
+                .field("p_embedded_sampler", &self.p_embedded_sampler)
+                .field("sampler_heap_offset", &self.sampler_heap_offset)
+                .field("sampler_heap_array_stride", &self.sampler_heap_array_stride)
+                .finish()
+        }
     }
 
     impl Default for DescriptorMappingSourceConstantOffsetEXT<'_> {
@@ -353,6 +439,26 @@ pub(super) mod defs {
         pub sampler_heap_index_stride: u32,
         pub sampler_heap_array_stride: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DescriptorMappingSourcePushIndexEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DescriptorMappingSourcePushIndexEXT")
+                .field("heap_offset", &self.heap_offset)
+                .field("push_offset", &self.push_offset)
+                .field("heap_index_stride", &self.heap_index_stride)
+                .field("heap_array_stride", &self.heap_array_stride)
+                .field("p_embedded_sampler", &self.p_embedded_sampler)
+                .field(
+                    "use_combined_image_sampler_index",
+                    &self.use_combined_image_sampler_index,
+                )
+                .field("sampler_heap_offset", &self.sampler_heap_offset)
+                .field("sampler_push_offset", &self.sampler_push_offset)
+                .field("sampler_heap_index_stride", &self.sampler_heap_index_stride)
+                .field("sampler_heap_array_stride", &self.sampler_heap_array_stride)
+                .finish()
+        }
     }
 
     impl Default for DescriptorMappingSourcePushIndexEXT<'_> {
@@ -445,6 +551,28 @@ pub(super) mod defs {
         pub sampler_heap_index_stride: u32,
         pub sampler_heap_array_stride: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DescriptorMappingSourceIndirectIndexEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DescriptorMappingSourceIndirectIndexEXT")
+                .field("heap_offset", &self.heap_offset)
+                .field("push_offset", &self.push_offset)
+                .field("address_offset", &self.address_offset)
+                .field("heap_index_stride", &self.heap_index_stride)
+                .field("heap_array_stride", &self.heap_array_stride)
+                .field("p_embedded_sampler", &self.p_embedded_sampler)
+                .field(
+                    "use_combined_image_sampler_index",
+                    &self.use_combined_image_sampler_index,
+                )
+                .field("sampler_heap_offset", &self.sampler_heap_offset)
+                .field("sampler_push_offset", &self.sampler_push_offset)
+                .field("sampler_address_offset", &self.sampler_address_offset)
+                .field("sampler_heap_index_stride", &self.sampler_heap_index_stride)
+                .field("sampler_heap_array_stride", &self.sampler_heap_array_stride)
+                .finish()
+        }
     }
 
     impl Default for DescriptorMappingSourceIndirectIndexEXT<'_> {
@@ -549,6 +677,26 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DescriptorMappingSourceIndirectIndexArrayEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DescriptorMappingSourceIndirectIndexArrayEXT")
+                .field("heap_offset", &self.heap_offset)
+                .field("push_offset", &self.push_offset)
+                .field("address_offset", &self.address_offset)
+                .field("heap_index_stride", &self.heap_index_stride)
+                .field("p_embedded_sampler", &self.p_embedded_sampler)
+                .field(
+                    "use_combined_image_sampler_index",
+                    &self.use_combined_image_sampler_index,
+                )
+                .field("sampler_heap_offset", &self.sampler_heap_offset)
+                .field("sampler_push_offset", &self.sampler_push_offset)
+                .field("sampler_address_offset", &self.sampler_address_offset)
+                .field("sampler_heap_index_stride", &self.sampler_heap_index_stride)
+                .finish()
+        }
+    }
+
     impl Default for DescriptorMappingSourceIndirectIndexArrayEXT<'_> {
         fn default() -> Self {
             Self {
@@ -624,7 +772,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorMappingSourceHeapDataEXT.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct DescriptorMappingSourceHeapDataEXT {
         pub heap_offset: u32,
         pub push_offset: u32,
@@ -657,6 +805,29 @@ pub(super) mod defs {
         pub sampler_heap_index_stride: u32,
         pub sampler_heap_array_stride: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DescriptorMappingSourceShaderRecordIndexEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DescriptorMappingSourceShaderRecordIndexEXT")
+                .field("heap_offset", &self.heap_offset)
+                .field("shader_record_offset", &self.shader_record_offset)
+                .field("heap_index_stride", &self.heap_index_stride)
+                .field("heap_array_stride", &self.heap_array_stride)
+                .field("p_embedded_sampler", &self.p_embedded_sampler)
+                .field(
+                    "use_combined_image_sampler_index",
+                    &self.use_combined_image_sampler_index,
+                )
+                .field("sampler_heap_offset", &self.sampler_heap_offset)
+                .field(
+                    "sampler_shader_record_offset",
+                    &self.sampler_shader_record_offset,
+                )
+                .field("sampler_heap_index_stride", &self.sampler_heap_index_stride)
+                .field("sampler_heap_array_stride", &self.sampler_heap_array_stride)
+                .finish()
+        }
     }
 
     impl Default for DescriptorMappingSourceShaderRecordIndexEXT<'_> {
@@ -734,7 +905,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorMappingSourceIndirectAddressEXT.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct DescriptorMappingSourceIndirectAddressEXT {
         pub push_offset: u32,
         pub address_offset: u32,
@@ -765,6 +936,21 @@ pub(super) mod defs {
         pub source: DescriptorMappingSourceEXT,
         pub source_data: DescriptorMappingSourceDataEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DescriptorSetAndBindingMappingEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DescriptorSetAndBindingMappingEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("descriptor_set", &self.descriptor_set)
+                .field("first_binding", &self.first_binding)
+                .field("binding_count", &self.binding_count)
+                .field("resource_mask", &self.resource_mask)
+                .field("source", &self.source)
+                .field("source_data", &self.source_data)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DescriptorSetAndBindingMappingEXT<'a> {
@@ -830,6 +1016,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ShaderDescriptorSetAndBindingMappingInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ShaderDescriptorSetAndBindingMappingInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("mapping_count", &self.mapping_count)
+                .field("p_mappings", &self.p_mappings)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ShaderDescriptorSetAndBindingMappingInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::SHADER_DESCRIPTOR_SET_AND_BINDING_MAPPING_INFO_EXT;
@@ -874,6 +1071,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SamplerCustomBorderColorIndexCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SamplerCustomBorderColorIndexCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("index", &self.index)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SamplerCustomBorderColorIndexCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::SAMPLER_CUSTOM_BORDER_COLOR_INDEX_CREATE_INFO_EXT;
@@ -907,6 +1114,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub p_data: *const HostAddressRangeConstEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for OpaqueCaptureDataCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("OpaqueCaptureDataCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_data", &self.p_data)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for OpaqueCaptureDataCreateInfoEXT<'a> {
@@ -943,6 +1160,17 @@ pub(super) mod defs {
         pub push_data_offset: u32,
         pub push_data_size: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for IndirectCommandsLayoutPushDataTokenNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("IndirectCommandsLayoutPushDataTokenNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("push_data_offset", &self.push_data_offset)
+                .field("push_data_size", &self.push_data_size)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for IndirectCommandsLayoutPushDataTokenNV<'a> {
@@ -989,6 +1217,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SubsampledImageFormatPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SubsampledImageFormatPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "subsampled_image_descriptor_count",
+                    &self.subsampled_image_descriptor_count,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SubsampledImageFormatPropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SUBSAMPLED_IMAGE_FORMAT_PROPERTIES_EXT;
     }
@@ -1025,6 +1266,20 @@ pub(super) mod defs {
         pub descriptor_heap: Bool32,
         pub descriptor_heap_capture_replay: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceDescriptorHeapFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceDescriptorHeapFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("descriptor_heap", &self.descriptor_heap)
+                .field(
+                    "descriptor_heap_capture_replay",
+                    &self.descriptor_heap_capture_replay,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDescriptorHeapFeaturesEXT<'a> {
@@ -1091,6 +1346,64 @@ pub(super) mod defs {
         pub sparse_descriptor_heaps: Bool32,
         pub protected_descriptor_heaps: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceDescriptorHeapPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceDescriptorHeapPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("sampler_heap_alignment", &self.sampler_heap_alignment)
+                .field("resource_heap_alignment", &self.resource_heap_alignment)
+                .field("max_sampler_heap_size", &self.max_sampler_heap_size)
+                .field("max_resource_heap_size", &self.max_resource_heap_size)
+                .field(
+                    "min_sampler_heap_reserved_range",
+                    &self.min_sampler_heap_reserved_range,
+                )
+                .field(
+                    "min_sampler_heap_reserved_range_with_embedded",
+                    &self.min_sampler_heap_reserved_range_with_embedded,
+                )
+                .field(
+                    "min_resource_heap_reserved_range",
+                    &self.min_resource_heap_reserved_range,
+                )
+                .field("sampler_descriptor_size", &self.sampler_descriptor_size)
+                .field("image_descriptor_size", &self.image_descriptor_size)
+                .field("buffer_descriptor_size", &self.buffer_descriptor_size)
+                .field(
+                    "sampler_descriptor_alignment",
+                    &self.sampler_descriptor_alignment,
+                )
+                .field(
+                    "image_descriptor_alignment",
+                    &self.image_descriptor_alignment,
+                )
+                .field(
+                    "buffer_descriptor_alignment",
+                    &self.buffer_descriptor_alignment,
+                )
+                .field("max_push_data_size", &self.max_push_data_size)
+                .field(
+                    "image_capture_replay_opaque_data_size",
+                    &self.image_capture_replay_opaque_data_size,
+                )
+                .field(
+                    "max_descriptor_heap_embedded_samplers",
+                    &self.max_descriptor_heap_embedded_samplers,
+                )
+                .field(
+                    "sampler_ycbcr_conversion_count",
+                    &self.sampler_ycbcr_conversion_count,
+                )
+                .field("sparse_descriptor_heaps", &self.sparse_descriptor_heaps)
+                .field(
+                    "protected_descriptor_heaps",
+                    &self.protected_descriptor_heaps,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDescriptorHeapPropertiesEXT<'a> {
@@ -1268,6 +1581,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for CommandBufferInheritanceDescriptorHeapInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CommandBufferInheritanceDescriptorHeapInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_sampler_heap_bind_info", &self.p_sampler_heap_bind_info)
+                .field("p_resource_heap_bind_info", &self.p_resource_heap_bind_info)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for CommandBufferInheritanceDescriptorHeapInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::COMMAND_BUFFER_INHERITANCE_DESCRIPTOR_HEAP_INFO_EXT;
@@ -1318,6 +1642,24 @@ pub(super) mod defs {
         pub tensor_descriptor_alignment: DeviceSize,
         pub tensor_capture_replay_opaque_data_size: usize,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceDescriptorHeapTensorPropertiesARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceDescriptorHeapTensorPropertiesARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("tensor_descriptor_size", &self.tensor_descriptor_size)
+                .field(
+                    "tensor_descriptor_alignment",
+                    &self.tensor_descriptor_alignment,
+                )
+                .field(
+                    "tensor_capture_replay_opaque_data_size",
+                    &self.tensor_capture_replay_opaque_data_size,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDescriptorHeapTensorPropertiesARM<'a> {
@@ -1376,6 +1718,13 @@ pub(super) mod defs {
         pub p_tensor_arm: *const TensorViewCreateInfoARM<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
+    impl fmt::Debug for ResourceDescriptorDataEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ResourceDescriptorDataEXT").finish()
+        }
+    }
+
     impl Default for ResourceDescriptorDataEXT<'_> {
         fn default() -> Self {
             unsafe { core::mem::zeroed() }
@@ -1399,6 +1748,13 @@ pub(super) mod defs {
         pub shader_record_address_offset: u32,
         pub _marker: PhantomData<&'a ()>,
     }
+
+    impl fmt::Debug for DescriptorMappingSourceDataEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DescriptorMappingSourceDataEXT").finish()
+        }
+    }
+
     impl Default for DescriptorMappingSourceDataEXT<'_> {
         fn default() -> Self {
             unsafe { core::mem::zeroed() }
@@ -1525,7 +1881,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSpirvResourceTypeFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct SpirvResourceTypeFlagBitsEXT(u32);
 
     impl SpirvResourceTypeFlagBitsEXT {

@@ -20,6 +20,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceVertexInputDynamicStateFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "vertex_input_dynamic_state",
+                    &self.vertex_input_dynamic_state,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_VERTEX_INPUT_DYNAMIC_STATE_FEATURES_EXT;
@@ -63,6 +76,19 @@ pub(super) mod defs {
         pub input_rate: VertexInputRate,
         pub divisor: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VertexInputBindingDescription2EXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VertexInputBindingDescription2EXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("binding", &self.binding)
+                .field("stride", &self.stride)
+                .field("input_rate", &self.input_rate)
+                .field("divisor", &self.divisor)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VertexInputBindingDescription2EXT<'a> {
@@ -116,6 +142,19 @@ pub(super) mod defs {
         pub format: Format,
         pub offset: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VertexInputAttributeDescription2EXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VertexInputAttributeDescription2EXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("location", &self.location)
+                .field("binding", &self.binding)
+                .field("format", &self.format)
+                .field("offset", &self.offset)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VertexInputAttributeDescription2EXT<'a> {

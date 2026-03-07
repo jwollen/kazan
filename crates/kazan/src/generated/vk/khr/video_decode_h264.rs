@@ -21,6 +21,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoDecodeH264ProfileInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoDecodeH264ProfileInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("std_profile_idc", &self.std_profile_idc)
+                .field("picture_layout", &self.picture_layout)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeH264ProfileInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_H264_PROFILE_INFO_KHR;
     }
@@ -66,6 +77,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoDecodeH264CapabilitiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoDecodeH264CapabilitiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("max_level_idc", &self.max_level_idc)
+                .field("field_offset_granularity", &self.field_offset_granularity)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeH264CapabilitiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_H264_CAPABILITIES_KHR;
     }
@@ -107,6 +129,19 @@ pub(super) mod defs {
         pub std_pps_count: u32,
         pub p_std_pp_ss: *const StdVideoH264PictureParameterSet<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoDecodeH264SessionParametersAddInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoDecodeH264SessionParametersAddInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("std_sps_count", &self.std_sps_count)
+                .field("p_std_sp_ss", &self.p_std_sp_ss)
+                .field("std_pps_count", &self.std_pps_count)
+                .field("p_std_pp_ss", &self.p_std_pp_ss)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeH264SessionParametersAddInfoKHR<'a> {
@@ -157,6 +192,18 @@ pub(super) mod defs {
         pub max_std_pps_count: u32,
         pub p_parameters_add_info: *const VideoDecodeH264SessionParametersAddInfoKHR<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoDecodeH264SessionParametersCreateInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoDecodeH264SessionParametersCreateInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("max_std_sps_count", &self.max_std_sps_count)
+                .field("max_std_pps_count", &self.max_std_pps_count)
+                .field("p_parameters_add_info", &self.p_parameters_add_info)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeH264SessionParametersCreateInfoKHR<'a> {
@@ -214,6 +261,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoDecodeH264PictureInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoDecodeH264PictureInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_std_picture_info", &self.p_std_picture_info)
+                .field("slice_count", &self.slice_count)
+                .field("p_slice_offsets", &self.p_slice_offsets)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeH264PictureInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_H264_PICTURE_INFO_KHR;
     }
@@ -257,6 +316,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub p_std_reference_info: *const StdVideoDecodeH264ReferenceInfo,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoDecodeH264DpbSlotInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoDecodeH264DpbSlotInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_std_reference_info", &self.p_std_reference_info)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeH264DpbSlotInfoKHR<'a> {
@@ -318,7 +387,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeH264PictureLayoutFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct VideoDecodeH264PictureLayoutFlagBitsKHR(u32);
 
     impl VideoDecodeH264PictureLayoutFlagBitsKHR {

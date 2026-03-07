@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceDeviceMemoryReportFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceDeviceMemoryReportFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("device_memory_report", &self.device_memory_report)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDeviceMemoryReportFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_DEVICE_MEMORY_REPORT_FEATURES_EXT;
@@ -59,6 +69,21 @@ pub(super) mod defs {
         pub pfn_user_callback: Option<PFN_vkDeviceMemoryReportCallbackEXT>,
         pub p_user_data: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DeviceDeviceMemoryReportCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DeviceDeviceMemoryReportCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field(
+                    "pfn_user_callback",
+                    &self.pfn_user_callback.map(|f| f as *const ()),
+                )
+                .field("p_user_data", &self.p_user_data)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DeviceDeviceMemoryReportCreateInfoEXT<'a> {
@@ -115,6 +140,22 @@ pub(super) mod defs {
         pub object_handle: u64,
         pub heap_index: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DeviceMemoryReportCallbackDataEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DeviceMemoryReportCallbackDataEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("ty", &self.ty)
+                .field("memory_object_id", &self.memory_object_id)
+                .field("size", &self.size)
+                .field("object_type", &self.object_type)
+                .field("object_handle", &self.object_handle)
+                .field("heap_index", &self.heap_index)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DeviceMemoryReportCallbackDataEXT<'a> {

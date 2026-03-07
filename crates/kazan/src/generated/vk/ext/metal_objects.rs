@@ -27,6 +27,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ExportMetalObjectCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExportMetalObjectCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("export_object_type", &self.export_object_type)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ExportMetalObjectCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_METAL_OBJECT_CREATE_INFO_EXT;
     }
@@ -69,6 +79,15 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ExportMetalObjectsInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExportMetalObjectsInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ExportMetalObjectsInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_METAL_OBJECTS_INFO_EXT;
     }
@@ -93,6 +112,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub mtl_device: MTLDevice_id,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ExportMetalDeviceInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExportMetalDeviceInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("mtl_device", &self.mtl_device)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ExportMetalDeviceInfoEXT<'a> {
@@ -128,6 +157,17 @@ pub(super) mod defs {
         pub queue: Queue,
         pub mtl_command_queue: MTLCommandQueue_id,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ExportMetalCommandQueueInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExportMetalCommandQueueInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("queue", &self.queue)
+                .field("mtl_command_queue", &self.mtl_command_queue)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ExportMetalCommandQueueInfoEXT<'a> {
@@ -171,6 +211,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ExportMetalBufferInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExportMetalBufferInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("memory", &self.memory)
+                .field("mtl_buffer", &self.mtl_buffer)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ExportMetalBufferInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_METAL_BUFFER_INFO_EXT;
     }
@@ -211,6 +262,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImportMetalBufferInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImportMetalBufferInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("mtl_buffer", &self.mtl_buffer)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportMetalBufferInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_METAL_BUFFER_INFO_EXT;
     }
@@ -247,6 +308,20 @@ pub(super) mod defs {
         pub plane: ImageAspectFlagBits,
         pub mtl_texture: MTLTexture_id,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ExportMetalTextureInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExportMetalTextureInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("image", &self.image)
+                .field("image_view", &self.image_view)
+                .field("buffer_view", &self.buffer_view)
+                .field("plane", &self.plane)
+                .field("mtl_texture", &self.mtl_texture)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ExportMetalTextureInfoEXT<'a> {
@@ -308,6 +383,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImportMetalTextureInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImportMetalTextureInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("plane", &self.plane)
+                .field("mtl_texture", &self.mtl_texture)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportMetalTextureInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_METAL_TEXTURE_INFO_EXT;
     }
@@ -347,6 +433,17 @@ pub(super) mod defs {
         pub image: Image,
         pub io_surface: IOSurfaceRef,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ExportMetalIOSurfaceInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExportMetalIOSurfaceInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("image", &self.image)
+                .field("io_surface", &self.io_surface)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ExportMetalIOSurfaceInfoEXT<'a> {
@@ -389,6 +486,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImportMetalIOSurfaceInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImportMetalIOSurfaceInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("io_surface", &self.io_surface)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportMetalIOSurfaceInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_METAL_IO_SURFACE_INFO_EXT;
     }
@@ -423,6 +530,18 @@ pub(super) mod defs {
         pub event: Event,
         pub mtl_shared_event: MTLSharedEvent_id,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ExportMetalSharedEventInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExportMetalSharedEventInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("semaphore", &self.semaphore)
+                .field("event", &self.event)
+                .field("mtl_shared_event", &self.mtl_shared_event)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ExportMetalSharedEventInfoEXT<'a> {
@@ -469,6 +588,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub mtl_shared_event: MTLSharedEvent_id,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ImportMetalSharedEventInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImportMetalSharedEventInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("mtl_shared_event", &self.mtl_shared_event)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ImportMetalSharedEventInfoEXT<'a> {
@@ -551,7 +680,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalObjectTypeFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct ExportMetalObjectTypeFlagBitsEXT(u32);
 
     impl ExportMetalObjectTypeFlagBitsEXT {

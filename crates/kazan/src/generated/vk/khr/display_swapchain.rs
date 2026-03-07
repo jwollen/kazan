@@ -22,6 +22,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DisplayPresentInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DisplayPresentInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src_rect", &self.src_rect)
+                .field("dst_rect", &self.dst_rect)
+                .field("persistent", &self.persistent)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DisplayPresentInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DISPLAY_PRESENT_INFO_KHR;
     }

@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DeviceMemoryOverallocationCreateInfoAMD<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DeviceMemoryOverallocationCreateInfoAMD")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("overallocation_behavior", &self.overallocation_behavior)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DeviceMemoryOverallocationCreateInfoAMD<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD;

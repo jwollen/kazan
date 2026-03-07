@@ -23,6 +23,31 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ValidationFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ValidationFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "enabled_validation_feature_count",
+                    &self.enabled_validation_feature_count,
+                )
+                .field(
+                    "p_enabled_validation_features",
+                    &self.p_enabled_validation_features,
+                )
+                .field(
+                    "disabled_validation_feature_count",
+                    &self.disabled_validation_feature_count,
+                )
+                .field(
+                    "p_disabled_validation_features",
+                    &self.p_disabled_validation_features,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ValidationFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VALIDATION_FEATURES_EXT;
     }

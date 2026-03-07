@@ -27,6 +27,29 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PipelineCoverageModulationStateCreateInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineCoverageModulationStateCreateInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("coverage_modulation_mode", &self.coverage_modulation_mode)
+                .field(
+                    "coverage_modulation_table_enable",
+                    &self.coverage_modulation_table_enable,
+                )
+                .field(
+                    "coverage_modulation_table_count",
+                    &self.coverage_modulation_table_count,
+                )
+                .field(
+                    "p_coverage_modulation_table",
+                    &self.p_coverage_modulation_table,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineCoverageModulationStateCreateInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_COVERAGE_MODULATION_STATE_CREATE_INFO_NV;

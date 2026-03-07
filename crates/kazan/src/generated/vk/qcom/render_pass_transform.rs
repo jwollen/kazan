@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for RenderPassTransformBeginInfoQCOM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RenderPassTransformBeginInfoQCOM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("transform", &self.transform)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for RenderPassTransformBeginInfoQCOM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::RENDER_PASS_TRANSFORM_BEGIN_INFO_QCOM;
     }
@@ -53,6 +63,17 @@ pub(super) mod defs {
         pub transform: SurfaceTransformFlagBitsKHR,
         pub render_area: Rect2D,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for CommandBufferInheritanceRenderPassTransformInfoQCOM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CommandBufferInheritanceRenderPassTransformInfoQCOM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("transform", &self.transform)
+                .field("render_area", &self.render_area)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for CommandBufferInheritanceRenderPassTransformInfoQCOM<'a> {

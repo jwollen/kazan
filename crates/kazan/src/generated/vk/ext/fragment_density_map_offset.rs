@@ -24,6 +24,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "fragment_density_map_offset",
+                    &self.fragment_density_map_offset,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_EXT;
@@ -66,6 +79,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceFragmentDensityMapOffsetPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceFragmentDensityMapOffsetPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "fragment_density_offset_granularity",
+                    &self.fragment_density_offset_granularity,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentDensityMapOffsetPropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_EXT;
@@ -106,6 +132,23 @@ pub(super) mod defs {
         pub fragment_density_offset_count: u32,
         pub p_fragment_density_offsets: *const Offset2D,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for RenderPassFragmentDensityMapOffsetEndInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RenderPassFragmentDensityMapOffsetEndInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "fragment_density_offset_count",
+                    &self.fragment_density_offset_count,
+                )
+                .field(
+                    "p_fragment_density_offsets",
+                    &self.p_fragment_density_offsets,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for RenderPassFragmentDensityMapOffsetEndInfoEXT<'a> {

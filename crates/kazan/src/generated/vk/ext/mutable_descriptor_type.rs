@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceMutableDescriptorTypeFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceMutableDescriptorTypeFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("mutable_descriptor_type", &self.mutable_descriptor_type)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMutableDescriptorTypeFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT;
@@ -61,6 +71,15 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for MutableDescriptorTypeListEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MutableDescriptorTypeListEXT")
+                .field("descriptor_type_count", &self.descriptor_type_count)
+                .field("p_descriptor_types", &self.p_descriptor_types)
+                .finish()
+        }
+    }
+
     impl Default for MutableDescriptorTypeListEXT<'_> {
         fn default() -> Self {
             Self {
@@ -88,6 +107,23 @@ pub(super) mod defs {
         pub mutable_descriptor_type_list_count: u32,
         pub p_mutable_descriptor_type_lists: *const MutableDescriptorTypeListEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for MutableDescriptorTypeCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MutableDescriptorTypeCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "mutable_descriptor_type_list_count",
+                    &self.mutable_descriptor_type_list_count,
+                )
+                .field(
+                    "p_mutable_descriptor_type_lists",
+                    &self.p_mutable_descriptor_type_lists,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for MutableDescriptorTypeCreateInfoEXT<'a> {

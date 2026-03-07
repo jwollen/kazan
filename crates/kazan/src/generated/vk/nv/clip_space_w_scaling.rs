@@ -12,7 +12,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkViewportWScalingNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct ViewportWScalingNV {
         pub xcoeff: f32,
         pub ycoeff: f32,
@@ -40,6 +40,18 @@ pub(super) mod defs {
         pub viewport_count: u32,
         pub p_viewport_w_scalings: *const ViewportWScalingNV,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PipelineViewportWScalingStateCreateInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineViewportWScalingStateCreateInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("viewport_w_scaling_enable", &self.viewport_w_scaling_enable)
+                .field("viewport_count", &self.viewport_count)
+                .field("p_viewport_w_scalings", &self.p_viewport_w_scalings)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PipelineViewportWScalingStateCreateInfoNV<'a> {

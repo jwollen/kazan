@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for TileMemoryBindInfoQCOM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("TileMemoryBindInfoQCOM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("memory", &self.memory)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for TileMemoryBindInfoQCOM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::TILE_MEMORY_BIND_INFO_QCOM;
     }
@@ -52,6 +62,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub tile_memory_heap: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceTileMemoryHeapFeaturesQCOM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceTileMemoryHeapFeaturesQCOM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("tile_memory_heap", &self.tile_memory_heap)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceTileMemoryHeapFeaturesQCOM<'a> {
@@ -92,6 +112,17 @@ pub(super) mod defs {
         pub queue_submit_boundary: Bool32,
         pub tile_buffer_transfers: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceTileMemoryHeapPropertiesQCOM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceTileMemoryHeapPropertiesQCOM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("queue_submit_boundary", &self.queue_submit_boundary)
+                .field("tile_buffer_transfers", &self.tile_buffer_transfers)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceTileMemoryHeapPropertiesQCOM<'a> {
@@ -138,6 +169,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for TileMemorySizeInfoQCOM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("TileMemorySizeInfoQCOM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("size", &self.size)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for TileMemorySizeInfoQCOM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::TILE_MEMORY_SIZE_INFO_QCOM;
     }
@@ -173,6 +214,17 @@ pub(super) mod defs {
         pub size: DeviceSize,
         pub alignment: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for TileMemoryRequirementsQCOM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("TileMemoryRequirementsQCOM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("size", &self.size)
+                .field("alignment", &self.alignment)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for TileMemoryRequirementsQCOM<'a> {

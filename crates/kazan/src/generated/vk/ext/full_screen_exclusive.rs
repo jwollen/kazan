@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SurfaceFullScreenExclusiveInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SurfaceFullScreenExclusiveInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("full_screen_exclusive", &self.full_screen_exclusive)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SurfaceFullScreenExclusiveInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SURFACE_FULL_SCREEN_EXCLUSIVE_INFO_EXT;
     }
@@ -61,6 +71,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SurfaceFullScreenExclusiveWin32InfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SurfaceFullScreenExclusiveWin32InfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("hmonitor", &self.hmonitor)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SurfaceFullScreenExclusiveWin32InfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::SURFACE_FULL_SCREEN_EXCLUSIVE_WIN32_INFO_EXT;
@@ -98,6 +118,19 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub full_screen_exclusive_supported: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for SurfaceCapabilitiesFullScreenExclusiveEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SurfaceCapabilitiesFullScreenExclusiveEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "full_screen_exclusive_supported",
+                    &self.full_screen_exclusive_supported,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for SurfaceCapabilitiesFullScreenExclusiveEXT<'a> {

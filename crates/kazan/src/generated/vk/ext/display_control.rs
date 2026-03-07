@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DisplayPowerInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DisplayPowerInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("power_state", &self.power_state)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DisplayPowerInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DISPLAY_POWER_INFO_EXT;
     }
@@ -50,6 +60,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub device_event: DeviceEventTypeEXT,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DeviceEventInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DeviceEventInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("device_event", &self.device_event)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DeviceEventInfoEXT<'a> {
@@ -84,6 +104,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DisplayEventInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DisplayEventInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("display_event", &self.display_event)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DisplayEventInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DISPLAY_EVENT_INFO_EXT;
     }
@@ -114,6 +144,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub surface_counters: SurfaceCounterFlagsEXT,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for SwapchainCounterCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SwapchainCounterCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("surface_counters", &self.surface_counters)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for SwapchainCounterCreateInfoEXT<'a> {

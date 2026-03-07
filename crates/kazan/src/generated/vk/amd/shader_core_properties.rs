@@ -33,6 +33,41 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceShaderCorePropertiesAMD<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceShaderCorePropertiesAMD")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("shader_engine_count", &self.shader_engine_count)
+                .field(
+                    "shader_arrays_per_engine_count",
+                    &self.shader_arrays_per_engine_count,
+                )
+                .field(
+                    "compute_units_per_shader_array",
+                    &self.compute_units_per_shader_array,
+                )
+                .field("simd_per_compute_unit", &self.simd_per_compute_unit)
+                .field("wavefronts_per_simd", &self.wavefronts_per_simd)
+                .field("wavefront_size", &self.wavefront_size)
+                .field("sgprs_per_simd", &self.sgprs_per_simd)
+                .field("min_sgpr_allocation", &self.min_sgpr_allocation)
+                .field("max_sgpr_allocation", &self.max_sgpr_allocation)
+                .field(
+                    "sgpr_allocation_granularity",
+                    &self.sgpr_allocation_granularity,
+                )
+                .field("vgprs_per_simd", &self.vgprs_per_simd)
+                .field("min_vgpr_allocation", &self.min_vgpr_allocation)
+                .field("max_vgpr_allocation", &self.max_vgpr_allocation)
+                .field(
+                    "vgpr_allocation_granularity",
+                    &self.vgpr_allocation_granularity,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderCorePropertiesAMD<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_AMD;

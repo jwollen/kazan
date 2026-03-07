@@ -32,6 +32,29 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceDataGraphFeaturesARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceDataGraphFeaturesARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("data_graph", &self.data_graph)
+                .field(
+                    "data_graph_update_after_bind",
+                    &self.data_graph_update_after_bind,
+                )
+                .field(
+                    "data_graph_specialization_constants",
+                    &self.data_graph_specialization_constants,
+                )
+                .field(
+                    "data_graph_descriptor_buffer",
+                    &self.data_graph_descriptor_buffer,
+                )
+                .field("data_graph_shader_module", &self.data_graph_shader_module)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDataGraphFeaturesARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_DATA_GRAPH_FEATURES_ARM;
@@ -97,6 +120,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("dimension", &self.dimension)
+                .field("zero_count", &self.zero_count)
+                .field("group_size", &self.group_size)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a>
         for DataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM<'a>
     {
@@ -150,6 +185,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DataGraphPipelineConstantARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DataGraphPipelineConstantARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("id", &self.id)
+                .field("p_constant_data", &self.p_constant_data)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DataGraphPipelineConstantARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DATA_GRAPH_PIPELINE_CONSTANT_ARM;
     }
@@ -188,6 +234,18 @@ pub(super) mod defs {
         pub binding: u32,
         pub array_element: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DataGraphPipelineResourceInfoARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DataGraphPipelineResourceInfoARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("descriptor_set", &self.descriptor_set)
+                .field("binding", &self.binding)
+                .field("array_element", &self.array_element)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DataGraphPipelineResourceInfoARM<'a> {
@@ -234,6 +292,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DataGraphPipelineCompilerControlCreateInfoARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DataGraphPipelineCompilerControlCreateInfoARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_vendor_options", &unsafe {
+                    as_c_str(self.p_vendor_options)
+                })
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DataGraphPipelineCompilerControlCreateInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DATA_GRAPH_PIPELINE_COMPILER_CONTROL_CREATE_INFO_ARM;
@@ -273,6 +343,19 @@ pub(super) mod defs {
         pub resource_info_count: u32,
         pub p_resource_infos: *const DataGraphPipelineResourceInfoARM<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DataGraphPipelineCreateInfoARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DataGraphPipelineCreateInfoARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("layout", &self.layout)
+                .field("resource_info_count", &self.resource_info_count)
+                .field("p_resource_infos", &self.p_resource_infos)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DataGraphPipelineCreateInfoARM<'a> {
@@ -326,6 +409,20 @@ pub(super) mod defs {
         pub constant_count: u32,
         pub p_constants: *const DataGraphPipelineConstantARM<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DataGraphPipelineShaderModuleCreateInfoARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DataGraphPipelineShaderModuleCreateInfoARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("module", &self.module)
+                .field("p_name", &unsafe { as_c_str(self.p_name) })
+                .field("p_specialization_info", &self.p_specialization_info)
+                .field("constant_count", &self.constant_count)
+                .field("p_constants", &self.p_constants)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DataGraphPipelineShaderModuleCreateInfoARM<'a> {
@@ -390,6 +487,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DataGraphPipelineSessionCreateInfoARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DataGraphPipelineSessionCreateInfoARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("data_graph_pipeline", &self.data_graph_pipeline)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DataGraphPipelineSessionCreateInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DATA_GRAPH_PIPELINE_SESSION_CREATE_INFO_ARM;
@@ -429,6 +537,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DataGraphPipelineSessionBindPointRequirementsInfoARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DataGraphPipelineSessionBindPointRequirementsInfoARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("session", &self.session)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DataGraphPipelineSessionBindPointRequirementsInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENTS_INFO_ARM;
@@ -462,6 +580,18 @@ pub(super) mod defs {
         pub bind_point_type: DataGraphPipelineSessionBindPointTypeARM,
         pub num_objects: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DataGraphPipelineSessionBindPointRequirementARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DataGraphPipelineSessionBindPointRequirementARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("bind_point", &self.bind_point)
+                .field("bind_point_type", &self.bind_point_type)
+                .field("num_objects", &self.num_objects)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DataGraphPipelineSessionBindPointRequirementARM<'a> {
@@ -514,6 +644,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DataGraphPipelineSessionMemoryRequirementsInfoARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DataGraphPipelineSessionMemoryRequirementsInfoARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("session", &self.session)
+                .field("bind_point", &self.bind_point)
+                .field("object_index", &self.object_index)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DataGraphPipelineSessionMemoryRequirementsInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DATA_GRAPH_PIPELINE_SESSION_MEMORY_REQUIREMENTS_INFO_ARM;
@@ -561,6 +703,20 @@ pub(super) mod defs {
         pub memory: DeviceMemory,
         pub memory_offset: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for BindDataGraphPipelineSessionMemoryInfoARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BindDataGraphPipelineSessionMemoryInfoARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("session", &self.session)
+                .field("bind_point", &self.bind_point)
+                .field("object_index", &self.object_index)
+                .field("memory", &self.memory)
+                .field("memory_offset", &self.memory_offset)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for BindDataGraphPipelineSessionMemoryInfoARM<'a> {
@@ -620,6 +776,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DataGraphPipelineInfoARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DataGraphPipelineInfoARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("data_graph_pipeline", &self.data_graph_pipeline)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DataGraphPipelineInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DATA_GRAPH_PIPELINE_INFO_ARM;
     }
@@ -653,6 +819,19 @@ pub(super) mod defs {
         pub data_size: usize,
         pub p_data: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DataGraphPipelinePropertyQueryResultARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DataGraphPipelinePropertyQueryResultARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("property", &self.property)
+                .field("is_text", &self.is_text)
+                .field("data_size", &self.data_size)
+                .field("p_data", &self.p_data)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DataGraphPipelinePropertyQueryResultARM<'a> {
@@ -703,6 +882,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DataGraphPipelineIdentifierCreateInfoARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DataGraphPipelineIdentifierCreateInfoARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("identifier_size", &self.identifier_size)
+                .field("p_identifier", &self.p_identifier)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DataGraphPipelineIdentifierCreateInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DATA_GRAPH_PIPELINE_IDENTIFIER_CREATE_INFO_ARM;
@@ -743,6 +933,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DataGraphPipelineDispatchInfoARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DataGraphPipelineDispatchInfoARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DataGraphPipelineDispatchInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DATA_GRAPH_PIPELINE_DISPATCH_INFO_ARM;
     }
@@ -767,7 +967,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDataGraphProcessingEngineARM.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct PhysicalDeviceDataGraphProcessingEngineARM {
         pub ty: PhysicalDeviceDataGraphProcessingEngineTypeARM,
         pub is_foreign: Bool32,
@@ -792,6 +992,16 @@ pub(super) mod defs {
         pub operation_type: PhysicalDeviceDataGraphOperationTypeARM,
         pub name: [c_char; MAX_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_SET_NAME_SIZE_ARM as usize],
         pub version: u32,
+    }
+
+    impl fmt::Debug for PhysicalDeviceDataGraphOperationSupportARM {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceDataGraphOperationSupportARM")
+                .field("operation_type", &self.operation_type)
+                .field("name", &wrap_c_str_slice_until_nul(&self.name))
+                .field("version", &self.version)
+                .finish()
+        }
     }
 
     impl Default for PhysicalDeviceDataGraphOperationSupportARM {
@@ -828,6 +1038,17 @@ pub(super) mod defs {
         pub engine: PhysicalDeviceDataGraphProcessingEngineARM,
         pub operation: PhysicalDeviceDataGraphOperationSupportARM,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for QueueFamilyDataGraphPropertiesARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("QueueFamilyDataGraphPropertiesARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("engine", &self.engine)
+                .field("operation", &self.operation)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for QueueFamilyDataGraphPropertiesARM<'a> {
@@ -867,6 +1088,17 @@ pub(super) mod defs {
         pub queue_family_index: u32,
         pub engine_type: PhysicalDeviceDataGraphProcessingEngineTypeARM,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("queue_family_index", &self.queue_family_index)
+                .field("engine_type", &self.engine_type)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a>
@@ -914,6 +1146,23 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for QueueFamilyDataGraphProcessingEnginePropertiesARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("QueueFamilyDataGraphProcessingEnginePropertiesARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "foreign_semaphore_handle_types",
+                    &self.foreign_semaphore_handle_types,
+                )
+                .field(
+                    "foreign_memory_handle_types",
+                    &self.foreign_memory_handle_types,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for QueueFamilyDataGraphProcessingEnginePropertiesARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_PROPERTIES_ARM;
@@ -958,6 +1207,17 @@ pub(super) mod defs {
         pub processing_engine_count: u32,
         pub p_processing_engines: *mut PhysicalDeviceDataGraphProcessingEngineARM,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DataGraphProcessingEngineCreateInfoARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DataGraphProcessingEngineCreateInfoARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("processing_engine_count", &self.processing_engine_count)
+                .field("p_processing_engines", &self.p_processing_engines)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DataGraphProcessingEngineCreateInfoARM<'a> {
@@ -1150,7 +1410,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineSessionCreateFlagBitsARM.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct DataGraphPipelineSessionCreateFlagBitsARM(u64);
 
     impl DataGraphPipelineSessionCreateFlagBitsARM {
@@ -1174,7 +1434,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineDispatchFlagBitsARM.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct DataGraphPipelineDispatchFlagBitsARM(u64);
 
     impl DataGraphPipelineDispatchFlagBitsARM {}

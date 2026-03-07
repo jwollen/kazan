@@ -32,6 +32,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for CudaModuleCreateInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CudaModuleCreateInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("data_size", &self.data_size)
+                .field("p_data", &self.p_data)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for CudaModuleCreateInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::CUDA_MODULE_CREATE_INFO_NV;
     }
@@ -65,6 +76,17 @@ pub(super) mod defs {
         pub module: CudaModuleNV,
         pub p_name: *const c_char,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for CudaFunctionCreateInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CudaFunctionCreateInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("module", &self.module)
+                .field("p_name", &unsafe { as_c_str(self.p_name) })
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for CudaFunctionCreateInfoNV<'a> {
@@ -114,6 +136,27 @@ pub(super) mod defs {
         pub extra_count: usize,
         pub p_extras: *const *const c_void,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for CudaLaunchInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CudaLaunchInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("function", &self.function)
+                .field("grid_dim_x", &self.grid_dim_x)
+                .field("grid_dim_y", &self.grid_dim_y)
+                .field("grid_dim_z", &self.grid_dim_z)
+                .field("block_dim_x", &self.block_dim_x)
+                .field("block_dim_y", &self.block_dim_y)
+                .field("block_dim_z", &self.block_dim_z)
+                .field("shared_mem_bytes", &self.shared_mem_bytes)
+                .field("param_count", &self.param_count)
+                .field("p_params", &self.p_params)
+                .field("extra_count", &self.extra_count)
+                .field("p_extras", &self.p_extras)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for CudaLaunchInfoNV<'a> {
@@ -206,6 +249,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceCudaKernelLaunchFeaturesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceCudaKernelLaunchFeaturesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "cuda_kernel_launch_features",
+                    &self.cuda_kernel_launch_features,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCudaKernelLaunchFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_FEATURES_NV;
@@ -244,6 +300,17 @@ pub(super) mod defs {
         pub compute_capability_minor: u32,
         pub compute_capability_major: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceCudaKernelLaunchPropertiesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceCudaKernelLaunchPropertiesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("compute_capability_minor", &self.compute_capability_minor)
+                .field("compute_capability_major", &self.compute_capability_major)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCudaKernelLaunchPropertiesNV<'a> {

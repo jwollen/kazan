@@ -21,6 +21,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImagePipeSurfaceCreateInfoFUCHSIA<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImagePipeSurfaceCreateInfoFUCHSIA")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("image_pipe_handle", &self.image_pipe_handle)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImagePipeSurfaceCreateInfoFUCHSIA<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGEPIPE_SURFACE_CREATE_INFO_FUCHSIA;
     }

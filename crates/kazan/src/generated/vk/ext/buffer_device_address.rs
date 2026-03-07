@@ -29,6 +29,24 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceBufferDeviceAddressFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceBufferDeviceAddressFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("buffer_device_address", &self.buffer_device_address)
+                .field(
+                    "buffer_device_address_capture_replay",
+                    &self.buffer_device_address_capture_replay,
+                )
+                .field(
+                    "buffer_device_address_multi_device",
+                    &self.buffer_device_address_multi_device,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceBufferDeviceAddressFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES_EXT;
@@ -84,6 +102,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub device_address: DeviceAddress,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for BufferDeviceAddressCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BufferDeviceAddressCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("device_address", &self.device_address)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for BufferDeviceAddressCreateInfoEXT<'a> {

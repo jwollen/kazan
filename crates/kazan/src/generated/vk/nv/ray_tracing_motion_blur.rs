@@ -21,6 +21,20 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceRayTracingMotionBlurFeaturesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceRayTracingMotionBlurFeaturesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("ray_tracing_motion_blur", &self.ray_tracing_motion_blur)
+                .field(
+                    "ray_tracing_motion_blur_pipeline_trace_rays_indirect",
+                    &self.ray_tracing_motion_blur_pipeline_trace_rays_indirect,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRayTracingMotionBlurFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_RAY_TRACING_MOTION_BLUR_FEATURES_NV;
@@ -70,6 +84,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for AccelerationStructureGeometryMotionTrianglesDataNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AccelerationStructureGeometryMotionTrianglesDataNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("vertex_data", &self.vertex_data)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureGeometryMotionTrianglesDataNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::ACCELERATION_STRUCTURE_GEOMETRY_MOTION_TRIANGLES_DATA_NV;
@@ -109,6 +133,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for AccelerationStructureMotionInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AccelerationStructureMotionInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("max_instances", &self.max_instances)
+                .field("flags", &self.flags)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureMotionInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::ACCELERATION_STRUCTURE_MOTION_INFO_NV;
     }
@@ -144,7 +179,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSRTDataNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct SRTDataNV {
         pub sx: f32,
         pub a: f32,
@@ -248,7 +283,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureSRTMotionInstanceNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct AccelerationStructureSRTMotionInstanceNV {
         pub transform_t0: SRTDataNV,
         pub transform_t1: SRTDataNV,
@@ -305,7 +340,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureMatrixMotionInstanceNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct AccelerationStructureMatrixMotionInstanceNV {
         pub transform_t0: TransformMatrixKHR,
         pub transform_t1: TransformMatrixKHR,
@@ -376,7 +411,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureMotionInstanceNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct AccelerationStructureMotionInstanceNV {
         pub ty: AccelerationStructureMotionInstanceTypeNV,
         pub flags: AccelerationStructureMotionInstanceFlagsNV,
@@ -418,6 +453,14 @@ pub(super) mod defs {
         pub matrix_motion_instance: AccelerationStructureMatrixMotionInstanceNV,
         pub srt_motion_instance: AccelerationStructureSRTMotionInstanceNV,
     }
+
+    impl fmt::Debug for AccelerationStructureMotionInstanceDataNV {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AccelerationStructureMotionInstanceDataNV")
+                .finish()
+        }
+    }
+
     impl Default for AccelerationStructureMotionInstanceDataNV {
         fn default() -> Self {
             unsafe { core::mem::zeroed() }

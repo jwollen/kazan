@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDevicePresentIdFeaturesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDevicePresentIdFeaturesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("present_id", &self.present_id)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePresentIdFeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PRESENT_ID_FEATURES_KHR;
@@ -55,6 +65,17 @@ pub(super) mod defs {
         pub swapchain_count: u32,
         pub p_present_ids: *const u64,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PresentIdKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PresentIdKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("swapchain_count", &self.swapchain_count)
+                .field("p_present_ids", &self.p_present_ids)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PresentIdKHR<'a> {

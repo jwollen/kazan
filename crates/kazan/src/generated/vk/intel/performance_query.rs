@@ -28,6 +28,15 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PerformanceValueINTEL<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PerformanceValueINTEL")
+                .field("ty", &self.ty)
+                .field("data", &self.data)
+                .finish()
+        }
+    }
+
     impl Default for PerformanceValueINTEL<'_> {
         fn default() -> Self {
             Self {
@@ -60,6 +69,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for InitializePerformanceApiInfoINTEL<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("InitializePerformanceApiInfoINTEL")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_user_data", &self.p_user_data)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for InitializePerformanceApiInfoINTEL<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::INITIALIZE_PERFORMANCE_API_INFO_INTEL;
     }
@@ -90,6 +109,19 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub performance_counters_sampling: QueryPoolSamplingModeINTEL,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for QueryPoolPerformanceQueryCreateInfoINTEL<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("QueryPoolPerformanceQueryCreateInfoINTEL")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "performance_counters_sampling",
+                    &self.performance_counters_sampling,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for QueryPoolPerformanceQueryCreateInfoINTEL<'a> {
@@ -130,6 +162,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PerformanceMarkerInfoINTEL<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PerformanceMarkerInfoINTEL")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("marker", &self.marker)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PerformanceMarkerInfoINTEL<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PERFORMANCE_MARKER_INFO_INTEL;
     }
@@ -160,6 +202,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub marker: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PerformanceStreamMarkerInfoINTEL<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PerformanceStreamMarkerInfoINTEL")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("marker", &self.marker)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PerformanceStreamMarkerInfoINTEL<'a> {
@@ -194,6 +246,18 @@ pub(super) mod defs {
         pub enable: Bool32,
         pub parameter: u64,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PerformanceOverrideInfoINTEL<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PerformanceOverrideInfoINTEL")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("ty", &self.ty)
+                .field("enable", &self.enable)
+                .field("parameter", &self.parameter)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PerformanceOverrideInfoINTEL<'a> {
@@ -240,6 +304,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PerformanceConfigurationAcquireInfoINTEL<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PerformanceConfigurationAcquireInfoINTEL")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("ty", &self.ty)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PerformanceConfigurationAcquireInfoINTEL<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL;
@@ -274,6 +348,13 @@ pub(super) mod defs {
         pub value_string: *const c_char,
         pub _marker: PhantomData<&'a ()>,
     }
+
+    impl fmt::Debug for PerformanceValueDataINTEL<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PerformanceValueDataINTEL").finish()
+        }
+    }
+
     impl Default for PerformanceValueDataINTEL<'_> {
         fn default() -> Self {
             unsafe { core::mem::zeroed() }

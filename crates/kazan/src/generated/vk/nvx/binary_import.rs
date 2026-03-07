@@ -32,6 +32,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for CuModuleCreateInfoNVX<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CuModuleCreateInfoNVX")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("data_size", &self.data_size)
+                .field("p_data", &self.p_data)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for CuModuleCreateInfoNVX<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::CU_MODULE_CREATE_INFO_NVX;
     }
@@ -64,6 +75,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub use64bit_texturing: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for CuModuleTexturingModeCreateInfoNVX<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CuModuleTexturingModeCreateInfoNVX")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("use64bit_texturing", &self.use64bit_texturing)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for CuModuleTexturingModeCreateInfoNVX<'a> {
@@ -100,6 +121,17 @@ pub(super) mod defs {
         pub module: CuModuleNVX,
         pub p_name: *const c_char,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for CuFunctionCreateInfoNVX<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CuFunctionCreateInfoNVX")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("module", &self.module)
+                .field("p_name", &unsafe { as_c_str(self.p_name) })
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for CuFunctionCreateInfoNVX<'a> {
@@ -149,6 +181,27 @@ pub(super) mod defs {
         pub extra_count: usize,
         pub p_extras: *const *const c_void,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for CuLaunchInfoNVX<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CuLaunchInfoNVX")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("function", &self.function)
+                .field("grid_dim_x", &self.grid_dim_x)
+                .field("grid_dim_y", &self.grid_dim_y)
+                .field("grid_dim_z", &self.grid_dim_z)
+                .field("block_dim_x", &self.block_dim_x)
+                .field("block_dim_y", &self.block_dim_y)
+                .field("block_dim_z", &self.block_dim_z)
+                .field("shared_mem_bytes", &self.shared_mem_bytes)
+                .field("param_count", &self.param_count)
+                .field("p_params", &self.p_params)
+                .field("extra_count", &self.extra_count)
+                .field("p_extras", &self.p_extras)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for CuLaunchInfoNVX<'a> {

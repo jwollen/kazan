@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ExternalMemoryAcquireUnmodifiedEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExternalMemoryAcquireUnmodifiedEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("acquire_unmodified_memory", &self.acquire_unmodified_memory)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ExternalMemoryAcquireUnmodifiedEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT;
     }

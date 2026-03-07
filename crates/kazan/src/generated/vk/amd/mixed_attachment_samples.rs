@@ -22,6 +22,24 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for AttachmentSampleCountInfoAMD<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AttachmentSampleCountInfoAMD")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("color_attachment_count", &self.color_attachment_count)
+                .field(
+                    "p_color_attachment_samples",
+                    &self.p_color_attachment_samples,
+                )
+                .field(
+                    "depth_stencil_attachment_samples",
+                    &self.depth_stencil_attachment_samples,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for AttachmentSampleCountInfoAMD<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::ATTACHMENT_SAMPLE_COUNT_INFO_AMD;
     }

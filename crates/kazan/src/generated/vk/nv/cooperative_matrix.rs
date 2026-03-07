@@ -26,6 +26,20 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceCooperativeMatrixFeaturesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceCooperativeMatrixFeaturesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("cooperative_matrix", &self.cooperative_matrix)
+                .field(
+                    "cooperative_matrix_robust_buffer_access",
+                    &self.cooperative_matrix_robust_buffer_access,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCooperativeMatrixFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_NV;
@@ -75,6 +89,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceCooperativeMatrixPropertiesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceCooperativeMatrixPropertiesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "cooperative_matrix_supported_stages",
+                    &self.cooperative_matrix_supported_stages,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCooperativeMatrixPropertiesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_NV;
@@ -121,6 +148,23 @@ pub(super) mod defs {
         pub d_type: ComponentTypeNV,
         pub scope: ScopeNV,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for CooperativeMatrixPropertiesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CooperativeMatrixPropertiesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("m_size", &self.m_size)
+                .field("n_size", &self.n_size)
+                .field("k_size", &self.k_size)
+                .field("a_type", &self.a_type)
+                .field("b_type", &self.b_type)
+                .field("c_type", &self.c_type)
+                .field("d_type", &self.d_type)
+                .field("scope", &self.scope)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for CooperativeMatrixPropertiesNV<'a> {

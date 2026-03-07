@@ -22,6 +22,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for NativeBufferUsageOHOS<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("NativeBufferUsageOHOS")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("ohos_native_buffer_usage", &self.ohos_native_buffer_usage)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for NativeBufferUsageOHOS<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::NATIVE_BUFFER_USAGE_OHOS;
     }
@@ -55,6 +65,17 @@ pub(super) mod defs {
         pub allocation_size: DeviceSize,
         pub memory_type_bits: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for NativeBufferPropertiesOHOS<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("NativeBufferPropertiesOHOS")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("allocation_size", &self.allocation_size)
+                .field("memory_type_bits", &self.memory_type_bits)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for NativeBufferPropertiesOHOS<'a> {
@@ -100,6 +121,26 @@ pub(super) mod defs {
         pub suggested_x_chroma_offset: ChromaLocation,
         pub suggested_y_chroma_offset: ChromaLocation,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for NativeBufferFormatPropertiesOHOS<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("NativeBufferFormatPropertiesOHOS")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("format", &self.format)
+                .field("external_format", &self.external_format)
+                .field("format_features", &self.format_features)
+                .field(
+                    "sampler_ycbcr_conversion_components",
+                    &self.sampler_ycbcr_conversion_components,
+                )
+                .field("suggested_ycbcr_model", &self.suggested_ycbcr_model)
+                .field("suggested_ycbcr_range", &self.suggested_ycbcr_range)
+                .field("suggested_x_chroma_offset", &self.suggested_x_chroma_offset)
+                .field("suggested_y_chroma_offset", &self.suggested_y_chroma_offset)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for NativeBufferFormatPropertiesOHOS<'a> {
@@ -190,6 +231,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImportNativeBufferInfoOHOS<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImportNativeBufferInfoOHOS")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("buffer", &self.buffer)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportNativeBufferInfoOHOS<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_NATIVE_BUFFER_INFO_OHOS;
     }
@@ -224,6 +275,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for MemoryGetNativeBufferInfoOHOS<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MemoryGetNativeBufferInfoOHOS")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("memory", &self.memory)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for MemoryGetNativeBufferInfoOHOS<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_GET_NATIVE_BUFFER_INFO_OHOS;
     }
@@ -254,6 +315,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub external_format: u64,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ExternalFormatOHOS<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExternalFormatOHOS")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("external_format", &self.external_format)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ExternalFormatOHOS<'a> {

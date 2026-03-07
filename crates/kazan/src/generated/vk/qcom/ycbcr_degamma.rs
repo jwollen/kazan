@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceYcbcrDegammaFeaturesQCOM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceYcbcrDegammaFeaturesQCOM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("ycbcr_degamma", &self.ycbcr_degamma)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceYcbcrDegammaFeaturesQCOM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_YCBCR_DEGAMMA_FEATURES_QCOM;
@@ -58,6 +68,17 @@ pub(super) mod defs {
         pub enable_y_degamma: Bool32,
         pub enable_cb_cr_degamma: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for SamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("enable_y_degamma", &self.enable_y_degamma)
+                .field("enable_cb_cr_degamma", &self.enable_cb_cr_degamma)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for SamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM<'a> {

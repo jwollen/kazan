@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceVideoMaintenance2FeaturesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceVideoMaintenance2FeaturesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("video_maintenance2", &self.video_maintenance2)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVideoMaintenance2FeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_VIDEO_MAINTENANCE_2_FEATURES_KHR;
@@ -58,6 +68,17 @@ pub(super) mod defs {
         pub p_std_sps: *const StdVideoH264SequenceParameterSet<'a>,
         pub p_std_pps: *const StdVideoH264PictureParameterSet<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoDecodeH264InlineSessionParametersInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoDecodeH264InlineSessionParametersInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_std_sps", &self.p_std_sps)
+                .field("p_std_pps", &self.p_std_pps)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeH264InlineSessionParametersInfoKHR<'a> {
@@ -104,6 +125,18 @@ pub(super) mod defs {
         pub p_std_sps: *const StdVideoH265SequenceParameterSet<'a>,
         pub p_std_pps: *const StdVideoH265PictureParameterSet<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoDecodeH265InlineSessionParametersInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoDecodeH265InlineSessionParametersInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_std_vps", &self.p_std_vps)
+                .field("p_std_sps", &self.p_std_sps)
+                .field("p_std_pps", &self.p_std_pps)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeH265InlineSessionParametersInfoKHR<'a> {
@@ -154,6 +187,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub p_std_sequence_header: *const StdVideoAV1SequenceHeader<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoDecodeAV1InlineSessionParametersInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoDecodeAV1InlineSessionParametersInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_std_sequence_header", &self.p_std_sequence_header)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeAV1InlineSessionParametersInfoKHR<'a> {

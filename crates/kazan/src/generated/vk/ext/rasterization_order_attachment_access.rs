@@ -22,6 +22,27 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "rasterization_order_color_attachment_access",
+                    &self.rasterization_order_color_attachment_access,
+                )
+                .field(
+                    "rasterization_order_depth_attachment_access",
+                    &self.rasterization_order_depth_attachment_access,
+                )
+                .field(
+                    "rasterization_order_stencil_attachment_access",
+                    &self.rasterization_order_stencil_attachment_access,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a>
         for PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT<'a>
     {

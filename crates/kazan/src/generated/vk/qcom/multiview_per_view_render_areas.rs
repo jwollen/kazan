@@ -20,6 +20,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "multiview_per_view_render_areas",
+                    &self.multiview_per_view_render_areas,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_RENDER_AREAS_FEATURES_QCOM;
@@ -64,6 +77,20 @@ pub(super) mod defs {
         pub per_view_render_area_count: u32,
         pub p_per_view_render_areas: *const Rect2D,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "per_view_render_area_count",
+                    &self.per_view_render_area_count,
+                )
+                .field("p_per_view_render_areas", &self.p_per_view_render_areas)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM<'a> {

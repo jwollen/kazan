@@ -30,6 +30,26 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for AccelerationStructureGeometryLinearSweptSpheresDataNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AccelerationStructureGeometryLinearSweptSpheresDataNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("vertex_format", &self.vertex_format)
+                .field("vertex_data", &self.vertex_data)
+                .field("vertex_stride", &self.vertex_stride)
+                .field("radius_format", &self.radius_format)
+                .field("radius_data", &self.radius_data)
+                .field("radius_stride", &self.radius_stride)
+                .field("index_type", &self.index_type)
+                .field("index_data", &self.index_data)
+                .field("index_stride", &self.index_stride)
+                .field("indexing_mode", &self.indexing_mode)
+                .field("end_caps_mode", &self.end_caps_mode)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureGeometryLinearSweptSpheresDataNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::ACCELERATION_STRUCTURE_GEOMETRY_LINEAR_SWEPT_SPHERES_DATA_NV;
@@ -136,6 +156,24 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for AccelerationStructureGeometrySpheresDataNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AccelerationStructureGeometrySpheresDataNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("vertex_format", &self.vertex_format)
+                .field("vertex_data", &self.vertex_data)
+                .field("vertex_stride", &self.vertex_stride)
+                .field("radius_format", &self.radius_format)
+                .field("radius_data", &self.radius_data)
+                .field("radius_stride", &self.radius_stride)
+                .field("index_type", &self.index_type)
+                .field("index_data", &self.index_data)
+                .field("index_stride", &self.index_stride)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureGeometrySpheresDataNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::ACCELERATION_STRUCTURE_GEOMETRY_SPHERES_DATA_NV;
@@ -221,6 +259,17 @@ pub(super) mod defs {
         pub spheres: Bool32,
         pub linear_swept_spheres: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("spheres", &self.spheres)
+                .field("linear_swept_spheres", &self.linear_swept_spheres)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV<'a> {

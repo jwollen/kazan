@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceMemoryDecompressionFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceMemoryDecompressionFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("memory_decompression", &self.memory_decompression)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMemoryDecompressionFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_EXT;
@@ -58,6 +68,20 @@ pub(super) mod defs {
         pub decompression_methods: MemoryDecompressionMethodFlagsEXT,
         pub max_decompression_indirect_count: u64,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceMemoryDecompressionPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceMemoryDecompressionPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("decompression_methods", &self.decompression_methods)
+                .field(
+                    "max_decompression_indirect_count",
+                    &self.max_decompression_indirect_count,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMemoryDecompressionPropertiesEXT<'a> {
@@ -102,7 +126,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDecompressMemoryRegionEXT.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct DecompressMemoryRegionEXT {
         pub src_address: DeviceAddress,
         pub dst_address: DeviceAddress,
@@ -142,6 +166,18 @@ pub(super) mod defs {
         pub region_count: u32,
         pub p_regions: *const DecompressMemoryRegionEXT,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DecompressMemoryInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DecompressMemoryInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("decompression_method", &self.decompression_method)
+                .field("region_count", &self.region_count)
+                .field("p_regions", &self.p_regions)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DecompressMemoryInfoEXT<'a> {
@@ -201,7 +237,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryDecompressionMethodFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct MemoryDecompressionMethodFlagBitsEXT(u64);
 
     impl MemoryDecompressionMethodFlagBitsEXT {

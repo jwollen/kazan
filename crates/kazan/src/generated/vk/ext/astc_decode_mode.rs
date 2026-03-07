@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImageViewASTCDecodeModeEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageViewASTCDecodeModeEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("decode_mode", &self.decode_mode)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImageViewASTCDecodeModeEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_VIEW_ASTC_DECODE_MODE_EXT;
     }
@@ -52,6 +62,19 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub decode_mode_shared_exponent: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceASTCDecodeFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceASTCDecodeFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "decode_mode_shared_exponent",
+                    &self.decode_mode_shared_exponent,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceASTCDecodeFeaturesEXT<'a> {

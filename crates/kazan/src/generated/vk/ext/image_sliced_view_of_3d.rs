@@ -23,6 +23,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImageViewSlicedCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageViewSlicedCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("slice_offset", &self.slice_offset)
+                .field("slice_count", &self.slice_count)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImageViewSlicedCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_VIEW_SLICED_CREATE_INFO_EXT;
     }
@@ -61,6 +72,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub image_sliced_view_of3_d: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceImageSlicedViewOf3DFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceImageSlicedViewOf3DFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("image_sliced_view_of3_d", &self.image_sliced_view_of3_d)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceImageSlicedViewOf3DFeaturesEXT<'a> {

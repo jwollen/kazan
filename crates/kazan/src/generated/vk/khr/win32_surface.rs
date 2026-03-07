@@ -22,6 +22,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for Win32SurfaceCreateInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("Win32SurfaceCreateInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("hinstance", &self.hinstance)
+                .field("hwnd", &self.hwnd)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for Win32SurfaceCreateInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::WIN32_SURFACE_CREATE_INFO_KHR;
     }

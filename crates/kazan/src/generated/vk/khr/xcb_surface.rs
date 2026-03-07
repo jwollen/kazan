@@ -22,6 +22,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for XcbSurfaceCreateInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("XcbSurfaceCreateInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("connection", &self.connection)
+                .field("window", &self.window)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for XcbSurfaceCreateInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::XCB_SURFACE_CREATE_INFO_KHR;
     }

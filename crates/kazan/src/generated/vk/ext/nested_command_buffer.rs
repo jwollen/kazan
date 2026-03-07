@@ -22,6 +22,24 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceNestedCommandBufferFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceNestedCommandBufferFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("nested_command_buffer", &self.nested_command_buffer)
+                .field(
+                    "nested_command_buffer_rendering",
+                    &self.nested_command_buffer_rendering,
+                )
+                .field(
+                    "nested_command_buffer_simultaneous_use",
+                    &self.nested_command_buffer_simultaneous_use,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceNestedCommandBufferFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_FEATURES_EXT;
@@ -78,6 +96,19 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub max_command_buffer_nesting_level: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceNestedCommandBufferPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceNestedCommandBufferPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "max_command_buffer_nesting_level",
+                    &self.max_command_buffer_nesting_level,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceNestedCommandBufferPropertiesEXT<'a> {

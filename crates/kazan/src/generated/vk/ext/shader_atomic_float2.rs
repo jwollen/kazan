@@ -31,6 +31,63 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceShaderAtomicFloat2FeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceShaderAtomicFloat2FeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "shader_buffer_float16_atomics",
+                    &self.shader_buffer_float16_atomics,
+                )
+                .field(
+                    "shader_buffer_float16_atomic_add",
+                    &self.shader_buffer_float16_atomic_add,
+                )
+                .field(
+                    "shader_buffer_float16_atomic_min_max",
+                    &self.shader_buffer_float16_atomic_min_max,
+                )
+                .field(
+                    "shader_buffer_float32_atomic_min_max",
+                    &self.shader_buffer_float32_atomic_min_max,
+                )
+                .field(
+                    "shader_buffer_float64_atomic_min_max",
+                    &self.shader_buffer_float64_atomic_min_max,
+                )
+                .field(
+                    "shader_shared_float16_atomics",
+                    &self.shader_shared_float16_atomics,
+                )
+                .field(
+                    "shader_shared_float16_atomic_add",
+                    &self.shader_shared_float16_atomic_add,
+                )
+                .field(
+                    "shader_shared_float16_atomic_min_max",
+                    &self.shader_shared_float16_atomic_min_max,
+                )
+                .field(
+                    "shader_shared_float32_atomic_min_max",
+                    &self.shader_shared_float32_atomic_min_max,
+                )
+                .field(
+                    "shader_shared_float64_atomic_min_max",
+                    &self.shader_shared_float64_atomic_min_max,
+                )
+                .field(
+                    "shader_image_float32_atomic_min_max",
+                    &self.shader_image_float32_atomic_min_max,
+                )
+                .field(
+                    "sparse_image_float32_atomic_min_max",
+                    &self.sparse_image_float32_atomic_min_max,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderAtomicFloat2FeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_2_FEATURES_EXT;

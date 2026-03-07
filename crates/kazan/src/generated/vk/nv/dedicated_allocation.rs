@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DedicatedAllocationImageCreateInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DedicatedAllocationImageCreateInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("dedicated_allocation", &self.dedicated_allocation)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DedicatedAllocationImageCreateInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV;
@@ -53,6 +63,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub dedicated_allocation: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DedicatedAllocationBufferCreateInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DedicatedAllocationBufferCreateInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("dedicated_allocation", &self.dedicated_allocation)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DedicatedAllocationBufferCreateInfoNV<'a> {
@@ -89,6 +109,17 @@ pub(super) mod defs {
         pub image: Image,
         pub buffer: Buffer,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DedicatedAllocationMemoryAllocateInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DedicatedAllocationMemoryAllocateInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("image", &self.image)
+                .field("buffer", &self.buffer)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DedicatedAllocationMemoryAllocateInfoNV<'a> {

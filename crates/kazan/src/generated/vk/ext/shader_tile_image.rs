@@ -22,6 +22,27 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceShaderTileImageFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceShaderTileImageFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "shader_tile_image_color_read_access",
+                    &self.shader_tile_image_color_read_access,
+                )
+                .field(
+                    "shader_tile_image_depth_read_access",
+                    &self.shader_tile_image_depth_read_access,
+                )
+                .field(
+                    "shader_tile_image_stencil_read_access",
+                    &self.shader_tile_image_stencil_read_access,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderTileImageFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_TILE_IMAGE_FEATURES_EXT;
@@ -83,6 +104,27 @@ pub(super) mod defs {
         pub shader_tile_image_read_sample_from_pixel_rate_invocation: Bool32,
         pub shader_tile_image_read_from_helper_invocation: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceShaderTileImagePropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceShaderTileImagePropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "shader_tile_image_coherent_read_accelerated",
+                    &self.shader_tile_image_coherent_read_accelerated,
+                )
+                .field(
+                    "shader_tile_image_read_sample_from_pixel_rate_invocation",
+                    &self.shader_tile_image_read_sample_from_pixel_rate_invocation,
+                )
+                .field(
+                    "shader_tile_image_read_from_helper_invocation",
+                    &self.shader_tile_image_read_from_helper_invocation,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderTileImagePropertiesEXT<'a> {

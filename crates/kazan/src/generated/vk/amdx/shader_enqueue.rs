@@ -28,6 +28,40 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceShaderEnqueuePropertiesAMDX<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceShaderEnqueuePropertiesAMDX")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("max_execution_graph_depth", &self.max_execution_graph_depth)
+                .field(
+                    "max_execution_graph_shader_output_nodes",
+                    &self.max_execution_graph_shader_output_nodes,
+                )
+                .field(
+                    "max_execution_graph_shader_payload_size",
+                    &self.max_execution_graph_shader_payload_size,
+                )
+                .field(
+                    "max_execution_graph_shader_payload_count",
+                    &self.max_execution_graph_shader_payload_count,
+                )
+                .field(
+                    "execution_graph_dispatch_address_alignment",
+                    &self.execution_graph_dispatch_address_alignment,
+                )
+                .field(
+                    "max_execution_graph_workgroup_count",
+                    &self.max_execution_graph_workgroup_count,
+                )
+                .field(
+                    "max_execution_graph_workgroups",
+                    &self.max_execution_graph_workgroups,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderEnqueuePropertiesAMDX<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_ENQUEUE_PROPERTIES_AMDX;
@@ -123,6 +157,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceShaderEnqueueFeaturesAMDX<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceShaderEnqueueFeaturesAMDX")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("shader_enqueue", &self.shader_enqueue)
+                .field("shader_mesh_enqueue", &self.shader_mesh_enqueue)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderEnqueueFeaturesAMDX<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_ENQUEUE_FEATURES_AMDX;
@@ -172,6 +217,22 @@ pub(super) mod defs {
         pub base_pipeline_handle: Pipeline,
         pub base_pipeline_index: i32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ExecutionGraphPipelineCreateInfoAMDX<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExecutionGraphPipelineCreateInfoAMDX")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("stage_count", &self.stage_count)
+                .field("p_stages", &self.p_stages)
+                .field("p_library_info", &self.p_library_info)
+                .field("layout", &self.layout)
+                .field("base_pipeline_handle", &self.base_pipeline_handle)
+                .field("base_pipeline_index", &self.base_pipeline_index)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ExecutionGraphPipelineCreateInfoAMDX<'a> {
@@ -240,6 +301,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PipelineShaderStageNodeCreateInfoAMDX<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineShaderStageNodeCreateInfoAMDX")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_name", &unsafe { as_c_str(self.p_name) })
+                .field("index", &self.index)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineShaderStageNodeCreateInfoAMDX<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_SHADER_STAGE_NODE_CREATE_INFO_AMDX;
@@ -284,6 +356,18 @@ pub(super) mod defs {
         pub max_size: DeviceSize,
         pub size_granularity: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ExecutionGraphPipelineScratchSizeAMDX<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExecutionGraphPipelineScratchSizeAMDX")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("min_size", &self.min_size)
+                .field("max_size", &self.max_size)
+                .field("size_granularity", &self.size_granularity)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ExecutionGraphPipelineScratchSizeAMDX<'a> {
@@ -332,6 +416,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DispatchGraphInfoAMDX<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DispatchGraphInfoAMDX")
+                .field("node_index", &self.node_index)
+                .field("payload_count", &self.payload_count)
+                .field("payloads", &self.payloads)
+                .field("payload_stride", &self.payload_stride)
+                .finish()
+        }
+    }
+
     impl Default for DispatchGraphInfoAMDX<'_> {
         fn default() -> Self {
             Self {
@@ -376,6 +471,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DispatchGraphCountInfoAMDX<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DispatchGraphCountInfoAMDX")
+                .field("count", &self.count)
+                .field("infos", &self.infos)
+                .field("stride", &self.stride)
+                .finish()
+        }
+    }
+
     impl Default for DispatchGraphCountInfoAMDX<'_> {
         fn default() -> Self {
             Self {
@@ -412,6 +517,13 @@ pub(super) mod defs {
         pub host_address: *const c_void,
         pub _marker: PhantomData<&'a ()>,
     }
+
+    impl fmt::Debug for DeviceOrHostAddressConstAMDX<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DeviceOrHostAddressConstAMDX").finish()
+        }
+    }
+
     impl Default for DeviceOrHostAddressConstAMDX<'_> {
         fn default() -> Self {
             unsafe { core::mem::zeroed() }

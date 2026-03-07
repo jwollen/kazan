@@ -44,6 +44,21 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SetDescriptorBufferOffsetsInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SetDescriptorBufferOffsetsInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("stage_flags", &self.stage_flags)
+                .field("layout", &self.layout)
+                .field("first_set", &self.first_set)
+                .field("set_count", &self.set_count)
+                .field("p_buffer_indices", &self.p_buffer_indices)
+                .field("p_offsets", &self.p_offsets)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SetDescriptorBufferOffsetsInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SET_DESCRIPTOR_BUFFER_OFFSETS_INFO_EXT;
     }
@@ -103,6 +118,18 @@ pub(super) mod defs {
         pub layout: PipelineLayout,
         pub set: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for BindDescriptorBufferEmbeddedSamplersInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BindDescriptorBufferEmbeddedSamplersInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("stage_flags", &self.stage_flags)
+                .field("layout", &self.layout)
+                .field("set", &self.set)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for BindDescriptorBufferEmbeddedSamplersInfoEXT<'a> {

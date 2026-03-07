@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceAddressBindingReportFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceAddressBindingReportFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("report_address_binding", &self.report_address_binding)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceAddressBindingReportFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_ADDRESS_BINDING_REPORT_FEATURES_EXT;
@@ -63,6 +73,19 @@ pub(super) mod defs {
         pub size: DeviceSize,
         pub binding_type: DeviceAddressBindingTypeEXT,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DeviceAddressBindingCallbackDataEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DeviceAddressBindingCallbackDataEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("base_address", &self.base_address)
+                .field("size", &self.size)
+                .field("binding_type", &self.binding_type)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DeviceAddressBindingCallbackDataEXT<'a> {
@@ -159,7 +182,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceAddressBindingFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct DeviceAddressBindingFlagBitsEXT(u32);
 
     impl DeviceAddressBindingFlagBitsEXT {

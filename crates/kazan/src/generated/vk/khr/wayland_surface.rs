@@ -22,6 +22,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for WaylandSurfaceCreateInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("WaylandSurfaceCreateInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("display", &self.display)
+                .field("surface", &self.surface)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for WaylandSurfaceCreateInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::WAYLAND_SURFACE_CREATE_INFO_KHR;
     }

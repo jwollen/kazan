@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DeviceQueueShaderCoreControlCreateInfoARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DeviceQueueShaderCoreControlCreateInfoARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("shader_core_count", &self.shader_core_count)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DeviceQueueShaderCoreControlCreateInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DEVICE_QUEUE_SHADER_CORE_CONTROL_CREATE_INFO_ARM;
@@ -59,6 +69,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceSchedulingControlsFeaturesARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceSchedulingControlsFeaturesARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("scheduling_controls", &self.scheduling_controls)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSchedulingControlsFeaturesARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SCHEDULING_CONTROLS_FEATURES_ARM;
@@ -96,6 +116,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub scheduling_controls_flags: PhysicalDeviceSchedulingControlsFlagsARM,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceSchedulingControlsPropertiesARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceSchedulingControlsPropertiesARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("scheduling_controls_flags", &self.scheduling_controls_flags)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSchedulingControlsPropertiesARM<'a> {
@@ -152,7 +182,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSchedulingControlsFlagBitsARM.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct PhysicalDeviceSchedulingControlsFlagBitsARM(u64);
 
     impl PhysicalDeviceSchedulingControlsFlagBitsARM {

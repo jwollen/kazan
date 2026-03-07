@@ -20,6 +20,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "dedicated_allocation_image_aliasing",
+                    &self.dedicated_allocation_image_aliasing,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a>
         for PhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV<'a>
     {

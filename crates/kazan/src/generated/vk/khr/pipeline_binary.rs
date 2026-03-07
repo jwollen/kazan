@@ -31,6 +31,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PipelineBinaryCreateInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineBinaryCreateInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_keys_and_data_info", &self.p_keys_and_data_info)
+                .field("pipeline", &self.pipeline)
+                .field("p_pipeline_create_info", &self.p_pipeline_create_info)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineBinaryCreateInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_BINARY_CREATE_INFO_KHR;
     }
@@ -82,6 +94,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PipelineBinaryHandlesInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineBinaryHandlesInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("pipeline_binary_count", &self.pipeline_binary_count)
+                .field("p_pipeline_binaries", &self.p_pipeline_binaries)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineBinaryHandlesInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_BINARY_HANDLES_INFO_KHR;
     }
@@ -115,6 +138,15 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PipelineBinaryDataKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineBinaryDataKHR")
+                .field("data_size", &self.data_size)
+                .field("p_data", &self.p_data)
+                .finish()
+        }
+    }
+
     impl Default for PipelineBinaryDataKHR<'_> {
         fn default() -> Self {
             Self {
@@ -141,6 +173,16 @@ pub(super) mod defs {
         pub p_pipeline_binary_keys: *const PipelineBinaryKeyKHR<'a>,
         pub p_pipeline_binary_data: *const PipelineBinaryDataKHR<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PipelineBinaryKeysAndDataKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineBinaryKeysAndDataKHR")
+                .field("binary_count", &self.binary_count)
+                .field("p_pipeline_binary_keys", &self.p_pipeline_binary_keys)
+                .field("p_pipeline_binary_data", &self.p_pipeline_binary_data)
+                .finish()
+        }
     }
 
     impl Default for PipelineBinaryKeysAndDataKHR<'_> {
@@ -185,6 +227,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PipelineBinaryKeyKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineBinaryKeyKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("key_size", &self.key_size)
+                .field("key", &self.key)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineBinaryKeyKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_BINARY_KEY_KHR;
     }
@@ -222,6 +275,17 @@ pub(super) mod defs {
         pub binary_count: u32,
         pub p_pipeline_binaries: *const PipelineBinaryKHR,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PipelineBinaryInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineBinaryInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("binary_count", &self.binary_count)
+                .field("p_pipeline_binaries", &self.p_pipeline_binaries)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PipelineBinaryInfoKHR<'a> {
@@ -262,6 +326,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ReleaseCapturedPipelineDataInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ReleaseCapturedPipelineDataInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("pipeline", &self.pipeline)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ReleaseCapturedPipelineDataInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::RELEASE_CAPTURED_PIPELINE_DATA_INFO_KHR;
@@ -295,6 +369,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PipelineBinaryDataInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineBinaryDataInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("pipeline_binary", &self.pipeline_binary)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineBinaryDataInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_BINARY_DATA_INFO_KHR;
     }
@@ -326,6 +410,15 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PipelineCreateInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineCreateInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineCreateInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_CREATE_INFO_KHR;
     }
@@ -350,6 +443,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub pipeline_binaries: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDevicePipelineBinaryFeaturesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDevicePipelineBinaryFeaturesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("pipeline_binaries", &self.pipeline_binaries)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePipelineBinaryFeaturesKHR<'a> {
@@ -391,6 +494,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DevicePipelineBinaryInternalCacheControlKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DevicePipelineBinaryInternalCacheControlKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("disable_internal_cache", &self.disable_internal_cache)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DevicePipelineBinaryInternalCacheControlKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DEVICE_PIPELINE_BINARY_INTERNAL_CACHE_CONTROL_KHR;
@@ -428,6 +541,35 @@ pub(super) mod defs {
         pub pipeline_binary_precompiled_internal_cache: Bool32,
         pub pipeline_binary_compressed_data: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDevicePipelineBinaryPropertiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDevicePipelineBinaryPropertiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "pipeline_binary_internal_cache",
+                    &self.pipeline_binary_internal_cache,
+                )
+                .field(
+                    "pipeline_binary_internal_cache_control",
+                    &self.pipeline_binary_internal_cache_control,
+                )
+                .field(
+                    "pipeline_binary_prefers_internal_cache",
+                    &self.pipeline_binary_prefers_internal_cache,
+                )
+                .field(
+                    "pipeline_binary_precompiled_internal_cache",
+                    &self.pipeline_binary_precompiled_internal_cache,
+                )
+                .field(
+                    "pipeline_binary_compressed_data",
+                    &self.pipeline_binary_compressed_data,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePipelineBinaryPropertiesKHR<'a> {

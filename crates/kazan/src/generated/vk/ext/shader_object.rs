@@ -30,6 +30,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceShaderObjectFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceShaderObjectFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("shader_object", &self.shader_object)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderObjectFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_OBJECT_FEATURES_EXT;
@@ -65,6 +75,17 @@ pub(super) mod defs {
         pub shader_binary_uuid: [u8; UUID_SIZE as usize],
         pub shader_binary_version: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceShaderObjectPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceShaderObjectPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("shader_binary_uuid", &self.shader_binary_uuid)
+                .field("shader_binary_version", &self.shader_binary_version)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderObjectPropertiesEXT<'a> {
@@ -120,6 +141,27 @@ pub(super) mod defs {
         pub p_push_constant_ranges: *const PushConstantRange,
         pub p_specialization_info: *const SpecializationInfo<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ShaderCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ShaderCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("stage", &self.stage)
+                .field("next_stage", &self.next_stage)
+                .field("code_type", &self.code_type)
+                .field("code_size", &self.code_size)
+                .field("p_code", &self.p_code)
+                .field("p_name", &unsafe { as_c_str(self.p_name) })
+                .field("set_layout_count", &self.set_layout_count)
+                .field("p_set_layouts", &self.p_set_layouts)
+                .field("push_constant_range_count", &self.push_constant_range_count)
+                .field("p_push_constant_ranges", &self.p_push_constant_ranges)
+                .field("p_specialization_info", &self.p_specialization_info)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ShaderCreateInfoEXT<'a> {
@@ -304,7 +346,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderCreateFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct ShaderCreateFlagBitsEXT(u32);
 
     impl ShaderCreateFlagBitsEXT {

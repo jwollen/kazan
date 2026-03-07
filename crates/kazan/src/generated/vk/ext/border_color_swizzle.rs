@@ -21,6 +21,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SamplerBorderColorComponentMappingCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SamplerBorderColorComponentMappingCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("components", &self.components)
+                .field("srgb", &self.srgb)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SamplerBorderColorComponentMappingCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::SAMPLER_BORDER_COLOR_COMPONENT_MAPPING_CREATE_INFO_EXT;
@@ -64,6 +75,20 @@ pub(super) mod defs {
         pub border_color_swizzle: Bool32,
         pub border_color_swizzle_from_image: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceBorderColorSwizzleFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceBorderColorSwizzleFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("border_color_swizzle", &self.border_color_swizzle)
+                .field(
+                    "border_color_swizzle_from_image",
+                    &self.border_color_swizzle_from_image,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceBorderColorSwizzleFeaturesEXT<'a> {

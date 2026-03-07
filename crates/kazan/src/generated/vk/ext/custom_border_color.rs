@@ -21,6 +21,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SamplerCustomBorderColorCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SamplerCustomBorderColorCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("custom_border_color", &self.custom_border_color)
+                .field("format", &self.format)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SamplerCustomBorderColorCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::SAMPLER_CUSTOM_BORDER_COLOR_CREATE_INFO_EXT;
@@ -60,6 +71,19 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub max_custom_border_color_samplers: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceCustomBorderColorPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceCustomBorderColorPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "max_custom_border_color_samplers",
+                    &self.max_custom_border_color_samplers,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCustomBorderColorPropertiesEXT<'a> {
@@ -102,6 +126,20 @@ pub(super) mod defs {
         pub custom_border_colors: Bool32,
         pub custom_border_color_without_format: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceCustomBorderColorFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceCustomBorderColorFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("custom_border_colors", &self.custom_border_colors)
+                .field(
+                    "custom_border_color_without_format",
+                    &self.custom_border_color_without_format,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCustomBorderColorFeaturesEXT<'a> {

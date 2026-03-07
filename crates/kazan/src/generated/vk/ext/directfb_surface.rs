@@ -22,6 +22,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DirectFBSurfaceCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DirectFBSurfaceCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("dfb", &self.dfb)
+                .field("surface", &self.surface)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DirectFBSurfaceCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DIRECTFB_SURFACE_CREATE_INFO_EXT;
     }

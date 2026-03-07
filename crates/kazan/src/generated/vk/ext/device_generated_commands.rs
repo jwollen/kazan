@@ -32,6 +32,20 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("device_generated_commands", &self.device_generated_commands)
+                .field(
+                    "dynamic_generated_pipeline_layout",
+                    &self.dynamic_generated_pipeline_layout,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_EXT;
@@ -92,6 +106,63 @@ pub(super) mod defs {
         pub device_generated_commands_transform_feedback: Bool32,
         pub device_generated_commands_multi_draw_indirect_count: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceDeviceGeneratedCommandsPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceDeviceGeneratedCommandsPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "max_indirect_pipeline_count",
+                    &self.max_indirect_pipeline_count,
+                )
+                .field(
+                    "max_indirect_shader_object_count",
+                    &self.max_indirect_shader_object_count,
+                )
+                .field(
+                    "max_indirect_sequence_count",
+                    &self.max_indirect_sequence_count,
+                )
+                .field(
+                    "max_indirect_commands_token_count",
+                    &self.max_indirect_commands_token_count,
+                )
+                .field(
+                    "max_indirect_commands_token_offset",
+                    &self.max_indirect_commands_token_offset,
+                )
+                .field(
+                    "max_indirect_commands_indirect_stride",
+                    &self.max_indirect_commands_indirect_stride,
+                )
+                .field(
+                    "supported_indirect_commands_input_modes",
+                    &self.supported_indirect_commands_input_modes,
+                )
+                .field(
+                    "supported_indirect_commands_shader_stages",
+                    &self.supported_indirect_commands_shader_stages,
+                )
+                .field(
+                    "supported_indirect_commands_shader_stages_pipeline_binding",
+                    &self.supported_indirect_commands_shader_stages_pipeline_binding,
+                )
+                .field(
+                    "supported_indirect_commands_shader_stages_shader_binding",
+                    &self.supported_indirect_commands_shader_stages_shader_binding,
+                )
+                .field(
+                    "device_generated_commands_transform_feedback",
+                    &self.device_generated_commands_transform_feedback,
+                )
+                .field(
+                    "device_generated_commands_multi_draw_indirect_count",
+                    &self.device_generated_commands_multi_draw_indirect_count,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDeviceGeneratedCommandsPropertiesEXT<'a> {
@@ -233,6 +304,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for GeneratedCommandsPipelineInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("GeneratedCommandsPipelineInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("pipeline", &self.pipeline)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for GeneratedCommandsPipelineInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::GENERATED_COMMANDS_PIPELINE_INFO_EXT;
     }
@@ -270,6 +351,17 @@ pub(super) mod defs {
         pub shader_count: u32,
         pub p_shaders: *const ShaderEXT,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for GeneratedCommandsShaderInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("GeneratedCommandsShaderInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("shader_count", &self.shader_count)
+                .field("p_shaders", &self.p_shaders)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for GeneratedCommandsShaderInfoEXT<'a> {
@@ -313,6 +405,19 @@ pub(super) mod defs {
         pub max_sequence_count: u32,
         pub max_draw_count: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for GeneratedCommandsMemoryRequirementsInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("GeneratedCommandsMemoryRequirementsInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("indirect_execution_set", &self.indirect_execution_set)
+                .field("indirect_commands_layout", &self.indirect_commands_layout)
+                .field("max_sequence_count", &self.max_sequence_count)
+                .field("max_draw_count", &self.max_draw_count)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for GeneratedCommandsMemoryRequirementsInfoEXT<'a> {
@@ -373,6 +478,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for IndirectExecutionSetPipelineInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("IndirectExecutionSetPipelineInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("initial_pipeline", &self.initial_pipeline)
+                .field("max_pipeline_count", &self.max_pipeline_count)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for IndirectExecutionSetPipelineInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::INDIRECT_EXECUTION_SET_PIPELINE_INFO_EXT;
@@ -413,6 +529,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for IndirectExecutionSetShaderLayoutInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("IndirectExecutionSetShaderLayoutInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("set_layout_count", &self.set_layout_count)
+                .field("p_set_layouts", &self.p_set_layouts)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for IndirectExecutionSetShaderLayoutInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::INDIRECT_EXECUTION_SET_SHADER_LAYOUT_INFO_EXT;
@@ -451,6 +578,21 @@ pub(super) mod defs {
         pub push_constant_range_count: u32,
         pub p_push_constant_ranges: *const PushConstantRange,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for IndirectExecutionSetShaderInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("IndirectExecutionSetShaderInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("shader_count", &self.shader_count)
+                .field("p_initial_shaders", &self.p_initial_shaders)
+                .field("p_set_layout_infos", &self.p_set_layout_infos)
+                .field("max_shader_count", &self.max_shader_count)
+                .field("push_constant_range_count", &self.push_constant_range_count)
+                .field("p_push_constant_ranges", &self.p_push_constant_ranges)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for IndirectExecutionSetShaderInfoEXT<'a> {
@@ -515,6 +657,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for IndirectExecutionSetCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("IndirectExecutionSetCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("ty", &self.ty)
+                .field("info", &self.info)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for IndirectExecutionSetCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::INDIRECT_EXECUTION_SET_CREATE_INFO_EXT;
     }
@@ -560,6 +713,25 @@ pub(super) mod defs {
         pub sequence_count_address: DeviceAddress,
         pub max_draw_count: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for GeneratedCommandsInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("GeneratedCommandsInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("shader_stages", &self.shader_stages)
+                .field("indirect_execution_set", &self.indirect_execution_set)
+                .field("indirect_commands_layout", &self.indirect_commands_layout)
+                .field("indirect_address", &self.indirect_address)
+                .field("indirect_address_size", &self.indirect_address_size)
+                .field("preprocess_address", &self.preprocess_address)
+                .field("preprocess_size", &self.preprocess_size)
+                .field("max_sequence_count", &self.max_sequence_count)
+                .field("sequence_count_address", &self.sequence_count_address)
+                .field("max_draw_count", &self.max_draw_count)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for GeneratedCommandsInfoEXT<'a> {
@@ -655,6 +827,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for WriteIndirectExecutionSetPipelineEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("WriteIndirectExecutionSetPipelineEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("index", &self.index)
+                .field("pipeline", &self.pipeline)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for WriteIndirectExecutionSetPipelineEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::WRITE_INDIRECT_EXECUTION_SET_PIPELINE_EXT;
@@ -693,6 +876,17 @@ pub(super) mod defs {
         pub index: u32,
         pub shader: ShaderEXT,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for WriteIndirectExecutionSetShaderEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("WriteIndirectExecutionSetShaderEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("index", &self.index)
+                .field("shader", &self.shader)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for WriteIndirectExecutionSetShaderEXT<'a> {
@@ -737,6 +931,21 @@ pub(super) mod defs {
         pub token_count: u32,
         pub p_tokens: *const IndirectCommandsLayoutTokenEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for IndirectCommandsLayoutCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("IndirectCommandsLayoutCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("shader_stages", &self.shader_stages)
+                .field("indirect_stride", &self.indirect_stride)
+                .field("pipeline_layout", &self.pipeline_layout)
+                .field("token_count", &self.token_count)
+                .field("p_tokens", &self.p_tokens)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for IndirectCommandsLayoutCreateInfoEXT<'a> {
@@ -800,6 +1009,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for IndirectCommandsLayoutTokenEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("IndirectCommandsLayoutTokenEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("ty", &self.ty)
+                .field("data", &self.data)
+                .field("offset", &self.offset)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for IndirectCommandsLayoutTokenEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::INDIRECT_COMMANDS_LAYOUT_TOKEN_EXT;
     }
@@ -836,7 +1057,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDrawIndirectCountIndirectCommandEXT.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct DrawIndirectCountIndirectCommandEXT {
         pub buffer_address: DeviceAddress,
         pub stride: u32,
@@ -862,7 +1083,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectCommandsVertexBufferTokenEXT.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct IndirectCommandsVertexBufferTokenEXT {
         pub vertex_binding_unit: u32,
     }
@@ -876,7 +1097,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindVertexBufferIndirectCommandEXT.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct BindVertexBufferIndirectCommandEXT {
         pub buffer_address: DeviceAddress,
         pub size: u32,
@@ -902,7 +1123,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectCommandsIndexBufferTokenEXT.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct IndirectCommandsIndexBufferTokenEXT {
         pub mode: IndirectCommandsInputModeFlagBitsEXT,
     }
@@ -916,7 +1137,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindIndexBufferIndirectCommandEXT.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct BindIndexBufferIndirectCommandEXT {
         pub buffer_address: DeviceAddress,
         pub size: u32,
@@ -942,7 +1163,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectCommandsPushConstantTokenEXT.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct IndirectCommandsPushConstantTokenEXT {
         pub update_range: PushConstantRange,
     }
@@ -956,7 +1177,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectCommandsExecutionSetTokenEXT.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct IndirectCommandsExecutionSetTokenEXT {
         pub ty: IndirectExecutionSetInfoTypeEXT,
         pub shader_stages: ShaderStageFlags,
@@ -982,6 +1203,13 @@ pub(super) mod defs {
         pub p_shader_info: *const IndirectExecutionSetShaderInfoEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
     }
+
+    impl fmt::Debug for IndirectExecutionSetInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("IndirectExecutionSetInfoEXT").finish()
+        }
+    }
+
     impl Default for IndirectExecutionSetInfoEXT<'_> {
         fn default() -> Self {
             unsafe { core::mem::zeroed() }
@@ -998,6 +1226,13 @@ pub(super) mod defs {
         pub p_execution_set: *const IndirectCommandsExecutionSetTokenEXT,
         pub _marker: PhantomData<&'a ()>,
     }
+
+    impl fmt::Debug for IndirectCommandsTokenDataEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("IndirectCommandsTokenDataEXT").finish()
+        }
+    }
+
     impl Default for IndirectCommandsTokenDataEXT<'_> {
         fn default() -> Self {
             unsafe { core::mem::zeroed() }
@@ -1122,7 +1357,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectCommandsLayoutUsageFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct IndirectCommandsLayoutUsageFlagBitsEXT(u32);
 
     impl IndirectCommandsLayoutUsageFlagBitsEXT {
@@ -1161,7 +1396,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectCommandsInputModeFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct IndirectCommandsInputModeFlagBitsEXT(u32);
 
     impl IndirectCommandsInputModeFlagBitsEXT {

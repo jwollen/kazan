@@ -20,6 +20,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "dynamic_rendering_unused_attachments",
+                    &self.dynamic_rendering_unused_attachments,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a>
         for PhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT<'a>
     {

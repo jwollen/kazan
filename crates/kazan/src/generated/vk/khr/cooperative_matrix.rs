@@ -21,6 +21,20 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceCooperativeMatrixFeaturesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceCooperativeMatrixFeaturesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("cooperative_matrix", &self.cooperative_matrix)
+                .field(
+                    "cooperative_matrix_robust_buffer_access",
+                    &self.cooperative_matrix_robust_buffer_access,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCooperativeMatrixFeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_KHR;
@@ -76,6 +90,24 @@ pub(super) mod defs {
         pub saturating_accumulation: Bool32,
         pub scope: ScopeKHR,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for CooperativeMatrixPropertiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CooperativeMatrixPropertiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("m_size", &self.m_size)
+                .field("n_size", &self.n_size)
+                .field("k_size", &self.k_size)
+                .field("a_type", &self.a_type)
+                .field("b_type", &self.b_type)
+                .field("c_type", &self.c_type)
+                .field("result_type", &self.result_type)
+                .field("saturating_accumulation", &self.saturating_accumulation)
+                .field("scope", &self.scope)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for CooperativeMatrixPropertiesKHR<'a> {
@@ -156,6 +188,19 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub cooperative_matrix_supported_stages: ShaderStageFlags,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceCooperativeMatrixPropertiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceCooperativeMatrixPropertiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "cooperative_matrix_supported_stages",
+                    &self.cooperative_matrix_supported_stages,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCooperativeMatrixPropertiesKHR<'a> {

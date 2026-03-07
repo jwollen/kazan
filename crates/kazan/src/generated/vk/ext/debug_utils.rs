@@ -28,6 +28,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DebugUtilsObjectNameInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DebugUtilsObjectNameInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("object_type", &self.object_type)
+                .field("object_handle", &self.object_handle)
+                .field("p_object_name", &unsafe { as_c_str(self.p_object_name) })
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DebugUtilsObjectNameInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DEBUG_UTILS_OBJECT_NAME_INFO_EXT;
     }
@@ -78,6 +90,20 @@ pub(super) mod defs {
         pub tag_size: usize,
         pub p_tag: *const c_void,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DebugUtilsObjectTagInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DebugUtilsObjectTagInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("object_type", &self.object_type)
+                .field("object_handle", &self.object_handle)
+                .field("tag_name", &self.tag_name)
+                .field("tag_size", &self.tag_size)
+                .field("p_tag", &self.p_tag)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DebugUtilsObjectTagInfoEXT<'a> {
@@ -133,6 +159,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DebugUtilsLabelEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DebugUtilsLabelEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_label_name", &unsafe { as_c_str(self.p_label_name) })
+                .field("color", &self.color)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DebugUtilsLabelEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DEBUG_UTILS_LABEL_EXT;
     }
@@ -173,6 +210,23 @@ pub(super) mod defs {
         pub pfn_user_callback: Option<PFN_vkDebugUtilsMessengerCallbackEXT>,
         pub p_user_data: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DebugUtilsMessengerCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DebugUtilsMessengerCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("message_severity", &self.message_severity)
+                .field("message_type", &self.message_type)
+                .field(
+                    "pfn_user_callback",
+                    &self.pfn_user_callback.map(|f| f as *const ()),
+                )
+                .field("p_user_data", &self.p_user_data)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DebugUtilsMessengerCreateInfoEXT<'a> {
@@ -246,6 +300,27 @@ pub(super) mod defs {
         pub object_count: u32,
         pub p_objects: *const DebugUtilsObjectNameInfoEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DebugUtilsMessengerCallbackDataEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DebugUtilsMessengerCallbackDataEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("p_message_id_name", &unsafe {
+                    as_c_str(self.p_message_id_name)
+                })
+                .field("message_id_number", &self.message_id_number)
+                .field("p_message", &unsafe { as_c_str(self.p_message) })
+                .field("queue_label_count", &self.queue_label_count)
+                .field("p_queue_labels", &self.p_queue_labels)
+                .field("cmd_buf_label_count", &self.cmd_buf_label_count)
+                .field("p_cmd_buf_labels", &self.p_cmd_buf_labels)
+                .field("object_count", &self.object_count)
+                .field("p_objects", &self.p_objects)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DebugUtilsMessengerCallbackDataEXT<'a> {
@@ -346,7 +421,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugUtilsMessageSeverityFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct DebugUtilsMessageSeverityFlagBitsEXT(u32);
 
     impl DebugUtilsMessageSeverityFlagBitsEXT {
@@ -394,7 +469,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugUtilsMessageTypeFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct DebugUtilsMessageTypeFlagBitsEXT(u32);
 
     impl DebugUtilsMessageTypeFlagBitsEXT {

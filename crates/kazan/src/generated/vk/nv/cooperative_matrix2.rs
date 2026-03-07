@@ -26,6 +26,43 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceCooperativeMatrix2FeaturesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceCooperativeMatrix2FeaturesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "cooperative_matrix_workgroup_scope",
+                    &self.cooperative_matrix_workgroup_scope,
+                )
+                .field(
+                    "cooperative_matrix_flexible_dimensions",
+                    &self.cooperative_matrix_flexible_dimensions,
+                )
+                .field(
+                    "cooperative_matrix_reductions",
+                    &self.cooperative_matrix_reductions,
+                )
+                .field(
+                    "cooperative_matrix_conversions",
+                    &self.cooperative_matrix_conversions,
+                )
+                .field(
+                    "cooperative_matrix_per_element_operations",
+                    &self.cooperative_matrix_per_element_operations,
+                )
+                .field(
+                    "cooperative_matrix_tensor_addressing",
+                    &self.cooperative_matrix_tensor_addressing,
+                )
+                .field(
+                    "cooperative_matrix_block_loads",
+                    &self.cooperative_matrix_block_loads,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCooperativeMatrix2FeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_FEATURES_NV;
@@ -126,6 +163,27 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceCooperativeMatrix2PropertiesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceCooperativeMatrix2PropertiesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "cooperative_matrix_workgroup_scope_max_workgroup_size",
+                    &self.cooperative_matrix_workgroup_scope_max_workgroup_size,
+                )
+                .field(
+                    "cooperative_matrix_flexible_dimensions_max_dimension",
+                    &self.cooperative_matrix_flexible_dimensions_max_dimension,
+                )
+                .field(
+                    "cooperative_matrix_workgroup_scope_reserved_shared_memory",
+                    &self.cooperative_matrix_workgroup_scope_reserved_shared_memory,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCooperativeMatrix2PropertiesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_PROPERTIES_NV;
@@ -195,6 +253,25 @@ pub(super) mod defs {
         pub scope: ScopeKHR,
         pub workgroup_invocations: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for CooperativeMatrixFlexibleDimensionsPropertiesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CooperativeMatrixFlexibleDimensionsPropertiesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("m_granularity", &self.m_granularity)
+                .field("n_granularity", &self.n_granularity)
+                .field("k_granularity", &self.k_granularity)
+                .field("a_type", &self.a_type)
+                .field("b_type", &self.b_type)
+                .field("c_type", &self.c_type)
+                .field("result_type", &self.result_type)
+                .field("saturating_accumulation", &self.saturating_accumulation)
+                .field("scope", &self.scope)
+                .field("workgroup_invocations", &self.workgroup_invocations)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for CooperativeMatrixFlexibleDimensionsPropertiesNV<'a> {

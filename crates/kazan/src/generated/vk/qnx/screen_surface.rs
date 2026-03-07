@@ -22,6 +22,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ScreenSurfaceCreateInfoQNX<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ScreenSurfaceCreateInfoQNX")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("context", &self.context)
+                .field("window", &self.window)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ScreenSurfaceCreateInfoQNX<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SCREEN_SURFACE_CREATE_INFO_QNX;
     }

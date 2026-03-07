@@ -12,7 +12,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkViewportSwizzleNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct ViewportSwizzleNV {
         pub x: ViewportCoordinateSwizzleNV,
         pub y: ViewportCoordinateSwizzleNV,
@@ -52,6 +52,18 @@ pub(super) mod defs {
         pub viewport_count: u32,
         pub p_viewport_swizzles: *const ViewportSwizzleNV,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PipelineViewportSwizzleStateCreateInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineViewportSwizzleStateCreateInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("viewport_count", &self.viewport_count)
+                .field("p_viewport_swizzles", &self.p_viewport_swizzles)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PipelineViewportSwizzleStateCreateInfoNV<'a> {

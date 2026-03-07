@@ -24,6 +24,32 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoEncodeIntraRefreshCapabilitiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeIntraRefreshCapabilitiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("intra_refresh_modes", &self.intra_refresh_modes)
+                .field(
+                    "max_intra_refresh_cycle_duration",
+                    &self.max_intra_refresh_cycle_duration,
+                )
+                .field(
+                    "max_intra_refresh_active_reference_pictures",
+                    &self.max_intra_refresh_active_reference_pictures,
+                )
+                .field(
+                    "partition_independent_intra_refresh_regions",
+                    &self.partition_independent_intra_refresh_regions,
+                )
+                .field(
+                    "non_rectangular_intra_refresh_regions",
+                    &self.non_rectangular_intra_refresh_regions,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoEncodeIntraRefreshCapabilitiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::VIDEO_ENCODE_INTRA_REFRESH_CAPABILITIES_KHR;
@@ -101,6 +127,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoEncodeSessionIntraRefreshCreateInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeSessionIntraRefreshCreateInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("intra_refresh_mode", &self.intra_refresh_mode)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoEncodeSessionIntraRefreshCreateInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::VIDEO_ENCODE_SESSION_INTRA_REFRESH_CREATE_INFO_KHR;
@@ -143,6 +179,20 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoEncodeIntraRefreshInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeIntraRefreshInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "intra_refresh_cycle_duration",
+                    &self.intra_refresh_cycle_duration,
+                )
+                .field("intra_refresh_index", &self.intra_refresh_index)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoEncodeIntraRefreshInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_ENCODE_INTRA_REFRESH_INFO_KHR;
     }
@@ -183,6 +233,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoReferenceIntraRefreshInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoReferenceIntraRefreshInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "dirty_intra_refresh_regions",
+                    &self.dirty_intra_refresh_regions,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoReferenceIntraRefreshInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_REFERENCE_INTRA_REFRESH_INFO_KHR;
     }
@@ -215,6 +278,19 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub video_encode_intra_refresh: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "video_encode_intra_refresh",
+                    &self.video_encode_intra_refresh,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR<'a> {
@@ -293,7 +369,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeIntraRefreshModeFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct VideoEncodeIntraRefreshModeFlagBitsKHR(u32);
 
     impl VideoEncodeIntraRefreshModeFlagBitsKHR {

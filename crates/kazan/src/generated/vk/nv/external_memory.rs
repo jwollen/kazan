@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ExternalMemoryImageCreateInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExternalMemoryImageCreateInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("handle_types", &self.handle_types)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ExternalMemoryImageCreateInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_MEMORY_IMAGE_CREATE_INFO_NV;
     }
@@ -52,6 +62,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub handle_types: ExternalMemoryHandleTypeFlagsNV,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ExportMemoryAllocateInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExportMemoryAllocateInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("handle_types", &self.handle_types)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ExportMemoryAllocateInfoNV<'a> {

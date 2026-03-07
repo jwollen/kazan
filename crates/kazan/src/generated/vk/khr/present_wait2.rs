@@ -21,6 +21,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PresentWait2InfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PresentWait2InfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("present_id", &self.present_id)
+                .field("timeout", &self.timeout)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PresentWait2InfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PRESENT_WAIT_2_INFO_KHR;
     }
@@ -59,6 +70,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDevicePresentWait2FeaturesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDevicePresentWait2FeaturesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("present_wait2", &self.present_wait2)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePresentWait2FeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PRESENT_WAIT_2_FEATURES_KHR;
@@ -93,6 +114,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub present_wait2_supported: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for SurfaceCapabilitiesPresentWait2KHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SurfaceCapabilitiesPresentWait2KHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("present_wait2_supported", &self.present_wait2_supported)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for SurfaceCapabilitiesPresentWait2KHR<'a> {

@@ -23,6 +23,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImportFenceFdInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImportFenceFdInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("fence", &self.fence)
+                .field("flags", &self.flags)
+                .field("handle_type", &self.handle_type)
+                .field("fd", &self.fd)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportFenceFdInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_FENCE_FD_INFO_KHR;
     }
@@ -72,6 +85,17 @@ pub(super) mod defs {
         pub fence: Fence,
         pub handle_type: ExternalFenceHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for FenceGetFdInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("FenceGetFdInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("fence", &self.fence)
+                .field("handle_type", &self.handle_type)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for FenceGetFdInfoKHR<'a> {

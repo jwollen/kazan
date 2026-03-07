@@ -20,6 +20,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceDescriptorSetHostMappingFeaturesVALVE<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceDescriptorSetHostMappingFeaturesVALVE")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "descriptor_set_host_mapping",
+                    &self.descriptor_set_host_mapping,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDescriptorSetHostMappingFeaturesVALVE<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_DESCRIPTOR_SET_HOST_MAPPING_FEATURES_VALVE;
@@ -63,6 +76,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DescriptorSetBindingReferenceVALVE<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DescriptorSetBindingReferenceVALVE")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("descriptor_set_layout", &self.descriptor_set_layout)
+                .field("binding", &self.binding)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DescriptorSetBindingReferenceVALVE<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DESCRIPTOR_SET_BINDING_REFERENCE_VALVE;
     }
@@ -100,6 +124,17 @@ pub(super) mod defs {
         pub descriptor_offset: usize,
         pub descriptor_size: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DescriptorSetLayoutHostMappingInfoVALVE<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DescriptorSetLayoutHostMappingInfoVALVE")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("descriptor_offset", &self.descriptor_offset)
+                .field("descriptor_size", &self.descriptor_size)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DescriptorSetLayoutHostMappingInfoVALVE<'a> {

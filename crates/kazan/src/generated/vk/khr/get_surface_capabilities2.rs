@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceSurfaceInfo2KHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceSurfaceInfo2KHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("surface", &self.surface)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSurfaceInfo2KHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_SURFACE_INFO_2_KHR;
     }
@@ -50,6 +60,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub surface_capabilities: SurfaceCapabilitiesKHR,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for SurfaceCapabilities2KHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SurfaceCapabilities2KHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("surface_capabilities", &self.surface_capabilities)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for SurfaceCapabilities2KHR<'a> {
@@ -85,6 +105,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub surface_format: SurfaceFormatKHR,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for SurfaceFormat2KHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SurfaceFormat2KHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("surface_format", &self.surface_format)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for SurfaceFormat2KHR<'a> {

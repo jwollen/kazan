@@ -21,6 +21,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ViSurfaceCreateInfoNN<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ViSurfaceCreateInfoNN")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("window", &self.window)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ViSurfaceCreateInfoNN<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VI_SURFACE_CREATE_INFO_NN;
     }

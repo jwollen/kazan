@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceImageAlignmentControlFeaturesMESA<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceImageAlignmentControlFeaturesMESA")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("image_alignment_control", &self.image_alignment_control)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceImageAlignmentControlFeaturesMESA<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_FEATURES_MESA;
@@ -62,6 +72,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceImageAlignmentControlPropertiesMESA<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceImageAlignmentControlPropertiesMESA")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "supported_image_alignment_mask",
+                    &self.supported_image_alignment_mask,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceImageAlignmentControlPropertiesMESA<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_PROPERTIES_MESA;
@@ -101,6 +124,19 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub maximum_requested_alignment: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ImageAlignmentControlCreateInfoMESA<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageAlignmentControlCreateInfoMESA")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "maximum_requested_alignment",
+                    &self.maximum_requested_alignment,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ImageAlignmentControlCreateInfoMESA<'a> {

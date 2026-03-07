@@ -26,6 +26,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceDeviceGeneratedCommandsFeaturesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("device_generated_commands", &self.device_generated_commands)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_NV;
@@ -74,6 +84,51 @@ pub(super) mod defs {
         pub min_sequences_index_buffer_offset_alignment: u32,
         pub min_indirect_commands_buffer_offset_alignment: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceDeviceGeneratedCommandsPropertiesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceDeviceGeneratedCommandsPropertiesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "max_graphics_shader_group_count",
+                    &self.max_graphics_shader_group_count,
+                )
+                .field(
+                    "max_indirect_sequence_count",
+                    &self.max_indirect_sequence_count,
+                )
+                .field(
+                    "max_indirect_commands_token_count",
+                    &self.max_indirect_commands_token_count,
+                )
+                .field(
+                    "max_indirect_commands_stream_count",
+                    &self.max_indirect_commands_stream_count,
+                )
+                .field(
+                    "max_indirect_commands_token_offset",
+                    &self.max_indirect_commands_token_offset,
+                )
+                .field(
+                    "max_indirect_commands_stream_stride",
+                    &self.max_indirect_commands_stream_stride,
+                )
+                .field(
+                    "min_sequences_count_buffer_offset_alignment",
+                    &self.min_sequences_count_buffer_offset_alignment,
+                )
+                .field(
+                    "min_sequences_index_buffer_offset_alignment",
+                    &self.min_sequences_index_buffer_offset_alignment,
+                )
+                .field(
+                    "min_indirect_commands_buffer_offset_alignment",
+                    &self.min_indirect_commands_buffer_offset_alignment,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDeviceGeneratedCommandsPropertiesNV<'a> {
@@ -192,6 +247,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for GraphicsShaderGroupCreateInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("GraphicsShaderGroupCreateInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("stage_count", &self.stage_count)
+                .field("p_stages", &self.p_stages)
+                .field("p_vertex_input_state", &self.p_vertex_input_state)
+                .field("p_tessellation_state", &self.p_tessellation_state)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for GraphicsShaderGroupCreateInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::GRAPHICS_SHADER_GROUP_CREATE_INFO_NV;
     }
@@ -247,6 +315,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for GraphicsPipelineShaderGroupsCreateInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("GraphicsPipelineShaderGroupsCreateInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("group_count", &self.group_count)
+                .field("p_groups", &self.p_groups)
+                .field("pipeline_count", &self.pipeline_count)
+                .field("p_pipelines", &self.p_pipelines)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for GraphicsPipelineShaderGroupsCreateInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::GRAPHICS_PIPELINE_SHADER_GROUPS_CREATE_INFO_NV;
@@ -287,7 +368,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindShaderGroupIndirectCommandNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct BindShaderGroupIndirectCommandNV {
         pub group_index: u32,
     }
@@ -301,7 +382,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindIndexBufferIndirectCommandNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct BindIndexBufferIndirectCommandNV {
         pub buffer_address: DeviceAddress,
         pub size: u32,
@@ -327,7 +408,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindVertexBufferIndirectCommandNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct BindVertexBufferIndirectCommandNV {
         pub buffer_address: DeviceAddress,
         pub size: u32,
@@ -353,7 +434,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSetStateFlagsIndirectCommandNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct SetStateFlagsIndirectCommandNV {
         pub data: u32,
     }
@@ -367,7 +448,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectCommandsStreamNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct IndirectCommandsStreamNV {
         pub buffer: Buffer,
         pub offset: DeviceSize,
@@ -405,6 +486,34 @@ pub(super) mod defs {
         pub p_index_types: *const IndexType,
         pub p_index_type_values: *const u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for IndirectCommandsLayoutTokenNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("IndirectCommandsLayoutTokenNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("token_type", &self.token_type)
+                .field("stream", &self.stream)
+                .field("offset", &self.offset)
+                .field("vertex_binding_unit", &self.vertex_binding_unit)
+                .field("vertex_dynamic_stride", &self.vertex_dynamic_stride)
+                .field(
+                    "pushconstant_pipeline_layout",
+                    &self.pushconstant_pipeline_layout,
+                )
+                .field(
+                    "pushconstant_shader_stage_flags",
+                    &self.pushconstant_shader_stage_flags,
+                )
+                .field("pushconstant_offset", &self.pushconstant_offset)
+                .field("pushconstant_size", &self.pushconstant_size)
+                .field("indirect_state_flags", &self.indirect_state_flags)
+                .field("index_type_count", &self.index_type_count)
+                .field("p_index_types", &self.p_index_types)
+                .field("p_index_type_values", &self.p_index_type_values)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for IndirectCommandsLayoutTokenNV<'a> {
@@ -519,6 +628,21 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for IndirectCommandsLayoutCreateInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("IndirectCommandsLayoutCreateInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("pipeline_bind_point", &self.pipeline_bind_point)
+                .field("token_count", &self.token_count)
+                .field("p_tokens", &self.p_tokens)
+                .field("stream_count", &self.stream_count)
+                .field("p_stream_strides", &self.p_stream_strides)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for IndirectCommandsLayoutCreateInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_NV;
@@ -584,6 +708,28 @@ pub(super) mod defs {
         pub sequences_index_buffer: Buffer,
         pub sequences_index_offset: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for GeneratedCommandsInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("GeneratedCommandsInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("pipeline_bind_point", &self.pipeline_bind_point)
+                .field("pipeline", &self.pipeline)
+                .field("indirect_commands_layout", &self.indirect_commands_layout)
+                .field("stream_count", &self.stream_count)
+                .field("p_streams", &self.p_streams)
+                .field("sequences_count", &self.sequences_count)
+                .field("preprocess_buffer", &self.preprocess_buffer)
+                .field("preprocess_offset", &self.preprocess_offset)
+                .field("preprocess_size", &self.preprocess_size)
+                .field("sequences_count_buffer", &self.sequences_count_buffer)
+                .field("sequences_count_offset", &self.sequences_count_offset)
+                .field("sequences_index_buffer", &self.sequences_index_buffer)
+                .field("sequences_index_offset", &self.sequences_index_offset)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for GeneratedCommandsInfoNV<'a> {
@@ -690,6 +836,19 @@ pub(super) mod defs {
         pub indirect_commands_layout: IndirectCommandsLayoutNV,
         pub max_sequences_count: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for GeneratedCommandsMemoryRequirementsInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("GeneratedCommandsMemoryRequirementsInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("pipeline_bind_point", &self.pipeline_bind_point)
+                .field("pipeline", &self.pipeline)
+                .field("indirect_commands_layout", &self.indirect_commands_layout)
+                .field("max_sequences_count", &self.max_sequences_count)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for GeneratedCommandsMemoryRequirementsInfoNV<'a> {
@@ -823,7 +982,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectCommandsLayoutUsageFlagBitsNV.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct IndirectCommandsLayoutUsageFlagBitsNV(u32);
 
     impl IndirectCommandsLayoutUsageFlagBitsNV {
@@ -854,7 +1013,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkIndirectStateFlagBitsNV.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct IndirectStateFlagBitsNV(u32);
 
     impl IndirectStateFlagBitsNV {

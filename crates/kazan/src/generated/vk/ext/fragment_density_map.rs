@@ -22,6 +22,24 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceFragmentDensityMapFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceFragmentDensityMapFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("fragment_density_map", &self.fragment_density_map)
+                .field(
+                    "fragment_density_map_dynamic",
+                    &self.fragment_density_map_dynamic,
+                )
+                .field(
+                    "fragment_density_map_non_subsampled_images",
+                    &self.fragment_density_map_non_subsampled_images,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentDensityMapFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_FEATURES_EXT;
@@ -77,6 +95,27 @@ pub(super) mod defs {
         pub max_fragment_density_texel_size: Extent2D,
         pub fragment_density_invocations: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceFragmentDensityMapPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceFragmentDensityMapPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "min_fragment_density_texel_size",
+                    &self.min_fragment_density_texel_size,
+                )
+                .field(
+                    "max_fragment_density_texel_size",
+                    &self.max_fragment_density_texel_size,
+                )
+                .field(
+                    "fragment_density_invocations",
+                    &self.fragment_density_invocations,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentDensityMapPropertiesEXT<'a> {
@@ -135,6 +174,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for RenderPassFragmentDensityMapCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RenderPassFragmentDensityMapCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "fragment_density_map_attachment",
+                    &self.fragment_density_map_attachment,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for RenderPassFragmentDensityMapCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::RENDER_PASS_FRAGMENT_DENSITY_MAP_CREATE_INFO_EXT;
@@ -179,6 +231,17 @@ pub(super) mod defs {
         pub image_view: ImageView,
         pub image_layout: ImageLayout,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for RenderingFragmentDensityMapAttachmentInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RenderingFragmentDensityMapAttachmentInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("image_view", &self.image_view)
+                .field("image_layout", &self.image_layout)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for RenderingFragmentDensityMapAttachmentInfoEXT<'a> {

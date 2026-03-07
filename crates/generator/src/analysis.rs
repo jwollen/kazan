@@ -313,6 +313,9 @@ pub struct TypeInfo {
     pub pod: bool,
     pub lifetime_param: bool,
     pub lifetime: bool,
+    /// Whether a simple `#[derive(Debug)]` works for this type.
+    /// False when the type contains pointers, function pointers, or `[c_char; N]` arrays.
+    pub trivial_debug: bool,
 }
 
 impl TypeInfo {
@@ -322,6 +325,7 @@ impl TypeInfo {
         pod: true,
         lifetime_param: false,
         lifetime: false,
+        trivial_debug: true,
     };
 
     const OPAQUE: TypeInfo = TypeInfo {
@@ -330,6 +334,7 @@ impl TypeInfo {
         pod: false,
         lifetime_param: false,
         lifetime: false,
+        trivial_debug: false,
     };
 
     const FN_POINTER: TypeInfo = TypeInfo {
@@ -338,6 +343,7 @@ impl TypeInfo {
         pod: true,
         lifetime_param: false,
         lifetime: false,
+        trivial_debug: false,
     };
 
     const POINTER: TypeInfo = TypeInfo {
@@ -346,6 +352,7 @@ impl TypeInfo {
         pod: false,
         lifetime_param: false,
         lifetime: true,
+        trivial_debug: false,
     };
 
     fn empty_struct() -> Self {
@@ -355,6 +362,7 @@ impl TypeInfo {
             pod: true,
             lifetime_param: false,
             lifetime: false,
+            trivial_debug: true,
         }
     }
 
@@ -363,6 +371,7 @@ impl TypeInfo {
         self.clone &= other.clone;
         self.pod &= other.pod;
         self.lifetime_param |= other.lifetime_param | other.lifetime;
+        self.trivial_debug &= other.trivial_debug;
     }
 }
 
@@ -448,6 +457,10 @@ fn get_type_info<'a>(
         CType::Array { element, .. } => {
             let mut info = get_type_info(types, type_infos, element)?;
             info.default = false;
+            // [c_char; N] arrays need custom Debug to display as strings
+            if matches!(element.as_ref(), CType::Base(b) if b.name == "char") {
+                info.trivial_debug = false;
+            }
             Some(info)
         }
         CType::Ptr { pointee, .. } => {

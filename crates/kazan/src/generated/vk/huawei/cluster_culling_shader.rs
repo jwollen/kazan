@@ -23,6 +23,22 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceClusterCullingShaderPropertiesHUAWEI<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceClusterCullingShaderPropertiesHUAWEI")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("max_work_group_count", &self.max_work_group_count)
+                .field("max_work_group_size", &self.max_work_group_size)
+                .field("max_output_cluster_count", &self.max_output_cluster_count)
+                .field(
+                    "indirect_buffer_offset_alignment",
+                    &self.indirect_buffer_offset_alignment,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceClusterCullingShaderPropertiesHUAWEI<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_PROPERTIES_HUAWEI;
@@ -83,6 +99,20 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceClusterCullingShaderFeaturesHUAWEI<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceClusterCullingShaderFeaturesHUAWEI")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("clusterculling_shader", &self.clusterculling_shader)
+                .field(
+                    "multiview_cluster_culling_shader",
+                    &self.multiview_cluster_culling_shader,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceClusterCullingShaderFeaturesHUAWEI<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_FEATURES_HUAWEI;
@@ -132,6 +162,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub cluster_shading_rate: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("cluster_shading_rate", &self.cluster_shading_rate)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI<'a> {

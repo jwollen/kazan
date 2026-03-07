@@ -12,7 +12,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH265WeightTableFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoEncodeH265WeightTableFlags {
         pub luma_weight_l0_flag: u16,
         pub chroma_weight_l0_flag: u16,
@@ -44,7 +44,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH265WeightTable.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct StdVideoEncodeH265WeightTable {
         pub flags: StdVideoEncodeH265WeightTableFlags,
         pub luma_log2_weight_denom: u8,
@@ -171,7 +171,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH265LongTermRefPics.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct StdVideoEncodeH265LongTermRefPics {
         pub num_long_term_sps: u8,
         pub num_long_term_pics: u8,
@@ -247,7 +247,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH265SliceSegmentHeaderFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoEncodeH265SliceSegmentHeaderFlags {
         pub first_slice_segment_in_pic_flag: u32,
         pub dependent_slice_segment_flag: u32,
@@ -372,6 +372,28 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for StdVideoEncodeH265SliceSegmentHeader<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("StdVideoEncodeH265SliceSegmentHeader")
+                .field("flags", &self.flags)
+                .field("slice_type", &self.slice_type)
+                .field("slice_segment_address", &self.slice_segment_address)
+                .field("collocated_ref_idx", &self.collocated_ref_idx)
+                .field("max_num_merge_cand", &self.max_num_merge_cand)
+                .field("slice_cb_qp_offset", &self.slice_cb_qp_offset)
+                .field("slice_cr_qp_offset", &self.slice_cr_qp_offset)
+                .field("slice_beta_offset_div2", &self.slice_beta_offset_div2)
+                .field("slice_tc_offset_div2", &self.slice_tc_offset_div2)
+                .field("slice_act_y_qp_offset", &self.slice_act_y_qp_offset)
+                .field("slice_act_cb_qp_offset", &self.slice_act_cb_qp_offset)
+                .field("slice_act_cr_qp_offset", &self.slice_act_cr_qp_offset)
+                .field("slice_qp_delta", &self.slice_qp_delta)
+                .field("reserved1", &self.reserved1)
+                .field("p_weight_table", &self.p_weight_table)
+                .finish()
+        }
+    }
+
     impl Default for StdVideoEncodeH265SliceSegmentHeader<'_> {
         fn default() -> Self {
             Self {
@@ -474,7 +496,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH265ReferenceListsInfoFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoEncodeH265ReferenceListsInfoFlags {
         pub ref_pic_list_modification_flag_l0: u32,
         pub ref_pic_list_modification_flag_l1: u32,
@@ -506,7 +528,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH265ReferenceListsInfo.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct StdVideoEncodeH265ReferenceListsInfo {
         pub flags: StdVideoEncodeH265ReferenceListsInfoFlags,
         pub num_ref_idx_l0_active_minus1: u8,
@@ -582,7 +604,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH265PictureInfoFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoEncodeH265PictureInfoFlags {
         pub is_reference: u32,
         pub irap_pic_flag: u32,
@@ -671,6 +693,31 @@ pub(super) mod defs {
         pub p_short_term_ref_pic_set: *const StdVideoH265ShortTermRefPicSet,
         pub p_long_term_ref_pics: *const StdVideoEncodeH265LongTermRefPics,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for StdVideoEncodeH265PictureInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("StdVideoEncodeH265PictureInfo")
+                .field("flags", &self.flags)
+                .field("pic_type", &self.pic_type)
+                .field(
+                    "sps_video_parameter_set_id",
+                    &self.sps_video_parameter_set_id,
+                )
+                .field("pps_seq_parameter_set_id", &self.pps_seq_parameter_set_id)
+                .field("pps_pic_parameter_set_id", &self.pps_pic_parameter_set_id)
+                .field(
+                    "short_term_ref_pic_set_idx",
+                    &self.short_term_ref_pic_set_idx,
+                )
+                .field("pic_order_cnt_val", &self.pic_order_cnt_val)
+                .field("temporal_id", &self.temporal_id)
+                .field("reserved1", &self.reserved1)
+                .field("p_ref_lists", &self.p_ref_lists)
+                .field("p_short_term_ref_pic_set", &self.p_short_term_ref_pic_set)
+                .field("p_long_term_ref_pics", &self.p_long_term_ref_pics)
+                .finish()
+        }
     }
 
     impl Default for StdVideoEncodeH265PictureInfo<'_> {
@@ -763,7 +810,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH265ReferenceInfoFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoEncodeH265ReferenceInfoFlags {
         pub used_for_long_term_reference: u32,
         pub unused_for_reference: u32,
@@ -789,7 +836,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH265ReferenceInfo.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoEncodeH265ReferenceInfo {
         pub flags: StdVideoEncodeH265ReferenceInfoFlags,
         pub pic_type: StdVideoH265PictureType,

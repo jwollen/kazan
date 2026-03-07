@@ -21,6 +21,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImportMemoryZirconHandleInfoFUCHSIA<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImportMemoryZirconHandleInfoFUCHSIA")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("handle_type", &self.handle_type)
+                .field("handle", &self.handle)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportMemoryZirconHandleInfoFUCHSIA<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::IMPORT_MEMORY_ZIRCON_HANDLE_INFO_FUCHSIA;
@@ -62,6 +73,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for MemoryZirconHandlePropertiesFUCHSIA<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MemoryZirconHandlePropertiesFUCHSIA")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("memory_type_bits", &self.memory_type_bits)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for MemoryZirconHandlePropertiesFUCHSIA<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::MEMORY_ZIRCON_HANDLE_PROPERTIES_FUCHSIA;
@@ -94,6 +115,17 @@ pub(super) mod defs {
         pub memory: DeviceMemory,
         pub handle_type: ExternalMemoryHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for MemoryGetZirconHandleInfoFUCHSIA<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MemoryGetZirconHandleInfoFUCHSIA")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("memory", &self.memory)
+                .field("handle_type", &self.handle_type)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for MemoryGetZirconHandleInfoFUCHSIA<'a> {

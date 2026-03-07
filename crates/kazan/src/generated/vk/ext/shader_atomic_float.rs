@@ -31,6 +31,63 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceShaderAtomicFloatFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceShaderAtomicFloatFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "shader_buffer_float32_atomics",
+                    &self.shader_buffer_float32_atomics,
+                )
+                .field(
+                    "shader_buffer_float32_atomic_add",
+                    &self.shader_buffer_float32_atomic_add,
+                )
+                .field(
+                    "shader_buffer_float64_atomics",
+                    &self.shader_buffer_float64_atomics,
+                )
+                .field(
+                    "shader_buffer_float64_atomic_add",
+                    &self.shader_buffer_float64_atomic_add,
+                )
+                .field(
+                    "shader_shared_float32_atomics",
+                    &self.shader_shared_float32_atomics,
+                )
+                .field(
+                    "shader_shared_float32_atomic_add",
+                    &self.shader_shared_float32_atomic_add,
+                )
+                .field(
+                    "shader_shared_float64_atomics",
+                    &self.shader_shared_float64_atomics,
+                )
+                .field(
+                    "shader_shared_float64_atomic_add",
+                    &self.shader_shared_float64_atomic_add,
+                )
+                .field(
+                    "shader_image_float32_atomics",
+                    &self.shader_image_float32_atomics,
+                )
+                .field(
+                    "shader_image_float32_atomic_add",
+                    &self.shader_image_float32_atomic_add,
+                )
+                .field(
+                    "sparse_image_float32_atomics",
+                    &self.sparse_image_float32_atomics,
+                )
+                .field(
+                    "sparse_image_float32_atomic_add",
+                    &self.sparse_image_float32_atomic_add,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderAtomicFloatFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_FEATURES_EXT;

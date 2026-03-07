@@ -22,6 +22,21 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ComputePipelineIndirectBufferInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ComputePipelineIndirectBufferInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("device_address", &self.device_address)
+                .field("size", &self.size)
+                .field(
+                    "pipeline_device_address_capture_replay",
+                    &self.pipeline_device_address_capture_replay,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ComputePipelineIndirectBufferInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV;
@@ -72,6 +87,24 @@ pub(super) mod defs {
         pub device_generated_compute_pipelines: Bool32,
         pub device_generated_compute_capture_replay: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("device_generated_compute", &self.device_generated_compute)
+                .field(
+                    "device_generated_compute_pipelines",
+                    &self.device_generated_compute_pipelines,
+                )
+                .field(
+                    "device_generated_compute_capture_replay",
+                    &self.device_generated_compute_capture_replay,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV<'a> {
@@ -136,6 +169,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PipelineIndirectDeviceAddressInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineIndirectDeviceAddressInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("pipeline_bind_point", &self.pipeline_bind_point)
+                .field("pipeline", &self.pipeline)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineIndirectDeviceAddressInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV;
@@ -167,7 +211,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindPipelineIndirectCommandNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct BindPipelineIndirectCommandNV {
         pub pipeline_address: DeviceAddress,
     }

@@ -33,6 +33,62 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceTileShadingFeaturesQCOM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceTileShadingFeaturesQCOM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("tile_shading", &self.tile_shading)
+                .field(
+                    "tile_shading_fragment_stage",
+                    &self.tile_shading_fragment_stage,
+                )
+                .field(
+                    "tile_shading_color_attachments",
+                    &self.tile_shading_color_attachments,
+                )
+                .field(
+                    "tile_shading_depth_attachments",
+                    &self.tile_shading_depth_attachments,
+                )
+                .field(
+                    "tile_shading_stencil_attachments",
+                    &self.tile_shading_stencil_attachments,
+                )
+                .field(
+                    "tile_shading_input_attachments",
+                    &self.tile_shading_input_attachments,
+                )
+                .field(
+                    "tile_shading_sampled_attachments",
+                    &self.tile_shading_sampled_attachments,
+                )
+                .field(
+                    "tile_shading_per_tile_draw",
+                    &self.tile_shading_per_tile_draw,
+                )
+                .field(
+                    "tile_shading_per_tile_dispatch",
+                    &self.tile_shading_per_tile_dispatch,
+                )
+                .field(
+                    "tile_shading_dispatch_tile",
+                    &self.tile_shading_dispatch_tile,
+                )
+                .field("tile_shading_apron", &self.tile_shading_apron)
+                .field(
+                    "tile_shading_anisotropic_apron",
+                    &self.tile_shading_anisotropic_apron,
+                )
+                .field("tile_shading_atomic_ops", &self.tile_shading_atomic_ops)
+                .field(
+                    "tile_shading_image_processing",
+                    &self.tile_shading_image_processing,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceTileShadingFeaturesQCOM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_TILE_SHADING_FEATURES_QCOM;
@@ -174,6 +230,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceTileShadingPropertiesQCOM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceTileShadingPropertiesQCOM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("max_apron_size", &self.max_apron_size)
+                .field("prefer_non_coherent", &self.prefer_non_coherent)
+                .field("tile_granularity", &self.tile_granularity)
+                .field("max_tile_shading_rate", &self.max_tile_shading_rate)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceTileShadingPropertiesQCOM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_TILE_SHADING_PROPERTIES_QCOM;
@@ -231,6 +300,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for RenderPassTileShadingCreateInfoQCOM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RenderPassTileShadingCreateInfoQCOM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("tile_apron_size", &self.tile_apron_size)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for RenderPassTileShadingCreateInfoQCOM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::RENDER_PASS_TILE_SHADING_CREATE_INFO_QCOM;
@@ -277,6 +357,15 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PerTileBeginInfoQCOM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PerTileBeginInfoQCOM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PerTileBeginInfoQCOM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PER_TILE_BEGIN_INFO_QCOM;
     }
@@ -302,6 +391,15 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PerTileEndInfoQCOM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PerTileEndInfoQCOM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PerTileEndInfoQCOM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PER_TILE_END_INFO_QCOM;
     }
@@ -325,6 +423,15 @@ pub(super) mod defs {
         pub s_type: StructureType,
         pub p_next: *const c_void,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DispatchTileInfoQCOM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DispatchTileInfoQCOM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DispatchTileInfoQCOM<'a> {
@@ -370,7 +477,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTileShadingRenderPassFlagBitsQCOM.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct TileShadingRenderPassFlagBitsQCOM(u32);
 
     impl TileShadingRenderPassFlagBitsQCOM {

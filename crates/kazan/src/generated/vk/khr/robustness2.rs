@@ -22,6 +22,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceRobustness2FeaturesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceRobustness2FeaturesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("robust_buffer_access2", &self.robust_buffer_access2)
+                .field("robust_image_access2", &self.robust_image_access2)
+                .field("null_descriptor", &self.null_descriptor)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRobustness2FeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_KHR;
@@ -69,6 +81,23 @@ pub(super) mod defs {
         pub robust_storage_buffer_access_size_alignment: DeviceSize,
         pub robust_uniform_buffer_access_size_alignment: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceRobustness2PropertiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceRobustness2PropertiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "robust_storage_buffer_access_size_alignment",
+                    &self.robust_storage_buffer_access_size_alignment,
+                )
+                .field(
+                    "robust_uniform_buffer_access_size_alignment",
+                    &self.robust_uniform_buffer_access_size_alignment,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRobustness2PropertiesKHR<'a> {

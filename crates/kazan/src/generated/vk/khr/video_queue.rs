@@ -31,6 +31,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for QueueFamilyVideoPropertiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("QueueFamilyVideoPropertiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("video_codec_operations", &self.video_codec_operations)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for QueueFamilyVideoPropertiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::QUEUE_FAMILY_VIDEO_PROPERTIES_KHR;
     }
@@ -66,6 +76,19 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub query_result_status_support: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for QueueFamilyQueryResultStatusPropertiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("QueueFamilyQueryResultStatusPropertiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "query_result_status_support",
+                    &self.query_result_status_support,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for QueueFamilyQueryResultStatusPropertiesKHR<'a> {
@@ -107,6 +130,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoProfileListInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoProfileListInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("profile_count", &self.profile_count)
+                .field("p_profiles", &self.p_profiles)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoProfileListInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_PROFILE_LIST_INFO_KHR;
     }
@@ -146,6 +180,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceVideoFormatInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceVideoFormatInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("image_usage", &self.image_usage)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVideoFormatInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR;
     }
@@ -181,6 +225,21 @@ pub(super) mod defs {
         pub image_tiling: ImageTiling,
         pub image_usage_flags: ImageUsageFlags,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoFormatPropertiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoFormatPropertiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("format", &self.format)
+                .field("component_mapping", &self.component_mapping)
+                .field("image_create_flags", &self.image_create_flags)
+                .field("image_type", &self.image_type)
+                .field("image_tiling", &self.image_tiling)
+                .field("image_usage_flags", &self.image_usage_flags)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoFormatPropertiesKHR<'a> {
@@ -246,6 +305,19 @@ pub(super) mod defs {
         pub luma_bit_depth: VideoComponentBitDepthFlagsKHR,
         pub chroma_bit_depth: VideoComponentBitDepthFlagsKHR,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoProfileInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoProfileInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("video_codec_operation", &self.video_codec_operation)
+                .field("chroma_subsampling", &self.chroma_subsampling)
+                .field("luma_bit_depth", &self.luma_bit_depth)
+                .field("chroma_bit_depth", &self.chroma_bit_depth)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoProfileInfoKHR<'a> {
@@ -315,6 +387,36 @@ pub(super) mod defs {
         pub max_active_reference_pictures: u32,
         pub std_header_version: ExtensionProperties,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoCapabilitiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoCapabilitiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field(
+                    "min_bitstream_buffer_offset_alignment",
+                    &self.min_bitstream_buffer_offset_alignment,
+                )
+                .field(
+                    "min_bitstream_buffer_size_alignment",
+                    &self.min_bitstream_buffer_size_alignment,
+                )
+                .field(
+                    "picture_access_granularity",
+                    &self.picture_access_granularity,
+                )
+                .field("min_coded_extent", &self.min_coded_extent)
+                .field("max_coded_extent", &self.max_coded_extent)
+                .field("max_dpb_slots", &self.max_dpb_slots)
+                .field(
+                    "max_active_reference_pictures",
+                    &self.max_active_reference_pictures,
+                )
+                .field("std_header_version", &self.std_header_version)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoCapabilitiesKHR<'a> {
@@ -404,6 +506,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoSessionMemoryRequirementsKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoSessionMemoryRequirementsKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("memory_bind_index", &self.memory_bind_index)
+                .field("memory_requirements", &self.memory_requirements)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoSessionMemoryRequirementsKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_SESSION_MEMORY_REQUIREMENTS_KHR;
     }
@@ -443,6 +556,19 @@ pub(super) mod defs {
         pub memory_offset: DeviceSize,
         pub memory_size: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for BindVideoSessionMemoryInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BindVideoSessionMemoryInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("memory_bind_index", &self.memory_bind_index)
+                .field("memory", &self.memory)
+                .field("memory_offset", &self.memory_offset)
+                .field("memory_size", &self.memory_size)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for BindVideoSessionMemoryInfoKHR<'a> {
@@ -498,6 +624,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoPictureResourceInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoPictureResourceInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("coded_offset", &self.coded_offset)
+                .field("coded_extent", &self.coded_extent)
+                .field("base_array_layer", &self.base_array_layer)
+                .field("image_view_binding", &self.image_view_binding)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoPictureResourceInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_PICTURE_RESOURCE_INFO_KHR;
     }
@@ -549,6 +688,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoReferenceSlotInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoReferenceSlotInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("slot_index", &self.slot_index)
+                .field("p_picture_resource", &self.p_picture_resource)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoReferenceSlotInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_REFERENCE_SLOT_INFO_KHR;
     }
@@ -596,6 +746,27 @@ pub(super) mod defs {
         pub max_active_reference_pictures: u32,
         pub p_std_header_version: *const ExtensionProperties,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoSessionCreateInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoSessionCreateInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("queue_family_index", &self.queue_family_index)
+                .field("flags", &self.flags)
+                .field("p_video_profile", &self.p_video_profile)
+                .field("picture_format", &self.picture_format)
+                .field("max_coded_extent", &self.max_coded_extent)
+                .field("reference_picture_format", &self.reference_picture_format)
+                .field("max_dpb_slots", &self.max_dpb_slots)
+                .field(
+                    "max_active_reference_pictures",
+                    &self.max_active_reference_pictures,
+                )
+                .field("p_std_header_version", &self.p_std_header_version)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoSessionCreateInfoKHR<'a> {
@@ -680,6 +851,21 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoSessionParametersCreateInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoSessionParametersCreateInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field(
+                    "video_session_parameters_template",
+                    &self.video_session_parameters_template,
+                )
+                .field("video_session", &self.video_session)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoSessionParametersCreateInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::VIDEO_SESSION_PARAMETERS_CREATE_INFO_KHR;
@@ -728,6 +914,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoSessionParametersUpdateInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoSessionParametersUpdateInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("update_sequence_count", &self.update_sequence_count)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoSessionParametersUpdateInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::VIDEO_SESSION_PARAMETERS_UPDATE_INFO_KHR;
@@ -763,6 +959,20 @@ pub(super) mod defs {
         pub reference_slot_count: u32,
         pub p_reference_slots: *const VideoReferenceSlotInfoKHR<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoBeginCodingInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoBeginCodingInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("video_session", &self.video_session)
+                .field("video_session_parameters", &self.video_session_parameters)
+                .field("reference_slot_count", &self.reference_slot_count)
+                .field("p_reference_slots", &self.p_reference_slots)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoBeginCodingInfoKHR<'a> {
@@ -823,6 +1033,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoEndCodingInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEndCodingInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoEndCodingInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_END_CODING_INFO_KHR;
     }
@@ -853,6 +1073,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub flags: VideoCodingControlFlagsKHR,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoCodingControlInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoCodingControlInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoCodingControlInfoKHR<'a> {
@@ -977,7 +1207,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoCodecOperationFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct VideoCodecOperationFlagBitsKHR(u32);
 
     impl VideoCodecOperationFlagBitsKHR {
@@ -1034,7 +1264,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoCapabilityFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct VideoCapabilityFlagBitsKHR(u32);
 
     impl VideoCapabilityFlagBitsKHR {
@@ -1104,7 +1334,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoSessionCreateFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct VideoSessionCreateFlagBitsKHR(u32);
 
     impl VideoSessionCreateFlagBitsKHR {
@@ -1147,7 +1377,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoSessionParametersCreateFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct VideoSessionParametersCreateFlagBitsKHR(u32);
 
     impl VideoSessionParametersCreateFlagBitsKHR {
@@ -1213,7 +1443,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoCodingControlFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct VideoCodingControlFlagBitsKHR(u32);
 
     impl VideoCodingControlFlagBitsKHR {
@@ -1254,7 +1484,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoChromaSubsamplingFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct VideoChromaSubsamplingFlagBitsKHR(u32);
 
     impl VideoChromaSubsamplingFlagBitsKHR {
@@ -1290,7 +1520,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoComponentBitDepthFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct VideoComponentBitDepthFlagBitsKHR(u32);
 
     impl VideoComponentBitDepthFlagBitsKHR {

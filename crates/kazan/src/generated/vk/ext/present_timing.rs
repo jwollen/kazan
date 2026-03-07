@@ -22,6 +22,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDevicePresentTimingFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDevicePresentTimingFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("present_timing", &self.present_timing)
+                .field("present_at_absolute_time", &self.present_at_absolute_time)
+                .field("present_at_relative_time", &self.present_at_relative_time)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePresentTimingFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PRESENT_TIMING_FEATURES_EXT;
@@ -74,6 +86,25 @@ pub(super) mod defs {
         pub present_at_relative_time_supported: Bool32,
         pub present_stage_queries: PresentStageFlagsEXT,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PresentTimingSurfaceCapabilitiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PresentTimingSurfaceCapabilitiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("present_timing_supported", &self.present_timing_supported)
+                .field(
+                    "present_at_absolute_time_supported",
+                    &self.present_at_absolute_time_supported,
+                )
+                .field(
+                    "present_at_relative_time_supported",
+                    &self.present_at_relative_time_supported,
+                )
+                .field("present_stage_queries", &self.present_stage_queries)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PresentTimingSurfaceCapabilitiesEXT<'a> {
@@ -139,6 +170,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SwapchainTimingPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SwapchainTimingPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("refresh_duration", &self.refresh_duration)
+                .field("refresh_interval", &self.refresh_interval)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SwapchainTimingPropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SWAPCHAIN_TIMING_PROPERTIES_EXT;
     }
@@ -179,6 +221,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SwapchainTimeDomainPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SwapchainTimeDomainPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("time_domain_count", &self.time_domain_count)
+                .field("p_time_domains", &self.p_time_domains)
+                .field("p_time_domain_ids", &self.p_time_domain_ids)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SwapchainTimeDomainPropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SWAPCHAIN_TIME_DOMAIN_PROPERTIES_EXT;
     }
@@ -212,7 +266,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentStageTimeEXT.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct PresentStageTimeEXT {
         pub stage: PresentStageFlagsEXT,
         pub time: u64,
@@ -239,6 +293,17 @@ pub(super) mod defs {
         pub flags: PastPresentationTimingFlagsEXT,
         pub swapchain: SwapchainKHR,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PastPresentationTimingInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PastPresentationTimingInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("swapchain", &self.swapchain)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PastPresentationTimingInfoEXT<'a> {
@@ -280,6 +345,19 @@ pub(super) mod defs {
         pub presentation_timing_count: u32,
         pub p_presentation_timings: *mut PastPresentationTimingEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PastPresentationTimingPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PastPresentationTimingPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("timing_properties_counter", &self.timing_properties_counter)
+                .field("time_domains_counter", &self.time_domains_counter)
+                .field("presentation_timing_count", &self.presentation_timing_count)
+                .field("p_presentation_timings", &self.p_presentation_timings)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PastPresentationTimingPropertiesEXT<'a> {
@@ -336,6 +414,22 @@ pub(super) mod defs {
         pub time_domain_id: u64,
         pub report_complete: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PastPresentationTimingEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PastPresentationTimingEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("present_id", &self.present_id)
+                .field("target_time", &self.target_time)
+                .field("present_stage_count", &self.present_stage_count)
+                .field("p_present_stages", &self.p_present_stages)
+                .field("time_domain", &self.time_domain)
+                .field("time_domain_id", &self.time_domain_id)
+                .field("report_complete", &self.report_complete)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PastPresentationTimingEXT<'a> {
@@ -403,6 +497,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PresentTimingsInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PresentTimingsInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("swapchain_count", &self.swapchain_count)
+                .field("p_timing_infos", &self.p_timing_infos)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PresentTimingsInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PRESENT_TIMINGS_INFO_EXT;
     }
@@ -441,6 +546,23 @@ pub(super) mod defs {
         pub present_stage_queries: PresentStageFlagsEXT,
         pub target_time_domain_present_stage: PresentStageFlagsEXT,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PresentTimingInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PresentTimingInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("target_time", &self.target_time)
+                .field("time_domain_id", &self.time_domain_id)
+                .field("present_stage_queries", &self.present_stage_queries)
+                .field(
+                    "target_time_domain_present_stage",
+                    &self.target_time_domain_present_stage,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PresentTimingInfoEXT<'a> {
@@ -505,6 +627,18 @@ pub(super) mod defs {
         pub present_stage: PresentStageFlagsEXT,
         pub time_domain_id: u64,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for SwapchainCalibratedTimestampInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SwapchainCalibratedTimestampInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("swapchain", &self.swapchain)
+                .field("present_stage", &self.present_stage)
+                .field("time_domain_id", &self.time_domain_id)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for SwapchainCalibratedTimestampInfoEXT<'a> {
@@ -590,7 +724,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentStageFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct PresentStageFlagBitsEXT(u32);
 
     impl PresentStageFlagBitsEXT {
@@ -631,7 +765,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPastPresentationTimingFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct PastPresentationTimingFlagBitsEXT(u32);
 
     impl PastPresentationTimingFlagBitsEXT {
@@ -670,7 +804,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentTimingInfoFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct PresentTimingInfoFlagBitsEXT(u32);
 
     impl PresentTimingInfoFlagBitsEXT {

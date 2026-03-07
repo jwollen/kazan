@@ -20,6 +20,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceRayTracingInvocationReorderFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceRayTracingInvocationReorderFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "ray_tracing_invocation_reorder",
+                    &self.ray_tracing_invocation_reorder,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRayTracingInvocationReorderFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_EXT;
@@ -64,6 +77,23 @@ pub(super) mod defs {
         pub ray_tracing_invocation_reorder_reordering_hint: RayTracingInvocationReorderModeEXT,
         pub max_shader_binding_table_record_index: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceRayTracingInvocationReorderPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceRayTracingInvocationReorderPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "ray_tracing_invocation_reorder_reordering_hint",
+                    &self.ray_tracing_invocation_reorder_reordering_hint,
+                )
+                .field(
+                    "max_shader_binding_table_record_index",
+                    &self.max_shader_binding_table_record_index,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRayTracingInvocationReorderPropertiesEXT<'a> {

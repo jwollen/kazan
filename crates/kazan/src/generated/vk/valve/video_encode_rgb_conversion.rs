@@ -20,6 +20,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "video_encode_rgb_conversion",
+                    &self.video_encode_rgb_conversion,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_VIDEO_ENCODE_RGB_CONVERSION_FEATURES_VALVE;
@@ -63,6 +76,19 @@ pub(super) mod defs {
         pub x_chroma_offsets: VideoEncodeRgbChromaOffsetFlagsVALVE,
         pub y_chroma_offsets: VideoEncodeRgbChromaOffsetFlagsVALVE,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoEncodeRgbConversionCapabilitiesVALVE<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeRgbConversionCapabilitiesVALVE")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("rgb_models", &self.rgb_models)
+                .field("rgb_ranges", &self.rgb_ranges)
+                .field("x_chroma_offsets", &self.x_chroma_offsets)
+                .field("y_chroma_offsets", &self.y_chroma_offsets)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoEncodeRgbConversionCapabilitiesVALVE<'a> {
@@ -127,6 +153,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoEncodeProfileRgbConversionInfoVALVE<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeProfileRgbConversionInfoVALVE")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "perform_encode_rgb_conversion",
+                    &self.perform_encode_rgb_conversion,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoEncodeProfileRgbConversionInfoVALVE<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::VIDEO_ENCODE_PROFILE_RGB_CONVERSION_INFO_VALVE;
@@ -166,6 +205,19 @@ pub(super) mod defs {
         pub x_chroma_offset: VideoEncodeRgbChromaOffsetFlagBitsVALVE,
         pub y_chroma_offset: VideoEncodeRgbChromaOffsetFlagBitsVALVE,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoEncodeSessionRgbConversionCreateInfoVALVE<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeSessionRgbConversionCreateInfoVALVE")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("rgb_model", &self.rgb_model)
+                .field("rgb_range", &self.rgb_range)
+                .field("x_chroma_offset", &self.x_chroma_offset)
+                .field("y_chroma_offset", &self.y_chroma_offset)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoEncodeSessionRgbConversionCreateInfoVALVE<'a> {
@@ -269,7 +321,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeRgbModelConversionFlagBitsVALVE.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRgbModelConversionFlagBitsVALVE(u32);
 
     impl VideoEncodeRgbModelConversionFlagBitsVALVE {
@@ -311,7 +363,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeRgbRangeCompressionFlagBitsVALVE.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRgbRangeCompressionFlagBitsVALVE(u32);
 
     impl VideoEncodeRgbRangeCompressionFlagBitsVALVE {
@@ -350,7 +402,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeRgbChromaOffsetFlagBitsVALVE.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRgbChromaOffsetFlagBitsVALVE(u32);
 
     impl VideoEncodeRgbChromaOffsetFlagBitsVALVE {

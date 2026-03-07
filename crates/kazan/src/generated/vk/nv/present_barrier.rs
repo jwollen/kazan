@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDevicePresentBarrierFeaturesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDevicePresentBarrierFeaturesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("present_barrier", &self.present_barrier)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePresentBarrierFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PRESENT_BARRIER_FEATURES_NV;
@@ -59,6 +69,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SurfaceCapabilitiesPresentBarrierNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SurfaceCapabilitiesPresentBarrierNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("present_barrier_supported", &self.present_barrier_supported)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SurfaceCapabilitiesPresentBarrierNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::SURFACE_CAPABILITIES_PRESENT_BARRIER_NV;
@@ -92,6 +112,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub present_barrier_enable: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for SwapchainPresentBarrierCreateInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SwapchainPresentBarrierCreateInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("present_barrier_enable", &self.present_barrier_enable)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for SwapchainPresentBarrierCreateInfoNV<'a> {

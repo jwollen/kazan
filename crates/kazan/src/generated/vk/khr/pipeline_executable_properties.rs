@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDevicePipelineExecutablePropertiesFeaturesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDevicePipelineExecutablePropertiesFeaturesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("pipeline_executable_info", &self.pipeline_executable_info)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePipelineExecutablePropertiesFeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PIPELINE_EXECUTABLE_PROPERTIES_FEATURES_KHR;
@@ -62,6 +72,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PipelineInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("pipeline", &self.pipeline)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_INFO_KHR;
     }
@@ -95,6 +115,22 @@ pub(super) mod defs {
         pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
         pub subgroup_size: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PipelineExecutablePropertiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineExecutablePropertiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("stages", &self.stages)
+                .field("name", &wrap_c_str_slice_until_nul(&self.name))
+                .field(
+                    "description",
+                    &wrap_c_str_slice_until_nul(&self.description),
+                )
+                .field("subgroup_size", &self.subgroup_size)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PipelineExecutablePropertiesKHR<'a> {
@@ -138,6 +174,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PipelineExecutableInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineExecutableInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("pipeline", &self.pipeline)
+                .field("executable_index", &self.executable_index)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineExecutableInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_EXECUTABLE_INFO_KHR;
     }
@@ -177,6 +224,22 @@ pub(super) mod defs {
         pub format: PipelineExecutableStatisticFormatKHR,
         pub value: PipelineExecutableStatisticValueKHR,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PipelineExecutableStatisticKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineExecutableStatisticKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("name", &wrap_c_str_slice_until_nul(&self.name))
+                .field(
+                    "description",
+                    &wrap_c_str_slice_until_nul(&self.description),
+                )
+                .field("format", &self.format)
+                .field("value", &self.value)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PipelineExecutableStatisticKHR<'a> {
@@ -223,6 +286,23 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PipelineExecutableInternalRepresentationKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineExecutableInternalRepresentationKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("name", &wrap_c_str_slice_until_nul(&self.name))
+                .field(
+                    "description",
+                    &wrap_c_str_slice_until_nul(&self.description),
+                )
+                .field("is_text", &self.is_text)
+                .field("data_size", &self.data_size)
+                .field("p_data", &self.p_data)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineExecutableInternalRepresentationKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_EXECUTABLE_INTERNAL_REPRESENTATION_KHR;
@@ -265,6 +345,14 @@ pub(super) mod defs {
         pub u64: u64,
         pub f64: f64,
     }
+
+    impl fmt::Debug for PipelineExecutableStatisticValueKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineExecutableStatisticValueKHR")
+                .finish()
+        }
+    }
+
     impl Default for PipelineExecutableStatisticValueKHR {
         fn default() -> Self {
             unsafe { core::mem::zeroed() }

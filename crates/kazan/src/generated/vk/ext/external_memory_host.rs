@@ -21,6 +21,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImportMemoryHostPointerInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImportMemoryHostPointerInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("handle_type", &self.handle_type)
+                .field("p_host_pointer", &self.p_host_pointer)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportMemoryHostPointerInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_MEMORY_HOST_POINTER_INFO_EXT;
     }
@@ -61,6 +72,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for MemoryHostPointerPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MemoryHostPointerPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("memory_type_bits", &self.memory_type_bits)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for MemoryHostPointerPropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_HOST_POINTER_PROPERTIES_EXT;
     }
@@ -91,6 +112,19 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub min_imported_host_pointer_alignment: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceExternalMemoryHostPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceExternalMemoryHostPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "min_imported_host_pointer_alignment",
+                    &self.min_imported_host_pointer_alignment,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExternalMemoryHostPropertiesEXT<'a> {

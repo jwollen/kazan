@@ -20,6 +20,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceMultiviewPerViewAttributesPropertiesNVX<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceMultiviewPerViewAttributesPropertiesNVX")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "per_view_position_all_components",
+                    &self.per_view_position_all_components,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMultiviewPerViewAttributesPropertiesNVX<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_ATTRIBUTES_PROPERTIES_NVX;
@@ -60,6 +73,20 @@ pub(super) mod defs {
         pub per_view_attributes: Bool32,
         pub per_view_attributes_position_x_only: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for MultiviewPerViewAttributesInfoNVX<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MultiviewPerViewAttributesInfoNVX")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("per_view_attributes", &self.per_view_attributes)
+                .field(
+                    "per_view_attributes_position_x_only",
+                    &self.per_view_attributes_position_x_only,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for MultiviewPerViewAttributesInfoNVX<'a> {

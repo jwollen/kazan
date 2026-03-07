@@ -41,6 +41,31 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SwapchainCreateInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SwapchainCreateInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("surface", &self.surface)
+                .field("min_image_count", &self.min_image_count)
+                .field("image_format", &self.image_format)
+                .field("image_color_space", &self.image_color_space)
+                .field("image_extent", &self.image_extent)
+                .field("image_array_layers", &self.image_array_layers)
+                .field("image_usage", &self.image_usage)
+                .field("image_sharing_mode", &self.image_sharing_mode)
+                .field("queue_family_index_count", &self.queue_family_index_count)
+                .field("p_queue_family_indices", &self.p_queue_family_indices)
+                .field("pre_transform", &self.pre_transform)
+                .field("composite_alpha", &self.composite_alpha)
+                .field("present_mode", &self.present_mode)
+                .field("clipped", &self.clipped)
+                .field("old_swapchain", &self.old_swapchain)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SwapchainCreateInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SWAPCHAIN_CREATE_INFO_KHR;
     }
@@ -164,6 +189,21 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PresentInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PresentInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("wait_semaphore_count", &self.wait_semaphore_count)
+                .field("p_wait_semaphores", &self.p_wait_semaphores)
+                .field("swapchain_count", &self.swapchain_count)
+                .field("p_swapchains", &self.p_swapchains)
+                .field("p_image_indices", &self.p_image_indices)
+                .field("p_results", &self.p_results)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PresentInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PRESENT_INFO_KHR;
     }
@@ -221,6 +261,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DeviceGroupPresentCapabilitiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DeviceGroupPresentCapabilitiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("present_mask", &self.present_mask)
+                .field("modes", &self.modes)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DeviceGroupPresentCapabilitiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_GROUP_PRESENT_CAPABILITIES_KHR;
     }
@@ -259,6 +310,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImageSwapchainCreateInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageSwapchainCreateInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("swapchain", &self.swapchain)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImageSwapchainCreateInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_SWAPCHAIN_CREATE_INFO_KHR;
     }
@@ -292,6 +353,17 @@ pub(super) mod defs {
         pub swapchain: SwapchainKHR,
         pub image_index: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for BindImageMemorySwapchainInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BindImageMemorySwapchainInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("swapchain", &self.swapchain)
+                .field("image_index", &self.image_index)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for BindImageMemorySwapchainInfoKHR<'a> {
@@ -336,6 +408,20 @@ pub(super) mod defs {
         pub fence: Fence,
         pub device_mask: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for AcquireNextImageInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AcquireNextImageInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("swapchain", &self.swapchain)
+                .field("timeout", &self.timeout)
+                .field("semaphore", &self.semaphore)
+                .field("fence", &self.fence)
+                .field("device_mask", &self.device_mask)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for AcquireNextImageInfoKHR<'a> {
@@ -396,6 +482,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DeviceGroupPresentInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DeviceGroupPresentInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("swapchain_count", &self.swapchain_count)
+                .field("p_device_masks", &self.p_device_masks)
+                .field("mode", &self.mode)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DeviceGroupPresentInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_GROUP_PRESENT_INFO_KHR;
     }
@@ -436,6 +534,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub modes: DeviceGroupPresentModeFlagsKHR,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DeviceGroupSwapchainCreateInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DeviceGroupSwapchainCreateInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("modes", &self.modes)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DeviceGroupSwapchainCreateInfoKHR<'a> {
@@ -535,7 +643,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSwapchainCreateFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct SwapchainCreateFlagBitsKHR(u32);
 
     impl SwapchainCreateFlagBitsKHR {
@@ -603,7 +711,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceGroupPresentModeFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct DeviceGroupPresentModeFlagBitsKHR(u32);
 
     impl DeviceGroupPresentModeFlagBitsKHR {

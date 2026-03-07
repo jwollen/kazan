@@ -21,6 +21,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PresentRegionsKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PresentRegionsKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("swapchain_count", &self.swapchain_count)
+                .field("p_regions", &self.p_regions)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PresentRegionsKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PRESENT_REGIONS_KHR;
     }
@@ -56,6 +67,15 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PresentRegionKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PresentRegionKHR")
+                .field("rectangle_count", &self.rectangle_count)
+                .field("p_rectangles", &self.p_rectangles)
+                .finish()
+        }
+    }
+
     impl Default for PresentRegionKHR<'_> {
         fn default() -> Self {
             Self {
@@ -76,7 +96,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRectLayerKHR.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct RectLayerKHR {
         pub offset: Offset2D,
         pub extent: Extent2D,

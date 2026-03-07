@@ -22,6 +22,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImageViewSampleWeightCreateInfoQCOM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageViewSampleWeightCreateInfoQCOM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("filter_center", &self.filter_center)
+                .field("filter_size", &self.filter_size)
+                .field("num_phases", &self.num_phases)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImageViewSampleWeightCreateInfoQCOM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM;
@@ -69,6 +81,18 @@ pub(super) mod defs {
         pub texture_box_filter: Bool32,
         pub texture_block_match: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceImageProcessingFeaturesQCOM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceImageProcessingFeaturesQCOM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("texture_sample_weighted", &self.texture_sample_weighted)
+                .field("texture_box_filter", &self.texture_box_filter)
+                .field("texture_block_match", &self.texture_block_match)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceImageProcessingFeaturesQCOM<'a> {
@@ -123,6 +147,22 @@ pub(super) mod defs {
         pub max_block_match_region: Extent2D,
         pub max_box_filter_block_size: Extent2D,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceImageProcessingPropertiesQCOM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceImageProcessingPropertiesQCOM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("max_weight_filter_phases", &self.max_weight_filter_phases)
+                .field(
+                    "max_weight_filter_dimension",
+                    &self.max_weight_filter_dimension,
+                )
+                .field("max_block_match_region", &self.max_block_match_region)
+                .field("max_box_filter_block_size", &self.max_box_filter_block_size)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceImageProcessingPropertiesQCOM<'a> {

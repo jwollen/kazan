@@ -43,6 +43,72 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoEncodeAV1CapabilitiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeAV1CapabilitiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("max_level", &self.max_level)
+                .field("coded_picture_alignment", &self.coded_picture_alignment)
+                .field("max_tiles", &self.max_tiles)
+                .field("min_tile_size", &self.min_tile_size)
+                .field("max_tile_size", &self.max_tile_size)
+                .field("superblock_sizes", &self.superblock_sizes)
+                .field(
+                    "max_single_reference_count",
+                    &self.max_single_reference_count,
+                )
+                .field(
+                    "single_reference_name_mask",
+                    &self.single_reference_name_mask,
+                )
+                .field(
+                    "max_unidirectional_compound_reference_count",
+                    &self.max_unidirectional_compound_reference_count,
+                )
+                .field(
+                    "max_unidirectional_compound_group1_reference_count",
+                    &self.max_unidirectional_compound_group1_reference_count,
+                )
+                .field(
+                    "unidirectional_compound_reference_name_mask",
+                    &self.unidirectional_compound_reference_name_mask,
+                )
+                .field(
+                    "max_bidirectional_compound_reference_count",
+                    &self.max_bidirectional_compound_reference_count,
+                )
+                .field(
+                    "max_bidirectional_compound_group1_reference_count",
+                    &self.max_bidirectional_compound_group1_reference_count,
+                )
+                .field(
+                    "max_bidirectional_compound_group2_reference_count",
+                    &self.max_bidirectional_compound_group2_reference_count,
+                )
+                .field(
+                    "bidirectional_compound_reference_name_mask",
+                    &self.bidirectional_compound_reference_name_mask,
+                )
+                .field("max_temporal_layer_count", &self.max_temporal_layer_count)
+                .field("max_spatial_layer_count", &self.max_spatial_layer_count)
+                .field("max_operating_points", &self.max_operating_points)
+                .field("min_q_index", &self.min_q_index)
+                .field("max_q_index", &self.max_q_index)
+                .field(
+                    "prefers_gop_remaining_frames",
+                    &self.prefers_gop_remaining_frames,
+                )
+                .field(
+                    "requires_gop_remaining_frames",
+                    &self.requires_gop_remaining_frames,
+                )
+                .field("std_syntax_flags", &self.std_syntax_flags)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoEncodeAV1CapabilitiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_ENCODE_AV1_CAPABILITIES_KHR;
     }
@@ -263,6 +329,72 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoEncodeAV1QualityLevelPropertiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeAV1QualityLevelPropertiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "preferred_rate_control_flags",
+                    &self.preferred_rate_control_flags,
+                )
+                .field("preferred_gop_frame_count", &self.preferred_gop_frame_count)
+                .field(
+                    "preferred_key_frame_period",
+                    &self.preferred_key_frame_period,
+                )
+                .field(
+                    "preferred_consecutive_bipredictive_frame_count",
+                    &self.preferred_consecutive_bipredictive_frame_count,
+                )
+                .field(
+                    "preferred_temporal_layer_count",
+                    &self.preferred_temporal_layer_count,
+                )
+                .field(
+                    "preferred_constant_q_index",
+                    &self.preferred_constant_q_index,
+                )
+                .field(
+                    "preferred_max_single_reference_count",
+                    &self.preferred_max_single_reference_count,
+                )
+                .field(
+                    "preferred_single_reference_name_mask",
+                    &self.preferred_single_reference_name_mask,
+                )
+                .field(
+                    "preferred_max_unidirectional_compound_reference_count",
+                    &self.preferred_max_unidirectional_compound_reference_count,
+                )
+                .field(
+                    "preferred_max_unidirectional_compound_group1_reference_count",
+                    &self.preferred_max_unidirectional_compound_group1_reference_count,
+                )
+                .field(
+                    "preferred_unidirectional_compound_reference_name_mask",
+                    &self.preferred_unidirectional_compound_reference_name_mask,
+                )
+                .field(
+                    "preferred_max_bidirectional_compound_reference_count",
+                    &self.preferred_max_bidirectional_compound_reference_count,
+                )
+                .field(
+                    "preferred_max_bidirectional_compound_group1_reference_count",
+                    &self.preferred_max_bidirectional_compound_group1_reference_count,
+                )
+                .field(
+                    "preferred_max_bidirectional_compound_group2_reference_count",
+                    &self.preferred_max_bidirectional_compound_group2_reference_count,
+                )
+                .field(
+                    "preferred_bidirectional_compound_reference_name_mask",
+                    &self.preferred_bidirectional_compound_reference_name_mask,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoEncodeAV1QualityLevelPropertiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::VIDEO_ENCODE_AV1_QUALITY_LEVEL_PROPERTIES_KHR;
@@ -432,6 +564,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceVideoEncodeAV1FeaturesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceVideoEncodeAV1FeaturesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("video_encode_av1", &self.video_encode_av1)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVideoEncodeAV1FeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_VIDEO_ENCODE_AV1_FEATURES_KHR;
@@ -470,6 +612,17 @@ pub(super) mod defs {
         pub use_max_level: Bool32,
         pub max_level: StdVideoAV1Level,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoEncodeAV1SessionCreateInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeAV1SessionCreateInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("use_max_level", &self.use_max_level)
+                .field("max_level", &self.max_level)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoEncodeAV1SessionCreateInfoKHR<'a> {
@@ -514,6 +667,19 @@ pub(super) mod defs {
         pub std_operating_point_count: u32,
         pub p_std_operating_points: *const StdVideoEncodeAV1OperatingPointInfo,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoEncodeAV1SessionParametersCreateInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeAV1SessionParametersCreateInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_std_sequence_header", &self.p_std_sequence_header)
+                .field("p_std_decoder_model_info", &self.p_std_decoder_model_info)
+                .field("std_operating_point_count", &self.std_operating_point_count)
+                .field("p_std_operating_points", &self.p_std_operating_points)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoEncodeAV1SessionParametersCreateInfoKHR<'a> {
@@ -577,6 +743,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoEncodeAV1DpbSlotInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeAV1DpbSlotInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_std_reference_info", &self.p_std_reference_info)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoEncodeAV1DpbSlotInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_ENCODE_AV1_DPB_SLOT_INFO_KHR;
     }
@@ -618,6 +794,31 @@ pub(super) mod defs {
         pub primary_reference_cdf_only: Bool32,
         pub generate_obu_extension_header: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoEncodeAV1PictureInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeAV1PictureInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("prediction_mode", &self.prediction_mode)
+                .field("rate_control_group", &self.rate_control_group)
+                .field("constant_q_index", &self.constant_q_index)
+                .field("p_std_picture_info", &self.p_std_picture_info)
+                .field(
+                    "reference_name_slot_indices",
+                    &self.reference_name_slot_indices,
+                )
+                .field(
+                    "primary_reference_cdf_only",
+                    &self.primary_reference_cdf_only,
+                )
+                .field(
+                    "generate_obu_extension_header",
+                    &self.generate_obu_extension_header,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoEncodeAV1PictureInfoKHR<'a> {
@@ -702,6 +903,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoEncodeAV1ProfileInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeAV1ProfileInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("std_profile", &self.std_profile)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoEncodeAV1ProfileInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_ENCODE_AV1_PROFILE_INFO_KHR;
     }
@@ -739,6 +950,23 @@ pub(super) mod defs {
         pub consecutive_bipredictive_frame_count: u32,
         pub temporal_layer_count: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoEncodeAV1RateControlInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeAV1RateControlInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("gop_frame_count", &self.gop_frame_count)
+                .field("key_frame_period", &self.key_frame_period)
+                .field(
+                    "consecutive_bipredictive_frame_count",
+                    &self.consecutive_bipredictive_frame_count,
+                )
+                .field("temporal_layer_count", &self.temporal_layer_count)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoEncodeAV1RateControlInfoKHR<'a> {
@@ -795,7 +1023,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeAV1QIndexKHR.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct VideoEncodeAV1QIndexKHR {
         pub intra_q_index: u32,
         pub predictive_q_index: u32,
@@ -821,7 +1049,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeAV1FrameSizeKHR.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct VideoEncodeAV1FrameSizeKHR {
         pub intra_frame_size: u32,
         pub predictive_frame_size: u32,
@@ -856,6 +1084,22 @@ pub(super) mod defs {
         pub gop_remaining_predictive: u32,
         pub gop_remaining_bipredictive: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoEncodeAV1GopRemainingFrameInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeAV1GopRemainingFrameInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("use_gop_remaining_frames", &self.use_gop_remaining_frames)
+                .field("gop_remaining_intra", &self.gop_remaining_intra)
+                .field("gop_remaining_predictive", &self.gop_remaining_predictive)
+                .field(
+                    "gop_remaining_bipredictive",
+                    &self.gop_remaining_bipredictive,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoEncodeAV1GopRemainingFrameInfoKHR<'a> {
@@ -917,6 +1161,21 @@ pub(super) mod defs {
         pub use_max_frame_size: Bool32,
         pub max_frame_size: VideoEncodeAV1FrameSizeKHR,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoEncodeAV1RateControlLayerInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoEncodeAV1RateControlLayerInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("use_min_q_index", &self.use_min_q_index)
+                .field("min_q_index", &self.min_q_index)
+                .field("use_max_q_index", &self.use_max_q_index)
+                .field("max_q_index", &self.max_q_index)
+                .field("use_max_frame_size", &self.use_max_frame_size)
+                .field("max_frame_size", &self.max_frame_size)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoEncodeAV1RateControlLayerInfoKHR<'a> {
@@ -1089,7 +1348,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeAV1CapabilityFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct VideoEncodeAV1CapabilityFlagBitsKHR(u32);
 
     impl VideoEncodeAV1CapabilityFlagBitsKHR {
@@ -1141,7 +1400,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeAV1StdFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct VideoEncodeAV1StdFlagBitsKHR(u32);
 
     impl VideoEncodeAV1StdFlagBitsKHR {
@@ -1194,7 +1453,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeAV1RateControlFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct VideoEncodeAV1RateControlFlagBitsKHR(u32);
 
     impl VideoEncodeAV1RateControlFlagBitsKHR {
@@ -1227,7 +1486,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeAV1SuperblockSizeFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct VideoEncodeAV1SuperblockSizeFlagBitsKHR(u32);
 
     impl VideoEncodeAV1SuperblockSizeFlagBitsKHR {

@@ -252,17 +252,21 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
     let lifetime_spec = if type_info.lifetime_param { "<'a>" } else { "" };
     let lifetime_spec_anon = if type_info.lifetime_param { "<'_>" } else { "" };
 
+    let mut derives = vec!["Copy", "Clone"];
+    if info.has_default && type_info.default {
+        derives.push("Default");
+    }
+    if type_info.trivial_debug {
+        derives.push("Debug");
+    }
+    let derives_str = derives.join(", ");
+
     crate::write_doc_link(file, ty.name);
     writeln!(
         file,
         "#[repr(C)]
-        #[derive(Copy, Clone{})]
+        #[derive({derives_str})]
         pub struct {}{} {{",
-        if info.has_default && type_info.default {
-            ", Default"
-        } else {
-            ""
-        },
         normalize_ty_name(ty.name),
         lifetime_spec
     )
@@ -285,6 +289,10 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
         writeln!(file, "pub _marker: PhantomData<&'a ()>,",).unwrap();
     }
     writeln!(file, "}}\n").unwrap();
+
+    if !type_info.trivial_debug {
+        write_debug_impl(file, analysis, ty, &info, type_info);
+    }
 
     if let Some(tag) = info.tag {
         writeln!(
@@ -408,6 +416,102 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
         writeln!(file, "self }}\n").unwrap();
     }
     writeln!(file, "}}\n").unwrap();
+}
+
+/// Classifies how a struct member should be formatted in a Debug impl.
+enum DebugFieldKind {
+    /// Normal `Debug::fmt` formatting (also used for raw pointers).
+    Normal,
+    /// `*const c_char` with null-terminated semantics → display via `as_c_str`.
+    CStrPtr,
+    /// `[c_char; N]` → display via `wrap_c_str_slice_until_nul`.
+    CStrArray,
+    /// `Option<PFN_*>` function pointer → display with `.map(|f| f as *const ())`.
+    FuncPointer,
+}
+
+fn debug_field_kind(analysis: &Analysis, member: &xml::StructureMember) -> DebugFieldKind {
+    let ty = &member.c_decl.ty;
+    let category = ctype_rust::CTypeCategory::from_ctype(ty, analysis);
+
+    match &category {
+        // *const c_char with null-terminated length → CStr display
+        ctype_rust::CTypeCategory::CharPointer { .. } => {
+            if member.len.iter().any(|l| *l == "null-terminated") {
+                DebugFieldKind::CStrPtr
+            } else {
+                DebugFieldKind::Normal
+            }
+        }
+        // [c_char; N] → CStr display
+        ctype_rust::CTypeCategory::Array { element, .. } => {
+            if matches!(element, CType::Base(b) if b.name == "char") {
+                DebugFieldKind::CStrArray
+            } else {
+                DebugFieldKind::Normal
+            }
+        }
+        // Any pointer → normal Debug (prints address)
+        ctype_rust::CTypeCategory::OpaquePointer { .. }
+        | ctype_rust::CTypeCategory::TypedPointer { .. } => DebugFieldKind::Normal,
+        // Function pointer (wrapped in Option) → show as pointer
+        ctype_rust::CTypeCategory::FuncPointer => DebugFieldKind::FuncPointer,
+        // Everything else
+        _ => DebugFieldKind::Normal,
+    }
+}
+
+fn write_debug_impl(
+    file: &mut impl std::io::Write,
+    analysis: &Analysis,
+    ty: &xml::Structure,
+    info: &StructInfo<'_>,
+    type_info: crate::analysis::TypeInfo,
+) {
+    let name = &info.name;
+    let lifetime_spec_anon = if type_info.lifetime_param { "<'_>" } else { "" };
+
+    writeln!(
+        file,
+        "impl fmt::Debug for {name}{lifetime_spec_anon} {{
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {{
+            f.debug_struct(\"{name}\")"
+    )
+    .unwrap();
+
+    for member in &ty.members {
+        let field_name = normalize_name(member.c_decl.name);
+        let kind = debug_field_kind(analysis, member);
+
+        match kind {
+            DebugFieldKind::Normal => {
+                writeln!(file, ".field(\"{field_name}\", &self.{field_name})").unwrap();
+            }
+            DebugFieldKind::CStrPtr => {
+                writeln!(
+                    file,
+                    ".field(\"{field_name}\", &unsafe {{ as_c_str(self.{field_name}) }})"
+                )
+                .unwrap();
+            }
+            DebugFieldKind::CStrArray => {
+                writeln!(
+                    file,
+                    ".field(\"{field_name}\", &wrap_c_str_slice_until_nul(&self.{field_name}))"
+                )
+                .unwrap();
+            }
+            DebugFieldKind::FuncPointer => {
+                writeln!(
+                    file,
+                    ".field(\"{field_name}\", &self.{field_name}.map(|f| f as *const ()))"
+                )
+                .unwrap();
+            }
+        }
+    }
+
+    writeln!(file, ".finish()\n}} }}\n").unwrap();
 }
 
 fn default_value(analysis: &Analysis, ty: &CType) -> std::borrow::Cow<'static, str> {

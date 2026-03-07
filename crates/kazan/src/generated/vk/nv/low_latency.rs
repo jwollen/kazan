@@ -20,6 +20,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for QueryLowLatencySupportNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("QueryLowLatencySupportNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "p_queried_low_latency_data",
+                    &self.p_queried_low_latency_data,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for QueryLowLatencySupportNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::QUERY_LOW_LATENCY_SUPPORT_NV;
     }

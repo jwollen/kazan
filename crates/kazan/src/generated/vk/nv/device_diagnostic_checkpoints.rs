@@ -20,6 +20,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for QueueFamilyCheckpointPropertiesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("QueueFamilyCheckpointPropertiesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "checkpoint_execution_stage_mask",
+                    &self.checkpoint_execution_stage_mask,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for QueueFamilyCheckpointPropertiesNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::QUEUE_FAMILY_CHECKPOINT_PROPERTIES_NV;
     }
@@ -56,6 +69,17 @@ pub(super) mod defs {
         pub stage: PipelineStageFlagBits,
         pub p_checkpoint_marker: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for CheckpointDataNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CheckpointDataNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("stage", &self.stage)
+                .field("p_checkpoint_marker", &self.p_checkpoint_marker)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for CheckpointDataNV<'a> {
@@ -96,6 +120,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for QueueFamilyCheckpointProperties2NV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("QueueFamilyCheckpointProperties2NV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "checkpoint_execution_stage_mask",
+                    &self.checkpoint_execution_stage_mask,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for QueueFamilyCheckpointProperties2NV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV;
@@ -133,6 +170,17 @@ pub(super) mod defs {
         pub stage: PipelineStageFlags2,
         pub p_checkpoint_marker: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for CheckpointData2NV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CheckpointData2NV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("stage", &self.stage)
+                .field("p_checkpoint_marker", &self.p_checkpoint_marker)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for CheckpointData2NV<'a> {

@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DisplaySurfaceStereoCreateInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DisplaySurfaceStereoCreateInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("stereo_type", &self.stereo_type)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DisplaySurfaceStereoCreateInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DISPLAY_SURFACE_STEREO_CREATE_INFO_NV;
     }
@@ -52,6 +62,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub hdmi3_d_supported: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DisplayModeStereoPropertiesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DisplayModeStereoPropertiesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("hdmi3_d_supported", &self.hdmi3_d_supported)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DisplayModeStereoPropertiesNV<'a> {

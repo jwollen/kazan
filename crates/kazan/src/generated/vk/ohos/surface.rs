@@ -23,6 +23,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SurfaceCreateInfoOHOS<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SurfaceCreateInfoOHOS")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("window", &self.window)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SurfaceCreateInfoOHOS<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SURFACE_CREATE_INFO_OHOS;
     }

@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceInvocationMaskFeaturesHUAWEI<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceInvocationMaskFeaturesHUAWEI")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("invocation_mask", &self.invocation_mask)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceInvocationMaskFeaturesHUAWEI<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI;

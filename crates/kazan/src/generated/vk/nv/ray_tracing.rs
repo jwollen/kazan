@@ -52,6 +52,20 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for RayTracingShaderGroupCreateInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RayTracingShaderGroupCreateInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("ty", &self.ty)
+                .field("general_shader", &self.general_shader)
+                .field("closest_hit_shader", &self.closest_hit_shader)
+                .field("any_hit_shader", &self.any_hit_shader)
+                .field("intersection_shader", &self.intersection_shader)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for RayTracingShaderGroupCreateInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::RAY_TRACING_SHADER_GROUP_CREATE_INFO_NV;
@@ -115,6 +129,24 @@ pub(super) mod defs {
         pub base_pipeline_handle: Pipeline,
         pub base_pipeline_index: i32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for RayTracingPipelineCreateInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RayTracingPipelineCreateInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("stage_count", &self.stage_count)
+                .field("p_stages", &self.p_stages)
+                .field("group_count", &self.group_count)
+                .field("p_groups", &self.p_groups)
+                .field("max_recursion_depth", &self.max_recursion_depth)
+                .field("layout", &self.layout)
+                .field("base_pipeline_handle", &self.base_pipeline_handle)
+                .field("base_pipeline_index", &self.base_pipeline_index)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for RayTracingPipelineCreateInfoNV<'a> {
@@ -197,6 +229,26 @@ pub(super) mod defs {
         pub transform_data: Buffer,
         pub transform_offset: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for GeometryTrianglesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("GeometryTrianglesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("vertex_data", &self.vertex_data)
+                .field("vertex_offset", &self.vertex_offset)
+                .field("vertex_count", &self.vertex_count)
+                .field("vertex_stride", &self.vertex_stride)
+                .field("vertex_format", &self.vertex_format)
+                .field("index_data", &self.index_data)
+                .field("index_offset", &self.index_offset)
+                .field("index_count", &self.index_count)
+                .field("index_type", &self.index_type)
+                .field("transform_data", &self.transform_data)
+                .field("transform_offset", &self.transform_offset)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for GeometryTrianglesNV<'a> {
@@ -294,6 +346,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for GeometryAABBNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("GeometryAABBNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("aabb_data", &self.aabb_data)
+                .field("num_aab_bs", &self.num_aab_bs)
+                .field("stride", &self.stride)
+                .field("offset", &self.offset)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for GeometryAABBNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::GEOMETRY_AABB_NV;
     }
@@ -343,6 +408,15 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for GeometryDataNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("GeometryDataNV")
+                .field("triangles", &self.triangles)
+                .field("aabbs", &self.aabbs)
+                .finish()
+        }
+    }
+
     impl Default for GeometryDataNV<'_> {
         fn default() -> Self {
             Self {
@@ -375,6 +449,18 @@ pub(super) mod defs {
         pub geometry: GeometryDataNV<'a>,
         pub flags: GeometryFlagsKHR,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for GeometryNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("GeometryNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("geometry_type", &self.geometry_type)
+                .field("geometry", &self.geometry)
+                .field("flags", &self.flags)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for GeometryNV<'a> {
@@ -423,6 +509,20 @@ pub(super) mod defs {
         pub geometry_count: u32,
         pub p_geometries: *const GeometryNV<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for AccelerationStructureInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AccelerationStructureInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("ty", &self.ty)
+                .field("flags", &self.flags)
+                .field("instance_count", &self.instance_count)
+                .field("geometry_count", &self.geometry_count)
+                .field("p_geometries", &self.p_geometries)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureInfoNV<'a> {
@@ -478,6 +578,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for AccelerationStructureCreateInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AccelerationStructureCreateInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("compacted_size", &self.compacted_size)
+                .field("info", &self.info)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureCreateInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::ACCELERATION_STRUCTURE_CREATE_INFO_NV;
     }
@@ -518,6 +629,20 @@ pub(super) mod defs {
         pub device_index_count: u32,
         pub p_device_indices: *const u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for BindAccelerationStructureMemoryInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BindAccelerationStructureMemoryInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("acceleration_structure", &self.acceleration_structure)
+                .field("memory", &self.memory)
+                .field("memory_offset", &self.memory_offset)
+                .field("device_index_count", &self.device_index_count)
+                .field("p_device_indices", &self.p_device_indices)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for BindAccelerationStructureMemoryInfoNV<'a> {
@@ -577,6 +702,20 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for WriteDescriptorSetAccelerationStructureNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("WriteDescriptorSetAccelerationStructureNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "acceleration_structure_count",
+                    &self.acceleration_structure_count,
+                )
+                .field("p_acceleration_structures", &self.p_acceleration_structures)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for WriteDescriptorSetAccelerationStructureNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_NV;
@@ -616,6 +755,17 @@ pub(super) mod defs {
         pub ty: AccelerationStructureMemoryRequirementsTypeNV,
         pub acceleration_structure: AccelerationStructureNV,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for AccelerationStructureMemoryRequirementsInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AccelerationStructureMemoryRequirementsInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("ty", &self.ty)
+                .field("acceleration_structure", &self.acceleration_structure)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureMemoryRequirementsInfoNV<'a> {
@@ -665,6 +815,29 @@ pub(super) mod defs {
         pub max_triangle_count: u64,
         pub max_descriptor_set_acceleration_structures: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceRayTracingPropertiesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceRayTracingPropertiesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("shader_group_handle_size", &self.shader_group_handle_size)
+                .field("max_recursion_depth", &self.max_recursion_depth)
+                .field("max_shader_group_stride", &self.max_shader_group_stride)
+                .field(
+                    "shader_group_base_alignment",
+                    &self.shader_group_base_alignment,
+                )
+                .field("max_geometry_count", &self.max_geometry_count)
+                .field("max_instance_count", &self.max_instance_count)
+                .field("max_triangle_count", &self.max_triangle_count)
+                .field(
+                    "max_descriptor_set_acceleration_structures",
+                    &self.max_descriptor_set_acceleration_structures,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRayTracingPropertiesNV<'a> {

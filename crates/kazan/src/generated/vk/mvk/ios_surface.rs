@@ -21,6 +21,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for IOSSurfaceCreateInfoMVK<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("IOSSurfaceCreateInfoMVK")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("p_view", &self.p_view)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for IOSSurfaceCreateInfoMVK<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IOS_SURFACE_CREATE_INFO_MVK;
     }

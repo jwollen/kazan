@@ -12,7 +12,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeVP9PictureInfoFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoDecodeVP9PictureInfoFlags {
         pub error_resilient_mode: u32,
         pub intra_only: u32,
@@ -95,6 +95,31 @@ pub(super) mod defs {
         pub p_loop_filter: *const StdVideoVP9LoopFilter,
         pub p_segmentation: *const StdVideoVP9Segmentation,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for StdVideoDecodeVP9PictureInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("StdVideoDecodeVP9PictureInfo")
+                .field("flags", &self.flags)
+                .field("profile", &self.profile)
+                .field("frame_type", &self.frame_type)
+                .field("frame_context_idx", &self.frame_context_idx)
+                .field("reset_frame_context", &self.reset_frame_context)
+                .field("refresh_frame_flags", &self.refresh_frame_flags)
+                .field("ref_frame_sign_bias_mask", &self.ref_frame_sign_bias_mask)
+                .field("interpolation_filter", &self.interpolation_filter)
+                .field("base_q_idx", &self.base_q_idx)
+                .field("delta_q_y_dc", &self.delta_q_y_dc)
+                .field("delta_q_uv_dc", &self.delta_q_uv_dc)
+                .field("delta_q_uv_ac", &self.delta_q_uv_ac)
+                .field("tile_cols_log2", &self.tile_cols_log2)
+                .field("tile_rows_log2", &self.tile_rows_log2)
+                .field("reserved1", &self.reserved1)
+                .field("p_color_config", &self.p_color_config)
+                .field("p_loop_filter", &self.p_loop_filter)
+                .field("p_segmentation", &self.p_segmentation)
+                .finish()
+        }
     }
 
     impl Default for StdVideoDecodeVP9PictureInfo<'_> {

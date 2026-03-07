@@ -22,6 +22,27 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceMaintenance10PropertiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceMaintenance10PropertiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "rgba4_opaque_black_swizzled",
+                    &self.rgba4_opaque_black_swizzled,
+                )
+                .field(
+                    "resolve_srgb_format_applies_transfer_function",
+                    &self.resolve_srgb_format_applies_transfer_function,
+                )
+                .field(
+                    "resolve_srgb_format_supports_transfer_function_control",
+                    &self.resolve_srgb_format_supports_transfer_function_control,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMaintenance10PropertiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_MAINTENANCE_10_PROPERTIES_KHR;
@@ -80,6 +101,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceMaintenance10FeaturesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceMaintenance10FeaturesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("maintenance10", &self.maintenance10)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMaintenance10FeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_MAINTENANCE_10_FEATURES_KHR;
@@ -118,6 +149,15 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for RenderingEndInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RenderingEndInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for RenderingEndInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::RENDERING_END_INFO_KHR;
     }
@@ -142,6 +182,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub flags: RenderingAttachmentFlagsKHR,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for RenderingAttachmentFlagsInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RenderingAttachmentFlagsInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for RenderingAttachmentFlagsInfoKHR<'a> {
@@ -178,6 +228,18 @@ pub(super) mod defs {
         pub resolve_mode: ResolveModeFlagBits,
         pub stencil_resolve_mode: ResolveModeFlagBits,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ResolveImageModeInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ResolveImageModeInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("resolve_mode", &self.resolve_mode)
+                .field("stencil_resolve_mode", &self.stencil_resolve_mode)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ResolveImageModeInfoKHR<'a> {
@@ -254,7 +316,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderingAttachmentFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct RenderingAttachmentFlagBitsKHR(u32);
 
     impl RenderingAttachmentFlagBitsKHR {
@@ -296,7 +358,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkResolveImageFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct ResolveImageFlagBitsKHR(u32);
 
     impl ResolveImageFlagBitsKHR {

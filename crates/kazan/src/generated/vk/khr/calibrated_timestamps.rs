@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for CalibratedTimestampInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CalibratedTimestampInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("time_domain", &self.time_domain)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for CalibratedTimestampInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::CALIBRATED_TIMESTAMP_INFO_KHR;
     }

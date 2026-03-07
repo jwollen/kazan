@@ -167,6 +167,15 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for BaseOutStructure<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BaseOutStructure")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .finish()
+        }
+    }
+
     impl<'a> BaseOutStructure<'a> {}
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBaseInStructure.html>
@@ -178,11 +187,20 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for BaseInStructure<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BaseInStructure")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .finish()
+        }
+    }
+
     impl<'a> BaseInStructure<'a> {}
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOffset2D.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct Offset2D {
         pub x: i32,
         pub y: i32,
@@ -202,7 +220,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOffset3D.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct Offset3D {
         pub x: i32,
         pub y: i32,
@@ -228,7 +246,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExtent2D.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct Extent2D {
         pub width: u32,
         pub height: u32,
@@ -248,7 +266,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExtent3D.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct Extent3D {
         pub width: u32,
         pub height: u32,
@@ -274,7 +292,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkViewport.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct Viewport {
         pub x: f32,
         pub y: f32,
@@ -318,7 +336,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRect2D.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct Rect2D {
         pub offset: Offset2D,
         pub extent: Extent2D,
@@ -338,7 +356,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClearRect.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct ClearRect {
         pub rect: Rect2D,
         pub base_array_layer: u32,
@@ -364,7 +382,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkComponentMapping.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct ComponentMapping {
         pub r: ComponentSwizzle,
         pub g: ComponentSwizzle,
@@ -407,6 +425,25 @@ pub(super) mod defs {
         pub pipeline_cache_uuid: [u8; UUID_SIZE as usize],
         pub limits: PhysicalDeviceLimits,
         pub sparse_properties: PhysicalDeviceSparseProperties,
+    }
+
+    impl fmt::Debug for PhysicalDeviceProperties {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceProperties")
+                .field("api_version", &self.api_version)
+                .field("driver_version", &self.driver_version)
+                .field("vendor_id", &self.vendor_id)
+                .field("device_id", &self.device_id)
+                .field("device_type", &self.device_type)
+                .field(
+                    "device_name",
+                    &wrap_c_str_slice_until_nul(&self.device_name),
+                )
+                .field("pipeline_cache_uuid", &self.pipeline_cache_uuid)
+                .field("limits", &self.limits)
+                .field("sparse_properties", &self.sparse_properties)
+                .finish()
+        }
     }
 
     impl Default for PhysicalDeviceProperties {
@@ -481,6 +518,18 @@ pub(super) mod defs {
         pub spec_version: u32,
     }
 
+    impl fmt::Debug for ExtensionProperties {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExtensionProperties")
+                .field(
+                    "extension_name",
+                    &wrap_c_str_slice_until_nul(&self.extension_name),
+                )
+                .field("spec_version", &self.spec_version)
+                .finish()
+        }
+    }
+
     impl Default for ExtensionProperties {
         fn default() -> Self {
             Self {
@@ -505,6 +554,20 @@ pub(super) mod defs {
         pub spec_version: u32,
         pub implementation_version: u32,
         pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
+    }
+
+    impl fmt::Debug for LayerProperties {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("LayerProperties")
+                .field("layer_name", &wrap_c_str_slice_until_nul(&self.layer_name))
+                .field("spec_version", &self.spec_version)
+                .field("implementation_version", &self.implementation_version)
+                .field(
+                    "description",
+                    &wrap_c_str_slice_until_nul(&self.description),
+                )
+                .finish()
+        }
     }
 
     impl Default for LayerProperties {
@@ -542,6 +605,22 @@ pub(super) mod defs {
         pub engine_version: u32,
         pub api_version: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ApplicationInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ApplicationInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_application_name", &unsafe {
+                    as_c_str(self.p_application_name)
+                })
+                .field("application_version", &self.application_version)
+                .field("p_engine_name", &unsafe { as_c_str(self.p_engine_name) })
+                .field("engine_version", &self.engine_version)
+                .field("api_version", &self.api_version)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ApplicationInfo<'a> {
@@ -601,6 +680,31 @@ pub(super) mod defs {
         pub pfn_internal_allocation: Option<PFN_vkInternalAllocationNotification>,
         pub pfn_internal_free: Option<PFN_vkInternalFreeNotification>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for AllocationCallbacks<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AllocationCallbacks")
+                .field("p_user_data", &self.p_user_data)
+                .field(
+                    "pfn_allocation",
+                    &self.pfn_allocation.map(|f| f as *const ()),
+                )
+                .field(
+                    "pfn_reallocation",
+                    &self.pfn_reallocation.map(|f| f as *const ()),
+                )
+                .field("pfn_free", &self.pfn_free.map(|f| f as *const ()))
+                .field(
+                    "pfn_internal_allocation",
+                    &self.pfn_internal_allocation.map(|f| f as *const ()),
+                )
+                .field(
+                    "pfn_internal_free",
+                    &self.pfn_internal_free.map(|f| f as *const ()),
+                )
+                .finish()
+        }
     }
 
     impl Default for AllocationCallbacks<'_> {
@@ -668,6 +772,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DeviceQueueCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DeviceQueueCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("queue_family_index", &self.queue_family_index)
+                .field("queue_count", &self.queue_count)
+                .field("p_queue_priorities", &self.p_queue_priorities)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DeviceQueueCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_QUEUE_CREATE_INFO;
     }
@@ -719,6 +836,26 @@ pub(super) mod defs {
         pub pp_enabled_extension_names: *const *const c_char,
         pub p_enabled_features: *const PhysicalDeviceFeatures,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DeviceCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DeviceCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("queue_create_info_count", &self.queue_create_info_count)
+                .field("p_queue_create_infos", &self.p_queue_create_infos)
+                .field("enabled_layer_count", &self.enabled_layer_count)
+                .field("pp_enabled_layer_names", &self.pp_enabled_layer_names)
+                .field("enabled_extension_count", &self.enabled_extension_count)
+                .field(
+                    "pp_enabled_extension_names",
+                    &self.pp_enabled_extension_names,
+                )
+                .field("p_enabled_features", &self.p_enabled_features)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DeviceCreateInfo<'a> {
@@ -797,6 +934,24 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for InstanceCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("InstanceCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("p_application_info", &self.p_application_info)
+                .field("enabled_layer_count", &self.enabled_layer_count)
+                .field("pp_enabled_layer_names", &self.pp_enabled_layer_names)
+                .field("enabled_extension_count", &self.enabled_extension_count)
+                .field(
+                    "pp_enabled_extension_names",
+                    &self.pp_enabled_extension_names,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for InstanceCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::INSTANCE_CREATE_INFO;
     }
@@ -849,7 +1004,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyProperties.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct QueueFamilyProperties {
         pub queue_flags: QueueFlags,
         pub queue_count: u32,
@@ -884,7 +1039,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMemoryProperties.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct PhysicalDeviceMemoryProperties {
         pub memory_type_count: u32,
         pub memory_types: [MemoryType; MAX_MEMORY_TYPES as usize],
@@ -928,6 +1083,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for MemoryAllocateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MemoryAllocateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("allocation_size", &self.allocation_size)
+                .field("memory_type_index", &self.memory_type_index)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for MemoryAllocateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_ALLOCATE_INFO;
     }
@@ -958,7 +1124,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryRequirements.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct MemoryRequirements {
         pub size: DeviceSize,
         pub alignment: DeviceSize,
@@ -984,7 +1150,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseImageFormatProperties.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct SparseImageFormatProperties {
         pub aspect_mask: ImageAspectFlags,
         pub image_granularity: Extent3D,
@@ -1010,7 +1176,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseImageMemoryRequirements.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct SparseImageMemoryRequirements {
         pub format_properties: SparseImageFormatProperties,
         pub image_mip_tail_first_lod: u32,
@@ -1048,7 +1214,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryType.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct MemoryType {
         pub property_flags: MemoryPropertyFlags,
         pub heap_index: u32,
@@ -1068,7 +1234,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryHeap.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct MemoryHeap {
         pub size: DeviceSize,
         pub flags: MemoryHeapFlags,
@@ -1096,6 +1262,18 @@ pub(super) mod defs {
         pub offset: DeviceSize,
         pub size: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for MappedMemoryRange<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MappedMemoryRange")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("memory", &self.memory)
+                .field("offset", &self.offset)
+                .field("size", &self.size)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for MappedMemoryRange<'a> {
@@ -1134,7 +1312,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFormatProperties.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct FormatProperties {
         pub linear_tiling_features: FormatFeatureFlags,
         pub optimal_tiling_features: FormatFeatureFlags,
@@ -1166,7 +1344,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageFormatProperties.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct ImageFormatProperties {
         pub max_extent: Extent3D,
         pub max_mip_levels: u32,
@@ -1204,7 +1382,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorBufferInfo.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct DescriptorBufferInfo {
         pub buffer: Buffer,
         pub offset: DeviceSize,
@@ -1230,7 +1408,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorImageInfo.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct DescriptorImageInfo {
         pub sampler: Sampler,
         pub image_view: ImageView,
@@ -1269,6 +1447,23 @@ pub(super) mod defs {
         pub p_buffer_info: *const DescriptorBufferInfo,
         pub p_texel_buffer_view: *const BufferView,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for WriteDescriptorSet<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("WriteDescriptorSet")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("dst_set", &self.dst_set)
+                .field("dst_binding", &self.dst_binding)
+                .field("dst_array_element", &self.dst_array_element)
+                .field("descriptor_count", &self.descriptor_count)
+                .field("descriptor_type", &self.descriptor_type)
+                .field("p_image_info", &self.p_image_info)
+                .field("p_buffer_info", &self.p_buffer_info)
+                .field("p_texel_buffer_view", &self.p_texel_buffer_view)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for WriteDescriptorSet<'a> {
@@ -1349,6 +1544,22 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for CopyDescriptorSet<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CopyDescriptorSet")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src_set", &self.src_set)
+                .field("src_binding", &self.src_binding)
+                .field("src_array_element", &self.src_array_element)
+                .field("dst_set", &self.dst_set)
+                .field("dst_binding", &self.dst_binding)
+                .field("dst_array_element", &self.dst_array_element)
+                .field("descriptor_count", &self.descriptor_count)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for CopyDescriptorSet<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::COPY_DESCRIPTOR_SET;
     }
@@ -1422,6 +1633,21 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for BufferCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BufferCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("size", &self.size)
+                .field("usage", &self.usage)
+                .field("sharing_mode", &self.sharing_mode)
+                .field("queue_family_index_count", &self.queue_family_index_count)
+                .field("p_queue_family_indices", &self.p_queue_family_indices)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for BufferCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::BUFFER_CREATE_INFO;
     }
@@ -1484,6 +1710,20 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for BufferViewCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BufferViewCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("buffer", &self.buffer)
+                .field("format", &self.format)
+                .field("offset", &self.offset)
+                .field("range", &self.range)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for BufferViewCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::BUFFER_VIEW_CREATE_INFO;
     }
@@ -1532,7 +1772,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageSubresource.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct ImageSubresource {
         pub aspect_mask: ImageAspectFlags,
         pub mip_level: u32,
@@ -1558,7 +1798,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageSubresourceLayers.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct ImageSubresourceLayers {
         pub aspect_mask: ImageAspectFlags,
         pub mip_level: u32,
@@ -1590,7 +1830,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageSubresourceRange.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct ImageSubresourceRange {
         pub aspect_mask: ImageAspectFlags,
         pub base_mip_level: u32,
@@ -1637,6 +1877,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for MemoryBarrier<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MemoryBarrier")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src_access_mask", &self.src_access_mask)
+                .field("dst_access_mask", &self.dst_access_mask)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for MemoryBarrier<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_BARRIER;
     }
@@ -1679,6 +1930,22 @@ pub(super) mod defs {
         pub offset: DeviceSize,
         pub size: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for BufferMemoryBarrier<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BufferMemoryBarrier")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src_access_mask", &self.src_access_mask)
+                .field("dst_access_mask", &self.dst_access_mask)
+                .field("src_queue_family_index", &self.src_queue_family_index)
+                .field("dst_queue_family_index", &self.dst_queue_family_index)
+                .field("buffer", &self.buffer)
+                .field("offset", &self.offset)
+                .field("size", &self.size)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for BufferMemoryBarrier<'a> {
@@ -1754,6 +2021,23 @@ pub(super) mod defs {
         pub image: Image,
         pub subresource_range: ImageSubresourceRange,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ImageMemoryBarrier<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageMemoryBarrier")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src_access_mask", &self.src_access_mask)
+                .field("dst_access_mask", &self.dst_access_mask)
+                .field("old_layout", &self.old_layout)
+                .field("new_layout", &self.new_layout)
+                .field("src_queue_family_index", &self.src_queue_family_index)
+                .field("dst_queue_family_index", &self.dst_queue_family_index)
+                .field("image", &self.image)
+                .field("subresource_range", &self.subresource_range)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ImageMemoryBarrier<'a> {
@@ -1840,6 +2124,28 @@ pub(super) mod defs {
         pub p_queue_family_indices: *const u32,
         pub initial_layout: ImageLayout,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ImageCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("image_type", &self.image_type)
+                .field("format", &self.format)
+                .field("extent", &self.extent)
+                .field("mip_levels", &self.mip_levels)
+                .field("array_layers", &self.array_layers)
+                .field("samples", &self.samples)
+                .field("tiling", &self.tiling)
+                .field("usage", &self.usage)
+                .field("sharing_mode", &self.sharing_mode)
+                .field("queue_family_index_count", &self.queue_family_index_count)
+                .field("p_queue_family_indices", &self.p_queue_family_indices)
+                .field("initial_layout", &self.initial_layout)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ImageCreateInfo<'a> {
@@ -1934,7 +2240,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubresourceLayout.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct SubresourceLayout {
         pub offset: DeviceSize,
         pub size: DeviceSize,
@@ -1983,6 +2289,21 @@ pub(super) mod defs {
         pub components: ComponentMapping,
         pub subresource_range: ImageSubresourceRange,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ImageViewCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageViewCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("image", &self.image)
+                .field("view_type", &self.view_type)
+                .field("format", &self.format)
+                .field("components", &self.components)
+                .field("subresource_range", &self.subresource_range)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ImageViewCreateInfo<'a> {
@@ -2039,7 +2360,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCopy.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct BufferCopy {
         pub src_offset: DeviceSize,
         pub dst_offset: DeviceSize,
@@ -2065,7 +2386,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseMemoryBind.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct SparseMemoryBind {
         pub resource_offset: DeviceSize,
         pub size: DeviceSize,
@@ -2103,7 +2424,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseImageMemoryBind.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct SparseImageMemoryBind {
         pub subresource: ImageSubresource,
         pub offset: Offset3D,
@@ -2155,6 +2476,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SparseBufferMemoryBindInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SparseBufferMemoryBindInfo")
+                .field("buffer", &self.buffer)
+                .field("bind_count", &self.bind_count)
+                .field("p_binds", &self.p_binds)
+                .finish()
+        }
+    }
+
     impl Default for SparseBufferMemoryBindInfo<'_> {
         fn default() -> Self {
             Self {
@@ -2189,6 +2520,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SparseImageOpaqueMemoryBindInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SparseImageOpaqueMemoryBindInfo")
+                .field("image", &self.image)
+                .field("bind_count", &self.bind_count)
+                .field("p_binds", &self.p_binds)
+                .finish()
+        }
+    }
+
     impl Default for SparseImageOpaqueMemoryBindInfo<'_> {
         fn default() -> Self {
             Self {
@@ -2221,6 +2562,16 @@ pub(super) mod defs {
         pub bind_count: u32,
         pub p_binds: *const SparseImageMemoryBind,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for SparseImageMemoryBindInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SparseImageMemoryBindInfo")
+                .field("image", &self.image)
+                .field("bind_count", &self.bind_count)
+                .field("p_binds", &self.p_binds)
+                .finish()
+        }
     }
 
     impl Default for SparseImageMemoryBindInfo<'_> {
@@ -2264,6 +2615,25 @@ pub(super) mod defs {
         pub signal_semaphore_count: u32,
         pub p_signal_semaphores: *const Semaphore,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for BindSparseInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BindSparseInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("wait_semaphore_count", &self.wait_semaphore_count)
+                .field("p_wait_semaphores", &self.p_wait_semaphores)
+                .field("buffer_bind_count", &self.buffer_bind_count)
+                .field("p_buffer_binds", &self.p_buffer_binds)
+                .field("image_opaque_bind_count", &self.image_opaque_bind_count)
+                .field("p_image_opaque_binds", &self.p_image_opaque_binds)
+                .field("image_bind_count", &self.image_bind_count)
+                .field("p_image_binds", &self.p_image_binds)
+                .field("signal_semaphore_count", &self.signal_semaphore_count)
+                .field("p_signal_semaphores", &self.p_signal_semaphores)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for BindSparseInfo<'a> {
@@ -2327,7 +2697,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCopy.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct ImageCopy {
         pub src_subresource: ImageSubresourceLayers,
         pub src_offset: Offset3D,
@@ -2365,7 +2735,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageBlit.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct ImageBlit {
         pub src_subresource: ImageSubresourceLayers,
         pub src_offsets: [Offset3D; 2],
@@ -2408,7 +2778,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferImageCopy.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct BufferImageCopy {
         pub buffer_offset: DeviceSize,
         pub buffer_row_length: u32,
@@ -2452,7 +2822,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageResolve.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct ImageResolve {
         pub src_subresource: ImageSubresourceLayers,
         pub src_offset: Offset3D,
@@ -2500,6 +2870,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ShaderModuleCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ShaderModuleCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("code_size", &self.code_size)
+                .field("p_code", &self.p_code)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ShaderModuleCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SHADER_MODULE_CREATE_INFO;
     }
@@ -2542,6 +2924,18 @@ pub(super) mod defs {
         pub stage_flags: ShaderStageFlags,
         pub p_immutable_samplers: *const Sampler,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DescriptorSetLayoutBinding<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DescriptorSetLayoutBinding")
+                .field("binding", &self.binding)
+                .field("descriptor_type", &self.descriptor_type)
+                .field("descriptor_count", &self.descriptor_count)
+                .field("stage_flags", &self.stage_flags)
+                .field("p_immutable_samplers", &self.p_immutable_samplers)
+                .finish()
+        }
     }
 
     impl Default for DescriptorSetLayoutBinding<'_> {
@@ -2592,6 +2986,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DescriptorSetLayoutCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DescriptorSetLayoutCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("binding_count", &self.binding_count)
+                .field("p_bindings", &self.p_bindings)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DescriptorSetLayoutCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
     }
@@ -2624,7 +3030,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorPoolSize.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct DescriptorPoolSize {
         pub ty: DescriptorType,
         pub descriptor_count: u32,
@@ -2653,6 +3059,19 @@ pub(super) mod defs {
         pub pool_size_count: u32,
         pub p_pool_sizes: *const DescriptorPoolSize,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DescriptorPoolCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DescriptorPoolCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("max_sets", &self.max_sets)
+                .field("pool_size_count", &self.pool_size_count)
+                .field("p_pool_sizes", &self.p_pool_sizes)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DescriptorPoolCreateInfo<'a> {
@@ -2703,6 +3122,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DescriptorSetAllocateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DescriptorSetAllocateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("descriptor_pool", &self.descriptor_pool)
+                .field("descriptor_set_count", &self.descriptor_set_count)
+                .field("p_set_layouts", &self.p_set_layouts)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DescriptorSetAllocateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DESCRIPTOR_SET_ALLOCATE_INFO;
     }
@@ -2735,7 +3166,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSpecializationMapEntry.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct SpecializationMapEntry {
         pub constant_id: u32,
         pub offset: u32,
@@ -2768,6 +3199,17 @@ pub(super) mod defs {
         pub data_size: usize,
         pub p_data: *const c_void,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for SpecializationInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SpecializationInfo")
+                .field("map_entry_count", &self.map_entry_count)
+                .field("p_map_entries", &self.p_map_entries)
+                .field("data_size", &self.data_size)
+                .field("p_data", &self.p_data)
+                .finish()
+        }
     }
 
     impl Default for SpecializationInfo<'_> {
@@ -2808,6 +3250,20 @@ pub(super) mod defs {
         pub p_name: *const c_char,
         pub p_specialization_info: *const SpecializationInfo<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PipelineShaderStageCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineShaderStageCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("stage", &self.stage)
+                .field("module", &self.module)
+                .field("p_name", &unsafe { as_c_str(self.p_name) })
+                .field("p_specialization_info", &self.p_specialization_info)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PipelineShaderStageCreateInfo<'a> {
@@ -2873,6 +3329,20 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ComputePipelineCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ComputePipelineCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("stage", &self.stage)
+                .field("layout", &self.layout)
+                .field("base_pipeline_handle", &self.base_pipeline_handle)
+                .field("base_pipeline_index", &self.base_pipeline_index)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ComputePipelineCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::COMPUTE_PIPELINE_CREATE_INFO;
     }
@@ -2921,7 +3391,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVertexInputBindingDescription.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct VertexInputBindingDescription {
         pub binding: u32,
         pub stride: u32,
@@ -2947,7 +3417,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkVertexInputAttributeDescription.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct VertexInputAttributeDescription {
         pub location: u32,
         pub binding: u32,
@@ -2989,6 +3459,32 @@ pub(super) mod defs {
         pub vertex_attribute_description_count: u32,
         pub p_vertex_attribute_descriptions: *const VertexInputAttributeDescription,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PipelineVertexInputStateCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineVertexInputStateCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field(
+                    "vertex_binding_description_count",
+                    &self.vertex_binding_description_count,
+                )
+                .field(
+                    "p_vertex_binding_descriptions",
+                    &self.p_vertex_binding_descriptions,
+                )
+                .field(
+                    "vertex_attribute_description_count",
+                    &self.vertex_attribute_description_count,
+                )
+                .field(
+                    "p_vertex_attribute_descriptions",
+                    &self.p_vertex_attribute_descriptions,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PipelineVertexInputStateCreateInfo<'a> {
@@ -3050,6 +3546,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PipelineInputAssemblyStateCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineInputAssemblyStateCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("topology", &self.topology)
+                .field("primitive_restart_enable", &self.primitive_restart_enable)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineInputAssemblyStateCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
@@ -3096,6 +3604,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PipelineTessellationStateCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineTessellationStateCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("patch_control_points", &self.patch_control_points)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineTessellationStateCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_TESSELLATION_STATE_CREATE_INFO;
@@ -3137,6 +3656,20 @@ pub(super) mod defs {
         pub scissor_count: u32,
         pub p_scissors: *const Rect2D,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PipelineViewportStateCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineViewportStateCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("viewport_count", &self.viewport_count)
+                .field("p_viewports", &self.p_viewports)
+                .field("scissor_count", &self.scissor_count)
+                .field("p_scissors", &self.p_scissors)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PipelineViewportStateCreateInfo<'a> {
@@ -3195,6 +3728,29 @@ pub(super) mod defs {
         pub depth_bias_slope_factor: f32,
         pub line_width: f32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PipelineRasterizationStateCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineRasterizationStateCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("depth_clamp_enable", &self.depth_clamp_enable)
+                .field("rasterizer_discard_enable", &self.rasterizer_discard_enable)
+                .field("polygon_mode", &self.polygon_mode)
+                .field("cull_mode", &self.cull_mode)
+                .field("front_face", &self.front_face)
+                .field("depth_bias_enable", &self.depth_bias_enable)
+                .field(
+                    "depth_bias_constant_factor",
+                    &self.depth_bias_constant_factor,
+                )
+                .field("depth_bias_clamp", &self.depth_bias_clamp)
+                .field("depth_bias_slope_factor", &self.depth_bias_slope_factor)
+                .field("line_width", &self.line_width)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PipelineRasterizationStateCreateInfo<'a> {
@@ -3296,6 +3852,22 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PipelineMultisampleStateCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineMultisampleStateCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("rasterization_samples", &self.rasterization_samples)
+                .field("sample_shading_enable", &self.sample_shading_enable)
+                .field("min_sample_shading", &self.min_sample_shading)
+                .field("p_sample_mask", &self.p_sample_mask)
+                .field("alpha_to_coverage_enable", &self.alpha_to_coverage_enable)
+                .field("alpha_to_one_enable", &self.alpha_to_one_enable)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineMultisampleStateCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
     }
@@ -3351,7 +3923,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineColorBlendAttachmentState.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct PipelineColorBlendAttachmentState {
         pub blend_enable: Bool32,
         pub src_color_blend_factor: BlendFactor,
@@ -3420,6 +3992,21 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PipelineColorBlendStateCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineColorBlendStateCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("logic_op_enable", &self.logic_op_enable)
+                .field("logic_op", &self.logic_op)
+                .field("attachment_count", &self.attachment_count)
+                .field("p_attachments", &self.p_attachments)
+                .field("blend_constants", &self.blend_constants)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineColorBlendStateCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
     }
@@ -3480,6 +4067,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PipelineDynamicStateCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineDynamicStateCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("dynamic_state_count", &self.dynamic_state_count)
+                .field("p_dynamic_states", &self.p_dynamic_states)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineDynamicStateCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_DYNAMIC_STATE_CREATE_INFO;
     }
@@ -3512,7 +4111,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkStencilOpState.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StencilOpState {
         pub fail_op: StencilOp,
         pub pass_op: StencilOp,
@@ -3577,6 +4176,25 @@ pub(super) mod defs {
         pub min_depth_bounds: f32,
         pub max_depth_bounds: f32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PipelineDepthStencilStateCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineDepthStencilStateCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("depth_test_enable", &self.depth_test_enable)
+                .field("depth_write_enable", &self.depth_write_enable)
+                .field("depth_compare_op", &self.depth_compare_op)
+                .field("depth_bounds_test_enable", &self.depth_bounds_test_enable)
+                .field("stencil_test_enable", &self.stencil_test_enable)
+                .field("front", &self.front)
+                .field("back", &self.back)
+                .field("min_depth_bounds", &self.min_depth_bounds)
+                .field("max_depth_bounds", &self.max_depth_bounds)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PipelineDepthStencilStateCreateInfo<'a> {
@@ -3680,6 +4298,32 @@ pub(super) mod defs {
         pub base_pipeline_handle: Pipeline,
         pub base_pipeline_index: i32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for GraphicsPipelineCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("GraphicsPipelineCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("stage_count", &self.stage_count)
+                .field("p_stages", &self.p_stages)
+                .field("p_vertex_input_state", &self.p_vertex_input_state)
+                .field("p_input_assembly_state", &self.p_input_assembly_state)
+                .field("p_tessellation_state", &self.p_tessellation_state)
+                .field("p_viewport_state", &self.p_viewport_state)
+                .field("p_rasterization_state", &self.p_rasterization_state)
+                .field("p_multisample_state", &self.p_multisample_state)
+                .field("p_depth_stencil_state", &self.p_depth_stencil_state)
+                .field("p_color_blend_state", &self.p_color_blend_state)
+                .field("p_dynamic_state", &self.p_dynamic_state)
+                .field("layout", &self.layout)
+                .field("render_pass", &self.render_pass)
+                .field("subpass", &self.subpass)
+                .field("base_pipeline_handle", &self.base_pipeline_handle)
+                .field("base_pipeline_index", &self.base_pipeline_index)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for GraphicsPipelineCreateInfo<'a> {
@@ -3835,6 +4479,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PipelineCacheCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineCacheCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("initial_data_size", &self.initial_data_size)
+                .field("p_initial_data", &self.p_initial_data)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineCacheCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_CACHE_CREATE_INFO;
     }
@@ -3867,7 +4523,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCacheHeaderVersionOne.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct PipelineCacheHeaderVersionOne {
         pub header_size: u32,
         pub header_version: PipelineCacheHeaderVersion,
@@ -3920,7 +4576,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPushConstantRange.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct PushConstantRange {
         pub stage_flags: ShaderStageFlags,
         pub offset: u32,
@@ -3956,6 +4612,20 @@ pub(super) mod defs {
         pub push_constant_range_count: u32,
         pub p_push_constant_ranges: *const PushConstantRange,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PipelineLayoutCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineLayoutCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("set_layout_count", &self.set_layout_count)
+                .field("p_set_layouts", &self.p_set_layouts)
+                .field("push_constant_range_count", &self.push_constant_range_count)
+                .field("p_push_constant_ranges", &self.p_push_constant_ranges)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PipelineLayoutCreateInfo<'a> {
@@ -4033,6 +4703,31 @@ pub(super) mod defs {
         pub border_color: BorderColor,
         pub unnormalized_coordinates: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for SamplerCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SamplerCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("mag_filter", &self.mag_filter)
+                .field("min_filter", &self.min_filter)
+                .field("mipmap_mode", &self.mipmap_mode)
+                .field("address_mode_u", &self.address_mode_u)
+                .field("address_mode_v", &self.address_mode_v)
+                .field("address_mode_w", &self.address_mode_w)
+                .field("mip_lod_bias", &self.mip_lod_bias)
+                .field("anisotropy_enable", &self.anisotropy_enable)
+                .field("max_anisotropy", &self.max_anisotropy)
+                .field("compare_enable", &self.compare_enable)
+                .field("compare_op", &self.compare_op)
+                .field("min_lod", &self.min_lod)
+                .field("max_lod", &self.max_lod)
+                .field("border_color", &self.border_color)
+                .field("unnormalized_coordinates", &self.unnormalized_coordinates)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for SamplerCreateInfo<'a> {
@@ -4158,6 +4853,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for CommandPoolCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CommandPoolCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("queue_family_index", &self.queue_family_index)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for CommandPoolCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::COMMAND_POOL_CREATE_INFO;
     }
@@ -4196,6 +4902,18 @@ pub(super) mod defs {
         pub level: CommandBufferLevel,
         pub command_buffer_count: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for CommandBufferAllocateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CommandBufferAllocateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("command_pool", &self.command_pool)
+                .field("level", &self.level)
+                .field("command_buffer_count", &self.command_buffer_count)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for CommandBufferAllocateInfo<'a> {
@@ -4245,6 +4963,21 @@ pub(super) mod defs {
         pub query_flags: QueryControlFlags,
         pub pipeline_statistics: QueryPipelineStatisticFlags,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for CommandBufferInheritanceInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CommandBufferInheritanceInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("render_pass", &self.render_pass)
+                .field("subpass", &self.subpass)
+                .field("framebuffer", &self.framebuffer)
+                .field("occlusion_query_enable", &self.occlusion_query_enable)
+                .field("query_flags", &self.query_flags)
+                .field("pipeline_statistics", &self.pipeline_statistics)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for CommandBufferInheritanceInfo<'a> {
@@ -4313,6 +5046,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for CommandBufferBeginInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CommandBufferBeginInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("p_inheritance_info", &self.p_inheritance_info)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for CommandBufferBeginInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::COMMAND_BUFFER_BEGIN_INFO;
     }
@@ -4356,6 +5100,20 @@ pub(super) mod defs {
         pub clear_value_count: u32,
         pub p_clear_values: *const ClearValue,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for RenderPassBeginInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RenderPassBeginInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("render_pass", &self.render_pass)
+                .field("framebuffer", &self.framebuffer)
+                .field("render_area", &self.render_area)
+                .field("clear_value_count", &self.clear_value_count)
+                .field("p_clear_values", &self.p_clear_values)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for RenderPassBeginInfo<'a> {
@@ -4402,7 +5160,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClearDepthStencilValue.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct ClearDepthStencilValue {
         pub depth: f32,
         pub stencil: u32,
@@ -4422,7 +5180,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkClearAttachment.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct ClearAttachment {
         pub aspect_mask: ImageAspectFlags,
         pub color_attachment: u32,
@@ -4458,7 +5216,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentDescription.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct AttachmentDescription {
         pub flags: AttachmentDescriptionFlags,
         pub format: Format,
@@ -4520,7 +5278,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentReference.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct AttachmentReference {
         pub attachment: u32,
         pub layout: ImageLayout,
@@ -4553,6 +5311,26 @@ pub(super) mod defs {
         pub preserve_attachment_count: u32,
         pub p_preserve_attachments: *const u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for SubpassDescription<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SubpassDescription")
+                .field("flags", &self.flags)
+                .field("pipeline_bind_point", &self.pipeline_bind_point)
+                .field("input_attachment_count", &self.input_attachment_count)
+                .field("p_input_attachments", &self.p_input_attachments)
+                .field("color_attachment_count", &self.color_attachment_count)
+                .field("p_color_attachments", &self.p_color_attachments)
+                .field("p_resolve_attachments", &self.p_resolve_attachments)
+                .field(
+                    "p_depth_stencil_attachment",
+                    &self.p_depth_stencil_attachment,
+                )
+                .field("preserve_attachment_count", &self.preserve_attachment_count)
+                .field("p_preserve_attachments", &self.p_preserve_attachments)
+                .finish()
+        }
     }
 
     impl Default for SubpassDescription<'_> {
@@ -4622,7 +5400,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassDependency.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct SubpassDependency {
         pub src_subpass: u32,
         pub dst_subpass: u32,
@@ -4686,6 +5464,22 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for RenderPassCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RenderPassCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("attachment_count", &self.attachment_count)
+                .field("p_attachments", &self.p_attachments)
+                .field("subpass_count", &self.subpass_count)
+                .field("p_subpasses", &self.p_subpasses)
+                .field("dependency_count", &self.dependency_count)
+                .field("p_dependencies", &self.p_dependencies)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for RenderPassCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::RENDER_PASS_CREATE_INFO;
     }
@@ -4742,6 +5536,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for EventCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("EventCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for EventCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EVENT_CREATE_INFO;
     }
@@ -4774,6 +5578,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for FenceCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("FenceCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for FenceCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::FENCE_CREATE_INFO;
     }
@@ -4798,7 +5612,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFeatures.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct PhysicalDeviceFeatures {
         pub robust_buffer_access: Bool32,
         pub full_draw_index_uint32: Bool32,
@@ -5174,7 +5988,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSparseProperties.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct PhysicalDeviceSparseProperties {
         pub residency_standard2_d_block_shape: Bool32,
         pub residency_standard2_d_multisample_block_shape: Bool32,
@@ -5225,7 +6039,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceLimits.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct PhysicalDeviceLimits {
         pub max_image_dimension1_d: u32,
         pub max_image_dimension2_d: u32,
@@ -6149,6 +6963,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SemaphoreCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SemaphoreCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SemaphoreCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SEMAPHORE_CREATE_INFO;
     }
@@ -6182,6 +7006,19 @@ pub(super) mod defs {
         pub query_count: u32,
         pub pipeline_statistics: QueryPipelineStatisticFlags,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for QueryPoolCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("QueryPoolCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("query_type", &self.query_type)
+                .field("query_count", &self.query_count)
+                .field("pipeline_statistics", &self.pipeline_statistics)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for QueryPoolCreateInfo<'a> {
@@ -6243,6 +7080,22 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for FramebufferCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("FramebufferCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("render_pass", &self.render_pass)
+                .field("attachment_count", &self.attachment_count)
+                .field("p_attachments", &self.p_attachments)
+                .field("width", &self.width)
+                .field("height", &self.height)
+                .field("layers", &self.layers)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for FramebufferCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::FRAMEBUFFER_CREATE_INFO;
     }
@@ -6299,7 +7152,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDrawIndirectCommand.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct DrawIndirectCommand {
         pub vertex_count: u32,
         pub instance_count: u32,
@@ -6331,7 +7184,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDrawIndexedIndirectCommand.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct DrawIndexedIndirectCommand {
         pub index_count: u32,
         pub instance_count: u32,
@@ -6369,7 +7222,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDispatchIndirectCommand.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct DispatchIndirectCommand {
         pub x: u32,
         pub y: u32,
@@ -6407,6 +7260,22 @@ pub(super) mod defs {
         pub signal_semaphore_count: u32,
         pub p_signal_semaphores: *const Semaphore,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for SubmitInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SubmitInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("wait_semaphore_count", &self.wait_semaphore_count)
+                .field("p_wait_semaphores", &self.p_wait_semaphores)
+                .field("p_wait_dst_stage_mask", &self.p_wait_dst_stage_mask)
+                .field("command_buffer_count", &self.command_buffer_count)
+                .field("p_command_buffers", &self.p_command_buffers)
+                .field("signal_semaphore_count", &self.signal_semaphore_count)
+                .field("p_signal_semaphores", &self.p_signal_semaphores)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for SubmitInfo<'a> {
@@ -6467,6 +7336,13 @@ pub(super) mod defs {
         pub int32: [i32; 4],
         pub uint32: [u32; 4],
     }
+
+    impl fmt::Debug for ClearColorValue {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ClearColorValue").finish()
+        }
+    }
+
     impl Default for ClearColorValue {
         fn default() -> Self {
             unsafe { core::mem::zeroed() }
@@ -6480,6 +7356,13 @@ pub(super) mod defs {
         pub color: ClearColorValue,
         pub depth_stencil: ClearDepthStencilValue,
     }
+
+    impl fmt::Debug for ClearValue {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ClearValue").finish()
+        }
+    }
+
     impl Default for ClearValue {
         fn default() -> Self {
             unsafe { core::mem::zeroed() }
@@ -14606,7 +15489,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFramebufferCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct FramebufferCreateFlagBits(u32);
 
     impl FramebufferCreateFlagBits {
@@ -14637,7 +15520,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryPoolCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct QueryPoolCreateFlagBits(u32);
 
     impl QueryPoolCreateFlagBits {
@@ -14675,7 +15558,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct RenderPassCreateFlagBits(u32);
 
     impl RenderPassCreateFlagBits {
@@ -14738,7 +15621,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSamplerCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct SamplerCreateFlagBits(u32);
 
     impl SamplerCreateFlagBits {
@@ -14780,7 +15663,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineLayoutCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct PipelineLayoutCreateFlagBits(u32);
 
     impl PipelineLayoutCreateFlagBits {
@@ -14825,7 +15708,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCacheCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct PipelineCacheCreateFlagBits(u32);
 
     impl PipelineCacheCreateFlagBits {
@@ -14869,7 +15752,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineDepthStencilStateCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct PipelineDepthStencilStateCreateFlagBits(u32);
 
     impl PipelineDepthStencilStateCreateFlagBits {
@@ -14925,7 +15808,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineColorBlendStateCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct PipelineColorBlendStateCreateFlagBits(u32);
 
     impl PipelineColorBlendStateCreateFlagBits {
@@ -15045,7 +15928,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineShaderStageCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct PipelineShaderStageCreateFlagBits(u32);
 
     impl PipelineShaderStageCreateFlagBits {
@@ -15138,7 +16021,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetLayoutCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct DescriptorSetLayoutCreateFlagBits(u32);
 
     impl DescriptorSetLayoutCreateFlagBits {
@@ -15207,7 +16090,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkInstanceCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct InstanceCreateFlagBits(u32);
 
     impl InstanceCreateFlagBits {
@@ -15258,7 +16141,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceQueueCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct DeviceQueueCreateFlagBits(u32);
 
     impl DeviceQueueCreateFlagBits {
@@ -15321,7 +16204,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct QueueFlagBits(u32);
 
     impl QueueFlagBits {
@@ -15404,7 +16287,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryPropertyFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct MemoryPropertyFlagBits(u32);
 
     impl MemoryPropertyFlagBits {
@@ -15463,7 +16346,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryHeapFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct MemoryHeapFlagBits(u32);
 
     impl MemoryHeapFlagBits {
@@ -15671,7 +16554,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccessFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct AccessFlagBits(u32);
 
     impl AccessFlagBits {
@@ -15936,7 +16819,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferUsageFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct BufferUsageFlagBits(u32);
 
     impl BufferUsageFlagBits {
@@ -16074,7 +16957,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct BufferCreateFlagBits(u32);
 
     impl BufferCreateFlagBits {
@@ -16191,7 +17074,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderStageFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct ShaderStageFlagBits(u32);
 
     impl ShaderStageFlagBits {
@@ -16391,7 +17274,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageUsageFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct ImageUsageFlagBits(u32);
 
     impl ImageUsageFlagBits {
@@ -16600,7 +17483,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct ImageCreateFlagBits(u32);
 
     impl ImageCreateFlagBits {
@@ -16717,7 +17600,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageViewCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct ImageViewCreateFlagBits(u32);
 
     impl ImageViewCreateFlagBits {
@@ -16964,7 +17847,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct PipelineCreateFlagBits(u32);
 
     impl PipelineCreateFlagBits {
@@ -17076,7 +17959,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkColorComponentFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct ColorComponentFlagBits(u32);
 
     impl ColorComponentFlagBits {
@@ -17105,7 +17988,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFenceCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct FenceCreateFlagBits(u32);
 
     impl FenceCreateFlagBits {
@@ -17282,7 +18165,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFormatFeatureFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct FormatFeatureFlagBits(u32);
 
     impl FormatFeatureFlagBits {
@@ -17401,7 +18284,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryControlFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct QueryControlFlagBits(u32);
 
     impl QueryControlFlagBits {
@@ -17443,7 +18326,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryResultFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct QueryResultFlagBits(u32);
 
     impl QueryResultFlagBits {
@@ -17494,7 +18377,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkEventCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct EventCreateFlagBits(u32);
 
     impl EventCreateFlagBits {
@@ -17538,7 +18421,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandPoolCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct CommandPoolCreateFlagBits(u32);
 
     impl CommandPoolCreateFlagBits {
@@ -17574,7 +18457,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandPoolResetFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct CommandPoolResetFlagBits(u32);
 
     impl CommandPoolResetFlagBits {
@@ -17605,7 +18488,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferResetFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct CommandBufferResetFlagBits(u32);
 
     impl CommandBufferResetFlagBits {
@@ -17649,7 +18532,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferUsageFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct CommandBufferUsageFlagBits(u32);
 
     impl CommandBufferUsageFlagBits {
@@ -17765,7 +18648,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryPipelineStatisticFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct QueryPipelineStatisticFlagBits(u32);
 
     impl QueryPipelineStatisticFlagBits {
@@ -17808,7 +18691,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryMapFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct MemoryMapFlagBits(u32);
 
     impl MemoryMapFlagBits {
@@ -17871,7 +18754,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageAspectFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct ImageAspectFlagBits(u32);
 
     impl ImageAspectFlagBits {
@@ -17916,7 +18799,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseMemoryBindFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct SparseMemoryBindFlagBits(u32);
 
     impl SparseMemoryBindFlagBits {
@@ -17959,7 +18842,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseImageFormatFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct SparseImageFormatFlagBits(u32);
 
     impl SparseImageFormatFlagBits {
@@ -18064,7 +18947,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassDescriptionFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct SubpassDescriptionFlagBits(u32);
 
     impl SubpassDescriptionFlagBits {
@@ -18270,7 +19153,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineStageFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct PipelineStageFlagBits(u32);
 
     impl PipelineStageFlagBits {
@@ -18389,7 +19272,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSampleCountFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct SampleCountFlagBits(u32);
 
     impl SampleCountFlagBits {
@@ -18444,7 +19327,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentDescriptionFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct AttachmentDescriptionFlagBits(u32);
 
     impl AttachmentDescriptionFlagBits {
@@ -18483,7 +19366,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkStencilFaceFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct StencilFaceFlagBits(u32);
 
     impl StencilFaceFlagBits {
@@ -18518,7 +19401,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCullModeFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct CullModeFlagBits(u32);
 
     impl CullModeFlagBits {
@@ -18582,7 +19465,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorPoolCreateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct DescriptorPoolCreateFlagBits(u32);
 
     impl DescriptorPoolCreateFlagBits {
@@ -18671,7 +19554,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDependencyFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct DependencyFlagBits(u32);
 
     impl DependencyFlagBits {

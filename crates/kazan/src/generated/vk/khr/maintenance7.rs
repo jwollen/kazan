@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceMaintenance7FeaturesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceMaintenance7FeaturesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("maintenance7", &self.maintenance7)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMaintenance7FeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_MAINTENANCE_7_FEATURES_KHR;
@@ -61,6 +71,47 @@ pub(super) mod defs {
         pub max_descriptor_set_update_after_bind_total_storage_buffers_dynamic: u32,
         pub max_descriptor_set_update_after_bind_total_buffers_dynamic: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceMaintenance7PropertiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceMaintenance7PropertiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "robust_fragment_shading_rate_attachment_access",
+                    &self.robust_fragment_shading_rate_attachment_access,
+                )
+                .field(
+                    "separate_depth_stencil_attachment_access",
+                    &self.separate_depth_stencil_attachment_access,
+                )
+                .field(
+                    "max_descriptor_set_total_uniform_buffers_dynamic",
+                    &self.max_descriptor_set_total_uniform_buffers_dynamic,
+                )
+                .field(
+                    "max_descriptor_set_total_storage_buffers_dynamic",
+                    &self.max_descriptor_set_total_storage_buffers_dynamic,
+                )
+                .field(
+                    "max_descriptor_set_total_buffers_dynamic",
+                    &self.max_descriptor_set_total_buffers_dynamic,
+                )
+                .field(
+                    "max_descriptor_set_update_after_bind_total_uniform_buffers_dynamic",
+                    &self.max_descriptor_set_update_after_bind_total_uniform_buffers_dynamic,
+                )
+                .field(
+                    "max_descriptor_set_update_after_bind_total_storage_buffers_dynamic",
+                    &self.max_descriptor_set_update_after_bind_total_storage_buffers_dynamic,
+                )
+                .field(
+                    "max_descriptor_set_update_after_bind_total_buffers_dynamic",
+                    &self.max_descriptor_set_update_after_bind_total_buffers_dynamic,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMaintenance7PropertiesKHR<'a> {
@@ -178,6 +229,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceLayeredApiPropertiesListKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceLayeredApiPropertiesListKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("layered_api_count", &self.layered_api_count)
+                .field("p_layered_apis", &self.p_layered_apis)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceLayeredApiPropertiesListKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_LIST_KHR;
@@ -222,6 +284,22 @@ pub(super) mod defs {
         pub layered_api: PhysicalDeviceLayeredApiKHR,
         pub device_name: [c_char; MAX_PHYSICAL_DEVICE_NAME_SIZE as usize],
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceLayeredApiPropertiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceLayeredApiPropertiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("vendor_id", &self.vendor_id)
+                .field("device_id", &self.device_id)
+                .field("layered_api", &self.layered_api)
+                .field(
+                    "device_name",
+                    &wrap_c_str_slice_until_nul(&self.device_name),
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceLayeredApiPropertiesKHR<'a> {
@@ -276,6 +354,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub properties: PhysicalDeviceProperties2<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceLayeredApiVulkanPropertiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceLayeredApiVulkanPropertiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("properties", &self.properties)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceLayeredApiVulkanPropertiesKHR<'a> {

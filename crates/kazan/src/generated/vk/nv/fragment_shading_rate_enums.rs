@@ -22,6 +22,27 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceFragmentShadingRateEnumsFeaturesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceFragmentShadingRateEnumsFeaturesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "fragment_shading_rate_enums",
+                    &self.fragment_shading_rate_enums,
+                )
+                .field(
+                    "supersample_fragment_shading_rates",
+                    &self.supersample_fragment_shading_rates,
+                )
+                .field(
+                    "no_invocation_fragment_shading_rates",
+                    &self.no_invocation_fragment_shading_rates,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentShadingRateEnumsFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_FEATURES_NV;
@@ -82,6 +103,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceFragmentShadingRateEnumsPropertiesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceFragmentShadingRateEnumsPropertiesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "max_fragment_shading_rate_invocation_count",
+                    &self.max_fragment_shading_rate_invocation_count,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFragmentShadingRateEnumsPropertiesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_PROPERTIES_NV;
@@ -124,6 +158,18 @@ pub(super) mod defs {
         pub shading_rate: FragmentShadingRateNV,
         pub combiner_ops: [FragmentShadingRateCombinerOpKHR; 2],
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PipelineFragmentShadingRateEnumStateCreateInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineFragmentShadingRateEnumStateCreateInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("shading_rate_type", &self.shading_rate_type)
+                .field("shading_rate", &self.shading_rate)
+                .field("combiner_ops", &self.combiner_ops)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PipelineFragmentShadingRateEnumStateCreateInfoNV<'a> {

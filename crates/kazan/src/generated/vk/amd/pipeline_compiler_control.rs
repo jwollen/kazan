@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PipelineCompilerControlCreateInfoAMD<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineCompilerControlCreateInfoAMD")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("compiler_control_flags", &self.compiler_control_flags)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineCompilerControlCreateInfoAMD<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_COMPILER_CONTROL_CREATE_INFO_AMD;
@@ -76,7 +86,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCompilerControlFlagBitsAMD.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct PipelineCompilerControlFlagBitsAMD(u32);
 
     impl PipelineCompilerControlFlagBitsAMD {}

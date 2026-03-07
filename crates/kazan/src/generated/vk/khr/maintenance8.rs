@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceMaintenance8FeaturesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceMaintenance8FeaturesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("maintenance8", &self.maintenance8)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMaintenance8FeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_MAINTENANCE_8_FEATURES_KHR;
@@ -55,6 +65,17 @@ pub(super) mod defs {
         pub src_access_mask3: AccessFlags3KHR,
         pub dst_access_mask3: AccessFlags3KHR,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for MemoryBarrierAccessFlags3KHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MemoryBarrierAccessFlags3KHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src_access_mask3", &self.src_access_mask3)
+                .field("dst_access_mask3", &self.dst_access_mask3)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for MemoryBarrierAccessFlags3KHR<'a> {
@@ -108,7 +129,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccessFlagBits3KHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct AccessFlagBits3KHR(u64);
 
     impl AccessFlagBits3KHR {}

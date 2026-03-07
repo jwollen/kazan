@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SurfacePresentModeKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SurfacePresentModeKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("present_mode", &self.present_mode)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SurfacePresentModeKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SURFACE_PRESENT_MODE_KHR;
     }
@@ -56,6 +66,26 @@ pub(super) mod defs {
         pub min_scaled_image_extent: Extent2D,
         pub max_scaled_image_extent: Extent2D,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for SurfacePresentScalingCapabilitiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SurfacePresentScalingCapabilitiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("supported_present_scaling", &self.supported_present_scaling)
+                .field(
+                    "supported_present_gravity_x",
+                    &self.supported_present_gravity_x,
+                )
+                .field(
+                    "supported_present_gravity_y",
+                    &self.supported_present_gravity_y,
+                )
+                .field("min_scaled_image_extent", &self.min_scaled_image_extent)
+                .field("max_scaled_image_extent", &self.max_scaled_image_extent)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for SurfacePresentScalingCapabilitiesKHR<'a> {
@@ -127,6 +157,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SurfacePresentModeCompatibilityKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SurfacePresentModeCompatibilityKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("present_mode_count", &self.present_mode_count)
+                .field("p_present_modes", &self.p_present_modes)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SurfacePresentModeCompatibilityKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SURFACE_PRESENT_MODE_COMPATIBILITY_KHR;
     }
@@ -185,7 +226,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentScalingFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct PresentScalingFlagBitsKHR(u32);
 
     impl PresentScalingFlagBitsKHR {
@@ -222,7 +263,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentGravityFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct PresentGravityFlagBitsKHR(u32);
 
     impl PresentGravityFlagBitsKHR {

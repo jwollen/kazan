@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("graphics_pipeline_library", &self.graphics_pipeline_library)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_FEATURES_EXT;
@@ -61,6 +71,23 @@ pub(super) mod defs {
         pub graphics_pipeline_library_fast_linking: Bool32,
         pub graphics_pipeline_library_independent_interpolation_decoration: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "graphics_pipeline_library_fast_linking",
+                    &self.graphics_pipeline_library_fast_linking,
+                )
+                .field(
+                    "graphics_pipeline_library_independent_interpolation_decoration",
+                    &self.graphics_pipeline_library_independent_interpolation_decoration,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT<'a> {
@@ -113,6 +140,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub flags: GraphicsPipelineLibraryFlagsEXT,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for GraphicsPipelineLibraryCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("GraphicsPipelineLibraryCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for GraphicsPipelineLibraryCreateInfoEXT<'a> {
@@ -186,7 +223,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkGraphicsPipelineLibraryFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct GraphicsPipelineLibraryFlagBitsEXT(u32);
 
     impl GraphicsPipelineLibraryFlagBitsEXT {

@@ -34,6 +34,45 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDevicePortabilitySubsetFeaturesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDevicePortabilitySubsetFeaturesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "constant_alpha_color_blend_factors",
+                    &self.constant_alpha_color_blend_factors,
+                )
+                .field("events", &self.events)
+                .field(
+                    "image_view_format_reinterpretation",
+                    &self.image_view_format_reinterpretation,
+                )
+                .field("image_view_format_swizzle", &self.image_view_format_swizzle)
+                .field("image_view2_d_on3_d_image", &self.image_view2_d_on3_d_image)
+                .field("multisample_array_image", &self.multisample_array_image)
+                .field(
+                    "mutable_comparison_samplers",
+                    &self.mutable_comparison_samplers,
+                )
+                .field("point_polygons", &self.point_polygons)
+                .field("sampler_mip_lod_bias", &self.sampler_mip_lod_bias)
+                .field("separate_stencil_mask_ref", &self.separate_stencil_mask_ref)
+                .field(
+                    "shader_sample_rate_interpolation_functions",
+                    &self.shader_sample_rate_interpolation_functions,
+                )
+                .field("tessellation_isolines", &self.tessellation_isolines)
+                .field("tessellation_point_mode", &self.tessellation_point_mode)
+                .field("triangle_fans", &self.triangle_fans)
+                .field(
+                    "vertex_attribute_access_beyond_stride",
+                    &self.vertex_attribute_access_beyond_stride,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePortabilitySubsetFeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PORTABILITY_SUBSET_FEATURES_KHR;
@@ -169,6 +208,19 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub min_vertex_input_binding_stride_alignment: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDevicePortabilitySubsetPropertiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDevicePortabilitySubsetPropertiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "min_vertex_input_binding_stride_alignment",
+                    &self.min_vertex_input_binding_stride_alignment,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePortabilitySubsetPropertiesKHR<'a> {

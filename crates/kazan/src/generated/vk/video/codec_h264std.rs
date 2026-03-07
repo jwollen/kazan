@@ -21,7 +21,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH264SpsVuiFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoH264SpsVuiFlags {
         pub aspect_ratio_info_present_flag: u32,
         pub overscan_info_present_flag: u32,
@@ -116,7 +116,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH264HrdParameters.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct StdVideoH264HrdParameters {
         pub cpb_cnt_minus1: u8,
         pub bit_rate_scale: u8,
@@ -247,6 +247,35 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for StdVideoH264SequenceParameterSetVui<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("StdVideoH264SequenceParameterSetVui")
+                .field("flags", &self.flags)
+                .field("aspect_ratio_idc", &self.aspect_ratio_idc)
+                .field("sar_width", &self.sar_width)
+                .field("sar_height", &self.sar_height)
+                .field("video_format", &self.video_format)
+                .field("colour_primaries", &self.colour_primaries)
+                .field("transfer_characteristics", &self.transfer_characteristics)
+                .field("matrix_coefficients", &self.matrix_coefficients)
+                .field("num_units_in_tick", &self.num_units_in_tick)
+                .field("time_scale", &self.time_scale)
+                .field("max_num_reorder_frames", &self.max_num_reorder_frames)
+                .field("max_dec_frame_buffering", &self.max_dec_frame_buffering)
+                .field(
+                    "chroma_sample_loc_type_top_field",
+                    &self.chroma_sample_loc_type_top_field,
+                )
+                .field(
+                    "chroma_sample_loc_type_bottom_field",
+                    &self.chroma_sample_loc_type_bottom_field,
+                )
+                .field("reserved1", &self.reserved1)
+                .field("p_hrd_parameters", &self.p_hrd_parameters)
+                .finish()
+        }
+    }
+
     impl Default for StdVideoH264SequenceParameterSetVui<'_> {
         fn default() -> Self {
             Self {
@@ -361,7 +390,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH264SpsFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoH264SpsFlags {
         pub constraint_set0_flag: u32,
         pub constraint_set1_flag: u32,
@@ -477,7 +506,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH264ScalingLists.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct StdVideoH264ScalingLists {
         pub scaling_list_present_mask: u16,
         pub use_default_scaling_matrix_mask: u16,
@@ -561,6 +590,53 @@ pub(super) mod defs {
         pub p_scaling_lists: *const StdVideoH264ScalingLists,
         pub p_sequence_parameter_set_vui: *const StdVideoH264SequenceParameterSetVui<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for StdVideoH264SequenceParameterSet<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("StdVideoH264SequenceParameterSet")
+                .field("flags", &self.flags)
+                .field("profile_idc", &self.profile_idc)
+                .field("level_idc", &self.level_idc)
+                .field("chroma_format_idc", &self.chroma_format_idc)
+                .field("seq_parameter_set_id", &self.seq_parameter_set_id)
+                .field("bit_depth_luma_minus8", &self.bit_depth_luma_minus8)
+                .field("bit_depth_chroma_minus8", &self.bit_depth_chroma_minus8)
+                .field("log2_max_frame_num_minus4", &self.log2_max_frame_num_minus4)
+                .field("pic_order_cnt_type", &self.pic_order_cnt_type)
+                .field("offset_for_non_ref_pic", &self.offset_for_non_ref_pic)
+                .field(
+                    "offset_for_top_to_bottom_field",
+                    &self.offset_for_top_to_bottom_field,
+                )
+                .field(
+                    "log2_max_pic_order_cnt_lsb_minus4",
+                    &self.log2_max_pic_order_cnt_lsb_minus4,
+                )
+                .field(
+                    "num_ref_frames_in_pic_order_cnt_cycle",
+                    &self.num_ref_frames_in_pic_order_cnt_cycle,
+                )
+                .field("max_num_ref_frames", &self.max_num_ref_frames)
+                .field("reserved1", &self.reserved1)
+                .field("pic_width_in_mbs_minus1", &self.pic_width_in_mbs_minus1)
+                .field(
+                    "pic_height_in_map_units_minus1",
+                    &self.pic_height_in_map_units_minus1,
+                )
+                .field("frame_crop_left_offset", &self.frame_crop_left_offset)
+                .field("frame_crop_right_offset", &self.frame_crop_right_offset)
+                .field("frame_crop_top_offset", &self.frame_crop_top_offset)
+                .field("frame_crop_bottom_offset", &self.frame_crop_bottom_offset)
+                .field("reserved2", &self.reserved2)
+                .field("p_offset_for_ref_frame", &self.p_offset_for_ref_frame)
+                .field("p_scaling_lists", &self.p_scaling_lists)
+                .field(
+                    "p_sequence_parameter_set_vui",
+                    &self.p_sequence_parameter_set_vui,
+                )
+                .finish()
+        }
     }
 
     impl Default for StdVideoH264SequenceParameterSet<'_> {
@@ -734,7 +810,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH264PpsFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoH264PpsFlags {
         pub transform_8x8_mode_flag: u32,
         pub redundant_pic_cnt_present_flag: u32,
@@ -817,6 +893,33 @@ pub(super) mod defs {
         pub second_chroma_qp_index_offset: i8,
         pub p_scaling_lists: *const StdVideoH264ScalingLists,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for StdVideoH264PictureParameterSet<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("StdVideoH264PictureParameterSet")
+                .field("flags", &self.flags)
+                .field("seq_parameter_set_id", &self.seq_parameter_set_id)
+                .field("pic_parameter_set_id", &self.pic_parameter_set_id)
+                .field(
+                    "num_ref_idx_l0_default_active_minus1",
+                    &self.num_ref_idx_l0_default_active_minus1,
+                )
+                .field(
+                    "num_ref_idx_l1_default_active_minus1",
+                    &self.num_ref_idx_l1_default_active_minus1,
+                )
+                .field("weighted_bipred_idc", &self.weighted_bipred_idc)
+                .field("pic_init_qp_minus26", &self.pic_init_qp_minus26)
+                .field("pic_init_qs_minus26", &self.pic_init_qs_minus26)
+                .field("chroma_qp_index_offset", &self.chroma_qp_index_offset)
+                .field(
+                    "second_chroma_qp_index_offset",
+                    &self.second_chroma_qp_index_offset,
+                )
+                .field("p_scaling_lists", &self.p_scaling_lists)
+                .finish()
+        }
     }
 
     impl Default for StdVideoH264PictureParameterSet<'_> {

@@ -21,6 +21,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for LayerSettingsCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("LayerSettingsCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("setting_count", &self.setting_count)
+                .field("p_settings", &self.p_settings)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for LayerSettingsCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::LAYER_SETTINGS_CREATE_INFO_EXT;
     }
@@ -57,6 +68,18 @@ pub(super) mod defs {
         pub value_count: u32,
         pub p_values: *const c_void,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for LayerSettingEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("LayerSettingEXT")
+                .field("p_layer_name", &unsafe { as_c_str(self.p_layer_name) })
+                .field("p_setting_name", &unsafe { as_c_str(self.p_setting_name) })
+                .field("ty", &self.ty)
+                .field("value_count", &self.value_count)
+                .field("p_values", &self.p_values)
+                .finish()
+        }
     }
 
     impl Default for LayerSettingEXT<'_> {

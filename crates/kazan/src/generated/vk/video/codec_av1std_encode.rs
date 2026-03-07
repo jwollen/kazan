@@ -12,7 +12,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeAV1ExtensionHeader.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoEncodeAV1ExtensionHeader {
         pub temporal_id: u8,
         pub spatial_id: u8,
@@ -32,7 +32,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeAV1DecoderModelInfo.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoEncodeAV1DecoderModelInfo {
         pub buffer_delay_length_minus_1: u8,
         pub buffer_removal_time_length_minus_1: u8,
@@ -76,7 +76,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeAV1OperatingPointInfoFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoEncodeAV1OperatingPointInfoFlags {
         pub decoder_model_present_for_this_op: u32,
         pub low_delay_mode_flag: u32,
@@ -115,7 +115,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeAV1OperatingPointInfo.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoEncodeAV1OperatingPointInfo {
         pub flags: StdVideoEncodeAV1OperatingPointInfoFlags,
         pub operating_point_idc: u16,
@@ -165,7 +165,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeAV1PictureInfoFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoEncodeAV1PictureInfoFlags {
         pub error_resilient_mode: u32,
         pub disable_cdf_update: u32,
@@ -391,6 +391,40 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for StdVideoEncodeAV1PictureInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("StdVideoEncodeAV1PictureInfo")
+                .field("flags", &self.flags)
+                .field("frame_type", &self.frame_type)
+                .field("frame_presentation_time", &self.frame_presentation_time)
+                .field("current_frame_id", &self.current_frame_id)
+                .field("order_hint", &self.order_hint)
+                .field("primary_ref_frame", &self.primary_ref_frame)
+                .field("refresh_frame_flags", &self.refresh_frame_flags)
+                .field("coded_denom", &self.coded_denom)
+                .field("render_width_minus_1", &self.render_width_minus_1)
+                .field("render_height_minus_1", &self.render_height_minus_1)
+                .field("interpolation_filter", &self.interpolation_filter)
+                .field("tx_mode", &self.tx_mode)
+                .field("delta_q_res", &self.delta_q_res)
+                .field("delta_lf_res", &self.delta_lf_res)
+                .field("ref_order_hint", &self.ref_order_hint)
+                .field("ref_frame_idx", &self.ref_frame_idx)
+                .field("reserved1", &self.reserved1)
+                .field("delta_frame_id_minus_1", &self.delta_frame_id_minus_1)
+                .field("p_tile_info", &self.p_tile_info)
+                .field("p_quantization", &self.p_quantization)
+                .field("p_segmentation", &self.p_segmentation)
+                .field("p_loop_filter", &self.p_loop_filter)
+                .field("p_cdef", &self.p_cdef)
+                .field("p_loop_restoration", &self.p_loop_restoration)
+                .field("p_global_motion", &self.p_global_motion)
+                .field("p_extension_header", &self.p_extension_header)
+                .field("p_buffer_removal_times", &self.p_buffer_removal_times)
+                .finish()
+        }
+    }
+
     impl Default for StdVideoEncodeAV1PictureInfo<'_> {
         fn default() -> Self {
             Self {
@@ -583,7 +617,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeAV1ReferenceInfoFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoEncodeAV1ReferenceInfoFlags {
         pub disable_frame_end_update_cdf: u32,
         pub segmentation_enabled: u32,
@@ -618,6 +652,19 @@ pub(super) mod defs {
         pub reserved1: [u8; 3],
         pub p_extension_header: *const StdVideoEncodeAV1ExtensionHeader,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for StdVideoEncodeAV1ReferenceInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("StdVideoEncodeAV1ReferenceInfo")
+                .field("flags", &self.flags)
+                .field("ref_frame_id", &self.ref_frame_id)
+                .field("frame_type", &self.frame_type)
+                .field("order_hint", &self.order_hint)
+                .field("reserved1", &self.reserved1)
+                .field("p_extension_header", &self.p_extension_header)
+                .finish()
+        }
     }
 
     impl Default for StdVideoEncodeAV1ReferenceInfo<'_> {

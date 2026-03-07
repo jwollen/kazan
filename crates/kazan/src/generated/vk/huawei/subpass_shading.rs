@@ -21,6 +21,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SubpassShadingPipelineCreateInfoHUAWEI<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SubpassShadingPipelineCreateInfoHUAWEI")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("render_pass", &self.render_pass)
+                .field("subpass", &self.subpass)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SubpassShadingPipelineCreateInfoHUAWEI<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::SUBPASS_SHADING_PIPELINE_CREATE_INFO_HUAWEI;
@@ -65,6 +76,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceSubpassShadingPropertiesHUAWEI<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceSubpassShadingPropertiesHUAWEI")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "max_subpass_shading_workgroup_size_aspect_ratio",
+                    &self.max_subpass_shading_workgroup_size_aspect_ratio,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSubpassShadingPropertiesHUAWEI<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SUBPASS_SHADING_PROPERTIES_HUAWEI;
@@ -105,6 +129,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub subpass_shading: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceSubpassShadingFeaturesHUAWEI<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceSubpassShadingFeaturesHUAWEI")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("subpass_shading", &self.subpass_shading)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSubpassShadingFeaturesHUAWEI<'a> {

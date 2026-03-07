@@ -22,6 +22,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDevicePartitionedAccelerationStructureFeaturesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDevicePartitionedAccelerationStructureFeaturesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "partitioned_acceleration_structure",
+                    &self.partitioned_acceleration_structure,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a>
         for PhysicalDevicePartitionedAccelerationStructureFeaturesNV<'a>
     {
@@ -69,6 +82,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDevicePartitionedAccelerationStructurePropertiesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDevicePartitionedAccelerationStructurePropertiesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("max_partition_count", &self.max_partition_count)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a>
         for PhysicalDevicePartitionedAccelerationStructurePropertiesNV<'a>
     {
@@ -101,7 +124,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBuildPartitionedAccelerationStructureIndirectCommandNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct BuildPartitionedAccelerationStructureIndirectCommandNV {
         pub op_type: PartitionedAccelerationStructureOpTypeNV,
         pub arg_count: u32,
@@ -135,6 +158,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PartitionedAccelerationStructureFlagsNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PartitionedAccelerationStructureFlagsNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "enable_partition_translation",
+                    &self.enable_partition_translation,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PartitionedAccelerationStructureFlagsNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PARTITIONED_ACCELERATION_STRUCTURE_FLAGS_NV;
@@ -165,7 +201,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPartitionedAccelerationStructureWriteInstanceDataNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct PartitionedAccelerationStructureWriteInstanceDataNV {
         pub transform: TransformMatrixKHR,
         pub explicit_aabb: [f32; 6],
@@ -250,7 +286,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPartitionedAccelerationStructureUpdateInstanceDataNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct PartitionedAccelerationStructureUpdateInstanceDataNV {
         pub instance_index: u32,
         pub instance_contribution_to_hit_group_index: u32,
@@ -280,7 +316,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPartitionedAccelerationStructureWritePartitionTranslationDataNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct PartitionedAccelerationStructureWritePartitionTranslationDataNV {
         pub partition_index: u32,
         pub partition_translation: [f32; 3],
@@ -316,6 +352,20 @@ pub(super) mod defs {
         pub acceleration_structure_count: u32,
         pub p_acceleration_structures: *const DeviceAddress,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for WriteDescriptorSetPartitionedAccelerationStructureNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("WriteDescriptorSetPartitionedAccelerationStructureNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "acceleration_structure_count",
+                    &self.acceleration_structure_count,
+                )
+                .field("p_acceleration_structures", &self.p_acceleration_structures)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for WriteDescriptorSetPartitionedAccelerationStructureNV<'a> {
@@ -363,6 +413,26 @@ pub(super) mod defs {
         pub partition_count: u32,
         pub max_instance_in_global_partition_count: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PartitionedAccelerationStructureInstancesInputNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PartitionedAccelerationStructureInstancesInputNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("instance_count", &self.instance_count)
+                .field(
+                    "max_instance_per_partition_count",
+                    &self.max_instance_per_partition_count,
+                )
+                .field("partition_count", &self.partition_count)
+                .field(
+                    "max_instance_in_global_partition_count",
+                    &self.max_instance_in_global_partition_count,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PartitionedAccelerationStructureInstancesInputNV<'a> {
@@ -431,6 +501,27 @@ pub(super) mod defs {
         pub src_infos: DeviceAddress,
         pub src_infos_count: DeviceAddress,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for BuildPartitionedAccelerationStructureInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BuildPartitionedAccelerationStructureInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("input", &self.input)
+                .field(
+                    "src_acceleration_structure_data",
+                    &self.src_acceleration_structure_data,
+                )
+                .field(
+                    "dst_acceleration_structure_data",
+                    &self.dst_acceleration_structure_data,
+                )
+                .field("scratch_data", &self.scratch_data)
+                .field("src_infos", &self.src_infos)
+                .field("src_infos_count", &self.src_infos_count)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for BuildPartitionedAccelerationStructureInfoNV<'a> {
@@ -555,7 +646,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPartitionedAccelerationStructureInstanceFlagBitsNV.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct PartitionedAccelerationStructureInstanceFlagBitsNV(u32);
 
     impl PartitionedAccelerationStructureInstanceFlagBitsNV {

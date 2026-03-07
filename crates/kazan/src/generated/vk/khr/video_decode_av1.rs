@@ -23,6 +23,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoDecodeAV1ProfileInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoDecodeAV1ProfileInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("std_profile", &self.std_profile)
+                .field("film_grain_support", &self.film_grain_support)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeAV1ProfileInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_AV1_PROFILE_INFO_KHR;
     }
@@ -64,6 +75,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoDecodeAV1CapabilitiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoDecodeAV1CapabilitiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("max_level", &self.max_level)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeAV1CapabilitiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_AV1_CAPABILITIES_KHR;
     }
@@ -96,6 +117,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub p_std_sequence_header: *const StdVideoAV1SequenceHeader<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoDecodeAV1SessionParametersCreateInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoDecodeAV1SessionParametersCreateInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_std_sequence_header", &self.p_std_sequence_header)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeAV1SessionParametersCreateInfoKHR<'a> {
@@ -142,6 +173,24 @@ pub(super) mod defs {
         pub p_tile_offsets: *const u32,
         pub p_tile_sizes: *const u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoDecodeAV1PictureInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoDecodeAV1PictureInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_std_picture_info", &self.p_std_picture_info)
+                .field(
+                    "reference_name_slot_indices",
+                    &self.reference_name_slot_indices,
+                )
+                .field("frame_header_offset", &self.frame_header_offset)
+                .field("tile_count", &self.tile_count)
+                .field("p_tile_offsets", &self.p_tile_offsets)
+                .field("p_tile_sizes", &self.p_tile_sizes)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeAV1PictureInfoKHR<'a> {
@@ -209,6 +258,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub p_std_reference_info: *const StdVideoDecodeAV1ReferenceInfo,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoDecodeAV1DpbSlotInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoDecodeAV1DpbSlotInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_std_reference_info", &self.p_std_reference_info)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeAV1DpbSlotInfoKHR<'a> {

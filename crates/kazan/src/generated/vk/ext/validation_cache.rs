@@ -29,6 +29,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ValidationCacheCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ValidationCacheCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("initial_data_size", &self.initial_data_size)
+                .field("p_initial_data", &self.p_initial_data)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ValidationCacheCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VALIDATION_CACHE_CREATE_INFO_EXT;
     }
@@ -67,6 +79,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub validation_cache: ValidationCacheEXT,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ShaderModuleValidationCacheCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ShaderModuleValidationCacheCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("validation_cache", &self.validation_cache)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ShaderModuleValidationCacheCreateInfoEXT<'a> {

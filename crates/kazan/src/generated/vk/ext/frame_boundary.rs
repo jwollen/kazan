@@ -28,6 +28,24 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for FrameBoundaryEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("FrameBoundaryEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("frame_id", &self.frame_id)
+                .field("image_count", &self.image_count)
+                .field("p_images", &self.p_images)
+                .field("buffer_count", &self.buffer_count)
+                .field("p_buffers", &self.p_buffers)
+                .field("tag_name", &self.tag_name)
+                .field("tag_size", &self.tag_size)
+                .field("p_tag", &self.p_tag)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for FrameBoundaryEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::FRAME_BOUNDARY_EXT;
     }
@@ -101,6 +119,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceFrameBoundaryFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceFrameBoundaryFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("frame_boundary", &self.frame_boundary)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFrameBoundaryFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_FRAME_BOUNDARY_FEATURES_EXT;
@@ -150,7 +178,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFrameBoundaryFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct FrameBoundaryFlagBitsEXT(u32);
 
     impl FrameBoundaryFlagBitsEXT {

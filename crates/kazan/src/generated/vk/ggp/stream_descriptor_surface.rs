@@ -21,6 +21,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for StreamDescriptorSurfaceCreateInfoGGP<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("StreamDescriptorSurfaceCreateInfoGGP")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("stream_descriptor", &self.stream_descriptor)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for StreamDescriptorSurfaceCreateInfoGGP<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::STREAM_DESCRIPTOR_SURFACE_CREATE_INFO_GGP;

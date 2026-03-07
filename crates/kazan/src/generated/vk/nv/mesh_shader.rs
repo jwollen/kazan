@@ -21,6 +21,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceMeshShaderFeaturesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceMeshShaderFeaturesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("task_shader", &self.task_shader)
+                .field("mesh_shader", &self.mesh_shader)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMeshShaderFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_MESH_SHADER_FEATURES_NV;
@@ -73,6 +84,52 @@ pub(super) mod defs {
         pub mesh_output_per_vertex_granularity: u32,
         pub mesh_output_per_primitive_granularity: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceMeshShaderPropertiesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceMeshShaderPropertiesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("max_draw_mesh_tasks_count", &self.max_draw_mesh_tasks_count)
+                .field(
+                    "max_task_work_group_invocations",
+                    &self.max_task_work_group_invocations,
+                )
+                .field("max_task_work_group_size", &self.max_task_work_group_size)
+                .field(
+                    "max_task_total_memory_size",
+                    &self.max_task_total_memory_size,
+                )
+                .field("max_task_output_count", &self.max_task_output_count)
+                .field(
+                    "max_mesh_work_group_invocations",
+                    &self.max_mesh_work_group_invocations,
+                )
+                .field("max_mesh_work_group_size", &self.max_mesh_work_group_size)
+                .field(
+                    "max_mesh_total_memory_size",
+                    &self.max_mesh_total_memory_size,
+                )
+                .field("max_mesh_output_vertices", &self.max_mesh_output_vertices)
+                .field(
+                    "max_mesh_output_primitives",
+                    &self.max_mesh_output_primitives,
+                )
+                .field(
+                    "max_mesh_multiview_view_count",
+                    &self.max_mesh_multiview_view_count,
+                )
+                .field(
+                    "mesh_output_per_vertex_granularity",
+                    &self.mesh_output_per_vertex_granularity,
+                )
+                .field(
+                    "mesh_output_per_primitive_granularity",
+                    &self.mesh_output_per_primitive_granularity,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMeshShaderPropertiesNV<'a> {
@@ -189,7 +246,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDrawMeshTasksIndirectCommandNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct DrawMeshTasksIndirectCommandNV {
         pub task_count: u32,
         pub first_task: u32,

@@ -22,6 +22,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImportAndroidHardwareBufferInfoANDROID<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImportAndroidHardwareBufferInfoANDROID")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("buffer", &self.buffer)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImportAndroidHardwareBufferInfoANDROID<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::IMPORT_ANDROID_HARDWARE_BUFFER_INFO_ANDROID;
@@ -57,6 +67,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for AndroidHardwareBufferUsageANDROID<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AndroidHardwareBufferUsageANDROID")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "android_hardware_buffer_usage",
+                    &self.android_hardware_buffer_usage,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for AndroidHardwareBufferUsageANDROID<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::ANDROID_HARDWARE_BUFFER_USAGE_ANDROID;
     }
@@ -90,6 +113,17 @@ pub(super) mod defs {
         pub allocation_size: DeviceSize,
         pub memory_type_bits: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for AndroidHardwareBufferPropertiesANDROID<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AndroidHardwareBufferPropertiesANDROID")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("allocation_size", &self.allocation_size)
+                .field("memory_type_bits", &self.memory_type_bits)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for AndroidHardwareBufferPropertiesANDROID<'a> {
@@ -131,6 +165,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for MemoryGetAndroidHardwareBufferInfoANDROID<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MemoryGetAndroidHardwareBufferInfoANDROID")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("memory", &self.memory)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for MemoryGetAndroidHardwareBufferInfoANDROID<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::MEMORY_GET_ANDROID_HARDWARE_BUFFER_INFO_ANDROID;
@@ -169,6 +213,26 @@ pub(super) mod defs {
         pub suggested_x_chroma_offset: ChromaLocation,
         pub suggested_y_chroma_offset: ChromaLocation,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for AndroidHardwareBufferFormatPropertiesANDROID<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AndroidHardwareBufferFormatPropertiesANDROID")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("format", &self.format)
+                .field("external_format", &self.external_format)
+                .field("format_features", &self.format_features)
+                .field(
+                    "sampler_ycbcr_conversion_components",
+                    &self.sampler_ycbcr_conversion_components,
+                )
+                .field("suggested_ycbcr_model", &self.suggested_ycbcr_model)
+                .field("suggested_ycbcr_range", &self.suggested_ycbcr_range)
+                .field("suggested_x_chroma_offset", &self.suggested_x_chroma_offset)
+                .field("suggested_y_chroma_offset", &self.suggested_y_chroma_offset)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for AndroidHardwareBufferFormatPropertiesANDROID<'a> {
@@ -263,6 +327,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ExternalFormatANDROID<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExternalFormatANDROID")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("external_format", &self.external_format)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ExternalFormatANDROID<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_FORMAT_ANDROID;
     }
@@ -306,6 +380,26 @@ pub(super) mod defs {
         pub suggested_x_chroma_offset: ChromaLocation,
         pub suggested_y_chroma_offset: ChromaLocation,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for AndroidHardwareBufferFormatProperties2ANDROID<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AndroidHardwareBufferFormatProperties2ANDROID")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("format", &self.format)
+                .field("external_format", &self.external_format)
+                .field("format_features", &self.format_features)
+                .field(
+                    "sampler_ycbcr_conversion_components",
+                    &self.sampler_ycbcr_conversion_components,
+                )
+                .field("suggested_ycbcr_model", &self.suggested_ycbcr_model)
+                .field("suggested_ycbcr_range", &self.suggested_ycbcr_range)
+                .field("suggested_x_chroma_offset", &self.suggested_x_chroma_offset)
+                .field("suggested_y_chroma_offset", &self.suggested_y_chroma_offset)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for AndroidHardwareBufferFormatProperties2ANDROID<'a> {

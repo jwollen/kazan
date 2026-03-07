@@ -12,7 +12,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSampleLocationEXT.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct SampleLocationEXT {
         pub x: f32,
         pub y: f32,
@@ -41,6 +41,22 @@ pub(super) mod defs {
         pub sample_locations_count: u32,
         pub p_sample_locations: *const SampleLocationEXT,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for SampleLocationsInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SampleLocationsInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "sample_locations_per_pixel",
+                    &self.sample_locations_per_pixel,
+                )
+                .field("sample_location_grid_size", &self.sample_location_grid_size)
+                .field("sample_locations_count", &self.sample_locations_count)
+                .field("p_sample_locations", &self.p_sample_locations)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for SampleLocationsInfoEXT<'a> {
@@ -94,6 +110,15 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for AttachmentSampleLocationsEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AttachmentSampleLocationsEXT")
+                .field("attachment_index", &self.attachment_index)
+                .field("sample_locations_info", &self.sample_locations_info)
+                .finish()
+        }
+    }
+
     impl Default for AttachmentSampleLocationsEXT<'_> {
         fn default() -> Self {
             Self {
@@ -126,6 +151,15 @@ pub(super) mod defs {
         pub subpass_index: u32,
         pub sample_locations_info: SampleLocationsInfoEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for SubpassSampleLocationsEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SubpassSampleLocationsEXT")
+                .field("subpass_index", &self.subpass_index)
+                .field("sample_locations_info", &self.sample_locations_info)
+                .finish()
+        }
     }
 
     impl Default for SubpassSampleLocationsEXT<'_> {
@@ -164,6 +198,31 @@ pub(super) mod defs {
         pub post_subpass_sample_locations_count: u32,
         pub p_post_subpass_sample_locations: *const SubpassSampleLocationsEXT<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for RenderPassSampleLocationsBeginInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RenderPassSampleLocationsBeginInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "attachment_initial_sample_locations_count",
+                    &self.attachment_initial_sample_locations_count,
+                )
+                .field(
+                    "p_attachment_initial_sample_locations",
+                    &self.p_attachment_initial_sample_locations,
+                )
+                .field(
+                    "post_subpass_sample_locations_count",
+                    &self.post_subpass_sample_locations_count,
+                )
+                .field(
+                    "p_post_subpass_sample_locations",
+                    &self.p_post_subpass_sample_locations,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for RenderPassSampleLocationsBeginInfoEXT<'a> {
@@ -223,6 +282,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PipelineSampleLocationsStateCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineSampleLocationsStateCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("sample_locations_enable", &self.sample_locations_enable)
+                .field("sample_locations_info", &self.sample_locations_info)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineSampleLocationsStateCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT;
@@ -272,6 +342,32 @@ pub(super) mod defs {
         pub sample_location_sub_pixel_bits: u32,
         pub variable_sample_locations: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceSampleLocationsPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceSampleLocationsPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "sample_location_sample_counts",
+                    &self.sample_location_sample_counts,
+                )
+                .field(
+                    "max_sample_location_grid_size",
+                    &self.max_sample_location_grid_size,
+                )
+                .field(
+                    "sample_location_coordinate_range",
+                    &self.sample_location_coordinate_range,
+                )
+                .field(
+                    "sample_location_sub_pixel_bits",
+                    &self.sample_location_sub_pixel_bits,
+                )
+                .field("variable_sample_locations", &self.variable_sample_locations)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSampleLocationsPropertiesEXT<'a> {
@@ -346,6 +442,19 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub max_sample_location_grid_size: Extent2D,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for MultisamplePropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MultisamplePropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "max_sample_location_grid_size",
+                    &self.max_sample_location_grid_size,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for MultisamplePropertiesEXT<'a> {

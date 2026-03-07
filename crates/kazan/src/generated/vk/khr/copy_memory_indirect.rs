@@ -12,7 +12,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkStridedDeviceAddressRangeKHR.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StridedDeviceAddressRangeKHR {
         pub address: DeviceAddress,
         pub size: DeviceSize,
@@ -38,7 +38,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyMemoryIndirectCommandKHR.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct CopyMemoryIndirectCommandKHR {
         pub src_address: DeviceAddress,
         pub dst_address: DeviceAddress,
@@ -73,6 +73,19 @@ pub(super) mod defs {
         pub copy_count: u32,
         pub copy_address_range: StridedDeviceAddressRangeKHR,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for CopyMemoryIndirectInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CopyMemoryIndirectInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src_copy_flags", &self.src_copy_flags)
+                .field("dst_copy_flags", &self.dst_copy_flags)
+                .field("copy_count", &self.copy_count)
+                .field("copy_address_range", &self.copy_address_range)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for CopyMemoryIndirectInfoKHR<'a> {
@@ -120,7 +133,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyMemoryToImageIndirectCommandKHR.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct CopyMemoryToImageIndirectCommandKHR {
         pub src_address: DeviceAddress,
         pub buffer_row_length: u32,
@@ -175,6 +188,21 @@ pub(super) mod defs {
         pub dst_image_layout: ImageLayout,
         pub p_image_subresources: *const ImageSubresourceLayers,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for CopyMemoryToImageIndirectInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CopyMemoryToImageIndirectInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src_copy_flags", &self.src_copy_flags)
+                .field("copy_count", &self.copy_count)
+                .field("copy_address_range", &self.copy_address_range)
+                .field("dst_image", &self.dst_image)
+                .field("dst_image_layout", &self.dst_image_layout)
+                .field("p_image_subresources", &self.p_image_subresources)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for CopyMemoryToImageIndirectInfoKHR<'a> {
@@ -242,6 +270,20 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceCopyMemoryIndirectFeaturesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceCopyMemoryIndirectFeaturesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("indirect_memory_copy", &self.indirect_memory_copy)
+                .field(
+                    "indirect_memory_to_image_copy",
+                    &self.indirect_memory_to_image_copy,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCopyMemoryIndirectFeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_KHR;
@@ -288,6 +330,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub supported_queues: QueueFlags,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceCopyMemoryIndirectPropertiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceCopyMemoryIndirectPropertiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("supported_queues", &self.supported_queues)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCopyMemoryIndirectPropertiesKHR<'a> {
@@ -343,7 +395,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAddressCopyFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct AddressCopyFlagBitsKHR(u32);
 
     impl AddressCopyFlagBitsKHR {

@@ -20,6 +20,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceInheritedViewportScissorFeaturesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceInheritedViewportScissorFeaturesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "inherited_viewport_scissor2_d",
+                    &self.inherited_viewport_scissor2_d,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceInheritedViewportScissorFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_INHERITED_VIEWPORT_SCISSOR_FEATURES_NV;
@@ -65,6 +78,18 @@ pub(super) mod defs {
         pub viewport_depth_count: u32,
         pub p_viewport_depths: *const Viewport,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for CommandBufferInheritanceViewportScissorInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CommandBufferInheritanceViewportScissorInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("viewport_scissor2_d", &self.viewport_scissor2_d)
+                .field("viewport_depth_count", &self.viewport_depth_count)
+                .field("p_viewport_depths", &self.p_viewport_depths)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for CommandBufferInheritanceViewportScissorInfoNV<'a> {

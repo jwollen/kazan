@@ -22,6 +22,21 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PipelineCoverageToColorStateCreateInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineCoverageToColorStateCreateInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("coverage_to_color_enable", &self.coverage_to_color_enable)
+                .field(
+                    "coverage_to_color_location",
+                    &self.coverage_to_color_location,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineCoverageToColorStateCreateInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_COVERAGE_TO_COLOR_STATE_CREATE_INFO_NV;

@@ -26,6 +26,25 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for Win32KeyedMutexAcquireReleaseInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("Win32KeyedMutexAcquireReleaseInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("acquire_count", &self.acquire_count)
+                .field("p_acquire_syncs", &self.p_acquire_syncs)
+                .field("p_acquire_keys", &self.p_acquire_keys)
+                .field(
+                    "p_acquire_timeout_milliseconds",
+                    &self.p_acquire_timeout_milliseconds,
+                )
+                .field("release_count", &self.release_count)
+                .field("p_release_syncs", &self.p_release_syncs)
+                .field("p_release_keys", &self.p_release_keys)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for Win32KeyedMutexAcquireReleaseInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::WIN32_KEYED_MUTEX_ACQUIRE_RELEASE_INFO_NV;

@@ -22,6 +22,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for LatencySleepModeInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("LatencySleepModeInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("low_latency_mode", &self.low_latency_mode)
+                .field("low_latency_boost", &self.low_latency_boost)
+                .field("minimum_interval_us", &self.minimum_interval_us)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for LatencySleepModeInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::LATENCY_SLEEP_MODE_INFO_NV;
     }
@@ -67,6 +79,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for LatencySleepInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("LatencySleepInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("signal_semaphore", &self.signal_semaphore)
+                .field("value", &self.value)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for LatencySleepInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::LATENCY_SLEEP_INFO_NV;
     }
@@ -106,6 +129,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SetLatencyMarkerInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SetLatencyMarkerInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("present_id", &self.present_id)
+                .field("marker", &self.marker)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SetLatencyMarkerInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SET_LATENCY_MARKER_INFO_NV;
     }
@@ -143,6 +177,17 @@ pub(super) mod defs {
         pub timing_count: u32,
         pub p_timings: *mut LatencyTimingsFrameReportNV<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for GetLatencyMarkerInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("GetLatencyMarkerInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("timing_count", &self.timing_count)
+                .field("p_timings", &self.p_timings)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for GetLatencyMarkerInfoNV<'a> {
@@ -190,6 +235,38 @@ pub(super) mod defs {
         pub gpu_render_start_time_us: u64,
         pub gpu_render_end_time_us: u64,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for LatencyTimingsFrameReportNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("LatencyTimingsFrameReportNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("present_id", &self.present_id)
+                .field("input_sample_time_us", &self.input_sample_time_us)
+                .field("sim_start_time_us", &self.sim_start_time_us)
+                .field("sim_end_time_us", &self.sim_end_time_us)
+                .field(
+                    "render_submit_start_time_us",
+                    &self.render_submit_start_time_us,
+                )
+                .field("render_submit_end_time_us", &self.render_submit_end_time_us)
+                .field("present_start_time_us", &self.present_start_time_us)
+                .field("present_end_time_us", &self.present_end_time_us)
+                .field("driver_start_time_us", &self.driver_start_time_us)
+                .field("driver_end_time_us", &self.driver_end_time_us)
+                .field(
+                    "os_render_queue_start_time_us",
+                    &self.os_render_queue_start_time_us,
+                )
+                .field(
+                    "os_render_queue_end_time_us",
+                    &self.os_render_queue_end_time_us,
+                )
+                .field("gpu_render_start_time_us", &self.gpu_render_start_time_us)
+                .field("gpu_render_end_time_us", &self.gpu_render_end_time_us)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for LatencyTimingsFrameReportNV<'a> {
@@ -302,6 +379,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for OutOfBandQueueTypeInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("OutOfBandQueueTypeInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("queue_type", &self.queue_type)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for OutOfBandQueueTypeInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::OUT_OF_BAND_QUEUE_TYPE_INFO_NV;
     }
@@ -332,6 +419,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub present_id: u64,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for LatencySubmissionPresentIdNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("LatencySubmissionPresentIdNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("present_id", &self.present_id)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for LatencySubmissionPresentIdNV<'a> {
@@ -369,6 +466,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SwapchainLatencyCreateInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SwapchainLatencyCreateInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("latency_mode_enable", &self.latency_mode_enable)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SwapchainLatencyCreateInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SWAPCHAIN_LATENCY_CREATE_INFO_NV;
     }
@@ -402,6 +509,17 @@ pub(super) mod defs {
         pub present_mode_count: u32,
         pub p_present_modes: *mut PresentModeKHR,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for LatencySurfaceCapabilitiesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("LatencySurfaceCapabilitiesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("present_mode_count", &self.present_mode_count)
+                .field("p_present_modes", &self.p_present_modes)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for LatencySurfaceCapabilitiesNV<'a> {

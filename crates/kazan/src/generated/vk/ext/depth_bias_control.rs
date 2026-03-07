@@ -22,6 +22,21 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DepthBiasInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DepthBiasInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "depth_bias_constant_factor",
+                    &self.depth_bias_constant_factor,
+                )
+                .field("depth_bias_clamp", &self.depth_bias_clamp)
+                .field("depth_bias_slope_factor", &self.depth_bias_slope_factor)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DepthBiasInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DEPTH_BIAS_INFO_EXT;
     }
@@ -65,6 +80,17 @@ pub(super) mod defs {
         pub depth_bias_representation: DepthBiasRepresentationEXT,
         pub depth_bias_exact: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DepthBiasRepresentationInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DepthBiasRepresentationInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("depth_bias_representation", &self.depth_bias_representation)
+                .field("depth_bias_exact", &self.depth_bias_exact)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DepthBiasRepresentationInfoEXT<'a> {
@@ -115,6 +141,22 @@ pub(super) mod defs {
         pub float_representation: Bool32,
         pub depth_bias_exact: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceDepthBiasControlFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceDepthBiasControlFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("depth_bias_control", &self.depth_bias_control)
+                .field(
+                    "least_representable_value_force_unorm_representation",
+                    &self.least_representable_value_force_unorm_representation,
+                )
+                .field("float_representation", &self.float_representation)
+                .field("depth_bias_exact", &self.depth_bias_exact)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDepthBiasControlFeaturesEXT<'a> {

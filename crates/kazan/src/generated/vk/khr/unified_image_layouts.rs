@@ -21,6 +21,20 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceUnifiedImageLayoutsFeaturesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceUnifiedImageLayoutsFeaturesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("unified_image_layouts", &self.unified_image_layouts)
+                .field(
+                    "unified_image_layouts_video",
+                    &self.unified_image_layouts_video,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceUnifiedImageLayoutsFeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_UNIFIED_IMAGE_LAYOUTS_FEATURES_KHR;
@@ -64,6 +78,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub feedback_loop_enable: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for AttachmentFeedbackLoopInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AttachmentFeedbackLoopInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("feedback_loop_enable", &self.feedback_loop_enable)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for AttachmentFeedbackLoopInfoEXT<'a> {

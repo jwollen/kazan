@@ -12,7 +12,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264WeightTableFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoEncodeH264WeightTableFlags {
         pub luma_weight_l0_flag: u32,
         pub chroma_weight_l0_flag: u32,
@@ -44,7 +44,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264WeightTable.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct StdVideoEncodeH264WeightTable {
         pub flags: StdVideoEncodeH264WeightTableFlags,
         pub luma_log2_weight_denom: u8,
@@ -168,7 +168,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264SliceHeaderFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoEncodeH264SliceHeaderFlags {
         pub direct_spatial_mv_pred_flag: u32,
         pub num_ref_idx_active_override_flag: u32,
@@ -197,7 +197,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264PictureInfoFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoEncodeH264PictureInfoFlags {
         pub idr_pic_flag: u32,
         pub is_reference: u32,
@@ -244,7 +244,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264ReferenceInfoFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoEncodeH264ReferenceInfoFlags {
         pub used_for_long_term_reference: u32,
         pub reserved: u32,
@@ -264,7 +264,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264ReferenceListsInfoFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoEncodeH264ReferenceListsInfoFlags {
         pub ref_pic_list_modification_flag_l0: u32,
         pub ref_pic_list_modification_flag_l1: u32,
@@ -296,7 +296,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264RefListModEntry.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoEncodeH264RefListModEntry {
         pub modification_of_pic_nums_idc: StdVideoH264ModificationOfPicNumsIdc,
         pub abs_diff_pic_num_minus1: u16,
@@ -325,7 +325,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264RefPicMarkingEntry.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoEncodeH264RefPicMarkingEntry {
         pub memory_management_control_operation: StdVideoH264MemMgmtControlOp,
         pub difference_of_pic_nums_minus1: u16,
@@ -381,6 +381,40 @@ pub(super) mod defs {
         pub p_ref_list1_mod_operations: *const StdVideoEncodeH264RefListModEntry,
         pub p_ref_pic_marking_operations: *const StdVideoEncodeH264RefPicMarkingEntry,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for StdVideoEncodeH264ReferenceListsInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("StdVideoEncodeH264ReferenceListsInfo")
+                .field("flags", &self.flags)
+                .field(
+                    "num_ref_idx_l0_active_minus1",
+                    &self.num_ref_idx_l0_active_minus1,
+                )
+                .field(
+                    "num_ref_idx_l1_active_minus1",
+                    &self.num_ref_idx_l1_active_minus1,
+                )
+                .field("ref_pic_list0", &self.ref_pic_list0)
+                .field("ref_pic_list1", &self.ref_pic_list1)
+                .field("ref_list0_mod_op_count", &self.ref_list0_mod_op_count)
+                .field("ref_list1_mod_op_count", &self.ref_list1_mod_op_count)
+                .field("ref_pic_marking_op_count", &self.ref_pic_marking_op_count)
+                .field("reserved1", &self.reserved1)
+                .field(
+                    "p_ref_list0_mod_operations",
+                    &self.p_ref_list0_mod_operations,
+                )
+                .field(
+                    "p_ref_list1_mod_operations",
+                    &self.p_ref_list1_mod_operations,
+                )
+                .field(
+                    "p_ref_pic_marking_operations",
+                    &self.p_ref_pic_marking_operations,
+                )
+                .finish()
+        }
     }
 
     impl Default for StdVideoEncodeH264ReferenceListsInfo<'_> {
@@ -485,6 +519,23 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for StdVideoEncodeH264PictureInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("StdVideoEncodeH264PictureInfo")
+                .field("flags", &self.flags)
+                .field("seq_parameter_set_id", &self.seq_parameter_set_id)
+                .field("pic_parameter_set_id", &self.pic_parameter_set_id)
+                .field("idr_pic_id", &self.idr_pic_id)
+                .field("primary_pic_type", &self.primary_pic_type)
+                .field("frame_num", &self.frame_num)
+                .field("pic_order_cnt", &self.pic_order_cnt)
+                .field("temporal_id", &self.temporal_id)
+                .field("reserved1", &self.reserved1)
+                .field("p_ref_lists", &self.p_ref_lists)
+                .finish()
+        }
+    }
+
     impl Default for StdVideoEncodeH264PictureInfo<'_> {
         fn default() -> Self {
             Self {
@@ -560,7 +611,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoEncodeH264ReferenceInfo.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoEncodeH264ReferenceInfo {
         pub flags: StdVideoEncodeH264ReferenceInfoFlags,
         pub primary_pic_type: StdVideoH264PictureType,
@@ -623,6 +674,29 @@ pub(super) mod defs {
         pub disable_deblocking_filter_idc: StdVideoH264DisableDeblockingFilterIdc,
         pub p_weight_table: *const StdVideoEncodeH264WeightTable,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for StdVideoEncodeH264SliceHeader<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("StdVideoEncodeH264SliceHeader")
+                .field("flags", &self.flags)
+                .field("first_mb_in_slice", &self.first_mb_in_slice)
+                .field("slice_type", &self.slice_type)
+                .field(
+                    "slice_alpha_c0_offset_div2",
+                    &self.slice_alpha_c0_offset_div2,
+                )
+                .field("slice_beta_offset_div2", &self.slice_beta_offset_div2)
+                .field("slice_qp_delta", &self.slice_qp_delta)
+                .field("reserved1", &self.reserved1)
+                .field("cabac_init_idc", &self.cabac_init_idc)
+                .field(
+                    "disable_deblocking_filter_idc",
+                    &self.disable_deblocking_filter_idc,
+                )
+                .field("p_weight_table", &self.p_weight_table)
+                .finish()
+        }
     }
 
     impl Default for StdVideoEncodeH264SliceHeader<'_> {

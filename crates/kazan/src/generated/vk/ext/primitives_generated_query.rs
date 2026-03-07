@@ -22,6 +22,27 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDevicePrimitivesGeneratedQueryFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDevicePrimitivesGeneratedQueryFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "primitives_generated_query",
+                    &self.primitives_generated_query,
+                )
+                .field(
+                    "primitives_generated_query_with_rasterizer_discard",
+                    &self.primitives_generated_query_with_rasterizer_discard,
+                )
+                .field(
+                    "primitives_generated_query_with_non_zero_streams",
+                    &self.primitives_generated_query_with_non_zero_streams,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePrimitivesGeneratedQueryFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PRIMITIVES_GENERATED_QUERY_FEATURES_EXT;

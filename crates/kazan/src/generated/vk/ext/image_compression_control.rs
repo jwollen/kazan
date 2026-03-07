@@ -22,6 +22,21 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImageCompressionControlEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageCompressionControlEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field(
+                    "compression_control_plane_count",
+                    &self.compression_control_plane_count,
+                )
+                .field("p_fixed_rate_flags", &self.p_fixed_rate_flags)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImageCompressionControlEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_COMPRESSION_CONTROL_EXT;
     }
@@ -69,6 +84,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceImageCompressionControlFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceImageCompressionControlFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("image_compression_control", &self.image_compression_control)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceImageCompressionControlFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_FEATURES_EXT;
@@ -110,6 +135,20 @@ pub(super) mod defs {
         pub image_compression_flags: ImageCompressionFlagsEXT,
         pub image_compression_fixed_rate_flags: ImageCompressionFixedRateFlagsEXT,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ImageCompressionPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageCompressionPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("image_compression_flags", &self.image_compression_flags)
+                .field(
+                    "image_compression_fixed_rate_flags",
+                    &self.image_compression_fixed_rate_flags,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ImageCompressionPropertiesEXT<'a> {
@@ -184,7 +223,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCompressionFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct ImageCompressionFlagBitsEXT(u32);
 
     impl ImageCompressionFlagBitsEXT {
@@ -306,7 +345,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCompressionFixedRateFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct ImageCompressionFixedRateFlagBitsEXT(u32);
 
     impl ImageCompressionFixedRateFlagBitsEXT {

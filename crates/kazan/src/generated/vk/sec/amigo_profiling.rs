@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceAmigoProfilingFeaturesSEC<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceAmigoProfilingFeaturesSEC")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("amigo_profiling", &self.amigo_profiling)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceAmigoProfilingFeaturesSEC<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_AMIGO_PROFILING_FEATURES_SEC;
@@ -58,6 +68,17 @@ pub(super) mod defs {
         pub first_draw_timestamp: u64,
         pub swap_buffer_timestamp: u64,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for AmigoProfilingSubmitInfoSEC<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AmigoProfilingSubmitInfoSEC")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("first_draw_timestamp", &self.first_draw_timestamp)
+                .field("swap_buffer_timestamp", &self.swap_buffer_timestamp)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for AmigoProfilingSubmitInfoSEC<'a> {

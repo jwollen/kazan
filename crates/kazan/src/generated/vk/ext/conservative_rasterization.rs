@@ -28,6 +28,48 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceConservativeRasterizationPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceConservativeRasterizationPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "primitive_overestimation_size",
+                    &self.primitive_overestimation_size,
+                )
+                .field(
+                    "max_extra_primitive_overestimation_size",
+                    &self.max_extra_primitive_overestimation_size,
+                )
+                .field(
+                    "extra_primitive_overestimation_size_granularity",
+                    &self.extra_primitive_overestimation_size_granularity,
+                )
+                .field("primitive_underestimation", &self.primitive_underestimation)
+                .field(
+                    "conservative_point_and_line_rasterization",
+                    &self.conservative_point_and_line_rasterization,
+                )
+                .field(
+                    "degenerate_triangles_rasterized",
+                    &self.degenerate_triangles_rasterized,
+                )
+                .field(
+                    "degenerate_lines_rasterized",
+                    &self.degenerate_lines_rasterized,
+                )
+                .field(
+                    "fully_covered_fragment_shader_input_variable",
+                    &self.fully_covered_fragment_shader_input_variable,
+                )
+                .field(
+                    "conservative_rasterization_post_depth_coverage",
+                    &self.conservative_rasterization_post_depth_coverage,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceConservativeRasterizationPropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_CONSERVATIVE_RASTERIZATION_PROPERTIES_EXT;
@@ -136,6 +178,24 @@ pub(super) mod defs {
         pub conservative_rasterization_mode: ConservativeRasterizationModeEXT,
         pub extra_primitive_overestimation_size: f32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PipelineRasterizationConservativeStateCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineRasterizationConservativeStateCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field(
+                    "conservative_rasterization_mode",
+                    &self.conservative_rasterization_mode,
+                )
+                .field(
+                    "extra_primitive_overestimation_size",
+                    &self.extra_primitive_overestimation_size,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PipelineRasterizationConservativeStateCreateInfoEXT<'a> {

@@ -19,6 +19,21 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ShadingRatePaletteNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ShadingRatePaletteNV")
+                .field(
+                    "shading_rate_palette_entry_count",
+                    &self.shading_rate_palette_entry_count,
+                )
+                .field(
+                    "p_shading_rate_palette_entries",
+                    &self.p_shading_rate_palette_entries,
+                )
+                .finish()
+        }
+    }
+
     impl Default for ShadingRatePaletteNV<'_> {
         fn default() -> Self {
             Self {
@@ -51,6 +66,18 @@ pub(super) mod defs {
         pub viewport_count: u32,
         pub p_shading_rate_palettes: *const ShadingRatePaletteNV<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PipelineViewportShadingRateImageStateCreateInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineViewportShadingRateImageStateCreateInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("shading_rate_image_enable", &self.shading_rate_image_enable)
+                .field("viewport_count", &self.viewport_count)
+                .field("p_shading_rate_palettes", &self.p_shading_rate_palettes)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PipelineViewportShadingRateImageStateCreateInfoNV<'a> {
@@ -103,6 +130,20 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceShadingRateImageFeaturesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceShadingRateImageFeaturesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("shading_rate_image", &self.shading_rate_image)
+                .field(
+                    "shading_rate_coarse_sample_order",
+                    &self.shading_rate_coarse_sample_order,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShadingRateImageFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADING_RATE_IMAGE_FEATURES_NV;
@@ -153,6 +194,21 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceShadingRateImagePropertiesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceShadingRateImagePropertiesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("shading_rate_texel_size", &self.shading_rate_texel_size)
+                .field("shading_rate_palette_size", &self.shading_rate_palette_size)
+                .field(
+                    "shading_rate_max_coarse_samples",
+                    &self.shading_rate_max_coarse_samples,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShadingRateImagePropertiesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV;
@@ -198,7 +254,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCoarseSampleLocationNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct CoarseSampleLocationNV {
         pub pixel_x: u32,
         pub pixel_y: u32,
@@ -231,6 +287,17 @@ pub(super) mod defs {
         pub sample_location_count: u32,
         pub p_sample_locations: *const CoarseSampleLocationNV,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for CoarseSampleOrderCustomNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CoarseSampleOrderCustomNV")
+                .field("shading_rate", &self.shading_rate)
+                .field("sample_count", &self.sample_count)
+                .field("sample_location_count", &self.sample_location_count)
+                .field("p_sample_locations", &self.p_sample_locations)
+                .finish()
+        }
     }
 
     impl Default for CoarseSampleOrderCustomNV<'_> {
@@ -273,6 +340,18 @@ pub(super) mod defs {
         pub custom_sample_order_count: u32,
         pub p_custom_sample_orders: *const CoarseSampleOrderCustomNV<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PipelineViewportCoarseSampleOrderStateCreateInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineViewportCoarseSampleOrderStateCreateInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("sample_order_type", &self.sample_order_type)
+                .field("custom_sample_order_count", &self.custom_sample_order_count)
+                .field("p_custom_sample_orders", &self.p_custom_sample_orders)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PipelineViewportCoarseSampleOrderStateCreateInfoNV<'a> {

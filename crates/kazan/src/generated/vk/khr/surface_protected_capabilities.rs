@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SurfaceProtectedCapabilitiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SurfaceProtectedCapabilitiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("supports_protected", &self.supports_protected)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SurfaceProtectedCapabilitiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SURFACE_PROTECTED_CAPABILITIES_KHR;
     }

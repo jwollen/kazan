@@ -23,6 +23,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PipelinePropertiesIdentifierEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelinePropertiesIdentifierEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("pipeline_identifier", &self.pipeline_identifier)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelinePropertiesIdentifierEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_PROPERTIES_IDENTIFIER_EXT;
     }
@@ -56,6 +66,19 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub pipeline_properties_identifier: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDevicePipelinePropertiesFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDevicePipelinePropertiesFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "pipeline_properties_identifier",
+                    &self.pipeline_properties_identifier,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePipelinePropertiesFeaturesEXT<'a> {

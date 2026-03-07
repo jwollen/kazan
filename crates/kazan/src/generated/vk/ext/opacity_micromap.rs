@@ -36,6 +36,26 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for MicromapBuildInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MicromapBuildInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("ty", &self.ty)
+                .field("flags", &self.flags)
+                .field("mode", &self.mode)
+                .field("dst_micromap", &self.dst_micromap)
+                .field("usage_counts_count", &self.usage_counts_count)
+                .field("p_usage_counts", &self.p_usage_counts)
+                .field("pp_usage_counts", &self.pp_usage_counts)
+                .field("data", &self.data)
+                .field("scratch_data", &self.scratch_data)
+                .field("triangle_array", &self.triangle_array)
+                .field("triangle_array_stride", &self.triangle_array_stride)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for MicromapBuildInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::MICROMAP_BUILD_INFO_EXT;
     }
@@ -130,6 +150,21 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for MicromapCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MicromapCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("create_flags", &self.create_flags)
+                .field("buffer", &self.buffer)
+                .field("offset", &self.offset)
+                .field("size", &self.size)
+                .field("ty", &self.ty)
+                .field("device_address", &self.device_address)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for MicromapCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::MICROMAP_CREATE_INFO_EXT;
     }
@@ -192,6 +227,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for MicromapVersionInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MicromapVersionInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_version_data", &self.p_version_data)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for MicromapVersionInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::MICROMAP_VERSION_INFO_EXT;
     }
@@ -219,6 +264,18 @@ pub(super) mod defs {
         pub dst: MicromapEXT,
         pub mode: CopyMicromapModeEXT,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for CopyMicromapInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CopyMicromapInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src", &self.src)
+                .field("dst", &self.dst)
+                .field("mode", &self.mode)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for CopyMicromapInfoEXT<'a> {
@@ -267,6 +324,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for CopyMicromapToMemoryInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CopyMicromapToMemoryInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src", &self.src)
+                .field("dst", &self.dst)
+                .field("mode", &self.mode)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for CopyMicromapToMemoryInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::COPY_MICROMAP_TO_MEMORY_INFO_EXT;
     }
@@ -311,6 +380,18 @@ pub(super) mod defs {
         pub dst: MicromapEXT,
         pub mode: CopyMicromapModeEXT,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for CopyMemoryToMicromapInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CopyMemoryToMicromapInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src", &self.src)
+                .field("dst", &self.dst)
+                .field("mode", &self.mode)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for CopyMemoryToMicromapInfoEXT<'a> {
@@ -359,6 +440,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for MicromapBuildSizesInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MicromapBuildSizesInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("micromap_size", &self.micromap_size)
+                .field("build_scratch_size", &self.build_scratch_size)
+                .field("discardable", &self.discardable)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for MicromapBuildSizesInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::MICROMAP_BUILD_SIZES_INFO_EXT;
     }
@@ -395,7 +488,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMicromapUsageEXT.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct MicromapUsageEXT {
         pub count: u32,
         pub subdivision_level: u32,
@@ -421,7 +514,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMicromapTriangleEXT.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct MicromapTriangleEXT {
         pub data_offset: u32,
         pub subdivision_level: u16,
@@ -455,6 +548,18 @@ pub(super) mod defs {
         pub micromap_capture_replay: Bool32,
         pub micromap_host_commands: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceOpacityMicromapFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceOpacityMicromapFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("micromap", &self.micromap)
+                .field("micromap_capture_replay", &self.micromap_capture_replay)
+                .field("micromap_host_commands", &self.micromap_host_commands)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceOpacityMicromapFeaturesEXT<'a> {
@@ -507,6 +612,23 @@ pub(super) mod defs {
         pub max_opacity2_state_subdivision_level: u32,
         pub max_opacity4_state_subdivision_level: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceOpacityMicromapPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceOpacityMicromapPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "max_opacity2_state_subdivision_level",
+                    &self.max_opacity2_state_subdivision_level,
+                )
+                .field(
+                    "max_opacity4_state_subdivision_level",
+                    &self.max_opacity4_state_subdivision_level,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceOpacityMicromapPropertiesEXT<'a> {
@@ -564,6 +686,23 @@ pub(super) mod defs {
         pub pp_usage_counts: *const *const MicromapUsageEXT,
         pub micromap: MicromapEXT,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for AccelerationStructureTrianglesOpacityMicromapEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AccelerationStructureTrianglesOpacityMicromapEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("index_type", &self.index_type)
+                .field("index_buffer", &self.index_buffer)
+                .field("index_stride", &self.index_stride)
+                .field("base_triangle", &self.base_triangle)
+                .field("usage_counts_count", &self.usage_counts_count)
+                .field("p_usage_counts", &self.p_usage_counts)
+                .field("pp_usage_counts", &self.pp_usage_counts)
+                .field("micromap", &self.micromap)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureTrianglesOpacityMicromapEXT<'a> {
@@ -811,7 +950,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBuildMicromapFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct BuildMicromapFlagBitsEXT(u32);
 
     impl BuildMicromapFlagBitsEXT {
@@ -843,7 +982,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMicromapCreateFlagBitsEXT.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct MicromapCreateFlagBitsEXT(u32);
 
     impl MicromapCreateFlagBitsEXT {

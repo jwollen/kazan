@@ -26,6 +26,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ExternalComputeQueueDeviceCreateInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExternalComputeQueueDeviceCreateInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("reserved_external_queues", &self.reserved_external_queues)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ExternalComputeQueueDeviceCreateInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::EXTERNAL_COMPUTE_QUEUE_DEVICE_CREATE_INFO_NV;
@@ -61,6 +71,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ExternalComputeQueueCreateInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExternalComputeQueueCreateInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("preferred_queue", &self.preferred_queue)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ExternalComputeQueueCreateInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_COMPUTE_QUEUE_CREATE_INFO_NV;
     }
@@ -91,6 +111,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub device_index: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ExternalComputeQueueDataParamsNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExternalComputeQueueDataParamsNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("device_index", &self.device_index)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ExternalComputeQueueDataParamsNV<'a> {
@@ -124,6 +154,17 @@ pub(super) mod defs {
         pub external_data_size: u32,
         pub max_external_queues: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceExternalComputeQueuePropertiesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceExternalComputeQueuePropertiesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("external_data_size", &self.external_data_size)
+                .field("max_external_queues", &self.max_external_queues)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExternalComputeQueuePropertiesNV<'a> {

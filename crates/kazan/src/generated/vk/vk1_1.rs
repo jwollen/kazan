@@ -41,6 +41,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceFeatures2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceFeatures2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("features", &self.features)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFeatures2<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_FEATURES_2;
     }
@@ -75,6 +85,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceProperties2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceProperties2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("properties", &self.properties)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceProperties2<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_PROPERTIES_2;
     }
@@ -107,6 +127,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for FormatProperties2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("FormatProperties2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("format_properties", &self.format_properties)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for FormatProperties2<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::FORMAT_PROPERTIES_2;
     }
@@ -137,6 +167,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub image_format_properties: ImageFormatProperties,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ImageFormatProperties2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageFormatProperties2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("image_format_properties", &self.image_format_properties)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ImageFormatProperties2<'a> {
@@ -176,6 +216,20 @@ pub(super) mod defs {
         pub usage: ImageUsageFlags,
         pub flags: ImageCreateFlags,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceImageFormatInfo2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceImageFormatInfo2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("format", &self.format)
+                .field("ty", &self.ty)
+                .field("tiling", &self.tiling)
+                .field("usage", &self.usage)
+                .field("flags", &self.flags)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceImageFormatInfo2<'a> {
@@ -234,6 +288,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for QueueFamilyProperties2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("QueueFamilyProperties2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("queue_family_properties", &self.queue_family_properties)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for QueueFamilyProperties2<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::QUEUE_FAMILY_PROPERTIES_2;
     }
@@ -267,6 +331,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub memory_properties: PhysicalDeviceMemoryProperties,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceMemoryProperties2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceMemoryProperties2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("memory_properties", &self.memory_properties)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMemoryProperties2<'a> {
@@ -304,6 +378,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SparseImageFormatProperties2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SparseImageFormatProperties2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("properties", &self.properties)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SparseImageFormatProperties2<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SPARSE_IMAGE_FORMAT_PROPERTIES_2;
     }
@@ -338,6 +422,20 @@ pub(super) mod defs {
         pub usage: ImageUsageFlags,
         pub tiling: ImageTiling,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceSparseImageFormatInfo2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceSparseImageFormatInfo2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("format", &self.format)
+                .field("ty", &self.ty)
+                .field("samples", &self.samples)
+                .field("usage", &self.usage)
+                .field("tiling", &self.tiling)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSparseImageFormatInfo2<'a> {
@@ -398,6 +496,20 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceVariablePointersFeatures<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceVariablePointersFeatures")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "variable_pointers_storage_buffer",
+                    &self.variable_pointers_storage_buffer,
+                )
+                .field("variable_pointers", &self.variable_pointers)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVariablePointersFeatures<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES;
@@ -438,7 +550,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalMemoryProperties.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct ExternalMemoryProperties {
         pub external_memory_features: ExternalMemoryFeatureFlags,
         pub export_from_imported_handle_types: ExternalMemoryHandleTypeFlags,
@@ -481,6 +593,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceExternalImageFormatInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceExternalImageFormatInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("handle_type", &self.handle_type)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExternalImageFormatInfo<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO;
@@ -517,6 +639,19 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub external_memory_properties: ExternalMemoryProperties,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ExternalImageFormatProperties<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExternalImageFormatProperties")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "external_memory_properties",
+                    &self.external_memory_properties,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ExternalImageFormatProperties<'a> {
@@ -556,6 +691,18 @@ pub(super) mod defs {
         pub usage: BufferUsageFlags,
         pub handle_type: ExternalMemoryHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceExternalBufferInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceExternalBufferInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("usage", &self.usage)
+                .field("handle_type", &self.handle_type)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExternalBufferInfo<'a> {
@@ -602,6 +749,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ExternalBufferProperties<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExternalBufferProperties")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "external_memory_properties",
+                    &self.external_memory_properties,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ExternalBufferProperties<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_BUFFER_PROPERTIES;
     }
@@ -639,6 +799,20 @@ pub(super) mod defs {
         pub device_node_mask: u32,
         pub device_luid_valid: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceIDProperties<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceIDProperties")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("device_uuid", &self.device_uuid)
+                .field("driver_uuid", &self.driver_uuid)
+                .field("device_luid", &self.device_luid)
+                .field("device_node_mask", &self.device_node_mask)
+                .field("device_luid_valid", &self.device_luid_valid)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceIDProperties<'a> {
@@ -699,6 +873,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ExternalMemoryImageCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExternalMemoryImageCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("handle_types", &self.handle_types)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ExternalMemoryImageCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_MEMORY_IMAGE_CREATE_INFO;
     }
@@ -731,6 +915,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub handle_types: ExternalMemoryHandleTypeFlags,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ExternalMemoryBufferCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExternalMemoryBufferCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("handle_types", &self.handle_types)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ExternalMemoryBufferCreateInfo<'a> {
@@ -767,6 +961,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ExportMemoryAllocateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExportMemoryAllocateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("handle_types", &self.handle_types)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ExportMemoryAllocateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_MEMORY_ALLOCATE_INFO;
     }
@@ -799,6 +1003,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub handle_type: ExternalSemaphoreHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceExternalSemaphoreInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceExternalSemaphoreInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("handle_type", &self.handle_type)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExternalSemaphoreInfo<'a> {
@@ -834,6 +1048,24 @@ pub(super) mod defs {
         pub compatible_handle_types: ExternalSemaphoreHandleTypeFlags,
         pub external_semaphore_features: ExternalSemaphoreFeatureFlags,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ExternalSemaphoreProperties<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExternalSemaphoreProperties")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "export_from_imported_handle_types",
+                    &self.export_from_imported_handle_types,
+                )
+                .field("compatible_handle_types", &self.compatible_handle_types)
+                .field(
+                    "external_semaphore_features",
+                    &self.external_semaphore_features,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ExternalSemaphoreProperties<'a> {
@@ -889,6 +1121,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ExportSemaphoreCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExportSemaphoreCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("handle_types", &self.handle_types)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ExportSemaphoreCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_SEMAPHORE_CREATE_INFO;
     }
@@ -923,6 +1165,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceExternalFenceInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceExternalFenceInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("handle_type", &self.handle_type)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExternalFenceInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_EXTERNAL_FENCE_INFO;
     }
@@ -955,6 +1207,21 @@ pub(super) mod defs {
         pub compatible_handle_types: ExternalFenceHandleTypeFlags,
         pub external_fence_features: ExternalFenceFeatureFlags,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ExternalFenceProperties<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExternalFenceProperties")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "export_from_imported_handle_types",
+                    &self.export_from_imported_handle_types,
+                )
+                .field("compatible_handle_types", &self.compatible_handle_types)
+                .field("external_fence_features", &self.external_fence_features)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ExternalFenceProperties<'a> {
@@ -1010,6 +1277,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ExportFenceCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExportFenceCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("handle_types", &self.handle_types)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ExportFenceCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_FENCE_CREATE_INFO;
     }
@@ -1044,6 +1321,21 @@ pub(super) mod defs {
         pub multiview_geometry_shader: Bool32,
         pub multiview_tessellation_shader: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceMultiviewFeatures<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceMultiviewFeatures")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("multiview", &self.multiview)
+                .field("multiview_geometry_shader", &self.multiview_geometry_shader)
+                .field(
+                    "multiview_tessellation_shader",
+                    &self.multiview_tessellation_shader,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMultiviewFeatures<'a> {
@@ -1097,6 +1389,20 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceMultiviewProperties<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceMultiviewProperties")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("max_multiview_view_count", &self.max_multiview_view_count)
+                .field(
+                    "max_multiview_instance_index",
+                    &self.max_multiview_instance_index,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMultiviewProperties<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES;
     }
@@ -1140,6 +1446,21 @@ pub(super) mod defs {
         pub correlation_mask_count: u32,
         pub p_correlation_masks: *const u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for RenderPassMultiviewCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RenderPassMultiviewCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("subpass_count", &self.subpass_count)
+                .field("p_view_masks", &self.p_view_masks)
+                .field("dependency_count", &self.dependency_count)
+                .field("p_view_offsets", &self.p_view_offsets)
+                .field("correlation_mask_count", &self.correlation_mask_count)
+                .field("p_correlation_masks", &self.p_correlation_masks)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for RenderPassMultiviewCreateInfo<'a> {
@@ -1196,6 +1517,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceGroupProperties<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceGroupProperties")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("physical_device_count", &self.physical_device_count)
+                .field("physical_devices", &self.physical_devices)
+                .field("subset_allocation", &self.subset_allocation)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceGroupProperties<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_GROUP_PROPERTIES;
     }
@@ -1235,6 +1568,17 @@ pub(super) mod defs {
         pub flags: MemoryAllocateFlags,
         pub device_mask: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for MemoryAllocateFlagsInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MemoryAllocateFlagsInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("device_mask", &self.device_mask)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for MemoryAllocateFlagsInfo<'a> {
@@ -1277,6 +1621,18 @@ pub(super) mod defs {
         pub memory: DeviceMemory,
         pub memory_offset: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for BindBufferMemoryInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BindBufferMemoryInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("buffer", &self.buffer)
+                .field("memory", &self.memory)
+                .field("memory_offset", &self.memory_offset)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for BindBufferMemoryInfo<'a> {
@@ -1324,6 +1680,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for BindBufferMemoryDeviceGroupInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BindBufferMemoryDeviceGroupInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("device_index_count", &self.device_index_count)
+                .field("p_device_indices", &self.p_device_indices)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for BindBufferMemoryDeviceGroupInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::BIND_BUFFER_MEMORY_DEVICE_GROUP_INFO;
     }
@@ -1360,6 +1727,18 @@ pub(super) mod defs {
         pub memory: DeviceMemory,
         pub memory_offset: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for BindImageMemoryInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BindImageMemoryInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("image", &self.image)
+                .field("memory", &self.memory)
+                .field("memory_offset", &self.memory_offset)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for BindImageMemoryInfo<'a> {
@@ -1407,6 +1786,25 @@ pub(super) mod defs {
         pub split_instance_bind_region_count: u32,
         pub p_split_instance_bind_regions: *const Rect2D,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for BindImageMemoryDeviceGroupInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BindImageMemoryDeviceGroupInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("device_index_count", &self.device_index_count)
+                .field("p_device_indices", &self.p_device_indices)
+                .field(
+                    "split_instance_bind_region_count",
+                    &self.split_instance_bind_region_count,
+                )
+                .field(
+                    "p_split_instance_bind_regions",
+                    &self.p_split_instance_bind_regions,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for BindImageMemoryDeviceGroupInfo<'a> {
@@ -1459,6 +1857,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DeviceGroupRenderPassBeginInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DeviceGroupRenderPassBeginInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("device_mask", &self.device_mask)
+                .field("device_render_area_count", &self.device_render_area_count)
+                .field("p_device_render_areas", &self.p_device_render_areas)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DeviceGroupRenderPassBeginInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_GROUP_RENDER_PASS_BEGIN_INFO;
     }
@@ -1502,6 +1912,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DeviceGroupCommandBufferBeginInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DeviceGroupCommandBufferBeginInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("device_mask", &self.device_mask)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DeviceGroupCommandBufferBeginInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_GROUP_COMMAND_BUFFER_BEGIN_INFO;
     }
@@ -1539,6 +1959,30 @@ pub(super) mod defs {
         pub signal_semaphore_count: u32,
         pub p_signal_semaphore_device_indices: *const u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DeviceGroupSubmitInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DeviceGroupSubmitInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("wait_semaphore_count", &self.wait_semaphore_count)
+                .field(
+                    "p_wait_semaphore_device_indices",
+                    &self.p_wait_semaphore_device_indices,
+                )
+                .field("command_buffer_count", &self.command_buffer_count)
+                .field(
+                    "p_command_buffer_device_masks",
+                    &self.p_command_buffer_device_masks,
+                )
+                .field("signal_semaphore_count", &self.signal_semaphore_count)
+                .field(
+                    "p_signal_semaphore_device_indices",
+                    &self.p_signal_semaphore_device_indices,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DeviceGroupSubmitInfo<'a> {
@@ -1603,6 +2047,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DeviceGroupBindSparseInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DeviceGroupBindSparseInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("resource_device_index", &self.resource_device_index)
+                .field("memory_device_index", &self.memory_device_index)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DeviceGroupBindSparseInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_GROUP_BIND_SPARSE_INFO;
     }
@@ -1644,6 +2099,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DeviceGroupDeviceCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DeviceGroupDeviceCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("physical_device_count", &self.physical_device_count)
+                .field("p_physical_devices", &self.p_physical_devices)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DeviceGroupDeviceCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_GROUP_DEVICE_CREATE_INFO;
     }
@@ -1672,7 +2138,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorUpdateTemplateEntry.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct DescriptorUpdateTemplateEntry {
         pub dst_binding: u32,
         pub dst_array_element: u32,
@@ -1729,6 +2195,29 @@ pub(super) mod defs {
         pub pipeline_layout: PipelineLayout,
         pub set: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DescriptorUpdateTemplateCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DescriptorUpdateTemplateCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field(
+                    "descriptor_update_entry_count",
+                    &self.descriptor_update_entry_count,
+                )
+                .field(
+                    "p_descriptor_update_entries",
+                    &self.p_descriptor_update_entries,
+                )
+                .field("template_type", &self.template_type)
+                .field("descriptor_set_layout", &self.descriptor_set_layout)
+                .field("pipeline_bind_point", &self.pipeline_bind_point)
+                .field("pipeline_layout", &self.pipeline_layout)
+                .field("set", &self.set)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DescriptorUpdateTemplateCreateInfo<'a> {
@@ -1797,7 +2286,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkInputAttachmentAspectReference.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct InputAttachmentAspectReference {
         pub subpass: u32,
         pub input_attachment_index: u32,
@@ -1830,6 +2319,17 @@ pub(super) mod defs {
         pub aspect_reference_count: u32,
         pub p_aspect_references: *const InputAttachmentAspectReference,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for RenderPassInputAttachmentAspectCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RenderPassInputAttachmentAspectCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("aspect_reference_count", &self.aspect_reference_count)
+                .field("p_aspect_references", &self.p_aspect_references)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for RenderPassInputAttachmentAspectCreateInfo<'a> {
@@ -1876,6 +2376,25 @@ pub(super) mod defs {
         pub storage_push_constant16: Bool32,
         pub storage_input_output16: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDevice16BitStorageFeatures<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDevice16BitStorageFeatures")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "storage_buffer16_bit_access",
+                    &self.storage_buffer16_bit_access,
+                )
+                .field(
+                    "uniform_and_storage_buffer16_bit_access",
+                    &self.uniform_and_storage_buffer16_bit_access,
+                )
+                .field("storage_push_constant16", &self.storage_push_constant16)
+                .field("storage_input_output16", &self.storage_input_output16)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevice16BitStorageFeatures<'a> {
@@ -1938,6 +2457,22 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceSubgroupProperties<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceSubgroupProperties")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("subgroup_size", &self.subgroup_size)
+                .field("supported_stages", &self.supported_stages)
+                .field("supported_operations", &self.supported_operations)
+                .field(
+                    "quad_operations_in_all_stages",
+                    &self.quad_operations_in_all_stages,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSubgroupProperties<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_SUBGROUP_PROPERTIES;
     }
@@ -1993,6 +2528,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for BufferMemoryRequirementsInfo2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BufferMemoryRequirementsInfo2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("buffer", &self.buffer)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for BufferMemoryRequirementsInfo2<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::BUFFER_MEMORY_REQUIREMENTS_INFO_2;
     }
@@ -2025,6 +2570,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImageMemoryRequirementsInfo2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageMemoryRequirementsInfo2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("image", &self.image)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImageMemoryRequirementsInfo2<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_MEMORY_REQUIREMENTS_INFO_2;
     }
@@ -2055,6 +2610,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub image: Image,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ImageSparseMemoryRequirementsInfo2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageSparseMemoryRequirementsInfo2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("image", &self.image)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ImageSparseMemoryRequirementsInfo2<'a> {
@@ -2090,6 +2655,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for MemoryRequirements2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MemoryRequirements2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("memory_requirements", &self.memory_requirements)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for MemoryRequirements2<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_REQUIREMENTS_2;
     }
@@ -2120,6 +2695,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub memory_requirements: SparseImageMemoryRequirements,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for SparseImageMemoryRequirements2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SparseImageMemoryRequirements2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("memory_requirements", &self.memory_requirements)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for SparseImageMemoryRequirements2<'a> {
@@ -2155,6 +2740,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub point_clipping_behavior: PointClippingBehavior,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDevicePointClippingProperties<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDevicePointClippingProperties")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("point_clipping_behavior", &self.point_clipping_behavior)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePointClippingProperties<'a> {
@@ -2197,6 +2792,23 @@ pub(super) mod defs {
         pub prefers_dedicated_allocation: Bool32,
         pub requires_dedicated_allocation: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for MemoryDedicatedRequirements<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MemoryDedicatedRequirements")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "prefers_dedicated_allocation",
+                    &self.prefers_dedicated_allocation,
+                )
+                .field(
+                    "requires_dedicated_allocation",
+                    &self.requires_dedicated_allocation,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for MemoryDedicatedRequirements<'a> {
@@ -2243,6 +2855,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for MemoryDedicatedAllocateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MemoryDedicatedAllocateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("image", &self.image)
+                .field("buffer", &self.buffer)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for MemoryDedicatedAllocateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_DEDICATED_ALLOCATE_INFO;
     }
@@ -2283,6 +2906,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImageViewUsageCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageViewUsageCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("usage", &self.usage)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImageViewUsageCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_VIEW_USAGE_CREATE_INFO;
     }
@@ -2315,6 +2948,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub domain_origin: TessellationDomainOrigin,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PipelineTessellationDomainOriginStateCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineTessellationDomainOriginStateCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("domain_origin", &self.domain_origin)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PipelineTessellationDomainOriginStateCreateInfo<'a> {
@@ -2353,6 +2996,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub conversion: SamplerYcbcrConversion,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for SamplerYcbcrConversionInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SamplerYcbcrConversionInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("conversion", &self.conversion)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for SamplerYcbcrConversionInfo<'a> {
@@ -2395,6 +3048,26 @@ pub(super) mod defs {
         pub chroma_filter: Filter,
         pub force_explicit_reconstruction: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for SamplerYcbcrConversionCreateInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SamplerYcbcrConversionCreateInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("format", &self.format)
+                .field("ycbcr_model", &self.ycbcr_model)
+                .field("ycbcr_range", &self.ycbcr_range)
+                .field("components", &self.components)
+                .field("x_chroma_offset", &self.x_chroma_offset)
+                .field("y_chroma_offset", &self.y_chroma_offset)
+                .field("chroma_filter", &self.chroma_filter)
+                .field(
+                    "force_explicit_reconstruction",
+                    &self.force_explicit_reconstruction,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for SamplerYcbcrConversionCreateInfo<'a> {
@@ -2474,6 +3147,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for BindImagePlaneMemoryInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BindImagePlaneMemoryInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("plane_aspect", &self.plane_aspect)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for BindImagePlaneMemoryInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::BIND_IMAGE_PLANE_MEMORY_INFO;
     }
@@ -2508,6 +3191,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImagePlaneMemoryRequirementsInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImagePlaneMemoryRequirementsInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("plane_aspect", &self.plane_aspect)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImagePlaneMemoryRequirementsInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_PLANE_MEMORY_REQUIREMENTS_INFO;
     }
@@ -2540,6 +3233,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub sampler_ycbcr_conversion: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceSamplerYcbcrConversionFeatures<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceSamplerYcbcrConversionFeatures")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("sampler_ycbcr_conversion", &self.sampler_ycbcr_conversion)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSamplerYcbcrConversionFeatures<'a> {
@@ -2579,6 +3282,19 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub combined_image_sampler_descriptor_count: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for SamplerYcbcrConversionImageFormatProperties<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SamplerYcbcrConversionImageFormatProperties")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "combined_image_sampler_descriptor_count",
+                    &self.combined_image_sampler_descriptor_count,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for SamplerYcbcrConversionImageFormatProperties<'a> {
@@ -2622,6 +3338,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ProtectedSubmitInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ProtectedSubmitInfo")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("protected_submit", &self.protected_submit)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ProtectedSubmitInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PROTECTED_SUBMIT_INFO;
     }
@@ -2654,6 +3380,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub protected_memory: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceProtectedMemoryFeatures<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceProtectedMemoryFeatures")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("protected_memory", &self.protected_memory)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceProtectedMemoryFeatures<'a> {
@@ -2690,6 +3426,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub protected_no_fault: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceProtectedMemoryProperties<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceProtectedMemoryProperties")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("protected_no_fault", &self.protected_no_fault)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceProtectedMemoryProperties<'a> {
@@ -2730,6 +3476,18 @@ pub(super) mod defs {
         pub queue_family_index: u32,
         pub queue_index: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DeviceQueueInfo2<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DeviceQueueInfo2")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("queue_family_index", &self.queue_family_index)
+                .field("queue_index", &self.queue_index)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DeviceQueueInfo2<'a> {
@@ -2775,6 +3533,20 @@ pub(super) mod defs {
         pub max_per_set_descriptors: u32,
         pub max_memory_allocation_size: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceMaintenance3Properties<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceMaintenance3Properties")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("max_per_set_descriptors", &self.max_per_set_descriptors)
+                .field(
+                    "max_memory_allocation_size",
+                    &self.max_memory_allocation_size,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMaintenance3Properties<'a> {
@@ -2824,6 +3596,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DescriptorSetLayoutSupport<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DescriptorSetLayoutSupport")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("supported", &self.supported)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DescriptorSetLayoutSupport<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DESCRIPTOR_SET_LAYOUT_SUPPORT;
     }
@@ -2854,6 +3636,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub shader_draw_parameters: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceShaderDrawParametersFeatures<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceShaderDrawParametersFeatures")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("shader_draw_parameters", &self.shader_draw_parameters)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderDrawParametersFeatures<'a> {
@@ -3130,7 +3922,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubgroupFeatureFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct SubgroupFeatureFlagBits(u32);
 
     impl SubgroupFeatureFlagBits {
@@ -3213,7 +4005,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPeerMemoryFeatureFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct PeerMemoryFeatureFlagBits(u32);
 
     impl PeerMemoryFeatureFlagBits {
@@ -3277,7 +4069,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryAllocateFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct MemoryAllocateFlagBits(u32);
 
     impl MemoryAllocateFlagBits {
@@ -3439,7 +4231,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalMemoryHandleTypeFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct ExternalMemoryHandleTypeFlagBits(u32);
 
     impl ExternalMemoryHandleTypeFlagBits {
@@ -3519,7 +4311,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalMemoryFeatureFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct ExternalMemoryFeatureFlagBits(u32);
 
     impl ExternalMemoryFeatureFlagBits {
@@ -3586,7 +4378,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalSemaphoreHandleTypeFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct ExternalSemaphoreHandleTypeFlagBits(u32);
 
     impl ExternalSemaphoreHandleTypeFlagBits {
@@ -3632,7 +4424,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalSemaphoreFeatureFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct ExternalSemaphoreFeatureFlagBits(u32);
 
     impl ExternalSemaphoreFeatureFlagBits {
@@ -3664,7 +4456,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSemaphoreImportFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct SemaphoreImportFlagBits(u32);
 
     impl SemaphoreImportFlagBits {
@@ -3709,7 +4501,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalFenceHandleTypeFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct ExternalFenceHandleTypeFlagBits(u32);
 
     impl ExternalFenceHandleTypeFlagBits {
@@ -3750,7 +4542,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalFenceFeatureFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct ExternalFenceFeatureFlagBits(u32);
 
     impl ExternalFenceFeatureFlagBits {
@@ -3782,7 +4574,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFenceImportFlagBits.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct FenceImportFlagBits(u32);
 
     impl FenceImportFlagBits {

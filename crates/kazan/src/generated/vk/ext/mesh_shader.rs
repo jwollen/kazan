@@ -24,6 +24,23 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceMeshShaderFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceMeshShaderFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("task_shader", &self.task_shader)
+                .field("mesh_shader", &self.mesh_shader)
+                .field("multiview_mesh_shader", &self.multiview_mesh_shader)
+                .field(
+                    "primitive_fragment_shading_rate_mesh_shader",
+                    &self.primitive_fragment_shading_rate_mesh_shader,
+                )
+                .field("mesh_shader_queries", &self.mesh_shader_queries)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMeshShaderFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_MESH_SHADER_FEATURES_EXT;
@@ -113,6 +130,106 @@ pub(super) mod defs {
         pub prefers_compact_vertex_output: Bool32,
         pub prefers_compact_primitive_output: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceMeshShaderPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceMeshShaderPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "max_task_work_group_total_count",
+                    &self.max_task_work_group_total_count,
+                )
+                .field("max_task_work_group_count", &self.max_task_work_group_count)
+                .field(
+                    "max_task_work_group_invocations",
+                    &self.max_task_work_group_invocations,
+                )
+                .field("max_task_work_group_size", &self.max_task_work_group_size)
+                .field("max_task_payload_size", &self.max_task_payload_size)
+                .field(
+                    "max_task_shared_memory_size",
+                    &self.max_task_shared_memory_size,
+                )
+                .field(
+                    "max_task_payload_and_shared_memory_size",
+                    &self.max_task_payload_and_shared_memory_size,
+                )
+                .field(
+                    "max_mesh_work_group_total_count",
+                    &self.max_mesh_work_group_total_count,
+                )
+                .field("max_mesh_work_group_count", &self.max_mesh_work_group_count)
+                .field(
+                    "max_mesh_work_group_invocations",
+                    &self.max_mesh_work_group_invocations,
+                )
+                .field("max_mesh_work_group_size", &self.max_mesh_work_group_size)
+                .field(
+                    "max_mesh_shared_memory_size",
+                    &self.max_mesh_shared_memory_size,
+                )
+                .field(
+                    "max_mesh_payload_and_shared_memory_size",
+                    &self.max_mesh_payload_and_shared_memory_size,
+                )
+                .field(
+                    "max_mesh_output_memory_size",
+                    &self.max_mesh_output_memory_size,
+                )
+                .field(
+                    "max_mesh_payload_and_output_memory_size",
+                    &self.max_mesh_payload_and_output_memory_size,
+                )
+                .field(
+                    "max_mesh_output_components",
+                    &self.max_mesh_output_components,
+                )
+                .field("max_mesh_output_vertices", &self.max_mesh_output_vertices)
+                .field(
+                    "max_mesh_output_primitives",
+                    &self.max_mesh_output_primitives,
+                )
+                .field("max_mesh_output_layers", &self.max_mesh_output_layers)
+                .field(
+                    "max_mesh_multiview_view_count",
+                    &self.max_mesh_multiview_view_count,
+                )
+                .field(
+                    "mesh_output_per_vertex_granularity",
+                    &self.mesh_output_per_vertex_granularity,
+                )
+                .field(
+                    "mesh_output_per_primitive_granularity",
+                    &self.mesh_output_per_primitive_granularity,
+                )
+                .field(
+                    "max_preferred_task_work_group_invocations",
+                    &self.max_preferred_task_work_group_invocations,
+                )
+                .field(
+                    "max_preferred_mesh_work_group_invocations",
+                    &self.max_preferred_mesh_work_group_invocations,
+                )
+                .field(
+                    "prefers_local_invocation_vertex_output",
+                    &self.prefers_local_invocation_vertex_output,
+                )
+                .field(
+                    "prefers_local_invocation_primitive_output",
+                    &self.prefers_local_invocation_primitive_output,
+                )
+                .field(
+                    "prefers_compact_vertex_output",
+                    &self.prefers_compact_vertex_output,
+                )
+                .field(
+                    "prefers_compact_primitive_output",
+                    &self.prefers_compact_primitive_output,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceMeshShaderPropertiesEXT<'a> {
@@ -356,7 +473,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDrawMeshTasksIndirectCommandEXT.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct DrawMeshTasksIndirectCommandEXT {
         pub group_count_x: u32,
         pub group_count_y: u32,

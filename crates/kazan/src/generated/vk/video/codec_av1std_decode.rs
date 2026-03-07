@@ -12,7 +12,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeAV1PictureInfoFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoDecodeAV1PictureInfoFlags {
         pub error_resilient_mode: u32,
         pub disable_cdf_update: u32,
@@ -235,6 +235,37 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for StdVideoDecodeAV1PictureInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("StdVideoDecodeAV1PictureInfo")
+                .field("flags", &self.flags)
+                .field("frame_type", &self.frame_type)
+                .field("current_frame_id", &self.current_frame_id)
+                .field("order_hint", &self.order_hint)
+                .field("primary_ref_frame", &self.primary_ref_frame)
+                .field("refresh_frame_flags", &self.refresh_frame_flags)
+                .field("reserved1", &self.reserved1)
+                .field("interpolation_filter", &self.interpolation_filter)
+                .field("tx_mode", &self.tx_mode)
+                .field("delta_q_res", &self.delta_q_res)
+                .field("delta_lf_res", &self.delta_lf_res)
+                .field("skip_mode_frame", &self.skip_mode_frame)
+                .field("coded_denom", &self.coded_denom)
+                .field("reserved2", &self.reserved2)
+                .field("order_hints", &self.order_hints)
+                .field("expected_frame_id", &self.expected_frame_id)
+                .field("p_tile_info", &self.p_tile_info)
+                .field("p_quantization", &self.p_quantization)
+                .field("p_segmentation", &self.p_segmentation)
+                .field("p_loop_filter", &self.p_loop_filter)
+                .field("p_cdef", &self.p_cdef)
+                .field("p_loop_restoration", &self.p_loop_restoration)
+                .field("p_global_motion", &self.p_global_motion)
+                .field("p_film_grain", &self.p_film_grain)
+                .finish()
+        }
+    }
+
     impl Default for StdVideoDecodeAV1PictureInfo<'_> {
         fn default() -> Self {
             Self {
@@ -406,7 +437,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeAV1ReferenceInfoFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoDecodeAV1ReferenceInfoFlags {
         pub disable_frame_end_update_cdf: u32,
         pub segmentation_enabled: u32,
@@ -432,7 +463,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoDecodeAV1ReferenceInfo.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct StdVideoDecodeAV1ReferenceInfo {
         pub flags: StdVideoDecodeAV1ReferenceInfoFlags,
         pub frame_type: u8,

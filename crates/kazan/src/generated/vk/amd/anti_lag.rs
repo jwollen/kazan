@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceAntiLagFeaturesAMD<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceAntiLagFeaturesAMD")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("anti_lag", &self.anti_lag)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceAntiLagFeaturesAMD<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_ANTI_LAG_FEATURES_AMD;
     }
@@ -55,6 +65,18 @@ pub(super) mod defs {
         pub max_fps: u32,
         pub p_presentation_info: *const AntiLagPresentationInfoAMD<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for AntiLagDataAMD<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AntiLagDataAMD")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("mode", &self.mode)
+                .field("max_fps", &self.max_fps)
+                .field("p_presentation_info", &self.p_presentation_info)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for AntiLagDataAMD<'a> {
@@ -103,6 +125,17 @@ pub(super) mod defs {
         pub stage: AntiLagStageAMD,
         pub frame_index: u64,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for AntiLagPresentationInfoAMD<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AntiLagPresentationInfoAMD")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("stage", &self.stage)
+                .field("frame_index", &self.frame_index)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for AntiLagPresentationInfoAMD<'a> {

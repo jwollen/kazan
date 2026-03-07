@@ -20,6 +20,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDevicePerformanceCountersByRegionFeaturesARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDevicePerformanceCountersByRegionFeaturesARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "performance_counters_by_region",
+                    &self.performance_counters_by_region,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePerformanceCountersByRegionFeaturesARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_FEATURES_ARM;
@@ -67,6 +80,26 @@ pub(super) mod defs {
         pub region_alignment: u32,
         pub identity_transform_order: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDevicePerformanceCountersByRegionPropertiesARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDevicePerformanceCountersByRegionPropertiesARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "max_per_region_performance_counters",
+                    &self.max_per_region_performance_counters,
+                )
+                .field(
+                    "performance_counter_region_size",
+                    &self.performance_counter_region_size,
+                )
+                .field("row_stride_alignment", &self.row_stride_alignment)
+                .field("region_alignment", &self.region_alignment)
+                .field("identity_transform_order", &self.identity_transform_order)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePerformanceCountersByRegionPropertiesARM<'a> {
@@ -137,6 +170,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PerformanceCounterARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PerformanceCounterARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("counter_id", &self.counter_id)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PerformanceCounterARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PERFORMANCE_COUNTER_ARM;
     }
@@ -168,6 +211,17 @@ pub(super) mod defs {
         pub flags: PerformanceCounterDescriptionFlagsARM,
         pub name: [c_char; MAX_DESCRIPTION_SIZE as usize],
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PerformanceCounterDescriptionARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PerformanceCounterDescriptionARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("name", &wrap_c_str_slice_until_nul(&self.name))
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PerformanceCounterDescriptionARM<'a> {
@@ -205,6 +259,20 @@ pub(super) mod defs {
         pub counter_index_count: u32,
         pub p_counter_indices: *mut u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for RenderPassPerformanceCountersByRegionBeginInfoARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RenderPassPerformanceCountersByRegionBeginInfoARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("counter_address_count", &self.counter_address_count)
+                .field("p_counter_addresses", &self.p_counter_addresses)
+                .field("serialize_regions", &self.serialize_regions)
+                .field("counter_index_count", &self.counter_index_count)
+                .field("p_counter_indices", &self.p_counter_indices)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for RenderPassPerformanceCountersByRegionBeginInfoARM<'a> {

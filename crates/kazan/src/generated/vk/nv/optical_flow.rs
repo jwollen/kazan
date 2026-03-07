@@ -26,6 +26,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceOpticalFlowFeaturesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceOpticalFlowFeaturesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("optical_flow", &self.optical_flow)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceOpticalFlowFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_OPTICAL_FLOW_FEATURES_NV;
@@ -70,6 +80,35 @@ pub(super) mod defs {
         pub max_height: u32,
         pub max_num_regions_of_interest: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceOpticalFlowPropertiesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceOpticalFlowPropertiesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "supported_output_grid_sizes",
+                    &self.supported_output_grid_sizes,
+                )
+                .field("supported_hint_grid_sizes", &self.supported_hint_grid_sizes)
+                .field("hint_supported", &self.hint_supported)
+                .field("cost_supported", &self.cost_supported)
+                .field(
+                    "bidirectional_flow_supported",
+                    &self.bidirectional_flow_supported,
+                )
+                .field("global_flow_supported", &self.global_flow_supported)
+                .field("min_width", &self.min_width)
+                .field("min_height", &self.min_height)
+                .field("max_width", &self.max_width)
+                .field("max_height", &self.max_height)
+                .field(
+                    "max_num_regions_of_interest",
+                    &self.max_num_regions_of_interest,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceOpticalFlowPropertiesNV<'a> {
@@ -176,6 +215,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for OpticalFlowImageFormatInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("OpticalFlowImageFormatInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("usage", &self.usage)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for OpticalFlowImageFormatInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::OPTICAL_FLOW_IMAGE_FORMAT_INFO_NV;
     }
@@ -209,6 +258,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub format: Format,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for OpticalFlowImageFormatPropertiesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("OpticalFlowImageFormatPropertiesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("format", &self.format)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for OpticalFlowImageFormatPropertiesNV<'a> {
@@ -250,6 +309,24 @@ pub(super) mod defs {
         pub performance_level: OpticalFlowPerformanceLevelNV,
         pub flags: OpticalFlowSessionCreateFlagsNV,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for OpticalFlowSessionCreateInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("OpticalFlowSessionCreateInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("width", &self.width)
+                .field("height", &self.height)
+                .field("image_format", &self.image_format)
+                .field("flow_vector_format", &self.flow_vector_format)
+                .field("cost_format", &self.cost_format)
+                .field("output_grid_size", &self.output_grid_size)
+                .field("hint_grid_size", &self.hint_grid_size)
+                .field("performance_level", &self.performance_level)
+                .field("flags", &self.flags)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for OpticalFlowSessionCreateInfoNV<'a> {
@@ -337,6 +414,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for OpticalFlowSessionCreatePrivateDataInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("OpticalFlowSessionCreatePrivateDataInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("id", &self.id)
+                .field("size", &self.size)
+                .field("p_private_data", &self.p_private_data)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for OpticalFlowSessionCreatePrivateDataInfoNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV;
@@ -387,6 +476,18 @@ pub(super) mod defs {
         pub region_count: u32,
         pub p_regions: *const Rect2D,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for OpticalFlowExecuteInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("OpticalFlowExecuteInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("region_count", &self.region_count)
+                .field("p_regions", &self.p_regions)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for OpticalFlowExecuteInfoNV<'a> {
@@ -515,7 +616,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowGridSizeFlagBitsNV.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct OpticalFlowGridSizeFlagBitsNV(u32);
 
     impl OpticalFlowGridSizeFlagBitsNV {
@@ -555,7 +656,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowUsageFlagBitsNV.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct OpticalFlowUsageFlagBitsNV(u32);
 
     impl OpticalFlowUsageFlagBitsNV {
@@ -613,7 +714,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowSessionCreateFlagBitsNV.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct OpticalFlowSessionCreateFlagBitsNV(u32);
 
     impl OpticalFlowSessionCreateFlagBitsNV {
@@ -647,7 +748,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowExecuteFlagBitsNV.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct OpticalFlowExecuteFlagBitsNV(u32);
 
     impl OpticalFlowExecuteFlagBitsNV {

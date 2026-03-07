@@ -23,6 +23,31 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "workgroup_memory_explicit_layout",
+                    &self.workgroup_memory_explicit_layout,
+                )
+                .field(
+                    "workgroup_memory_explicit_layout_scalar_block_layout",
+                    &self.workgroup_memory_explicit_layout_scalar_block_layout,
+                )
+                .field(
+                    "workgroup_memory_explicit_layout8_bit_access",
+                    &self.workgroup_memory_explicit_layout8_bit_access,
+                )
+                .field(
+                    "workgroup_memory_explicit_layout16_bit_access",
+                    &self.workgroup_memory_explicit_layout16_bit_access,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_WORKGROUP_MEMORY_EXPLICIT_LAYOUT_FEATURES_KHR;

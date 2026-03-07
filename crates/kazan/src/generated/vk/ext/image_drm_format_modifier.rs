@@ -21,6 +21,20 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DrmFormatModifierPropertiesListEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DrmFormatModifierPropertiesListEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("drm_format_modifier_count", &self.drm_format_modifier_count)
+                .field(
+                    "p_drm_format_modifier_properties",
+                    &self.p_drm_format_modifier_properties,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DrmFormatModifierPropertiesListEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::DRM_FORMAT_MODIFIER_PROPERTIES_LIST_EXT;
@@ -54,7 +68,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDrmFormatModifierPropertiesEXT.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct DrmFormatModifierPropertiesEXT {
         pub drm_format_modifier: u64,
         pub drm_format_modifier_plane_count: u32,
@@ -95,6 +109,19 @@ pub(super) mod defs {
         pub queue_family_index_count: u32,
         pub p_queue_family_indices: *const u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceImageDrmFormatModifierInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceImageDrmFormatModifierInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("drm_format_modifier", &self.drm_format_modifier)
+                .field("sharing_mode", &self.sharing_mode)
+                .field("queue_family_index_count", &self.queue_family_index_count)
+                .field("p_queue_family_indices", &self.p_queue_family_indices)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceImageDrmFormatModifierInfoEXT<'a> {
@@ -150,6 +177,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImageDrmFormatModifierListCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageDrmFormatModifierListCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("drm_format_modifier_count", &self.drm_format_modifier_count)
+                .field("p_drm_format_modifiers", &self.p_drm_format_modifiers)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImageDrmFormatModifierListCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::IMAGE_DRM_FORMAT_MODIFIER_LIST_CREATE_INFO_EXT;
@@ -187,6 +225,21 @@ pub(super) mod defs {
         pub drm_format_modifier_plane_count: u32,
         pub p_plane_layouts: *const SubresourceLayout,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ImageDrmFormatModifierExplicitCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageDrmFormatModifierExplicitCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("drm_format_modifier", &self.drm_format_modifier)
+                .field(
+                    "drm_format_modifier_plane_count",
+                    &self.drm_format_modifier_plane_count,
+                )
+                .field("p_plane_layouts", &self.p_plane_layouts)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ImageDrmFormatModifierExplicitCreateInfoEXT<'a> {
@@ -232,6 +285,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImageDrmFormatModifierPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageDrmFormatModifierPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("drm_format_modifier", &self.drm_format_modifier)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImageDrmFormatModifierPropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::IMAGE_DRM_FORMAT_MODIFIER_PROPERTIES_EXT;
@@ -264,6 +327,20 @@ pub(super) mod defs {
         pub drm_format_modifier_count: u32,
         pub p_drm_format_modifier_properties: *mut DrmFormatModifierProperties2EXT,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DrmFormatModifierPropertiesList2EXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DrmFormatModifierPropertiesList2EXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("drm_format_modifier_count", &self.drm_format_modifier_count)
+                .field(
+                    "p_drm_format_modifier_properties",
+                    &self.p_drm_format_modifier_properties,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DrmFormatModifierPropertiesList2EXT<'a> {
@@ -299,7 +376,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDrmFormatModifierProperties2EXT.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct DrmFormatModifierProperties2EXT {
         pub drm_format_modifier: u64,
         pub drm_format_modifier_plane_count: u32,

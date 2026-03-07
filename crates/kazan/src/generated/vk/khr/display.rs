@@ -35,6 +35,20 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DisplayPropertiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DisplayPropertiesKHR")
+                .field("display", &self.display)
+                .field("display_name", &unsafe { as_c_str(self.display_name) })
+                .field("physical_dimensions", &self.physical_dimensions)
+                .field("physical_resolution", &self.physical_resolution)
+                .field("supported_transforms", &self.supported_transforms)
+                .field("plane_reorder_possible", &self.plane_reorder_possible)
+                .field("persistent_content", &self.persistent_content)
+                .finish()
+        }
+    }
+
     impl Default for DisplayPropertiesKHR<'_> {
         fn default() -> Self {
             Self {
@@ -92,7 +106,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPlanePropertiesKHR.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct DisplayPlanePropertiesKHR {
         pub current_display: DisplayKHR,
         pub current_stack_index: u32,
@@ -112,7 +126,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayModeParametersKHR.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct DisplayModeParametersKHR {
         pub visible_region: Extent2D,
         pub refresh_rate: u32,
@@ -132,7 +146,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayModePropertiesKHR.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct DisplayModePropertiesKHR {
         pub display_mode: DisplayModeKHR,
         pub parameters: DisplayModeParametersKHR,
@@ -159,6 +173,17 @@ pub(super) mod defs {
         pub flags: DisplayModeCreateFlagsKHR,
         pub parameters: DisplayModeParametersKHR,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DisplayModeCreateInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DisplayModeCreateInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("parameters", &self.parameters)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DisplayModeCreateInfoKHR<'a> {
@@ -191,7 +216,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPlaneCapabilitiesKHR.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct DisplayPlaneCapabilitiesKHR {
         pub supported_alpha: DisplayPlaneAlphaFlagsKHR,
         pub min_src_position: Offset2D,
@@ -266,6 +291,23 @@ pub(super) mod defs {
         pub alpha_mode: DisplayPlaneAlphaFlagBitsKHR,
         pub image_extent: Extent2D,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DisplaySurfaceCreateInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DisplaySurfaceCreateInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("display_mode", &self.display_mode)
+                .field("plane_index", &self.plane_index)
+                .field("plane_stack_index", &self.plane_stack_index)
+                .field("transform", &self.transform)
+                .field("global_alpha", &self.global_alpha)
+                .field("alpha_mode", &self.alpha_mode)
+                .field("image_extent", &self.image_extent)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DisplaySurfaceCreateInfoKHR<'a> {
@@ -363,7 +405,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPlaneAlphaFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct DisplayPlaneAlphaFlagBitsKHR(u32);
 
     impl DisplayPlaneAlphaFlagBitsKHR {
@@ -426,7 +468,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceTransformFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct SurfaceTransformFlagBitsKHR(u32);
 
     impl SurfaceTransformFlagBitsKHR {

@@ -21,7 +21,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDecompressMemoryRegionNV.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct DecompressMemoryRegionNV {
         pub src_address: DeviceAddress,
         pub dst_address: DeviceAddress,

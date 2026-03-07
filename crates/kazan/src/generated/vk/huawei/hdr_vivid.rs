@@ -21,6 +21,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for HdrVividDynamicMetadataHUAWEI<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("HdrVividDynamicMetadataHUAWEI")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("dynamic_metadata_size", &self.dynamic_metadata_size)
+                .field("p_dynamic_metadata", &self.p_dynamic_metadata)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for HdrVividDynamicMetadataHUAWEI<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::HDR_VIVID_DYNAMIC_METADATA_HUAWEI;
     }
@@ -55,6 +66,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub hdr_vivid: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceHdrVividFeaturesHUAWEI<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceHdrVividFeaturesHUAWEI")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("hdr_vivid", &self.hdr_vivid)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceHdrVividFeaturesHUAWEI<'a> {

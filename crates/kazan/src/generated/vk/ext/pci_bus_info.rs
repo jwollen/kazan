@@ -23,6 +23,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDevicePCIBusInfoPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDevicePCIBusInfoPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("pci_domain", &self.pci_domain)
+                .field("pci_bus", &self.pci_bus)
+                .field("pci_device", &self.pci_device)
+                .field("pci_function", &self.pci_function)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePCIBusInfoPropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PCI_BUS_INFO_PROPERTIES_EXT;

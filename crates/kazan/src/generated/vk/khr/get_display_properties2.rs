@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DisplayProperties2KHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DisplayProperties2KHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("display_properties", &self.display_properties)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DisplayProperties2KHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DISPLAY_PROPERTIES_2_KHR;
     }
@@ -50,6 +60,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub display_plane_properties: DisplayPlanePropertiesKHR,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DisplayPlaneProperties2KHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DisplayPlaneProperties2KHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("display_plane_properties", &self.display_plane_properties)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DisplayPlaneProperties2KHR<'a> {
@@ -85,6 +105,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub display_mode_properties: DisplayModePropertiesKHR,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DisplayModeProperties2KHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DisplayModeProperties2KHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("display_mode_properties", &self.display_mode_properties)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DisplayModeProperties2KHR<'a> {
@@ -123,6 +153,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DisplayPlaneInfo2KHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DisplayPlaneInfo2KHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("mode", &self.mode)
+                .field("plane_index", &self.plane_index)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DisplayPlaneInfo2KHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DISPLAY_PLANE_INFO_2_KHR;
     }
@@ -159,6 +200,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub capabilities: DisplayPlaneCapabilitiesKHR,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DisplayPlaneCapabilities2KHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DisplayPlaneCapabilities2KHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("capabilities", &self.capabilities)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DisplayPlaneCapabilities2KHR<'a> {

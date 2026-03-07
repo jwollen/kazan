@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceSwapchainMaintenance1FeaturesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceSwapchainMaintenance1FeaturesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("swapchain_maintenance1", &self.swapchain_maintenance1)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceSwapchainMaintenance1FeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR;
@@ -63,6 +73,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SwapchainPresentFenceInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SwapchainPresentFenceInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("swapchain_count", &self.swapchain_count)
+                .field("p_fences", &self.p_fences)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SwapchainPresentFenceInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SWAPCHAIN_PRESENT_FENCE_INFO_KHR;
     }
@@ -98,6 +119,17 @@ pub(super) mod defs {
         pub present_mode_count: u32,
         pub p_present_modes: *const PresentModeKHR,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for SwapchainPresentModesCreateInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SwapchainPresentModesCreateInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("present_mode_count", &self.present_mode_count)
+                .field("p_present_modes", &self.p_present_modes)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for SwapchainPresentModesCreateInfoKHR<'a> {
@@ -138,6 +170,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SwapchainPresentModeInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SwapchainPresentModeInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("swapchain_count", &self.swapchain_count)
+                .field("p_present_modes", &self.p_present_modes)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SwapchainPresentModeInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SWAPCHAIN_PRESENT_MODE_INFO_KHR;
     }
@@ -174,6 +217,18 @@ pub(super) mod defs {
         pub present_gravity_x: PresentGravityFlagsKHR,
         pub present_gravity_y: PresentGravityFlagsKHR,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for SwapchainPresentScalingCreateInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SwapchainPresentScalingCreateInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("scaling_behavior", &self.scaling_behavior)
+                .field("present_gravity_x", &self.present_gravity_x)
+                .field("present_gravity_y", &self.present_gravity_y)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for SwapchainPresentScalingCreateInfoKHR<'a> {
@@ -223,6 +278,18 @@ pub(super) mod defs {
         pub image_index_count: u32,
         pub p_image_indices: *const u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ReleaseSwapchainImagesInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ReleaseSwapchainImagesInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("swapchain", &self.swapchain)
+                .field("image_index_count", &self.image_index_count)
+                .field("p_image_indices", &self.p_image_indices)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ReleaseSwapchainImagesInfoKHR<'a> {

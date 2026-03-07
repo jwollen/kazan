@@ -36,7 +36,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265ProfileTierLevelFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoH265ProfileTierLevelFlags {
         pub general_tier_flag: u32,
         pub general_progressive_source_flag: u32,
@@ -86,7 +86,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265ProfileTierLevel.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoH265ProfileTierLevel {
         pub flags: StdVideoH265ProfileTierLevelFlags,
         pub general_profile_idc: StdVideoH265ProfileIdc,
@@ -112,7 +112,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265DecPicBufMgr.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct StdVideoH265DecPicBufMgr {
         pub max_latency_increase_plus1: [u32; STD_VIDEO_H265_SUBLAYERS_LIST_SIZE as usize],
         pub max_dec_pic_buffering_minus1: [u8; STD_VIDEO_H265_SUBLAYERS_LIST_SIZE as usize],
@@ -157,7 +157,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265SubLayerHrdParameters.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct StdVideoH265SubLayerHrdParameters {
         pub bit_rate_value_minus1: [u32; STD_VIDEO_H265_CPB_CNT_LIST_SIZE as usize],
         pub cpb_size_value_minus1: [u32; STD_VIDEO_H265_CPB_CNT_LIST_SIZE as usize],
@@ -219,7 +219,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265HrdFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoH265HrdFlags {
         pub nal_hrd_parameters_present_flag: u32,
         pub vcl_hrd_parameters_present_flag: u32,
@@ -303,6 +303,52 @@ pub(super) mod defs {
         pub p_sub_layer_hrd_parameters_nal: *const StdVideoH265SubLayerHrdParameters,
         pub p_sub_layer_hrd_parameters_vcl: *const StdVideoH265SubLayerHrdParameters,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for StdVideoH265HrdParameters<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("StdVideoH265HrdParameters")
+                .field("flags", &self.flags)
+                .field("tick_divisor_minus2", &self.tick_divisor_minus2)
+                .field(
+                    "du_cpb_removal_delay_increment_length_minus1",
+                    &self.du_cpb_removal_delay_increment_length_minus1,
+                )
+                .field(
+                    "dpb_output_delay_du_length_minus1",
+                    &self.dpb_output_delay_du_length_minus1,
+                )
+                .field("bit_rate_scale", &self.bit_rate_scale)
+                .field("cpb_size_scale", &self.cpb_size_scale)
+                .field("cpb_size_du_scale", &self.cpb_size_du_scale)
+                .field(
+                    "initial_cpb_removal_delay_length_minus1",
+                    &self.initial_cpb_removal_delay_length_minus1,
+                )
+                .field(
+                    "au_cpb_removal_delay_length_minus1",
+                    &self.au_cpb_removal_delay_length_minus1,
+                )
+                .field(
+                    "dpb_output_delay_length_minus1",
+                    &self.dpb_output_delay_length_minus1,
+                )
+                .field("cpb_cnt_minus1", &self.cpb_cnt_minus1)
+                .field(
+                    "elemental_duration_in_tc_minus1",
+                    &self.elemental_duration_in_tc_minus1,
+                )
+                .field("reserved", &self.reserved)
+                .field(
+                    "p_sub_layer_hrd_parameters_nal",
+                    &self.p_sub_layer_hrd_parameters_nal,
+                )
+                .field(
+                    "p_sub_layer_hrd_parameters_vcl",
+                    &self.p_sub_layer_hrd_parameters_vcl,
+                )
+                .finish()
+        }
     }
 
     impl Default for StdVideoH265HrdParameters<'_> {
@@ -419,7 +465,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265VpsFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoH265VpsFlags {
         pub vps_temporal_id_nesting_flag: u32,
         pub vps_sub_layer_ordering_info_present_flag: u32,
@@ -473,6 +519,31 @@ pub(super) mod defs {
         pub p_hrd_parameters: *const StdVideoH265HrdParameters<'a>,
         pub p_profile_tier_level: *const StdVideoH265ProfileTierLevel,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for StdVideoH265VideoParameterSet<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("StdVideoH265VideoParameterSet")
+                .field("flags", &self.flags)
+                .field(
+                    "vps_video_parameter_set_id",
+                    &self.vps_video_parameter_set_id,
+                )
+                .field("vps_max_sub_layers_minus1", &self.vps_max_sub_layers_minus1)
+                .field("reserved1", &self.reserved1)
+                .field("reserved2", &self.reserved2)
+                .field("vps_num_units_in_tick", &self.vps_num_units_in_tick)
+                .field("vps_time_scale", &self.vps_time_scale)
+                .field(
+                    "vps_num_ticks_poc_diff_one_minus1",
+                    &self.vps_num_ticks_poc_diff_one_minus1,
+                )
+                .field("reserved3", &self.reserved3)
+                .field("p_dec_pic_buf_mgr", &self.p_dec_pic_buf_mgr)
+                .field("p_hrd_parameters", &self.p_hrd_parameters)
+                .field("p_profile_tier_level", &self.p_profile_tier_level)
+                .finish()
+        }
     }
 
     impl Default for StdVideoH265VideoParameterSet<'_> {
@@ -565,7 +636,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265ScalingLists.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct StdVideoH265ScalingLists {
         pub scaling_list4x4: [[u8; STD_VIDEO_H265_SCALING_LIST_4X4_NUM_ELEMENTS as usize];
             STD_VIDEO_H265_SCALING_LIST_4X4_NUM_LISTS as usize],
@@ -648,7 +719,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265ShortTermRefPicSetFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoH265ShortTermRefPicSetFlags {
         pub inter_ref_pic_set_prediction_flag: u32,
         pub delta_rps_sign: u32,
@@ -671,7 +742,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265ShortTermRefPicSet.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct StdVideoH265ShortTermRefPicSet {
         pub flags: StdVideoH265ShortTermRefPicSetFlags,
         pub delta_idx_minus1: u32,
@@ -790,7 +861,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265LongTermRefPicsSps.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct StdVideoH265LongTermRefPicsSps {
         pub used_by_curr_pic_lt_sps_flag: u32,
         pub lt_ref_pic_poc_lsb_sps: [u32; STD_VIDEO_H265_MAX_LONG_TERM_REF_PICS_SPS as usize],
@@ -822,7 +893,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265SpsVuiFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoH265SpsVuiFlags {
         pub aspect_ratio_info_present_flag: u32,
         pub overscan_info_present_flag: u32,
@@ -988,6 +1059,60 @@ pub(super) mod defs {
         pub log2_max_mv_length_vertical: u8,
         pub p_hrd_parameters: *const StdVideoH265HrdParameters<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for StdVideoH265SequenceParameterSetVui<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("StdVideoH265SequenceParameterSetVui")
+                .field("flags", &self.flags)
+                .field("aspect_ratio_idc", &self.aspect_ratio_idc)
+                .field("sar_width", &self.sar_width)
+                .field("sar_height", &self.sar_height)
+                .field("video_format", &self.video_format)
+                .field("colour_primaries", &self.colour_primaries)
+                .field("transfer_characteristics", &self.transfer_characteristics)
+                .field("matrix_coeffs", &self.matrix_coeffs)
+                .field(
+                    "chroma_sample_loc_type_top_field",
+                    &self.chroma_sample_loc_type_top_field,
+                )
+                .field(
+                    "chroma_sample_loc_type_bottom_field",
+                    &self.chroma_sample_loc_type_bottom_field,
+                )
+                .field("reserved1", &self.reserved1)
+                .field("reserved2", &self.reserved2)
+                .field("def_disp_win_left_offset", &self.def_disp_win_left_offset)
+                .field("def_disp_win_right_offset", &self.def_disp_win_right_offset)
+                .field("def_disp_win_top_offset", &self.def_disp_win_top_offset)
+                .field(
+                    "def_disp_win_bottom_offset",
+                    &self.def_disp_win_bottom_offset,
+                )
+                .field("vui_num_units_in_tick", &self.vui_num_units_in_tick)
+                .field("vui_time_scale", &self.vui_time_scale)
+                .field(
+                    "vui_num_ticks_poc_diff_one_minus1",
+                    &self.vui_num_ticks_poc_diff_one_minus1,
+                )
+                .field(
+                    "min_spatial_segmentation_idc",
+                    &self.min_spatial_segmentation_idc,
+                )
+                .field("reserved3", &self.reserved3)
+                .field("max_bytes_per_pic_denom", &self.max_bytes_per_pic_denom)
+                .field("max_bits_per_min_cu_denom", &self.max_bits_per_min_cu_denom)
+                .field(
+                    "log2_max_mv_length_horizontal",
+                    &self.log2_max_mv_length_horizontal,
+                )
+                .field(
+                    "log2_max_mv_length_vertical",
+                    &self.log2_max_mv_length_vertical,
+                )
+                .field("p_hrd_parameters", &self.p_hrd_parameters)
+                .finish()
+        }
     }
 
     impl Default for StdVideoH265SequenceParameterSetVui<'_> {
@@ -1167,7 +1292,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265PredictorPaletteEntries.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct StdVideoH265PredictorPaletteEntries {
         pub predictor_palette_entries: [[u16;
             STD_VIDEO_H265_PREDICTOR_PALETTE_COMP_ENTRIES_LIST_SIZE as usize];
@@ -1196,7 +1321,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265SpsFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoH265SpsFlags {
         pub sps_temporal_id_nesting_flag: u32,
         pub separate_colour_plane_flag: u32,
@@ -1467,6 +1592,112 @@ pub(super) mod defs {
         pub p_sequence_parameter_set_vui: *const StdVideoH265SequenceParameterSetVui<'a>,
         pub p_predictor_palette_entries: *const StdVideoH265PredictorPaletteEntries,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for StdVideoH265SequenceParameterSet<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("StdVideoH265SequenceParameterSet")
+                .field("flags", &self.flags)
+                .field("chroma_format_idc", &self.chroma_format_idc)
+                .field("pic_width_in_luma_samples", &self.pic_width_in_luma_samples)
+                .field(
+                    "pic_height_in_luma_samples",
+                    &self.pic_height_in_luma_samples,
+                )
+                .field(
+                    "sps_video_parameter_set_id",
+                    &self.sps_video_parameter_set_id,
+                )
+                .field("sps_max_sub_layers_minus1", &self.sps_max_sub_layers_minus1)
+                .field("sps_seq_parameter_set_id", &self.sps_seq_parameter_set_id)
+                .field("bit_depth_luma_minus8", &self.bit_depth_luma_minus8)
+                .field("bit_depth_chroma_minus8", &self.bit_depth_chroma_minus8)
+                .field(
+                    "log2_max_pic_order_cnt_lsb_minus4",
+                    &self.log2_max_pic_order_cnt_lsb_minus4,
+                )
+                .field(
+                    "log2_min_luma_coding_block_size_minus3",
+                    &self.log2_min_luma_coding_block_size_minus3,
+                )
+                .field(
+                    "log2_diff_max_min_luma_coding_block_size",
+                    &self.log2_diff_max_min_luma_coding_block_size,
+                )
+                .field(
+                    "log2_min_luma_transform_block_size_minus2",
+                    &self.log2_min_luma_transform_block_size_minus2,
+                )
+                .field(
+                    "log2_diff_max_min_luma_transform_block_size",
+                    &self.log2_diff_max_min_luma_transform_block_size,
+                )
+                .field(
+                    "max_transform_hierarchy_depth_inter",
+                    &self.max_transform_hierarchy_depth_inter,
+                )
+                .field(
+                    "max_transform_hierarchy_depth_intra",
+                    &self.max_transform_hierarchy_depth_intra,
+                )
+                .field(
+                    "num_short_term_ref_pic_sets",
+                    &self.num_short_term_ref_pic_sets,
+                )
+                .field(
+                    "num_long_term_ref_pics_sps",
+                    &self.num_long_term_ref_pics_sps,
+                )
+                .field(
+                    "pcm_sample_bit_depth_luma_minus1",
+                    &self.pcm_sample_bit_depth_luma_minus1,
+                )
+                .field(
+                    "pcm_sample_bit_depth_chroma_minus1",
+                    &self.pcm_sample_bit_depth_chroma_minus1,
+                )
+                .field(
+                    "log2_min_pcm_luma_coding_block_size_minus3",
+                    &self.log2_min_pcm_luma_coding_block_size_minus3,
+                )
+                .field(
+                    "log2_diff_max_min_pcm_luma_coding_block_size",
+                    &self.log2_diff_max_min_pcm_luma_coding_block_size,
+                )
+                .field("reserved1", &self.reserved1)
+                .field("reserved2", &self.reserved2)
+                .field("palette_max_size", &self.palette_max_size)
+                .field(
+                    "delta_palette_max_predictor_size",
+                    &self.delta_palette_max_predictor_size,
+                )
+                .field(
+                    "motion_vector_resolution_control_idc",
+                    &self.motion_vector_resolution_control_idc,
+                )
+                .field(
+                    "sps_num_palette_predictor_initializers_minus1",
+                    &self.sps_num_palette_predictor_initializers_minus1,
+                )
+                .field("conf_win_left_offset", &self.conf_win_left_offset)
+                .field("conf_win_right_offset", &self.conf_win_right_offset)
+                .field("conf_win_top_offset", &self.conf_win_top_offset)
+                .field("conf_win_bottom_offset", &self.conf_win_bottom_offset)
+                .field("p_profile_tier_level", &self.p_profile_tier_level)
+                .field("p_dec_pic_buf_mgr", &self.p_dec_pic_buf_mgr)
+                .field("p_scaling_lists", &self.p_scaling_lists)
+                .field("p_short_term_ref_pic_set", &self.p_short_term_ref_pic_set)
+                .field("p_long_term_ref_pics_sps", &self.p_long_term_ref_pics_sps)
+                .field(
+                    "p_sequence_parameter_set_vui",
+                    &self.p_sequence_parameter_set_vui,
+                )
+                .field(
+                    "p_predictor_palette_entries",
+                    &self.p_predictor_palette_entries,
+                )
+                .finish()
+        }
     }
 
     impl Default for StdVideoH265SequenceParameterSet<'_> {
@@ -1774,7 +2005,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265PpsFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoH265PpsFlags {
         pub dependent_slice_segments_enabled_flag: u32,
         pub output_flag_present_flag: u32,
@@ -2064,6 +2295,97 @@ pub(super) mod defs {
         pub p_scaling_lists: *const StdVideoH265ScalingLists,
         pub p_predictor_palette_entries: *const StdVideoH265PredictorPaletteEntries,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for StdVideoH265PictureParameterSet<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("StdVideoH265PictureParameterSet")
+                .field("flags", &self.flags)
+                .field("pps_pic_parameter_set_id", &self.pps_pic_parameter_set_id)
+                .field("pps_seq_parameter_set_id", &self.pps_seq_parameter_set_id)
+                .field(
+                    "sps_video_parameter_set_id",
+                    &self.sps_video_parameter_set_id,
+                )
+                .field(
+                    "num_extra_slice_header_bits",
+                    &self.num_extra_slice_header_bits,
+                )
+                .field(
+                    "num_ref_idx_l0_default_active_minus1",
+                    &self.num_ref_idx_l0_default_active_minus1,
+                )
+                .field(
+                    "num_ref_idx_l1_default_active_minus1",
+                    &self.num_ref_idx_l1_default_active_minus1,
+                )
+                .field("init_qp_minus26", &self.init_qp_minus26)
+                .field("diff_cu_qp_delta_depth", &self.diff_cu_qp_delta_depth)
+                .field("pps_cb_qp_offset", &self.pps_cb_qp_offset)
+                .field("pps_cr_qp_offset", &self.pps_cr_qp_offset)
+                .field("pps_beta_offset_div2", &self.pps_beta_offset_div2)
+                .field("pps_tc_offset_div2", &self.pps_tc_offset_div2)
+                .field(
+                    "log2_parallel_merge_level_minus2",
+                    &self.log2_parallel_merge_level_minus2,
+                )
+                .field(
+                    "log2_max_transform_skip_block_size_minus2",
+                    &self.log2_max_transform_skip_block_size_minus2,
+                )
+                .field(
+                    "diff_cu_chroma_qp_offset_depth",
+                    &self.diff_cu_chroma_qp_offset_depth,
+                )
+                .field(
+                    "chroma_qp_offset_list_len_minus1",
+                    &self.chroma_qp_offset_list_len_minus1,
+                )
+                .field("cb_qp_offset_list", &self.cb_qp_offset_list)
+                .field("cr_qp_offset_list", &self.cr_qp_offset_list)
+                .field(
+                    "log2_sao_offset_scale_luma",
+                    &self.log2_sao_offset_scale_luma,
+                )
+                .field(
+                    "log2_sao_offset_scale_chroma",
+                    &self.log2_sao_offset_scale_chroma,
+                )
+                .field("pps_act_y_qp_offset_plus5", &self.pps_act_y_qp_offset_plus5)
+                .field(
+                    "pps_act_cb_qp_offset_plus5",
+                    &self.pps_act_cb_qp_offset_plus5,
+                )
+                .field(
+                    "pps_act_cr_qp_offset_plus3",
+                    &self.pps_act_cr_qp_offset_plus3,
+                )
+                .field(
+                    "pps_num_palette_predictor_initializers",
+                    &self.pps_num_palette_predictor_initializers,
+                )
+                .field(
+                    "luma_bit_depth_entry_minus8",
+                    &self.luma_bit_depth_entry_minus8,
+                )
+                .field(
+                    "chroma_bit_depth_entry_minus8",
+                    &self.chroma_bit_depth_entry_minus8,
+                )
+                .field("num_tile_columns_minus1", &self.num_tile_columns_minus1)
+                .field("num_tile_rows_minus1", &self.num_tile_rows_minus1)
+                .field("reserved1", &self.reserved1)
+                .field("reserved2", &self.reserved2)
+                .field("column_width_minus1", &self.column_width_minus1)
+                .field("row_height_minus1", &self.row_height_minus1)
+                .field("reserved3", &self.reserved3)
+                .field("p_scaling_lists", &self.p_scaling_lists)
+                .field(
+                    "p_predictor_palette_entries",
+                    &self.p_predictor_palette_entries,
+                )
+                .finish()
+        }
     }
 
     impl Default for StdVideoH265PictureParameterSet<'_> {

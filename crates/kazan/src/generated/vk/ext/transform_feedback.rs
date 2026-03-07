@@ -21,6 +21,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceTransformFeedbackFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceTransformFeedbackFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("transform_feedback", &self.transform_feedback)
+                .field("geometry_streams", &self.geometry_streams)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceTransformFeedbackFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_TRANSFORM_FEEDBACK_FEATURES_EXT;
@@ -73,6 +84,52 @@ pub(super) mod defs {
         pub transform_feedback_rasterization_stream_select: Bool32,
         pub transform_feedback_draw: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceTransformFeedbackPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceTransformFeedbackPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "max_transform_feedback_streams",
+                    &self.max_transform_feedback_streams,
+                )
+                .field(
+                    "max_transform_feedback_buffers",
+                    &self.max_transform_feedback_buffers,
+                )
+                .field(
+                    "max_transform_feedback_buffer_size",
+                    &self.max_transform_feedback_buffer_size,
+                )
+                .field(
+                    "max_transform_feedback_stream_data_size",
+                    &self.max_transform_feedback_stream_data_size,
+                )
+                .field(
+                    "max_transform_feedback_buffer_data_size",
+                    &self.max_transform_feedback_buffer_data_size,
+                )
+                .field(
+                    "max_transform_feedback_buffer_data_stride",
+                    &self.max_transform_feedback_buffer_data_stride,
+                )
+                .field(
+                    "transform_feedback_queries",
+                    &self.transform_feedback_queries,
+                )
+                .field(
+                    "transform_feedback_streams_lines_triangles",
+                    &self.transform_feedback_streams_lines_triangles,
+                )
+                .field(
+                    "transform_feedback_rasterization_stream_select",
+                    &self.transform_feedback_rasterization_stream_select,
+                )
+                .field("transform_feedback_draw", &self.transform_feedback_draw)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceTransformFeedbackPropertiesEXT<'a> {
@@ -193,6 +250,17 @@ pub(super) mod defs {
         pub flags: PipelineRasterizationStateStreamCreateFlagsEXT,
         pub rasterization_stream: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PipelineRasterizationStateStreamCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineRasterizationStateStreamCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("rasterization_stream", &self.rasterization_stream)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PipelineRasterizationStateStreamCreateInfoEXT<'a> {

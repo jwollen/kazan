@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceExternalFormatResolveFeaturesANDROID<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceExternalFormatResolveFeaturesANDROID")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("external_format_resolve", &self.external_format_resolve)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExternalFormatResolveFeaturesANDROID<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_FEATURES_ANDROID;
@@ -62,6 +72,27 @@ pub(super) mod defs {
         pub external_format_resolve_chroma_offset_x: ChromaLocation,
         pub external_format_resolve_chroma_offset_y: ChromaLocation,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceExternalFormatResolvePropertiesANDROID<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceExternalFormatResolvePropertiesANDROID")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "null_color_attachment_with_external_format_resolve",
+                    &self.null_color_attachment_with_external_format_resolve,
+                )
+                .field(
+                    "external_format_resolve_chroma_offset_x",
+                    &self.external_format_resolve_chroma_offset_x,
+                )
+                .field(
+                    "external_format_resolve_chroma_offset_y",
+                    &self.external_format_resolve_chroma_offset_y,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExternalFormatResolvePropertiesANDROID<'a> {
@@ -122,6 +153,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub color_attachment_format: Format,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for AndroidHardwareBufferFormatResolvePropertiesANDROID<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AndroidHardwareBufferFormatResolvePropertiesANDROID")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("color_attachment_format", &self.color_attachment_format)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for AndroidHardwareBufferFormatResolvePropertiesANDROID<'a> {

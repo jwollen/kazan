@@ -20,6 +20,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceBlendOperationAdvancedFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceBlendOperationAdvancedFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "advanced_blend_coherent_operations",
+                    &self.advanced_blend_coherent_operations,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceBlendOperationAdvancedFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_FEATURES_EXT;
@@ -68,6 +81,39 @@ pub(super) mod defs {
         pub advanced_blend_correlated_overlap: Bool32,
         pub advanced_blend_all_operations: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceBlendOperationAdvancedPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceBlendOperationAdvancedPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "advanced_blend_max_color_attachments",
+                    &self.advanced_blend_max_color_attachments,
+                )
+                .field(
+                    "advanced_blend_independent_blend",
+                    &self.advanced_blend_independent_blend,
+                )
+                .field(
+                    "advanced_blend_non_premultiplied_src_color",
+                    &self.advanced_blend_non_premultiplied_src_color,
+                )
+                .field(
+                    "advanced_blend_non_premultiplied_dst_color",
+                    &self.advanced_blend_non_premultiplied_dst_color,
+                )
+                .field(
+                    "advanced_blend_correlated_overlap",
+                    &self.advanced_blend_correlated_overlap,
+                )
+                .field(
+                    "advanced_blend_all_operations",
+                    &self.advanced_blend_all_operations,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceBlendOperationAdvancedPropertiesEXT<'a> {
@@ -158,6 +204,18 @@ pub(super) mod defs {
         pub dst_premultiplied: Bool32,
         pub blend_overlap: BlendOverlapEXT,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PipelineColorBlendAdvancedStateCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineColorBlendAdvancedStateCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src_premultiplied", &self.src_premultiplied)
+                .field("dst_premultiplied", &self.dst_premultiplied)
+                .field("blend_overlap", &self.blend_overlap)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PipelineColorBlendAdvancedStateCreateInfoEXT<'a> {

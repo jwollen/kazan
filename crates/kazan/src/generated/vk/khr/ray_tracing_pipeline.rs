@@ -27,6 +27,24 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for RayTracingShaderGroupCreateInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RayTracingShaderGroupCreateInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("ty", &self.ty)
+                .field("general_shader", &self.general_shader)
+                .field("closest_hit_shader", &self.closest_hit_shader)
+                .field("any_hit_shader", &self.any_hit_shader)
+                .field("intersection_shader", &self.intersection_shader)
+                .field(
+                    "p_shader_group_capture_replay_handle",
+                    &self.p_shader_group_capture_replay_handle,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for RayTracingShaderGroupCreateInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::RAY_TRACING_SHADER_GROUP_CREATE_INFO_KHR;
@@ -102,6 +120,30 @@ pub(super) mod defs {
         pub base_pipeline_handle: Pipeline,
         pub base_pipeline_index: i32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for RayTracingPipelineCreateInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RayTracingPipelineCreateInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("stage_count", &self.stage_count)
+                .field("p_stages", &self.p_stages)
+                .field("group_count", &self.group_count)
+                .field("p_groups", &self.p_groups)
+                .field(
+                    "max_pipeline_ray_recursion_depth",
+                    &self.max_pipeline_ray_recursion_depth,
+                )
+                .field("p_library_info", &self.p_library_info)
+                .field("p_library_interface", &self.p_library_interface)
+                .field("p_dynamic_state", &self.p_dynamic_state)
+                .field("layout", &self.layout)
+                .field("base_pipeline_handle", &self.base_pipeline_handle)
+                .field("base_pipeline_index", &self.base_pipeline_index)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for RayTracingPipelineCreateInfoKHR<'a> {
@@ -207,6 +249,32 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceRayTracingPipelineFeaturesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceRayTracingPipelineFeaturesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("ray_tracing_pipeline", &self.ray_tracing_pipeline)
+                .field(
+                    "ray_tracing_pipeline_shader_group_handle_capture_replay",
+                    &self.ray_tracing_pipeline_shader_group_handle_capture_replay,
+                )
+                .field(
+                    "ray_tracing_pipeline_shader_group_handle_capture_replay_mixed",
+                    &self.ray_tracing_pipeline_shader_group_handle_capture_replay_mixed,
+                )
+                .field(
+                    "ray_tracing_pipeline_trace_rays_indirect",
+                    &self.ray_tracing_pipeline_trace_rays_indirect,
+                )
+                .field(
+                    "ray_traversal_primitive_culling",
+                    &self.ray_traversal_primitive_culling,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRayTracingPipelineFeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_FEATURES_KHR;
@@ -292,6 +360,38 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceRayTracingPipelinePropertiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceRayTracingPipelinePropertiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("shader_group_handle_size", &self.shader_group_handle_size)
+                .field("max_ray_recursion_depth", &self.max_ray_recursion_depth)
+                .field("max_shader_group_stride", &self.max_shader_group_stride)
+                .field(
+                    "shader_group_base_alignment",
+                    &self.shader_group_base_alignment,
+                )
+                .field(
+                    "shader_group_handle_capture_replay_size",
+                    &self.shader_group_handle_capture_replay_size,
+                )
+                .field(
+                    "max_ray_dispatch_invocation_count",
+                    &self.max_ray_dispatch_invocation_count,
+                )
+                .field(
+                    "shader_group_handle_alignment",
+                    &self.shader_group_handle_alignment,
+                )
+                .field(
+                    "max_ray_hit_attribute_size",
+                    &self.max_ray_hit_attribute_size,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceRayTracingPipelinePropertiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR;
@@ -370,7 +470,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkStridedDeviceAddressRegionKHR.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StridedDeviceAddressRegionKHR {
         pub device_address: DeviceAddress,
         pub stride: DeviceSize,
@@ -396,7 +496,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTraceRaysIndirectCommandKHR.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct TraceRaysIndirectCommandKHR {
         pub width: u32,
         pub height: u32,
@@ -429,6 +529,23 @@ pub(super) mod defs {
         pub max_pipeline_ray_payload_size: u32,
         pub max_pipeline_ray_hit_attribute_size: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for RayTracingPipelineInterfaceCreateInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("RayTracingPipelineInterfaceCreateInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "max_pipeline_ray_payload_size",
+                    &self.max_pipeline_ray_payload_size,
+                )
+                .field(
+                    "max_pipeline_ray_hit_attribute_size",
+                    &self.max_pipeline_ray_hit_attribute_size,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for RayTracingPipelineInterfaceCreateInfoKHR<'a> {

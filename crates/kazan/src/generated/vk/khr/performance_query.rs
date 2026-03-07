@@ -21,6 +21,23 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDevicePerformanceQueryFeaturesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDevicePerformanceQueryFeaturesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "performance_counter_query_pools",
+                    &self.performance_counter_query_pools,
+                )
+                .field(
+                    "performance_counter_multiple_query_pools",
+                    &self.performance_counter_multiple_query_pools,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePerformanceQueryFeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR;
@@ -73,6 +90,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDevicePerformanceQueryPropertiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDevicePerformanceQueryPropertiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "allow_command_buffer_query_copies",
+                    &self.allow_command_buffer_query_copies,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePerformanceQueryPropertiesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_PERFORMANCE_QUERY_PROPERTIES_KHR;
@@ -115,6 +145,19 @@ pub(super) mod defs {
         pub storage: PerformanceCounterStorageKHR,
         pub uuid: [u8; UUID_SIZE as usize],
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PerformanceCounterKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PerformanceCounterKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("unit", &self.unit)
+                .field("scope", &self.scope)
+                .field("storage", &self.storage)
+                .field("uuid", &self.uuid)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PerformanceCounterKHR<'a> {
@@ -170,6 +213,22 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PerformanceCounterDescriptionKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PerformanceCounterDescriptionKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("name", &wrap_c_str_slice_until_nul(&self.name))
+                .field("category", &wrap_c_str_slice_until_nul(&self.category))
+                .field(
+                    "description",
+                    &wrap_c_str_slice_until_nul(&self.description),
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PerformanceCounterDescriptionKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PERFORMANCE_COUNTER_DESCRIPTION_KHR;
     }
@@ -205,6 +264,18 @@ pub(super) mod defs {
         pub counter_index_count: u32,
         pub p_counter_indices: *const u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for QueryPoolPerformanceCreateInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("QueryPoolPerformanceCreateInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("queue_family_index", &self.queue_family_index)
+                .field("counter_index_count", &self.counter_index_count)
+                .field("p_counter_indices", &self.p_counter_indices)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for QueryPoolPerformanceCreateInfoKHR<'a> {
@@ -250,6 +321,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for AcquireProfilingLockInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AcquireProfilingLockInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("timeout", &self.timeout)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for AcquireProfilingLockInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::ACQUIRE_PROFILING_LOCK_INFO_KHR;
     }
@@ -288,6 +370,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PerformanceQuerySubmitInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PerformanceQuerySubmitInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("counter_pass_index", &self.counter_pass_index)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PerformanceQuerySubmitInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PERFORMANCE_QUERY_SUBMIT_INFO_KHR;
     }
@@ -324,6 +416,13 @@ pub(super) mod defs {
         pub float32: f32,
         pub float64: f64,
     }
+
+    impl fmt::Debug for PerformanceCounterResultKHR {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PerformanceCounterResultKHR").finish()
+        }
+    }
+
     impl Default for PerformanceCounterResultKHR {
         fn default() -> Self {
             unsafe { core::mem::zeroed() }
@@ -464,7 +563,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceCounterDescriptionFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct PerformanceCounterDescriptionFlagBitsKHR(u32);
 
     impl PerformanceCounterDescriptionFlagBitsKHR {
@@ -489,7 +588,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAcquireProfilingLockFlagBitsKHR.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct AcquireProfilingLockFlagBitsKHR(u32);
 
     impl AcquireProfilingLockFlagBitsKHR {}

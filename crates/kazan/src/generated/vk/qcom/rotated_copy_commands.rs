@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for CopyCommandTransformInfoQCOM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CopyCommandTransformInfoQCOM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("transform", &self.transform)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for CopyCommandTransformInfoQCOM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::COPY_COMMAND_TRANSFORM_INFO_QCOM;
     }

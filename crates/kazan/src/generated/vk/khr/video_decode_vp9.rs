@@ -22,6 +22,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceVideoDecodeVP9FeaturesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceVideoDecodeVP9FeaturesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("video_decode_vp9", &self.video_decode_vp9)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceVideoDecodeVP9FeaturesKHR<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_VIDEO_DECODE_VP9_FEATURES_KHR;
@@ -61,6 +71,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for VideoDecodeVP9ProfileInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoDecodeVP9ProfileInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("std_profile", &self.std_profile)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeVP9ProfileInfoKHR<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_VP9_PROFILE_INFO_KHR;
     }
@@ -94,6 +114,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub max_level: StdVideoVP9Level,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoDecodeVP9CapabilitiesKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoDecodeVP9CapabilitiesKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("max_level", &self.max_level)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeVP9CapabilitiesKHR<'a> {
@@ -132,6 +162,26 @@ pub(super) mod defs {
         pub compressed_header_offset: u32,
         pub tiles_offset: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for VideoDecodeVP9PictureInfoKHR<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("VideoDecodeVP9PictureInfoKHR")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_std_picture_info", &self.p_std_picture_info)
+                .field(
+                    "reference_name_slot_indices",
+                    &self.reference_name_slot_indices,
+                )
+                .field(
+                    "uncompressed_header_offset",
+                    &self.uncompressed_header_offset,
+                )
+                .field("compressed_header_offset", &self.compressed_header_offset)
+                .field("tiles_offset", &self.tiles_offset)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for VideoDecodeVP9PictureInfoKHR<'a> {

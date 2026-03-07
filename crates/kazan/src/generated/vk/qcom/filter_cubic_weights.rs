@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceCubicWeightsFeaturesQCOM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceCubicWeightsFeaturesQCOM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("selectable_cubic_weights", &self.selectable_cubic_weights)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCubicWeightsFeaturesQCOM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_CUBIC_WEIGHTS_FEATURES_QCOM;
@@ -59,6 +69,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SamplerCubicWeightsCreateInfoQCOM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SamplerCubicWeightsCreateInfoQCOM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("cubic_weights", &self.cubic_weights)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SamplerCubicWeightsCreateInfoQCOM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SAMPLER_CUBIC_WEIGHTS_CREATE_INFO_QCOM;
     }
@@ -91,6 +111,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub cubic_weights: CubicFilterWeightsQCOM,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for BlitImageCubicWeightsInfoQCOM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BlitImageCubicWeightsInfoQCOM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("cubic_weights", &self.cubic_weights)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for BlitImageCubicWeightsInfoQCOM<'a> {

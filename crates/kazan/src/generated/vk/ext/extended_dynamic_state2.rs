@@ -26,6 +26,24 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceExtendedDynamicState2FeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceExtendedDynamicState2FeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("extended_dynamic_state2", &self.extended_dynamic_state2)
+                .field(
+                    "extended_dynamic_state2_logic_op",
+                    &self.extended_dynamic_state2_logic_op,
+                )
+                .field(
+                    "extended_dynamic_state2_patch_control_points",
+                    &self.extended_dynamic_state2_patch_control_points,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExtendedDynamicState2FeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_2_FEATURES_EXT;

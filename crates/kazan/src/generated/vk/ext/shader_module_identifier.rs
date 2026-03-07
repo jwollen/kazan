@@ -22,6 +22,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceShaderModuleIdentifierFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("shader_module_identifier", &self.shader_module_identifier)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_FEATURES_EXT;
@@ -62,6 +72,19 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub shader_module_identifier_algorithm_uuid: [u8; UUID_SIZE as usize],
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceShaderModuleIdentifierPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceShaderModuleIdentifierPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "shader_module_identifier_algorithm_uuid",
+                    &self.shader_module_identifier_algorithm_uuid,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceShaderModuleIdentifierPropertiesEXT<'a> {
@@ -106,6 +129,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PipelineShaderStageModuleIdentifierCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineShaderStageModuleIdentifierCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("identifier_size", &self.identifier_size)
+                .field("p_identifier", &self.p_identifier)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PipelineShaderStageModuleIdentifierCreateInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PIPELINE_SHADER_STAGE_MODULE_IDENTIFIER_CREATE_INFO_EXT;
@@ -145,6 +179,17 @@ pub(super) mod defs {
         pub identifier_size: u32,
         pub identifier: [u8; MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT as usize],
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ShaderModuleIdentifierEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ShaderModuleIdentifierEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("identifier_size", &self.identifier_size)
+                .field("identifier", &self.identifier)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ShaderModuleIdentifierEXT<'a> {

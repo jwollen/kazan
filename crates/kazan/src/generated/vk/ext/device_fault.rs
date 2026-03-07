@@ -21,6 +21,20 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceFaultFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceFaultFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("device_fault", &self.device_fault)
+                .field(
+                    "device_fault_vendor_binary",
+                    &self.device_fault_vendor_binary,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceFaultFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_FAULT_FEATURES_EXT;
     }
@@ -54,7 +68,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceFaultAddressInfoEXT.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct DeviceFaultAddressInfoEXT {
         pub address_type: DeviceFaultAddressTypeEXT,
         pub reported_address: DeviceAddress,
@@ -85,6 +99,19 @@ pub(super) mod defs {
         pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
         pub vendor_fault_code: u64,
         pub vendor_fault_data: u64,
+    }
+
+    impl fmt::Debug for DeviceFaultVendorInfoEXT {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DeviceFaultVendorInfoEXT")
+                .field(
+                    "description",
+                    &wrap_c_str_slice_until_nul(&self.description),
+                )
+                .field("vendor_fault_code", &self.vendor_fault_code)
+                .field("vendor_fault_data", &self.vendor_fault_data)
+                .finish()
+        }
     }
 
     impl Default for DeviceFaultVendorInfoEXT {
@@ -119,6 +146,18 @@ pub(super) mod defs {
         pub vendor_info_count: u32,
         pub vendor_binary_size: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DeviceFaultCountsEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DeviceFaultCountsEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("address_info_count", &self.address_info_count)
+                .field("vendor_info_count", &self.vendor_info_count)
+                .field("vendor_binary_size", &self.vendor_binary_size)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DeviceFaultCountsEXT<'a> {
@@ -168,6 +207,22 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DeviceFaultInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DeviceFaultInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "description",
+                    &wrap_c_str_slice_until_nul(&self.description),
+                )
+                .field("p_address_infos", &self.p_address_infos)
+                .field("p_vendor_infos", &self.p_vendor_infos)
+                .field("p_vendor_binary_data", &self.p_vendor_binary_data)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DeviceFaultInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_FAULT_INFO_EXT;
     }
@@ -205,7 +260,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceFaultVendorBinaryHeaderVersionOneEXT.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct DeviceFaultVendorBinaryHeaderVersionOneEXT {
         pub header_size: u32,
         pub header_version: DeviceFaultVendorBinaryHeaderVersionEXT,

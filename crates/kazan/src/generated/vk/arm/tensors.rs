@@ -36,6 +36,21 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for TensorDescriptionARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("TensorDescriptionARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("tiling", &self.tiling)
+                .field("format", &self.format)
+                .field("dimension_count", &self.dimension_count)
+                .field("p_dimensions", &self.p_dimensions)
+                .field("p_strides", &self.p_strides)
+                .field("usage", &self.usage)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for TensorDescriptionARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::TENSOR_DESCRIPTION_ARM;
     }
@@ -102,6 +117,20 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for TensorCreateInfoARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("TensorCreateInfoARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("p_description", &self.p_description)
+                .field("sharing_mode", &self.sharing_mode)
+                .field("queue_family_index_count", &self.queue_family_index_count)
+                .field("p_queue_family_indices", &self.p_queue_family_indices)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for TensorCreateInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::TENSOR_CREATE_INFO_ARM;
     }
@@ -156,6 +185,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for TensorViewCreateInfoARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("TensorViewCreateInfoARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("tensor", &self.tensor)
+                .field("format", &self.format)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for TensorViewCreateInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::TENSOR_VIEW_CREATE_INFO_ARM;
     }
@@ -200,6 +241,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for TensorMemoryRequirementsInfoARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("TensorMemoryRequirementsInfoARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("tensor", &self.tensor)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for TensorMemoryRequirementsInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::TENSOR_MEMORY_REQUIREMENTS_INFO_ARM;
     }
@@ -232,6 +283,18 @@ pub(super) mod defs {
         pub memory: DeviceMemory,
         pub memory_offset: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for BindTensorMemoryInfoARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BindTensorMemoryInfoARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("tensor", &self.tensor)
+                .field("memory", &self.memory)
+                .field("memory_offset", &self.memory_offset)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for BindTensorMemoryInfoARM<'a> {
@@ -279,6 +342,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for WriteDescriptorSetTensorARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("WriteDescriptorSetTensorARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("tensor_view_count", &self.tensor_view_count)
+                .field("p_tensor_views", &self.p_tensor_views)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for WriteDescriptorSetTensorARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::WRITE_DESCRIPTOR_SET_TENSOR_ARM;
     }
@@ -314,6 +388,23 @@ pub(super) mod defs {
         pub optimal_tiling_tensor_features: FormatFeatureFlags2,
         pub linear_tiling_tensor_features: FormatFeatureFlags2,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for TensorFormatPropertiesARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("TensorFormatPropertiesARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "optimal_tiling_tensor_features",
+                    &self.optimal_tiling_tensor_features,
+                )
+                .field(
+                    "linear_tiling_tensor_features",
+                    &self.linear_tiling_tensor_features,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for TensorFormatPropertiesARM<'a> {
@@ -372,6 +463,58 @@ pub(super) mod defs {
         pub shader_storage_tensor_array_non_uniform_indexing_native: Bool32,
         pub shader_tensor_supported_stages: ShaderStageFlags,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceTensorPropertiesARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceTensorPropertiesARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "max_tensor_dimension_count",
+                    &self.max_tensor_dimension_count,
+                )
+                .field("max_tensor_elements", &self.max_tensor_elements)
+                .field(
+                    "max_per_dimension_tensor_elements",
+                    &self.max_per_dimension_tensor_elements,
+                )
+                .field("max_tensor_stride", &self.max_tensor_stride)
+                .field("max_tensor_size", &self.max_tensor_size)
+                .field(
+                    "max_tensor_shader_access_array_length",
+                    &self.max_tensor_shader_access_array_length,
+                )
+                .field(
+                    "max_tensor_shader_access_size",
+                    &self.max_tensor_shader_access_size,
+                )
+                .field(
+                    "max_descriptor_set_storage_tensors",
+                    &self.max_descriptor_set_storage_tensors,
+                )
+                .field(
+                    "max_per_stage_descriptor_set_storage_tensors",
+                    &self.max_per_stage_descriptor_set_storage_tensors,
+                )
+                .field(
+                    "max_descriptor_set_update_after_bind_storage_tensors",
+                    &self.max_descriptor_set_update_after_bind_storage_tensors,
+                )
+                .field(
+                    "max_per_stage_descriptor_update_after_bind_storage_tensors",
+                    &self.max_per_stage_descriptor_update_after_bind_storage_tensors,
+                )
+                .field(
+                    "shader_storage_tensor_array_non_uniform_indexing_native",
+                    &self.shader_storage_tensor_array_non_uniform_indexing_native,
+                )
+                .field(
+                    "shader_tensor_supported_stages",
+                    &self.shader_tensor_supported_stages,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceTensorPropertiesARM<'a> {
@@ -514,6 +657,22 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for TensorMemoryBarrierARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("TensorMemoryBarrierARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src_stage_mask", &self.src_stage_mask)
+                .field("src_access_mask", &self.src_access_mask)
+                .field("dst_stage_mask", &self.dst_stage_mask)
+                .field("dst_access_mask", &self.dst_access_mask)
+                .field("src_queue_family_index", &self.src_queue_family_index)
+                .field("dst_queue_family_index", &self.dst_queue_family_index)
+                .field("tensor", &self.tensor)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for TensorMemoryBarrierARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::TENSOR_MEMORY_BARRIER_ARM;
     }
@@ -585,6 +744,20 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for TensorDependencyInfoARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("TensorDependencyInfoARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "tensor_memory_barrier_count",
+                    &self.tensor_memory_barrier_count,
+                )
+                .field("p_tensor_memory_barriers", &self.p_tensor_memory_barriers)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for TensorDependencyInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::TENSOR_DEPENDENCY_INFO_ARM;
     }
@@ -631,6 +804,30 @@ pub(super) mod defs {
         pub descriptor_binding_storage_tensor_update_after_bind: Bool32,
         pub tensors: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceTensorFeaturesARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceTensorFeaturesARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("tensor_non_packed", &self.tensor_non_packed)
+                .field("shader_tensor_access", &self.shader_tensor_access)
+                .field(
+                    "shader_storage_tensor_array_dynamic_indexing",
+                    &self.shader_storage_tensor_array_dynamic_indexing,
+                )
+                .field(
+                    "shader_storage_tensor_array_non_uniform_indexing",
+                    &self.shader_storage_tensor_array_non_uniform_indexing,
+                )
+                .field(
+                    "descriptor_binding_storage_tensor_update_after_bind",
+                    &self.descriptor_binding_storage_tensor_update_after_bind,
+                )
+                .field("tensors", &self.tensors)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceTensorFeaturesARM<'a> {
@@ -710,6 +907,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DeviceTensorMemoryRequirementsARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DeviceTensorMemoryRequirementsARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_create_info", &self.p_create_info)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DeviceTensorMemoryRequirementsARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_TENSOR_MEMORY_REQUIREMENTS_ARM;
     }
@@ -743,6 +950,19 @@ pub(super) mod defs {
         pub region_count: u32,
         pub p_regions: *const TensorCopyARM<'a>,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for CopyTensorInfoARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("CopyTensorInfoARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("src_tensor", &self.src_tensor)
+                .field("dst_tensor", &self.dst_tensor)
+                .field("region_count", &self.region_count)
+                .field("p_regions", &self.p_regions)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for CopyTensorInfoARM<'a> {
@@ -794,6 +1014,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for TensorCopyARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("TensorCopyARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("dimension_count", &self.dimension_count)
+                .field("p_src_offset", &self.p_src_offset)
+                .field("p_dst_offset", &self.p_dst_offset)
+                .field("p_extent", &self.p_extent)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for TensorCopyARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::TENSOR_COPY_ARM;
     }
@@ -842,6 +1075,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for MemoryDedicatedAllocateInfoTensorARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("MemoryDedicatedAllocateInfoTensorARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("tensor", &self.tensor)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for MemoryDedicatedAllocateInfoTensorARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::MEMORY_DEDICATED_ALLOCATE_INFO_TENSOR_ARM;
@@ -877,6 +1120,24 @@ pub(super) mod defs {
         pub tensor_view_capture_replay_descriptor_data_size: usize,
         pub tensor_descriptor_size: usize,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceDescriptorBufferTensorPropertiesARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceDescriptorBufferTensorPropertiesARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "tensor_capture_replay_descriptor_data_size",
+                    &self.tensor_capture_replay_descriptor_data_size,
+                )
+                .field(
+                    "tensor_view_capture_replay_descriptor_data_size",
+                    &self.tensor_view_capture_replay_descriptor_data_size,
+                )
+                .field("tensor_descriptor_size", &self.tensor_descriptor_size)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDescriptorBufferTensorPropertiesARM<'a> {
@@ -937,6 +1198,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceDescriptorBufferTensorFeaturesARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceDescriptorBufferTensorFeaturesARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "descriptor_buffer_tensor_descriptors",
+                    &self.descriptor_buffer_tensor_descriptors,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDescriptorBufferTensorFeaturesARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_FEATURES_ARM;
@@ -982,6 +1256,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for TensorCaptureDescriptorDataInfoARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("TensorCaptureDescriptorDataInfoARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("tensor", &self.tensor)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for TensorCaptureDescriptorDataInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::TENSOR_CAPTURE_DESCRIPTOR_DATA_INFO_ARM;
@@ -1013,6 +1297,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub tensor_view: TensorViewARM,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for TensorViewCaptureDescriptorDataInfoARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("TensorViewCaptureDescriptorDataInfoARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("tensor_view", &self.tensor_view)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for TensorViewCaptureDescriptorDataInfoARM<'a> {
@@ -1048,6 +1342,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DescriptorGetTensorInfoARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DescriptorGetTensorInfoARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("tensor_view", &self.tensor_view)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DescriptorGetTensorInfoARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DESCRIPTOR_GET_TENSOR_INFO_ARM;
     }
@@ -1081,6 +1385,17 @@ pub(super) mod defs {
         pub tensor_count: u32,
         pub p_tensors: *const TensorARM,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for FrameBoundaryTensorsARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("FrameBoundaryTensorsARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("tensor_count", &self.tensor_count)
+                .field("p_tensors", &self.p_tensors)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for FrameBoundaryTensorsARM<'a> {
@@ -1122,6 +1437,18 @@ pub(super) mod defs {
         pub p_description: *const TensorDescriptionARM<'a>,
         pub handle_type: ExternalMemoryHandleTypeFlagBits,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceExternalTensorInfoARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceExternalTensorInfoARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("p_description", &self.p_description)
+                .field("handle_type", &self.handle_type)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceExternalTensorInfoARM<'a> {
@@ -1169,6 +1496,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ExternalTensorPropertiesARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExternalTensorPropertiesARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "external_memory_properties",
+                    &self.external_memory_properties,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ExternalTensorPropertiesARM<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_TENSOR_PROPERTIES_ARM;
     }
@@ -1202,6 +1542,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub handle_types: ExternalMemoryHandleTypeFlags,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ExternalMemoryTensorCreateInfoARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ExternalMemoryTensorCreateInfoARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("handle_types", &self.handle_types)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ExternalMemoryTensorCreateInfoARM<'a> {
@@ -1294,7 +1644,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorCreateFlagBitsARM.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct TensorCreateFlagBitsARM(u64);
 
     impl TensorCreateFlagBitsARM {
@@ -1344,7 +1694,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorUsageFlagBitsARM.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct TensorUsageFlagBitsARM(u64);
 
     impl TensorUsageFlagBitsARM {
@@ -1384,7 +1734,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorViewCreateFlagBitsARM.html>
     #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    #[derive(Copy, Clone, Default, Debug, PartialEq, Eq, Hash)]
     pub struct TensorViewCreateFlagBitsARM(u64);
 
     impl TensorViewCreateFlagBitsARM {

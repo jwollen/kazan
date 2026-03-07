@@ -34,7 +34,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1ColorConfigFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoAV1ColorConfigFlags {
         pub mono_chrome: u32,
         pub color_range: u32,
@@ -75,7 +75,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1ColorConfig.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoAV1ColorConfig {
         pub flags: StdVideoAV1ColorConfigFlags,
         pub bit_depth: u8,
@@ -146,7 +146,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1TimingInfoFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoAV1TimingInfoFlags {
         pub equal_picture_interval: u32,
         pub reserved: u32,
@@ -166,7 +166,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1TimingInfo.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoAV1TimingInfo {
         pub flags: StdVideoAV1TimingInfoFlags,
         pub num_units_in_display_tick: u32,
@@ -198,7 +198,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1SequenceHeaderFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoAV1SequenceHeaderFlags {
         pub still_picture: u32,
         pub reduced_still_picture_header: u32,
@@ -348,6 +348,36 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for StdVideoAV1SequenceHeader<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("StdVideoAV1SequenceHeader")
+                .field("flags", &self.flags)
+                .field("seq_profile", &self.seq_profile)
+                .field("frame_width_bits_minus_1", &self.frame_width_bits_minus_1)
+                .field("frame_height_bits_minus_1", &self.frame_height_bits_minus_1)
+                .field("max_frame_width_minus_1", &self.max_frame_width_minus_1)
+                .field("max_frame_height_minus_1", &self.max_frame_height_minus_1)
+                .field(
+                    "delta_frame_id_length_minus_2",
+                    &self.delta_frame_id_length_minus_2,
+                )
+                .field(
+                    "additional_frame_id_length_minus_1",
+                    &self.additional_frame_id_length_minus_1,
+                )
+                .field("order_hint_bits_minus_1", &self.order_hint_bits_minus_1)
+                .field("seq_force_integer_mv", &self.seq_force_integer_mv)
+                .field(
+                    "seq_force_screen_content_tools",
+                    &self.seq_force_screen_content_tools,
+                )
+                .field("reserved1", &self.reserved1)
+                .field("p_color_config", &self.p_color_config)
+                .field("p_timing_info", &self.p_timing_info)
+                .finish()
+        }
+    }
+
     impl Default for StdVideoAV1SequenceHeader<'_> {
         fn default() -> Self {
             Self {
@@ -450,7 +480,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1LoopFilterFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoAV1LoopFilterFlags {
         pub loop_filter_delta_enabled: u32,
         pub loop_filter_delta_update: u32,
@@ -476,7 +506,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1LoopFilter.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct StdVideoAV1LoopFilter {
         pub flags: StdVideoAV1LoopFilterFlags,
         pub loop_filter_level: [u8; STD_VIDEO_AV1_MAX_LOOP_FILTER_STRENGTHS as usize],
@@ -549,7 +579,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1QuantizationFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoAV1QuantizationFlags {
         pub using_qmatrix: u32,
         pub diff_uv_delta: u32,
@@ -575,7 +605,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1Quantization.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoAV1Quantization {
         pub flags: StdVideoAV1QuantizationFlags,
         pub base_q_idx: u8,
@@ -643,7 +673,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1Segmentation.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct StdVideoAV1Segmentation {
         pub feature_enabled: [u8; STD_VIDEO_AV1_MAX_SEGMENTS as usize],
         pub feature_data:
@@ -680,7 +710,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1TileInfoFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoAV1TileInfoFlags {
         pub uniform_tile_spacing_flag: u32,
         pub reserved: u32,
@@ -713,6 +743,23 @@ pub(super) mod defs {
         pub p_width_in_sbs_minus1: *const u16,
         pub p_height_in_sbs_minus1: *const u16,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for StdVideoAV1TileInfo<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("StdVideoAV1TileInfo")
+                .field("flags", &self.flags)
+                .field("tile_cols", &self.tile_cols)
+                .field("tile_rows", &self.tile_rows)
+                .field("context_update_tile_id", &self.context_update_tile_id)
+                .field("tile_size_bytes_minus_1", &self.tile_size_bytes_minus_1)
+                .field("reserved1", &self.reserved1)
+                .field("p_mi_col_starts", &self.p_mi_col_starts)
+                .field("p_mi_row_starts", &self.p_mi_row_starts)
+                .field("p_width_in_sbs_minus1", &self.p_width_in_sbs_minus1)
+                .field("p_height_in_sbs_minus1", &self.p_height_in_sbs_minus1)
+                .finish()
+        }
     }
 
     impl Default for StdVideoAV1TileInfo<'_> {
@@ -781,7 +828,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1CDEF.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct StdVideoAV1CDEF {
         pub cdef_damping_minus_3: u8,
         pub cdef_bits: u8,
@@ -850,7 +897,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1LoopRestoration.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct StdVideoAV1LoopRestoration {
         pub frame_restoration_type:
             [StdVideoAV1FrameRestorationType; STD_VIDEO_AV1_MAX_NUM_PLANES as usize],
@@ -887,7 +934,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1GlobalMotion.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct StdVideoAV1GlobalMotion {
         pub gm_type: [u8; STD_VIDEO_AV1_NUM_REF_FRAMES as usize],
         pub gm_params: [[i32; STD_VIDEO_AV1_GLOBAL_MOTION_PARAMS as usize];
@@ -921,7 +968,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1FilmGrainFlags.html>
     #[repr(C)]
-    #[derive(Copy, Clone, Default)]
+    #[derive(Copy, Clone, Default, Debug)]
     pub struct StdVideoAV1FilmGrainFlags {
         pub chroma_scaling_from_luma: u32,
         pub overlap_flag: u32,
@@ -959,7 +1006,7 @@ pub(super) mod defs {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoAV1FilmGrain.html>
     #[repr(C)]
-    #[derive(Copy, Clone)]
+    #[derive(Copy, Clone, Debug)]
     pub struct StdVideoAV1FilmGrain {
         pub flags: StdVideoAV1FilmGrainFlags,
         pub grain_scaling_minus_8: u8,

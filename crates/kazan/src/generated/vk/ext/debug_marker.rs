@@ -22,6 +22,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DebugMarkerObjectNameInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DebugMarkerObjectNameInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("object_type", &self.object_type)
+                .field("object", &self.object)
+                .field("p_object_name", &unsafe { as_c_str(self.p_object_name) })
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DebugMarkerObjectNameInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DEBUG_MARKER_OBJECT_NAME_INFO_EXT;
     }
@@ -68,6 +80,20 @@ pub(super) mod defs {
         pub tag_size: usize,
         pub p_tag: *const c_void,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DebugMarkerObjectTagInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DebugMarkerObjectTagInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("object_type", &self.object_type)
+                .field("object", &self.object)
+                .field("tag_name", &self.tag_name)
+                .field("tag_size", &self.tag_size)
+                .field("p_tag", &self.p_tag)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DebugMarkerObjectTagInfoEXT<'a> {
@@ -121,6 +147,17 @@ pub(super) mod defs {
         pub p_marker_name: *const c_char,
         pub color: [f32; 4],
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DebugMarkerMarkerInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DebugMarkerMarkerInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("p_marker_name", &unsafe { as_c_str(self.p_marker_name) })
+                .field("color", &self.color)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DebugMarkerMarkerInfoEXT<'a> {

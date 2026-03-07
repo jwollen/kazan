@@ -22,6 +22,18 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImageViewHandleInfoNVX<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageViewHandleInfoNVX")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("image_view", &self.image_view)
+                .field("descriptor_type", &self.descriptor_type)
+                .field("sampler", &self.sampler)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImageViewHandleInfoNVX<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_VIEW_HANDLE_INFO_NVX;
     }
@@ -65,6 +77,17 @@ pub(super) mod defs {
         pub device_address: DeviceAddress,
         pub size: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ImageViewAddressPropertiesNVX<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageViewAddressPropertiesNVX")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("device_address", &self.device_address)
+                .field("size", &self.size)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ImageViewAddressPropertiesNVX<'a> {

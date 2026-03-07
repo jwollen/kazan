@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceImageViewMinLodFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceImageViewMinLodFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("min_lod", &self.min_lod)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceImageViewMinLodFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_IMAGE_VIEW_MIN_LOD_FEATURES_EXT;
@@ -57,6 +67,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub min_lod: f32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ImageViewMinLodCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageViewMinLodCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("min_lod", &self.min_lod)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ImageViewMinLodCreateInfoEXT<'a> {

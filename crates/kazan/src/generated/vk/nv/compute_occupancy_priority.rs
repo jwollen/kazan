@@ -25,6 +25,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ComputeOccupancyPriorityParametersNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ComputeOccupancyPriorityParametersNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("occupancy_priority", &self.occupancy_priority)
+                .field("occupancy_throttling", &self.occupancy_throttling)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ComputeOccupancyPriorityParametersNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::COMPUTE_OCCUPANCY_PRIORITY_PARAMETERS_NV;
@@ -62,6 +73,19 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub compute_occupancy_priority: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceComputeOccupancyPriorityFeaturesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceComputeOccupancyPriorityFeaturesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "compute_occupancy_priority",
+                    &self.compute_occupancy_priority,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceComputeOccupancyPriorityFeaturesNV<'a> {

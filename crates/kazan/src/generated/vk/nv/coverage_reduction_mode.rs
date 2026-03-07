@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceCoverageReductionModeFeaturesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceCoverageReductionModeFeaturesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("coverage_reduction_mode", &self.coverage_reduction_mode)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceCoverageReductionModeFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_COVERAGE_REDUCTION_MODE_FEATURES_NV;
@@ -61,6 +71,17 @@ pub(super) mod defs {
         pub flags: PipelineCoverageReductionStateCreateFlagsNV,
         pub coverage_reduction_mode: CoverageReductionModeNV,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PipelineCoverageReductionStateCreateInfoNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PipelineCoverageReductionStateCreateInfoNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("flags", &self.flags)
+                .field("coverage_reduction_mode", &self.coverage_reduction_mode)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PipelineCoverageReductionStateCreateInfoNV<'a> {
@@ -111,6 +132,19 @@ pub(super) mod defs {
         pub depth_stencil_samples: SampleCountFlags,
         pub color_samples: SampleCountFlags,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for FramebufferMixedSamplesCombinationNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("FramebufferMixedSamplesCombinationNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("coverage_reduction_mode", &self.coverage_reduction_mode)
+                .field("rasterization_samples", &self.rasterization_samples)
+                .field("depth_stencil_samples", &self.depth_stencil_samples)
+                .field("color_samples", &self.color_samples)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for FramebufferMixedSamplesCombinationNV<'a> {

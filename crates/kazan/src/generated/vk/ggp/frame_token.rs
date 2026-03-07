@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PresentFrameTokenGGP<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PresentFrameTokenGGP")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("frame_token", &self.frame_token)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PresentFrameTokenGGP<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::PRESENT_FRAME_TOKEN_GGP;
     }

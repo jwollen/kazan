@@ -20,6 +20,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "shader_early_and_late_fragment_tests",
+                    &self.shader_early_and_late_fragment_tests,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a>
         for PhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD<'a>
     {

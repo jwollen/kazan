@@ -23,6 +23,28 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceDescriptorBufferFeaturesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceDescriptorBufferFeaturesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("descriptor_buffer", &self.descriptor_buffer)
+                .field(
+                    "descriptor_buffer_capture_replay",
+                    &self.descriptor_buffer_capture_replay,
+                )
+                .field(
+                    "descriptor_buffer_image_layout_ignored",
+                    &self.descriptor_buffer_image_layout_ignored,
+                )
+                .field(
+                    "descriptor_buffer_push_descriptors",
+                    &self.descriptor_buffer_push_descriptors,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDescriptorBufferFeaturesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_FEATURES_EXT;
@@ -120,6 +142,144 @@ pub(super) mod defs {
         pub resource_descriptor_buffer_address_space_size: DeviceSize,
         pub descriptor_buffer_address_space_size: DeviceSize,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceDescriptorBufferPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceDescriptorBufferPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "combined_image_sampler_descriptor_single_array",
+                    &self.combined_image_sampler_descriptor_single_array,
+                )
+                .field(
+                    "bufferless_push_descriptors",
+                    &self.bufferless_push_descriptors,
+                )
+                .field(
+                    "allow_sampler_image_view_post_submit_creation",
+                    &self.allow_sampler_image_view_post_submit_creation,
+                )
+                .field(
+                    "descriptor_buffer_offset_alignment",
+                    &self.descriptor_buffer_offset_alignment,
+                )
+                .field(
+                    "max_descriptor_buffer_bindings",
+                    &self.max_descriptor_buffer_bindings,
+                )
+                .field(
+                    "max_resource_descriptor_buffer_bindings",
+                    &self.max_resource_descriptor_buffer_bindings,
+                )
+                .field(
+                    "max_sampler_descriptor_buffer_bindings",
+                    &self.max_sampler_descriptor_buffer_bindings,
+                )
+                .field(
+                    "max_embedded_immutable_sampler_bindings",
+                    &self.max_embedded_immutable_sampler_bindings,
+                )
+                .field(
+                    "max_embedded_immutable_samplers",
+                    &self.max_embedded_immutable_samplers,
+                )
+                .field(
+                    "buffer_capture_replay_descriptor_data_size",
+                    &self.buffer_capture_replay_descriptor_data_size,
+                )
+                .field(
+                    "image_capture_replay_descriptor_data_size",
+                    &self.image_capture_replay_descriptor_data_size,
+                )
+                .field(
+                    "image_view_capture_replay_descriptor_data_size",
+                    &self.image_view_capture_replay_descriptor_data_size,
+                )
+                .field(
+                    "sampler_capture_replay_descriptor_data_size",
+                    &self.sampler_capture_replay_descriptor_data_size,
+                )
+                .field(
+                    "acceleration_structure_capture_replay_descriptor_data_size",
+                    &self.acceleration_structure_capture_replay_descriptor_data_size,
+                )
+                .field("sampler_descriptor_size", &self.sampler_descriptor_size)
+                .field(
+                    "combined_image_sampler_descriptor_size",
+                    &self.combined_image_sampler_descriptor_size,
+                )
+                .field(
+                    "sampled_image_descriptor_size",
+                    &self.sampled_image_descriptor_size,
+                )
+                .field(
+                    "storage_image_descriptor_size",
+                    &self.storage_image_descriptor_size,
+                )
+                .field(
+                    "uniform_texel_buffer_descriptor_size",
+                    &self.uniform_texel_buffer_descriptor_size,
+                )
+                .field(
+                    "robust_uniform_texel_buffer_descriptor_size",
+                    &self.robust_uniform_texel_buffer_descriptor_size,
+                )
+                .field(
+                    "storage_texel_buffer_descriptor_size",
+                    &self.storage_texel_buffer_descriptor_size,
+                )
+                .field(
+                    "robust_storage_texel_buffer_descriptor_size",
+                    &self.robust_storage_texel_buffer_descriptor_size,
+                )
+                .field(
+                    "uniform_buffer_descriptor_size",
+                    &self.uniform_buffer_descriptor_size,
+                )
+                .field(
+                    "robust_uniform_buffer_descriptor_size",
+                    &self.robust_uniform_buffer_descriptor_size,
+                )
+                .field(
+                    "storage_buffer_descriptor_size",
+                    &self.storage_buffer_descriptor_size,
+                )
+                .field(
+                    "robust_storage_buffer_descriptor_size",
+                    &self.robust_storage_buffer_descriptor_size,
+                )
+                .field(
+                    "input_attachment_descriptor_size",
+                    &self.input_attachment_descriptor_size,
+                )
+                .field(
+                    "acceleration_structure_descriptor_size",
+                    &self.acceleration_structure_descriptor_size,
+                )
+                .field(
+                    "max_sampler_descriptor_buffer_range",
+                    &self.max_sampler_descriptor_buffer_range,
+                )
+                .field(
+                    "max_resource_descriptor_buffer_range",
+                    &self.max_resource_descriptor_buffer_range,
+                )
+                .field(
+                    "sampler_descriptor_buffer_address_space_size",
+                    &self.sampler_descriptor_buffer_address_space_size,
+                )
+                .field(
+                    "resource_descriptor_buffer_address_space_size",
+                    &self.resource_descriptor_buffer_address_space_size,
+                )
+                .field(
+                    "descriptor_buffer_address_space_size",
+                    &self.descriptor_buffer_address_space_size,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDescriptorBufferPropertiesEXT<'a> {
@@ -456,6 +616,19 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "combined_image_sampler_density_map_descriptor_size",
+                    &self.combined_image_sampler_density_map_descriptor_size,
+                )
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_DENSITY_MAP_PROPERTIES_EXT;
@@ -498,6 +671,18 @@ pub(super) mod defs {
         pub range: DeviceSize,
         pub format: Format,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DescriptorAddressInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DescriptorAddressInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("address", &self.address)
+                .field("range", &self.range)
+                .field("format", &self.format)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DescriptorAddressInfoEXT<'a> {
@@ -545,6 +730,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DescriptorBufferBindingInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DescriptorBufferBindingInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("address", &self.address)
+                .field("usage", &self.usage)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DescriptorBufferBindingInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DESCRIPTOR_BUFFER_BINDING_INFO_EXT;
     }
@@ -581,6 +777,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub buffer: Buffer,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for DescriptorBufferBindingPushDescriptorBufferHandleEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DescriptorBufferBindingPushDescriptorBufferHandleEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("buffer", &self.buffer)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for DescriptorBufferBindingPushDescriptorBufferHandleEXT<'a> {
@@ -622,6 +828,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for DescriptorGetInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DescriptorGetInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("ty", &self.ty)
+                .field("data", &self.data)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for DescriptorGetInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::DESCRIPTOR_GET_INFO_EXT;
     }
@@ -660,6 +877,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for BufferCaptureDescriptorDataInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("BufferCaptureDescriptorDataInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("buffer", &self.buffer)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for BufferCaptureDescriptorDataInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT;
@@ -693,6 +920,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for ImageCaptureDescriptorDataInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageCaptureDescriptorDataInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("image", &self.image)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for ImageCaptureDescriptorDataInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT;
     }
@@ -723,6 +960,16 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub image_view: ImageView,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for ImageViewCaptureDescriptorDataInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("ImageViewCaptureDescriptorDataInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("image_view", &self.image_view)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for ImageViewCaptureDescriptorDataInfoEXT<'a> {
@@ -758,6 +1005,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SamplerCaptureDescriptorDataInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SamplerCaptureDescriptorDataInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("sampler", &self.sampler)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SamplerCaptureDescriptorDataInfoEXT<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::SAMPLER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT;
@@ -790,6 +1047,17 @@ pub(super) mod defs {
         pub acceleration_structure: AccelerationStructureKHR,
         pub acceleration_structure_nv: AccelerationStructureNV,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for AccelerationStructureCaptureDescriptorDataInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AccelerationStructureCaptureDescriptorDataInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("acceleration_structure", &self.acceleration_structure)
+                .field("acceleration_structure_nv", &self.acceleration_structure_nv)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureCaptureDescriptorDataInfoEXT<'a> {
@@ -835,6 +1103,19 @@ pub(super) mod defs {
         pub p_next: *const c_void,
         pub opaque_capture_descriptor_data: *const c_void,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for OpaqueCaptureDescriptorDataCreateInfoEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("OpaqueCaptureDescriptorDataCreateInfoEXT")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "opaque_capture_descriptor_data",
+                    &self.opaque_capture_descriptor_data,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for OpaqueCaptureDescriptorDataCreateInfoEXT<'a> {
@@ -897,6 +1178,13 @@ pub(super) mod defs {
         pub acceleration_structure: DeviceAddress,
         pub _marker: PhantomData<&'a ()>,
     }
+
+    impl fmt::Debug for DescriptorDataEXT<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DescriptorDataEXT").finish()
+        }
+    }
+
     impl Default for DescriptorDataEXT<'_> {
         fn default() -> Self {
             unsafe { core::mem::zeroed() }

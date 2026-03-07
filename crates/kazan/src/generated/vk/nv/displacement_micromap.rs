@@ -20,6 +20,16 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for PhysicalDeviceDisplacementMicromapFeaturesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceDisplacementMicromapFeaturesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("displacement_micromap", &self.displacement_micromap)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDisplacementMicromapFeaturesNV<'a> {
         const STRUCTURE_TYPE: StructureType =
             StructureType::PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_FEATURES_NV;
@@ -57,6 +67,19 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub max_displacement_micromap_subdivision_level: u32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDeviceDisplacementMicromapPropertiesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceDisplacementMicromapPropertiesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "max_displacement_micromap_subdivision_level",
+                    &self.max_displacement_micromap_subdivision_level,
+                )
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDeviceDisplacementMicromapPropertiesNV<'a> {
@@ -114,6 +137,55 @@ pub(super) mod defs {
         pub pp_usage_counts: *const *const MicromapUsageEXT,
         pub micromap: MicromapEXT,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for AccelerationStructureTrianglesDisplacementMicromapNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("AccelerationStructureTrianglesDisplacementMicromapNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "displacement_bias_and_scale_format",
+                    &self.displacement_bias_and_scale_format,
+                )
+                .field(
+                    "displacement_vector_format",
+                    &self.displacement_vector_format,
+                )
+                .field(
+                    "displacement_bias_and_scale_buffer",
+                    &self.displacement_bias_and_scale_buffer,
+                )
+                .field(
+                    "displacement_bias_and_scale_stride",
+                    &self.displacement_bias_and_scale_stride,
+                )
+                .field(
+                    "displacement_vector_buffer",
+                    &self.displacement_vector_buffer,
+                )
+                .field(
+                    "displacement_vector_stride",
+                    &self.displacement_vector_stride,
+                )
+                .field(
+                    "displaced_micromap_primitive_flags",
+                    &self.displaced_micromap_primitive_flags,
+                )
+                .field(
+                    "displaced_micromap_primitive_flags_stride",
+                    &self.displaced_micromap_primitive_flags_stride,
+                )
+                .field("index_type", &self.index_type)
+                .field("index_buffer", &self.index_buffer)
+                .field("index_stride", &self.index_stride)
+                .field("base_triangle", &self.base_triangle)
+                .field("usage_counts_count", &self.usage_counts_count)
+                .field("p_usage_counts", &self.p_usage_counts)
+                .field("pp_usage_counts", &self.pp_usage_counts)
+                .field("micromap", &self.micromap)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for AccelerationStructureTrianglesDisplacementMicromapNV<'a> {

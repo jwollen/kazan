@@ -21,6 +21,17 @@ pub(super) mod defs {
         pub _marker: PhantomData<&'a ()>,
     }
 
+    impl fmt::Debug for SetPresentConfigNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("SetPresentConfigNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("num_frames_per_batch", &self.num_frames_per_batch)
+                .field("present_config_feedback", &self.present_config_feedback)
+                .finish()
+        }
+    }
+
     unsafe impl<'a> TaggedStructure<'a> for SetPresentConfigNV<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::SET_PRESENT_CONFIG_NV;
     }
@@ -59,6 +70,16 @@ pub(super) mod defs {
         pub p_next: *mut c_void,
         pub present_metering: Bool32,
         pub _marker: PhantomData<&'a ()>,
+    }
+
+    impl fmt::Debug for PhysicalDevicePresentMeteringFeaturesNV<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDevicePresentMeteringFeaturesNV")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("present_metering", &self.present_metering)
+                .finish()
+        }
     }
 
     unsafe impl<'a> TaggedStructure<'a> for PhysicalDevicePresentMeteringFeaturesNV<'a> {
