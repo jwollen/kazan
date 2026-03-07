@@ -927,21 +927,18 @@ pub(super) mod defs {
             self
         }
 
-        pub fn enabled_layer_names_ptrs(
-            mut self,
-            enabled_layer_names_ptrs: &'a [*const c_char],
-        ) -> Self {
-            self.enabled_layer_count = enabled_layer_names_ptrs.len().try_into().unwrap();
-            self.pp_enabled_layer_names = enabled_layer_names_ptrs.as_ptr() as _;
+        pub fn enabled_layer_names(mut self, enabled_layer_names: &'a [*const c_char]) -> Self {
+            self.enabled_layer_count = enabled_layer_names.len().try_into().unwrap();
+            self.pp_enabled_layer_names = enabled_layer_names.as_ptr() as _;
             self
         }
 
-        pub fn enabled_extension_names_ptrs(
+        pub fn enabled_extension_names(
             mut self,
-            enabled_extension_names_ptrs: &'a [*const c_char],
+            enabled_extension_names: &'a [*const c_char],
         ) -> Self {
-            self.enabled_extension_count = enabled_extension_names_ptrs.len().try_into().unwrap();
-            self.pp_enabled_extension_names = enabled_extension_names_ptrs.as_ptr() as _;
+            self.enabled_extension_count = enabled_extension_names.len().try_into().unwrap();
+            self.pp_enabled_extension_names = enabled_extension_names.as_ptr() as _;
             self
         }
 
@@ -1015,21 +1012,18 @@ pub(super) mod defs {
             self
         }
 
-        pub fn enabled_layer_names_ptrs(
-            mut self,
-            enabled_layer_names_ptrs: &'a [*const c_char],
-        ) -> Self {
-            self.enabled_layer_count = enabled_layer_names_ptrs.len().try_into().unwrap();
-            self.pp_enabled_layer_names = enabled_layer_names_ptrs.as_ptr() as _;
+        pub fn enabled_layer_names(mut self, enabled_layer_names: &'a [*const c_char]) -> Self {
+            self.enabled_layer_count = enabled_layer_names.len().try_into().unwrap();
+            self.pp_enabled_layer_names = enabled_layer_names.as_ptr() as _;
             self
         }
 
-        pub fn enabled_extension_names_ptrs(
+        pub fn enabled_extension_names(
             mut self,
-            enabled_extension_names_ptrs: &'a [*const c_char],
+            enabled_extension_names: &'a [*const c_char],
         ) -> Self {
-            self.enabled_extension_count = enabled_extension_names_ptrs.len().try_into().unwrap();
-            self.pp_enabled_extension_names = enabled_extension_names_ptrs.as_ptr() as _;
+            self.enabled_extension_count = enabled_extension_names.len().try_into().unwrap();
+            self.pp_enabled_extension_names = enabled_extension_names.as_ptr() as _;
             self
         }
     }

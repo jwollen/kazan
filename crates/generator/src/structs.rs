@@ -174,7 +174,13 @@ fn analyze_struct<'a>(analysis: &'a Analysis, struct_ty: &'a xml::Structure) -> 
                         lifetime_param,
                     );
 
-                    let name = normalize_setter_param_name(array_member.c_decl.name);
+                    let mut name = normalize_setter_param_name(array_member.c_decl.name);
+                    let category = ctype_rust::CTypeCategory::from_ctype(&array_member.c_decl.ty, analysis);
+                    if matches!(category, ctype_rust::CTypeCategory::OpaquePointer { pointee_name: "char", .. }) {
+                        if let Some(stripped) = name.strip_suffix("_ptrs") {
+                            name = stripped.to_string();
+                        }
+                    }
                     let assignment =
                         setter_assignment_kind(analysis, &array_member.c_decl.ty);
 
