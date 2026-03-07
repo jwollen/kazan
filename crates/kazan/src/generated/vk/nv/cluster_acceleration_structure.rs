@@ -1150,13 +1150,13 @@ pub(super) mod defs {
     impl fmt::Debug for ClusterAccelerationStructureAddressResolutionFlagsNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-(ClusterAccelerationStructureAddressResolutionFlagsNV::INDIRECTED_DST_IMPLICIT_DATA_NV.0, "INDIRECTED_DST_IMPLICIT_DATA_NV"),
-(ClusterAccelerationStructureAddressResolutionFlagsNV::INDIRECTED_SCRATCH_DATA_NV.0, "INDIRECTED_SCRATCH_DATA_NV"),
-(ClusterAccelerationStructureAddressResolutionFlagsNV::INDIRECTED_DST_ADDRESS_ARRAY_NV.0, "INDIRECTED_DST_ADDRESS_ARRAY_NV"),
-(ClusterAccelerationStructureAddressResolutionFlagsNV::INDIRECTED_DST_SIZES_ARRAY_NV.0, "INDIRECTED_DST_SIZES_ARRAY_NV"),
-(ClusterAccelerationStructureAddressResolutionFlagsNV::INDIRECTED_SRC_INFOS_ARRAY_NV.0, "INDIRECTED_SRC_INFOS_ARRAY_NV"),
-(ClusterAccelerationStructureAddressResolutionFlagsNV::INDIRECTED_SRC_INFOS_COUNT_NV.0, "INDIRECTED_SRC_INFOS_COUNT_NV"),
-];
+                (ClusterAccelerationStructureAddressResolutionFlagsNV::INDIRECTED_DST_IMPLICIT_DATA_NV.0, "INDIRECTED_DST_IMPLICIT_DATA_NV"),
+                (ClusterAccelerationStructureAddressResolutionFlagsNV::INDIRECTED_SCRATCH_DATA_NV.0, "INDIRECTED_SCRATCH_DATA_NV"),
+                (ClusterAccelerationStructureAddressResolutionFlagsNV::INDIRECTED_DST_ADDRESS_ARRAY_NV.0, "INDIRECTED_DST_ADDRESS_ARRAY_NV"),
+                (ClusterAccelerationStructureAddressResolutionFlagsNV::INDIRECTED_DST_SIZES_ARRAY_NV.0, "INDIRECTED_DST_SIZES_ARRAY_NV"),
+                (ClusterAccelerationStructureAddressResolutionFlagsNV::INDIRECTED_SRC_INFOS_ARRAY_NV.0, "INDIRECTED_SRC_INFOS_ARRAY_NV"),
+                (ClusterAccelerationStructureAddressResolutionFlagsNV::INDIRECTED_SRC_INFOS_COUNT_NV.0, "INDIRECTED_SRC_INFOS_COUNT_NV"),
+            ];
             debug_flags(f, KNOWN, self.0)
         }
     }

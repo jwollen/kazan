@@ -543,12 +543,12 @@ pub(super) mod defs {
     impl fmt::Debug for PartitionedAccelerationStructureInstanceFlagsNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-(PartitionedAccelerationStructureInstanceFlagsNV::FLAG_TRIANGLE_FACING_CULL_DISABLE_NV.0, "FLAG_TRIANGLE_FACING_CULL_DISABLE_NV"),
-(PartitionedAccelerationStructureInstanceFlagsNV::FLAG_TRIANGLE_FLIP_FACING_NV.0, "FLAG_TRIANGLE_FLIP_FACING_NV"),
-(PartitionedAccelerationStructureInstanceFlagsNV::FLAG_FORCE_OPAQUE_NV.0, "FLAG_FORCE_OPAQUE_NV"),
-(PartitionedAccelerationStructureInstanceFlagsNV::FLAG_FORCE_NO_OPAQUE_NV.0, "FLAG_FORCE_NO_OPAQUE_NV"),
-(PartitionedAccelerationStructureInstanceFlagsNV::FLAG_ENABLE_EXPLICIT_BOUNDING_BOX_NV.0, "FLAG_ENABLE_EXPLICIT_BOUNDING_BOX_NV"),
-];
+                (PartitionedAccelerationStructureInstanceFlagsNV::FLAG_TRIANGLE_FACING_CULL_DISABLE_NV.0, "FLAG_TRIANGLE_FACING_CULL_DISABLE_NV"),
+                (PartitionedAccelerationStructureInstanceFlagsNV::FLAG_TRIANGLE_FLIP_FACING_NV.0, "FLAG_TRIANGLE_FLIP_FACING_NV"),
+                (PartitionedAccelerationStructureInstanceFlagsNV::FLAG_FORCE_OPAQUE_NV.0, "FLAG_FORCE_OPAQUE_NV"),
+                (PartitionedAccelerationStructureInstanceFlagsNV::FLAG_FORCE_NO_OPAQUE_NV.0, "FLAG_FORCE_NO_OPAQUE_NV"),
+                (PartitionedAccelerationStructureInstanceFlagsNV::FLAG_ENABLE_EXPLICIT_BOUNDING_BOX_NV.0, "FLAG_ENABLE_EXPLICIT_BOUNDING_BOX_NV"),
+            ];
             debug_flags(f, KNOWN, self.0)
         }
     }

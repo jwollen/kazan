@@ -537,11 +537,11 @@ pub fn write_bitmask(
         )
         .unwrap();
         for (bit_name, _) in &debug_bits {
-            writeln!(file, "({name}::{bit_name}.0, \"{bit_name}\"),").unwrap();
+            writeln!(file, "                ({name}::{bit_name}.0, \"{bit_name}\"),").unwrap();
         }
         writeln!(
             file,
-            "];
+            "            ];
             debug_flags(f, KNOWN, self.0)
             }} }}\n"
         )
