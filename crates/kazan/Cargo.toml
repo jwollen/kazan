@@ -12,6 +12,8 @@ provisional = []
 linked = []
 loaded = ["libloading", "std"]
 std = []
+window = ["raw-window-handle"]
 
 [dependencies]
 libloading = { version = "0.9", optional = true }
+raw-window-handle = { version = "0.6", optional = true }
