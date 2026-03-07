@@ -125,6 +125,14 @@ pub(super) mod defs {
     }
 
     impl DeviceFaultVendorInfoEXT {
+        pub fn description(
+            mut self,
+            description: &CStr,
+        ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
+            write_c_str_slice_with_nul(&mut self.description, description)?;
+            Ok(self)
+        }
+
         pub fn vendor_fault_code(mut self, vendor_fault_code: u64) -> Self {
             self.vendor_fault_code = vendor_fault_code;
             self
@@ -242,6 +250,14 @@ pub(super) mod defs {
     }
 
     impl<'a> DeviceFaultInfoEXT<'a> {
+        pub fn description(
+            mut self,
+            description: &CStr,
+        ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
+            write_c_str_slice_with_nul(&mut self.description, description)?;
+            Ok(self)
+        }
+
         pub fn address_infos(mut self, address_infos: &'a mut DeviceFaultAddressInfoEXT) -> Self {
             self.p_address_infos = address_infos;
             self

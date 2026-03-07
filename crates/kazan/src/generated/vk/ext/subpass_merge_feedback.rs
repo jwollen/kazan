@@ -155,6 +155,14 @@ pub(super) mod defs {
             self
         }
 
+        pub fn description(
+            mut self,
+            description: &CStr,
+        ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
+            write_c_str_slice_with_nul(&mut self.description, description)?;
+            Ok(self)
+        }
+
         pub fn post_merge_index(mut self, post_merge_index: u32) -> Self {
             self.post_merge_index = post_merge_index;
             self

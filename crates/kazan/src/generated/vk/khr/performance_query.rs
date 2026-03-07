@@ -252,6 +252,30 @@ pub(super) mod defs {
             self.flags = flags;
             self
         }
+
+        pub fn name(
+            mut self,
+            name: &CStr,
+        ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
+            write_c_str_slice_with_nul(&mut self.name, name)?;
+            Ok(self)
+        }
+
+        pub fn category(
+            mut self,
+            category: &CStr,
+        ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
+            write_c_str_slice_with_nul(&mut self.category, category)?;
+            Ok(self)
+        }
+
+        pub fn description(
+            mut self,
+            description: &CStr,
+        ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
+            write_c_str_slice_with_nul(&mut self.description, description)?;
+            Ok(self)
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryPoolPerformanceCreateInfoKHR.html>

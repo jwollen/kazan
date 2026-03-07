@@ -39,7 +39,7 @@ struct SetterParamInfo {
 }
 
 /// Describes how to emit the assignment of a setter parameter to a struct member.
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 enum SetterAssignmentKind {
     /// Copy slice into fixed array: `self.member[..param.len()].copy_from_slice(param)`
     CopyFromSlice,
@@ -51,6 +51,8 @@ enum SetterAssignmentKind {
     PtrFromRef { is_const: bool },
     /// Assign from CStr: `self.member = value.as_ptr()`
     CStrToPtr,
+    /// Write CStr into fixed `[c_char; N]` array: `write_c_str_slice_with_nul(&mut self.member, value).expect(...)`
+    CStrToArray,
 }
 
 #[derive(Debug)]
@@ -95,7 +97,7 @@ fn analyze_struct<'a>(analysis: &'a Analysis, struct_ty: &'a xml::Structure) -> 
 
         let is_special_member = member.c_decl.name == "sType" || member.c_decl.name == "pNext";
 
-        // Scalar *const c_char / *mut c_char with len="null-terminated" get a setter taking CStr.
+        // Null-terminated string fields get a setter taking &CStr.
         if len.len() == 1
             && matches!(len.first(), Some(LengthKind::NullTerminated))
             && !is_special_member
@@ -109,6 +111,11 @@ fn analyze_struct<'a>(analysis: &'a Analysis, struct_ty: &'a xml::Structure) -> 
                         ..
                     }
             );
+            let is_char_array = matches!(
+                &category,
+                ctype_rust::CTypeCategory::Array { element, .. }
+                    if matches!(element, CType::Base(b) if b.name == "char")
+            );
             if is_char_ptr {
                 let param_name = normalize_setter_param_name(member.c_decl.name);
                 setters.push(MemberSetterInfo {
@@ -120,6 +127,26 @@ fn analyze_struct<'a>(analysis: &'a Analysis, struct_ty: &'a xml::Structure) -> 
                         assignment: SetterAssignmentKind::CStrToPtr,
                     }),
                 });
+            } else if is_char_array {
+                let param_name = normalize_setter_param_name(member.c_decl.name);
+                setters.push(MemberSetterInfo {
+                    name: param_name.clone(),
+                    kind: SetterKind::Value(SetterParamInfo {
+                        name: param_name,
+                        member_index,
+                        ty: "&CStr".to_string(),
+                        assignment: SetterAssignmentKind::CStrToArray,
+                    }),
+                });
+
+                let ty = ctype_to_rust_type(analysis, &member.c_decl.ty, lifetime_param);
+                members.push(MemberInfo {
+                    member,
+                    name,
+                    ty,
+                    len,
+                });
+                continue;
             }
         }
 
@@ -362,7 +389,12 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
             }
         }
 
-        writeln!(file, ") -> Self {{").unwrap();
+        let is_cstr_array = matches!(&setter.kind, SetterKind::Value(p) if p.assignment == SetterAssignmentKind::CStrToArray);
+        if is_cstr_array {
+            writeln!(file, ") -> core::result::Result<Self, CStrTooLargeForStaticArray> {{").unwrap();
+        } else {
+            writeln!(file, ") -> Self {{").unwrap();
+        }
 
         match &setter.kind {
             SetterKind::Value(param) => {
@@ -371,6 +403,14 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
                     SetterAssignmentKind::CStrToPtr => {
                         writeln!(file, "self.{} = {}.as_ptr();", member.name, param.name)
                             .unwrap();
+                    }
+                    SetterAssignmentKind::CStrToArray => {
+                        writeln!(
+                            file,
+                            "write_c_str_slice_with_nul(&mut self.{}, {})?;",
+                            member.name, param.name
+                        )
+                        .unwrap();
                     }
                     _ => {
                         if member.ty.starts_with("PFN_") {
@@ -413,7 +453,11 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
             }
         }
 
-        writeln!(file, "self }}\n").unwrap();
+        if is_cstr_array {
+            writeln!(file, "Ok(self) }}\n").unwrap();
+        } else {
+            writeln!(file, "self }}\n").unwrap();
+        }
     }
     writeln!(file, "}}\n").unwrap();
 }
@@ -588,8 +632,8 @@ fn emit_setter_assignment(
                 writeln!(file, "self.{} = {}.as_mut_ptr();", member_name, param_name).unwrap();
             }
         }
-        SetterAssignmentKind::CStrToPtr => {
-            unreachable!("CStrToPtr only used for Value setters")
+        SetterAssignmentKind::CStrToPtr | SetterAssignmentKind::CStrToArray => {
+            unreachable!("CStr assignments only used for Value setters")
         }
     }
 }

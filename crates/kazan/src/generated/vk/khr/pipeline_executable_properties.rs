@@ -157,6 +157,22 @@ pub(super) mod defs {
             self
         }
 
+        pub fn name(
+            mut self,
+            name: &CStr,
+        ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
+            write_c_str_slice_with_nul(&mut self.name, name)?;
+            Ok(self)
+        }
+
+        pub fn description(
+            mut self,
+            description: &CStr,
+        ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
+            write_c_str_slice_with_nul(&mut self.description, description)?;
+            Ok(self)
+        }
+
         pub fn subgroup_size(mut self, subgroup_size: u32) -> Self {
             self.subgroup_size = subgroup_size;
             self
@@ -261,6 +277,22 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineExecutableStatisticKHR<'a> {
+        pub fn name(
+            mut self,
+            name: &CStr,
+        ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
+            write_c_str_slice_with_nul(&mut self.name, name)?;
+            Ok(self)
+        }
+
+        pub fn description(
+            mut self,
+            description: &CStr,
+        ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
+            write_c_str_slice_with_nul(&mut self.description, description)?;
+            Ok(self)
+        }
+
         pub fn format(mut self, format: PipelineExecutableStatisticFormatKHR) -> Self {
             self.format = format;
             self
@@ -324,6 +356,22 @@ pub(super) mod defs {
     }
 
     impl<'a> PipelineExecutableInternalRepresentationKHR<'a> {
+        pub fn name(
+            mut self,
+            name: &CStr,
+        ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
+            write_c_str_slice_with_nul(&mut self.name, name)?;
+            Ok(self)
+        }
+
+        pub fn description(
+            mut self,
+            description: &CStr,
+        ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
+            write_c_str_slice_with_nul(&mut self.description, description)?;
+            Ok(self)
+        }
+
         pub fn is_text(mut self, is_text: bool) -> Self {
             self.is_text = is_text.into();
             self

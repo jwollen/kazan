@@ -245,6 +245,14 @@ pub(super) mod defs {
             self.flags = flags;
             self
         }
+
+        pub fn name(
+            mut self,
+            name: &CStr,
+        ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
+            write_c_str_slice_with_nul(&mut self.name, name)?;
+            Ok(self)
+        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassPerformanceCountersByRegionBeginInfoARM.html>

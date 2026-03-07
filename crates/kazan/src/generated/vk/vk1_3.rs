@@ -1996,9 +1996,41 @@ _marker: PhantomData
     }
 
     impl<'a> PhysicalDeviceToolProperties<'a> {
+        pub fn name(
+            mut self,
+            name: &CStr,
+        ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
+            write_c_str_slice_with_nul(&mut self.name, name)?;
+            Ok(self)
+        }
+
+        pub fn version(
+            mut self,
+            version: &CStr,
+        ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
+            write_c_str_slice_with_nul(&mut self.version, version)?;
+            Ok(self)
+        }
+
         pub fn purposes(mut self, purposes: ToolPurposeFlags) -> Self {
             self.purposes = purposes;
             self
+        }
+
+        pub fn description(
+            mut self,
+            description: &CStr,
+        ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
+            write_c_str_slice_with_nul(&mut self.description, description)?;
+            Ok(self)
+        }
+
+        pub fn layer(
+            mut self,
+            layer: &CStr,
+        ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
+            write_c_str_slice_with_nul(&mut self.layer, layer)?;
+            Ok(self)
         }
     }
 

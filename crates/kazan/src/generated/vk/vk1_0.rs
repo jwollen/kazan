@@ -488,6 +488,14 @@ pub(super) mod defs {
             self
         }
 
+        pub fn device_name(
+            mut self,
+            device_name: &CStr,
+        ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
+            write_c_str_slice_with_nul(&mut self.device_name, device_name)?;
+            Ok(self)
+        }
+
         pub fn pipeline_cache_uuid(
             mut self,
             pipeline_cache_uuid: [u8; UUID_SIZE as usize],
@@ -540,6 +548,14 @@ pub(super) mod defs {
     }
 
     impl ExtensionProperties {
+        pub fn extension_name(
+            mut self,
+            extension_name: &CStr,
+        ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
+            write_c_str_slice_with_nul(&mut self.extension_name, extension_name)?;
+            Ok(self)
+        }
+
         pub fn spec_version(mut self, spec_version: u32) -> Self {
             self.spec_version = spec_version;
             self
@@ -582,6 +598,14 @@ pub(super) mod defs {
     }
 
     impl LayerProperties {
+        pub fn layer_name(
+            mut self,
+            layer_name: &CStr,
+        ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
+            write_c_str_slice_with_nul(&mut self.layer_name, layer_name)?;
+            Ok(self)
+        }
+
         pub fn spec_version(mut self, spec_version: u32) -> Self {
             self.spec_version = spec_version;
             self
@@ -590,6 +614,14 @@ pub(super) mod defs {
         pub fn implementation_version(mut self, implementation_version: u32) -> Self {
             self.implementation_version = implementation_version;
             self
+        }
+
+        pub fn description(
+            mut self,
+            description: &CStr,
+        ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
+            write_c_str_slice_with_nul(&mut self.description, description)?;
+            Ok(self)
         }
     }
 

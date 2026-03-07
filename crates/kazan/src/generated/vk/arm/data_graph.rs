@@ -1023,6 +1023,14 @@ pub(super) mod defs {
             self
         }
 
+        pub fn name(
+            mut self,
+            name: &CStr,
+        ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
+            write_c_str_slice_with_nul(&mut self.name, name)?;
+            Ok(self)
+        }
+
         pub fn version(mut self, version: u32) -> Self {
             self.version = version;
             self

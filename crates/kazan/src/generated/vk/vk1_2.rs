@@ -103,6 +103,22 @@ pub(super) mod defs {
             self
         }
 
+        pub fn driver_name(
+            mut self,
+            driver_name: &CStr,
+        ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
+            write_c_str_slice_with_nul(&mut self.driver_name, driver_name)?;
+            Ok(self)
+        }
+
+        pub fn driver_info(
+            mut self,
+            driver_info: &CStr,
+        ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
+            write_c_str_slice_with_nul(&mut self.driver_info, driver_info)?;
+            Ok(self)
+        }
+
         pub fn conformance_version(mut self, conformance_version: ConformanceVersion) -> Self {
             self.conformance_version = conformance_version;
             self
@@ -4928,6 +4944,22 @@ pub(super) mod defs {
         pub fn driver_id(mut self, driver_id: DriverId) -> Self {
             self.driver_id = driver_id;
             self
+        }
+
+        pub fn driver_name(
+            mut self,
+            driver_name: &CStr,
+        ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
+            write_c_str_slice_with_nul(&mut self.driver_name, driver_name)?;
+            Ok(self)
+        }
+
+        pub fn driver_info(
+            mut self,
+            driver_info: &CStr,
+        ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
+            write_c_str_slice_with_nul(&mut self.driver_info, driver_info)?;
+            Ok(self)
         }
 
         pub fn conformance_version(mut self, conformance_version: ConformanceVersion) -> Self {
