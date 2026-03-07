@@ -371,13 +371,6 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
         };
 
         if !is_implicit_length {
-            if (is_output_param || is_output_opaque_param) && !is_return_param {
-                println!(
-                    "output param can't be turned into a return value: {} -> {}",
-                    command.name, param.c_decl.name
-                );
-            }
-
             if is_return_param {
                 return_params.push(param_index);
             } else {
