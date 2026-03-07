@@ -704,7 +704,14 @@ pub fn write_command_wrapper(
     if let Some(enumeration_info) = &wrapper.enumeration_info {
         write_enumeration_fn_body(file, analysis, info, &wrapper, enumeration_info);
     } else {
-        write_fn_body(file, analysis, &wrapper, info.optional, ok_codes_override.as_ref(), false);
+        write_fn_body(
+            file,
+            analysis,
+            &wrapper,
+            info.optional,
+            ok_codes_override.as_ref(),
+            false,
+        );
     }
 
     writeln!(file, "}} }}\n").unwrap();
@@ -724,7 +731,10 @@ fn write_enumeration_fn_body(
     }
     for wrapper_param in &wrapper.wrapper_params {
         let param = &wrapper.params[wrapper_param.param_index];
-        if param.is_output_param && wrapper_param.param_index != enumeration_info.len_param && !param.is_return_param {
+        if param.is_output_param
+            && wrapper_param.param_index != enumeration_info.len_param
+            && !param.is_return_param
+        {
             writeln!(file, "{}: {}, ", wrapper_param.name, wrapper_param.ty).unwrap();
         }
     }
@@ -735,7 +745,14 @@ fn write_enumeration_fn_body(
         codes: &wrapper.command.success_codes,
         repr: crate::overrides::SuccessCodeRepr::RawResult, // unused since in_enumeration=true
     };
-    write_fn_body(file, analysis, wrapper, info.optional, Some(&enum_ok_codes), true);
+    write_fn_body(
+        file,
+        analysis,
+        wrapper,
+        info.optional,
+        Some(&enum_ok_codes),
+        true,
+    );
     writeln!(file, "}};").unwrap();
 
     writeln!(file, "let mut len = 0; call(&mut len, ").unwrap();
@@ -744,14 +761,17 @@ fn write_enumeration_fn_body(
     }
     for wrapper_param in &wrapper.wrapper_params {
         let param = &wrapper.params[wrapper_param.param_index];
-        if param.is_output_param && wrapper_param.param_index != enumeration_info.len_param && !param.is_return_param {
-            // Skip in the first call if optional 
+        if param.is_output_param
+            && wrapper_param.param_index != enumeration_info.len_param
+            && !param.is_return_param
+        {
+            // Skip in the first call if optional
             if param.optional.0 {
                 writeln!(file, "None, ").unwrap();
             } else {
                 writeln!(file, "{}, ", param.name).unwrap();
             }
-        } 
+        }
     }
     if wrapper.is_fallible {
         writeln!(file, ")?;").unwrap();
@@ -794,7 +814,10 @@ fn write_enumeration_fn_body(
     }
     for wrapper_param in &wrapper.wrapper_params {
         let param = &wrapper.params[wrapper_param.param_index];
-        if param.is_output_param && wrapper_param.param_index != enumeration_info.len_param && !param.is_return_param {
+        if param.is_output_param
+            && wrapper_param.param_index != enumeration_info.len_param
+            && !param.is_return_param
+        {
             writeln!(file, "{}, ", param.name).unwrap();
         }
     }
@@ -977,7 +1000,8 @@ fn write_fn_body(
         let kind = arg_emit_kind(param_index, param, wrapper, analysis);
         emit_arg(file, &param.name, kind);
     }
-    if matches!(&wrapper.wrapper_return, WrapperReturnKind::CommandReturnValue { ty } if ty == "bool") {
+    if matches!(&wrapper.wrapper_return, WrapperReturnKind::CommandReturnValue { ty } if ty == "bool")
+    {
         writeln!(file, ") != 0").unwrap();
     } else {
         writeln!(file, ")").unwrap();
@@ -1028,7 +1052,11 @@ fn write_fn_body(
                 let code_value = match ok_codes.repr {
                     crate::overrides::SuccessCodeRepr::RawResult => "result".to_string(),
                     crate::overrides::SuccessCodeRepr::Bool => {
-                        if i == 0 { "false".to_string() } else { "true".to_string() }
+                        if i == 0 {
+                            "false".to_string()
+                        } else {
+                            "true".to_string()
+                        }
                     }
                 };
                 let ok_value = match return_value.as_deref() {

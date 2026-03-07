@@ -23,7 +23,10 @@ pub enum CTypeCategory<'a> {
         len: &'a CArrayLen<'a>,
     },
     /// Pointer to opaque type (void*, handle ptr, etc.) — stays as raw pointer in Rust.
-    OpaquePointer { is_const: bool, pointee_name: &'a str },
+    OpaquePointer {
+        is_const: bool,
+        pointee_name: &'a str,
+    },
     /// Pointer to char — becomes CStr / &CStr in Rust.
     CharPointer { is_const: bool },
     /// Pointer to known non-opaque pointee — can become &T / &[T] in Rust.
@@ -46,14 +49,18 @@ impl<'a> CTypeCategory<'a> {
                     CTypeCategory::Base(base.name)
                 }
             }
-            CType::Ptr { pointee, is_const, .. } => {
+            CType::Ptr {
+                pointee, is_const, ..
+            } => {
                 let pointee = pointee.as_ref();
                 match pointee {
                     CType::Base(inner) => {
                         let name = inner.name;
                         if name == "void" || name == "char" || is_opaque_type(name) {
                             if name == "char" {
-                                CTypeCategory::CharPointer { is_const: *is_const }
+                                CTypeCategory::CharPointer {
+                                    is_const: *is_const,
+                                }
                             } else {
                                 CTypeCategory::OpaquePointer {
                                     is_const: *is_const,
@@ -269,7 +276,13 @@ fn ctype_category_to_rust(
             }
         }
 
-        (CTypeCategory::OpaquePointer { is_const, pointee_name }, _) => {
+        (
+            CTypeCategory::OpaquePointer {
+                is_const,
+                pointee_name,
+            },
+            _,
+        ) => {
             let inner = base_name_str(pointee_name).to_string();
             if *is_const {
                 RustTypeRepr::PtrConst(inner)

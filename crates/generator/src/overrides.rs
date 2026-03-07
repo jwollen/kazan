@@ -4,11 +4,7 @@ use std::io::Write;
 ///
 /// Some Vulkan commands have semantics that can't be expressed correctly by the
 /// general-purpose wrapper generator. This function provides per-command overrides.
-pub fn write_command_override(
-    _file: &mut impl Write,
-    command_name: &str,
-    _optional: bool,
-) -> bool {
+pub fn write_command_override(_file: &mut impl Write, command_name: &str, _optional: bool) -> bool {
     match command_name {
         _ => false,
     }

@@ -129,7 +129,12 @@ fn generate(analysis: &analysis::Analysis) {
         .unwrap();
 
         if let Module::Extension(extension) = module {
-            writeln!(file, "pub const EXTENSION_NAME: &CStr = c\"{}\";\n", extension.name).unwrap();
+            writeln!(
+                file,
+                "pub const EXTENSION_NAME: &CStr = c\"{}\";\n",
+                extension.name
+            )
+            .unwrap();
         }
 
         writeln!(file, "pub(super) mod defs {{").unwrap();
