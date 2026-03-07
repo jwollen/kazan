@@ -104,7 +104,7 @@ pub trait Handle: Sized {
     /// # Example
     ///
     /// ```
-    /// # use ash::vk::{Handle, Instance};
+    /// # use kazan::vk::{Handle, Instance};
     /// let instance = Instance::null();
     /// assert!(instance.is_null());
     /// ```
