@@ -1,15 +1,11 @@
 use core::fmt;
+use core::{ffi::CStr, mem};
+
 #[cfg(feature = "loaded")]
 use std::ffi::OsStr;
-use std::{
-    ffi::{CStr, c_void},
-    mem,
-};
 
 #[cfg(feature = "loaded")]
 use libloading::Library;
-
-pub type LoadFn = fn(&CStr) -> Option<crate::vk::PFN_vkVoidFunction>;
 
 pub struct Entry {
     #[cfg(feature = "loaded")]
@@ -106,8 +102,7 @@ impl StaticFn {
     where
         F: FnMut(&CStr) -> Option<crate::vk::PFN_vkVoidFunction>,
     {
-        let get_instance_proc_addr = f(c"vkGetInstanceProcAddr")
-            .ok_or(MissingEntryPointError)?;
+        let get_instance_proc_addr = f(c"vkGetInstanceProcAddr").ok_or(MissingEntryPointError)?;
 
         Ok(Self {
             get_instance_proc_addr: unsafe { mem::transmute(get_instance_proc_addr) },
@@ -173,7 +168,7 @@ mod loaded {
 #[cfg(feature = "loaded")]
 pub use self::loaded::*;
 
-#[cfg(feature = "loaded")]
+#[cfg(all(feature = "loaded", test))]
 mod tests {
     use crate::vk;
 
@@ -195,10 +190,6 @@ mod tests {
         }
     }
 
-    pub const fn make_api_version(variant: u32, major: u32, minor: u32, patch: u32) -> u32 {
-        ((variant) << 29) | ((major) << 22) | ((minor) << 12) | (patch)
-    }
-
     struct InstanceFn {
         vk1_0: vk::vk1_0::InstanceFn,
     }
@@ -210,7 +201,7 @@ mod tests {
         let api_version = if let Some(vk1_1) = entry.vk1_1 {
             unsafe { vk1_1.enumerate_instance_version()? }
         } else {
-            make_api_version(0, 1, 0, 0)
+            crate::vk::make_api_version(0, 1, 0, 0)
         };
         println!("API version: {}", api_version);
 
@@ -251,7 +242,7 @@ mod tests {
             instance_fn
                 .vk1_0
                 .enumerate_physical_devices(instance, &mut physical_devices)?;
-            
+
             for physical_device in &physical_devices {
                 let mut extension_properties = Vec::new();
                 instance_fn.vk1_0.enumerate_device_extension_properties(

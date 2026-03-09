@@ -50,7 +50,7 @@ macro_rules! offset_of {
 #[allow(clippy::too_many_arguments)]
 pub fn record_submit_commandbuffer<F: FnOnce(&vk1_0::DeviceFn, vk::CommandBuffer)>(
     device_fn: &vk1_0::DeviceFn,
-    device: vk::Device,
+    _device: vk::Device,
     command_buffer: vk::CommandBuffer,
     command_buffer_reuse_fence: vk::Fence,
     submit_queue: vk::Queue,
@@ -97,19 +97,19 @@ unsafe extern "system" fn vulkan_debug_callback(
     p_callback_data: *const vk::DebugUtilsMessengerCallbackDataEXT<'_>,
     _user_data: *mut std::os::raw::c_void,
 ) -> vk::Bool32 {
-    let callback_data = *p_callback_data;
+    let callback_data = unsafe { *p_callback_data };
     let message_id_number = callback_data.message_id_number;
 
     let message_id_name = if callback_data.p_message_id_name.is_null() {
         Cow::from("")
     } else {
-        ffi::CStr::from_ptr(callback_data.p_message_id_name).to_string_lossy()
+        unsafe { ffi::CStr::from_ptr(callback_data.p_message_id_name).to_string_lossy() }
     };
 
     let message = if callback_data.p_message.is_null() {
         Cow::from("")
     } else {
-        ffi::CStr::from_ptr(callback_data.p_message).to_string_lossy()
+        unsafe { ffi::CStr::from_ptr(callback_data.p_message).to_string_lossy() }
     };
 
     println!(
@@ -243,7 +243,7 @@ impl ExampleBase {
             let load_instance = |instance: vk::Instance| {
                 let get_proc = entry.static_fn.get_instance_proc_addr;
                 move |name: &ffi::CStr| -> Option<vk::PFN_vkVoidFunction> {
-                    unsafe { mem::transmute(get_proc(instance, name.as_ptr())) }
+                    mem::transmute(get_proc(instance, name.as_ptr()))
                 }
             };
 
