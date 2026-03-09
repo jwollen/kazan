@@ -113,6 +113,23 @@ pub(super) mod defs {
         unsafe extern "system" fn(command_buffer: CommandBuffer, logic_op: LogicOp);
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceExtendedDynamicState2FeaturesEXT =
+        PhysicalDeviceExtendedDynamicState2FeaturesEXT<'static>;
+    impl PhysicalDeviceExtendedDynamicState2FeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceExtendedDynamicState2FeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_set_patch_control_points_ext: PFN_vkCmdSetPatchControlPointsEXT,
     cmd_set_rasterizer_discard_enable_ext: PFN_vkCmdSetRasterizerDiscardEnable,

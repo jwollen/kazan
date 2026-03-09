@@ -1675,3 +1675,131 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkVideoEncodeH264CapabilitiesKHR = VideoEncodeH264CapabilitiesKHR<'static>;
+    pub type VkVideoEncodeH264QualityLevelPropertiesKHR =
+        VideoEncodeH264QualityLevelPropertiesKHR<'static>;
+    pub type VkVideoEncodeH264SessionCreateInfoKHR = VideoEncodeH264SessionCreateInfoKHR<'static>;
+    pub type VkVideoEncodeH264SessionParametersAddInfoKHR =
+        VideoEncodeH264SessionParametersAddInfoKHR<'static>;
+    pub type VkVideoEncodeH264SessionParametersCreateInfoKHR =
+        VideoEncodeH264SessionParametersCreateInfoKHR<'static>;
+    pub type VkVideoEncodeH264SessionParametersGetInfoKHR =
+        VideoEncodeH264SessionParametersGetInfoKHR<'static>;
+    pub type VkVideoEncodeH264SessionParametersFeedbackInfoKHR =
+        VideoEncodeH264SessionParametersFeedbackInfoKHR<'static>;
+    pub type VkVideoEncodeH264DpbSlotInfoKHR = VideoEncodeH264DpbSlotInfoKHR<'static>;
+    pub type VkVideoEncodeH264PictureInfoKHR = VideoEncodeH264PictureInfoKHR<'static>;
+    pub type VkVideoEncodeH264ProfileInfoKHR = VideoEncodeH264ProfileInfoKHR<'static>;
+    pub type VkVideoEncodeH264NaluSliceInfoKHR = VideoEncodeH264NaluSliceInfoKHR<'static>;
+    pub type VkVideoEncodeH264RateControlInfoKHR = VideoEncodeH264RateControlInfoKHR<'static>;
+    pub type VkVideoEncodeH264QpKHR = VideoEncodeH264QpKHR;
+    pub type VkVideoEncodeH264FrameSizeKHR = VideoEncodeH264FrameSizeKHR;
+    pub type VkVideoEncodeH264GopRemainingFrameInfoKHR =
+        VideoEncodeH264GopRemainingFrameInfoKHR<'static>;
+    pub type VkVideoEncodeH264RateControlLayerInfoKHR =
+        VideoEncodeH264RateControlLayerInfoKHR<'static>;
+    pub type VkVideoEncodeH264CapabilityFlagsKHR = VideoEncodeH264CapabilityFlagsKHR;
+    pub type VkVideoEncodeH264CapabilityFlagBitsKHR = VideoEncodeH264CapabilityFlagBitsKHR;
+    pub type VkVideoEncodeH264StdFlagsKHR = VideoEncodeH264StdFlagsKHR;
+    pub type VkVideoEncodeH264StdFlagBitsKHR = VideoEncodeH264StdFlagBitsKHR;
+    pub type VkVideoEncodeH264RateControlFlagsKHR = VideoEncodeH264RateControlFlagsKHR;
+    pub type VkVideoEncodeH264RateControlFlagBitsKHR = VideoEncodeH264RateControlFlagBitsKHR;
+    impl VideoEncodeH264CapabilitiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeH264CapabilitiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeH264QualityLevelPropertiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeH264QualityLevelPropertiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeH264SessionCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeH264SessionCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeH264SessionParametersAddInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkVideoEncodeH264SessionParametersAddInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeH264SessionParametersCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkVideoEncodeH264SessionParametersCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeH264SessionParametersGetInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkVideoEncodeH264SessionParametersGetInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeH264SessionParametersFeedbackInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkVideoEncodeH264SessionParametersFeedbackInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeH264DpbSlotInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeH264DpbSlotInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeH264PictureInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeH264PictureInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeH264ProfileInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeH264ProfileInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeH264NaluSliceInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeH264NaluSliceInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeH264RateControlInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeH264RateControlInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeH264GopRemainingFrameInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeH264GopRemainingFrameInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeH264RateControlLayerInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeH264RateControlLayerInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

@@ -400,6 +400,55 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkNativeBufferUsageOHOS = NativeBufferUsageOHOS<'static>;
+    pub type VkNativeBufferPropertiesOHOS = NativeBufferPropertiesOHOS<'static>;
+    pub type VkNativeBufferFormatPropertiesOHOS = NativeBufferFormatPropertiesOHOS<'static>;
+    pub type VkImportNativeBufferInfoOHOS = ImportNativeBufferInfoOHOS<'static>;
+    pub type VkMemoryGetNativeBufferInfoOHOS = MemoryGetNativeBufferInfoOHOS<'static>;
+    pub type VkExternalFormatOHOS = ExternalFormatOHOS<'static>;
+    impl NativeBufferUsageOHOS<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkNativeBufferUsageOHOS {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl NativeBufferPropertiesOHOS<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkNativeBufferPropertiesOHOS {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl NativeBufferFormatPropertiesOHOS<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkNativeBufferFormatPropertiesOHOS {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImportNativeBufferInfoOHOS<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImportNativeBufferInfoOHOS {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MemoryGetNativeBufferInfoOHOS<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMemoryGetNativeBufferInfoOHOS {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ExternalFormatOHOS<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExternalFormatOHOS {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     get_native_buffer_properties_ohos: PFN_vkGetNativeBufferPropertiesOHOS,
     get_memory_native_buffer_ohos: PFN_vkGetMemoryNativeBufferOHOS,

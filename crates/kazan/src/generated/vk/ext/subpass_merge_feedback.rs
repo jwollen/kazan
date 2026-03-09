@@ -353,3 +353,46 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkRenderPassCreationControlEXT = RenderPassCreationControlEXT<'static>;
+    pub type VkRenderPassCreationFeedbackInfoEXT = RenderPassCreationFeedbackInfoEXT;
+    pub type VkRenderPassCreationFeedbackCreateInfoEXT =
+        RenderPassCreationFeedbackCreateInfoEXT<'static>;
+    pub type VkRenderPassSubpassFeedbackInfoEXT = RenderPassSubpassFeedbackInfoEXT;
+    pub type VkRenderPassSubpassFeedbackCreateInfoEXT =
+        RenderPassSubpassFeedbackCreateInfoEXT<'static>;
+    pub type VkPhysicalDeviceSubpassMergeFeedbackFeaturesEXT =
+        PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'static>;
+    pub type VkSubpassMergeStatusEXT = SubpassMergeStatusEXT;
+    impl RenderPassCreationControlEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkRenderPassCreationControlEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl RenderPassCreationFeedbackCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkRenderPassCreationFeedbackCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl RenderPassSubpassFeedbackCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkRenderPassSubpassFeedbackCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceSubpassMergeFeedbackFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

@@ -451,6 +451,64 @@ pub(super) mod defs {
         -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkDrmFormatModifierPropertiesListEXT = DrmFormatModifierPropertiesListEXT<'static>;
+    pub type VkDrmFormatModifierPropertiesEXT = DrmFormatModifierPropertiesEXT;
+    pub type VkPhysicalDeviceImageDrmFormatModifierInfoEXT =
+        PhysicalDeviceImageDrmFormatModifierInfoEXT<'static>;
+    pub type VkImageDrmFormatModifierListCreateInfoEXT =
+        ImageDrmFormatModifierListCreateInfoEXT<'static>;
+    pub type VkImageDrmFormatModifierExplicitCreateInfoEXT =
+        ImageDrmFormatModifierExplicitCreateInfoEXT<'static>;
+    pub type VkImageDrmFormatModifierPropertiesEXT = ImageDrmFormatModifierPropertiesEXT<'static>;
+    pub type VkDrmFormatModifierPropertiesList2EXT = DrmFormatModifierPropertiesList2EXT<'static>;
+    pub type VkDrmFormatModifierProperties2EXT = DrmFormatModifierProperties2EXT;
+    impl DrmFormatModifierPropertiesListEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDrmFormatModifierPropertiesListEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceImageDrmFormatModifierInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceImageDrmFormatModifierInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImageDrmFormatModifierListCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImageDrmFormatModifierListCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImageDrmFormatModifierExplicitCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkImageDrmFormatModifierExplicitCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImageDrmFormatModifierPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImageDrmFormatModifierPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DrmFormatModifierPropertiesList2EXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDrmFormatModifierPropertiesList2EXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     get_image_drm_format_modifier_properties_ext: PFN_vkGetImageDrmFormatModifierPropertiesEXT,
 }

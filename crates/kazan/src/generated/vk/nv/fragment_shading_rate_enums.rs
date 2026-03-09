@@ -308,6 +308,45 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV =
+        PhysicalDeviceFragmentShadingRateEnumsFeaturesNV<'static>;
+    pub type VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV =
+        PhysicalDeviceFragmentShadingRateEnumsPropertiesNV<'static>;
+    pub type VkPipelineFragmentShadingRateEnumStateCreateInfoNV =
+        PipelineFragmentShadingRateEnumStateCreateInfoNV<'static>;
+    pub type VkFragmentShadingRateNV = FragmentShadingRateNV;
+    pub type VkFragmentShadingRateTypeNV = FragmentShadingRateTypeNV;
+    impl PhysicalDeviceFragmentShadingRateEnumsFeaturesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceFragmentShadingRateEnumsPropertiesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineFragmentShadingRateEnumStateCreateInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPipelineFragmentShadingRateEnumStateCreateInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_set_fragment_shading_rate_enum_nv: PFN_vkCmdSetFragmentShadingRateEnumNV,
 }

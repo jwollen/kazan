@@ -982,3 +982,38 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type StdVideoEncodeH265WeightTableFlags = super::defs::StdVideoEncodeH265WeightTableFlags;
+    pub type StdVideoEncodeH265WeightTable = super::defs::StdVideoEncodeH265WeightTable;
+    pub type StdVideoEncodeH265LongTermRefPics = super::defs::StdVideoEncodeH265LongTermRefPics;
+    pub type StdVideoEncodeH265SliceSegmentHeaderFlags =
+        super::defs::StdVideoEncodeH265SliceSegmentHeaderFlags;
+    pub type StdVideoEncodeH265SliceSegmentHeader =
+        super::defs::StdVideoEncodeH265SliceSegmentHeader<'static>;
+    pub type StdVideoEncodeH265ReferenceListsInfoFlags =
+        super::defs::StdVideoEncodeH265ReferenceListsInfoFlags;
+    pub type StdVideoEncodeH265ReferenceListsInfo =
+        super::defs::StdVideoEncodeH265ReferenceListsInfo;
+    pub type StdVideoEncodeH265PictureInfoFlags = super::defs::StdVideoEncodeH265PictureInfoFlags;
+    pub type StdVideoEncodeH265PictureInfo = super::defs::StdVideoEncodeH265PictureInfo<'static>;
+    pub type StdVideoEncodeH265ReferenceInfoFlags =
+        super::defs::StdVideoEncodeH265ReferenceInfoFlags;
+    pub type StdVideoEncodeH265ReferenceInfo = super::defs::StdVideoEncodeH265ReferenceInfo;
+    impl super::defs::StdVideoEncodeH265SliceSegmentHeader<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &StdVideoEncodeH265SliceSegmentHeader {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl super::defs::StdVideoEncodeH265PictureInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &StdVideoEncodeH265PictureInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

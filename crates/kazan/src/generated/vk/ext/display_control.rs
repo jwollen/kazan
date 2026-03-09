@@ -300,6 +300,44 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkDisplayPowerInfoEXT = DisplayPowerInfoEXT<'static>;
+    pub type VkDeviceEventInfoEXT = DeviceEventInfoEXT<'static>;
+    pub type VkDisplayEventInfoEXT = DisplayEventInfoEXT<'static>;
+    pub type VkSwapchainCounterCreateInfoEXT = SwapchainCounterCreateInfoEXT<'static>;
+    pub type VkDisplayPowerStateEXT = DisplayPowerStateEXT;
+    pub type VkDeviceEventTypeEXT = DeviceEventTypeEXT;
+    pub type VkDisplayEventTypeEXT = DisplayEventTypeEXT;
+    impl DisplayPowerInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDisplayPowerInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DeviceEventInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDeviceEventInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DisplayEventInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDisplayEventInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SwapchainCounterCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSwapchainCounterCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     display_power_control_ext: PFN_vkDisplayPowerControlEXT,
     register_device_event_ext: PFN_vkRegisterDeviceEventEXT,

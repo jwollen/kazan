@@ -36,6 +36,22 @@ pub(super) mod defs {
         PFN_vkGetPhysicalDeviceExternalBufferProperties;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkExternalMemoryPropertiesKHR = ExternalMemoryPropertiesKHR;
+    pub type VkPhysicalDeviceExternalImageFormatInfoKHR =
+        PhysicalDeviceExternalImageFormatInfoKHR<'static>;
+    pub type VkExternalImageFormatPropertiesKHR = ExternalImageFormatPropertiesKHR<'static>;
+    pub type VkPhysicalDeviceExternalBufferInfoKHR = PhysicalDeviceExternalBufferInfoKHR<'static>;
+    pub type VkExternalBufferPropertiesKHR = ExternalBufferPropertiesKHR<'static>;
+    pub type VkPhysicalDeviceIDPropertiesKHR = PhysicalDeviceIDPropertiesKHR<'static>;
+    pub type VkExternalMemoryHandleTypeFlagsKHR = ExternalMemoryHandleTypeFlagsKHR;
+    pub type VkExternalMemoryFeatureFlagsKHR = ExternalMemoryFeatureFlagsKHR;
+}
+
 pub struct InstanceFn {
     get_physical_device_external_buffer_properties_khr:
         PFN_vkGetPhysicalDeviceExternalBufferProperties,

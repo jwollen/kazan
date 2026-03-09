@@ -27,3 +27,17 @@ pub(super) mod defs {
     pub type PhysicalDeviceVertexAttributeDivisorFeaturesKHR<'a> =
         PhysicalDeviceVertexAttributeDivisorFeatures<'a>;
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkVertexInputBindingDivisorDescriptionKHR = VertexInputBindingDivisorDescriptionKHR;
+    pub type VkPipelineVertexInputDivisorStateCreateInfoKHR =
+        PipelineVertexInputDivisorStateCreateInfoKHR<'static>;
+    pub type VkPhysicalDeviceVertexAttributeDivisorPropertiesKHR =
+        PhysicalDeviceVertexAttributeDivisorPropertiesKHR<'static>;
+    pub type VkPhysicalDeviceVertexAttributeDivisorFeaturesKHR =
+        PhysicalDeviceVertexAttributeDivisorFeaturesKHR<'static>;
+}

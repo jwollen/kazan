@@ -268,6 +268,36 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkDepthBiasInfoEXT = DepthBiasInfoEXT<'static>;
+    pub type VkDepthBiasRepresentationInfoEXT = DepthBiasRepresentationInfoEXT<'static>;
+    pub type VkPhysicalDeviceDepthBiasControlFeaturesEXT =
+        PhysicalDeviceDepthBiasControlFeaturesEXT<'static>;
+    pub type VkDepthBiasRepresentationEXT = DepthBiasRepresentationEXT;
+    impl DepthBiasInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDepthBiasInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DepthBiasRepresentationInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDepthBiasRepresentationInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceDepthBiasControlFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceDepthBiasControlFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_set_depth_bias2_ext: PFN_vkCmdSetDepthBias2EXT,
 }

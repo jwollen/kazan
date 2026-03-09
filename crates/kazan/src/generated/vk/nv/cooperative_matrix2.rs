@@ -391,6 +391,43 @@ pub(super) mod defs {
         ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceCooperativeMatrix2FeaturesNV =
+        PhysicalDeviceCooperativeMatrix2FeaturesNV<'static>;
+    pub type VkPhysicalDeviceCooperativeMatrix2PropertiesNV =
+        PhysicalDeviceCooperativeMatrix2PropertiesNV<'static>;
+    pub type VkCooperativeMatrixFlexibleDimensionsPropertiesNV =
+        CooperativeMatrixFlexibleDimensionsPropertiesNV<'static>;
+    impl PhysicalDeviceCooperativeMatrix2FeaturesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceCooperativeMatrix2FeaturesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceCooperativeMatrix2PropertiesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceCooperativeMatrix2PropertiesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CooperativeMatrixFlexibleDimensionsPropertiesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkCooperativeMatrixFlexibleDimensionsPropertiesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     get_physical_device_cooperative_matrix_flexible_dimensions_properties_nv:
         PFN_vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV,

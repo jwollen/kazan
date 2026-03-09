@@ -2145,6 +2145,211 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkHostAddressRangeEXT = HostAddressRangeEXT<'static>;
+    pub type VkHostAddressRangeConstEXT = HostAddressRangeConstEXT<'static>;
+    pub type VkDeviceAddressRangeEXT = DeviceAddressRangeEXT;
+    pub type VkTexelBufferDescriptorInfoEXT = TexelBufferDescriptorInfoEXT<'static>;
+    pub type VkImageDescriptorInfoEXT = ImageDescriptorInfoEXT<'static>;
+    pub type VkResourceDescriptorInfoEXT = ResourceDescriptorInfoEXT<'static>;
+    pub type VkBindHeapInfoEXT = BindHeapInfoEXT<'static>;
+    pub type VkPushDataInfoEXT = PushDataInfoEXT<'static>;
+    pub type VkDescriptorMappingSourceConstantOffsetEXT =
+        DescriptorMappingSourceConstantOffsetEXT<'static>;
+    pub type VkDescriptorMappingSourcePushIndexEXT = DescriptorMappingSourcePushIndexEXT<'static>;
+    pub type VkDescriptorMappingSourceIndirectIndexEXT =
+        DescriptorMappingSourceIndirectIndexEXT<'static>;
+    pub type VkDescriptorMappingSourceIndirectIndexArrayEXT =
+        DescriptorMappingSourceIndirectIndexArrayEXT<'static>;
+    pub type VkDescriptorMappingSourceHeapDataEXT = DescriptorMappingSourceHeapDataEXT;
+    pub type VkDescriptorMappingSourceShaderRecordIndexEXT =
+        DescriptorMappingSourceShaderRecordIndexEXT<'static>;
+    pub type VkDescriptorMappingSourceIndirectAddressEXT =
+        DescriptorMappingSourceIndirectAddressEXT;
+    pub type VkDescriptorSetAndBindingMappingEXT = DescriptorSetAndBindingMappingEXT<'static>;
+    pub type VkShaderDescriptorSetAndBindingMappingInfoEXT =
+        ShaderDescriptorSetAndBindingMappingInfoEXT<'static>;
+    pub type VkSamplerCustomBorderColorIndexCreateInfoEXT =
+        SamplerCustomBorderColorIndexCreateInfoEXT<'static>;
+    pub type VkOpaqueCaptureDataCreateInfoEXT = OpaqueCaptureDataCreateInfoEXT<'static>;
+    pub type VkIndirectCommandsLayoutPushDataTokenNV =
+        IndirectCommandsLayoutPushDataTokenNV<'static>;
+    pub type VkSubsampledImageFormatPropertiesEXT = SubsampledImageFormatPropertiesEXT<'static>;
+    pub type VkPhysicalDeviceDescriptorHeapFeaturesEXT =
+        PhysicalDeviceDescriptorHeapFeaturesEXT<'static>;
+    pub type VkPhysicalDeviceDescriptorHeapPropertiesEXT =
+        PhysicalDeviceDescriptorHeapPropertiesEXT<'static>;
+    pub type VkCommandBufferInheritanceDescriptorHeapInfoEXT =
+        CommandBufferInheritanceDescriptorHeapInfoEXT<'static>;
+    pub type VkPhysicalDeviceDescriptorHeapTensorPropertiesARM =
+        PhysicalDeviceDescriptorHeapTensorPropertiesARM<'static>;
+    pub type VkResourceDescriptorDataEXT = ResourceDescriptorDataEXT<'static>;
+    pub type VkDescriptorMappingSourceDataEXT = DescriptorMappingSourceDataEXT<'static>;
+    pub type VkDescriptorMappingSourceEXT = DescriptorMappingSourceEXT;
+    pub type VkSpirvResourceTypeFlagsEXT = SpirvResourceTypeFlagsEXT;
+    pub type VkSpirvResourceTypeFlagBitsEXT = SpirvResourceTypeFlagBitsEXT;
+    impl HostAddressRangeEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkHostAddressRangeEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl HostAddressRangeConstEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkHostAddressRangeConstEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl TexelBufferDescriptorInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkTexelBufferDescriptorInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImageDescriptorInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImageDescriptorInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ResourceDescriptorInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkResourceDescriptorInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BindHeapInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBindHeapInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PushDataInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPushDataInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DescriptorMappingSourceConstantOffsetEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDescriptorMappingSourceConstantOffsetEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DescriptorMappingSourcePushIndexEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDescriptorMappingSourcePushIndexEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DescriptorMappingSourceIndirectIndexEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDescriptorMappingSourceIndirectIndexEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DescriptorMappingSourceIndirectIndexArrayEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkDescriptorMappingSourceIndirectIndexArrayEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DescriptorMappingSourceShaderRecordIndexEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkDescriptorMappingSourceShaderRecordIndexEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DescriptorSetAndBindingMappingEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDescriptorSetAndBindingMappingEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ShaderDescriptorSetAndBindingMappingInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkShaderDescriptorSetAndBindingMappingInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SamplerCustomBorderColorIndexCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkSamplerCustomBorderColorIndexCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl OpaqueCaptureDataCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkOpaqueCaptureDataCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl IndirectCommandsLayoutPushDataTokenNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkIndirectCommandsLayoutPushDataTokenNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SubsampledImageFormatPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSubsampledImageFormatPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceDescriptorHeapFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceDescriptorHeapFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceDescriptorHeapPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceDescriptorHeapPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CommandBufferInheritanceDescriptorHeapInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkCommandBufferInheritanceDescriptorHeapInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceDescriptorHeapTensorPropertiesARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceDescriptorHeapTensorPropertiesARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ResourceDescriptorDataEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkResourceDescriptorDataEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DescriptorMappingSourceDataEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDescriptorMappingSourceDataEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     get_physical_device_descriptor_size_ext: PFN_vkGetPhysicalDeviceDescriptorSizeEXT,
 }

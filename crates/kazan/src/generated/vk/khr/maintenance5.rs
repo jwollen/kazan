@@ -41,6 +41,25 @@ pub(super) mod defs {
     pub type PFN_vkGetDeviceImageSubresourceLayoutKHR = PFN_vkGetDeviceImageSubresourceLayout;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkBufferUsageFlags2CreateInfoKHR = BufferUsageFlags2CreateInfoKHR<'static>;
+    pub type VkPipelineCreateFlags2CreateInfoKHR = PipelineCreateFlags2CreateInfoKHR<'static>;
+    pub type VkPhysicalDeviceMaintenance5FeaturesKHR =
+        PhysicalDeviceMaintenance5FeaturesKHR<'static>;
+    pub type VkPhysicalDeviceMaintenance5PropertiesKHR =
+        PhysicalDeviceMaintenance5PropertiesKHR<'static>;
+    pub type VkRenderingAreaInfoKHR = RenderingAreaInfoKHR<'static>;
+    pub type VkImageSubresource2KHR = ImageSubresource2KHR<'static>;
+    pub type VkSubresourceLayout2KHR = SubresourceLayout2KHR<'static>;
+    pub type VkDeviceImageSubresourceInfoKHR = DeviceImageSubresourceInfoKHR<'static>;
+    pub type VkPipelineCreateFlags2KHR = PipelineCreateFlags2KHR;
+    pub type VkBufferUsageFlags2KHR = BufferUsageFlags2KHR;
+}
+
 pub struct DeviceFn {
     cmd_bind_index_buffer2_khr: PFN_vkCmdBindIndexBuffer2,
     get_rendering_area_granularity_khr: PFN_vkGetRenderingAreaGranularity,

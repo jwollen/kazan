@@ -75,3 +75,25 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT =
+        PhysicalDeviceVertexAttributeDivisorPropertiesEXT<'static>;
+    pub type VkVertexInputBindingDivisorDescriptionEXT = VertexInputBindingDivisorDescriptionEXT;
+    pub type VkPipelineVertexInputDivisorStateCreateInfoEXT =
+        PipelineVertexInputDivisorStateCreateInfoEXT<'static>;
+    pub type VkPhysicalDeviceVertexAttributeDivisorFeaturesEXT =
+        PhysicalDeviceVertexAttributeDivisorFeaturesEXT<'static>;
+    impl PhysicalDeviceVertexAttributeDivisorPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceVertexAttributeDivisorPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

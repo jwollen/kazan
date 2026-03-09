@@ -122,6 +122,29 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkDisplayNativeHdrSurfaceCapabilitiesAMD =
+        DisplayNativeHdrSurfaceCapabilitiesAMD<'static>;
+    pub type VkSwapchainDisplayNativeHdrCreateInfoAMD =
+        SwapchainDisplayNativeHdrCreateInfoAMD<'static>;
+    impl DisplayNativeHdrSurfaceCapabilitiesAMD<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDisplayNativeHdrSurfaceCapabilitiesAMD {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SwapchainDisplayNativeHdrCreateInfoAMD<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSwapchainDisplayNativeHdrCreateInfoAMD {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     set_local_dimming_amd: PFN_vkSetLocalDimmingAMD,
 }

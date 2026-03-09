@@ -27,6 +27,17 @@ pub(super) mod defs {
         PFN_vkCmdSetRenderingInputAttachmentIndices;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceDynamicRenderingLocalReadFeaturesKHR =
+        PhysicalDeviceDynamicRenderingLocalReadFeaturesKHR<'static>;
+    pub type VkRenderingAttachmentLocationInfoKHR = RenderingAttachmentLocationInfoKHR<'static>;
+    pub type VkRenderingInputAttachmentIndexInfoKHR = RenderingInputAttachmentIndexInfoKHR<'static>;
+}
+
 pub struct DeviceFn {
     cmd_set_rendering_attachment_locations_khr: PFN_vkCmdSetRenderingAttachmentLocations,
     cmd_set_rendering_input_attachment_indices_khr: PFN_vkCmdSetRenderingInputAttachmentIndices,

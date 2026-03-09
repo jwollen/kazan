@@ -1,4 +1,4 @@
-use std::{collections::HashSet, io::Write};
+use std::io::Write;
 
 use anyhow::Result;
 use itertools::Itertools;
@@ -120,15 +120,8 @@ fn is_pointer_to_pointer(ty: &CType) -> bool {
 pub fn generate_funcpointers(
     file: &mut impl Write,
     analysis: &Analysis,
-    owned: &HashSet<&str>,
+    funcpointers: &[&xml::FuncPointer],
 ) -> Result<()> {
-    let funcpointers = analysis
-        .registry()
-        .funcpointers
-        .iter()
-        .clone()
-        .filter(|ty| owned.contains(ty.name));
-
     for ty in funcpointers {
         write_doc_link(file, ty.name)?;
         writeln!(file, "pub type {} = unsafe extern \"system\" fn(", ty.name)?;
@@ -154,12 +147,12 @@ pub fn generate_funcpointers(
     Ok(())
 }
 
-pub fn generate_functions<'a>(
+pub fn generate_functions(
     file: &mut impl Write,
     analysis: &Analysis,
-    new_commands: impl Iterator<Item = &'a xml::Command>,
+    commands: &[&xml::Command],
 ) -> Result<()> {
-    for command in new_commands {
+    for command in commands {
         write_doc_link(file, command.name)?;
         writeln!(
             file,

@@ -44,6 +44,14 @@ pub(super) mod defs {
         unsafe extern "system" fn(device: Device, operation: DeferredOperationKHR) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkDeferredOperationKHR = DeferredOperationKHR;
+}
+
 pub struct DeviceFn {
     create_deferred_operation_khr: PFN_vkCreateDeferredOperationKHR,
     destroy_deferred_operation_khr: PFN_vkDestroyDeferredOperationKHR,

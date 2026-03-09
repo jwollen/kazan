@@ -136,6 +136,27 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkImportMemoryWin32HandleInfoNV = ImportMemoryWin32HandleInfoNV<'static>;
+    pub type VkExportMemoryWin32HandleInfoNV = ExportMemoryWin32HandleInfoNV<'static>;
+    impl ImportMemoryWin32HandleInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImportMemoryWin32HandleInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ExportMemoryWin32HandleInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExportMemoryWin32HandleInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     get_memory_win32_handle_nv: PFN_vkGetMemoryWin32HandleNV,
 }

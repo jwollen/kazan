@@ -38,3 +38,18 @@ pub(super) mod defs {
     pub use shader_info::defs::*;
     pub use texture_gather_bias_lod::defs::*;
 }
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    pub use super::anti_lag::ffi::*;
+    pub use super::device_coherent_memory::ffi::*;
+    pub use super::display_native_hdr::ffi::*;
+    pub use super::memory_overallocation_behavior::ffi::*;
+    pub use super::mixed_attachment_samples::ffi::*;
+    pub use super::pipeline_compiler_control::ffi::*;
+    pub use super::rasterization_order::ffi::*;
+    pub use super::shader_core_properties::ffi::*;
+    pub use super::shader_core_properties2::ffi::*;
+    pub use super::shader_early_and_late_fragment_tests::ffi::*;
+    pub use super::shader_info::ffi::*;
+    pub use super::texture_gather_bias_lod::ffi::*;
+}

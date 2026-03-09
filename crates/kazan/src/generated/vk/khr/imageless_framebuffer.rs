@@ -25,3 +25,15 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassAttachmentBeginInfoKHR.html>
     pub type RenderPassAttachmentBeginInfoKHR<'a> = RenderPassAttachmentBeginInfo<'a>;
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceImagelessFramebufferFeaturesKHR =
+        PhysicalDeviceImagelessFramebufferFeaturesKHR<'static>;
+    pub type VkFramebufferAttachmentsCreateInfoKHR = FramebufferAttachmentsCreateInfoKHR<'static>;
+    pub type VkFramebufferAttachmentImageInfoKHR = FramebufferAttachmentImageInfoKHR<'static>;
+    pub type VkRenderPassAttachmentBeginInfoKHR = RenderPassAttachmentBeginInfoKHR<'static>;
+}

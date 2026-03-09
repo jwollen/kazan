@@ -26,3 +26,15 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentGravityFlagsEXT.html>
     pub type PresentGravityFlagsEXT = PresentGravityFlagsKHR;
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkSurfacePresentModeEXT = SurfacePresentModeEXT<'static>;
+    pub type VkSurfacePresentScalingCapabilitiesEXT = SurfacePresentScalingCapabilitiesEXT<'static>;
+    pub type VkSurfacePresentModeCompatibilityEXT = SurfacePresentModeCompatibilityEXT<'static>;
+    pub type VkPresentScalingFlagsEXT = PresentScalingFlagsEXT;
+    pub type VkPresentGravityFlagsEXT = PresentGravityFlagsEXT;
+}

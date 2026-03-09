@@ -152,6 +152,33 @@ pub(super) mod defs {
     }
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceBufferDeviceAddressFeaturesEXT =
+        PhysicalDeviceBufferDeviceAddressFeaturesEXT<'static>;
+    pub type VkBufferDeviceAddressCreateInfoEXT = BufferDeviceAddressCreateInfoEXT<'static>;
+    pub type VkPhysicalDeviceBufferAddressFeaturesEXT =
+        PhysicalDeviceBufferAddressFeaturesEXT<'static>;
+    pub type VkBufferDeviceAddressInfoEXT = BufferDeviceAddressInfoEXT<'static>;
+    impl PhysicalDeviceBufferDeviceAddressFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceBufferDeviceAddressFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BufferDeviceAddressCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBufferDeviceAddressCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     get_buffer_device_address_ext: PFN_vkGetBufferDeviceAddress,
 }

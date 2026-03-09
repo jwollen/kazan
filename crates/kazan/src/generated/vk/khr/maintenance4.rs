@@ -29,6 +29,19 @@ pub(super) mod defs {
         PFN_vkGetDeviceImageSparseMemoryRequirements;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkDeviceBufferMemoryRequirementsKHR = DeviceBufferMemoryRequirementsKHR<'static>;
+    pub type VkDeviceImageMemoryRequirementsKHR = DeviceImageMemoryRequirementsKHR<'static>;
+    pub type VkPhysicalDeviceMaintenance4FeaturesKHR =
+        PhysicalDeviceMaintenance4FeaturesKHR<'static>;
+    pub type VkPhysicalDeviceMaintenance4PropertiesKHR =
+        PhysicalDeviceMaintenance4PropertiesKHR<'static>;
+}
+
 pub struct DeviceFn {
     get_device_buffer_memory_requirements_khr: PFN_vkGetDeviceBufferMemoryRequirements,
     get_device_image_memory_requirements_khr: PFN_vkGetDeviceImageMemoryRequirements,

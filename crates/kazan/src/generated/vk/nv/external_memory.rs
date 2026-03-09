@@ -109,3 +109,24 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkExternalMemoryImageCreateInfoNV = ExternalMemoryImageCreateInfoNV<'static>;
+    pub type VkExportMemoryAllocateInfoNV = ExportMemoryAllocateInfoNV<'static>;
+    impl ExternalMemoryImageCreateInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExternalMemoryImageCreateInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ExportMemoryAllocateInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExportMemoryAllocateInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

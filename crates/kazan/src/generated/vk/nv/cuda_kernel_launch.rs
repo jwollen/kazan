@@ -419,6 +419,54 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkCudaModuleNV = CudaModuleNV;
+    pub type VkCudaFunctionNV = CudaFunctionNV;
+    pub type VkCudaModuleCreateInfoNV = CudaModuleCreateInfoNV<'static>;
+    pub type VkCudaFunctionCreateInfoNV = CudaFunctionCreateInfoNV<'static>;
+    pub type VkCudaLaunchInfoNV = CudaLaunchInfoNV<'static>;
+    pub type VkPhysicalDeviceCudaKernelLaunchFeaturesNV =
+        PhysicalDeviceCudaKernelLaunchFeaturesNV<'static>;
+    pub type VkPhysicalDeviceCudaKernelLaunchPropertiesNV =
+        PhysicalDeviceCudaKernelLaunchPropertiesNV<'static>;
+    impl CudaModuleCreateInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCudaModuleCreateInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CudaFunctionCreateInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCudaFunctionCreateInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CudaLaunchInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCudaLaunchInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceCudaKernelLaunchFeaturesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceCudaKernelLaunchFeaturesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceCudaKernelLaunchPropertiesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceCudaKernelLaunchPropertiesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     create_cuda_module_nv: PFN_vkCreateCudaModuleNV,
     get_cuda_module_cache_nv: PFN_vkGetCudaModuleCacheNV,

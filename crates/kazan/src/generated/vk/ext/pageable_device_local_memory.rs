@@ -78,6 +78,23 @@ pub(super) mod defs {
         unsafe extern "system" fn(device: Device, memory: DeviceMemory, priority: f32);
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDevicePageableDeviceLocalMemoryFeaturesEXT =
+        PhysicalDevicePageableDeviceLocalMemoryFeaturesEXT<'static>;
+    impl PhysicalDevicePageableDeviceLocalMemoryFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDevicePageableDeviceLocalMemoryFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     set_device_memory_priority_ext: PFN_vkSetDeviceMemoryPriorityEXT,
 }

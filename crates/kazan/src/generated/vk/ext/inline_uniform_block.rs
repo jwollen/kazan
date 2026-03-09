@@ -27,3 +27,18 @@ pub(super) mod defs {
     pub type DescriptorPoolInlineUniformBlockCreateInfoEXT<'a> =
         DescriptorPoolInlineUniformBlockCreateInfo<'a>;
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceInlineUniformBlockFeaturesEXT =
+        PhysicalDeviceInlineUniformBlockFeaturesEXT<'static>;
+    pub type VkPhysicalDeviceInlineUniformBlockPropertiesEXT =
+        PhysicalDeviceInlineUniformBlockPropertiesEXT<'static>;
+    pub type VkWriteDescriptorSetInlineUniformBlockEXT =
+        WriteDescriptorSetInlineUniformBlockEXT<'static>;
+    pub type VkDescriptorPoolInlineUniformBlockCreateInfoEXT =
+        DescriptorPoolInlineUniformBlockCreateInfoEXT<'static>;
+}

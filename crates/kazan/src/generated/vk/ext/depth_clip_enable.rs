@@ -139,3 +139,30 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceDepthClipEnableFeaturesEXT =
+        PhysicalDeviceDepthClipEnableFeaturesEXT<'static>;
+    pub type VkPipelineRasterizationDepthClipStateCreateInfoEXT =
+        PipelineRasterizationDepthClipStateCreateInfoEXT<'static>;
+    pub type VkPipelineRasterizationDepthClipStateCreateFlagsEXT =
+        PipelineRasterizationDepthClipStateCreateFlagsEXT;
+    impl PhysicalDeviceDepthClipEnableFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceDepthClipEnableFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineRasterizationDepthClipStateCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPipelineRasterizationDepthClipStateCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

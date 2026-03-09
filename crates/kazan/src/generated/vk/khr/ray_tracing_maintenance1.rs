@@ -231,6 +231,24 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkTraceRaysIndirectCommand2KHR = TraceRaysIndirectCommand2KHR;
+    pub type VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR =
+        PhysicalDeviceRayTracingMaintenance1FeaturesKHR<'static>;
+    impl PhysicalDeviceRayTracingMaintenance1FeaturesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_trace_rays_indirect2_khr: Option<PFN_vkCmdTraceRaysIndirect2KHR>,
 }

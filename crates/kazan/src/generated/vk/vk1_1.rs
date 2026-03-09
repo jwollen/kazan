@@ -5246,6 +5246,525 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkDescriptorUpdateTemplate = DescriptorUpdateTemplate;
+    pub type VkSamplerYcbcrConversion = SamplerYcbcrConversion;
+    pub type VkPhysicalDeviceFeatures2 = PhysicalDeviceFeatures2<'static>;
+    pub type VkPhysicalDeviceProperties2 = PhysicalDeviceProperties2<'static>;
+    pub type VkFormatProperties2 = FormatProperties2<'static>;
+    pub type VkImageFormatProperties2 = ImageFormatProperties2<'static>;
+    pub type VkPhysicalDeviceImageFormatInfo2 = PhysicalDeviceImageFormatInfo2<'static>;
+    pub type VkQueueFamilyProperties2 = QueueFamilyProperties2<'static>;
+    pub type VkPhysicalDeviceMemoryProperties2 = PhysicalDeviceMemoryProperties2<'static>;
+    pub type VkSparseImageFormatProperties2 = SparseImageFormatProperties2<'static>;
+    pub type VkPhysicalDeviceSparseImageFormatInfo2 = PhysicalDeviceSparseImageFormatInfo2<'static>;
+    pub type VkPhysicalDeviceVariablePointersFeatures =
+        PhysicalDeviceVariablePointersFeatures<'static>;
+    pub type VkExternalMemoryProperties = ExternalMemoryProperties;
+    pub type VkPhysicalDeviceExternalImageFormatInfo =
+        PhysicalDeviceExternalImageFormatInfo<'static>;
+    pub type VkExternalImageFormatProperties = ExternalImageFormatProperties<'static>;
+    pub type VkPhysicalDeviceExternalBufferInfo = PhysicalDeviceExternalBufferInfo<'static>;
+    pub type VkExternalBufferProperties = ExternalBufferProperties<'static>;
+    pub type VkPhysicalDeviceIDProperties = PhysicalDeviceIDProperties<'static>;
+    pub type VkExternalMemoryImageCreateInfo = ExternalMemoryImageCreateInfo<'static>;
+    pub type VkExternalMemoryBufferCreateInfo = ExternalMemoryBufferCreateInfo<'static>;
+    pub type VkExportMemoryAllocateInfo = ExportMemoryAllocateInfo<'static>;
+    pub type VkPhysicalDeviceExternalSemaphoreInfo = PhysicalDeviceExternalSemaphoreInfo<'static>;
+    pub type VkExternalSemaphoreProperties = ExternalSemaphoreProperties<'static>;
+    pub type VkExportSemaphoreCreateInfo = ExportSemaphoreCreateInfo<'static>;
+    pub type VkPhysicalDeviceExternalFenceInfo = PhysicalDeviceExternalFenceInfo<'static>;
+    pub type VkExternalFenceProperties = ExternalFenceProperties<'static>;
+    pub type VkExportFenceCreateInfo = ExportFenceCreateInfo<'static>;
+    pub type VkPhysicalDeviceMultiviewFeatures = PhysicalDeviceMultiviewFeatures<'static>;
+    pub type VkPhysicalDeviceMultiviewProperties = PhysicalDeviceMultiviewProperties<'static>;
+    pub type VkRenderPassMultiviewCreateInfo = RenderPassMultiviewCreateInfo<'static>;
+    pub type VkPhysicalDeviceGroupProperties = PhysicalDeviceGroupProperties<'static>;
+    pub type VkMemoryAllocateFlagsInfo = MemoryAllocateFlagsInfo<'static>;
+    pub type VkBindBufferMemoryInfo = BindBufferMemoryInfo<'static>;
+    pub type VkBindBufferMemoryDeviceGroupInfo = BindBufferMemoryDeviceGroupInfo<'static>;
+    pub type VkBindImageMemoryInfo = BindImageMemoryInfo<'static>;
+    pub type VkBindImageMemoryDeviceGroupInfo = BindImageMemoryDeviceGroupInfo<'static>;
+    pub type VkDeviceGroupRenderPassBeginInfo = DeviceGroupRenderPassBeginInfo<'static>;
+    pub type VkDeviceGroupCommandBufferBeginInfo = DeviceGroupCommandBufferBeginInfo<'static>;
+    pub type VkDeviceGroupSubmitInfo = DeviceGroupSubmitInfo<'static>;
+    pub type VkDeviceGroupBindSparseInfo = DeviceGroupBindSparseInfo<'static>;
+    pub type VkDeviceGroupDeviceCreateInfo = DeviceGroupDeviceCreateInfo<'static>;
+    pub type VkDescriptorUpdateTemplateEntry = DescriptorUpdateTemplateEntry;
+    pub type VkDescriptorUpdateTemplateCreateInfo = DescriptorUpdateTemplateCreateInfo<'static>;
+    pub type VkInputAttachmentAspectReference = InputAttachmentAspectReference;
+    pub type VkRenderPassInputAttachmentAspectCreateInfo =
+        RenderPassInputAttachmentAspectCreateInfo<'static>;
+    pub type VkPhysicalDevice16BitStorageFeatures = PhysicalDevice16BitStorageFeatures<'static>;
+    pub type VkPhysicalDeviceSubgroupProperties = PhysicalDeviceSubgroupProperties<'static>;
+    pub type VkBufferMemoryRequirementsInfo2 = BufferMemoryRequirementsInfo2<'static>;
+    pub type VkImageMemoryRequirementsInfo2 = ImageMemoryRequirementsInfo2<'static>;
+    pub type VkImageSparseMemoryRequirementsInfo2 = ImageSparseMemoryRequirementsInfo2<'static>;
+    pub type VkMemoryRequirements2 = MemoryRequirements2<'static>;
+    pub type VkSparseImageMemoryRequirements2 = SparseImageMemoryRequirements2<'static>;
+    pub type VkPhysicalDevicePointClippingProperties =
+        PhysicalDevicePointClippingProperties<'static>;
+    pub type VkMemoryDedicatedRequirements = MemoryDedicatedRequirements<'static>;
+    pub type VkMemoryDedicatedAllocateInfo = MemoryDedicatedAllocateInfo<'static>;
+    pub type VkImageViewUsageCreateInfo = ImageViewUsageCreateInfo<'static>;
+    pub type VkPipelineTessellationDomainOriginStateCreateInfo =
+        PipelineTessellationDomainOriginStateCreateInfo<'static>;
+    pub type VkSamplerYcbcrConversionInfo = SamplerYcbcrConversionInfo<'static>;
+    pub type VkSamplerYcbcrConversionCreateInfo = SamplerYcbcrConversionCreateInfo<'static>;
+    pub type VkBindImagePlaneMemoryInfo = BindImagePlaneMemoryInfo<'static>;
+    pub type VkImagePlaneMemoryRequirementsInfo = ImagePlaneMemoryRequirementsInfo<'static>;
+    pub type VkPhysicalDeviceSamplerYcbcrConversionFeatures =
+        PhysicalDeviceSamplerYcbcrConversionFeatures<'static>;
+    pub type VkSamplerYcbcrConversionImageFormatProperties =
+        SamplerYcbcrConversionImageFormatProperties<'static>;
+    pub type VkProtectedSubmitInfo = ProtectedSubmitInfo<'static>;
+    pub type VkPhysicalDeviceProtectedMemoryFeatures =
+        PhysicalDeviceProtectedMemoryFeatures<'static>;
+    pub type VkPhysicalDeviceProtectedMemoryProperties =
+        PhysicalDeviceProtectedMemoryProperties<'static>;
+    pub type VkDeviceQueueInfo2 = DeviceQueueInfo2<'static>;
+    pub type VkPhysicalDeviceMaintenance3Properties = PhysicalDeviceMaintenance3Properties<'static>;
+    pub type VkDescriptorSetLayoutSupport = DescriptorSetLayoutSupport<'static>;
+    pub type VkPhysicalDeviceShaderDrawParametersFeatures =
+        PhysicalDeviceShaderDrawParametersFeatures<'static>;
+    pub type VkDescriptorUpdateTemplateType = DescriptorUpdateTemplateType;
+    pub type VkPointClippingBehavior = PointClippingBehavior;
+    pub type VkTessellationDomainOrigin = TessellationDomainOrigin;
+    pub type VkSamplerYcbcrModelConversion = SamplerYcbcrModelConversion;
+    pub type VkSamplerYcbcrRange = SamplerYcbcrRange;
+    pub type VkChromaLocation = ChromaLocation;
+    pub type VkSubgroupFeatureFlags = SubgroupFeatureFlags;
+    pub type VkSubgroupFeatureFlagBits = SubgroupFeatureFlagBits;
+    pub type VkDescriptorUpdateTemplateCreateFlags = DescriptorUpdateTemplateCreateFlags;
+    pub type VkPeerMemoryFeatureFlags = PeerMemoryFeatureFlags;
+    pub type VkPeerMemoryFeatureFlagBits = PeerMemoryFeatureFlagBits;
+    pub type VkMemoryAllocateFlags = MemoryAllocateFlags;
+    pub type VkMemoryAllocateFlagBits = MemoryAllocateFlagBits;
+    pub type VkCommandPoolTrimFlags = CommandPoolTrimFlags;
+    pub type VkExternalMemoryHandleTypeFlags = ExternalMemoryHandleTypeFlags;
+    pub type VkExternalMemoryHandleTypeFlagBits = ExternalMemoryHandleTypeFlagBits;
+    pub type VkExternalMemoryFeatureFlags = ExternalMemoryFeatureFlags;
+    pub type VkExternalMemoryFeatureFlagBits = ExternalMemoryFeatureFlagBits;
+    pub type VkExternalSemaphoreHandleTypeFlags = ExternalSemaphoreHandleTypeFlags;
+    pub type VkExternalSemaphoreHandleTypeFlagBits = ExternalSemaphoreHandleTypeFlagBits;
+    pub type VkExternalSemaphoreFeatureFlags = ExternalSemaphoreFeatureFlags;
+    pub type VkExternalSemaphoreFeatureFlagBits = ExternalSemaphoreFeatureFlagBits;
+    pub type VkSemaphoreImportFlags = SemaphoreImportFlags;
+    pub type VkSemaphoreImportFlagBits = SemaphoreImportFlagBits;
+    pub type VkExternalFenceHandleTypeFlags = ExternalFenceHandleTypeFlags;
+    pub type VkExternalFenceHandleTypeFlagBits = ExternalFenceHandleTypeFlagBits;
+    pub type VkExternalFenceFeatureFlags = ExternalFenceFeatureFlags;
+    pub type VkExternalFenceFeatureFlagBits = ExternalFenceFeatureFlagBits;
+    pub type VkFenceImportFlags = FenceImportFlags;
+    pub type VkFenceImportFlagBits = FenceImportFlagBits;
+    pub type VkPhysicalDeviceVariablePointerFeatures =
+        PhysicalDeviceVariablePointerFeatures<'static>;
+    pub type VkPhysicalDeviceShaderDrawParameterFeatures =
+        PhysicalDeviceShaderDrawParameterFeatures<'static>;
+    impl PhysicalDeviceFeatures2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceFeatures2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceProperties2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceProperties2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl FormatProperties2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkFormatProperties2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImageFormatProperties2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImageFormatProperties2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceImageFormatInfo2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceImageFormatInfo2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl QueueFamilyProperties2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkQueueFamilyProperties2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceMemoryProperties2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceMemoryProperties2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SparseImageFormatProperties2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSparseImageFormatProperties2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceSparseImageFormatInfo2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceSparseImageFormatInfo2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceVariablePointersFeatures<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceVariablePointersFeatures {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceExternalImageFormatInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceExternalImageFormatInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ExternalImageFormatProperties<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExternalImageFormatProperties {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceExternalBufferInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceExternalBufferInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ExternalBufferProperties<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExternalBufferProperties {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceIDProperties<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceIDProperties {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ExternalMemoryImageCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExternalMemoryImageCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ExternalMemoryBufferCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExternalMemoryBufferCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ExportMemoryAllocateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExportMemoryAllocateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceExternalSemaphoreInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceExternalSemaphoreInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ExternalSemaphoreProperties<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExternalSemaphoreProperties {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ExportSemaphoreCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExportSemaphoreCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceExternalFenceInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceExternalFenceInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ExternalFenceProperties<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExternalFenceProperties {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ExportFenceCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExportFenceCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceMultiviewFeatures<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceMultiviewFeatures {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceMultiviewProperties<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceMultiviewProperties {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl RenderPassMultiviewCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkRenderPassMultiviewCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceGroupProperties<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceGroupProperties {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MemoryAllocateFlagsInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMemoryAllocateFlagsInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BindBufferMemoryInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBindBufferMemoryInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BindBufferMemoryDeviceGroupInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBindBufferMemoryDeviceGroupInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BindImageMemoryInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBindImageMemoryInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BindImageMemoryDeviceGroupInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBindImageMemoryDeviceGroupInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DeviceGroupRenderPassBeginInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDeviceGroupRenderPassBeginInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DeviceGroupCommandBufferBeginInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDeviceGroupCommandBufferBeginInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DeviceGroupSubmitInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDeviceGroupSubmitInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DeviceGroupBindSparseInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDeviceGroupBindSparseInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DeviceGroupDeviceCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDeviceGroupDeviceCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DescriptorUpdateTemplateCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDescriptorUpdateTemplateCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl RenderPassInputAttachmentAspectCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkRenderPassInputAttachmentAspectCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDevice16BitStorageFeatures<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDevice16BitStorageFeatures {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceSubgroupProperties<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceSubgroupProperties {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BufferMemoryRequirementsInfo2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBufferMemoryRequirementsInfo2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImageMemoryRequirementsInfo2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImageMemoryRequirementsInfo2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImageSparseMemoryRequirementsInfo2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImageSparseMemoryRequirementsInfo2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MemoryRequirements2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMemoryRequirements2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SparseImageMemoryRequirements2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSparseImageMemoryRequirements2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDevicePointClippingProperties<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDevicePointClippingProperties {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MemoryDedicatedRequirements<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMemoryDedicatedRequirements {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MemoryDedicatedAllocateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMemoryDedicatedAllocateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImageViewUsageCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImageViewUsageCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineTessellationDomainOriginStateCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPipelineTessellationDomainOriginStateCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SamplerYcbcrConversionInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSamplerYcbcrConversionInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SamplerYcbcrConversionCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSamplerYcbcrConversionCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BindImagePlaneMemoryInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBindImagePlaneMemoryInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImagePlaneMemoryRequirementsInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImagePlaneMemoryRequirementsInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceSamplerYcbcrConversionFeatures<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceSamplerYcbcrConversionFeatures {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SamplerYcbcrConversionImageFormatProperties<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkSamplerYcbcrConversionImageFormatProperties {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ProtectedSubmitInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkProtectedSubmitInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceProtectedMemoryFeatures<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceProtectedMemoryFeatures {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceProtectedMemoryProperties<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceProtectedMemoryProperties {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DeviceQueueInfo2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDeviceQueueInfo2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceMaintenance3Properties<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceMaintenance3Properties {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DescriptorSetLayoutSupport<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDescriptorSetLayoutSupport {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceShaderDrawParametersFeatures<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceShaderDrawParametersFeatures {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct EntryFn {
     enumerate_instance_version: PFN_vkEnumerateInstanceVersion,
 }

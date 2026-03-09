@@ -22,3 +22,13 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassMultiviewCreateInfoKHR.html>
     pub type RenderPassMultiviewCreateInfoKHR<'a> = RenderPassMultiviewCreateInfo<'a>;
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceMultiviewFeaturesKHR = PhysicalDeviceMultiviewFeaturesKHR<'static>;
+    pub type VkPhysicalDeviceMultiviewPropertiesKHR = PhysicalDeviceMultiviewPropertiesKHR<'static>;
+    pub type VkRenderPassMultiviewCreateInfoKHR = RenderPassMultiviewCreateInfoKHR<'static>;
+}

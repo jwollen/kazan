@@ -46,6 +46,25 @@ pub(super) mod defs {
     pub type PFN_vkCmdWriteTimestamp2KHR = PFN_vkCmdWriteTimestamp2;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkMemoryBarrier2KHR = MemoryBarrier2KHR<'static>;
+    pub type VkImageMemoryBarrier2KHR = ImageMemoryBarrier2KHR<'static>;
+    pub type VkBufferMemoryBarrier2KHR = BufferMemoryBarrier2KHR<'static>;
+    pub type VkDependencyInfoKHR = DependencyInfoKHR<'static>;
+    pub type VkSemaphoreSubmitInfoKHR = SemaphoreSubmitInfoKHR<'static>;
+    pub type VkCommandBufferSubmitInfoKHR = CommandBufferSubmitInfoKHR<'static>;
+    pub type VkSubmitInfo2KHR = SubmitInfo2KHR<'static>;
+    pub type VkPhysicalDeviceSynchronization2FeaturesKHR =
+        PhysicalDeviceSynchronization2FeaturesKHR<'static>;
+    pub type VkAccessFlags2KHR = AccessFlags2KHR;
+    pub type VkPipelineStageFlags2KHR = PipelineStageFlags2KHR;
+    pub type VkSubmitFlagsKHR = SubmitFlagsKHR;
+}
+
 pub struct DeviceFn {
     cmd_set_event2_khr: PFN_vkCmdSetEvent2,
     cmd_reset_event2_khr: PFN_vkCmdResetEvent2,

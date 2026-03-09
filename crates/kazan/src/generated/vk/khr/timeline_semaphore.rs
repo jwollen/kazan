@@ -38,6 +38,23 @@ pub(super) mod defs {
     pub type PFN_vkSignalSemaphoreKHR = PFN_vkSignalSemaphore;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkSemaphoreTypeKHR = SemaphoreTypeKHR;
+    pub type VkPhysicalDeviceTimelineSemaphoreFeaturesKHR =
+        PhysicalDeviceTimelineSemaphoreFeaturesKHR<'static>;
+    pub type VkPhysicalDeviceTimelineSemaphorePropertiesKHR =
+        PhysicalDeviceTimelineSemaphorePropertiesKHR<'static>;
+    pub type VkSemaphoreTypeCreateInfoKHR = SemaphoreTypeCreateInfoKHR<'static>;
+    pub type VkTimelineSemaphoreSubmitInfoKHR = TimelineSemaphoreSubmitInfoKHR<'static>;
+    pub type VkSemaphoreWaitInfoKHR = SemaphoreWaitInfoKHR<'static>;
+    pub type VkSemaphoreSignalInfoKHR = SemaphoreSignalInfoKHR<'static>;
+    pub type VkSemaphoreWaitFlagsKHR = SemaphoreWaitFlagsKHR;
+}
+
 pub struct DeviceFn {
     get_semaphore_counter_value_khr: PFN_vkGetSemaphoreCounterValue,
     wait_semaphores_khr: PFN_vkWaitSemaphores,

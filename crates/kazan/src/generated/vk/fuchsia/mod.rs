@@ -9,3 +9,10 @@ pub(super) mod defs {
     pub use external_semaphore::defs::*;
     pub use imagepipe_surface::defs::*;
 }
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    pub use super::buffer_collection::ffi::*;
+    pub use super::external_memory::ffi::*;
+    pub use super::external_semaphore::ffi::*;
+    pub use super::imagepipe_surface::ffi::*;
+}

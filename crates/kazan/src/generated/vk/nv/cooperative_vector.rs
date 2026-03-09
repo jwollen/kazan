@@ -467,6 +467,46 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceCooperativeVectorFeaturesNV =
+        PhysicalDeviceCooperativeVectorFeaturesNV<'static>;
+    pub type VkCooperativeVectorPropertiesNV = CooperativeVectorPropertiesNV<'static>;
+    pub type VkPhysicalDeviceCooperativeVectorPropertiesNV =
+        PhysicalDeviceCooperativeVectorPropertiesNV<'static>;
+    pub type VkConvertCooperativeVectorMatrixInfoNV = ConvertCooperativeVectorMatrixInfoNV<'static>;
+    pub type VkCooperativeVectorMatrixLayoutNV = CooperativeVectorMatrixLayoutNV;
+    impl PhysicalDeviceCooperativeVectorFeaturesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceCooperativeVectorFeaturesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CooperativeVectorPropertiesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCooperativeVectorPropertiesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceCooperativeVectorPropertiesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceCooperativeVectorPropertiesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ConvertCooperativeVectorMatrixInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkConvertCooperativeVectorMatrixInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     get_physical_device_cooperative_vector_properties_nv:
         PFN_vkGetPhysicalDeviceCooperativeVectorPropertiesNV,

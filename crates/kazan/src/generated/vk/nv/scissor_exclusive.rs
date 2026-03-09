@@ -138,6 +138,31 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceExclusiveScissorFeaturesNV =
+        PhysicalDeviceExclusiveScissorFeaturesNV<'static>;
+    pub type VkPipelineViewportExclusiveScissorStateCreateInfoNV =
+        PipelineViewportExclusiveScissorStateCreateInfoNV<'static>;
+    impl PhysicalDeviceExclusiveScissorFeaturesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceExclusiveScissorFeaturesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineViewportExclusiveScissorStateCreateInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPipelineViewportExclusiveScissorStateCreateInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_set_exclusive_scissor_enable_nv: PFN_vkCmdSetExclusiveScissorEnableNV,
     cmd_set_exclusive_scissor_nv: PFN_vkCmdSetExclusiveScissorNV,

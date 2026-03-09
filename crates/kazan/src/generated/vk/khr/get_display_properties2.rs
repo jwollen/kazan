@@ -284,6 +284,48 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkDisplayProperties2KHR = DisplayProperties2KHR<'static>;
+    pub type VkDisplayPlaneProperties2KHR = DisplayPlaneProperties2KHR<'static>;
+    pub type VkDisplayModeProperties2KHR = DisplayModeProperties2KHR<'static>;
+    pub type VkDisplayPlaneInfo2KHR = DisplayPlaneInfo2KHR<'static>;
+    pub type VkDisplayPlaneCapabilities2KHR = DisplayPlaneCapabilities2KHR<'static>;
+    impl DisplayProperties2KHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDisplayProperties2KHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DisplayPlaneProperties2KHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDisplayPlaneProperties2KHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DisplayModeProperties2KHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDisplayModeProperties2KHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DisplayPlaneInfo2KHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDisplayPlaneInfo2KHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DisplayPlaneCapabilities2KHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDisplayPlaneCapabilities2KHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     get_physical_device_display_properties2_khr: PFN_vkGetPhysicalDeviceDisplayProperties2KHR,
     get_physical_device_display_plane_properties2_khr:

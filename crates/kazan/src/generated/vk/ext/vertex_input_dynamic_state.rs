@@ -228,6 +228,37 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT =
+        PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'static>;
+    pub type VkVertexInputBindingDescription2EXT = VertexInputBindingDescription2EXT<'static>;
+    pub type VkVertexInputAttributeDescription2EXT = VertexInputAttributeDescription2EXT<'static>;
+    impl PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceVertexInputDynamicStateFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VertexInputBindingDescription2EXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVertexInputBindingDescription2EXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VertexInputAttributeDescription2EXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVertexInputAttributeDescription2EXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_set_vertex_input_ext: PFN_vkCmdSetVertexInputEXT,
 }

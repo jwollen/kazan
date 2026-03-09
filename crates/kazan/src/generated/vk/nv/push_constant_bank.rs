@@ -213,3 +213,35 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPushConstantBankInfoNV = PushConstantBankInfoNV<'static>;
+    pub type VkPhysicalDevicePushConstantBankFeaturesNV =
+        PhysicalDevicePushConstantBankFeaturesNV<'static>;
+    pub type VkPhysicalDevicePushConstantBankPropertiesNV =
+        PhysicalDevicePushConstantBankPropertiesNV<'static>;
+    impl PushConstantBankInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPushConstantBankInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDevicePushConstantBankFeaturesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDevicePushConstantBankFeaturesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDevicePushConstantBankPropertiesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDevicePushConstantBankPropertiesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

@@ -25,6 +25,16 @@ pub(super) mod defs {
     pub type PFN_vkUnmapMemory2KHR = PFN_vkUnmapMemory2;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkMemoryMapInfoKHR = MemoryMapInfoKHR<'static>;
+    pub type VkMemoryUnmapInfoKHR = MemoryUnmapInfoKHR<'static>;
+    pub type VkMemoryUnmapFlagsKHR = MemoryUnmapFlagsKHR;
+}
+
 pub struct DeviceFn {
     map_memory2_khr: PFN_vkMapMemory2,
     unmap_memory2_khr: PFN_vkUnmapMemory2,

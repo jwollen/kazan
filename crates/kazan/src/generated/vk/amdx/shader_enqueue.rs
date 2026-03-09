@@ -632,6 +632,73 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceShaderEnqueuePropertiesAMDX =
+        PhysicalDeviceShaderEnqueuePropertiesAMDX<'static>;
+    pub type VkPhysicalDeviceShaderEnqueueFeaturesAMDX =
+        PhysicalDeviceShaderEnqueueFeaturesAMDX<'static>;
+    pub type VkExecutionGraphPipelineCreateInfoAMDX = ExecutionGraphPipelineCreateInfoAMDX<'static>;
+    pub type VkPipelineShaderStageNodeCreateInfoAMDX =
+        PipelineShaderStageNodeCreateInfoAMDX<'static>;
+    pub type VkExecutionGraphPipelineScratchSizeAMDX =
+        ExecutionGraphPipelineScratchSizeAMDX<'static>;
+    pub type VkDispatchGraphInfoAMDX = DispatchGraphInfoAMDX<'static>;
+    pub type VkDispatchGraphCountInfoAMDX = DispatchGraphCountInfoAMDX<'static>;
+    pub type VkDeviceOrHostAddressConstAMDX = DeviceOrHostAddressConstAMDX<'static>;
+    impl PhysicalDeviceShaderEnqueuePropertiesAMDX<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceShaderEnqueuePropertiesAMDX {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceShaderEnqueueFeaturesAMDX<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceShaderEnqueueFeaturesAMDX {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ExecutionGraphPipelineCreateInfoAMDX<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExecutionGraphPipelineCreateInfoAMDX {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineShaderStageNodeCreateInfoAMDX<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineShaderStageNodeCreateInfoAMDX {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ExecutionGraphPipelineScratchSizeAMDX<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExecutionGraphPipelineScratchSizeAMDX {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DispatchGraphInfoAMDX<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDispatchGraphInfoAMDX {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DispatchGraphCountInfoAMDX<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDispatchGraphCountInfoAMDX {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DeviceOrHostAddressConstAMDX<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDeviceOrHostAddressConstAMDX {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     create_execution_graph_pipelines_amdx: PFN_vkCreateExecutionGraphPipelinesAMDX,
     get_execution_graph_pipeline_scratch_size_amdx: PFN_vkGetExecutionGraphPipelineScratchSizeAMDX,

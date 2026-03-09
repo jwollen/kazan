@@ -21,3 +21,16 @@ pub(super) mod defs {
     pub use shader_core_properties::defs::*;
     pub use tensors::defs::*;
 }
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    pub use super::data_graph::ffi::*;
+    pub use super::format_pack::ffi::*;
+    pub use super::performance_counters_by_region::ffi::*;
+    pub use super::pipeline_opacity_micromap::ffi::*;
+    pub use super::rasterization_order_attachment_access::ffi::*;
+    pub use super::render_pass_striped::ffi::*;
+    pub use super::scheduling_controls::ffi::*;
+    pub use super::shader_core_builtins::ffi::*;
+    pub use super::shader_core_properties::ffi::*;
+    pub use super::tensors::ffi::*;
+}

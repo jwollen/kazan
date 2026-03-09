@@ -101,3 +101,18 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkValidationFlagsEXT = ValidationFlagsEXT<'static>;
+    pub type VkValidationCheckEXT = ValidationCheckEXT;
+    impl ValidationFlagsEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkValidationFlagsEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

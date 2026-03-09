@@ -211,6 +211,22 @@ pub(super) mod defs {
         ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkSurfaceCapabilities2EXT = SurfaceCapabilities2EXT<'static>;
+    pub type VkSurfaceCounterFlagsEXT = SurfaceCounterFlagsEXT;
+    pub type VkSurfaceCounterFlagBitsEXT = SurfaceCounterFlagBitsEXT;
+    impl SurfaceCapabilities2EXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSurfaceCapabilities2EXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     get_physical_device_surface_capabilities2_ext: PFN_vkGetPhysicalDeviceSurfaceCapabilities2EXT,
 }

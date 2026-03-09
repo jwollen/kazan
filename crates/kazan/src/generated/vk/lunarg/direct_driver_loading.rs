@@ -176,3 +176,26 @@ pub(super) mod defs {
     pub type PFN_vkGetInstanceProcAddrLUNARG =
         unsafe extern "system" fn(instance: Instance, p_name: *const c_char) -> PFN_vkVoidFunction;
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkDirectDriverLoadingInfoLUNARG = DirectDriverLoadingInfoLUNARG<'static>;
+    pub type VkDirectDriverLoadingListLUNARG = DirectDriverLoadingListLUNARG<'static>;
+    pub type VkDirectDriverLoadingModeLUNARG = DirectDriverLoadingModeLUNARG;
+    pub type VkDirectDriverLoadingFlagsLUNARG = DirectDriverLoadingFlagsLUNARG;
+    impl DirectDriverLoadingInfoLUNARG<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDirectDriverLoadingInfoLUNARG {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DirectDriverLoadingListLUNARG<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDirectDriverLoadingListLUNARG {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

@@ -113,3 +113,19 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPipelineCompilerControlCreateInfoAMD = PipelineCompilerControlCreateInfoAMD<'static>;
+    pub type VkPipelineCompilerControlFlagsAMD = PipelineCompilerControlFlagsAMD;
+    pub type VkPipelineCompilerControlFlagBitsAMD = PipelineCompilerControlFlagBitsAMD;
+    impl PipelineCompilerControlCreateInfoAMD<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineCompilerControlCreateInfoAMD {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

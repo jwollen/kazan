@@ -209,3 +209,40 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceExternalFormatResolveFeaturesANDROID =
+        PhysicalDeviceExternalFormatResolveFeaturesANDROID<'static>;
+    pub type VkPhysicalDeviceExternalFormatResolvePropertiesANDROID =
+        PhysicalDeviceExternalFormatResolvePropertiesANDROID<'static>;
+    pub type VkAndroidHardwareBufferFormatResolvePropertiesANDROID =
+        AndroidHardwareBufferFormatResolvePropertiesANDROID<'static>;
+    impl PhysicalDeviceExternalFormatResolveFeaturesANDROID<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceExternalFormatResolveFeaturesANDROID {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceExternalFormatResolvePropertiesANDROID<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceExternalFormatResolvePropertiesANDROID {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AndroidHardwareBufferFormatResolvePropertiesANDROID<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkAndroidHardwareBufferFormatResolvePropertiesANDROID {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

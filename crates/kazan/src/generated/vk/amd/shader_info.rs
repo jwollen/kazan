@@ -171,6 +171,16 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkShaderResourceUsageAMD = ShaderResourceUsageAMD;
+    pub type VkShaderStatisticsInfoAMD = ShaderStatisticsInfoAMD;
+    pub type VkShaderInfoTypeAMD = ShaderInfoTypeAMD;
+}
+
 pub struct DeviceFn {
     get_shader_info_amd: PFN_vkGetShaderInfoAMD,
 }

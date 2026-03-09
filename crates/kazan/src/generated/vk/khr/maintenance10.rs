@@ -432,6 +432,54 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceMaintenance10PropertiesKHR =
+        PhysicalDeviceMaintenance10PropertiesKHR<'static>;
+    pub type VkPhysicalDeviceMaintenance10FeaturesKHR =
+        PhysicalDeviceMaintenance10FeaturesKHR<'static>;
+    pub type VkRenderingEndInfoKHR = RenderingEndInfoKHR<'static>;
+    pub type VkRenderingAttachmentFlagsInfoKHR = RenderingAttachmentFlagsInfoKHR<'static>;
+    pub type VkResolveImageModeInfoKHR = ResolveImageModeInfoKHR<'static>;
+    pub type VkRenderingAttachmentFlagsKHR = RenderingAttachmentFlagsKHR;
+    pub type VkRenderingAttachmentFlagBitsKHR = RenderingAttachmentFlagBitsKHR;
+    pub type VkResolveImageFlagsKHR = ResolveImageFlagsKHR;
+    pub type VkResolveImageFlagBitsKHR = ResolveImageFlagBitsKHR;
+    impl PhysicalDeviceMaintenance10PropertiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceMaintenance10PropertiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceMaintenance10FeaturesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceMaintenance10FeaturesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl RenderingEndInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkRenderingEndInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl RenderingAttachmentFlagsInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkRenderingAttachmentFlagsInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ResolveImageModeInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkResolveImageModeInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_end_rendering2_khr: PFN_vkCmdEndRendering2KHR,
 }

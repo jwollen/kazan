@@ -1679,3 +1679,106 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkVideoEncodeAV1CapabilitiesKHR = VideoEncodeAV1CapabilitiesKHR<'static>;
+    pub type VkVideoEncodeAV1QualityLevelPropertiesKHR =
+        VideoEncodeAV1QualityLevelPropertiesKHR<'static>;
+    pub type VkPhysicalDeviceVideoEncodeAV1FeaturesKHR =
+        PhysicalDeviceVideoEncodeAV1FeaturesKHR<'static>;
+    pub type VkVideoEncodeAV1SessionCreateInfoKHR = VideoEncodeAV1SessionCreateInfoKHR<'static>;
+    pub type VkVideoEncodeAV1SessionParametersCreateInfoKHR =
+        VideoEncodeAV1SessionParametersCreateInfoKHR<'static>;
+    pub type VkVideoEncodeAV1DpbSlotInfoKHR = VideoEncodeAV1DpbSlotInfoKHR<'static>;
+    pub type VkVideoEncodeAV1PictureInfoKHR = VideoEncodeAV1PictureInfoKHR<'static>;
+    pub type VkVideoEncodeAV1ProfileInfoKHR = VideoEncodeAV1ProfileInfoKHR<'static>;
+    pub type VkVideoEncodeAV1RateControlInfoKHR = VideoEncodeAV1RateControlInfoKHR<'static>;
+    pub type VkVideoEncodeAV1QIndexKHR = VideoEncodeAV1QIndexKHR;
+    pub type VkVideoEncodeAV1FrameSizeKHR = VideoEncodeAV1FrameSizeKHR;
+    pub type VkVideoEncodeAV1GopRemainingFrameInfoKHR =
+        VideoEncodeAV1GopRemainingFrameInfoKHR<'static>;
+    pub type VkVideoEncodeAV1RateControlLayerInfoKHR =
+        VideoEncodeAV1RateControlLayerInfoKHR<'static>;
+    pub type VkVideoEncodeAV1PredictionModeKHR = VideoEncodeAV1PredictionModeKHR;
+    pub type VkVideoEncodeAV1RateControlGroupKHR = VideoEncodeAV1RateControlGroupKHR;
+    pub type VkVideoEncodeAV1CapabilityFlagsKHR = VideoEncodeAV1CapabilityFlagsKHR;
+    pub type VkVideoEncodeAV1CapabilityFlagBitsKHR = VideoEncodeAV1CapabilityFlagBitsKHR;
+    pub type VkVideoEncodeAV1StdFlagsKHR = VideoEncodeAV1StdFlagsKHR;
+    pub type VkVideoEncodeAV1StdFlagBitsKHR = VideoEncodeAV1StdFlagBitsKHR;
+    pub type VkVideoEncodeAV1RateControlFlagsKHR = VideoEncodeAV1RateControlFlagsKHR;
+    pub type VkVideoEncodeAV1RateControlFlagBitsKHR = VideoEncodeAV1RateControlFlagBitsKHR;
+    pub type VkVideoEncodeAV1SuperblockSizeFlagsKHR = VideoEncodeAV1SuperblockSizeFlagsKHR;
+    pub type VkVideoEncodeAV1SuperblockSizeFlagBitsKHR = VideoEncodeAV1SuperblockSizeFlagBitsKHR;
+    impl VideoEncodeAV1CapabilitiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeAV1CapabilitiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeAV1QualityLevelPropertiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeAV1QualityLevelPropertiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceVideoEncodeAV1FeaturesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceVideoEncodeAV1FeaturesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeAV1SessionCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeAV1SessionCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeAV1SessionParametersCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkVideoEncodeAV1SessionParametersCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeAV1DpbSlotInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeAV1DpbSlotInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeAV1PictureInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeAV1PictureInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeAV1ProfileInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeAV1ProfileInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeAV1RateControlInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeAV1RateControlInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeAV1GopRemainingFrameInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeAV1GopRemainingFrameInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeAV1RateControlLayerInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeAV1RateControlLayerInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

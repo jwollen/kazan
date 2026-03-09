@@ -203,3 +203,39 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceImageProcessing2FeaturesQCOM =
+        PhysicalDeviceImageProcessing2FeaturesQCOM<'static>;
+    pub type VkPhysicalDeviceImageProcessing2PropertiesQCOM =
+        PhysicalDeviceImageProcessing2PropertiesQCOM<'static>;
+    pub type VkSamplerBlockMatchWindowCreateInfoQCOM =
+        SamplerBlockMatchWindowCreateInfoQCOM<'static>;
+    pub type VkBlockMatchWindowCompareModeQCOM = BlockMatchWindowCompareModeQCOM;
+    impl PhysicalDeviceImageProcessing2FeaturesQCOM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceImageProcessing2FeaturesQCOM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceImageProcessing2PropertiesQCOM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceImageProcessing2PropertiesQCOM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SamplerBlockMatchWindowCreateInfoQCOM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSamplerBlockMatchWindowCreateInfoQCOM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

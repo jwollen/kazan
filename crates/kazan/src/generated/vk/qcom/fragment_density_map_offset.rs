@@ -25,3 +25,16 @@ pub(super) mod defs {
     pub type SubpassFragmentDensityMapOffsetEndInfoQCOM<'a> =
         RenderPassFragmentDensityMapOffsetEndInfoEXT<'a>;
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM =
+        PhysicalDeviceFragmentDensityMapOffsetFeaturesQCOM<'static>;
+    pub type VkPhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM =
+        PhysicalDeviceFragmentDensityMapOffsetPropertiesQCOM<'static>;
+    pub type VkSubpassFragmentDensityMapOffsetEndInfoQCOM =
+        SubpassFragmentDensityMapOffsetEndInfoQCOM<'static>;
+}

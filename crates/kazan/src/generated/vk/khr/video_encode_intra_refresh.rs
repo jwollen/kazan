@@ -421,3 +421,54 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkVideoEncodeIntraRefreshCapabilitiesKHR =
+        VideoEncodeIntraRefreshCapabilitiesKHR<'static>;
+    pub type VkVideoEncodeSessionIntraRefreshCreateInfoKHR =
+        VideoEncodeSessionIntraRefreshCreateInfoKHR<'static>;
+    pub type VkVideoEncodeIntraRefreshInfoKHR = VideoEncodeIntraRefreshInfoKHR<'static>;
+    pub type VkVideoReferenceIntraRefreshInfoKHR = VideoReferenceIntraRefreshInfoKHR<'static>;
+    pub type VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR =
+        PhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR<'static>;
+    pub type VkVideoEncodeIntraRefreshModeFlagsKHR = VideoEncodeIntraRefreshModeFlagsKHR;
+    pub type VkVideoEncodeIntraRefreshModeFlagBitsKHR = VideoEncodeIntraRefreshModeFlagBitsKHR;
+    impl VideoEncodeIntraRefreshCapabilitiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeIntraRefreshCapabilitiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeSessionIntraRefreshCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkVideoEncodeSessionIntraRefreshCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeIntraRefreshInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeIntraRefreshInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoReferenceIntraRefreshInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoReferenceIntraRefreshInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

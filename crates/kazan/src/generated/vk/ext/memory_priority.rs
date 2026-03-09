@@ -114,3 +114,25 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceMemoryPriorityFeaturesEXT =
+        PhysicalDeviceMemoryPriorityFeaturesEXT<'static>;
+    pub type VkMemoryPriorityAllocateInfoEXT = MemoryPriorityAllocateInfoEXT<'static>;
+    impl PhysicalDeviceMemoryPriorityFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceMemoryPriorityFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MemoryPriorityAllocateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMemoryPriorityAllocateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

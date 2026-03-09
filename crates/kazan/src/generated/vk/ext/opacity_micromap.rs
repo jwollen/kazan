@@ -1206,6 +1206,102 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkMicromapEXT = MicromapEXT;
+    pub type VkMicromapBuildInfoEXT = MicromapBuildInfoEXT<'static>;
+    pub type VkMicromapCreateInfoEXT = MicromapCreateInfoEXT<'static>;
+    pub type VkMicromapVersionInfoEXT = MicromapVersionInfoEXT<'static>;
+    pub type VkCopyMicromapInfoEXT = CopyMicromapInfoEXT<'static>;
+    pub type VkCopyMicromapToMemoryInfoEXT = CopyMicromapToMemoryInfoEXT<'static>;
+    pub type VkCopyMemoryToMicromapInfoEXT = CopyMemoryToMicromapInfoEXT<'static>;
+    pub type VkMicromapBuildSizesInfoEXT = MicromapBuildSizesInfoEXT<'static>;
+    pub type VkMicromapUsageEXT = MicromapUsageEXT;
+    pub type VkMicromapTriangleEXT = MicromapTriangleEXT;
+    pub type VkPhysicalDeviceOpacityMicromapFeaturesEXT =
+        PhysicalDeviceOpacityMicromapFeaturesEXT<'static>;
+    pub type VkPhysicalDeviceOpacityMicromapPropertiesEXT =
+        PhysicalDeviceOpacityMicromapPropertiesEXT<'static>;
+    pub type VkAccelerationStructureTrianglesOpacityMicromapEXT =
+        AccelerationStructureTrianglesOpacityMicromapEXT<'static>;
+    pub type VkMicromapTypeEXT = MicromapTypeEXT;
+    pub type VkCopyMicromapModeEXT = CopyMicromapModeEXT;
+    pub type VkBuildMicromapModeEXT = BuildMicromapModeEXT;
+    pub type VkOpacityMicromapFormatEXT = OpacityMicromapFormatEXT;
+    pub type VkOpacityMicromapSpecialIndexEXT = OpacityMicromapSpecialIndexEXT;
+    pub type VkBuildMicromapFlagsEXT = BuildMicromapFlagsEXT;
+    pub type VkBuildMicromapFlagBitsEXT = BuildMicromapFlagBitsEXT;
+    pub type VkMicromapCreateFlagsEXT = MicromapCreateFlagsEXT;
+    pub type VkMicromapCreateFlagBitsEXT = MicromapCreateFlagBitsEXT;
+    impl MicromapBuildInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMicromapBuildInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MicromapCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMicromapCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MicromapVersionInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMicromapVersionInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CopyMicromapInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCopyMicromapInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CopyMicromapToMemoryInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCopyMicromapToMemoryInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CopyMemoryToMicromapInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCopyMemoryToMicromapInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MicromapBuildSizesInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMicromapBuildSizesInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceOpacityMicromapFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceOpacityMicromapFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceOpacityMicromapPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceOpacityMicromapPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AccelerationStructureTrianglesOpacityMicromapEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkAccelerationStructureTrianglesOpacityMicromapEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     create_micromap_ext: PFN_vkCreateMicromapEXT,
     destroy_micromap_ext: PFN_vkDestroyMicromapEXT,

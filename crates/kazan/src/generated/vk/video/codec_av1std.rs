@@ -1844,3 +1844,51 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type StdVideoAV1ColorConfigFlags = super::defs::StdVideoAV1ColorConfigFlags;
+    pub type StdVideoAV1ColorConfig = super::defs::StdVideoAV1ColorConfig;
+    pub type StdVideoAV1TimingInfoFlags = super::defs::StdVideoAV1TimingInfoFlags;
+    pub type StdVideoAV1TimingInfo = super::defs::StdVideoAV1TimingInfo;
+    pub type StdVideoAV1SequenceHeaderFlags = super::defs::StdVideoAV1SequenceHeaderFlags;
+    pub type StdVideoAV1SequenceHeader = super::defs::StdVideoAV1SequenceHeader<'static>;
+    pub type StdVideoAV1LoopFilterFlags = super::defs::StdVideoAV1LoopFilterFlags;
+    pub type StdVideoAV1LoopFilter = super::defs::StdVideoAV1LoopFilter;
+    pub type StdVideoAV1QuantizationFlags = super::defs::StdVideoAV1QuantizationFlags;
+    pub type StdVideoAV1Quantization = super::defs::StdVideoAV1Quantization;
+    pub type StdVideoAV1Segmentation = super::defs::StdVideoAV1Segmentation;
+    pub type StdVideoAV1TileInfoFlags = super::defs::StdVideoAV1TileInfoFlags;
+    pub type StdVideoAV1TileInfo = super::defs::StdVideoAV1TileInfo<'static>;
+    pub type StdVideoAV1CDEF = super::defs::StdVideoAV1CDEF;
+    pub type StdVideoAV1LoopRestoration = super::defs::StdVideoAV1LoopRestoration;
+    pub type StdVideoAV1GlobalMotion = super::defs::StdVideoAV1GlobalMotion;
+    pub type StdVideoAV1FilmGrainFlags = super::defs::StdVideoAV1FilmGrainFlags;
+    pub type StdVideoAV1FilmGrain = super::defs::StdVideoAV1FilmGrain;
+    pub type StdVideoAV1Profile = super::defs::StdVideoAV1Profile;
+    pub type StdVideoAV1Level = super::defs::StdVideoAV1Level;
+    pub type StdVideoAV1FrameType = super::defs::StdVideoAV1FrameType;
+    pub type StdVideoAV1ReferenceName = super::defs::StdVideoAV1ReferenceName;
+    pub type StdVideoAV1InterpolationFilter = super::defs::StdVideoAV1InterpolationFilter;
+    pub type StdVideoAV1TxMode = super::defs::StdVideoAV1TxMode;
+    pub type StdVideoAV1FrameRestorationType = super::defs::StdVideoAV1FrameRestorationType;
+    pub type StdVideoAV1ColorPrimaries = super::defs::StdVideoAV1ColorPrimaries;
+    pub type StdVideoAV1TransferCharacteristics = super::defs::StdVideoAV1TransferCharacteristics;
+    pub type StdVideoAV1MatrixCoefficients = super::defs::StdVideoAV1MatrixCoefficients;
+    pub type StdVideoAV1ChromaSamplePosition = super::defs::StdVideoAV1ChromaSamplePosition;
+    impl super::defs::StdVideoAV1SequenceHeader<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &StdVideoAV1SequenceHeader {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl super::defs::StdVideoAV1TileInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &StdVideoAV1TileInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

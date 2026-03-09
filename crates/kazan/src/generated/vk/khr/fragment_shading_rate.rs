@@ -710,6 +710,68 @@ pub(super) mod defs {
         ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkFragmentShadingRateAttachmentInfoKHR = FragmentShadingRateAttachmentInfoKHR<'static>;
+    pub type VkPipelineFragmentShadingRateStateCreateInfoKHR =
+        PipelineFragmentShadingRateStateCreateInfoKHR<'static>;
+    pub type VkPhysicalDeviceFragmentShadingRateFeaturesKHR =
+        PhysicalDeviceFragmentShadingRateFeaturesKHR<'static>;
+    pub type VkPhysicalDeviceFragmentShadingRatePropertiesKHR =
+        PhysicalDeviceFragmentShadingRatePropertiesKHR<'static>;
+    pub type VkPhysicalDeviceFragmentShadingRateKHR = PhysicalDeviceFragmentShadingRateKHR<'static>;
+    pub type VkRenderingFragmentShadingRateAttachmentInfoKHR =
+        RenderingFragmentShadingRateAttachmentInfoKHR<'static>;
+    pub type VkFragmentShadingRateCombinerOpKHR = FragmentShadingRateCombinerOpKHR;
+    impl FragmentShadingRateAttachmentInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkFragmentShadingRateAttachmentInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineFragmentShadingRateStateCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPipelineFragmentShadingRateStateCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceFragmentShadingRateFeaturesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceFragmentShadingRateFeaturesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceFragmentShadingRatePropertiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceFragmentShadingRatePropertiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceFragmentShadingRateKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceFragmentShadingRateKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl RenderingFragmentShadingRateAttachmentInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkRenderingFragmentShadingRateAttachmentInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     get_physical_device_fragment_shading_rates_khr: PFN_vkGetPhysicalDeviceFragmentShadingRatesKHR,
 }

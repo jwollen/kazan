@@ -23,6 +23,15 @@ pub(super) mod defs {
     pub type PFN_vkBindImageMemory2KHR = PFN_vkBindImageMemory2;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkBindBufferMemoryInfoKHR = BindBufferMemoryInfoKHR<'static>;
+    pub type VkBindImageMemoryInfoKHR = BindImageMemoryInfoKHR<'static>;
+}
+
 pub struct DeviceFn {
     bind_buffer_memory2_khr: PFN_vkBindBufferMemory2,
     bind_image_memory2_khr: PFN_vkBindImageMemory2,

@@ -230,6 +230,37 @@ pub(super) mod defs {
         unsafe extern "system" fn(device: Device, swapchain: SwapchainKHR) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkSurfaceFullScreenExclusiveInfoEXT = SurfaceFullScreenExclusiveInfoEXT<'static>;
+    pub type VkSurfaceFullScreenExclusiveWin32InfoEXT =
+        SurfaceFullScreenExclusiveWin32InfoEXT<'static>;
+    pub type VkSurfaceCapabilitiesFullScreenExclusiveEXT =
+        SurfaceCapabilitiesFullScreenExclusiveEXT<'static>;
+    pub type VkFullScreenExclusiveEXT = FullScreenExclusiveEXT;
+    impl SurfaceFullScreenExclusiveInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSurfaceFullScreenExclusiveInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SurfaceFullScreenExclusiveWin32InfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSurfaceFullScreenExclusiveWin32InfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SurfaceCapabilitiesFullScreenExclusiveEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSurfaceCapabilitiesFullScreenExclusiveEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     get_physical_device_surface_present_modes2_ext: PFN_vkGetPhysicalDeviceSurfacePresentModes2EXT,
 }

@@ -6263,6 +6263,413 @@ pub(super) mod defs {
     ) -> u64;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkConformanceVersion = ConformanceVersion;
+    pub type VkPhysicalDeviceDriverProperties = PhysicalDeviceDriverProperties<'static>;
+    pub type VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures =
+        PhysicalDeviceShaderSubgroupExtendedTypesFeatures<'static>;
+    pub type VkPhysicalDeviceSamplerFilterMinmaxProperties =
+        PhysicalDeviceSamplerFilterMinmaxProperties<'static>;
+    pub type VkSamplerReductionModeCreateInfo = SamplerReductionModeCreateInfo<'static>;
+    pub type VkImageFormatListCreateInfo = ImageFormatListCreateInfo<'static>;
+    pub type VkPhysicalDeviceShaderFloat16Int8Features =
+        PhysicalDeviceShaderFloat16Int8Features<'static>;
+    pub type VkPhysicalDeviceFloatControlsProperties =
+        PhysicalDeviceFloatControlsProperties<'static>;
+    pub type VkPhysicalDeviceHostQueryResetFeatures = PhysicalDeviceHostQueryResetFeatures<'static>;
+    pub type VkPhysicalDeviceDescriptorIndexingFeatures =
+        PhysicalDeviceDescriptorIndexingFeatures<'static>;
+    pub type VkPhysicalDeviceDescriptorIndexingProperties =
+        PhysicalDeviceDescriptorIndexingProperties<'static>;
+    pub type VkDescriptorSetLayoutBindingFlagsCreateInfo =
+        DescriptorSetLayoutBindingFlagsCreateInfo<'static>;
+    pub type VkDescriptorSetVariableDescriptorCountAllocateInfo =
+        DescriptorSetVariableDescriptorCountAllocateInfo<'static>;
+    pub type VkDescriptorSetVariableDescriptorCountLayoutSupport =
+        DescriptorSetVariableDescriptorCountLayoutSupport<'static>;
+    pub type VkAttachmentDescription2 = AttachmentDescription2<'static>;
+    pub type VkAttachmentReference2 = AttachmentReference2<'static>;
+    pub type VkSubpassDescription2 = SubpassDescription2<'static>;
+    pub type VkSubpassDependency2 = SubpassDependency2<'static>;
+    pub type VkRenderPassCreateInfo2 = RenderPassCreateInfo2<'static>;
+    pub type VkSubpassBeginInfo = SubpassBeginInfo<'static>;
+    pub type VkSubpassEndInfo = SubpassEndInfo<'static>;
+    pub type VkPhysicalDeviceTimelineSemaphoreFeatures =
+        PhysicalDeviceTimelineSemaphoreFeatures<'static>;
+    pub type VkPhysicalDeviceTimelineSemaphoreProperties =
+        PhysicalDeviceTimelineSemaphoreProperties<'static>;
+    pub type VkSemaphoreTypeCreateInfo = SemaphoreTypeCreateInfo<'static>;
+    pub type VkTimelineSemaphoreSubmitInfo = TimelineSemaphoreSubmitInfo<'static>;
+    pub type VkSemaphoreWaitInfo = SemaphoreWaitInfo<'static>;
+    pub type VkSemaphoreSignalInfo = SemaphoreSignalInfo<'static>;
+    pub type VkPhysicalDevice8BitStorageFeatures = PhysicalDevice8BitStorageFeatures<'static>;
+    pub type VkPhysicalDeviceVulkanMemoryModelFeatures =
+        PhysicalDeviceVulkanMemoryModelFeatures<'static>;
+    pub type VkPhysicalDeviceShaderAtomicInt64Features =
+        PhysicalDeviceShaderAtomicInt64Features<'static>;
+    pub type VkPhysicalDeviceDepthStencilResolveProperties =
+        PhysicalDeviceDepthStencilResolveProperties<'static>;
+    pub type VkSubpassDescriptionDepthStencilResolve =
+        SubpassDescriptionDepthStencilResolve<'static>;
+    pub type VkImageStencilUsageCreateInfo = ImageStencilUsageCreateInfo<'static>;
+    pub type VkPhysicalDeviceScalarBlockLayoutFeatures =
+        PhysicalDeviceScalarBlockLayoutFeatures<'static>;
+    pub type VkPhysicalDeviceUniformBufferStandardLayoutFeatures =
+        PhysicalDeviceUniformBufferStandardLayoutFeatures<'static>;
+    pub type VkPhysicalDeviceBufferDeviceAddressFeatures =
+        PhysicalDeviceBufferDeviceAddressFeatures<'static>;
+    pub type VkBufferDeviceAddressInfo = BufferDeviceAddressInfo<'static>;
+    pub type VkBufferOpaqueCaptureAddressCreateInfo = BufferOpaqueCaptureAddressCreateInfo<'static>;
+    pub type VkPhysicalDeviceImagelessFramebufferFeatures =
+        PhysicalDeviceImagelessFramebufferFeatures<'static>;
+    pub type VkFramebufferAttachmentsCreateInfo = FramebufferAttachmentsCreateInfo<'static>;
+    pub type VkFramebufferAttachmentImageInfo = FramebufferAttachmentImageInfo<'static>;
+    pub type VkRenderPassAttachmentBeginInfo = RenderPassAttachmentBeginInfo<'static>;
+    pub type VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures =
+        PhysicalDeviceSeparateDepthStencilLayoutsFeatures<'static>;
+    pub type VkAttachmentReferenceStencilLayout = AttachmentReferenceStencilLayout<'static>;
+    pub type VkAttachmentDescriptionStencilLayout = AttachmentDescriptionStencilLayout<'static>;
+    pub type VkMemoryOpaqueCaptureAddressAllocateInfo =
+        MemoryOpaqueCaptureAddressAllocateInfo<'static>;
+    pub type VkDeviceMemoryOpaqueCaptureAddressInfo = DeviceMemoryOpaqueCaptureAddressInfo<'static>;
+    pub type VkPhysicalDeviceVulkan11Features = PhysicalDeviceVulkan11Features<'static>;
+    pub type VkPhysicalDeviceVulkan11Properties = PhysicalDeviceVulkan11Properties<'static>;
+    pub type VkPhysicalDeviceVulkan12Features = PhysicalDeviceVulkan12Features<'static>;
+    pub type VkPhysicalDeviceVulkan12Properties = PhysicalDeviceVulkan12Properties<'static>;
+    pub type VkSemaphoreType = SemaphoreType;
+    pub type VkSamplerReductionMode = SamplerReductionMode;
+    pub type VkDriverId = DriverId;
+    pub type VkShaderFloatControlsIndependence = ShaderFloatControlsIndependence;
+    pub type VkSemaphoreWaitFlags = SemaphoreWaitFlags;
+    pub type VkSemaphoreWaitFlagBits = SemaphoreWaitFlagBits;
+    pub type VkDescriptorBindingFlags = DescriptorBindingFlags;
+    pub type VkDescriptorBindingFlagBits = DescriptorBindingFlagBits;
+    pub type VkResolveModeFlags = ResolveModeFlags;
+    pub type VkResolveModeFlagBits = ResolveModeFlagBits;
+    impl PhysicalDeviceDriverProperties<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceDriverProperties {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceShaderSubgroupExtendedTypesFeatures<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceSamplerFilterMinmaxProperties<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceSamplerFilterMinmaxProperties {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SamplerReductionModeCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSamplerReductionModeCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImageFormatListCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImageFormatListCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceShaderFloat16Int8Features<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceShaderFloat16Int8Features {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceFloatControlsProperties<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceFloatControlsProperties {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceHostQueryResetFeatures<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceHostQueryResetFeatures {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceDescriptorIndexingFeatures<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceDescriptorIndexingFeatures {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceDescriptorIndexingProperties<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceDescriptorIndexingProperties {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DescriptorSetLayoutBindingFlagsCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDescriptorSetLayoutBindingFlagsCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DescriptorSetVariableDescriptorCountAllocateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkDescriptorSetVariableDescriptorCountAllocateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DescriptorSetVariableDescriptorCountLayoutSupport<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkDescriptorSetVariableDescriptorCountLayoutSupport {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AttachmentDescription2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkAttachmentDescription2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AttachmentReference2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkAttachmentReference2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SubpassDescription2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSubpassDescription2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SubpassDependency2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSubpassDependency2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl RenderPassCreateInfo2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkRenderPassCreateInfo2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SubpassBeginInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSubpassBeginInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SubpassEndInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSubpassEndInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceTimelineSemaphoreFeatures<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceTimelineSemaphoreFeatures {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceTimelineSemaphoreProperties<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceTimelineSemaphoreProperties {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SemaphoreTypeCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSemaphoreTypeCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl TimelineSemaphoreSubmitInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkTimelineSemaphoreSubmitInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SemaphoreWaitInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSemaphoreWaitInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SemaphoreSignalInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSemaphoreSignalInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDevice8BitStorageFeatures<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDevice8BitStorageFeatures {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceVulkanMemoryModelFeatures<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceVulkanMemoryModelFeatures {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceShaderAtomicInt64Features<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceShaderAtomicInt64Features {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceDepthStencilResolveProperties<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceDepthStencilResolveProperties {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SubpassDescriptionDepthStencilResolve<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSubpassDescriptionDepthStencilResolve {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImageStencilUsageCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImageStencilUsageCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceScalarBlockLayoutFeatures<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceScalarBlockLayoutFeatures {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceUniformBufferStandardLayoutFeatures<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceUniformBufferStandardLayoutFeatures {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceBufferDeviceAddressFeatures<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceBufferDeviceAddressFeatures {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BufferDeviceAddressInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBufferDeviceAddressInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BufferOpaqueCaptureAddressCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBufferOpaqueCaptureAddressCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceImagelessFramebufferFeatures<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceImagelessFramebufferFeatures {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl FramebufferAttachmentsCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkFramebufferAttachmentsCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl FramebufferAttachmentImageInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkFramebufferAttachmentImageInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl RenderPassAttachmentBeginInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkRenderPassAttachmentBeginInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceSeparateDepthStencilLayoutsFeatures<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AttachmentReferenceStencilLayout<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkAttachmentReferenceStencilLayout {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AttachmentDescriptionStencilLayout<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkAttachmentDescriptionStencilLayout {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MemoryOpaqueCaptureAddressAllocateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMemoryOpaqueCaptureAddressAllocateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DeviceMemoryOpaqueCaptureAddressInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDeviceMemoryOpaqueCaptureAddressInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceVulkan11Features<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceVulkan11Features {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceVulkan11Properties<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceVulkan11Properties {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceVulkan12Features<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceVulkan12Features {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceVulkan12Properties<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceVulkan12Properties {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     reset_query_pool: PFN_vkResetQueryPool,
     get_semaphore_counter_value: PFN_vkGetSemaphoreCounterValue,

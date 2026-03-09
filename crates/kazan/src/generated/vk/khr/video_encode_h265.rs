@@ -1887,3 +1887,138 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkVideoEncodeH265CapabilitiesKHR = VideoEncodeH265CapabilitiesKHR<'static>;
+    pub type VkVideoEncodeH265QualityLevelPropertiesKHR =
+        VideoEncodeH265QualityLevelPropertiesKHR<'static>;
+    pub type VkVideoEncodeH265SessionCreateInfoKHR = VideoEncodeH265SessionCreateInfoKHR<'static>;
+    pub type VkVideoEncodeH265SessionParametersAddInfoKHR =
+        VideoEncodeH265SessionParametersAddInfoKHR<'static>;
+    pub type VkVideoEncodeH265SessionParametersCreateInfoKHR =
+        VideoEncodeH265SessionParametersCreateInfoKHR<'static>;
+    pub type VkVideoEncodeH265SessionParametersGetInfoKHR =
+        VideoEncodeH265SessionParametersGetInfoKHR<'static>;
+    pub type VkVideoEncodeH265SessionParametersFeedbackInfoKHR =
+        VideoEncodeH265SessionParametersFeedbackInfoKHR<'static>;
+    pub type VkVideoEncodeH265PictureInfoKHR = VideoEncodeH265PictureInfoKHR<'static>;
+    pub type VkVideoEncodeH265NaluSliceSegmentInfoKHR =
+        VideoEncodeH265NaluSliceSegmentInfoKHR<'static>;
+    pub type VkVideoEncodeH265RateControlInfoKHR = VideoEncodeH265RateControlInfoKHR<'static>;
+    pub type VkVideoEncodeH265QpKHR = VideoEncodeH265QpKHR;
+    pub type VkVideoEncodeH265FrameSizeKHR = VideoEncodeH265FrameSizeKHR;
+    pub type VkVideoEncodeH265GopRemainingFrameInfoKHR =
+        VideoEncodeH265GopRemainingFrameInfoKHR<'static>;
+    pub type VkVideoEncodeH265RateControlLayerInfoKHR =
+        VideoEncodeH265RateControlLayerInfoKHR<'static>;
+    pub type VkVideoEncodeH265ProfileInfoKHR = VideoEncodeH265ProfileInfoKHR<'static>;
+    pub type VkVideoEncodeH265DpbSlotInfoKHR = VideoEncodeH265DpbSlotInfoKHR<'static>;
+    pub type VkVideoEncodeH265CapabilityFlagsKHR = VideoEncodeH265CapabilityFlagsKHR;
+    pub type VkVideoEncodeH265CapabilityFlagBitsKHR = VideoEncodeH265CapabilityFlagBitsKHR;
+    pub type VkVideoEncodeH265StdFlagsKHR = VideoEncodeH265StdFlagsKHR;
+    pub type VkVideoEncodeH265StdFlagBitsKHR = VideoEncodeH265StdFlagBitsKHR;
+    pub type VkVideoEncodeH265RateControlFlagsKHR = VideoEncodeH265RateControlFlagsKHR;
+    pub type VkVideoEncodeH265RateControlFlagBitsKHR = VideoEncodeH265RateControlFlagBitsKHR;
+    pub type VkVideoEncodeH265CtbSizeFlagsKHR = VideoEncodeH265CtbSizeFlagsKHR;
+    pub type VkVideoEncodeH265CtbSizeFlagBitsKHR = VideoEncodeH265CtbSizeFlagBitsKHR;
+    pub type VkVideoEncodeH265TransformBlockSizeFlagsKHR =
+        VideoEncodeH265TransformBlockSizeFlagsKHR;
+    pub type VkVideoEncodeH265TransformBlockSizeFlagBitsKHR =
+        VideoEncodeH265TransformBlockSizeFlagBitsKHR;
+    impl VideoEncodeH265CapabilitiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeH265CapabilitiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeH265QualityLevelPropertiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeH265QualityLevelPropertiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeH265SessionCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeH265SessionCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeH265SessionParametersAddInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkVideoEncodeH265SessionParametersAddInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeH265SessionParametersCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkVideoEncodeH265SessionParametersCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeH265SessionParametersGetInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkVideoEncodeH265SessionParametersGetInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeH265SessionParametersFeedbackInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkVideoEncodeH265SessionParametersFeedbackInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeH265PictureInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeH265PictureInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeH265NaluSliceSegmentInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeH265NaluSliceSegmentInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeH265RateControlInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeH265RateControlInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeH265GopRemainingFrameInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeH265GopRemainingFrameInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeH265RateControlLayerInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeH265RateControlLayerInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeH265ProfileInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeH265ProfileInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeH265DpbSlotInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeH265DpbSlotInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

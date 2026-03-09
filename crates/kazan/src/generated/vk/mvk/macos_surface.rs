@@ -90,6 +90,21 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkMacOSSurfaceCreateInfoMVK = MacOSSurfaceCreateInfoMVK<'static>;
+    pub type VkMacOSSurfaceCreateFlagsMVK = MacOSSurfaceCreateFlagsMVK;
+    impl MacOSSurfaceCreateInfoMVK<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMacOSSurfaceCreateInfoMVK {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     create_mac_os_surface_mvk: PFN_vkCreateMacOSSurfaceMVK,
 }

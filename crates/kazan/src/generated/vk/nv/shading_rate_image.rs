@@ -524,6 +524,68 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkShadingRatePaletteNV = ShadingRatePaletteNV<'static>;
+    pub type VkPipelineViewportShadingRateImageStateCreateInfoNV =
+        PipelineViewportShadingRateImageStateCreateInfoNV<'static>;
+    pub type VkPhysicalDeviceShadingRateImageFeaturesNV =
+        PhysicalDeviceShadingRateImageFeaturesNV<'static>;
+    pub type VkPhysicalDeviceShadingRateImagePropertiesNV =
+        PhysicalDeviceShadingRateImagePropertiesNV<'static>;
+    pub type VkCoarseSampleLocationNV = CoarseSampleLocationNV;
+    pub type VkCoarseSampleOrderCustomNV = CoarseSampleOrderCustomNV<'static>;
+    pub type VkPipelineViewportCoarseSampleOrderStateCreateInfoNV =
+        PipelineViewportCoarseSampleOrderStateCreateInfoNV<'static>;
+    pub type VkShadingRatePaletteEntryNV = ShadingRatePaletteEntryNV;
+    pub type VkCoarseSampleOrderTypeNV = CoarseSampleOrderTypeNV;
+    impl ShadingRatePaletteNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkShadingRatePaletteNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineViewportShadingRateImageStateCreateInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPipelineViewportShadingRateImageStateCreateInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceShadingRateImageFeaturesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceShadingRateImageFeaturesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceShadingRateImagePropertiesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceShadingRateImagePropertiesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CoarseSampleOrderCustomNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCoarseSampleOrderCustomNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineViewportCoarseSampleOrderStateCreateInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPipelineViewportCoarseSampleOrderStateCreateInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_bind_shading_rate_image_nv: PFN_vkCmdBindShadingRateImageNV,
     cmd_set_viewport_shading_rate_palette_nv: PFN_vkCmdSetViewportShadingRatePaletteNV,

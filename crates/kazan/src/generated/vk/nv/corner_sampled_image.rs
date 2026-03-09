@@ -67,3 +67,20 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceCornerSampledImageFeaturesNV =
+        PhysicalDeviceCornerSampledImageFeaturesNV<'static>;
+    impl PhysicalDeviceCornerSampledImageFeaturesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceCornerSampledImageFeaturesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

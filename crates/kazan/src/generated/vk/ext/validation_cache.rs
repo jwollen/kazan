@@ -199,6 +199,31 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkValidationCacheEXT = ValidationCacheEXT;
+    pub type VkValidationCacheCreateInfoEXT = ValidationCacheCreateInfoEXT<'static>;
+    pub type VkShaderModuleValidationCacheCreateInfoEXT =
+        ShaderModuleValidationCacheCreateInfoEXT<'static>;
+    pub type VkValidationCacheHeaderVersionEXT = ValidationCacheHeaderVersionEXT;
+    pub type VkValidationCacheCreateFlagsEXT = ValidationCacheCreateFlagsEXT;
+    impl ValidationCacheCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkValidationCacheCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ShaderModuleValidationCacheCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkShaderModuleValidationCacheCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     create_validation_cache_ext: PFN_vkCreateValidationCacheEXT,
     destroy_validation_cache_ext: PFN_vkDestroyValidationCacheEXT,

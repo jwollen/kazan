@@ -19,3 +19,12 @@ pub(super) mod defs {
     pub type PhysicalDeviceShaderFloatControls2FeaturesKHR<'a> =
         PhysicalDeviceShaderFloatControls2Features<'a>;
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceShaderFloatControls2FeaturesKHR =
+        PhysicalDeviceShaderFloatControls2FeaturesKHR<'static>;
+}

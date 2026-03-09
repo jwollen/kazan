@@ -156,3 +156,25 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceRobustness2FeaturesKHR = PhysicalDeviceRobustness2FeaturesKHR<'static>;
+    pub type VkPhysicalDeviceRobustness2PropertiesKHR =
+        PhysicalDeviceRobustness2PropertiesKHR<'static>;
+    impl PhysicalDeviceRobustness2FeaturesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceRobustness2FeaturesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceRobustness2PropertiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceRobustness2PropertiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

@@ -18,3 +18,12 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevice16BitStorageFeaturesKHR.html>
     pub type PhysicalDevice16BitStorageFeaturesKHR<'a> = PhysicalDevice16BitStorageFeatures<'a>;
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDevice16BitStorageFeaturesKHR =
+        PhysicalDevice16BitStorageFeaturesKHR<'static>;
+}

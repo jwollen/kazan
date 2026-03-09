@@ -851,6 +851,35 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceExtendedDynamicState3FeaturesEXT =
+        PhysicalDeviceExtendedDynamicState3FeaturesEXT<'static>;
+    pub type VkPhysicalDeviceExtendedDynamicState3PropertiesEXT =
+        PhysicalDeviceExtendedDynamicState3PropertiesEXT<'static>;
+    pub type VkColorBlendEquationEXT = ColorBlendEquationEXT;
+    pub type VkColorBlendAdvancedEXT = ColorBlendAdvancedEXT;
+    impl PhysicalDeviceExtendedDynamicState3FeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceExtendedDynamicState3FeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceExtendedDynamicState3PropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceExtendedDynamicState3PropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_set_depth_clamp_enable_ext: PFN_vkCmdSetDepthClampEnableEXT,
     cmd_set_polygon_mode_ext: PFN_vkCmdSetPolygonModeEXT,

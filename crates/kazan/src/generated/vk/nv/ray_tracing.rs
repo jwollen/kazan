@@ -1115,6 +1115,115 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkAccelerationStructureNV = AccelerationStructureNV;
+    pub type VkRayTracingShaderGroupCreateInfoNV = RayTracingShaderGroupCreateInfoNV<'static>;
+    pub type VkRayTracingPipelineCreateInfoNV = RayTracingPipelineCreateInfoNV<'static>;
+    pub type VkGeometryTrianglesNV = GeometryTrianglesNV<'static>;
+    pub type VkGeometryAABBNV = GeometryAABBNV<'static>;
+    pub type VkGeometryDataNV = GeometryDataNV<'static>;
+    pub type VkGeometryNV = GeometryNV<'static>;
+    pub type VkAccelerationStructureInfoNV = AccelerationStructureInfoNV<'static>;
+    pub type VkAccelerationStructureCreateInfoNV = AccelerationStructureCreateInfoNV<'static>;
+    pub type VkBindAccelerationStructureMemoryInfoNV =
+        BindAccelerationStructureMemoryInfoNV<'static>;
+    pub type VkWriteDescriptorSetAccelerationStructureNV =
+        WriteDescriptorSetAccelerationStructureNV<'static>;
+    pub type VkAccelerationStructureMemoryRequirementsInfoNV =
+        AccelerationStructureMemoryRequirementsInfoNV<'static>;
+    pub type VkPhysicalDeviceRayTracingPropertiesNV = PhysicalDeviceRayTracingPropertiesNV<'static>;
+    pub type VkAccelerationStructureMemoryRequirementsTypeNV =
+        AccelerationStructureMemoryRequirementsTypeNV;
+    pub type VkCopyAccelerationStructureModeNV = CopyAccelerationStructureModeNV;
+    pub type VkAccelerationStructureTypeNV = AccelerationStructureTypeNV;
+    pub type VkGeometryTypeNV = GeometryTypeNV;
+    pub type VkRayTracingShaderGroupTypeNV = RayTracingShaderGroupTypeNV;
+    pub type VkAabbPositionsNV = AabbPositionsNV;
+    pub type VkTransformMatrixNV = TransformMatrixNV;
+    pub type VkAccelerationStructureInstanceNV = AccelerationStructureInstanceNV;
+    pub type VkGeometryFlagsNV = GeometryFlagsNV;
+    pub type VkGeometryInstanceFlagsNV = GeometryInstanceFlagsNV;
+    pub type VkBuildAccelerationStructureFlagsNV = BuildAccelerationStructureFlagsNV;
+    impl RayTracingShaderGroupCreateInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkRayTracingShaderGroupCreateInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl RayTracingPipelineCreateInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkRayTracingPipelineCreateInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl GeometryTrianglesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkGeometryTrianglesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl GeometryAABBNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkGeometryAABBNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl GeometryDataNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkGeometryDataNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl GeometryNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkGeometryNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AccelerationStructureInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkAccelerationStructureInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AccelerationStructureCreateInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkAccelerationStructureCreateInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BindAccelerationStructureMemoryInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBindAccelerationStructureMemoryInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl WriteDescriptorSetAccelerationStructureNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkWriteDescriptorSetAccelerationStructureNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AccelerationStructureMemoryRequirementsInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkAccelerationStructureMemoryRequirementsInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceRayTracingPropertiesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceRayTracingPropertiesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     create_acceleration_structure_nv: PFN_vkCreateAccelerationStructureNV,
     destroy_acceleration_structure_nv: PFN_vkDestroyAccelerationStructureNV,

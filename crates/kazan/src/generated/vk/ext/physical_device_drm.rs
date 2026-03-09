@@ -107,3 +107,17 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceDrmPropertiesEXT = PhysicalDeviceDrmPropertiesEXT<'static>;
+    impl PhysicalDeviceDrmPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceDrmPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

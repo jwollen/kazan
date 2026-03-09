@@ -265,6 +265,38 @@ pub(super) mod defs {
         -> DeviceAddress;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkComputePipelineIndirectBufferInfoNV = ComputePipelineIndirectBufferInfoNV<'static>;
+    pub type VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV =
+        PhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV<'static>;
+    pub type VkPipelineIndirectDeviceAddressInfoNV = PipelineIndirectDeviceAddressInfoNV<'static>;
+    pub type VkBindPipelineIndirectCommandNV = BindPipelineIndirectCommandNV;
+    impl ComputePipelineIndirectBufferInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkComputePipelineIndirectBufferInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineIndirectDeviceAddressInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineIndirectDeviceAddressInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     get_pipeline_indirect_memory_requirements_nv: PFN_vkGetPipelineIndirectMemoryRequirementsNV,
     cmd_update_pipeline_indirect_buffer_nv: PFN_vkCmdUpdatePipelineIndirectBufferNV,

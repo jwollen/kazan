@@ -118,6 +118,21 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkCalibratedTimestampInfoKHR = CalibratedTimestampInfoKHR<'static>;
+    pub type VkTimeDomainKHR = TimeDomainKHR;
+    impl CalibratedTimestampInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCalibratedTimestampInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     get_physical_device_calibrateable_time_domains_khr:
         PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsKHR,

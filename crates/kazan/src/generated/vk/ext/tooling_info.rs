@@ -22,6 +22,15 @@ pub(super) mod defs {
     pub type PFN_vkGetPhysicalDeviceToolPropertiesEXT = PFN_vkGetPhysicalDeviceToolProperties;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceToolPropertiesEXT = PhysicalDeviceToolPropertiesEXT<'static>;
+    pub type VkToolPurposeFlagsEXT = ToolPurposeFlagsEXT;
+}
+
 pub struct InstanceFn {
     get_physical_device_tool_properties_ext: PFN_vkGetPhysicalDeviceToolProperties,
 }

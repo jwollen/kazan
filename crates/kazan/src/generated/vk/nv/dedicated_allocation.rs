@@ -168,3 +168,33 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkDedicatedAllocationImageCreateInfoNV = DedicatedAllocationImageCreateInfoNV<'static>;
+    pub type VkDedicatedAllocationBufferCreateInfoNV =
+        DedicatedAllocationBufferCreateInfoNV<'static>;
+    pub type VkDedicatedAllocationMemoryAllocateInfoNV =
+        DedicatedAllocationMemoryAllocateInfoNV<'static>;
+    impl DedicatedAllocationImageCreateInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDedicatedAllocationImageCreateInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DedicatedAllocationBufferCreateInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDedicatedAllocationBufferCreateInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DedicatedAllocationMemoryAllocateInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDedicatedAllocationMemoryAllocateInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

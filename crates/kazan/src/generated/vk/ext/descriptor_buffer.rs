@@ -1356,6 +1356,126 @@ pub(super) mod defs {
         ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceDescriptorBufferFeaturesEXT =
+        PhysicalDeviceDescriptorBufferFeaturesEXT<'static>;
+    pub type VkPhysicalDeviceDescriptorBufferPropertiesEXT =
+        PhysicalDeviceDescriptorBufferPropertiesEXT<'static>;
+    pub type VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT =
+        PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'static>;
+    pub type VkDescriptorAddressInfoEXT = DescriptorAddressInfoEXT<'static>;
+    pub type VkDescriptorBufferBindingInfoEXT = DescriptorBufferBindingInfoEXT<'static>;
+    pub type VkDescriptorBufferBindingPushDescriptorBufferHandleEXT =
+        DescriptorBufferBindingPushDescriptorBufferHandleEXT<'static>;
+    pub type VkDescriptorGetInfoEXT = DescriptorGetInfoEXT<'static>;
+    pub type VkBufferCaptureDescriptorDataInfoEXT = BufferCaptureDescriptorDataInfoEXT<'static>;
+    pub type VkImageCaptureDescriptorDataInfoEXT = ImageCaptureDescriptorDataInfoEXT<'static>;
+    pub type VkImageViewCaptureDescriptorDataInfoEXT =
+        ImageViewCaptureDescriptorDataInfoEXT<'static>;
+    pub type VkSamplerCaptureDescriptorDataInfoEXT = SamplerCaptureDescriptorDataInfoEXT<'static>;
+    pub type VkAccelerationStructureCaptureDescriptorDataInfoEXT =
+        AccelerationStructureCaptureDescriptorDataInfoEXT<'static>;
+    pub type VkOpaqueCaptureDescriptorDataCreateInfoEXT =
+        OpaqueCaptureDescriptorDataCreateInfoEXT<'static>;
+    pub type VkDescriptorDataEXT = DescriptorDataEXT<'static>;
+    impl PhysicalDeviceDescriptorBufferFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceDescriptorBufferFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceDescriptorBufferPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceDescriptorBufferPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DescriptorAddressInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDescriptorAddressInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DescriptorBufferBindingInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDescriptorBufferBindingInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DescriptorBufferBindingPushDescriptorBufferHandleEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkDescriptorBufferBindingPushDescriptorBufferHandleEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DescriptorGetInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDescriptorGetInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BufferCaptureDescriptorDataInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBufferCaptureDescriptorDataInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImageCaptureDescriptorDataInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImageCaptureDescriptorDataInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImageViewCaptureDescriptorDataInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImageViewCaptureDescriptorDataInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SamplerCaptureDescriptorDataInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSamplerCaptureDescriptorDataInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AccelerationStructureCaptureDescriptorDataInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkAccelerationStructureCaptureDescriptorDataInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl OpaqueCaptureDescriptorDataCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkOpaqueCaptureDescriptorDataCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DescriptorDataEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDescriptorDataEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     get_descriptor_set_layout_size_ext: PFN_vkGetDescriptorSetLayoutSizeEXT,
     get_descriptor_set_layout_binding_offset_ext: PFN_vkGetDescriptorSetLayoutBindingOffsetEXT,

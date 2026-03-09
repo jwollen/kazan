@@ -20,3 +20,12 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryDedicatedAllocateInfoKHR.html>
     pub type MemoryDedicatedAllocateInfoKHR<'a> = MemoryDedicatedAllocateInfo<'a>;
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkMemoryDedicatedRequirementsKHR = MemoryDedicatedRequirementsKHR<'static>;
+    pub type VkMemoryDedicatedAllocateInfoKHR = MemoryDedicatedAllocateInfoKHR<'static>;
+}

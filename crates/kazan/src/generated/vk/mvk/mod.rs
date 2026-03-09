@@ -5,3 +5,8 @@ pub(super) mod defs {
     pub use ios_surface::defs::*;
     pub use macos_surface::defs::*;
 }
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    pub use super::ios_surface::ffi::*;
+    pub use super::macos_surface::ffi::*;
+}

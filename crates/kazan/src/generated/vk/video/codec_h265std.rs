@@ -3183,3 +3183,68 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type StdVideoH265ProfileTierLevelFlags = super::defs::StdVideoH265ProfileTierLevelFlags;
+    pub type StdVideoH265ProfileTierLevel = super::defs::StdVideoH265ProfileTierLevel;
+    pub type StdVideoH265DecPicBufMgr = super::defs::StdVideoH265DecPicBufMgr;
+    pub type StdVideoH265SubLayerHrdParameters = super::defs::StdVideoH265SubLayerHrdParameters;
+    pub type StdVideoH265HrdFlags = super::defs::StdVideoH265HrdFlags;
+    pub type StdVideoH265HrdParameters = super::defs::StdVideoH265HrdParameters<'static>;
+    pub type StdVideoH265VpsFlags = super::defs::StdVideoH265VpsFlags;
+    pub type StdVideoH265VideoParameterSet = super::defs::StdVideoH265VideoParameterSet<'static>;
+    pub type StdVideoH265ScalingLists = super::defs::StdVideoH265ScalingLists;
+    pub type StdVideoH265ShortTermRefPicSetFlags = super::defs::StdVideoH265ShortTermRefPicSetFlags;
+    pub type StdVideoH265ShortTermRefPicSet = super::defs::StdVideoH265ShortTermRefPicSet;
+    pub type StdVideoH265LongTermRefPicsSps = super::defs::StdVideoH265LongTermRefPicsSps;
+    pub type StdVideoH265SpsVuiFlags = super::defs::StdVideoH265SpsVuiFlags;
+    pub type StdVideoH265SequenceParameterSetVui =
+        super::defs::StdVideoH265SequenceParameterSetVui<'static>;
+    pub type StdVideoH265PredictorPaletteEntries = super::defs::StdVideoH265PredictorPaletteEntries;
+    pub type StdVideoH265SpsFlags = super::defs::StdVideoH265SpsFlags;
+    pub type StdVideoH265SequenceParameterSet =
+        super::defs::StdVideoH265SequenceParameterSet<'static>;
+    pub type StdVideoH265PpsFlags = super::defs::StdVideoH265PpsFlags;
+    pub type StdVideoH265PictureParameterSet =
+        super::defs::StdVideoH265PictureParameterSet<'static>;
+    pub type StdVideoH265ChromaFormatIdc = super::defs::StdVideoH265ChromaFormatIdc;
+    pub type StdVideoH265ProfileIdc = super::defs::StdVideoH265ProfileIdc;
+    pub type StdVideoH265LevelIdc = super::defs::StdVideoH265LevelIdc;
+    pub type StdVideoH265SliceType = super::defs::StdVideoH265SliceType;
+    pub type StdVideoH265PictureType = super::defs::StdVideoH265PictureType;
+    pub type StdVideoH265AspectRatioIdc = super::defs::StdVideoH265AspectRatioIdc;
+    impl super::defs::StdVideoH265HrdParameters<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &StdVideoH265HrdParameters {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl super::defs::StdVideoH265VideoParameterSet<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &StdVideoH265VideoParameterSet {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl super::defs::StdVideoH265SequenceParameterSetVui<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &StdVideoH265SequenceParameterSetVui {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl super::defs::StdVideoH265SequenceParameterSet<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &StdVideoH265SequenceParameterSet {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl super::defs::StdVideoH265PictureParameterSet<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &StdVideoH265PictureParameterSet {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

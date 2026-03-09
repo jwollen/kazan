@@ -191,6 +191,39 @@ pub(super) mod defs {
 );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkSetDescriptorBufferOffsetsInfoEXT = SetDescriptorBufferOffsetsInfoEXT<'static>;
+    pub type VkBindDescriptorBufferEmbeddedSamplersInfoEXT =
+        BindDescriptorBufferEmbeddedSamplersInfoEXT<'static>;
+    pub type VkPhysicalDeviceMaintenance6FeaturesKHR =
+        PhysicalDeviceMaintenance6FeaturesKHR<'static>;
+    pub type VkPhysicalDeviceMaintenance6PropertiesKHR =
+        PhysicalDeviceMaintenance6PropertiesKHR<'static>;
+    pub type VkBindMemoryStatusKHR = BindMemoryStatusKHR<'static>;
+    pub type VkBindDescriptorSetsInfoKHR = BindDescriptorSetsInfoKHR<'static>;
+    pub type VkPushConstantsInfoKHR = PushConstantsInfoKHR<'static>;
+    pub type VkPushDescriptorSetInfoKHR = PushDescriptorSetInfoKHR<'static>;
+    pub type VkPushDescriptorSetWithTemplateInfoKHR = PushDescriptorSetWithTemplateInfoKHR<'static>;
+    impl SetDescriptorBufferOffsetsInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSetDescriptorBufferOffsetsInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BindDescriptorBufferEmbeddedSamplersInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkBindDescriptorBufferEmbeddedSamplersInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_bind_descriptor_sets2_khr: PFN_vkCmdBindDescriptorSets2,
     cmd_push_constants2_khr: PFN_vkCmdPushConstants2,

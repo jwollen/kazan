@@ -115,3 +115,24 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkHdrVividDynamicMetadataHUAWEI = HdrVividDynamicMetadataHUAWEI<'static>;
+    pub type VkPhysicalDeviceHdrVividFeaturesHUAWEI = PhysicalDeviceHdrVividFeaturesHUAWEI<'static>;
+    impl HdrVividDynamicMetadataHUAWEI<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkHdrVividDynamicMetadataHUAWEI {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceHdrVividFeaturesHUAWEI<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceHdrVividFeaturesHUAWEI {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

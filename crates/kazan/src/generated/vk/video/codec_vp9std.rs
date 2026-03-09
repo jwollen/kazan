@@ -541,3 +541,22 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type StdVideoVP9ColorConfigFlags = super::defs::StdVideoVP9ColorConfigFlags;
+    pub type StdVideoVP9ColorConfig = super::defs::StdVideoVP9ColorConfig;
+    pub type StdVideoVP9LoopFilterFlags = super::defs::StdVideoVP9LoopFilterFlags;
+    pub type StdVideoVP9LoopFilter = super::defs::StdVideoVP9LoopFilter;
+    pub type StdVideoVP9SegmentationFlags = super::defs::StdVideoVP9SegmentationFlags;
+    pub type StdVideoVP9Segmentation = super::defs::StdVideoVP9Segmentation;
+    pub type StdVideoVP9Profile = super::defs::StdVideoVP9Profile;
+    pub type StdVideoVP9Level = super::defs::StdVideoVP9Level;
+    pub type StdVideoVP9FrameType = super::defs::StdVideoVP9FrameType;
+    pub type StdVideoVP9ReferenceName = super::defs::StdVideoVP9ReferenceName;
+    pub type StdVideoVP9InterpolationFilter = super::defs::StdVideoVP9InterpolationFilter;
+    pub type StdVideoVP9ColorSpace = super::defs::StdVideoVP9ColorSpace;
+}

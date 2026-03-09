@@ -12,7 +12,6 @@ use crate::{
     analysis::Analysis,
     cdecl::CType,
     module::{Module, ModuleName},
-    xml::Constant,
 };
 
 mod analysis;
@@ -22,6 +21,7 @@ mod constants;
 mod ctype_rust;
 mod enums;
 mod external;
+mod ffi;
 mod handle;
 mod module;
 mod overrides;
@@ -52,6 +52,7 @@ struct ModuleEntry {
     name: String,
     provisional: bool,
     has_defs: bool,
+    has_ffi: bool,
 }
 
 fn generate(analysis: &analysis::Analysis, root: &Path) -> Result<()> {
@@ -65,9 +66,6 @@ fn generate(analysis: &analysis::Analysis, root: &Path) -> Result<()> {
     external::generate_external_type_file(analysis, &generated_dir)?;
 
     let mut vendor_modules: BTreeMap<Option<String>, Vec<ModuleEntry>> = BTreeMap::new();
-
-    // Build ownership map: for each item, determine which module should define it.
-    // Prefer the module whose vendor tag matches the item's vendor suffix.
     let modules: Vec<_> = Module::from_registry(registry).collect();
 
     for (module_index, module) in modules.iter().enumerate() {
@@ -113,6 +111,21 @@ fn generate(analysis: &analysis::Analysis, root: &Path) -> Result<()> {
                     write!(file, "{}pub use {}::defs::*;\n", cfg, entry.name)?;
                 }
                 writeln!(file, "}}")?;
+
+                let has_any_ffi = entries.iter().any(|e| e.has_ffi);
+                if has_any_ffi {
+                    writeln!(file, "#[cfg(feature = \"ffi\")]")?;
+                    writeln!(file, "pub(super) mod ffi {{")?;
+                    for entry in entries.iter().filter(|e| e.has_ffi) {
+                        let cfg = if entry.provisional {
+                            "#[cfg(feature = \"provisional\")]\n"
+                        } else {
+                            ""
+                        };
+                        write!(file, "{}pub use super::{}::ffi::*;\n", cfg, entry.name)?;
+                    }
+                    writeln!(file, "}}")?;
+                }
             }
         } else {
             for entry in entries {
@@ -122,6 +135,26 @@ fn generate(analysis: &analysis::Analysis, root: &Path) -> Result<()> {
                 }
             }
         }
+    }
+
+    // Generate the top-level ffi re-export module inside vk/.
+    let has_any_ffi = vendor_modules.values().flatten().any(|e| e.has_ffi);
+    if has_any_ffi {
+        writeln!(mod_file, "#[cfg(feature = \"ffi\")]")?;
+        writeln!(mod_file, "#[allow(non_camel_case_types)]")?;
+        writeln!(mod_file, "pub mod ffi {{")?;
+        for (vendor, entries) in &vendor_modules {
+            if let Some(vendor) = vendor {
+                if entries.iter().any(|e| e.has_ffi) {
+                    writeln!(mod_file, "pub use super::{}::ffi::*;", vendor)?;
+                }
+            } else {
+                for entry in entries.iter().filter(|e| e.has_ffi) {
+                    writeln!(mod_file, "pub use super::{}::ffi::*;", entry.name)?;
+                }
+            }
+        }
+        writeln!(mod_file, "}}")?;
     }
 
     std::process::Command::new("rustfmt")
@@ -140,37 +173,7 @@ fn generate_module(
     module_index: usize,
     module: &Module<'_>,
 ) -> Result<()> {
-    let registry = analysis.registry();
-    let requires: Vec<_> = module.requires();
-    let owned = analysis.module_items(module_index);
-
-    let required_api_constants = requires
-        .iter()
-        .flat_map(|r| &r.constants)
-        .filter(|c| owned.contains(c.name))
-        .filter_map(|constant| {
-            let global_api_constant = registry
-                .constants
-                .iter()
-                .find(|api_constant| api_constant.name == constant.name);
-
-            if let Some(global_api_constant) = global_api_constant {
-                Some(global_api_constant.clone())
-            } else if let (Some(ty), Some(value)) = (constant.ty, constant.value) {
-                Some(Constant {
-                    name: constant.name,
-                    ty,
-                    value,
-                })
-            } else {
-                None
-            }
-        });
-
-    let new_commands = registry
-        .commands
-        .iter()
-        .filter(|cmd| owned.contains(cmd.name));
+    let items = analysis.module_items(module_index);
 
     let ModuleName {
         vendor,
@@ -178,7 +181,8 @@ fn generate_module(
     } = module.name();
 
     let provisional = matches!(module, Module::Extension(ext) if ext.provisional);
-    let has_defs = !owned.is_empty();
+    let has_defs = !items.is_empty();
+    let has_ffi = has_defs && items.has_ffi_types();
     vendor_modules
         .entry(vendor.clone())
         .or_insert_with(Vec::new)
@@ -186,6 +190,7 @@ fn generate_module(
             name: module_name.clone(),
             provisional,
             has_defs,
+            has_ffi,
         });
 
     let vendor_path = match vendor {
@@ -226,7 +231,7 @@ fn generate_module(
         )?;
     }
 
-    if !owned.is_empty() {
+    if !items.is_empty() {
         writeln!(file, "pub(super) mod defs {{")?;
         writeln!(
             file,
@@ -239,36 +244,40 @@ fn generate_module(
                 "
         )?;
 
-        constants::generate_api_constants(&mut file, &owned, required_api_constants)?;
+        constants::generate_api_constants(&mut file, &items.api_constants)?;
 
-        constants::generate_basetypes(&mut file, analysis, &owned)?;
+        constants::generate_basetypes(&mut file, &items.basetypes)?;
 
-        handle::generate_handles(&mut file, analysis, &owned)?;
+        handle::generate_handles(&mut file, &items.handles)?;
 
-        constants::generate_type_aliases(&mut file, analysis, &owned)?;
+        constants::generate_type_aliases(
+            &mut file,
+            analysis,
+            &items.type_aliases,
+            &items.command_aliases,
+        )?;
 
-        structs::generate_structs(&mut file, analysis, &owned)?;
+        structs::generate_structs(&mut file, analysis, &items.structs)?;
 
-        structs::generate_unions(&mut file, analysis, &owned)?;
+        structs::generate_unions(&mut file, analysis, &items.unions)?;
 
-        enums::generate_enum_types(&mut file, analysis, &owned)?;
+        enums::generate_enum_types(&mut file, analysis, &items.enums)?;
 
-        enums::generate_bitmask_types(&mut file, analysis, &owned)?;
+        enums::generate_bitmask_types(&mut file, analysis, &items.bitmask_types)?;
 
-        command::generate_funcpointers(&mut file, analysis, &owned)?;
+        command::generate_funcpointers(&mut file, analysis, &items.funcpointers)?;
 
-        command::generate_functions(&mut file, analysis, new_commands.clone())?;
+        command::generate_functions(&mut file, analysis, &items.commands)?;
 
         writeln!(file, "}}\n")?;
+
+        if items.has_ffi_types() {
+            ffi::generate_ffi_module(&mut file, analysis, items)?;
+        }
     }
 
-    if requires
-        .iter()
-        .flat_map(|r| &r.commands)
-        .clone()
-        .next()
-        .is_some()
-    {
+    let requires: Vec<_> = module.requires();
+    if requires.iter().flat_map(|r| &r.commands).next().is_some() {
         command::generate_commands(&mut file, analysis, &requires)?;
     }
     Ok(())

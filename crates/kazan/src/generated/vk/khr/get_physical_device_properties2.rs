@@ -45,6 +45,23 @@ pub(super) mod defs {
         PFN_vkGetPhysicalDeviceSparseImageFormatProperties2;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceFeatures2KHR = PhysicalDeviceFeatures2KHR<'static>;
+    pub type VkPhysicalDeviceProperties2KHR = PhysicalDeviceProperties2KHR<'static>;
+    pub type VkFormatProperties2KHR = FormatProperties2KHR<'static>;
+    pub type VkImageFormatProperties2KHR = ImageFormatProperties2KHR<'static>;
+    pub type VkPhysicalDeviceImageFormatInfo2KHR = PhysicalDeviceImageFormatInfo2KHR<'static>;
+    pub type VkQueueFamilyProperties2KHR = QueueFamilyProperties2KHR<'static>;
+    pub type VkPhysicalDeviceMemoryProperties2KHR = PhysicalDeviceMemoryProperties2KHR<'static>;
+    pub type VkSparseImageFormatProperties2KHR = SparseImageFormatProperties2KHR<'static>;
+    pub type VkPhysicalDeviceSparseImageFormatInfo2KHR =
+        PhysicalDeviceSparseImageFormatInfo2KHR<'static>;
+}
+
 pub struct InstanceFn {
     get_physical_device_features2_khr: PFN_vkGetPhysicalDeviceFeatures2,
     get_physical_device_properties2_khr: PFN_vkGetPhysicalDeviceProperties2,

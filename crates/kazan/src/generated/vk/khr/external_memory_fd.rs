@@ -185,6 +185,34 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkImportMemoryFdInfoKHR = ImportMemoryFdInfoKHR<'static>;
+    pub type VkMemoryFdPropertiesKHR = MemoryFdPropertiesKHR<'static>;
+    pub type VkMemoryGetFdInfoKHR = MemoryGetFdInfoKHR<'static>;
+    impl ImportMemoryFdInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImportMemoryFdInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MemoryFdPropertiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMemoryFdPropertiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MemoryGetFdInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMemoryGetFdInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     get_memory_fd_khr: PFN_vkGetMemoryFdKHR,
     get_memory_fd_properties_khr: PFN_vkGetMemoryFdPropertiesKHR,

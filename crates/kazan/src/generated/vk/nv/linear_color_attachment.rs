@@ -70,3 +70,20 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceLinearColorAttachmentFeaturesNV =
+        PhysicalDeviceLinearColorAttachmentFeaturesNV<'static>;
+    impl PhysicalDeviceLinearColorAttachmentFeaturesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceLinearColorAttachmentFeaturesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

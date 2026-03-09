@@ -255,6 +255,43 @@ pub(super) mod defs {
         ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceCoverageReductionModeFeaturesNV =
+        PhysicalDeviceCoverageReductionModeFeaturesNV<'static>;
+    pub type VkPipelineCoverageReductionStateCreateInfoNV =
+        PipelineCoverageReductionStateCreateInfoNV<'static>;
+    pub type VkFramebufferMixedSamplesCombinationNV = FramebufferMixedSamplesCombinationNV<'static>;
+    pub type VkCoverageReductionModeNV = CoverageReductionModeNV;
+    pub type VkPipelineCoverageReductionStateCreateFlagsNV =
+        PipelineCoverageReductionStateCreateFlagsNV;
+    impl PhysicalDeviceCoverageReductionModeFeaturesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceCoverageReductionModeFeaturesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineCoverageReductionStateCreateInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPipelineCoverageReductionStateCreateInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl FramebufferMixedSamplesCombinationNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkFramebufferMixedSamplesCombinationNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     get_physical_device_supported_framebuffer_mixed_samples_combinations_nv:
         PFN_vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV,

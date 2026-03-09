@@ -193,6 +193,35 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkBeginCustomResolveInfoEXT = BeginCustomResolveInfoEXT<'static>;
+    pub type VkPhysicalDeviceCustomResolveFeaturesEXT =
+        PhysicalDeviceCustomResolveFeaturesEXT<'static>;
+    pub type VkCustomResolveCreateInfoEXT = CustomResolveCreateInfoEXT<'static>;
+    impl BeginCustomResolveInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBeginCustomResolveInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceCustomResolveFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceCustomResolveFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CustomResolveCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCustomResolveCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_begin_custom_resolve_ext: Option<PFN_vkCmdBeginCustomResolveEXT>,
 }

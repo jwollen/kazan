@@ -92,6 +92,21 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkSurfaceCreateInfoOHOS = SurfaceCreateInfoOHOS<'static>;
+    pub type VkSurfaceCreateFlagsOHOS = SurfaceCreateFlagsOHOS;
+    impl SurfaceCreateInfoOHOS<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSurfaceCreateInfoOHOS {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     create_surface_ohos: PFN_vkCreateSurfaceOHOS,
 }

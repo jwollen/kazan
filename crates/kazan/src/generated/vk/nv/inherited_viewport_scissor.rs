@@ -145,3 +145,30 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceInheritedViewportScissorFeaturesNV =
+        PhysicalDeviceInheritedViewportScissorFeaturesNV<'static>;
+    pub type VkCommandBufferInheritanceViewportScissorInfoNV =
+        CommandBufferInheritanceViewportScissorInfoNV<'static>;
+    impl PhysicalDeviceInheritedViewportScissorFeaturesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceInheritedViewportScissorFeaturesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CommandBufferInheritanceViewportScissorInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkCommandBufferInheritanceViewportScissorInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

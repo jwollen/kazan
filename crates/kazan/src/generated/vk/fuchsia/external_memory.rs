@@ -188,6 +188,34 @@ pub(super) mod defs {
         -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkImportMemoryZirconHandleInfoFUCHSIA = ImportMemoryZirconHandleInfoFUCHSIA<'static>;
+    pub type VkMemoryZirconHandlePropertiesFUCHSIA = MemoryZirconHandlePropertiesFUCHSIA<'static>;
+    pub type VkMemoryGetZirconHandleInfoFUCHSIA = MemoryGetZirconHandleInfoFUCHSIA<'static>;
+    impl ImportMemoryZirconHandleInfoFUCHSIA<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImportMemoryZirconHandleInfoFUCHSIA {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MemoryZirconHandlePropertiesFUCHSIA<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMemoryZirconHandlePropertiesFUCHSIA {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MemoryGetZirconHandleInfoFUCHSIA<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMemoryGetZirconHandleInfoFUCHSIA {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     get_memory_zircon_handle_fuchsia: PFN_vkGetMemoryZirconHandleFUCHSIA,
     get_memory_zircon_handle_properties_fuchsia: PFN_vkGetMemoryZirconHandlePropertiesFUCHSIA,

@@ -45,6 +45,24 @@ pub(super) mod defs {
     pub type PFN_vkCmdResolveImage2KHR = PFN_vkCmdResolveImage2;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkBufferCopy2KHR = BufferCopy2KHR<'static>;
+    pub type VkImageCopy2KHR = ImageCopy2KHR<'static>;
+    pub type VkImageBlit2KHR = ImageBlit2KHR<'static>;
+    pub type VkBufferImageCopy2KHR = BufferImageCopy2KHR<'static>;
+    pub type VkImageResolve2KHR = ImageResolve2KHR<'static>;
+    pub type VkCopyBufferInfo2KHR = CopyBufferInfo2KHR<'static>;
+    pub type VkCopyImageInfo2KHR = CopyImageInfo2KHR<'static>;
+    pub type VkBlitImageInfo2KHR = BlitImageInfo2KHR<'static>;
+    pub type VkCopyBufferToImageInfo2KHR = CopyBufferToImageInfo2KHR<'static>;
+    pub type VkCopyImageToBufferInfo2KHR = CopyImageToBufferInfo2KHR<'static>;
+    pub type VkResolveImageInfo2KHR = ResolveImageInfo2KHR<'static>;
+}
+
 pub struct DeviceFn {
     cmd_copy_buffer2_khr: PFN_vkCmdCopyBuffer2,
     cmd_copy_image2_khr: PFN_vkCmdCopyImage2,

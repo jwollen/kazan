@@ -393,3 +393,42 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkAccelerationStructureGeometryLinearSweptSpheresDataNV =
+        AccelerationStructureGeometryLinearSweptSpheresDataNV<'static>;
+    pub type VkAccelerationStructureGeometrySpheresDataNV =
+        AccelerationStructureGeometrySpheresDataNV<'static>;
+    pub type VkPhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV =
+        PhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV<'static>;
+    pub type VkRayTracingLssIndexingModeNV = RayTracingLssIndexingModeNV;
+    pub type VkRayTracingLssPrimitiveEndCapsModeNV = RayTracingLssPrimitiveEndCapsModeNV;
+    impl AccelerationStructureGeometryLinearSweptSpheresDataNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkAccelerationStructureGeometryLinearSweptSpheresDataNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AccelerationStructureGeometrySpheresDataNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkAccelerationStructureGeometrySpheresDataNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

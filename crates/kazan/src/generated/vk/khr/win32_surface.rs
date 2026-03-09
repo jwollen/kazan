@@ -105,6 +105,21 @@ pub(super) mod defs {
         ) -> Bool32;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkWin32SurfaceCreateInfoKHR = Win32SurfaceCreateInfoKHR<'static>;
+    pub type VkWin32SurfaceCreateFlagsKHR = Win32SurfaceCreateFlagsKHR;
+    impl Win32SurfaceCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkWin32SurfaceCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     create_win32_surface_khr: PFN_vkCreateWin32SurfaceKHR,
     get_physical_device_win32_presentation_support_khr:

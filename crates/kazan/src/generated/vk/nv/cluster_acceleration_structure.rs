@@ -1579,6 +1579,133 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceClusterAccelerationStructureFeaturesNV =
+        PhysicalDeviceClusterAccelerationStructureFeaturesNV<'static>;
+    pub type VkPhysicalDeviceClusterAccelerationStructurePropertiesNV =
+        PhysicalDeviceClusterAccelerationStructurePropertiesNV<'static>;
+    pub type VkStridedDeviceAddressNV = StridedDeviceAddressNV;
+    pub type VkRayTracingPipelineClusterAccelerationStructureCreateInfoNV =
+        RayTracingPipelineClusterAccelerationStructureCreateInfoNV<'static>;
+    pub type VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV =
+        ClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV;
+    pub type VkClusterAccelerationStructureMoveObjectsInfoNV =
+        ClusterAccelerationStructureMoveObjectsInfoNV;
+    pub type VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV =
+        ClusterAccelerationStructureBuildClustersBottomLevelInfoNV;
+    pub type VkClusterAccelerationStructureGetTemplateIndicesInfoNV =
+        ClusterAccelerationStructureGetTemplateIndicesInfoNV;
+    pub type VkClusterAccelerationStructureBuildTriangleClusterInfoNV =
+        ClusterAccelerationStructureBuildTriangleClusterInfoNV;
+    pub type VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV =
+        ClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV;
+    pub type VkClusterAccelerationStructureInstantiateClusterInfoNV =
+        ClusterAccelerationStructureInstantiateClusterInfoNV;
+    pub type VkClusterAccelerationStructureClustersBottomLevelInputNV =
+        ClusterAccelerationStructureClustersBottomLevelInputNV<'static>;
+    pub type VkClusterAccelerationStructureTriangleClusterInputNV =
+        ClusterAccelerationStructureTriangleClusterInputNV<'static>;
+    pub type VkClusterAccelerationStructureMoveObjectsInputNV =
+        ClusterAccelerationStructureMoveObjectsInputNV<'static>;
+    pub type VkClusterAccelerationStructureInputInfoNV =
+        ClusterAccelerationStructureInputInfoNV<'static>;
+    pub type VkClusterAccelerationStructureCommandsInfoNV =
+        ClusterAccelerationStructureCommandsInfoNV<'static>;
+    pub type VkClusterAccelerationStructureOpInputNV =
+        ClusterAccelerationStructureOpInputNV<'static>;
+    pub type VkClusterAccelerationStructureTypeNV = ClusterAccelerationStructureTypeNV;
+    pub type VkClusterAccelerationStructureOpTypeNV = ClusterAccelerationStructureOpTypeNV;
+    pub type VkClusterAccelerationStructureOpModeNV = ClusterAccelerationStructureOpModeNV;
+    pub type VkClusterAccelerationStructureGeometryFlagsNV =
+        ClusterAccelerationStructureGeometryFlagsNV;
+    pub type VkClusterAccelerationStructureGeometryFlagBitsNV =
+        ClusterAccelerationStructureGeometryFlagBitsNV;
+    pub type VkClusterAccelerationStructureClusterFlagsNV =
+        ClusterAccelerationStructureClusterFlagsNV;
+    pub type VkClusterAccelerationStructureClusterFlagBitsNV =
+        ClusterAccelerationStructureClusterFlagBitsNV;
+    pub type VkClusterAccelerationStructureAddressResolutionFlagsNV =
+        ClusterAccelerationStructureAddressResolutionFlagsNV;
+    pub type VkClusterAccelerationStructureAddressResolutionFlagBitsNV =
+        ClusterAccelerationStructureAddressResolutionFlagBitsNV;
+    pub type VkClusterAccelerationStructureIndexFormatFlagsNV =
+        ClusterAccelerationStructureIndexFormatFlagsNV;
+    pub type VkClusterAccelerationStructureIndexFormatFlagBitsNV =
+        ClusterAccelerationStructureIndexFormatFlagBitsNV;
+    impl PhysicalDeviceClusterAccelerationStructureFeaturesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceClusterAccelerationStructureFeaturesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceClusterAccelerationStructurePropertiesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceClusterAccelerationStructurePropertiesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl RayTracingPipelineClusterAccelerationStructureCreateInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkRayTracingPipelineClusterAccelerationStructureCreateInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ClusterAccelerationStructureClustersBottomLevelInputNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkClusterAccelerationStructureClustersBottomLevelInputNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ClusterAccelerationStructureTriangleClusterInputNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkClusterAccelerationStructureTriangleClusterInputNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ClusterAccelerationStructureMoveObjectsInputNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkClusterAccelerationStructureMoveObjectsInputNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ClusterAccelerationStructureInputInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkClusterAccelerationStructureInputInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ClusterAccelerationStructureCommandsInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkClusterAccelerationStructureCommandsInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ClusterAccelerationStructureOpInputNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkClusterAccelerationStructureOpInputNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     get_cluster_acceleration_structure_build_sizes_nv:
         PFN_vkGetClusterAccelerationStructureBuildSizesNV,

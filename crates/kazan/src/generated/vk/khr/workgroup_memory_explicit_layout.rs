@@ -124,3 +124,20 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR =
+        PhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR<'static>;
+    impl PhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

@@ -298,6 +298,41 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkImportSemaphoreWin32HandleInfoKHR = ImportSemaphoreWin32HandleInfoKHR<'static>;
+    pub type VkExportSemaphoreWin32HandleInfoKHR = ExportSemaphoreWin32HandleInfoKHR<'static>;
+    pub type VkD3D12FenceSubmitInfoKHR = D3D12FenceSubmitInfoKHR<'static>;
+    pub type VkSemaphoreGetWin32HandleInfoKHR = SemaphoreGetWin32HandleInfoKHR<'static>;
+    impl ImportSemaphoreWin32HandleInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImportSemaphoreWin32HandleInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ExportSemaphoreWin32HandleInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExportSemaphoreWin32HandleInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl D3D12FenceSubmitInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkD3D12FenceSubmitInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SemaphoreGetWin32HandleInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSemaphoreGetWin32HandleInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     import_semaphore_win32_handle_khr: PFN_vkImportSemaphoreWin32HandleKHR,
     get_semaphore_win32_handle_khr: PFN_vkGetSemaphoreWin32HandleKHR,

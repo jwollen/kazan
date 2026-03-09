@@ -216,3 +216,35 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceMaintenance9FeaturesKHR =
+        PhysicalDeviceMaintenance9FeaturesKHR<'static>;
+    pub type VkPhysicalDeviceMaintenance9PropertiesKHR =
+        PhysicalDeviceMaintenance9PropertiesKHR<'static>;
+    pub type VkQueueFamilyOwnershipTransferPropertiesKHR =
+        QueueFamilyOwnershipTransferPropertiesKHR<'static>;
+    pub type VkDefaultVertexAttributeValueKHR = DefaultVertexAttributeValueKHR;
+    impl PhysicalDeviceMaintenance9FeaturesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceMaintenance9FeaturesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceMaintenance9PropertiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceMaintenance9PropertiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl QueueFamilyOwnershipTransferPropertiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkQueueFamilyOwnershipTransferPropertiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

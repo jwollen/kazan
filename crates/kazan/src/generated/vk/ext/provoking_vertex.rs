@@ -235,3 +235,39 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceProvokingVertexFeaturesEXT =
+        PhysicalDeviceProvokingVertexFeaturesEXT<'static>;
+    pub type VkPhysicalDeviceProvokingVertexPropertiesEXT =
+        PhysicalDeviceProvokingVertexPropertiesEXT<'static>;
+    pub type VkPipelineRasterizationProvokingVertexStateCreateInfoEXT =
+        PipelineRasterizationProvokingVertexStateCreateInfoEXT<'static>;
+    pub type VkProvokingVertexModeEXT = ProvokingVertexModeEXT;
+    impl PhysicalDeviceProvokingVertexFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceProvokingVertexFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceProvokingVertexPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceProvokingVertexPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineRasterizationProvokingVertexStateCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPipelineRasterizationProvokingVertexStateCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

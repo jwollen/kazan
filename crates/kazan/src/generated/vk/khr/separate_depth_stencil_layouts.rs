@@ -23,3 +23,15 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentDescriptionStencilLayoutKHR.html>
     pub type AttachmentDescriptionStencilLayoutKHR<'a> = AttachmentDescriptionStencilLayout<'a>;
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR =
+        PhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR<'static>;
+    pub type VkAttachmentReferenceStencilLayoutKHR = AttachmentReferenceStencilLayoutKHR<'static>;
+    pub type VkAttachmentDescriptionStencilLayoutKHR =
+        AttachmentDescriptionStencilLayoutKHR<'static>;
+}

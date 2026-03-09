@@ -178,3 +178,31 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceRayTracingInvocationReorderFeaturesEXT =
+        PhysicalDeviceRayTracingInvocationReorderFeaturesEXT<'static>;
+    pub type VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT =
+        PhysicalDeviceRayTracingInvocationReorderPropertiesEXT<'static>;
+    pub type VkRayTracingInvocationReorderModeEXT = RayTracingInvocationReorderModeEXT;
+    impl PhysicalDeviceRayTracingInvocationReorderFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceRayTracingInvocationReorderFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceRayTracingInvocationReorderPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

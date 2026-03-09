@@ -206,3 +206,30 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPipelineCacheHeaderVersionDataGraphQCOM = PipelineCacheHeaderVersionDataGraphQCOM;
+    pub type VkDataGraphPipelineBuiltinModelCreateInfoQCOM =
+        DataGraphPipelineBuiltinModelCreateInfoQCOM<'static>;
+    pub type VkPhysicalDeviceDataGraphModelFeaturesQCOM =
+        PhysicalDeviceDataGraphModelFeaturesQCOM<'static>;
+    pub type VkDataGraphModelCacheTypeQCOM = DataGraphModelCacheTypeQCOM;
+    impl DataGraphPipelineBuiltinModelCreateInfoQCOM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkDataGraphPipelineBuiltinModelCreateInfoQCOM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceDataGraphModelFeaturesQCOM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceDataGraphModelFeaturesQCOM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

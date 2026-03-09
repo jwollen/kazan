@@ -130,3 +130,30 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV =
+        PhysicalDeviceRepresentativeFragmentTestFeaturesNV<'static>;
+    pub type VkPipelineRepresentativeFragmentTestStateCreateInfoNV =
+        PipelineRepresentativeFragmentTestStateCreateInfoNV<'static>;
+    impl PhysicalDeviceRepresentativeFragmentTestFeaturesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineRepresentativeFragmentTestStateCreateInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPipelineRepresentativeFragmentTestStateCreateInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

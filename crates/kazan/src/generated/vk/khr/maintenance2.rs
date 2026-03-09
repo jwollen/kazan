@@ -33,3 +33,20 @@ pub(super) mod defs {
     pub type PipelineTessellationDomainOriginStateCreateInfoKHR<'a> =
         PipelineTessellationDomainOriginStateCreateInfo<'a>;
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPointClippingBehaviorKHR = PointClippingBehaviorKHR;
+    pub type VkTessellationDomainOriginKHR = TessellationDomainOriginKHR;
+    pub type VkInputAttachmentAspectReferenceKHR = InputAttachmentAspectReferenceKHR;
+    pub type VkRenderPassInputAttachmentAspectCreateInfoKHR =
+        RenderPassInputAttachmentAspectCreateInfoKHR<'static>;
+    pub type VkPhysicalDevicePointClippingPropertiesKHR =
+        PhysicalDevicePointClippingPropertiesKHR<'static>;
+    pub type VkImageViewUsageCreateInfoKHR = ImageViewUsageCreateInfoKHR<'static>;
+    pub type VkPipelineTessellationDomainOriginStateCreateInfoKHR =
+        PipelineTessellationDomainOriginStateCreateInfoKHR<'static>;
+}

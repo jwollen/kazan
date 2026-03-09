@@ -535,6 +535,68 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkSampleLocationEXT = SampleLocationEXT;
+    pub type VkSampleLocationsInfoEXT = SampleLocationsInfoEXT<'static>;
+    pub type VkAttachmentSampleLocationsEXT = AttachmentSampleLocationsEXT<'static>;
+    pub type VkSubpassSampleLocationsEXT = SubpassSampleLocationsEXT<'static>;
+    pub type VkRenderPassSampleLocationsBeginInfoEXT =
+        RenderPassSampleLocationsBeginInfoEXT<'static>;
+    pub type VkPipelineSampleLocationsStateCreateInfoEXT =
+        PipelineSampleLocationsStateCreateInfoEXT<'static>;
+    pub type VkPhysicalDeviceSampleLocationsPropertiesEXT =
+        PhysicalDeviceSampleLocationsPropertiesEXT<'static>;
+    pub type VkMultisamplePropertiesEXT = MultisamplePropertiesEXT<'static>;
+    impl SampleLocationsInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSampleLocationsInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AttachmentSampleLocationsEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkAttachmentSampleLocationsEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SubpassSampleLocationsEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSubpassSampleLocationsEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl RenderPassSampleLocationsBeginInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkRenderPassSampleLocationsBeginInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineSampleLocationsStateCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineSampleLocationsStateCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceSampleLocationsPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceSampleLocationsPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MultisamplePropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMultisamplePropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     get_physical_device_multisample_properties_ext: PFN_vkGetPhysicalDeviceMultisamplePropertiesEXT,
 }

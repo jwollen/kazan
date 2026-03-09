@@ -41,6 +41,25 @@ pub(super) mod defs {
     pub type PFN_vkDestroySamplerYcbcrConversionKHR = PFN_vkDestroySamplerYcbcrConversion;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkSamplerYcbcrModelConversionKHR = SamplerYcbcrModelConversionKHR;
+    pub type VkSamplerYcbcrRangeKHR = SamplerYcbcrRangeKHR;
+    pub type VkChromaLocationKHR = ChromaLocationKHR;
+    pub type VkSamplerYcbcrConversionKHR = SamplerYcbcrConversionKHR;
+    pub type VkSamplerYcbcrConversionInfoKHR = SamplerYcbcrConversionInfoKHR<'static>;
+    pub type VkSamplerYcbcrConversionCreateInfoKHR = SamplerYcbcrConversionCreateInfoKHR<'static>;
+    pub type VkBindImagePlaneMemoryInfoKHR = BindImagePlaneMemoryInfoKHR<'static>;
+    pub type VkImagePlaneMemoryRequirementsInfoKHR = ImagePlaneMemoryRequirementsInfoKHR<'static>;
+    pub type VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR =
+        PhysicalDeviceSamplerYcbcrConversionFeaturesKHR<'static>;
+    pub type VkSamplerYcbcrConversionImageFormatPropertiesKHR =
+        SamplerYcbcrConversionImageFormatPropertiesKHR<'static>;
+}
+
 pub struct DeviceFn {
     create_sampler_ycbcr_conversion_khr: PFN_vkCreateSamplerYcbcrConversion,
     destroy_sampler_ycbcr_conversion_khr: PFN_vkDestroySamplerYcbcrConversion,

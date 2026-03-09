@@ -235,6 +235,43 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI =
+        PhysicalDeviceClusterCullingShaderPropertiesHUAWEI<'static>;
+    pub type VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI =
+        PhysicalDeviceClusterCullingShaderFeaturesHUAWEI<'static>;
+    pub type VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI =
+        PhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI<'static>;
+    impl PhysicalDeviceClusterCullingShaderPropertiesHUAWEI<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceClusterCullingShaderFeaturesHUAWEI<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_draw_cluster_huawei: PFN_vkCmdDrawClusterHUAWEI,
     cmd_draw_cluster_indirect_huawei: PFN_vkCmdDrawClusterIndirectHUAWEI,

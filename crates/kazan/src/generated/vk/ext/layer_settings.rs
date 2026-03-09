@@ -169,3 +169,25 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkLayerSettingsCreateInfoEXT = LayerSettingsCreateInfoEXT<'static>;
+    pub type VkLayerSettingEXT = LayerSettingEXT<'static>;
+    pub type VkLayerSettingTypeEXT = LayerSettingTypeEXT;
+    impl LayerSettingsCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkLayerSettingsCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl LayerSettingEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkLayerSettingEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

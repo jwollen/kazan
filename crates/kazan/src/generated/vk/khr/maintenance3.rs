@@ -22,6 +22,16 @@ pub(super) mod defs {
     pub type PFN_vkGetDescriptorSetLayoutSupportKHR = PFN_vkGetDescriptorSetLayoutSupport;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceMaintenance3PropertiesKHR =
+        PhysicalDeviceMaintenance3PropertiesKHR<'static>;
+    pub type VkDescriptorSetLayoutSupportKHR = DescriptorSetLayoutSupportKHR<'static>;
+}
+
 pub struct DeviceFn {
     get_descriptor_set_layout_support_khr: PFN_vkGetDescriptorSetLayoutSupport,
 }

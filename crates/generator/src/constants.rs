@@ -1,4 +1,4 @@
-use std::{borrow::Cow, collections::HashSet, io::Write};
+use std::{borrow::Cow, io::Write};
 
 use anyhow::Result;
 
@@ -10,12 +10,9 @@ use crate::{
 
 pub fn generate_api_constants(
     file: &mut impl Write,
-    owned: &HashSet<&str>,
-    required_api_constants: impl Iterator<Item = xml::Constant>,
+    api_constants: &[xml::Constant],
 ) -> Result<()> {
-    let constants = required_api_constants.filter(|constant| owned.contains(constant.name));
-
-    for constant in constants {
+    for constant in api_constants {
         writeln!(
             file,
             "pub const {}: {} = {};",
@@ -28,17 +25,7 @@ pub fn generate_api_constants(
     Ok(())
 }
 
-pub fn generate_basetypes(
-    file: &mut impl Write,
-    analysis: &Analysis,
-    owned: &HashSet<&str>,
-) -> Result<()> {
-    let basetypes = analysis
-        .registry()
-        .basetypes
-        .iter()
-        .filter(|ty| owned.contains(ty.name));
-
+pub fn generate_basetypes(file: &mut impl Write, basetypes: &[&xml::BaseType]) -> Result<()> {
     for ty in basetypes {
         writeln!(
             file,
@@ -54,26 +41,10 @@ pub fn generate_basetypes(
 pub fn generate_type_aliases(
     file: &mut impl Write,
     analysis: &Analysis,
-    owned: &HashSet<&str>,
+    type_aliases: &[&xml::Alias],
+    command_aliases: &[&xml::Alias],
 ) -> Result<()> {
-    let registry = analysis.registry();
-    let aliases = registry
-        .enum_aliases
-        .iter()
-        .clone()
-        .filter(|alias| {
-            registry
-                .enums
-                .iter()
-                .find(|ty| ty.name == alias.alias)
-                .is_some()
-        })
-        .chain(registry.handle_aliases.iter())
-        .chain(registry.struct_aliases.iter())
-        .chain(registry.bitmask_aliases.iter())
-        .filter(|alias| owned.contains(alias.name));
-
-    for alias in aliases {
+    for alias in type_aliases {
         write_doc_link(file, alias.name)?;
         writeln!(
             file,
@@ -82,11 +53,6 @@ pub fn generate_type_aliases(
             type_name_with_lifetime(analysis, alias.alias, Some("a"))
         )?;
     }
-
-    let command_aliases = registry
-        .command_aliases
-        .iter()
-        .filter(|alias| owned.contains(alias.name));
 
     for ty in command_aliases {
         writeln!(

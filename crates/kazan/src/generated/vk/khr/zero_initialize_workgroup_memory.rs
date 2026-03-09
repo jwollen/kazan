@@ -19,3 +19,12 @@ pub(super) mod defs {
     pub type PhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR<'a> =
         PhysicalDeviceZeroInitializeWorkgroupMemoryFeatures<'a>;
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR =
+        PhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR<'static>;
+}

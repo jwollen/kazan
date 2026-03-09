@@ -167,3 +167,30 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceFragmentDensityMap2FeaturesEXT =
+        PhysicalDeviceFragmentDensityMap2FeaturesEXT<'static>;
+    pub type VkPhysicalDeviceFragmentDensityMap2PropertiesEXT =
+        PhysicalDeviceFragmentDensityMap2PropertiesEXT<'static>;
+    impl PhysicalDeviceFragmentDensityMap2FeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceFragmentDensityMap2FeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceFragmentDensityMap2PropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceFragmentDensityMap2PropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

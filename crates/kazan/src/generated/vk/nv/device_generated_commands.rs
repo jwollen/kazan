@@ -1177,6 +1177,88 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkIndirectCommandsLayoutNV = IndirectCommandsLayoutNV;
+    pub type VkPhysicalDeviceDeviceGeneratedCommandsFeaturesNV =
+        PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'static>;
+    pub type VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV =
+        PhysicalDeviceDeviceGeneratedCommandsPropertiesNV<'static>;
+    pub type VkGraphicsShaderGroupCreateInfoNV = GraphicsShaderGroupCreateInfoNV<'static>;
+    pub type VkGraphicsPipelineShaderGroupsCreateInfoNV =
+        GraphicsPipelineShaderGroupsCreateInfoNV<'static>;
+    pub type VkBindShaderGroupIndirectCommandNV = BindShaderGroupIndirectCommandNV;
+    pub type VkBindIndexBufferIndirectCommandNV = BindIndexBufferIndirectCommandNV;
+    pub type VkBindVertexBufferIndirectCommandNV = BindVertexBufferIndirectCommandNV;
+    pub type VkSetStateFlagsIndirectCommandNV = SetStateFlagsIndirectCommandNV;
+    pub type VkIndirectCommandsStreamNV = IndirectCommandsStreamNV;
+    pub type VkIndirectCommandsLayoutTokenNV = IndirectCommandsLayoutTokenNV<'static>;
+    pub type VkIndirectCommandsLayoutCreateInfoNV = IndirectCommandsLayoutCreateInfoNV<'static>;
+    pub type VkGeneratedCommandsInfoNV = GeneratedCommandsInfoNV<'static>;
+    pub type VkGeneratedCommandsMemoryRequirementsInfoNV =
+        GeneratedCommandsMemoryRequirementsInfoNV<'static>;
+    pub type VkIndirectCommandsTokenTypeNV = IndirectCommandsTokenTypeNV;
+    pub type VkIndirectCommandsLayoutUsageFlagsNV = IndirectCommandsLayoutUsageFlagsNV;
+    pub type VkIndirectCommandsLayoutUsageFlagBitsNV = IndirectCommandsLayoutUsageFlagBitsNV;
+    pub type VkIndirectStateFlagsNV = IndirectStateFlagsNV;
+    pub type VkIndirectStateFlagBitsNV = IndirectStateFlagBitsNV;
+    impl PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceDeviceGeneratedCommandsFeaturesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceDeviceGeneratedCommandsPropertiesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl GraphicsShaderGroupCreateInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkGraphicsShaderGroupCreateInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl GraphicsPipelineShaderGroupsCreateInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkGraphicsPipelineShaderGroupsCreateInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl IndirectCommandsLayoutTokenNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkIndirectCommandsLayoutTokenNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl IndirectCommandsLayoutCreateInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkIndirectCommandsLayoutCreateInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl GeneratedCommandsInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkGeneratedCommandsInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl GeneratedCommandsMemoryRequirementsInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkGeneratedCommandsMemoryRequirementsInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     get_generated_commands_memory_requirements_nv: PFN_vkGetGeneratedCommandsMemoryRequirementsNV,
     cmd_preprocess_generated_commands_nv: PFN_vkCmdPreprocessGeneratedCommandsNV,

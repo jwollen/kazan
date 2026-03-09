@@ -107,6 +107,21 @@ pub(super) mod defs {
         -> Bool32;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkXcbSurfaceCreateInfoKHR = XcbSurfaceCreateInfoKHR<'static>;
+    pub type VkXcbSurfaceCreateFlagsKHR = XcbSurfaceCreateFlagsKHR;
+    impl XcbSurfaceCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkXcbSurfaceCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     create_xcb_surface_khr: PFN_vkCreateXcbSurfaceKHR,
     get_physical_device_xcb_presentation_support_khr:

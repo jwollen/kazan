@@ -18,3 +18,11 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevice8BitStorageFeaturesKHR.html>
     pub type PhysicalDevice8BitStorageFeaturesKHR<'a> = PhysicalDevice8BitStorageFeatures<'a>;
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDevice8BitStorageFeaturesKHR = PhysicalDevice8BitStorageFeaturesKHR<'static>;
+}

@@ -240,6 +240,36 @@ pub(super) mod defs {
         unsafe extern "system" fn(device: Device, p_data: *const AntiLagDataAMD<'_>);
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceAntiLagFeaturesAMD = PhysicalDeviceAntiLagFeaturesAMD<'static>;
+    pub type VkAntiLagDataAMD = AntiLagDataAMD<'static>;
+    pub type VkAntiLagPresentationInfoAMD = AntiLagPresentationInfoAMD<'static>;
+    pub type VkAntiLagModeAMD = AntiLagModeAMD;
+    pub type VkAntiLagStageAMD = AntiLagStageAMD;
+    impl PhysicalDeviceAntiLagFeaturesAMD<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceAntiLagFeaturesAMD {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AntiLagDataAMD<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkAntiLagDataAMD {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AntiLagPresentationInfoAMD<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkAntiLagPresentationInfoAMD {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     anti_lag_update_amd: PFN_vkAntiLagUpdateAMD,
 }

@@ -482,6 +482,40 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceFaultFeaturesEXT = PhysicalDeviceFaultFeaturesEXT<'static>;
+    pub type VkDeviceFaultAddressInfoEXT = DeviceFaultAddressInfoEXT;
+    pub type VkDeviceFaultVendorInfoEXT = DeviceFaultVendorInfoEXT;
+    pub type VkDeviceFaultCountsEXT = DeviceFaultCountsEXT<'static>;
+    pub type VkDeviceFaultInfoEXT = DeviceFaultInfoEXT<'static>;
+    pub type VkDeviceFaultVendorBinaryHeaderVersionOneEXT =
+        DeviceFaultVendorBinaryHeaderVersionOneEXT;
+    pub type VkDeviceFaultAddressTypeEXT = DeviceFaultAddressTypeEXT;
+    pub type VkDeviceFaultVendorBinaryHeaderVersionEXT = DeviceFaultVendorBinaryHeaderVersionEXT;
+    impl PhysicalDeviceFaultFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceFaultFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DeviceFaultCountsEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDeviceFaultCountsEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DeviceFaultInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDeviceFaultInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     get_device_fault_info_ext: PFN_vkGetDeviceFaultInfoEXT,
 }

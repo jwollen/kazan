@@ -29,6 +29,20 @@ pub(super) mod defs {
     pub type PFN_vkCmdSetLineStippleKHR = PFN_vkCmdSetLineStipple;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkLineRasterizationModeKHR = LineRasterizationModeKHR;
+    pub type VkPhysicalDeviceLineRasterizationFeaturesKHR =
+        PhysicalDeviceLineRasterizationFeaturesKHR<'static>;
+    pub type VkPhysicalDeviceLineRasterizationPropertiesKHR =
+        PhysicalDeviceLineRasterizationPropertiesKHR<'static>;
+    pub type VkPipelineRasterizationLineStateCreateInfoKHR =
+        PipelineRasterizationLineStateCreateInfoKHR<'static>;
+}
+
 pub struct DeviceFn {
     cmd_set_line_stipple_khr: PFN_vkCmdSetLineStipple,
 }

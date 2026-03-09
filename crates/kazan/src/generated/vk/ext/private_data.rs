@@ -31,6 +31,18 @@ pub(super) mod defs {
     pub type PFN_vkGetPrivateDataEXT = PFN_vkGetPrivateData;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPrivateDataSlotEXT = PrivateDataSlotEXT;
+    pub type VkDevicePrivateDataCreateInfoEXT = DevicePrivateDataCreateInfoEXT<'static>;
+    pub type VkPrivateDataSlotCreateInfoEXT = PrivateDataSlotCreateInfoEXT<'static>;
+    pub type VkPhysicalDevicePrivateDataFeaturesEXT = PhysicalDevicePrivateDataFeaturesEXT<'static>;
+    pub type VkPrivateDataSlotCreateFlagsEXT = PrivateDataSlotCreateFlagsEXT;
+}
+
 pub struct DeviceFn {
     create_private_data_slot_ext: PFN_vkCreatePrivateDataSlot,
     destroy_private_data_slot_ext: PFN_vkDestroyPrivateDataSlot,

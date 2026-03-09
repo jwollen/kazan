@@ -21,3 +21,13 @@ pub(super) mod defs {
     pub type PhysicalDeviceRobustness2PropertiesEXT<'a> =
         PhysicalDeviceRobustness2PropertiesKHR<'a>;
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceRobustness2FeaturesEXT = PhysicalDeviceRobustness2FeaturesEXT<'static>;
+    pub type VkPhysicalDeviceRobustness2PropertiesEXT =
+        PhysicalDeviceRobustness2PropertiesEXT<'static>;
+}

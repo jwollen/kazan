@@ -1,5 +1,8 @@
 pub mod vk;
 
+#[cfg(feature = "ffi")]
+pub use vk::ffi;
+
 mod generated;
 pub use generated::external::*;
 

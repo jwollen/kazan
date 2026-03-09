@@ -496,6 +496,63 @@ pub(super) mod defs {
         ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR =
+        PhysicalDevicePipelineExecutablePropertiesFeaturesKHR<'static>;
+    pub type VkPipelineInfoKHR = PipelineInfoKHR<'static>;
+    pub type VkPipelineExecutablePropertiesKHR = PipelineExecutablePropertiesKHR<'static>;
+    pub type VkPipelineExecutableInfoKHR = PipelineExecutableInfoKHR<'static>;
+    pub type VkPipelineExecutableStatisticKHR = PipelineExecutableStatisticKHR<'static>;
+    pub type VkPipelineExecutableInternalRepresentationKHR =
+        PipelineExecutableInternalRepresentationKHR<'static>;
+    pub type VkPipelineExecutableStatisticValueKHR = PipelineExecutableStatisticValueKHR;
+    pub type VkPipelineExecutableStatisticFormatKHR = PipelineExecutableStatisticFormatKHR;
+    impl PhysicalDevicePipelineExecutablePropertiesFeaturesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineExecutablePropertiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineExecutablePropertiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineExecutableInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineExecutableInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineExecutableStatisticKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineExecutableStatisticKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineExecutableInternalRepresentationKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPipelineExecutableInternalRepresentationKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     get_pipeline_executable_properties_khr: PFN_vkGetPipelineExecutablePropertiesKHR,
     get_pipeline_executable_statistics_khr: PFN_vkGetPipelineExecutableStatisticsKHR,

@@ -70,3 +70,20 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL =
+        PhysicalDeviceShaderIntegerFunctions2FeaturesINTEL<'static>;
+    impl PhysicalDeviceShaderIntegerFunctions2FeaturesINTEL<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

@@ -106,6 +106,21 @@ pub(super) mod defs {
         ) -> Bool32;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkScreenSurfaceCreateInfoQNX = ScreenSurfaceCreateInfoQNX<'static>;
+    pub type VkScreenSurfaceCreateFlagsQNX = ScreenSurfaceCreateFlagsQNX;
+    impl ScreenSurfaceCreateInfoQNX<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkScreenSurfaceCreateInfoQNX {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     create_screen_surface_qnx: PFN_vkCreateScreenSurfaceQNX,
     get_physical_device_screen_presentation_support_qnx:

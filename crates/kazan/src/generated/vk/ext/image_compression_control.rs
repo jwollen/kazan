@@ -445,6 +445,41 @@ pub(super) mod defs {
     }
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkImageCompressionControlEXT = ImageCompressionControlEXT<'static>;
+    pub type VkPhysicalDeviceImageCompressionControlFeaturesEXT =
+        PhysicalDeviceImageCompressionControlFeaturesEXT<'static>;
+    pub type VkImageCompressionPropertiesEXT = ImageCompressionPropertiesEXT<'static>;
+    pub type VkImageCompressionFlagsEXT = ImageCompressionFlagsEXT;
+    pub type VkImageCompressionFlagBitsEXT = ImageCompressionFlagBitsEXT;
+    pub type VkImageCompressionFixedRateFlagsEXT = ImageCompressionFixedRateFlagsEXT;
+    pub type VkImageCompressionFixedRateFlagBitsEXT = ImageCompressionFixedRateFlagBitsEXT;
+    impl ImageCompressionControlEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImageCompressionControlEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceImageCompressionControlFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceImageCompressionControlFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImageCompressionPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImageCompressionPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     get_image_subresource_layout2_ext: PFN_vkGetImageSubresourceLayout2,
 }

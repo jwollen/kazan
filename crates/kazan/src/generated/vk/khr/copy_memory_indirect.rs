@@ -475,6 +475,52 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkStridedDeviceAddressRangeKHR = StridedDeviceAddressRangeKHR;
+    pub type VkCopyMemoryIndirectCommandKHR = CopyMemoryIndirectCommandKHR;
+    pub type VkCopyMemoryIndirectInfoKHR = CopyMemoryIndirectInfoKHR<'static>;
+    pub type VkCopyMemoryToImageIndirectCommandKHR = CopyMemoryToImageIndirectCommandKHR;
+    pub type VkCopyMemoryToImageIndirectInfoKHR = CopyMemoryToImageIndirectInfoKHR<'static>;
+    pub type VkPhysicalDeviceCopyMemoryIndirectFeaturesKHR =
+        PhysicalDeviceCopyMemoryIndirectFeaturesKHR<'static>;
+    pub type VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR =
+        PhysicalDeviceCopyMemoryIndirectPropertiesKHR<'static>;
+    pub type VkAddressCopyFlagsKHR = AddressCopyFlagsKHR;
+    pub type VkAddressCopyFlagBitsKHR = AddressCopyFlagBitsKHR;
+    impl CopyMemoryIndirectInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCopyMemoryIndirectInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CopyMemoryToImageIndirectInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCopyMemoryToImageIndirectInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceCopyMemoryIndirectFeaturesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceCopyMemoryIndirectFeaturesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceCopyMemoryIndirectPropertiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_copy_memory_indirect_khr: PFN_vkCmdCopyMemoryIndirectKHR,
     cmd_copy_memory_to_image_indirect_khr: PFN_vkCmdCopyMemoryToImageIndirectKHR,

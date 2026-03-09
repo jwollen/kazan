@@ -706,6 +706,74 @@ pub(super) mod defs {
     pub type PFN_vkReleaseProfilingLockKHR = unsafe extern "system" fn(device: Device);
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDevicePerformanceQueryFeaturesKHR =
+        PhysicalDevicePerformanceQueryFeaturesKHR<'static>;
+    pub type VkPhysicalDevicePerformanceQueryPropertiesKHR =
+        PhysicalDevicePerformanceQueryPropertiesKHR<'static>;
+    pub type VkPerformanceCounterKHR = PerformanceCounterKHR<'static>;
+    pub type VkPerformanceCounterDescriptionKHR = PerformanceCounterDescriptionKHR<'static>;
+    pub type VkQueryPoolPerformanceCreateInfoKHR = QueryPoolPerformanceCreateInfoKHR<'static>;
+    pub type VkAcquireProfilingLockInfoKHR = AcquireProfilingLockInfoKHR<'static>;
+    pub type VkPerformanceQuerySubmitInfoKHR = PerformanceQuerySubmitInfoKHR<'static>;
+    pub type VkPerformanceCounterResultKHR = PerformanceCounterResultKHR;
+    pub type VkPerformanceCounterScopeKHR = PerformanceCounterScopeKHR;
+    pub type VkPerformanceCounterUnitKHR = PerformanceCounterUnitKHR;
+    pub type VkPerformanceCounterStorageKHR = PerformanceCounterStorageKHR;
+    pub type VkPerformanceCounterDescriptionFlagsKHR = PerformanceCounterDescriptionFlagsKHR;
+    pub type VkPerformanceCounterDescriptionFlagBitsKHR = PerformanceCounterDescriptionFlagBitsKHR;
+    pub type VkAcquireProfilingLockFlagsKHR = AcquireProfilingLockFlagsKHR;
+    pub type VkAcquireProfilingLockFlagBitsKHR = AcquireProfilingLockFlagBitsKHR;
+    impl PhysicalDevicePerformanceQueryFeaturesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDevicePerformanceQueryFeaturesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDevicePerformanceQueryPropertiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDevicePerformanceQueryPropertiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PerformanceCounterKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPerformanceCounterKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PerformanceCounterDescriptionKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPerformanceCounterDescriptionKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl QueryPoolPerformanceCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkQueryPoolPerformanceCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AcquireProfilingLockInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkAcquireProfilingLockInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PerformanceQuerySubmitInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPerformanceQuerySubmitInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     enumerate_physical_device_queue_family_performance_query_counters_khr:
         PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR,

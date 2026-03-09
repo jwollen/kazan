@@ -84,6 +84,23 @@ pub(super) mod defs {
         unsafe extern "system" fn(command_buffer: CommandBuffer, aspect_mask: ImageAspectFlags);
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT =
+        PhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT<'static>;
+    impl PhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_set_attachment_feedback_loop_enable_ext: PFN_vkCmdSetAttachmentFeedbackLoopEnableEXT,
 }

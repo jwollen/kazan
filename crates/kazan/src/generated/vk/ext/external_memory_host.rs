@@ -182,6 +182,37 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkImportMemoryHostPointerInfoEXT = ImportMemoryHostPointerInfoEXT<'static>;
+    pub type VkMemoryHostPointerPropertiesEXT = MemoryHostPointerPropertiesEXT<'static>;
+    pub type VkPhysicalDeviceExternalMemoryHostPropertiesEXT =
+        PhysicalDeviceExternalMemoryHostPropertiesEXT<'static>;
+    impl ImportMemoryHostPointerInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImportMemoryHostPointerInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MemoryHostPointerPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMemoryHostPointerPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceExternalMemoryHostPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceExternalMemoryHostPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     get_memory_host_pointer_properties_ext: PFN_vkGetMemoryHostPointerPropertiesEXT,
 }

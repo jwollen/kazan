@@ -106,6 +106,21 @@ pub(super) mod defs {
         ) -> Bool32;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkDirectFBSurfaceCreateInfoEXT = DirectFBSurfaceCreateInfoEXT<'static>;
+    pub type VkDirectFBSurfaceCreateFlagsEXT = DirectFBSurfaceCreateFlagsEXT;
+    impl DirectFBSurfaceCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDirectFBSurfaceCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     create_direct_fb_surface_ext: PFN_vkCreateDirectFBSurfaceEXT,
     get_physical_device_direct_fb_presentation_support_ext:

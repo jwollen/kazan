@@ -306,3 +306,41 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT =
+        PhysicalDeviceBlendOperationAdvancedFeaturesEXT<'static>;
+    pub type VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT =
+        PhysicalDeviceBlendOperationAdvancedPropertiesEXT<'static>;
+    pub type VkPipelineColorBlendAdvancedStateCreateInfoEXT =
+        PipelineColorBlendAdvancedStateCreateInfoEXT<'static>;
+    pub type VkBlendOverlapEXT = BlendOverlapEXT;
+    impl PhysicalDeviceBlendOperationAdvancedFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceBlendOperationAdvancedPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineColorBlendAdvancedStateCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPipelineColorBlendAdvancedStateCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

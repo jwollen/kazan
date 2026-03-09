@@ -760,6 +760,59 @@ pub(super) mod defs {
         unsafe extern "system" fn(command_buffer: CommandBuffer, pipeline_stack_size: u32);
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkRayTracingShaderGroupCreateInfoKHR = RayTracingShaderGroupCreateInfoKHR<'static>;
+    pub type VkRayTracingPipelineCreateInfoKHR = RayTracingPipelineCreateInfoKHR<'static>;
+    pub type VkPhysicalDeviceRayTracingPipelineFeaturesKHR =
+        PhysicalDeviceRayTracingPipelineFeaturesKHR<'static>;
+    pub type VkPhysicalDeviceRayTracingPipelinePropertiesKHR =
+        PhysicalDeviceRayTracingPipelinePropertiesKHR<'static>;
+    pub type VkStridedDeviceAddressRegionKHR = StridedDeviceAddressRegionKHR;
+    pub type VkTraceRaysIndirectCommandKHR = TraceRaysIndirectCommandKHR;
+    pub type VkRayTracingPipelineInterfaceCreateInfoKHR =
+        RayTracingPipelineInterfaceCreateInfoKHR<'static>;
+    pub type VkRayTracingShaderGroupTypeKHR = RayTracingShaderGroupTypeKHR;
+    pub type VkShaderGroupShaderKHR = ShaderGroupShaderKHR;
+    impl RayTracingShaderGroupCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkRayTracingShaderGroupCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl RayTracingPipelineCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkRayTracingPipelineCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceRayTracingPipelineFeaturesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceRayTracingPipelineFeaturesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceRayTracingPipelinePropertiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceRayTracingPipelinePropertiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl RayTracingPipelineInterfaceCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkRayTracingPipelineInterfaceCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_trace_rays_khr: PFN_vkCmdTraceRaysKHR,
     create_ray_tracing_pipelines_khr: PFN_vkCreateRayTracingPipelinesKHR,

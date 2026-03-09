@@ -136,3 +136,25 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPresentRegionsKHR = PresentRegionsKHR<'static>;
+    pub type VkPresentRegionKHR = PresentRegionKHR<'static>;
+    pub type VkRectLayerKHR = RectLayerKHR;
+    impl PresentRegionsKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPresentRegionsKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PresentRegionKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPresentRegionKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

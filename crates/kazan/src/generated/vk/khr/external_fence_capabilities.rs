@@ -27,6 +27,17 @@ pub(super) mod defs {
         PFN_vkGetPhysicalDeviceExternalFenceProperties;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceExternalFenceInfoKHR = PhysicalDeviceExternalFenceInfoKHR<'static>;
+    pub type VkExternalFencePropertiesKHR = ExternalFencePropertiesKHR<'static>;
+    pub type VkExternalFenceHandleTypeFlagsKHR = ExternalFenceHandleTypeFlagsKHR;
+    pub type VkExternalFenceFeatureFlagsKHR = ExternalFenceFeatureFlagsKHR;
+}
+
 pub struct InstanceFn {
     get_physical_device_external_fence_properties_khr:
         PFN_vkGetPhysicalDeviceExternalFenceProperties,

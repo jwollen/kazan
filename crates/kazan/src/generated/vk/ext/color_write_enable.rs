@@ -129,6 +129,28 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceColorWriteEnableFeaturesEXT =
+        PhysicalDeviceColorWriteEnableFeaturesEXT<'static>;
+    pub type VkPipelineColorWriteCreateInfoEXT = PipelineColorWriteCreateInfoEXT<'static>;
+    impl PhysicalDeviceColorWriteEnableFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceColorWriteEnableFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineColorWriteCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineColorWriteCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_set_color_write_enable_ext: PFN_vkCmdSetColorWriteEnableEXT,
 }

@@ -76,3 +76,18 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceImage2DViewOf3DFeaturesEXT =
+        PhysicalDeviceImage2DViewOf3DFeaturesEXT<'static>;
+    impl PhysicalDeviceImage2DViewOf3DFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceImage2DViewOf3DFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

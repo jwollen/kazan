@@ -23,3 +23,14 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMutableDescriptorTypeCreateInfoVALVE.html>
     pub type MutableDescriptorTypeCreateInfoVALVE<'a> = MutableDescriptorTypeCreateInfoEXT<'a>;
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceMutableDescriptorTypeFeaturesVALVE =
+        PhysicalDeviceMutableDescriptorTypeFeaturesVALVE<'static>;
+    pub type VkMutableDescriptorTypeListVALVE = MutableDescriptorTypeListVALVE<'static>;
+    pub type VkMutableDescriptorTypeCreateInfoVALVE = MutableDescriptorTypeCreateInfoVALVE<'static>;
+}

@@ -170,6 +170,34 @@ pub(super) mod defs {
         -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceSurfaceInfo2KHR = PhysicalDeviceSurfaceInfo2KHR<'static>;
+    pub type VkSurfaceCapabilities2KHR = SurfaceCapabilities2KHR<'static>;
+    pub type VkSurfaceFormat2KHR = SurfaceFormat2KHR<'static>;
+    impl PhysicalDeviceSurfaceInfo2KHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceSurfaceInfo2KHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SurfaceCapabilities2KHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSurfaceCapabilities2KHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SurfaceFormat2KHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSurfaceFormat2KHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     get_physical_device_surface_capabilities2_khr: PFN_vkGetPhysicalDeviceSurfaceCapabilities2KHR,
     get_physical_device_surface_formats2_khr: PFN_vkGetPhysicalDeviceSurfaceFormats2KHR,

@@ -259,3 +259,39 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceVideoDecodeVP9FeaturesKHR =
+        PhysicalDeviceVideoDecodeVP9FeaturesKHR<'static>;
+    pub type VkVideoDecodeVP9ProfileInfoKHR = VideoDecodeVP9ProfileInfoKHR<'static>;
+    pub type VkVideoDecodeVP9CapabilitiesKHR = VideoDecodeVP9CapabilitiesKHR<'static>;
+    pub type VkVideoDecodeVP9PictureInfoKHR = VideoDecodeVP9PictureInfoKHR<'static>;
+    impl PhysicalDeviceVideoDecodeVP9FeaturesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceVideoDecodeVP9FeaturesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoDecodeVP9ProfileInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoDecodeVP9ProfileInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoDecodeVP9CapabilitiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoDecodeVP9CapabilitiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoDecodeVP9PictureInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoDecodeVP9PictureInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

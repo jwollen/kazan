@@ -196,6 +196,36 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceDiscardRectanglePropertiesEXT =
+        PhysicalDeviceDiscardRectanglePropertiesEXT<'static>;
+    pub type VkPipelineDiscardRectangleStateCreateInfoEXT =
+        PipelineDiscardRectangleStateCreateInfoEXT<'static>;
+    pub type VkDiscardRectangleModeEXT = DiscardRectangleModeEXT;
+    pub type VkPipelineDiscardRectangleStateCreateFlagsEXT =
+        PipelineDiscardRectangleStateCreateFlagsEXT;
+    impl PhysicalDeviceDiscardRectanglePropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceDiscardRectanglePropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineDiscardRectangleStateCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPipelineDiscardRectangleStateCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_set_discard_rectangle_ext: PFN_vkCmdSetDiscardRectangleEXT,
     cmd_set_discard_rectangle_enable_ext: PFN_vkCmdSetDiscardRectangleEnableEXT,

@@ -455,3 +455,53 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceMaintenance7FeaturesKHR =
+        PhysicalDeviceMaintenance7FeaturesKHR<'static>;
+    pub type VkPhysicalDeviceMaintenance7PropertiesKHR =
+        PhysicalDeviceMaintenance7PropertiesKHR<'static>;
+    pub type VkPhysicalDeviceLayeredApiPropertiesListKHR =
+        PhysicalDeviceLayeredApiPropertiesListKHR<'static>;
+    pub type VkPhysicalDeviceLayeredApiPropertiesKHR =
+        PhysicalDeviceLayeredApiPropertiesKHR<'static>;
+    pub type VkPhysicalDeviceLayeredApiVulkanPropertiesKHR =
+        PhysicalDeviceLayeredApiVulkanPropertiesKHR<'static>;
+    pub type VkPhysicalDeviceLayeredApiKHR = PhysicalDeviceLayeredApiKHR;
+    impl PhysicalDeviceMaintenance7FeaturesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceMaintenance7FeaturesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceMaintenance7PropertiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceMaintenance7PropertiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceLayeredApiPropertiesListKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceLayeredApiPropertiesListKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceLayeredApiPropertiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceLayeredApiPropertiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceLayeredApiVulkanPropertiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceLayeredApiVulkanPropertiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

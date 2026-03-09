@@ -259,6 +259,41 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkImportMemoryWin32HandleInfoKHR = ImportMemoryWin32HandleInfoKHR<'static>;
+    pub type VkExportMemoryWin32HandleInfoKHR = ExportMemoryWin32HandleInfoKHR<'static>;
+    pub type VkMemoryWin32HandlePropertiesKHR = MemoryWin32HandlePropertiesKHR<'static>;
+    pub type VkMemoryGetWin32HandleInfoKHR = MemoryGetWin32HandleInfoKHR<'static>;
+    impl ImportMemoryWin32HandleInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImportMemoryWin32HandleInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ExportMemoryWin32HandleInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExportMemoryWin32HandleInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MemoryWin32HandlePropertiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMemoryWin32HandlePropertiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MemoryGetWin32HandleInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMemoryGetWin32HandleInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     get_memory_win32_handle_khr: PFN_vkGetMemoryWin32HandleKHR,
     get_memory_win32_handle_properties_khr: PFN_vkGetMemoryWin32HandlePropertiesKHR,

@@ -23,5 +23,18 @@ pub(super) mod defs {
     pub use codec_h265std_encode::defs::*;
     pub use codec_vp9std::defs::*;
     pub use codec_vp9std_decode::defs::*;
-    pub use codecs_common::defs::*;
+}
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    pub use super::codec_av1std::ffi::*;
+    pub use super::codec_av1std_decode::ffi::*;
+    pub use super::codec_av1std_encode::ffi::*;
+    pub use super::codec_h264std::ffi::*;
+    pub use super::codec_h264std_decode::ffi::*;
+    pub use super::codec_h264std_encode::ffi::*;
+    pub use super::codec_h265std::ffi::*;
+    pub use super::codec_h265std_decode::ffi::*;
+    pub use super::codec_h265std_encode::ffi::*;
+    pub use super::codec_vp9std::ffi::*;
+    pub use super::codec_vp9std_decode::ffi::*;
 }

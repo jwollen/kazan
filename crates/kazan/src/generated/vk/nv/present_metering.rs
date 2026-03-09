@@ -124,3 +124,25 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkSetPresentConfigNV = SetPresentConfigNV<'static>;
+    pub type VkPhysicalDevicePresentMeteringFeaturesNV =
+        PhysicalDevicePresentMeteringFeaturesNV<'static>;
+    impl SetPresentConfigNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSetPresentConfigNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDevicePresentMeteringFeaturesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDevicePresentMeteringFeaturesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

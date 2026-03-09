@@ -81,6 +81,21 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkHeadlessSurfaceCreateInfoEXT = HeadlessSurfaceCreateInfoEXT<'static>;
+    pub type VkHeadlessSurfaceCreateFlagsEXT = HeadlessSurfaceCreateFlagsEXT;
+    impl HeadlessSurfaceCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkHeadlessSurfaceCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     create_headless_surface_ext: PFN_vkCreateHeadlessSurfaceEXT,
 }

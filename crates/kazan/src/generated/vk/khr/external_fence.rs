@@ -20,3 +20,12 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFenceImportFlagsKHR.html>
     pub type FenceImportFlagsKHR = FenceImportFlags;
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkExportFenceCreateInfoKHR = ExportFenceCreateInfoKHR<'static>;
+    pub type VkFenceImportFlagsKHR = FenceImportFlagsKHR;
+}

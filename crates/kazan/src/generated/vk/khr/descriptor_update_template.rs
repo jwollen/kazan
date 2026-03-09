@@ -30,6 +30,19 @@ pub(super) mod defs {
     pub type PFN_vkUpdateDescriptorSetWithTemplateKHR = PFN_vkUpdateDescriptorSetWithTemplate;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkDescriptorUpdateTemplateTypeKHR = DescriptorUpdateTemplateTypeKHR;
+    pub type VkDescriptorUpdateTemplateKHR = DescriptorUpdateTemplateKHR;
+    pub type VkDescriptorUpdateTemplateEntryKHR = DescriptorUpdateTemplateEntryKHR;
+    pub type VkDescriptorUpdateTemplateCreateInfoKHR =
+        DescriptorUpdateTemplateCreateInfoKHR<'static>;
+    pub type VkDescriptorUpdateTemplateCreateFlagsKHR = DescriptorUpdateTemplateCreateFlagsKHR;
+}
+
 pub struct DeviceFn {
     create_descriptor_update_template_khr: PFN_vkCreateDescriptorUpdateTemplate,
     destroy_descriptor_update_template_khr: PFN_vkDestroyDescriptorUpdateTemplate,

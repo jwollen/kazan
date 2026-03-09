@@ -768,6 +768,99 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkExportMetalObjectCreateInfoEXT = ExportMetalObjectCreateInfoEXT<'static>;
+    pub type VkExportMetalObjectsInfoEXT = ExportMetalObjectsInfoEXT<'static>;
+    pub type VkExportMetalDeviceInfoEXT = ExportMetalDeviceInfoEXT<'static>;
+    pub type VkExportMetalCommandQueueInfoEXT = ExportMetalCommandQueueInfoEXT<'static>;
+    pub type VkExportMetalBufferInfoEXT = ExportMetalBufferInfoEXT<'static>;
+    pub type VkImportMetalBufferInfoEXT = ImportMetalBufferInfoEXT<'static>;
+    pub type VkExportMetalTextureInfoEXT = ExportMetalTextureInfoEXT<'static>;
+    pub type VkImportMetalTextureInfoEXT = ImportMetalTextureInfoEXT<'static>;
+    pub type VkExportMetalIOSurfaceInfoEXT = ExportMetalIOSurfaceInfoEXT<'static>;
+    pub type VkImportMetalIOSurfaceInfoEXT = ImportMetalIOSurfaceInfoEXT<'static>;
+    pub type VkExportMetalSharedEventInfoEXT = ExportMetalSharedEventInfoEXT<'static>;
+    pub type VkImportMetalSharedEventInfoEXT = ImportMetalSharedEventInfoEXT<'static>;
+    pub type VkExportMetalObjectTypeFlagsEXT = ExportMetalObjectTypeFlagsEXT;
+    pub type VkExportMetalObjectTypeFlagBitsEXT = ExportMetalObjectTypeFlagBitsEXT;
+    impl ExportMetalObjectCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExportMetalObjectCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ExportMetalObjectsInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExportMetalObjectsInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ExportMetalDeviceInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExportMetalDeviceInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ExportMetalCommandQueueInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExportMetalCommandQueueInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ExportMetalBufferInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExportMetalBufferInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImportMetalBufferInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImportMetalBufferInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ExportMetalTextureInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExportMetalTextureInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImportMetalTextureInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImportMetalTextureInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ExportMetalIOSurfaceInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExportMetalIOSurfaceInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImportMetalIOSurfaceInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImportMetalIOSurfaceInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ExportMetalSharedEventInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExportMetalSharedEventInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImportMetalSharedEventInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImportMetalSharedEventInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     export_metal_objects_ext: PFN_vkExportMetalObjectsEXT,
 }

@@ -1,5 +1,5 @@
 use std::{
-    collections::{HashMap, HashSet, VecDeque},
+    collections::{HashMap, VecDeque},
     io::Write,
 };
 
@@ -38,17 +38,7 @@ pub fn collect_handle_command_types(registry: &xml::Registry) -> HandleCommandTy
     handle_command_types
 }
 
-pub fn generate_handles(
-    file: &mut impl Write,
-    analysis: &crate::analysis::Analysis,
-    owned: &HashSet<&str>,
-) -> Result<()> {
-    let handles = analysis
-        .registry()
-        .handles
-        .iter()
-        .filter(|ty| owned.contains(ty.name));
-
+pub fn generate_handles(file: &mut impl Write, handles: &[&xml::Handle]) -> Result<()> {
     for handle in handles {
         let macro_name = match handle.ty {
             "VK_DEFINE_HANDLE" => "define_handle",

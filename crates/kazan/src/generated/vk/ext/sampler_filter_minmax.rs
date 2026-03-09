@@ -23,3 +23,14 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSamplerReductionModeCreateInfoEXT.html>
     pub type SamplerReductionModeCreateInfoEXT<'a> = SamplerReductionModeCreateInfo<'a>;
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkSamplerReductionModeEXT = SamplerReductionModeEXT;
+    pub type VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT =
+        PhysicalDeviceSamplerFilterMinmaxPropertiesEXT<'static>;
+    pub type VkSamplerReductionModeCreateInfoEXT = SamplerReductionModeCreateInfoEXT<'static>;
+}

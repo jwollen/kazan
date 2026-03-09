@@ -22,3 +22,14 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCreationFeedbackFlagsEXT.html>
     pub type PipelineCreationFeedbackFlagsEXT = PipelineCreationFeedbackFlags;
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPipelineCreationFeedbackEXT = PipelineCreationFeedbackEXT;
+    pub type VkPipelineCreationFeedbackCreateInfoEXT =
+        PipelineCreationFeedbackCreateInfoEXT<'static>;
+    pub type VkPipelineCreationFeedbackFlagsEXT = PipelineCreationFeedbackFlagsEXT;
+}

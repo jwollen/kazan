@@ -22,3 +22,13 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMemoryAllocateInfoKHR.html>
     pub type ExportMemoryAllocateInfoKHR<'a> = ExportMemoryAllocateInfo<'a>;
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkExternalMemoryImageCreateInfoKHR = ExternalMemoryImageCreateInfoKHR<'static>;
+    pub type VkExternalMemoryBufferCreateInfoKHR = ExternalMemoryBufferCreateInfoKHR<'static>;
+    pub type VkExportMemoryAllocateInfoKHR = ExportMemoryAllocateInfoKHR<'static>;
+}

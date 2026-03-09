@@ -217,3 +217,30 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceAddressBindingReportFeaturesEXT =
+        PhysicalDeviceAddressBindingReportFeaturesEXT<'static>;
+    pub type VkDeviceAddressBindingCallbackDataEXT = DeviceAddressBindingCallbackDataEXT<'static>;
+    pub type VkDeviceAddressBindingTypeEXT = DeviceAddressBindingTypeEXT;
+    pub type VkDeviceAddressBindingFlagsEXT = DeviceAddressBindingFlagsEXT;
+    pub type VkDeviceAddressBindingFlagBitsEXT = DeviceAddressBindingFlagBitsEXT;
+    impl PhysicalDeviceAddressBindingReportFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceAddressBindingReportFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DeviceAddressBindingCallbackDataEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDeviceAddressBindingCallbackDataEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

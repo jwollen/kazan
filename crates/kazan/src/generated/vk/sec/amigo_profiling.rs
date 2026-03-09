@@ -123,3 +123,25 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceAmigoProfilingFeaturesSEC =
+        PhysicalDeviceAmigoProfilingFeaturesSEC<'static>;
+    pub type VkAmigoProfilingSubmitInfoSEC = AmigoProfilingSubmitInfoSEC<'static>;
+    impl PhysicalDeviceAmigoProfilingFeaturesSEC<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceAmigoProfilingFeaturesSEC {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AmigoProfilingSubmitInfoSEC<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkAmigoProfilingSubmitInfoSEC {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

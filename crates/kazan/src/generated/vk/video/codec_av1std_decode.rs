@@ -589,3 +589,20 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type StdVideoDecodeAV1PictureInfoFlags = super::defs::StdVideoDecodeAV1PictureInfoFlags;
+    pub type StdVideoDecodeAV1PictureInfo = super::defs::StdVideoDecodeAV1PictureInfo<'static>;
+    pub type StdVideoDecodeAV1ReferenceInfoFlags = super::defs::StdVideoDecodeAV1ReferenceInfoFlags;
+    pub type StdVideoDecodeAV1ReferenceInfo = super::defs::StdVideoDecodeAV1ReferenceInfo;
+    impl super::defs::StdVideoDecodeAV1PictureInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &StdVideoDecodeAV1PictureInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

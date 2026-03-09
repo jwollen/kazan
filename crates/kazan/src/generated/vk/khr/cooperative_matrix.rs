@@ -375,6 +375,42 @@ pub(super) mod defs {
         ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceCooperativeMatrixFeaturesKHR =
+        PhysicalDeviceCooperativeMatrixFeaturesKHR<'static>;
+    pub type VkCooperativeMatrixPropertiesKHR = CooperativeMatrixPropertiesKHR<'static>;
+    pub type VkPhysicalDeviceCooperativeMatrixPropertiesKHR =
+        PhysicalDeviceCooperativeMatrixPropertiesKHR<'static>;
+    pub type VkScopeKHR = ScopeKHR;
+    pub type VkComponentTypeKHR = ComponentTypeKHR;
+    impl PhysicalDeviceCooperativeMatrixFeaturesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceCooperativeMatrixFeaturesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CooperativeMatrixPropertiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCooperativeMatrixPropertiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceCooperativeMatrixPropertiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceCooperativeMatrixPropertiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     get_physical_device_cooperative_matrix_properties_khr:
         PFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR,

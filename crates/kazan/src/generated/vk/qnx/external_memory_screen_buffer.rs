@@ -361,6 +361,51 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkImportScreenBufferInfoQNX = ImportScreenBufferInfoQNX<'static>;
+    pub type VkScreenBufferPropertiesQNX = ScreenBufferPropertiesQNX<'static>;
+    pub type VkScreenBufferFormatPropertiesQNX = ScreenBufferFormatPropertiesQNX<'static>;
+    pub type VkExternalFormatQNX = ExternalFormatQNX<'static>;
+    pub type VkPhysicalDeviceExternalMemoryScreenBufferFeaturesQNX =
+        PhysicalDeviceExternalMemoryScreenBufferFeaturesQNX<'static>;
+    impl ImportScreenBufferInfoQNX<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImportScreenBufferInfoQNX {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ScreenBufferPropertiesQNX<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkScreenBufferPropertiesQNX {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ScreenBufferFormatPropertiesQNX<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkScreenBufferFormatPropertiesQNX {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ExternalFormatQNX<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExternalFormatQNX {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceExternalMemoryScreenBufferFeaturesQNX<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceExternalMemoryScreenBufferFeaturesQNX {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     get_screen_buffer_properties_qnx: PFN_vkGetScreenBufferPropertiesQNX,
 }

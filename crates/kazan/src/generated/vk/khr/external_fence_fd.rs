@@ -154,6 +154,27 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkImportFenceFdInfoKHR = ImportFenceFdInfoKHR<'static>;
+    pub type VkFenceGetFdInfoKHR = FenceGetFdInfoKHR<'static>;
+    impl ImportFenceFdInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImportFenceFdInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl FenceGetFdInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkFenceGetFdInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     import_fence_fd_khr: PFN_vkImportFenceFdKHR,
     get_fence_fd_khr: PFN_vkGetFenceFdKHR,

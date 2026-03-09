@@ -49,6 +49,29 @@ pub(super) mod defs {
     pub type PFN_vkGetImageSubresourceLayout2EXT = PFN_vkGetImageSubresourceLayout2;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceHostImageCopyFeaturesEXT =
+        PhysicalDeviceHostImageCopyFeaturesEXT<'static>;
+    pub type VkPhysicalDeviceHostImageCopyPropertiesEXT =
+        PhysicalDeviceHostImageCopyPropertiesEXT<'static>;
+    pub type VkMemoryToImageCopyEXT = MemoryToImageCopyEXT<'static>;
+    pub type VkImageToMemoryCopyEXT = ImageToMemoryCopyEXT<'static>;
+    pub type VkCopyMemoryToImageInfoEXT = CopyMemoryToImageInfoEXT<'static>;
+    pub type VkCopyImageToMemoryInfoEXT = CopyImageToMemoryInfoEXT<'static>;
+    pub type VkCopyImageToImageInfoEXT = CopyImageToImageInfoEXT<'static>;
+    pub type VkHostImageLayoutTransitionInfoEXT = HostImageLayoutTransitionInfoEXT<'static>;
+    pub type VkSubresourceHostMemcpySizeEXT = SubresourceHostMemcpySizeEXT<'static>;
+    pub type VkHostImageCopyDevicePerformanceQueryEXT =
+        HostImageCopyDevicePerformanceQueryEXT<'static>;
+    pub type VkImageSubresource2EXT = ImageSubresource2EXT<'static>;
+    pub type VkSubresourceLayout2EXT = SubresourceLayout2EXT<'static>;
+    pub type VkHostImageCopyFlagsEXT = HostImageCopyFlagsEXT;
+}
+
 pub struct DeviceFn {
     copy_memory_to_image_ext: PFN_vkCopyMemoryToImage,
     copy_image_to_memory_ext: PFN_vkCopyImageToMemory,

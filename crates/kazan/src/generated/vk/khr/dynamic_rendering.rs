@@ -33,6 +33,21 @@ pub(super) mod defs {
     pub type PFN_vkCmdEndRenderingKHR = PFN_vkCmdEndRendering;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPipelineRenderingCreateInfoKHR = PipelineRenderingCreateInfoKHR<'static>;
+    pub type VkRenderingInfoKHR = RenderingInfoKHR<'static>;
+    pub type VkRenderingAttachmentInfoKHR = RenderingAttachmentInfoKHR<'static>;
+    pub type VkPhysicalDeviceDynamicRenderingFeaturesKHR =
+        PhysicalDeviceDynamicRenderingFeaturesKHR<'static>;
+    pub type VkCommandBufferInheritanceRenderingInfoKHR =
+        CommandBufferInheritanceRenderingInfoKHR<'static>;
+    pub type VkRenderingFlagsKHR = RenderingFlagsKHR;
+}
+
 pub struct DeviceFn {
     cmd_begin_rendering_khr: PFN_vkCmdBeginRendering,
     cmd_end_rendering_khr: PFN_vkCmdEndRendering,

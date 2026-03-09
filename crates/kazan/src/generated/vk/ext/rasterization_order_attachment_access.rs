@@ -111,3 +111,20 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT =
+        PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT<'static>;
+    impl PhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

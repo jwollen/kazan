@@ -196,3 +196,38 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkSamplerCustomBorderColorCreateInfoEXT =
+        SamplerCustomBorderColorCreateInfoEXT<'static>;
+    pub type VkPhysicalDeviceCustomBorderColorPropertiesEXT =
+        PhysicalDeviceCustomBorderColorPropertiesEXT<'static>;
+    pub type VkPhysicalDeviceCustomBorderColorFeaturesEXT =
+        PhysicalDeviceCustomBorderColorFeaturesEXT<'static>;
+    impl SamplerCustomBorderColorCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSamplerCustomBorderColorCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceCustomBorderColorPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceCustomBorderColorPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceCustomBorderColorFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceCustomBorderColorFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

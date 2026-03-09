@@ -215,3 +215,27 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkFrameBoundaryEXT = FrameBoundaryEXT<'static>;
+    pub type VkPhysicalDeviceFrameBoundaryFeaturesEXT =
+        PhysicalDeviceFrameBoundaryFeaturesEXT<'static>;
+    pub type VkFrameBoundaryFlagsEXT = FrameBoundaryFlagsEXT;
+    pub type VkFrameBoundaryFlagBitsEXT = FrameBoundaryFlagBitsEXT;
+    impl FrameBoundaryEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkFrameBoundaryEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceFrameBoundaryFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceFrameBoundaryFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

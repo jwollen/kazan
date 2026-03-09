@@ -174,6 +174,35 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPresentWait2InfoKHR = PresentWait2InfoKHR<'static>;
+    pub type VkPhysicalDevicePresentWait2FeaturesKHR =
+        PhysicalDevicePresentWait2FeaturesKHR<'static>;
+    pub type VkSurfaceCapabilitiesPresentWait2KHR = SurfaceCapabilitiesPresentWait2KHR<'static>;
+    impl PresentWait2InfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPresentWait2InfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDevicePresentWait2FeaturesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDevicePresentWait2FeaturesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SurfaceCapabilitiesPresentWait2KHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSurfaceCapabilitiesPresentWait2KHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     wait_for_present2_khr: PFN_vkWaitForPresent2KHR,
 }

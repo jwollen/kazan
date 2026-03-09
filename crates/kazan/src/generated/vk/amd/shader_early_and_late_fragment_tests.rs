@@ -78,3 +78,20 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD =
+        PhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD<'static>;
+    impl PhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

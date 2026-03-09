@@ -30,6 +30,19 @@ pub(super) mod defs {
     pub type PFN_vkGetImageSparseMemoryRequirements2KHR = PFN_vkGetImageSparseMemoryRequirements2;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkBufferMemoryRequirementsInfo2KHR = BufferMemoryRequirementsInfo2KHR<'static>;
+    pub type VkImageMemoryRequirementsInfo2KHR = ImageMemoryRequirementsInfo2KHR<'static>;
+    pub type VkImageSparseMemoryRequirementsInfo2KHR =
+        ImageSparseMemoryRequirementsInfo2KHR<'static>;
+    pub type VkMemoryRequirements2KHR = MemoryRequirements2KHR<'static>;
+    pub type VkSparseImageMemoryRequirements2KHR = SparseImageMemoryRequirements2KHR<'static>;
+}
+
 pub struct DeviceFn {
     get_image_memory_requirements2_khr: PFN_vkGetImageMemoryRequirements2,
     get_buffer_memory_requirements2_khr: PFN_vkGetBufferMemoryRequirements2,

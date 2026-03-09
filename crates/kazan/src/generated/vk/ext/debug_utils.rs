@@ -636,6 +636,55 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkDebugUtilsMessengerEXT = DebugUtilsMessengerEXT;
+    pub type VkDebugUtilsObjectNameInfoEXT = DebugUtilsObjectNameInfoEXT<'static>;
+    pub type VkDebugUtilsObjectTagInfoEXT = DebugUtilsObjectTagInfoEXT<'static>;
+    pub type VkDebugUtilsLabelEXT = DebugUtilsLabelEXT<'static>;
+    pub type VkDebugUtilsMessengerCreateInfoEXT = DebugUtilsMessengerCreateInfoEXT<'static>;
+    pub type VkDebugUtilsMessengerCallbackDataEXT = DebugUtilsMessengerCallbackDataEXT<'static>;
+    pub type VkDebugUtilsMessageSeverityFlagsEXT = DebugUtilsMessageSeverityFlagsEXT;
+    pub type VkDebugUtilsMessageSeverityFlagBitsEXT = DebugUtilsMessageSeverityFlagBitsEXT;
+    pub type VkDebugUtilsMessageTypeFlagsEXT = DebugUtilsMessageTypeFlagsEXT;
+    pub type VkDebugUtilsMessageTypeFlagBitsEXT = DebugUtilsMessageTypeFlagBitsEXT;
+    pub type VkDebugUtilsMessengerCreateFlagsEXT = DebugUtilsMessengerCreateFlagsEXT;
+    pub type VkDebugUtilsMessengerCallbackDataFlagsEXT = DebugUtilsMessengerCallbackDataFlagsEXT;
+    impl DebugUtilsObjectNameInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDebugUtilsObjectNameInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DebugUtilsObjectTagInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDebugUtilsObjectTagInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DebugUtilsLabelEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDebugUtilsLabelEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DebugUtilsMessengerCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDebugUtilsMessengerCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DebugUtilsMessengerCallbackDataEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDebugUtilsMessengerCallbackDataEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     create_debug_utils_messenger_ext: PFN_vkCreateDebugUtilsMessengerEXT,
     destroy_debug_utils_messenger_ext: PFN_vkDestroyDebugUtilsMessengerEXT,

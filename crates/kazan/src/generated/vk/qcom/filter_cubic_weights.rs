@@ -190,3 +190,33 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceCubicWeightsFeaturesQCOM =
+        PhysicalDeviceCubicWeightsFeaturesQCOM<'static>;
+    pub type VkSamplerCubicWeightsCreateInfoQCOM = SamplerCubicWeightsCreateInfoQCOM<'static>;
+    pub type VkBlitImageCubicWeightsInfoQCOM = BlitImageCubicWeightsInfoQCOM<'static>;
+    pub type VkCubicFilterWeightsQCOM = CubicFilterWeightsQCOM;
+    impl PhysicalDeviceCubicWeightsFeaturesQCOM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceCubicWeightsFeaturesQCOM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SamplerCubicWeightsCreateInfoQCOM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSamplerCubicWeightsCreateInfoQCOM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BlitImageCubicWeightsInfoQCOM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBlitImageCubicWeightsInfoQCOM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

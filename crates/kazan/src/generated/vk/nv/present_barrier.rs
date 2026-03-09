@@ -163,3 +163,32 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDevicePresentBarrierFeaturesNV =
+        PhysicalDevicePresentBarrierFeaturesNV<'static>;
+    pub type VkSurfaceCapabilitiesPresentBarrierNV = SurfaceCapabilitiesPresentBarrierNV<'static>;
+    pub type VkSwapchainPresentBarrierCreateInfoNV = SwapchainPresentBarrierCreateInfoNV<'static>;
+    impl PhysicalDevicePresentBarrierFeaturesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDevicePresentBarrierFeaturesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SurfaceCapabilitiesPresentBarrierNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSurfaceCapabilitiesPresentBarrierNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SwapchainPresentBarrierCreateInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSwapchainPresentBarrierCreateInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

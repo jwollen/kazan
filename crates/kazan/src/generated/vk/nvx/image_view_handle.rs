@@ -149,6 +149,27 @@ pub(super) mod defs {
         unsafe extern "system" fn(device: Device, image_view_index: u64, sampler_index: u64) -> u64;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkImageViewHandleInfoNVX = ImageViewHandleInfoNVX<'static>;
+    pub type VkImageViewAddressPropertiesNVX = ImageViewAddressPropertiesNVX<'static>;
+    impl ImageViewHandleInfoNVX<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImageViewHandleInfoNVX {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImageViewAddressPropertiesNVX<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImageViewAddressPropertiesNVX {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     get_image_view_handle_nvx: PFN_vkGetImageViewHandleNVX,
     get_image_view_handle64_nvx: PFN_vkGetImageViewHandle64NVX,

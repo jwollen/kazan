@@ -875,6 +875,74 @@ pub(super) mod defs {
         -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkSwapchainKHR = SwapchainKHR;
+    pub type VkSwapchainCreateInfoKHR = SwapchainCreateInfoKHR<'static>;
+    pub type VkPresentInfoKHR = PresentInfoKHR<'static>;
+    pub type VkDeviceGroupPresentCapabilitiesKHR = DeviceGroupPresentCapabilitiesKHR<'static>;
+    pub type VkImageSwapchainCreateInfoKHR = ImageSwapchainCreateInfoKHR<'static>;
+    pub type VkBindImageMemorySwapchainInfoKHR = BindImageMemorySwapchainInfoKHR<'static>;
+    pub type VkAcquireNextImageInfoKHR = AcquireNextImageInfoKHR<'static>;
+    pub type VkDeviceGroupPresentInfoKHR = DeviceGroupPresentInfoKHR<'static>;
+    pub type VkDeviceGroupSwapchainCreateInfoKHR = DeviceGroupSwapchainCreateInfoKHR<'static>;
+    pub type VkSwapchainCreateFlagsKHR = SwapchainCreateFlagsKHR;
+    pub type VkSwapchainCreateFlagBitsKHR = SwapchainCreateFlagBitsKHR;
+    pub type VkDeviceGroupPresentModeFlagsKHR = DeviceGroupPresentModeFlagsKHR;
+    pub type VkDeviceGroupPresentModeFlagBitsKHR = DeviceGroupPresentModeFlagBitsKHR;
+    impl SwapchainCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSwapchainCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PresentInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPresentInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DeviceGroupPresentCapabilitiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDeviceGroupPresentCapabilitiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImageSwapchainCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImageSwapchainCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BindImageMemorySwapchainInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBindImageMemorySwapchainInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AcquireNextImageInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkAcquireNextImageInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DeviceGroupPresentInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDeviceGroupPresentInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DeviceGroupSwapchainCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDeviceGroupSwapchainCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     get_physical_device_present_rectangles_khr: Option<PFN_vkGetPhysicalDevicePresentRectanglesKHR>,
 }

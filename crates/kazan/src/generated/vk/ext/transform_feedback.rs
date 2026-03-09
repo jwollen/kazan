@@ -386,6 +386,45 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceTransformFeedbackFeaturesEXT =
+        PhysicalDeviceTransformFeedbackFeaturesEXT<'static>;
+    pub type VkPhysicalDeviceTransformFeedbackPropertiesEXT =
+        PhysicalDeviceTransformFeedbackPropertiesEXT<'static>;
+    pub type VkPipelineRasterizationStateStreamCreateInfoEXT =
+        PipelineRasterizationStateStreamCreateInfoEXT<'static>;
+    pub type VkPipelineRasterizationStateStreamCreateFlagsEXT =
+        PipelineRasterizationStateStreamCreateFlagsEXT;
+    impl PhysicalDeviceTransformFeedbackFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceTransformFeedbackFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceTransformFeedbackPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceTransformFeedbackPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineRasterizationStateStreamCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPipelineRasterizationStateStreamCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_bind_transform_feedback_buffers_ext: PFN_vkCmdBindTransformFeedbackBuffersEXT,
     cmd_begin_transform_feedback_ext: PFN_vkCmdBeginTransformFeedbackEXT,

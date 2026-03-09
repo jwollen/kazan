@@ -311,6 +311,24 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkDebugReportCallbackEXT = DebugReportCallbackEXT;
+    pub type VkDebugReportCallbackCreateInfoEXT = DebugReportCallbackCreateInfoEXT<'static>;
+    pub type VkDebugReportObjectTypeEXT = DebugReportObjectTypeEXT;
+    pub type VkDebugReportFlagsEXT = DebugReportFlagsEXT;
+    pub type VkDebugReportFlagBitsEXT = DebugReportFlagBitsEXT;
+    impl DebugReportCallbackCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDebugReportCallbackCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     create_debug_report_callback_ext: PFN_vkCreateDebugReportCallbackEXT,
     destroy_debug_report_callback_ext: PFN_vkDestroyDebugReportCallbackEXT,

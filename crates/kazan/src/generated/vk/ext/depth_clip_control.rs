@@ -118,3 +118,28 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceDepthClipControlFeaturesEXT =
+        PhysicalDeviceDepthClipControlFeaturesEXT<'static>;
+    pub type VkPipelineViewportDepthClipControlCreateInfoEXT =
+        PipelineViewportDepthClipControlCreateInfoEXT<'static>;
+    impl PhysicalDeviceDepthClipControlFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceDepthClipControlFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineViewportDepthClipControlCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPipelineViewportDepthClipControlCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

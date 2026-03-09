@@ -439,3 +439,60 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkVideoDecodeH264ProfileInfoKHR = VideoDecodeH264ProfileInfoKHR<'static>;
+    pub type VkVideoDecodeH264CapabilitiesKHR = VideoDecodeH264CapabilitiesKHR<'static>;
+    pub type VkVideoDecodeH264SessionParametersAddInfoKHR =
+        VideoDecodeH264SessionParametersAddInfoKHR<'static>;
+    pub type VkVideoDecodeH264SessionParametersCreateInfoKHR =
+        VideoDecodeH264SessionParametersCreateInfoKHR<'static>;
+    pub type VkVideoDecodeH264PictureInfoKHR = VideoDecodeH264PictureInfoKHR<'static>;
+    pub type VkVideoDecodeH264DpbSlotInfoKHR = VideoDecodeH264DpbSlotInfoKHR<'static>;
+    pub type VkVideoDecodeH264PictureLayoutFlagsKHR = VideoDecodeH264PictureLayoutFlagsKHR;
+    pub type VkVideoDecodeH264PictureLayoutFlagBitsKHR = VideoDecodeH264PictureLayoutFlagBitsKHR;
+    impl VideoDecodeH264ProfileInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoDecodeH264ProfileInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoDecodeH264CapabilitiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoDecodeH264CapabilitiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoDecodeH264SessionParametersAddInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkVideoDecodeH264SessionParametersAddInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoDecodeH264SessionParametersCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkVideoDecodeH264SessionParametersCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoDecodeH264PictureInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoDecodeH264PictureInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoDecodeH264DpbSlotInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoDecodeH264DpbSlotInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

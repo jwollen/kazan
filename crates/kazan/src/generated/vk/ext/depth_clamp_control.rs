@@ -177,6 +177,35 @@ pub(super) mod defs {
     }
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceDepthClampControlFeaturesEXT =
+        PhysicalDeviceDepthClampControlFeaturesEXT<'static>;
+    pub type VkPipelineViewportDepthClampControlCreateInfoEXT =
+        PipelineViewportDepthClampControlCreateInfoEXT<'static>;
+    pub type VkDepthClampRangeEXT = DepthClampRangeEXT;
+    pub type VkDepthClampModeEXT = DepthClampModeEXT;
+    impl PhysicalDeviceDepthClampControlFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceDepthClampControlFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineViewportDepthClampControlCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPipelineViewportDepthClampControlCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_set_depth_clamp_range_ext: PFN_vkCmdSetDepthClampRangeEXT,
 }

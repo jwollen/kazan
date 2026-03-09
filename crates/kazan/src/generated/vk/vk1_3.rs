@@ -6816,6 +6816,437 @@ _marker: PhantomData
     pub type PFN_vkCmdEndRendering = unsafe extern "system" fn(command_buffer: CommandBuffer);
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkFlags64 = Flags64;
+    pub type VkPrivateDataSlot = PrivateDataSlot;
+    pub type VkDevicePrivateDataCreateInfo = DevicePrivateDataCreateInfo<'static>;
+    pub type VkPrivateDataSlotCreateInfo = PrivateDataSlotCreateInfo<'static>;
+    pub type VkPhysicalDevicePrivateDataFeatures = PhysicalDevicePrivateDataFeatures<'static>;
+    pub type VkDeviceBufferMemoryRequirements = DeviceBufferMemoryRequirements<'static>;
+    pub type VkDeviceImageMemoryRequirements = DeviceImageMemoryRequirements<'static>;
+    pub type VkPhysicalDeviceInlineUniformBlockFeatures =
+        PhysicalDeviceInlineUniformBlockFeatures<'static>;
+    pub type VkPhysicalDeviceInlineUniformBlockProperties =
+        PhysicalDeviceInlineUniformBlockProperties<'static>;
+    pub type VkWriteDescriptorSetInlineUniformBlock = WriteDescriptorSetInlineUniformBlock<'static>;
+    pub type VkDescriptorPoolInlineUniformBlockCreateInfo =
+        DescriptorPoolInlineUniformBlockCreateInfo<'static>;
+    pub type VkPhysicalDeviceMaintenance4Features = PhysicalDeviceMaintenance4Features<'static>;
+    pub type VkPhysicalDeviceMaintenance4Properties = PhysicalDeviceMaintenance4Properties<'static>;
+    pub type VkPhysicalDeviceTextureCompressionASTCHDRFeatures =
+        PhysicalDeviceTextureCompressionASTCHDRFeatures<'static>;
+    pub type VkPipelineCreationFeedback = PipelineCreationFeedback;
+    pub type VkPipelineCreationFeedbackCreateInfo = PipelineCreationFeedbackCreateInfo<'static>;
+    pub type VkPhysicalDeviceShaderDemoteToHelperInvocationFeatures =
+        PhysicalDeviceShaderDemoteToHelperInvocationFeatures<'static>;
+    pub type VkPhysicalDeviceTexelBufferAlignmentProperties =
+        PhysicalDeviceTexelBufferAlignmentProperties<'static>;
+    pub type VkPhysicalDeviceSubgroupSizeControlFeatures =
+        PhysicalDeviceSubgroupSizeControlFeatures<'static>;
+    pub type VkPhysicalDeviceSubgroupSizeControlProperties =
+        PhysicalDeviceSubgroupSizeControlProperties<'static>;
+    pub type VkPipelineShaderStageRequiredSubgroupSizeCreateInfo =
+        PipelineShaderStageRequiredSubgroupSizeCreateInfo<'static>;
+    pub type VkPhysicalDevicePipelineCreationCacheControlFeatures =
+        PhysicalDevicePipelineCreationCacheControlFeatures<'static>;
+    pub type VkPhysicalDeviceVulkan13Features = PhysicalDeviceVulkan13Features<'static>;
+    pub type VkPhysicalDeviceVulkan13Properties = PhysicalDeviceVulkan13Properties<'static>;
+    pub type VkPhysicalDeviceToolProperties = PhysicalDeviceToolProperties<'static>;
+    pub type VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures =
+        PhysicalDeviceZeroInitializeWorkgroupMemoryFeatures<'static>;
+    pub type VkPhysicalDeviceImageRobustnessFeatures =
+        PhysicalDeviceImageRobustnessFeatures<'static>;
+    pub type VkBufferCopy2 = BufferCopy2<'static>;
+    pub type VkImageCopy2 = ImageCopy2<'static>;
+    pub type VkImageBlit2 = ImageBlit2<'static>;
+    pub type VkBufferImageCopy2 = BufferImageCopy2<'static>;
+    pub type VkImageResolve2 = ImageResolve2<'static>;
+    pub type VkCopyBufferInfo2 = CopyBufferInfo2<'static>;
+    pub type VkCopyImageInfo2 = CopyImageInfo2<'static>;
+    pub type VkBlitImageInfo2 = BlitImageInfo2<'static>;
+    pub type VkCopyBufferToImageInfo2 = CopyBufferToImageInfo2<'static>;
+    pub type VkCopyImageToBufferInfo2 = CopyImageToBufferInfo2<'static>;
+    pub type VkResolveImageInfo2 = ResolveImageInfo2<'static>;
+    pub type VkPhysicalDeviceShaderTerminateInvocationFeatures =
+        PhysicalDeviceShaderTerminateInvocationFeatures<'static>;
+    pub type VkMemoryBarrier2 = MemoryBarrier2<'static>;
+    pub type VkImageMemoryBarrier2 = ImageMemoryBarrier2<'static>;
+    pub type VkBufferMemoryBarrier2 = BufferMemoryBarrier2<'static>;
+    pub type VkDependencyInfo = DependencyInfo<'static>;
+    pub type VkSemaphoreSubmitInfo = SemaphoreSubmitInfo<'static>;
+    pub type VkCommandBufferSubmitInfo = CommandBufferSubmitInfo<'static>;
+    pub type VkSubmitInfo2 = SubmitInfo2<'static>;
+    pub type VkPhysicalDeviceSynchronization2Features =
+        PhysicalDeviceSynchronization2Features<'static>;
+    pub type VkPhysicalDeviceShaderIntegerDotProductFeatures =
+        PhysicalDeviceShaderIntegerDotProductFeatures<'static>;
+    pub type VkPhysicalDeviceShaderIntegerDotProductProperties =
+        PhysicalDeviceShaderIntegerDotProductProperties<'static>;
+    pub type VkFormatProperties3 = FormatProperties3<'static>;
+    pub type VkPipelineRenderingCreateInfo = PipelineRenderingCreateInfo<'static>;
+    pub type VkRenderingInfo = RenderingInfo<'static>;
+    pub type VkRenderingAttachmentInfo = RenderingAttachmentInfo<'static>;
+    pub type VkPhysicalDeviceDynamicRenderingFeatures =
+        PhysicalDeviceDynamicRenderingFeatures<'static>;
+    pub type VkCommandBufferInheritanceRenderingInfo =
+        CommandBufferInheritanceRenderingInfo<'static>;
+    pub type VkPrivateDataSlotCreateFlags = PrivateDataSlotCreateFlags;
+    pub type VkPipelineCreationFeedbackFlags = PipelineCreationFeedbackFlags;
+    pub type VkPipelineCreationFeedbackFlagBits = PipelineCreationFeedbackFlagBits;
+    pub type VkAccessFlags2 = AccessFlags2;
+    pub type VkAccessFlagBits2 = AccessFlagBits2;
+    pub type VkPipelineStageFlags2 = PipelineStageFlags2;
+    pub type VkPipelineStageFlagBits2 = PipelineStageFlagBits2;
+    pub type VkFormatFeatureFlags2 = FormatFeatureFlags2;
+    pub type VkFormatFeatureFlagBits2 = FormatFeatureFlagBits2;
+    pub type VkRenderingFlags = RenderingFlags;
+    pub type VkRenderingFlagBits = RenderingFlagBits;
+    pub type VkToolPurposeFlags = ToolPurposeFlags;
+    pub type VkToolPurposeFlagBits = ToolPurposeFlagBits;
+    pub type VkSubmitFlags = SubmitFlags;
+    pub type VkSubmitFlagBits = SubmitFlagBits;
+    impl DevicePrivateDataCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDevicePrivateDataCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PrivateDataSlotCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPrivateDataSlotCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDevicePrivateDataFeatures<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDevicePrivateDataFeatures {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DeviceBufferMemoryRequirements<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDeviceBufferMemoryRequirements {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DeviceImageMemoryRequirements<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDeviceImageMemoryRequirements {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceInlineUniformBlockFeatures<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceInlineUniformBlockFeatures {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceInlineUniformBlockProperties<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceInlineUniformBlockProperties {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl WriteDescriptorSetInlineUniformBlock<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkWriteDescriptorSetInlineUniformBlock {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DescriptorPoolInlineUniformBlockCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkDescriptorPoolInlineUniformBlockCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceMaintenance4Features<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceMaintenance4Features {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceMaintenance4Properties<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceMaintenance4Properties {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceTextureCompressionASTCHDRFeatures<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceTextureCompressionASTCHDRFeatures {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineCreationFeedbackCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineCreationFeedbackCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceShaderDemoteToHelperInvocationFeatures<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceShaderDemoteToHelperInvocationFeatures {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceTexelBufferAlignmentProperties<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceTexelBufferAlignmentProperties {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceSubgroupSizeControlFeatures<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceSubgroupSizeControlFeatures {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceSubgroupSizeControlProperties<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceSubgroupSizeControlProperties {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineShaderStageRequiredSubgroupSizeCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPipelineShaderStageRequiredSubgroupSizeCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDevicePipelineCreationCacheControlFeatures<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDevicePipelineCreationCacheControlFeatures {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceVulkan13Features<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceVulkan13Features {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceVulkan13Properties<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceVulkan13Properties {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceToolProperties<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceToolProperties {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceZeroInitializeWorkgroupMemoryFeatures<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceImageRobustnessFeatures<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceImageRobustnessFeatures {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BufferCopy2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBufferCopy2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImageCopy2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImageCopy2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImageBlit2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImageBlit2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BufferImageCopy2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBufferImageCopy2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImageResolve2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImageResolve2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CopyBufferInfo2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCopyBufferInfo2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CopyImageInfo2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCopyImageInfo2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BlitImageInfo2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBlitImageInfo2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CopyBufferToImageInfo2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCopyBufferToImageInfo2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CopyImageToBufferInfo2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCopyImageToBufferInfo2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ResolveImageInfo2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkResolveImageInfo2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceShaderTerminateInvocationFeatures<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceShaderTerminateInvocationFeatures {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MemoryBarrier2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMemoryBarrier2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImageMemoryBarrier2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImageMemoryBarrier2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BufferMemoryBarrier2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBufferMemoryBarrier2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DependencyInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDependencyInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SemaphoreSubmitInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSemaphoreSubmitInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CommandBufferSubmitInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCommandBufferSubmitInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SubmitInfo2<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSubmitInfo2 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceSynchronization2Features<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceSynchronization2Features {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceShaderIntegerDotProductFeatures<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceShaderIntegerDotProductFeatures {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceShaderIntegerDotProductProperties<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceShaderIntegerDotProductProperties {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl FormatProperties3<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkFormatProperties3 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineRenderingCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineRenderingCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl RenderingInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkRenderingInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl RenderingAttachmentInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkRenderingAttachmentInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceDynamicRenderingFeatures<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceDynamicRenderingFeatures {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CommandBufferInheritanceRenderingInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCommandBufferInheritanceRenderingInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     get_physical_device_tool_properties: PFN_vkGetPhysicalDeviceToolProperties,
 }

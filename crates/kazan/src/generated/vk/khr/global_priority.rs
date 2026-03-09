@@ -25,3 +25,17 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyGlobalPriorityPropertiesKHR.html>
     pub type QueueFamilyGlobalPriorityPropertiesKHR<'a> = QueueFamilyGlobalPriorityProperties<'a>;
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkQueueGlobalPriorityKHR = QueueGlobalPriorityKHR;
+    pub type VkDeviceQueueGlobalPriorityCreateInfoKHR =
+        DeviceQueueGlobalPriorityCreateInfoKHR<'static>;
+    pub type VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR =
+        PhysicalDeviceGlobalPriorityQueryFeaturesKHR<'static>;
+    pub type VkQueueFamilyGlobalPriorityPropertiesKHR =
+        QueueFamilyGlobalPriorityPropertiesKHR<'static>;
+}

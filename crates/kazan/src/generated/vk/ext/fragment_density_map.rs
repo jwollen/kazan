@@ -297,3 +297,48 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceFragmentDensityMapFeaturesEXT =
+        PhysicalDeviceFragmentDensityMapFeaturesEXT<'static>;
+    pub type VkPhysicalDeviceFragmentDensityMapPropertiesEXT =
+        PhysicalDeviceFragmentDensityMapPropertiesEXT<'static>;
+    pub type VkRenderPassFragmentDensityMapCreateInfoEXT =
+        RenderPassFragmentDensityMapCreateInfoEXT<'static>;
+    pub type VkRenderingFragmentDensityMapAttachmentInfoEXT =
+        RenderingFragmentDensityMapAttachmentInfoEXT<'static>;
+    impl PhysicalDeviceFragmentDensityMapFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceFragmentDensityMapFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceFragmentDensityMapPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceFragmentDensityMapPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl RenderPassFragmentDensityMapCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkRenderPassFragmentDensityMapCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl RenderingFragmentDensityMapAttachmentInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkRenderingFragmentDensityMapAttachmentInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

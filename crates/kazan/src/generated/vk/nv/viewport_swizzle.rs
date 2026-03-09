@@ -166,3 +166,22 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkViewportSwizzleNV = ViewportSwizzleNV;
+    pub type VkPipelineViewportSwizzleStateCreateInfoNV =
+        PipelineViewportSwizzleStateCreateInfoNV<'static>;
+    pub type VkViewportCoordinateSwizzleNV = ViewportCoordinateSwizzleNV;
+    pub type VkPipelineViewportSwizzleStateCreateFlagsNV =
+        PipelineViewportSwizzleStateCreateFlagsNV;
+    impl PipelineViewportSwizzleStateCreateInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineViewportSwizzleStateCreateInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

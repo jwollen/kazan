@@ -456,6 +456,42 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkShaderEXT = ShaderEXT;
+    pub type VkPhysicalDeviceShaderObjectFeaturesEXT =
+        PhysicalDeviceShaderObjectFeaturesEXT<'static>;
+    pub type VkPhysicalDeviceShaderObjectPropertiesEXT =
+        PhysicalDeviceShaderObjectPropertiesEXT<'static>;
+    pub type VkShaderCreateInfoEXT = ShaderCreateInfoEXT<'static>;
+    pub type VkShaderCodeTypeEXT = ShaderCodeTypeEXT;
+    pub type VkShaderCreateFlagsEXT = ShaderCreateFlagsEXT;
+    pub type VkShaderCreateFlagBitsEXT = ShaderCreateFlagBitsEXT;
+    pub type VkShaderRequiredSubgroupSizeCreateInfoEXT =
+        ShaderRequiredSubgroupSizeCreateInfoEXT<'static>;
+    impl PhysicalDeviceShaderObjectFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceShaderObjectFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceShaderObjectPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceShaderObjectPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ShaderCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkShaderCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     create_shaders_ext: PFN_vkCreateShadersEXT,
     destroy_shader_ext: PFN_vkDestroyShaderEXT,

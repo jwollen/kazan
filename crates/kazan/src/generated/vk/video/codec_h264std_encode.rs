@@ -874,3 +874,44 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type StdVideoEncodeH264WeightTableFlags = super::defs::StdVideoEncodeH264WeightTableFlags;
+    pub type StdVideoEncodeH264WeightTable = super::defs::StdVideoEncodeH264WeightTable;
+    pub type StdVideoEncodeH264SliceHeaderFlags = super::defs::StdVideoEncodeH264SliceHeaderFlags;
+    pub type StdVideoEncodeH264PictureInfoFlags = super::defs::StdVideoEncodeH264PictureInfoFlags;
+    pub type StdVideoEncodeH264ReferenceInfoFlags =
+        super::defs::StdVideoEncodeH264ReferenceInfoFlags;
+    pub type StdVideoEncodeH264ReferenceListsInfoFlags =
+        super::defs::StdVideoEncodeH264ReferenceListsInfoFlags;
+    pub type StdVideoEncodeH264RefListModEntry = super::defs::StdVideoEncodeH264RefListModEntry;
+    pub type StdVideoEncodeH264RefPicMarkingEntry =
+        super::defs::StdVideoEncodeH264RefPicMarkingEntry;
+    pub type StdVideoEncodeH264ReferenceListsInfo =
+        super::defs::StdVideoEncodeH264ReferenceListsInfo<'static>;
+    pub type StdVideoEncodeH264PictureInfo = super::defs::StdVideoEncodeH264PictureInfo<'static>;
+    pub type StdVideoEncodeH264ReferenceInfo = super::defs::StdVideoEncodeH264ReferenceInfo;
+    pub type StdVideoEncodeH264SliceHeader = super::defs::StdVideoEncodeH264SliceHeader<'static>;
+    impl super::defs::StdVideoEncodeH264ReferenceListsInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &StdVideoEncodeH264ReferenceListsInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl super::defs::StdVideoEncodeH264PictureInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &StdVideoEncodeH264PictureInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl super::defs::StdVideoEncodeH264SliceHeader<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &StdVideoEncodeH264SliceHeader {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

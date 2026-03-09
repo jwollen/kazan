@@ -122,3 +122,27 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkRenderPassTransformBeginInfoQCOM = RenderPassTransformBeginInfoQCOM<'static>;
+    pub type VkCommandBufferInheritanceRenderPassTransformInfoQCOM =
+        CommandBufferInheritanceRenderPassTransformInfoQCOM<'static>;
+    impl RenderPassTransformBeginInfoQCOM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkRenderPassTransformBeginInfoQCOM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CommandBufferInheritanceRenderPassTransformInfoQCOM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkCommandBufferInheritanceRenderPassTransformInfoQCOM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

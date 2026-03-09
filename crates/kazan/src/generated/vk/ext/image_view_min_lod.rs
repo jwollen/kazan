@@ -114,3 +114,25 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceImageViewMinLodFeaturesEXT =
+        PhysicalDeviceImageViewMinLodFeaturesEXT<'static>;
+    pub type VkImageViewMinLodCreateInfoEXT = ImageViewMinLodCreateInfoEXT<'static>;
+    impl PhysicalDeviceImageViewMinLodFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceImageViewMinLodFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImageViewMinLodCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImageViewMinLodCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

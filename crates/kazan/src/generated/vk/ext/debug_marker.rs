@@ -232,6 +232,34 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkDebugMarkerObjectNameInfoEXT = DebugMarkerObjectNameInfoEXT<'static>;
+    pub type VkDebugMarkerObjectTagInfoEXT = DebugMarkerObjectTagInfoEXT<'static>;
+    pub type VkDebugMarkerMarkerInfoEXT = DebugMarkerMarkerInfoEXT<'static>;
+    impl DebugMarkerObjectNameInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDebugMarkerObjectNameInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DebugMarkerObjectTagInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDebugMarkerObjectTagInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DebugMarkerMarkerInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDebugMarkerMarkerInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     debug_marker_set_object_tag_ext: PFN_vkDebugMarkerSetObjectTagEXT,
     debug_marker_set_object_name_ext: PFN_vkDebugMarkerSetObjectNameEXT,

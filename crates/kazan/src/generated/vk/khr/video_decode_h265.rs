@@ -385,3 +385,58 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkVideoDecodeH265ProfileInfoKHR = VideoDecodeH265ProfileInfoKHR<'static>;
+    pub type VkVideoDecodeH265CapabilitiesKHR = VideoDecodeH265CapabilitiesKHR<'static>;
+    pub type VkVideoDecodeH265SessionParametersAddInfoKHR =
+        VideoDecodeH265SessionParametersAddInfoKHR<'static>;
+    pub type VkVideoDecodeH265SessionParametersCreateInfoKHR =
+        VideoDecodeH265SessionParametersCreateInfoKHR<'static>;
+    pub type VkVideoDecodeH265PictureInfoKHR = VideoDecodeH265PictureInfoKHR<'static>;
+    pub type VkVideoDecodeH265DpbSlotInfoKHR = VideoDecodeH265DpbSlotInfoKHR<'static>;
+    impl VideoDecodeH265ProfileInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoDecodeH265ProfileInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoDecodeH265CapabilitiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoDecodeH265CapabilitiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoDecodeH265SessionParametersAddInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkVideoDecodeH265SessionParametersAddInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoDecodeH265SessionParametersCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkVideoDecodeH265SessionParametersCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoDecodeH265PictureInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoDecodeH265PictureInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoDecodeH265DpbSlotInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoDecodeH265DpbSlotInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

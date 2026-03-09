@@ -139,3 +139,27 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX =
+        PhysicalDeviceMultiviewPerViewAttributesPropertiesNVX<'static>;
+    pub type VkMultiviewPerViewAttributesInfoNVX = MultiviewPerViewAttributesInfoNVX<'static>;
+    impl PhysicalDeviceMultiviewPerViewAttributesPropertiesNVX<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceMultiviewPerViewAttributesPropertiesNVX {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MultiviewPerViewAttributesInfoNVX<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMultiviewPerViewAttributesInfoNVX {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

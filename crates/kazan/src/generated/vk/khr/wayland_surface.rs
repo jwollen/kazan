@@ -106,6 +106,21 @@ pub(super) mod defs {
         ) -> Bool32;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkWaylandSurfaceCreateInfoKHR = WaylandSurfaceCreateInfoKHR<'static>;
+    pub type VkWaylandSurfaceCreateFlagsKHR = WaylandSurfaceCreateFlagsKHR;
+    impl WaylandSurfaceCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkWaylandSurfaceCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     create_wayland_surface_khr: PFN_vkCreateWaylandSurfaceKHR,
     get_physical_device_wayland_presentation_support_khr:

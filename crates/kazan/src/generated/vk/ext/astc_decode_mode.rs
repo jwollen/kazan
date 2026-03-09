@@ -114,3 +114,24 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkImageViewASTCDecodeModeEXT = ImageViewASTCDecodeModeEXT<'static>;
+    pub type VkPhysicalDeviceASTCDecodeFeaturesEXT = PhysicalDeviceASTCDecodeFeaturesEXT<'static>;
+    impl ImageViewASTCDecodeModeEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImageViewASTCDecodeModeEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceASTCDecodeFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceASTCDecodeFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

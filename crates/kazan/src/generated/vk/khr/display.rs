@@ -650,6 +650,46 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkDisplayKHR = DisplayKHR;
+    pub type VkDisplayModeKHR = DisplayModeKHR;
+    pub type VkDisplayPropertiesKHR = DisplayPropertiesKHR<'static>;
+    pub type VkDisplayPlanePropertiesKHR = DisplayPlanePropertiesKHR;
+    pub type VkDisplayModeParametersKHR = DisplayModeParametersKHR;
+    pub type VkDisplayModePropertiesKHR = DisplayModePropertiesKHR;
+    pub type VkDisplayModeCreateInfoKHR = DisplayModeCreateInfoKHR<'static>;
+    pub type VkDisplayPlaneCapabilitiesKHR = DisplayPlaneCapabilitiesKHR;
+    pub type VkDisplaySurfaceCreateInfoKHR = DisplaySurfaceCreateInfoKHR<'static>;
+    pub type VkDisplayPlaneAlphaFlagsKHR = DisplayPlaneAlphaFlagsKHR;
+    pub type VkDisplayPlaneAlphaFlagBitsKHR = DisplayPlaneAlphaFlagBitsKHR;
+    pub type VkSurfaceTransformFlagsKHR = SurfaceTransformFlagsKHR;
+    pub type VkSurfaceTransformFlagBitsKHR = SurfaceTransformFlagBitsKHR;
+    pub type VkDisplayModeCreateFlagsKHR = DisplayModeCreateFlagsKHR;
+    pub type VkDisplaySurfaceCreateFlagsKHR = DisplaySurfaceCreateFlagsKHR;
+    impl DisplayPropertiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDisplayPropertiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DisplayModeCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDisplayModeCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DisplaySurfaceCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDisplaySurfaceCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     get_physical_device_display_properties_khr: PFN_vkGetPhysicalDeviceDisplayPropertiesKHR,
     get_physical_device_display_plane_properties_khr:

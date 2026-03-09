@@ -139,6 +139,30 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkComputeOccupancyPriorityParametersNV = ComputeOccupancyPriorityParametersNV<'static>;
+    pub type VkPhysicalDeviceComputeOccupancyPriorityFeaturesNV =
+        PhysicalDeviceComputeOccupancyPriorityFeaturesNV<'static>;
+    impl ComputeOccupancyPriorityParametersNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkComputeOccupancyPriorityParametersNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceComputeOccupancyPriorityFeaturesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceComputeOccupancyPriorityFeaturesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_set_compute_occupancy_priority_nv: PFN_vkCmdSetComputeOccupancyPriorityNV,
 }

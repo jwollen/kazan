@@ -296,6 +296,43 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceMemoryDecompressionFeaturesEXT =
+        PhysicalDeviceMemoryDecompressionFeaturesEXT<'static>;
+    pub type VkPhysicalDeviceMemoryDecompressionPropertiesEXT =
+        PhysicalDeviceMemoryDecompressionPropertiesEXT<'static>;
+    pub type VkDecompressMemoryRegionEXT = DecompressMemoryRegionEXT;
+    pub type VkDecompressMemoryInfoEXT = DecompressMemoryInfoEXT<'static>;
+    pub type VkMemoryDecompressionMethodFlagsEXT = MemoryDecompressionMethodFlagsEXT;
+    pub type VkMemoryDecompressionMethodFlagBitsEXT = MemoryDecompressionMethodFlagBitsEXT;
+    impl PhysicalDeviceMemoryDecompressionFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceMemoryDecompressionFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceMemoryDecompressionPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceMemoryDecompressionPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DecompressMemoryInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDecompressMemoryInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_decompress_memory_ext: PFN_vkCmdDecompressMemoryEXT,
     cmd_decompress_memory_indirect_count_ext: PFN_vkCmdDecompressMemoryIndirectCountEXT,

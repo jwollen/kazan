@@ -1594,3 +1594,54 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type StdVideoH264SpsVuiFlags = super::defs::StdVideoH264SpsVuiFlags;
+    pub type StdVideoH264HrdParameters = super::defs::StdVideoH264HrdParameters;
+    pub type StdVideoH264SequenceParameterSetVui =
+        super::defs::StdVideoH264SequenceParameterSetVui<'static>;
+    pub type StdVideoH264SpsFlags = super::defs::StdVideoH264SpsFlags;
+    pub type StdVideoH264ScalingLists = super::defs::StdVideoH264ScalingLists;
+    pub type StdVideoH264SequenceParameterSet =
+        super::defs::StdVideoH264SequenceParameterSet<'static>;
+    pub type StdVideoH264PpsFlags = super::defs::StdVideoH264PpsFlags;
+    pub type StdVideoH264PictureParameterSet =
+        super::defs::StdVideoH264PictureParameterSet<'static>;
+    pub type StdVideoH264ChromaFormatIdc = super::defs::StdVideoH264ChromaFormatIdc;
+    pub type StdVideoH264ProfileIdc = super::defs::StdVideoH264ProfileIdc;
+    pub type StdVideoH264LevelIdc = super::defs::StdVideoH264LevelIdc;
+    pub type StdVideoH264PocType = super::defs::StdVideoH264PocType;
+    pub type StdVideoH264AspectRatioIdc = super::defs::StdVideoH264AspectRatioIdc;
+    pub type StdVideoH264WeightedBipredIdc = super::defs::StdVideoH264WeightedBipredIdc;
+    pub type StdVideoH264ModificationOfPicNumsIdc =
+        super::defs::StdVideoH264ModificationOfPicNumsIdc;
+    pub type StdVideoH264MemMgmtControlOp = super::defs::StdVideoH264MemMgmtControlOp;
+    pub type StdVideoH264CabacInitIdc = super::defs::StdVideoH264CabacInitIdc;
+    pub type StdVideoH264DisableDeblockingFilterIdc =
+        super::defs::StdVideoH264DisableDeblockingFilterIdc;
+    pub type StdVideoH264SliceType = super::defs::StdVideoH264SliceType;
+    pub type StdVideoH264PictureType = super::defs::StdVideoH264PictureType;
+    pub type StdVideoH264NonVclNaluType = super::defs::StdVideoH264NonVclNaluType;
+    impl super::defs::StdVideoH264SequenceParameterSetVui<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &StdVideoH264SequenceParameterSetVui {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl super::defs::StdVideoH264SequenceParameterSet<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &StdVideoH264SequenceParameterSet {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl super::defs::StdVideoH264PictureParameterSet<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &StdVideoH264PictureParameterSet {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

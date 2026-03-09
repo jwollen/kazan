@@ -74,3 +74,22 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT =
+        PhysicalDeviceTexelBufferAlignmentFeaturesEXT<'static>;
+    pub type VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT =
+        PhysicalDeviceTexelBufferAlignmentPropertiesEXT<'static>;
+    impl PhysicalDeviceTexelBufferAlignmentFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

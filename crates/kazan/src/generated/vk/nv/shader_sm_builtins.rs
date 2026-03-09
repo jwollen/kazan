@@ -127,3 +127,28 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceShaderSMBuiltinsPropertiesNV =
+        PhysicalDeviceShaderSMBuiltinsPropertiesNV<'static>;
+    pub type VkPhysicalDeviceShaderSMBuiltinsFeaturesNV =
+        PhysicalDeviceShaderSMBuiltinsFeaturesNV<'static>;
+    impl PhysicalDeviceShaderSMBuiltinsPropertiesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceShaderSMBuiltinsPropertiesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceShaderSMBuiltinsFeaturesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceShaderSMBuiltinsFeaturesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

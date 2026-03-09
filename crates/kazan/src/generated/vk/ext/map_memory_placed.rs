@@ -189,3 +189,35 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceMapMemoryPlacedFeaturesEXT =
+        PhysicalDeviceMapMemoryPlacedFeaturesEXT<'static>;
+    pub type VkPhysicalDeviceMapMemoryPlacedPropertiesEXT =
+        PhysicalDeviceMapMemoryPlacedPropertiesEXT<'static>;
+    pub type VkMemoryMapPlacedInfoEXT = MemoryMapPlacedInfoEXT<'static>;
+    impl PhysicalDeviceMapMemoryPlacedFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceMapMemoryPlacedFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceMapMemoryPlacedPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceMapMemoryPlacedPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MemoryMapPlacedInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMemoryMapPlacedInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

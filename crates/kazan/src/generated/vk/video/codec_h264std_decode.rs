@@ -270,3 +270,16 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type StdVideoDecodeH264PictureInfoFlags = super::defs::StdVideoDecodeH264PictureInfoFlags;
+    pub type StdVideoDecodeH264PictureInfo = super::defs::StdVideoDecodeH264PictureInfo;
+    pub type StdVideoDecodeH264ReferenceInfoFlags =
+        super::defs::StdVideoDecodeH264ReferenceInfoFlags;
+    pub type StdVideoDecodeH264ReferenceInfo = super::defs::StdVideoDecodeH264ReferenceInfo;
+    pub type StdVideoDecodeH264FieldOrderCount = super::defs::StdVideoDecodeH264FieldOrderCount;
+}

@@ -17,13 +17,13 @@ use crate::{
 
 /// Holds the analysis results for easy querying.
 pub struct Analysis {
-    registry: xml::Registry,
+    module_items: Vec<ModuleItems<'static>>,
+    registry: &'static xml::Registry,
     custom_types: CustomTypes,
     type_refs: TypeRefs,
     type_infos: BTreeMap<&'static str, TypeInfo>,
     handle_command_types: HandleCommandTypes,
     req_enum_data: ReqEnumData,
-    module_items: Vec<HashSet<&'static str>>,
     provisional_types: HashSet<&'static str>,
     provisional_extensions: HashSet<&'static str>,
     opaque_types: HashSet<&'static str>,
@@ -52,8 +52,11 @@ impl Analysis {
             registry.merge(xml);
         }
 
+        // Leak the registry for convenience, like the XML input strings.
+        let registry: &'static xml::Registry = Box::leak(Box::new(registry));
+
         let custom_types = external::external_types();
-        let type_refs = build_type_refs(&registry, &custom_types);
+        let type_refs = build_type_refs(registry, &custom_types);
 
         // Assert every external type from vk.xml is resolvable (either a
         // primitive or defined in overrides::external_types).
@@ -65,10 +68,10 @@ impl Analysis {
                 ext.name,
             );
         }
-        let type_infos = compute_type_infos(&registry, &custom_types, &type_refs);
-        let handle_command_types = collect_handle_command_types(&registry);
-        let req_enum_data = ReqEnumData::from_registry(&registry);
-        let module_items = compute_module_items(&registry);
+        let type_infos = compute_type_infos(registry, &custom_types, &type_refs);
+        let handle_command_types = collect_handle_command_types(registry);
+        let req_enum_data = ReqEnumData::from_registry(registry);
+        let module_items = compute_module_items(registry);
 
         let provisional_extensions: HashSet<&'static str> = registry
             .extensions
@@ -107,13 +110,13 @@ impl Analysis {
             .collect();
 
         Self {
+            module_items,
             registry,
             custom_types,
             type_refs,
             type_infos,
             handle_command_types,
             req_enum_data,
-            module_items,
             provisional_types,
             provisional_extensions,
             opaque_types,
@@ -121,13 +124,13 @@ impl Analysis {
     }
 
     /// Get "raw" Vulkan XML registry.
-    pub fn registry(&self) -> &xml::Registry {
-        &self.registry
+    pub fn registry(&self) -> &'static xml::Registry {
+        self.registry
     }
 
     pub fn types(&self) -> Types<'_> {
         Types {
-            registry: &self.registry,
+            registry: self.registry,
             custom_types: &self.custom_types,
             type_refs: &self.type_refs,
         }
@@ -149,8 +152,7 @@ impl Analysis {
         &self.req_enum_data
     }
 
-    /// Returns the set of items owned by the module at the given index.
-    pub fn module_items(&self, module_index: usize) -> &HashSet<&'static str> {
+    pub fn module_items(&self, module_index: usize) -> &ModuleItems<'_> {
         &self.module_items[module_index]
     }
 
@@ -190,6 +192,52 @@ impl Analysis {
                 _ => return false,
             }
         }
+    }
+}
+
+/// Items owned by a module, pre-filtered and split by registry type category.
+pub struct ModuleItems<'a> {
+    pub api_constants: Vec<xml::Constant>,
+    pub structs: Vec<&'a xml::Structure>,
+    pub unions: Vec<&'a xml::Structure>,
+    pub enums: Vec<&'a xml::Enum>,
+    pub bitmask_types: Vec<&'a xml::BitMaskType>,
+    pub handles: Vec<&'a xml::Handle>,
+    pub basetypes: Vec<&'a xml::BaseType>,
+    pub funcpointers: Vec<&'a xml::FuncPointer>,
+    pub commands: Vec<&'a xml::Command>,
+    pub type_aliases: Vec<&'a xml::Alias>,
+    pub command_aliases: Vec<&'a xml::Alias>,
+}
+
+impl ModuleItems<'_> {
+    /// Returns true if this module owns any items at all.
+    pub fn is_empty(&self) -> bool {
+        self.api_constants.is_empty()
+            && self.structs.is_empty()
+            && self.unions.is_empty()
+            && self.enums.is_empty()
+            && self.bitmask_types.is_empty()
+            && self.handles.is_empty()
+            && self.basetypes.is_empty()
+            && self.funcpointers.is_empty()
+            && self.commands.is_empty()
+            && self.type_aliases.is_empty()
+            && self.command_aliases.is_empty()
+    }
+
+    /// Returns true if this module has any types that would produce ffi aliases.
+    pub fn has_ffi_types(&self) -> bool {
+        !self.structs.is_empty()
+            || !self.unions.is_empty()
+            || !self.enums.is_empty()
+            || !self.bitmask_types.is_empty()
+            || !self.handles.is_empty()
+            || self
+                .basetypes
+                .iter()
+                .any(|ty| crate::normalize_ty_name(ty.name) != ty.name)
+            || !self.type_aliases.is_empty()
     }
 }
 
@@ -605,11 +653,11 @@ pub enum PrimitiveType {
 
 type CustomTypes = external::ExternalTypes;
 
-// For each item (type, command, constant) required by any module, determines which
+/// For each item (type, command, constant) required by any module, determines which
 /// module should own its definition. If the item has a vendor suffix that matches
 /// a specific module's vendor tag, that module is preferred. Otherwise, the first
 /// module that requires the item wins.
-fn compute_module_items(registry: &xml::Registry) -> Vec<HashSet<&'static str>> {
+fn compute_module_items(registry: &xml::Registry) -> Vec<ModuleItems<'_>> {
     let modules: Vec<_> = Module::from_registry(registry).collect();
     let module_count = modules.len();
 
@@ -656,10 +704,102 @@ fn compute_module_items(registry: &xml::Registry) -> Vec<HashSet<&'static str>> 
     }
 
     // Build per-module item sets. Prefer vendor-matched module; fall back to first requirer.
-    let mut result: Vec<HashSet<&'static str>> = vec![HashSet::new(); module_count];
+    let mut ownership: Vec<HashSet<&'static str>> = vec![HashSet::new(); module_count];
     for (name, first) in &first_requirer {
         let owner = *vendor_requirer.get(name).unwrap_or(first);
-        result[owner].insert(name);
+        ownership[owner].insert(name);
     }
-    result
+
+    // Build ModuleItems for each module from the ownership sets.
+    modules
+        .iter()
+        .zip(&ownership)
+        .map(|(module, owned)| {
+            let requires = module.requires();
+
+            let api_constants = requires
+                .iter()
+                .flat_map(|req| &req.constants)
+                .filter(|c| owned.contains(c.name))
+                .filter_map(|constant| {
+                    let global = registry
+                        .constants
+                        .iter()
+                        .find(|api_constant| api_constant.name == constant.name);
+
+                    if let Some(global) = global {
+                        Some(global.clone())
+                    } else if let (Some(ty), Some(value)) = (constant.ty, constant.value) {
+                        Some(xml::Constant {
+                            name: constant.name,
+                            ty,
+                            value,
+                        })
+                    } else {
+                        None
+                    }
+                })
+                .collect();
+
+            let items = ModuleItems {
+                api_constants,
+                structs: registry
+                    .structs
+                    .iter()
+                    .filter(|ty| owned.contains(ty.name))
+                    .collect(),
+                unions: registry
+                    .unions
+                    .iter()
+                    .filter(|ty| owned.contains(ty.name))
+                    .collect(),
+                enums: registry
+                    .enums
+                    .iter()
+                    .filter(|ty| owned.contains(ty.name))
+                    .collect(),
+                bitmask_types: registry
+                    .bitmask_types
+                    .iter()
+                    .filter(|ty| owned.contains(ty.name))
+                    .collect(),
+                handles: registry
+                    .handles
+                    .iter()
+                    .filter(|ty| owned.contains(ty.name))
+                    .collect(),
+                basetypes: registry
+                    .basetypes
+                    .iter()
+                    .filter(|ty| owned.contains(ty.name))
+                    .collect(),
+                funcpointers: registry
+                    .funcpointers
+                    .iter()
+                    .filter(|ty| owned.contains(ty.name))
+                    .collect(),
+                commands: registry
+                    .commands
+                    .iter()
+                    .filter(|cmd| owned.contains(cmd.name))
+                    .collect(),
+                type_aliases: registry
+                    .enum_aliases
+                    .iter()
+                    .filter(|a| registry.enums.iter().any(|ty| ty.name == a.alias))
+                    .chain(registry.handle_aliases.iter())
+                    .chain(registry.struct_aliases.iter())
+                    .chain(registry.bitmask_aliases.iter())
+                    .filter(|alias| owned.contains(alias.name))
+                    .collect(),
+                command_aliases: registry
+                    .command_aliases
+                    .iter()
+                    .filter(|alias| owned.contains(alias.name))
+                    .collect(),
+            };
+
+            items
+        })
+        .collect()
 }

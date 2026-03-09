@@ -19,3 +19,12 @@ pub(super) mod defs {
     pub type PhysicalDevicePipelineProtectedAccessFeaturesEXT<'a> =
         PhysicalDevicePipelineProtectedAccessFeatures<'a>;
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDevicePipelineProtectedAccessFeaturesEXT =
+        PhysicalDevicePipelineProtectedAccessFeaturesEXT<'static>;
+}

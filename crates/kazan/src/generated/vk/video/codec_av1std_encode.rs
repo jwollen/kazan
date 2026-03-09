@@ -821,3 +821,31 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type StdVideoEncodeAV1ExtensionHeader = super::defs::StdVideoEncodeAV1ExtensionHeader;
+    pub type StdVideoEncodeAV1DecoderModelInfo = super::defs::StdVideoEncodeAV1DecoderModelInfo;
+    pub type StdVideoEncodeAV1OperatingPointInfoFlags =
+        super::defs::StdVideoEncodeAV1OperatingPointInfoFlags;
+    pub type StdVideoEncodeAV1OperatingPointInfo = super::defs::StdVideoEncodeAV1OperatingPointInfo;
+    pub type StdVideoEncodeAV1PictureInfoFlags = super::defs::StdVideoEncodeAV1PictureInfoFlags;
+    pub type StdVideoEncodeAV1PictureInfo = super::defs::StdVideoEncodeAV1PictureInfo<'static>;
+    pub type StdVideoEncodeAV1ReferenceInfoFlags = super::defs::StdVideoEncodeAV1ReferenceInfoFlags;
+    pub type StdVideoEncodeAV1ReferenceInfo = super::defs::StdVideoEncodeAV1ReferenceInfo<'static>;
+    impl super::defs::StdVideoEncodeAV1PictureInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &StdVideoEncodeAV1PictureInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl super::defs::StdVideoEncodeAV1ReferenceInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &StdVideoEncodeAV1ReferenceInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

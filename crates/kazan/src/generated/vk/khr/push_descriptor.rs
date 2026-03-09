@@ -22,6 +22,15 @@ pub(super) mod defs {
     pub type PFN_vkCmdPushDescriptorSetWithTemplateKHR = PFN_vkCmdPushDescriptorSetWithTemplate;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDevicePushDescriptorPropertiesKHR =
+        PhysicalDevicePushDescriptorPropertiesKHR<'static>;
+}
+
 pub struct DeviceFn {
     cmd_push_descriptor_set_khr: PFN_vkCmdPushDescriptorSet,
     cmd_push_descriptor_set_with_template_khr: Option<PFN_vkCmdPushDescriptorSetWithTemplate>,

@@ -223,3 +223,15 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type StdVideoDecodeH265PictureInfoFlags = super::defs::StdVideoDecodeH265PictureInfoFlags;
+    pub type StdVideoDecodeH265PictureInfo = super::defs::StdVideoDecodeH265PictureInfo;
+    pub type StdVideoDecodeH265ReferenceInfoFlags =
+        super::defs::StdVideoDecodeH265ReferenceInfoFlags;
+    pub type StdVideoDecodeH265ReferenceInfo = super::defs::StdVideoDecodeH265ReferenceInfo;
+}

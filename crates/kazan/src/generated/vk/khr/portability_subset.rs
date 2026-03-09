@@ -281,3 +281,30 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDevicePortabilitySubsetFeaturesKHR =
+        PhysicalDevicePortabilitySubsetFeaturesKHR<'static>;
+    pub type VkPhysicalDevicePortabilitySubsetPropertiesKHR =
+        PhysicalDevicePortabilitySubsetPropertiesKHR<'static>;
+    impl PhysicalDevicePortabilitySubsetFeaturesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDevicePortabilitySubsetFeaturesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDevicePortabilitySubsetPropertiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDevicePortabilitySubsetPropertiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

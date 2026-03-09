@@ -22,3 +22,14 @@ pub(super) mod defs {
     pub type PhysicalDeviceShaderIntegerDotProductPropertiesKHR<'a> =
         PhysicalDeviceShaderIntegerDotProductProperties<'a>;
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceShaderIntegerDotProductFeaturesKHR =
+        PhysicalDeviceShaderIntegerDotProductFeaturesKHR<'static>;
+    pub type VkPhysicalDeviceShaderIntegerDotProductPropertiesKHR =
+        PhysicalDeviceShaderIntegerDotProductPropertiesKHR<'static>;
+}

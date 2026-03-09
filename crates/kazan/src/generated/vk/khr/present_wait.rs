@@ -73,6 +73,20 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDevicePresentWaitFeaturesKHR = PhysicalDevicePresentWaitFeaturesKHR<'static>;
+    impl PhysicalDevicePresentWaitFeaturesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDevicePresentWaitFeaturesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     wait_for_present_khr: PFN_vkWaitForPresentKHR,
 }

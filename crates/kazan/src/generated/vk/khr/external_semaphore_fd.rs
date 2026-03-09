@@ -154,6 +154,27 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkImportSemaphoreFdInfoKHR = ImportSemaphoreFdInfoKHR<'static>;
+    pub type VkSemaphoreGetFdInfoKHR = SemaphoreGetFdInfoKHR<'static>;
+    impl ImportSemaphoreFdInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImportSemaphoreFdInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SemaphoreGetFdInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSemaphoreGetFdInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     import_semaphore_fd_khr: PFN_vkImportSemaphoreFdKHR,
     get_semaphore_fd_khr: PFN_vkGetSemaphoreFdKHR,

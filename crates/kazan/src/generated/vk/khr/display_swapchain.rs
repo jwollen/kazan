@@ -90,6 +90,20 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkDisplayPresentInfoKHR = DisplayPresentInfoKHR<'static>;
+    impl DisplayPresentInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDisplayPresentInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     create_shared_swapchains_khr: PFN_vkCreateSharedSwapchainsKHR,
 }

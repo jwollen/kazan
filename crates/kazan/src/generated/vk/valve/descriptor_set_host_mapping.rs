@@ -196,6 +196,38 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE =
+        PhysicalDeviceDescriptorSetHostMappingFeaturesVALVE<'static>;
+    pub type VkDescriptorSetBindingReferenceVALVE = DescriptorSetBindingReferenceVALVE<'static>;
+    pub type VkDescriptorSetLayoutHostMappingInfoVALVE =
+        DescriptorSetLayoutHostMappingInfoVALVE<'static>;
+    impl PhysicalDeviceDescriptorSetHostMappingFeaturesVALVE<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DescriptorSetBindingReferenceVALVE<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDescriptorSetBindingReferenceVALVE {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DescriptorSetLayoutHostMappingInfoVALVE<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDescriptorSetLayoutHostMappingInfoVALVE {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     get_descriptor_set_layout_host_mapping_info_valve:
         PFN_vkGetDescriptorSetLayoutHostMappingInfoVALVE,

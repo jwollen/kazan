@@ -191,3 +191,35 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT =
+        PhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT<'static>;
+    pub type VkSubpassResolvePerformanceQueryEXT = SubpassResolvePerformanceQueryEXT<'static>;
+    pub type VkMultisampledRenderToSingleSampledInfoEXT =
+        MultisampledRenderToSingleSampledInfoEXT<'static>;
+    impl PhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SubpassResolvePerformanceQueryEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSubpassResolvePerformanceQueryEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MultisampledRenderToSingleSampledInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMultisampledRenderToSingleSampledInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

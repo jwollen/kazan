@@ -1,4 +1,4 @@
-use std::{collections::HashSet, io::Write};
+use std::io::Write;
 
 use anyhow::Result;
 
@@ -14,15 +14,9 @@ use crate::{
 pub fn generate_structs(
     file: &mut impl Write,
     analysis: &Analysis,
-    owned: &HashSet<&str>,
+    structs: &[&xml::Structure],
 ) -> Result<()> {
-    let new_structs = analysis
-        .registry()
-        .structs
-        .iter()
-        .filter(|ty| owned.contains(ty.name));
-
-    for ty in new_structs {
+    for ty in structs {
         write_struct(file, analysis, ty)?;
     }
     Ok(())
@@ -31,13 +25,8 @@ pub fn generate_structs(
 pub fn generate_unions(
     file: &mut impl Write,
     analysis: &Analysis,
-    owned: &HashSet<&str>,
+    unions: &[&xml::Structure],
 ) -> Result<()> {
-    let unions = analysis
-        .registry()
-        .unions
-        .iter()
-        .filter(|ty| owned.contains(ty.name));
     for ty in unions {
         let name = normalize_ty_name(ty.name);
         let type_info = analysis.get_base_type_info(ty.name).unwrap();

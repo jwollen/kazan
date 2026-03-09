@@ -1659,6 +1659,198 @@ pub(super) mod defs {
 );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkDataGraphPipelineSessionARM = DataGraphPipelineSessionARM;
+    pub type VkPhysicalDeviceDataGraphFeaturesARM = PhysicalDeviceDataGraphFeaturesARM<'static>;
+    pub type VkDataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM =
+        DataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM<'static>;
+    pub type VkDataGraphPipelineConstantARM = DataGraphPipelineConstantARM<'static>;
+    pub type VkDataGraphPipelineResourceInfoARM = DataGraphPipelineResourceInfoARM<'static>;
+    pub type VkDataGraphPipelineCompilerControlCreateInfoARM =
+        DataGraphPipelineCompilerControlCreateInfoARM<'static>;
+    pub type VkDataGraphPipelineCreateInfoARM = DataGraphPipelineCreateInfoARM<'static>;
+    pub type VkDataGraphPipelineShaderModuleCreateInfoARM =
+        DataGraphPipelineShaderModuleCreateInfoARM<'static>;
+    pub type VkDataGraphPipelineSessionCreateInfoARM =
+        DataGraphPipelineSessionCreateInfoARM<'static>;
+    pub type VkDataGraphPipelineSessionBindPointRequirementsInfoARM =
+        DataGraphPipelineSessionBindPointRequirementsInfoARM<'static>;
+    pub type VkDataGraphPipelineSessionBindPointRequirementARM =
+        DataGraphPipelineSessionBindPointRequirementARM<'static>;
+    pub type VkDataGraphPipelineSessionMemoryRequirementsInfoARM =
+        DataGraphPipelineSessionMemoryRequirementsInfoARM<'static>;
+    pub type VkBindDataGraphPipelineSessionMemoryInfoARM =
+        BindDataGraphPipelineSessionMemoryInfoARM<'static>;
+    pub type VkDataGraphPipelineInfoARM = DataGraphPipelineInfoARM<'static>;
+    pub type VkDataGraphPipelinePropertyQueryResultARM =
+        DataGraphPipelinePropertyQueryResultARM<'static>;
+    pub type VkDataGraphPipelineIdentifierCreateInfoARM =
+        DataGraphPipelineIdentifierCreateInfoARM<'static>;
+    pub type VkDataGraphPipelineDispatchInfoARM = DataGraphPipelineDispatchInfoARM<'static>;
+    pub type VkPhysicalDeviceDataGraphProcessingEngineARM =
+        PhysicalDeviceDataGraphProcessingEngineARM;
+    pub type VkPhysicalDeviceDataGraphOperationSupportARM =
+        PhysicalDeviceDataGraphOperationSupportARM;
+    pub type VkQueueFamilyDataGraphPropertiesARM = QueueFamilyDataGraphPropertiesARM<'static>;
+    pub type VkPhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM =
+        PhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM<'static>;
+    pub type VkQueueFamilyDataGraphProcessingEnginePropertiesARM =
+        QueueFamilyDataGraphProcessingEnginePropertiesARM<'static>;
+    pub type VkDataGraphProcessingEngineCreateInfoARM =
+        DataGraphProcessingEngineCreateInfoARM<'static>;
+    pub type VkDataGraphPipelineSessionBindPointARM = DataGraphPipelineSessionBindPointARM;
+    pub type VkDataGraphPipelineSessionBindPointTypeARM = DataGraphPipelineSessionBindPointTypeARM;
+    pub type VkDataGraphPipelinePropertyARM = DataGraphPipelinePropertyARM;
+    pub type VkPhysicalDeviceDataGraphProcessingEngineTypeARM =
+        PhysicalDeviceDataGraphProcessingEngineTypeARM;
+    pub type VkPhysicalDeviceDataGraphOperationTypeARM = PhysicalDeviceDataGraphOperationTypeARM;
+    pub type VkDataGraphPipelineSessionCreateFlagsARM = DataGraphPipelineSessionCreateFlagsARM;
+    pub type VkDataGraphPipelineSessionCreateFlagBitsARM =
+        DataGraphPipelineSessionCreateFlagBitsARM;
+    pub type VkDataGraphPipelineDispatchFlagsARM = DataGraphPipelineDispatchFlagsARM;
+    pub type VkDataGraphPipelineDispatchFlagBitsARM = DataGraphPipelineDispatchFlagBitsARM;
+    impl PhysicalDeviceDataGraphFeaturesARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceDataGraphFeaturesARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkDataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DataGraphPipelineConstantARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDataGraphPipelineConstantARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DataGraphPipelineResourceInfoARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDataGraphPipelineResourceInfoARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DataGraphPipelineCompilerControlCreateInfoARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkDataGraphPipelineCompilerControlCreateInfoARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DataGraphPipelineCreateInfoARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDataGraphPipelineCreateInfoARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DataGraphPipelineShaderModuleCreateInfoARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkDataGraphPipelineShaderModuleCreateInfoARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DataGraphPipelineSessionCreateInfoARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDataGraphPipelineSessionCreateInfoARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DataGraphPipelineSessionBindPointRequirementsInfoARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkDataGraphPipelineSessionBindPointRequirementsInfoARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DataGraphPipelineSessionBindPointRequirementARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkDataGraphPipelineSessionBindPointRequirementARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DataGraphPipelineSessionMemoryRequirementsInfoARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkDataGraphPipelineSessionMemoryRequirementsInfoARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BindDataGraphPipelineSessionMemoryInfoARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBindDataGraphPipelineSessionMemoryInfoARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DataGraphPipelineInfoARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDataGraphPipelineInfoARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DataGraphPipelinePropertyQueryResultARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDataGraphPipelinePropertyQueryResultARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DataGraphPipelineIdentifierCreateInfoARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDataGraphPipelineIdentifierCreateInfoARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DataGraphPipelineDispatchInfoARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDataGraphPipelineDispatchInfoARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl QueueFamilyDataGraphPropertiesARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkQueueFamilyDataGraphPropertiesARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl QueueFamilyDataGraphProcessingEnginePropertiesARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkQueueFamilyDataGraphProcessingEnginePropertiesARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DataGraphProcessingEngineCreateInfoARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDataGraphProcessingEngineCreateInfoARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     get_physical_device_queue_family_data_graph_properties_arm:
         PFN_vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM,

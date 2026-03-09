@@ -74,3 +74,18 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT =
+        PhysicalDeviceRGBA10X6FormatsFeaturesEXT<'static>;
+    impl PhysicalDeviceRGBA10X6FormatsFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

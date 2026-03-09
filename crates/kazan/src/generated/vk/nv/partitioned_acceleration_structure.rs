@@ -749,6 +749,84 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDevicePartitionedAccelerationStructureFeaturesNV =
+        PhysicalDevicePartitionedAccelerationStructureFeaturesNV<'static>;
+    pub type VkPhysicalDevicePartitionedAccelerationStructurePropertiesNV =
+        PhysicalDevicePartitionedAccelerationStructurePropertiesNV<'static>;
+    pub type VkBuildPartitionedAccelerationStructureIndirectCommandNV =
+        BuildPartitionedAccelerationStructureIndirectCommandNV;
+    pub type VkPartitionedAccelerationStructureFlagsNV =
+        PartitionedAccelerationStructureFlagsNV<'static>;
+    pub type VkPartitionedAccelerationStructureWriteInstanceDataNV =
+        PartitionedAccelerationStructureWriteInstanceDataNV;
+    pub type VkPartitionedAccelerationStructureUpdateInstanceDataNV =
+        PartitionedAccelerationStructureUpdateInstanceDataNV;
+    pub type VkPartitionedAccelerationStructureWritePartitionTranslationDataNV =
+        PartitionedAccelerationStructureWritePartitionTranslationDataNV;
+    pub type VkWriteDescriptorSetPartitionedAccelerationStructureNV =
+        WriteDescriptorSetPartitionedAccelerationStructureNV<'static>;
+    pub type VkPartitionedAccelerationStructureInstancesInputNV =
+        PartitionedAccelerationStructureInstancesInputNV<'static>;
+    pub type VkBuildPartitionedAccelerationStructureInfoNV =
+        BuildPartitionedAccelerationStructureInfoNV<'static>;
+    pub type VkPartitionedAccelerationStructureOpTypeNV = PartitionedAccelerationStructureOpTypeNV;
+    pub type VkPartitionedAccelerationStructureInstanceFlagsNV =
+        PartitionedAccelerationStructureInstanceFlagsNV;
+    pub type VkPartitionedAccelerationStructureInstanceFlagBitsNV =
+        PartitionedAccelerationStructureInstanceFlagBitsNV;
+    impl PhysicalDevicePartitionedAccelerationStructureFeaturesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDevicePartitionedAccelerationStructureFeaturesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDevicePartitionedAccelerationStructurePropertiesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDevicePartitionedAccelerationStructurePropertiesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PartitionedAccelerationStructureFlagsNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPartitionedAccelerationStructureFlagsNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl WriteDescriptorSetPartitionedAccelerationStructureNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkWriteDescriptorSetPartitionedAccelerationStructureNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PartitionedAccelerationStructureInstancesInputNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPartitionedAccelerationStructureInstancesInputNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BuildPartitionedAccelerationStructureInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkBuildPartitionedAccelerationStructureInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     get_partitioned_acceleration_structures_build_sizes_nv:
         PFN_vkGetPartitionedAccelerationStructuresBuildSizesNV,

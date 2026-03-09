@@ -20,3 +20,12 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkFormatFeatureFlags2KHR.html>
     pub type FormatFeatureFlags2KHR = FormatFeatureFlags2;
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkFormatProperties3KHR = FormatProperties3KHR<'static>;
+    pub type VkFormatFeatureFlags2KHR = FormatFeatureFlags2KHR;
+}

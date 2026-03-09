@@ -344,6 +344,43 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkCuModuleNVX = CuModuleNVX;
+    pub type VkCuFunctionNVX = CuFunctionNVX;
+    pub type VkCuModuleCreateInfoNVX = CuModuleCreateInfoNVX<'static>;
+    pub type VkCuModuleTexturingModeCreateInfoNVX = CuModuleTexturingModeCreateInfoNVX<'static>;
+    pub type VkCuFunctionCreateInfoNVX = CuFunctionCreateInfoNVX<'static>;
+    pub type VkCuLaunchInfoNVX = CuLaunchInfoNVX<'static>;
+    impl CuModuleCreateInfoNVX<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCuModuleCreateInfoNVX {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CuModuleTexturingModeCreateInfoNVX<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCuModuleTexturingModeCreateInfoNVX {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CuFunctionCreateInfoNVX<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCuFunctionCreateInfoNVX {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CuLaunchInfoNVX<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCuLaunchInfoNVX {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     create_cu_module_nvx: PFN_vkCreateCuModuleNVX,
     create_cu_function_nvx: PFN_vkCreateCuFunctionNVX,

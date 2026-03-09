@@ -87,6 +87,19 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkDecompressMemoryRegionNV = DecompressMemoryRegionNV;
+    pub type VkPhysicalDeviceMemoryDecompressionFeaturesNV =
+        PhysicalDeviceMemoryDecompressionFeaturesNV<'static>;
+    pub type VkPhysicalDeviceMemoryDecompressionPropertiesNV =
+        PhysicalDeviceMemoryDecompressionPropertiesNV<'static>;
+    pub type VkMemoryDecompressionMethodFlagsNV = MemoryDecompressionMethodFlagsNV;
+}
+
 pub struct DeviceFn {
     cmd_decompress_memory_nv: PFN_vkCmdDecompressMemoryNV,
     cmd_decompress_memory_indirect_count_nv: PFN_vkCmdDecompressMemoryIndirectCountNV,

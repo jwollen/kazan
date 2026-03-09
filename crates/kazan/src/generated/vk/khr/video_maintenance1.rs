@@ -133,3 +133,27 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceVideoMaintenance1FeaturesKHR =
+        PhysicalDeviceVideoMaintenance1FeaturesKHR<'static>;
+    pub type VkVideoInlineQueryInfoKHR = VideoInlineQueryInfoKHR<'static>;
+    impl PhysicalDeviceVideoMaintenance1FeaturesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceVideoMaintenance1FeaturesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoInlineQueryInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoInlineQueryInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

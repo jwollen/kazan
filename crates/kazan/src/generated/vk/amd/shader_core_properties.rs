@@ -201,3 +201,18 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceShaderCorePropertiesAMD =
+        PhysicalDeviceShaderCorePropertiesAMD<'static>;
+    impl PhysicalDeviceShaderCorePropertiesAMD<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceShaderCorePropertiesAMD {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

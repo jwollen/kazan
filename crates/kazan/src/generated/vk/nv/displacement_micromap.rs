@@ -387,3 +387,41 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceDisplacementMicromapFeaturesNV =
+        PhysicalDeviceDisplacementMicromapFeaturesNV<'static>;
+    pub type VkPhysicalDeviceDisplacementMicromapPropertiesNV =
+        PhysicalDeviceDisplacementMicromapPropertiesNV<'static>;
+    pub type VkAccelerationStructureTrianglesDisplacementMicromapNV =
+        AccelerationStructureTrianglesDisplacementMicromapNV<'static>;
+    pub type VkDisplacementMicromapFormatNV = DisplacementMicromapFormatNV;
+    impl PhysicalDeviceDisplacementMicromapFeaturesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceDisplacementMicromapFeaturesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceDisplacementMicromapPropertiesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceDisplacementMicromapPropertiesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AccelerationStructureTrianglesDisplacementMicromapNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkAccelerationStructureTrianglesDisplacementMicromapNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

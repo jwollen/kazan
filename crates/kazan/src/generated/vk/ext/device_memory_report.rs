@@ -287,3 +287,37 @@ pub(super) mod defs {
         p_user_data: *mut c_void,
     );
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceDeviceMemoryReportFeaturesEXT =
+        PhysicalDeviceDeviceMemoryReportFeaturesEXT<'static>;
+    pub type VkDeviceDeviceMemoryReportCreateInfoEXT =
+        DeviceDeviceMemoryReportCreateInfoEXT<'static>;
+    pub type VkDeviceMemoryReportCallbackDataEXT = DeviceMemoryReportCallbackDataEXT<'static>;
+    pub type VkDeviceMemoryReportEventTypeEXT = DeviceMemoryReportEventTypeEXT;
+    pub type VkDeviceMemoryReportFlagsEXT = DeviceMemoryReportFlagsEXT;
+    impl PhysicalDeviceDeviceMemoryReportFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceDeviceMemoryReportFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DeviceDeviceMemoryReportCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDeviceDeviceMemoryReportCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DeviceMemoryReportCallbackDataEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDeviceMemoryReportCallbackDataEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

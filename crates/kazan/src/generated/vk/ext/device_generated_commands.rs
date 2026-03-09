@@ -1607,6 +1607,150 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkIndirectCommandsLayoutEXT = IndirectCommandsLayoutEXT;
+    pub type VkIndirectExecutionSetEXT = IndirectExecutionSetEXT;
+    pub type VkPhysicalDeviceDeviceGeneratedCommandsFeaturesEXT =
+        PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT<'static>;
+    pub type VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT =
+        PhysicalDeviceDeviceGeneratedCommandsPropertiesEXT<'static>;
+    pub type VkGeneratedCommandsPipelineInfoEXT = GeneratedCommandsPipelineInfoEXT<'static>;
+    pub type VkGeneratedCommandsShaderInfoEXT = GeneratedCommandsShaderInfoEXT<'static>;
+    pub type VkGeneratedCommandsMemoryRequirementsInfoEXT =
+        GeneratedCommandsMemoryRequirementsInfoEXT<'static>;
+    pub type VkIndirectExecutionSetPipelineInfoEXT = IndirectExecutionSetPipelineInfoEXT<'static>;
+    pub type VkIndirectExecutionSetShaderLayoutInfoEXT =
+        IndirectExecutionSetShaderLayoutInfoEXT<'static>;
+    pub type VkIndirectExecutionSetShaderInfoEXT = IndirectExecutionSetShaderInfoEXT<'static>;
+    pub type VkIndirectExecutionSetCreateInfoEXT = IndirectExecutionSetCreateInfoEXT<'static>;
+    pub type VkGeneratedCommandsInfoEXT = GeneratedCommandsInfoEXT<'static>;
+    pub type VkWriteIndirectExecutionSetPipelineEXT = WriteIndirectExecutionSetPipelineEXT<'static>;
+    pub type VkWriteIndirectExecutionSetShaderEXT = WriteIndirectExecutionSetShaderEXT<'static>;
+    pub type VkIndirectCommandsLayoutCreateInfoEXT = IndirectCommandsLayoutCreateInfoEXT<'static>;
+    pub type VkIndirectCommandsLayoutTokenEXT = IndirectCommandsLayoutTokenEXT<'static>;
+    pub type VkDrawIndirectCountIndirectCommandEXT = DrawIndirectCountIndirectCommandEXT;
+    pub type VkIndirectCommandsVertexBufferTokenEXT = IndirectCommandsVertexBufferTokenEXT;
+    pub type VkBindVertexBufferIndirectCommandEXT = BindVertexBufferIndirectCommandEXT;
+    pub type VkIndirectCommandsIndexBufferTokenEXT = IndirectCommandsIndexBufferTokenEXT;
+    pub type VkBindIndexBufferIndirectCommandEXT = BindIndexBufferIndirectCommandEXT;
+    pub type VkIndirectCommandsPushConstantTokenEXT = IndirectCommandsPushConstantTokenEXT;
+    pub type VkIndirectCommandsExecutionSetTokenEXT = IndirectCommandsExecutionSetTokenEXT;
+    pub type VkIndirectExecutionSetInfoEXT = IndirectExecutionSetInfoEXT<'static>;
+    pub type VkIndirectCommandsTokenDataEXT = IndirectCommandsTokenDataEXT<'static>;
+    pub type VkIndirectExecutionSetInfoTypeEXT = IndirectExecutionSetInfoTypeEXT;
+    pub type VkIndirectCommandsTokenTypeEXT = IndirectCommandsTokenTypeEXT;
+    pub type VkIndirectCommandsLayoutUsageFlagsEXT = IndirectCommandsLayoutUsageFlagsEXT;
+    pub type VkIndirectCommandsLayoutUsageFlagBitsEXT = IndirectCommandsLayoutUsageFlagBitsEXT;
+    pub type VkIndirectCommandsInputModeFlagsEXT = IndirectCommandsInputModeFlagsEXT;
+    pub type VkIndirectCommandsInputModeFlagBitsEXT = IndirectCommandsInputModeFlagBitsEXT;
+    impl PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceDeviceGeneratedCommandsFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceDeviceGeneratedCommandsPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl GeneratedCommandsPipelineInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkGeneratedCommandsPipelineInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl GeneratedCommandsShaderInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkGeneratedCommandsShaderInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl GeneratedCommandsMemoryRequirementsInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkGeneratedCommandsMemoryRequirementsInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl IndirectExecutionSetPipelineInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkIndirectExecutionSetPipelineInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl IndirectExecutionSetShaderLayoutInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkIndirectExecutionSetShaderLayoutInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl IndirectExecutionSetShaderInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkIndirectExecutionSetShaderInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl IndirectExecutionSetCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkIndirectExecutionSetCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl GeneratedCommandsInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkGeneratedCommandsInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl WriteIndirectExecutionSetPipelineEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkWriteIndirectExecutionSetPipelineEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl WriteIndirectExecutionSetShaderEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkWriteIndirectExecutionSetShaderEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl IndirectCommandsLayoutCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkIndirectCommandsLayoutCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl IndirectCommandsLayoutTokenEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkIndirectCommandsLayoutTokenEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl IndirectExecutionSetInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkIndirectExecutionSetInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl IndirectCommandsTokenDataEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkIndirectCommandsTokenDataEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     get_generated_commands_memory_requirements_ext: PFN_vkGetGeneratedCommandsMemoryRequirementsEXT,
     cmd_preprocess_generated_commands_ext: PFN_vkCmdPreprocessGeneratedCommandsEXT,

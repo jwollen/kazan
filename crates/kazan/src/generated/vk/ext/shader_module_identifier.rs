@@ -247,6 +247,50 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceShaderModuleIdentifierFeaturesEXT =
+        PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'static>;
+    pub type VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT =
+        PhysicalDeviceShaderModuleIdentifierPropertiesEXT<'static>;
+    pub type VkPipelineShaderStageModuleIdentifierCreateInfoEXT =
+        PipelineShaderStageModuleIdentifierCreateInfoEXT<'static>;
+    pub type VkShaderModuleIdentifierEXT = ShaderModuleIdentifierEXT<'static>;
+    impl PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceShaderModuleIdentifierFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceShaderModuleIdentifierPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineShaderStageModuleIdentifierCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPipelineShaderStageModuleIdentifierCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ShaderModuleIdentifierEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkShaderModuleIdentifierEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     get_shader_module_identifier_ext: PFN_vkGetShaderModuleIdentifierEXT,
     get_shader_module_create_info_identifier_ext: PFN_vkGetShaderModuleCreateInfoIdentifierEXT,

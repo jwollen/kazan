@@ -28,3 +28,17 @@ pub(super) mod defs {
     pub type PhysicalDevicePipelineRobustnessPropertiesEXT<'a> =
         PhysicalDevicePipelineRobustnessProperties<'a>;
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPipelineRobustnessBufferBehaviorEXT = PipelineRobustnessBufferBehaviorEXT;
+    pub type VkPipelineRobustnessImageBehaviorEXT = PipelineRobustnessImageBehaviorEXT;
+    pub type VkPhysicalDevicePipelineRobustnessFeaturesEXT =
+        PhysicalDevicePipelineRobustnessFeaturesEXT<'static>;
+    pub type VkPipelineRobustnessCreateInfoEXT = PipelineRobustnessCreateInfoEXT<'static>;
+    pub type VkPhysicalDevicePipelineRobustnessPropertiesEXT =
+        PhysicalDevicePipelineRobustnessPropertiesEXT<'static>;
+}

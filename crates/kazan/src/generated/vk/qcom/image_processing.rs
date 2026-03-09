@@ -235,3 +235,35 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkImageViewSampleWeightCreateInfoQCOM = ImageViewSampleWeightCreateInfoQCOM<'static>;
+    pub type VkPhysicalDeviceImageProcessingFeaturesQCOM =
+        PhysicalDeviceImageProcessingFeaturesQCOM<'static>;
+    pub type VkPhysicalDeviceImageProcessingPropertiesQCOM =
+        PhysicalDeviceImageProcessingPropertiesQCOM<'static>;
+    impl ImageViewSampleWeightCreateInfoQCOM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImageViewSampleWeightCreateInfoQCOM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceImageProcessingFeaturesQCOM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceImageProcessingFeaturesQCOM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceImageProcessingPropertiesQCOM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceImageProcessingPropertiesQCOM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

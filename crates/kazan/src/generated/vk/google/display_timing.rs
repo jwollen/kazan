@@ -167,6 +167,23 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkRefreshCycleDurationGOOGLE = RefreshCycleDurationGOOGLE;
+    pub type VkPastPresentationTimingGOOGLE = PastPresentationTimingGOOGLE;
+    pub type VkPresentTimesInfoGOOGLE = PresentTimesInfoGOOGLE<'static>;
+    pub type VkPresentTimeGOOGLE = PresentTimeGOOGLE;
+    impl PresentTimesInfoGOOGLE<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPresentTimesInfoGOOGLE {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     get_refresh_cycle_duration_google: PFN_vkGetRefreshCycleDurationGOOGLE,
     get_past_presentation_timing_google: PFN_vkGetPastPresentationTimingGOOGLE,

@@ -25,3 +25,16 @@ pub(super) mod defs {
     pub type PipelineShaderStageRequiredSubgroupSizeCreateInfoEXT<'a> =
         PipelineShaderStageRequiredSubgroupSizeCreateInfo<'a>;
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceSubgroupSizeControlFeaturesEXT =
+        PhysicalDeviceSubgroupSizeControlFeaturesEXT<'static>;
+    pub type VkPhysicalDeviceSubgroupSizeControlPropertiesEXT =
+        PhysicalDeviceSubgroupSizeControlPropertiesEXT<'static>;
+    pub type VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT =
+        PipelineShaderStageRequiredSubgroupSizeCreateInfoEXT<'static>;
+}

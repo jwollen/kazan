@@ -115,6 +115,22 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkViewportWScalingNV = ViewportWScalingNV;
+    pub type VkPipelineViewportWScalingStateCreateInfoNV =
+        PipelineViewportWScalingStateCreateInfoNV<'static>;
+    impl PipelineViewportWScalingStateCreateInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineViewportWScalingStateCreateInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_set_viewport_w_scaling_nv: PFN_vkCmdSetViewportWScalingNV,
 }

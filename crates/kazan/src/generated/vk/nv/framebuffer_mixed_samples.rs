@@ -157,3 +157,24 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPipelineCoverageModulationStateCreateInfoNV =
+        PipelineCoverageModulationStateCreateInfoNV<'static>;
+    pub type VkCoverageModulationModeNV = CoverageModulationModeNV;
+    pub type VkPipelineCoverageModulationStateCreateFlagsNV =
+        PipelineCoverageModulationStateCreateFlagsNV;
+    pub type VkAttachmentSampleCountInfoNV = AttachmentSampleCountInfoNV<'static>;
+    impl PipelineCoverageModulationStateCreateInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPipelineCoverageModulationStateCreateInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

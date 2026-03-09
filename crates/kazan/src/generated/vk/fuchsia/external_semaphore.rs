@@ -157,6 +157,28 @@ pub(super) mod defs {
         -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkImportSemaphoreZirconHandleInfoFUCHSIA =
+        ImportSemaphoreZirconHandleInfoFUCHSIA<'static>;
+    pub type VkSemaphoreGetZirconHandleInfoFUCHSIA = SemaphoreGetZirconHandleInfoFUCHSIA<'static>;
+    impl ImportSemaphoreZirconHandleInfoFUCHSIA<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImportSemaphoreZirconHandleInfoFUCHSIA {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SemaphoreGetZirconHandleInfoFUCHSIA<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSemaphoreGetZirconHandleInfoFUCHSIA {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     import_semaphore_zircon_handle_fuchsia: PFN_vkImportSemaphoreZirconHandleFUCHSIA,
     get_semaphore_zircon_handle_fuchsia: PFN_vkGetSemaphoreZirconHandleFUCHSIA,

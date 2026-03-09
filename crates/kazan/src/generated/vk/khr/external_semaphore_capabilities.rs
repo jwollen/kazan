@@ -27,6 +27,18 @@ pub(super) mod defs {
         PFN_vkGetPhysicalDeviceExternalSemaphoreProperties;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceExternalSemaphoreInfoKHR =
+        PhysicalDeviceExternalSemaphoreInfoKHR<'static>;
+    pub type VkExternalSemaphorePropertiesKHR = ExternalSemaphorePropertiesKHR<'static>;
+    pub type VkExternalSemaphoreHandleTypeFlagsKHR = ExternalSemaphoreHandleTypeFlagsKHR;
+    pub type VkExternalSemaphoreFeatureFlagsKHR = ExternalSemaphoreFeatureFlagsKHR;
+}
+
 pub struct InstanceFn {
     get_physical_device_external_semaphore_properties_khr:
         PFN_vkGetPhysicalDeviceExternalSemaphoreProperties,

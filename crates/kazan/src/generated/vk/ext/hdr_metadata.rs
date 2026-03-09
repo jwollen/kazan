@@ -159,6 +159,21 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkXYColorEXT = XYColorEXT;
+    pub type VkHdrMetadataEXT = HdrMetadataEXT<'static>;
+    impl HdrMetadataEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkHdrMetadataEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     set_hdr_metadata_ext: PFN_vkSetHdrMetadataEXT,
 }

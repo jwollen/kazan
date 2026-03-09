@@ -286,6 +286,52 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkTileMemoryBindInfoQCOM = TileMemoryBindInfoQCOM<'static>;
+    pub type VkPhysicalDeviceTileMemoryHeapFeaturesQCOM =
+        PhysicalDeviceTileMemoryHeapFeaturesQCOM<'static>;
+    pub type VkPhysicalDeviceTileMemoryHeapPropertiesQCOM =
+        PhysicalDeviceTileMemoryHeapPropertiesQCOM<'static>;
+    pub type VkTileMemorySizeInfoQCOM = TileMemorySizeInfoQCOM<'static>;
+    pub type VkTileMemoryRequirementsQCOM = TileMemoryRequirementsQCOM<'static>;
+    impl TileMemoryBindInfoQCOM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkTileMemoryBindInfoQCOM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceTileMemoryHeapFeaturesQCOM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceTileMemoryHeapFeaturesQCOM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceTileMemoryHeapPropertiesQCOM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceTileMemoryHeapPropertiesQCOM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl TileMemorySizeInfoQCOM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkTileMemorySizeInfoQCOM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl TileMemoryRequirementsQCOM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkTileMemoryRequirementsQCOM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_bind_tile_memory_qcom: PFN_vkCmdBindTileMemoryQCOM,
 }

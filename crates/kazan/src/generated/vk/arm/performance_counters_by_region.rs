@@ -391,6 +391,58 @@ pub(super) mod defs {
         ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDevicePerformanceCountersByRegionFeaturesARM =
+        PhysicalDevicePerformanceCountersByRegionFeaturesARM<'static>;
+    pub type VkPhysicalDevicePerformanceCountersByRegionPropertiesARM =
+        PhysicalDevicePerformanceCountersByRegionPropertiesARM<'static>;
+    pub type VkPerformanceCounterARM = PerformanceCounterARM<'static>;
+    pub type VkPerformanceCounterDescriptionARM = PerformanceCounterDescriptionARM<'static>;
+    pub type VkRenderPassPerformanceCountersByRegionBeginInfoARM =
+        RenderPassPerformanceCountersByRegionBeginInfoARM<'static>;
+    pub type VkPerformanceCounterDescriptionFlagsARM = PerformanceCounterDescriptionFlagsARM;
+    impl PhysicalDevicePerformanceCountersByRegionFeaturesARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDevicePerformanceCountersByRegionFeaturesARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDevicePerformanceCountersByRegionPropertiesARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDevicePerformanceCountersByRegionPropertiesARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PerformanceCounterARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPerformanceCounterARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PerformanceCounterDescriptionARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPerformanceCounterDescriptionARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl RenderPassPerformanceCountersByRegionBeginInfoARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkRenderPassPerformanceCountersByRegionBeginInfoARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     enumerate_physical_device_queue_family_performance_counters_by_region_arm:
         PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM,

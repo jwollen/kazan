@@ -105,3 +105,17 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkWin32KeyedMutexAcquireReleaseInfoKHR = Win32KeyedMutexAcquireReleaseInfoKHR<'static>;
+    impl Win32KeyedMutexAcquireReleaseInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkWin32KeyedMutexAcquireReleaseInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

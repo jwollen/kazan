@@ -20,6 +20,14 @@ pub(super) mod defs {
     pub type PFN_vkTrimCommandPoolKHR = PFN_vkTrimCommandPool;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkCommandPoolTrimFlagsKHR = CommandPoolTrimFlagsKHR;
+}
+
 pub struct DeviceFn {
     trim_command_pool_khr: PFN_vkTrimCommandPool,
 }

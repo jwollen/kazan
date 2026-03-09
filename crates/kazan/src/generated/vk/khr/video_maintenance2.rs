@@ -250,3 +250,50 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceVideoMaintenance2FeaturesKHR =
+        PhysicalDeviceVideoMaintenance2FeaturesKHR<'static>;
+    pub type VkVideoDecodeH264InlineSessionParametersInfoKHR =
+        VideoDecodeH264InlineSessionParametersInfoKHR<'static>;
+    pub type VkVideoDecodeH265InlineSessionParametersInfoKHR =
+        VideoDecodeH265InlineSessionParametersInfoKHR<'static>;
+    pub type VkVideoDecodeAV1InlineSessionParametersInfoKHR =
+        VideoDecodeAV1InlineSessionParametersInfoKHR<'static>;
+    impl PhysicalDeviceVideoMaintenance2FeaturesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceVideoMaintenance2FeaturesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoDecodeH264InlineSessionParametersInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkVideoDecodeH264InlineSessionParametersInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoDecodeH265InlineSessionParametersInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkVideoDecodeH265InlineSessionParametersInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoDecodeAV1InlineSessionParametersInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkVideoDecodeAV1InlineSessionParametersInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

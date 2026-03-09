@@ -31,3 +31,20 @@ pub(super) mod defs {
     pub use tile_shading::defs::*;
     pub use ycbcr_degamma::defs::*;
 }
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    pub use super::data_graph_model::ffi::*;
+    pub use super::filter_cubic_clamp::ffi::*;
+    pub use super::filter_cubic_weights::ffi::*;
+    pub use super::fragment_density_map_offset::ffi::*;
+    pub use super::image_processing::ffi::*;
+    pub use super::image_processing2::ffi::*;
+    pub use super::multiview_per_view_render_areas::ffi::*;
+    pub use super::multiview_per_view_viewports::ffi::*;
+    pub use super::render_pass_transform::ffi::*;
+    pub use super::rotated_copy_commands::ffi::*;
+    pub use super::tile_memory_heap::ffi::*;
+    pub use super::tile_properties::ffi::*;
+    pub use super::tile_shading::ffi::*;
+    pub use super::ycbcr_degamma::ffi::*;
+}

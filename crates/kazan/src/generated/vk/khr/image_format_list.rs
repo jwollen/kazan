@@ -18,3 +18,11 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageFormatListCreateInfoKHR.html>
     pub type ImageFormatListCreateInfoKHR<'a> = ImageFormatListCreateInfo<'a>;
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkImageFormatListCreateInfoKHR = ImageFormatListCreateInfoKHR<'static>;
+}

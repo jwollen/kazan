@@ -20,6 +20,15 @@ pub(super) mod defs {
     pub type PFN_vkResetQueryPoolEXT = PFN_vkResetQueryPool;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceHostQueryResetFeaturesEXT =
+        PhysicalDeviceHostQueryResetFeaturesEXT<'static>;
+}
+
 pub struct DeviceFn {
     reset_query_pool_ext: PFN_vkResetQueryPool,
 }

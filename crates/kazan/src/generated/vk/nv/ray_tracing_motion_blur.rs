@@ -576,3 +576,49 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceRayTracingMotionBlurFeaturesNV =
+        PhysicalDeviceRayTracingMotionBlurFeaturesNV<'static>;
+    pub type VkAccelerationStructureGeometryMotionTrianglesDataNV =
+        AccelerationStructureGeometryMotionTrianglesDataNV<'static>;
+    pub type VkAccelerationStructureMotionInfoNV = AccelerationStructureMotionInfoNV<'static>;
+    pub type VkSRTDataNV = SRTDataNV;
+    pub type VkAccelerationStructureSRTMotionInstanceNV = AccelerationStructureSRTMotionInstanceNV;
+    pub type VkAccelerationStructureMatrixMotionInstanceNV =
+        AccelerationStructureMatrixMotionInstanceNV;
+    pub type VkAccelerationStructureMotionInstanceNV = AccelerationStructureMotionInstanceNV;
+    pub type VkAccelerationStructureMotionInstanceDataNV =
+        AccelerationStructureMotionInstanceDataNV;
+    pub type VkAccelerationStructureMotionInstanceTypeNV =
+        AccelerationStructureMotionInstanceTypeNV;
+    pub type VkAccelerationStructureMotionInfoFlagsNV = AccelerationStructureMotionInfoFlagsNV;
+    pub type VkAccelerationStructureMotionInstanceFlagsNV =
+        AccelerationStructureMotionInstanceFlagsNV;
+    impl PhysicalDeviceRayTracingMotionBlurFeaturesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceRayTracingMotionBlurFeaturesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AccelerationStructureGeometryMotionTrianglesDataNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkAccelerationStructureGeometryMotionTrianglesDataNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AccelerationStructureMotionInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkAccelerationStructureMotionInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

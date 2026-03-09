@@ -194,3 +194,28 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceShaderTileImageFeaturesEXT =
+        PhysicalDeviceShaderTileImageFeaturesEXT<'static>;
+    pub type VkPhysicalDeviceShaderTileImagePropertiesEXT =
+        PhysicalDeviceShaderTileImagePropertiesEXT<'static>;
+    impl PhysicalDeviceShaderTileImageFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceShaderTileImageFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceShaderTileImagePropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceShaderTileImagePropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

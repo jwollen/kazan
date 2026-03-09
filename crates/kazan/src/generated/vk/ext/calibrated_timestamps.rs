@@ -24,6 +24,15 @@ pub(super) mod defs {
     pub type PFN_vkGetCalibratedTimestampsEXT = PFN_vkGetCalibratedTimestampsKHR;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkTimeDomainEXT = TimeDomainEXT;
+    pub type VkCalibratedTimestampInfoEXT = CalibratedTimestampInfoEXT<'static>;
+}
+
 pub struct InstanceFn {
     get_physical_device_calibrateable_time_domains_ext:
         PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsKHR,

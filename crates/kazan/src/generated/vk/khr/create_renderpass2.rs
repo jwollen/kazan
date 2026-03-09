@@ -35,6 +35,20 @@ pub(super) mod defs {
     pub type PFN_vkCmdEndRenderPass2KHR = PFN_vkCmdEndRenderPass2;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkAttachmentDescription2KHR = AttachmentDescription2KHR<'static>;
+    pub type VkAttachmentReference2KHR = AttachmentReference2KHR<'static>;
+    pub type VkSubpassDescription2KHR = SubpassDescription2KHR<'static>;
+    pub type VkSubpassDependency2KHR = SubpassDependency2KHR<'static>;
+    pub type VkRenderPassCreateInfo2KHR = RenderPassCreateInfo2KHR<'static>;
+    pub type VkSubpassBeginInfoKHR = SubpassBeginInfoKHR<'static>;
+    pub type VkSubpassEndInfoKHR = SubpassEndInfoKHR<'static>;
+}
+
 pub struct DeviceFn {
     create_render_pass2_khr: PFN_vkCreateRenderPass2,
     cmd_begin_render_pass2_khr: PFN_vkCmdBeginRenderPass2,

@@ -228,6 +228,34 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkImportFenceWin32HandleInfoKHR = ImportFenceWin32HandleInfoKHR<'static>;
+    pub type VkExportFenceWin32HandleInfoKHR = ExportFenceWin32HandleInfoKHR<'static>;
+    pub type VkFenceGetWin32HandleInfoKHR = FenceGetWin32HandleInfoKHR<'static>;
+    impl ImportFenceWin32HandleInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImportFenceWin32HandleInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ExportFenceWin32HandleInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExportFenceWin32HandleInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl FenceGetWin32HandleInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkFenceGetWin32HandleInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     import_fence_win32_handle_khr: PFN_vkImportFenceWin32HandleKHR,
     get_fence_win32_handle_khr: PFN_vkGetFenceWin32HandleKHR,

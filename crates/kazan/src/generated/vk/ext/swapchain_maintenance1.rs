@@ -31,6 +31,20 @@ pub(super) mod defs {
     pub type PFN_vkReleaseSwapchainImagesEXT = PFN_vkReleaseSwapchainImagesKHR;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT =
+        PhysicalDeviceSwapchainMaintenance1FeaturesEXT<'static>;
+    pub type VkSwapchainPresentFenceInfoEXT = SwapchainPresentFenceInfoEXT<'static>;
+    pub type VkSwapchainPresentModesCreateInfoEXT = SwapchainPresentModesCreateInfoEXT<'static>;
+    pub type VkSwapchainPresentModeInfoEXT = SwapchainPresentModeInfoEXT<'static>;
+    pub type VkSwapchainPresentScalingCreateInfoEXT = SwapchainPresentScalingCreateInfoEXT<'static>;
+    pub type VkReleaseSwapchainImagesInfoEXT = ReleaseSwapchainImagesInfoEXT<'static>;
+}
+
 pub struct DeviceFn {
     release_swapchain_images_ext: PFN_vkReleaseSwapchainImagesKHR,
 }

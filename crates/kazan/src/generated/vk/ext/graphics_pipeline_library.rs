@@ -265,3 +265,39 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT =
+        PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'static>;
+    pub type VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT =
+        PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT<'static>;
+    pub type VkGraphicsPipelineLibraryCreateInfoEXT = GraphicsPipelineLibraryCreateInfoEXT<'static>;
+    pub type VkGraphicsPipelineLibraryFlagsEXT = GraphicsPipelineLibraryFlagsEXT;
+    pub type VkGraphicsPipelineLibraryFlagBitsEXT = GraphicsPipelineLibraryFlagBitsEXT;
+    impl PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceGraphicsPipelineLibraryPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl GraphicsPipelineLibraryCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkGraphicsPipelineLibraryCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

@@ -249,6 +249,41 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkQueueFamilyCheckpointPropertiesNV = QueueFamilyCheckpointPropertiesNV<'static>;
+    pub type VkCheckpointDataNV = CheckpointDataNV<'static>;
+    pub type VkQueueFamilyCheckpointProperties2NV = QueueFamilyCheckpointProperties2NV<'static>;
+    pub type VkCheckpointData2NV = CheckpointData2NV<'static>;
+    impl QueueFamilyCheckpointPropertiesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkQueueFamilyCheckpointPropertiesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CheckpointDataNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCheckpointDataNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl QueueFamilyCheckpointProperties2NV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkQueueFamilyCheckpointProperties2NV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CheckpointData2NV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCheckpointData2NV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_set_checkpoint_nv: PFN_vkCmdSetCheckpointNV,
     get_queue_checkpoint_data_nv: PFN_vkGetQueueCheckpointDataNV,

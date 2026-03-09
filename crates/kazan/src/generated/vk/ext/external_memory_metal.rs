@@ -185,6 +185,34 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkImportMemoryMetalHandleInfoEXT = ImportMemoryMetalHandleInfoEXT<'static>;
+    pub type VkMemoryMetalHandlePropertiesEXT = MemoryMetalHandlePropertiesEXT<'static>;
+    pub type VkMemoryGetMetalHandleInfoEXT = MemoryGetMetalHandleInfoEXT<'static>;
+    impl ImportMemoryMetalHandleInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImportMemoryMetalHandleInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MemoryMetalHandlePropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMemoryMetalHandlePropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MemoryGetMetalHandleInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMemoryGetMetalHandleInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     get_memory_metal_handle_ext: PFN_vkGetMemoryMetalHandleEXT,
     get_memory_metal_handle_properties_ext: PFN_vkGetMemoryMetalHandlePropertiesEXT,

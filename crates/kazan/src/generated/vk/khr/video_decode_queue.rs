@@ -349,6 +349,39 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkVideoDecodeCapabilitiesKHR = VideoDecodeCapabilitiesKHR<'static>;
+    pub type VkVideoDecodeUsageInfoKHR = VideoDecodeUsageInfoKHR<'static>;
+    pub type VkVideoDecodeInfoKHR = VideoDecodeInfoKHR<'static>;
+    pub type VkVideoDecodeUsageFlagsKHR = VideoDecodeUsageFlagsKHR;
+    pub type VkVideoDecodeUsageFlagBitsKHR = VideoDecodeUsageFlagBitsKHR;
+    pub type VkVideoDecodeCapabilityFlagsKHR = VideoDecodeCapabilityFlagsKHR;
+    pub type VkVideoDecodeCapabilityFlagBitsKHR = VideoDecodeCapabilityFlagBitsKHR;
+    pub type VkVideoDecodeFlagsKHR = VideoDecodeFlagsKHR;
+    impl VideoDecodeCapabilitiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoDecodeCapabilitiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoDecodeUsageInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoDecodeUsageInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoDecodeInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoDecodeInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_decode_video_khr: PFN_vkCmdDecodeVideoKHR,
 }

@@ -75,6 +75,23 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceInvocationMaskFeaturesHUAWEI =
+        PhysicalDeviceInvocationMaskFeaturesHUAWEI<'static>;
+    impl PhysicalDeviceInvocationMaskFeaturesHUAWEI<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceInvocationMaskFeaturesHUAWEI {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_bind_invocation_mask_huawei: PFN_vkCmdBindInvocationMaskHUAWEI,
 }

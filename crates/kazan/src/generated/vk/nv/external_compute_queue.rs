@@ -240,6 +240,46 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkExternalComputeQueueNV = ExternalComputeQueueNV;
+    pub type VkExternalComputeQueueDeviceCreateInfoNV =
+        ExternalComputeQueueDeviceCreateInfoNV<'static>;
+    pub type VkExternalComputeQueueCreateInfoNV = ExternalComputeQueueCreateInfoNV<'static>;
+    pub type VkExternalComputeQueueDataParamsNV = ExternalComputeQueueDataParamsNV<'static>;
+    pub type VkPhysicalDeviceExternalComputeQueuePropertiesNV =
+        PhysicalDeviceExternalComputeQueuePropertiesNV<'static>;
+    impl ExternalComputeQueueDeviceCreateInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExternalComputeQueueDeviceCreateInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ExternalComputeQueueCreateInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExternalComputeQueueCreateInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ExternalComputeQueueDataParamsNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExternalComputeQueueDataParamsNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceExternalComputeQueuePropertiesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceExternalComputeQueuePropertiesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     create_external_compute_queue_nv: PFN_vkCreateExternalComputeQueueNV,
     destroy_external_compute_queue_nv: PFN_vkDestroyExternalComputeQueueNV,

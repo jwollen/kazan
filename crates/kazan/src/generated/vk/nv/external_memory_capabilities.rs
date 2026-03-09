@@ -208,6 +208,18 @@ pub(super) mod defs {
         ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkExternalImageFormatPropertiesNV = ExternalImageFormatPropertiesNV;
+    pub type VkExternalMemoryHandleTypeFlagsNV = ExternalMemoryHandleTypeFlagsNV;
+    pub type VkExternalMemoryHandleTypeFlagBitsNV = ExternalMemoryHandleTypeFlagBitsNV;
+    pub type VkExternalMemoryFeatureFlagsNV = ExternalMemoryFeatureFlagsNV;
+    pub type VkExternalMemoryFeatureFlagBitsNV = ExternalMemoryFeatureFlagBitsNV;
+}
+
 pub struct InstanceFn {
     get_physical_device_external_image_format_properties_nv:
         PFN_vkGetPhysicalDeviceExternalImageFormatPropertiesNV,

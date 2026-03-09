@@ -481,3 +481,54 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE =
+        PhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE<'static>;
+    pub type VkVideoEncodeRgbConversionCapabilitiesVALVE =
+        VideoEncodeRgbConversionCapabilitiesVALVE<'static>;
+    pub type VkVideoEncodeProfileRgbConversionInfoVALVE =
+        VideoEncodeProfileRgbConversionInfoVALVE<'static>;
+    pub type VkVideoEncodeSessionRgbConversionCreateInfoVALVE =
+        VideoEncodeSessionRgbConversionCreateInfoVALVE<'static>;
+    pub type VkVideoEncodeRgbModelConversionFlagsVALVE = VideoEncodeRgbModelConversionFlagsVALVE;
+    pub type VkVideoEncodeRgbModelConversionFlagBitsVALVE =
+        VideoEncodeRgbModelConversionFlagBitsVALVE;
+    pub type VkVideoEncodeRgbRangeCompressionFlagsVALVE = VideoEncodeRgbRangeCompressionFlagsVALVE;
+    pub type VkVideoEncodeRgbRangeCompressionFlagBitsVALVE =
+        VideoEncodeRgbRangeCompressionFlagBitsVALVE;
+    pub type VkVideoEncodeRgbChromaOffsetFlagsVALVE = VideoEncodeRgbChromaOffsetFlagsVALVE;
+    pub type VkVideoEncodeRgbChromaOffsetFlagBitsVALVE = VideoEncodeRgbChromaOffsetFlagBitsVALVE;
+    impl PhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeRgbConversionCapabilitiesVALVE<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeRgbConversionCapabilitiesVALVE {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeProfileRgbConversionInfoVALVE<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeProfileRgbConversionInfoVALVE {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeSessionRgbConversionCreateInfoVALVE<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkVideoEncodeSessionRgbConversionCreateInfoVALVE {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

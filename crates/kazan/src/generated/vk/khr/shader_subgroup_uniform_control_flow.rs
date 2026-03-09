@@ -78,3 +78,20 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR =
+        PhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR<'static>;
+    impl PhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

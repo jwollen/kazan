@@ -554,6 +554,59 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceTileShadingFeaturesQCOM =
+        PhysicalDeviceTileShadingFeaturesQCOM<'static>;
+    pub type VkPhysicalDeviceTileShadingPropertiesQCOM =
+        PhysicalDeviceTileShadingPropertiesQCOM<'static>;
+    pub type VkRenderPassTileShadingCreateInfoQCOM = RenderPassTileShadingCreateInfoQCOM<'static>;
+    pub type VkPerTileBeginInfoQCOM = PerTileBeginInfoQCOM<'static>;
+    pub type VkPerTileEndInfoQCOM = PerTileEndInfoQCOM<'static>;
+    pub type VkDispatchTileInfoQCOM = DispatchTileInfoQCOM<'static>;
+    pub type VkTileShadingRenderPassFlagsQCOM = TileShadingRenderPassFlagsQCOM;
+    pub type VkTileShadingRenderPassFlagBitsQCOM = TileShadingRenderPassFlagBitsQCOM;
+    impl PhysicalDeviceTileShadingFeaturesQCOM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceTileShadingFeaturesQCOM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceTileShadingPropertiesQCOM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceTileShadingPropertiesQCOM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl RenderPassTileShadingCreateInfoQCOM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkRenderPassTileShadingCreateInfoQCOM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PerTileBeginInfoQCOM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPerTileBeginInfoQCOM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PerTileEndInfoQCOM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPerTileEndInfoQCOM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DispatchTileInfoQCOM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDispatchTileInfoQCOM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_dispatch_tile_qcom: PFN_vkCmdDispatchTileQCOM,
     cmd_begin_per_tile_execution_qcom: PFN_vkCmdBeginPerTileExecutionQCOM,

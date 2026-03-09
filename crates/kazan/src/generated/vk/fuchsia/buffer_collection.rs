@@ -894,6 +894,90 @@ pub(super) mod defs {
         -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkBufferCollectionFUCHSIA = BufferCollectionFUCHSIA;
+    pub type VkImportMemoryBufferCollectionFUCHSIA = ImportMemoryBufferCollectionFUCHSIA<'static>;
+    pub type VkBufferCollectionImageCreateInfoFUCHSIA =
+        BufferCollectionImageCreateInfoFUCHSIA<'static>;
+    pub type VkBufferCollectionBufferCreateInfoFUCHSIA =
+        BufferCollectionBufferCreateInfoFUCHSIA<'static>;
+    pub type VkBufferCollectionCreateInfoFUCHSIA = BufferCollectionCreateInfoFUCHSIA<'static>;
+    pub type VkBufferCollectionPropertiesFUCHSIA = BufferCollectionPropertiesFUCHSIA<'static>;
+    pub type VkBufferConstraintsInfoFUCHSIA = BufferConstraintsInfoFUCHSIA<'static>;
+    pub type VkSysmemColorSpaceFUCHSIA = SysmemColorSpaceFUCHSIA<'static>;
+    pub type VkImageFormatConstraintsInfoFUCHSIA = ImageFormatConstraintsInfoFUCHSIA<'static>;
+    pub type VkImageConstraintsInfoFUCHSIA = ImageConstraintsInfoFUCHSIA<'static>;
+    pub type VkBufferCollectionConstraintsInfoFUCHSIA =
+        BufferCollectionConstraintsInfoFUCHSIA<'static>;
+    pub type VkImageFormatConstraintsFlagsFUCHSIA = ImageFormatConstraintsFlagsFUCHSIA;
+    pub type VkImageConstraintsInfoFlagsFUCHSIA = ImageConstraintsInfoFlagsFUCHSIA;
+    pub type VkImageConstraintsInfoFlagBitsFUCHSIA = ImageConstraintsInfoFlagBitsFUCHSIA;
+    impl ImportMemoryBufferCollectionFUCHSIA<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImportMemoryBufferCollectionFUCHSIA {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BufferCollectionImageCreateInfoFUCHSIA<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBufferCollectionImageCreateInfoFUCHSIA {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BufferCollectionBufferCreateInfoFUCHSIA<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBufferCollectionBufferCreateInfoFUCHSIA {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BufferCollectionCreateInfoFUCHSIA<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBufferCollectionCreateInfoFUCHSIA {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BufferCollectionPropertiesFUCHSIA<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBufferCollectionPropertiesFUCHSIA {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BufferConstraintsInfoFUCHSIA<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBufferConstraintsInfoFUCHSIA {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SysmemColorSpaceFUCHSIA<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSysmemColorSpaceFUCHSIA {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImageFormatConstraintsInfoFUCHSIA<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImageFormatConstraintsInfoFUCHSIA {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImageConstraintsInfoFUCHSIA<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImageConstraintsInfoFUCHSIA {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BufferCollectionConstraintsInfoFUCHSIA<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBufferCollectionConstraintsInfoFUCHSIA {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     create_buffer_collection_fuchsia: PFN_vkCreateBufferCollectionFUCHSIA,
     set_buffer_collection_image_constraints_fuchsia:

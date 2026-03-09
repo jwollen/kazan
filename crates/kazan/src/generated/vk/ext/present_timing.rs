@@ -953,6 +953,91 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDevicePresentTimingFeaturesEXT =
+        PhysicalDevicePresentTimingFeaturesEXT<'static>;
+    pub type VkPresentTimingSurfaceCapabilitiesEXT = PresentTimingSurfaceCapabilitiesEXT<'static>;
+    pub type VkSwapchainTimingPropertiesEXT = SwapchainTimingPropertiesEXT<'static>;
+    pub type VkSwapchainTimeDomainPropertiesEXT = SwapchainTimeDomainPropertiesEXT<'static>;
+    pub type VkPresentStageTimeEXT = PresentStageTimeEXT;
+    pub type VkPastPresentationTimingInfoEXT = PastPresentationTimingInfoEXT<'static>;
+    pub type VkPastPresentationTimingPropertiesEXT = PastPresentationTimingPropertiesEXT<'static>;
+    pub type VkPastPresentationTimingEXT = PastPresentationTimingEXT<'static>;
+    pub type VkPresentTimingsInfoEXT = PresentTimingsInfoEXT<'static>;
+    pub type VkPresentTimingInfoEXT = PresentTimingInfoEXT<'static>;
+    pub type VkSwapchainCalibratedTimestampInfoEXT = SwapchainCalibratedTimestampInfoEXT<'static>;
+    pub type VkPresentStageFlagsEXT = PresentStageFlagsEXT;
+    pub type VkPresentStageFlagBitsEXT = PresentStageFlagBitsEXT;
+    pub type VkPastPresentationTimingFlagsEXT = PastPresentationTimingFlagsEXT;
+    pub type VkPastPresentationTimingFlagBitsEXT = PastPresentationTimingFlagBitsEXT;
+    pub type VkPresentTimingInfoFlagsEXT = PresentTimingInfoFlagsEXT;
+    pub type VkPresentTimingInfoFlagBitsEXT = PresentTimingInfoFlagBitsEXT;
+    impl PhysicalDevicePresentTimingFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDevicePresentTimingFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PresentTimingSurfaceCapabilitiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPresentTimingSurfaceCapabilitiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SwapchainTimingPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSwapchainTimingPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SwapchainTimeDomainPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSwapchainTimeDomainPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PastPresentationTimingInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPastPresentationTimingInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PastPresentationTimingPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPastPresentationTimingPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PastPresentationTimingEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPastPresentationTimingEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PresentTimingsInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPresentTimingsInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PresentTimingInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPresentTimingInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SwapchainCalibratedTimestampInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSwapchainCalibratedTimestampInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     set_swapchain_present_timing_queue_size_ext: PFN_vkSetSwapchainPresentTimingQueueSizeEXT,
     get_swapchain_timing_properties_ext: PFN_vkGetSwapchainTimingPropertiesEXT,

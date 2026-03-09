@@ -126,3 +126,66 @@ pub(super) mod defs {
     pub use viewport_swizzle::defs::*;
     pub use win32_keyed_mutex::defs::*;
 }
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    pub use super::clip_space_w_scaling::ffi::*;
+    pub use super::cluster_acceleration_structure::ffi::*;
+    pub use super::command_buffer_inheritance::ffi::*;
+    pub use super::compute_occupancy_priority::ffi::*;
+    pub use super::compute_shader_derivatives::ffi::*;
+    pub use super::cooperative_matrix::ffi::*;
+    pub use super::cooperative_matrix2::ffi::*;
+    pub use super::cooperative_vector::ffi::*;
+    pub use super::copy_memory_indirect::ffi::*;
+    pub use super::corner_sampled_image::ffi::*;
+    pub use super::coverage_reduction_mode::ffi::*;
+    #[cfg(feature = "provisional")]
+    pub use super::cuda_kernel_launch::ffi::*;
+    pub use super::dedicated_allocation::ffi::*;
+    pub use super::dedicated_allocation_image_aliasing::ffi::*;
+    pub use super::descriptor_pool_overallocation::ffi::*;
+    pub use super::device_diagnostic_checkpoints::ffi::*;
+    pub use super::device_diagnostics_config::ffi::*;
+    pub use super::device_generated_commands::ffi::*;
+    pub use super::device_generated_commands_compute::ffi::*;
+    #[cfg(feature = "provisional")]
+    pub use super::displacement_micromap::ffi::*;
+    pub use super::display_stereo::ffi::*;
+    pub use super::extended_sparse_address_space::ffi::*;
+    pub use super::external_compute_queue::ffi::*;
+    pub use super::external_memory::ffi::*;
+    pub use super::external_memory_capabilities::ffi::*;
+    pub use super::external_memory_rdma::ffi::*;
+    pub use super::external_memory_win32::ffi::*;
+    pub use super::fragment_coverage_to_color::ffi::*;
+    pub use super::fragment_shader_barycentric::ffi::*;
+    pub use super::fragment_shading_rate_enums::ffi::*;
+    pub use super::framebuffer_mixed_samples::ffi::*;
+    pub use super::inherited_viewport_scissor::ffi::*;
+    pub use super::linear_color_attachment::ffi::*;
+    pub use super::low_latency::ffi::*;
+    pub use super::low_latency2::ffi::*;
+    pub use super::memory_decompression::ffi::*;
+    pub use super::mesh_shader::ffi::*;
+    pub use super::optical_flow::ffi::*;
+    pub use super::partitioned_acceleration_structure::ffi::*;
+    pub use super::per_stage_descriptor_set::ffi::*;
+    pub use super::present_barrier::ffi::*;
+    #[cfg(feature = "provisional")]
+    pub use super::present_metering::ffi::*;
+    pub use super::push_constant_bank::ffi::*;
+    pub use super::raw_access_chains::ffi::*;
+    pub use super::ray_tracing::ffi::*;
+    pub use super::ray_tracing_invocation_reorder::ffi::*;
+    pub use super::ray_tracing_linear_swept_spheres::ffi::*;
+    pub use super::ray_tracing_motion_blur::ffi::*;
+    pub use super::ray_tracing_validation::ffi::*;
+    pub use super::representative_fragment_test::ffi::*;
+    pub use super::scissor_exclusive::ffi::*;
+    pub use super::shader_atomic_float16_vector::ffi::*;
+    pub use super::shader_image_footprint::ffi::*;
+    pub use super::shader_sm_builtins::ffi::*;
+    pub use super::shading_rate_image::ffi::*;
+    pub use super::viewport_swizzle::ffi::*;
+    pub use super::win32_keyed_mutex::ffi::*;
+}

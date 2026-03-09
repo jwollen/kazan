@@ -73,3 +73,20 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceCommandBufferInheritanceFeaturesNV =
+        PhysicalDeviceCommandBufferInheritanceFeaturesNV<'static>;
+    impl PhysicalDeviceCommandBufferInheritanceFeaturesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceCommandBufferInheritanceFeaturesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

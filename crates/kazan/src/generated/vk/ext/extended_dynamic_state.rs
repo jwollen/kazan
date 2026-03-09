@@ -84,6 +84,23 @@ pub(super) mod defs {
     }
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceExtendedDynamicStateFeaturesEXT =
+        PhysicalDeviceExtendedDynamicStateFeaturesEXT<'static>;
+    impl PhysicalDeviceExtendedDynamicStateFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceExtendedDynamicStateFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_set_cull_mode_ext: PFN_vkCmdSetCullMode,
     cmd_set_front_face_ext: PFN_vkCmdSetFrontFace,

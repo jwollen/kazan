@@ -74,6 +74,20 @@ pub(super) mod defs {
         unsafe extern "system" fn(device: Device, swapchain: SwapchainKHR) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkSharedPresentSurfaceCapabilitiesKHR = SharedPresentSurfaceCapabilitiesKHR<'static>;
+    impl SharedPresentSurfaceCapabilitiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSharedPresentSurfaceCapabilitiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     get_swapchain_status_khr: PFN_vkGetSwapchainStatusKHR,
 }

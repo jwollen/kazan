@@ -138,3 +138,25 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkDisplaySurfaceStereoCreateInfoNV = DisplaySurfaceStereoCreateInfoNV<'static>;
+    pub type VkDisplayModeStereoPropertiesNV = DisplayModeStereoPropertiesNV<'static>;
+    pub type VkDisplaySurfaceStereoTypeNV = DisplaySurfaceStereoTypeNV;
+    impl DisplaySurfaceStereoCreateInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDisplaySurfaceStereoCreateInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DisplayModeStereoPropertiesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDisplayModeStereoPropertiesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

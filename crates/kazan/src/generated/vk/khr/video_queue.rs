@@ -1826,6 +1826,152 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkVideoSessionKHR = VideoSessionKHR;
+    pub type VkVideoSessionParametersKHR = VideoSessionParametersKHR;
+    pub type VkQueueFamilyVideoPropertiesKHR = QueueFamilyVideoPropertiesKHR<'static>;
+    pub type VkQueueFamilyQueryResultStatusPropertiesKHR =
+        QueueFamilyQueryResultStatusPropertiesKHR<'static>;
+    pub type VkVideoProfileListInfoKHR = VideoProfileListInfoKHR<'static>;
+    pub type VkPhysicalDeviceVideoFormatInfoKHR = PhysicalDeviceVideoFormatInfoKHR<'static>;
+    pub type VkVideoFormatPropertiesKHR = VideoFormatPropertiesKHR<'static>;
+    pub type VkVideoProfileInfoKHR = VideoProfileInfoKHR<'static>;
+    pub type VkVideoCapabilitiesKHR = VideoCapabilitiesKHR<'static>;
+    pub type VkVideoSessionMemoryRequirementsKHR = VideoSessionMemoryRequirementsKHR<'static>;
+    pub type VkBindVideoSessionMemoryInfoKHR = BindVideoSessionMemoryInfoKHR<'static>;
+    pub type VkVideoPictureResourceInfoKHR = VideoPictureResourceInfoKHR<'static>;
+    pub type VkVideoReferenceSlotInfoKHR = VideoReferenceSlotInfoKHR<'static>;
+    pub type VkVideoSessionCreateInfoKHR = VideoSessionCreateInfoKHR<'static>;
+    pub type VkVideoSessionParametersCreateInfoKHR = VideoSessionParametersCreateInfoKHR<'static>;
+    pub type VkVideoSessionParametersUpdateInfoKHR = VideoSessionParametersUpdateInfoKHR<'static>;
+    pub type VkVideoBeginCodingInfoKHR = VideoBeginCodingInfoKHR<'static>;
+    pub type VkVideoEndCodingInfoKHR = VideoEndCodingInfoKHR<'static>;
+    pub type VkVideoCodingControlInfoKHR = VideoCodingControlInfoKHR<'static>;
+    pub type VkQueryResultStatusKHR = QueryResultStatusKHR;
+    pub type VkVideoCodecOperationFlagsKHR = VideoCodecOperationFlagsKHR;
+    pub type VkVideoCodecOperationFlagBitsKHR = VideoCodecOperationFlagBitsKHR;
+    pub type VkVideoCapabilityFlagsKHR = VideoCapabilityFlagsKHR;
+    pub type VkVideoCapabilityFlagBitsKHR = VideoCapabilityFlagBitsKHR;
+    pub type VkVideoSessionCreateFlagsKHR = VideoSessionCreateFlagsKHR;
+    pub type VkVideoSessionCreateFlagBitsKHR = VideoSessionCreateFlagBitsKHR;
+    pub type VkVideoSessionParametersCreateFlagsKHR = VideoSessionParametersCreateFlagsKHR;
+    pub type VkVideoSessionParametersCreateFlagBitsKHR = VideoSessionParametersCreateFlagBitsKHR;
+    pub type VkVideoBeginCodingFlagsKHR = VideoBeginCodingFlagsKHR;
+    pub type VkVideoEndCodingFlagsKHR = VideoEndCodingFlagsKHR;
+    pub type VkVideoCodingControlFlagsKHR = VideoCodingControlFlagsKHR;
+    pub type VkVideoCodingControlFlagBitsKHR = VideoCodingControlFlagBitsKHR;
+    pub type VkVideoChromaSubsamplingFlagsKHR = VideoChromaSubsamplingFlagsKHR;
+    pub type VkVideoChromaSubsamplingFlagBitsKHR = VideoChromaSubsamplingFlagBitsKHR;
+    pub type VkVideoComponentBitDepthFlagsKHR = VideoComponentBitDepthFlagsKHR;
+    pub type VkVideoComponentBitDepthFlagBitsKHR = VideoComponentBitDepthFlagBitsKHR;
+    impl QueueFamilyVideoPropertiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkQueueFamilyVideoPropertiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl QueueFamilyQueryResultStatusPropertiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkQueueFamilyQueryResultStatusPropertiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoProfileListInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoProfileListInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceVideoFormatInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceVideoFormatInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoFormatPropertiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoFormatPropertiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoProfileInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoProfileInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoCapabilitiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoCapabilitiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoSessionMemoryRequirementsKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoSessionMemoryRequirementsKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BindVideoSessionMemoryInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBindVideoSessionMemoryInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoPictureResourceInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoPictureResourceInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoReferenceSlotInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoReferenceSlotInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoSessionCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoSessionCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoSessionParametersCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoSessionParametersCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoSessionParametersUpdateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoSessionParametersUpdateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoBeginCodingInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoBeginCodingInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEndCodingInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEndCodingInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoCodingControlInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoCodingControlInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     get_physical_device_video_capabilities_khr: PFN_vkGetPhysicalDeviceVideoCapabilitiesKHR,
     get_physical_device_video_format_properties_khr:

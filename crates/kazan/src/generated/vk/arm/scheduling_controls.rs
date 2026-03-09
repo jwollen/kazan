@@ -217,3 +217,41 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkDeviceQueueShaderCoreControlCreateInfoARM =
+        DeviceQueueShaderCoreControlCreateInfoARM<'static>;
+    pub type VkPhysicalDeviceSchedulingControlsFeaturesARM =
+        PhysicalDeviceSchedulingControlsFeaturesARM<'static>;
+    pub type VkPhysicalDeviceSchedulingControlsPropertiesARM =
+        PhysicalDeviceSchedulingControlsPropertiesARM<'static>;
+    pub type VkPhysicalDeviceSchedulingControlsFlagsARM = PhysicalDeviceSchedulingControlsFlagsARM;
+    pub type VkPhysicalDeviceSchedulingControlsFlagBitsARM =
+        PhysicalDeviceSchedulingControlsFlagBitsARM;
+    impl DeviceQueueShaderCoreControlCreateInfoARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDeviceQueueShaderCoreControlCreateInfoARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceSchedulingControlsFeaturesARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceSchedulingControlsFeaturesARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceSchedulingControlsPropertiesARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceSchedulingControlsPropertiesARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

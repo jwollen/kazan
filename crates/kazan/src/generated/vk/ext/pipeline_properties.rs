@@ -132,6 +132,31 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPipelinePropertiesIdentifierEXT = PipelinePropertiesIdentifierEXT<'static>;
+    pub type VkPhysicalDevicePipelinePropertiesFeaturesEXT =
+        PhysicalDevicePipelinePropertiesFeaturesEXT<'static>;
+    pub type VkPipelineInfoEXT = PipelineInfoEXT<'static>;
+    impl PipelinePropertiesIdentifierEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelinePropertiesIdentifierEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDevicePipelinePropertiesFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDevicePipelinePropertiesFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     get_pipeline_properties_ext: PFN_vkGetPipelinePropertiesEXT,
 }

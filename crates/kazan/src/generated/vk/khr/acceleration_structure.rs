@@ -2162,6 +2162,179 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkAccelerationStructureKHR = AccelerationStructureKHR;
+    pub type VkWriteDescriptorSetAccelerationStructureKHR =
+        WriteDescriptorSetAccelerationStructureKHR<'static>;
+    pub type VkPhysicalDeviceAccelerationStructureFeaturesKHR =
+        PhysicalDeviceAccelerationStructureFeaturesKHR<'static>;
+    pub type VkPhysicalDeviceAccelerationStructurePropertiesKHR =
+        PhysicalDeviceAccelerationStructurePropertiesKHR<'static>;
+    pub type VkAccelerationStructureGeometryTrianglesDataKHR =
+        AccelerationStructureGeometryTrianglesDataKHR<'static>;
+    pub type VkAccelerationStructureGeometryAabbsDataKHR =
+        AccelerationStructureGeometryAabbsDataKHR<'static>;
+    pub type VkAccelerationStructureGeometryInstancesDataKHR =
+        AccelerationStructureGeometryInstancesDataKHR<'static>;
+    pub type VkAccelerationStructureGeometryKHR = AccelerationStructureGeometryKHR<'static>;
+    pub type VkAccelerationStructureBuildGeometryInfoKHR =
+        AccelerationStructureBuildGeometryInfoKHR<'static>;
+    pub type VkAccelerationStructureBuildRangeInfoKHR = AccelerationStructureBuildRangeInfoKHR;
+    pub type VkAccelerationStructureCreateInfoKHR = AccelerationStructureCreateInfoKHR<'static>;
+    pub type VkAabbPositionsKHR = AabbPositionsKHR;
+    pub type VkTransformMatrixKHR = TransformMatrixKHR;
+    pub type VkAccelerationStructureInstanceKHR = AccelerationStructureInstanceKHR;
+    pub type VkAccelerationStructureDeviceAddressInfoKHR =
+        AccelerationStructureDeviceAddressInfoKHR<'static>;
+    pub type VkAccelerationStructureVersionInfoKHR = AccelerationStructureVersionInfoKHR<'static>;
+    pub type VkCopyAccelerationStructureInfoKHR = CopyAccelerationStructureInfoKHR<'static>;
+    pub type VkCopyAccelerationStructureToMemoryInfoKHR =
+        CopyAccelerationStructureToMemoryInfoKHR<'static>;
+    pub type VkCopyMemoryToAccelerationStructureInfoKHR =
+        CopyMemoryToAccelerationStructureInfoKHR<'static>;
+    pub type VkAccelerationStructureBuildSizesInfoKHR =
+        AccelerationStructureBuildSizesInfoKHR<'static>;
+    pub type VkDeviceOrHostAddressKHR = DeviceOrHostAddressKHR<'static>;
+    pub type VkDeviceOrHostAddressConstKHR = DeviceOrHostAddressConstKHR<'static>;
+    pub type VkAccelerationStructureGeometryDataKHR = AccelerationStructureGeometryDataKHR<'static>;
+    pub type VkCopyAccelerationStructureModeKHR = CopyAccelerationStructureModeKHR;
+    pub type VkBuildAccelerationStructureModeKHR = BuildAccelerationStructureModeKHR;
+    pub type VkAccelerationStructureTypeKHR = AccelerationStructureTypeKHR;
+    pub type VkGeometryTypeKHR = GeometryTypeKHR;
+    pub type VkAccelerationStructureBuildTypeKHR = AccelerationStructureBuildTypeKHR;
+    pub type VkAccelerationStructureCompatibilityKHR = AccelerationStructureCompatibilityKHR;
+    pub type VkGeometryFlagsKHR = GeometryFlagsKHR;
+    pub type VkGeometryFlagBitsKHR = GeometryFlagBitsKHR;
+    pub type VkGeometryInstanceFlagsKHR = GeometryInstanceFlagsKHR;
+    pub type VkGeometryInstanceFlagBitsKHR = GeometryInstanceFlagBitsKHR;
+    pub type VkBuildAccelerationStructureFlagsKHR = BuildAccelerationStructureFlagsKHR;
+    pub type VkBuildAccelerationStructureFlagBitsKHR = BuildAccelerationStructureFlagBitsKHR;
+    pub type VkAccelerationStructureCreateFlagsKHR = AccelerationStructureCreateFlagsKHR;
+    pub type VkAccelerationStructureCreateFlagBitsKHR = AccelerationStructureCreateFlagBitsKHR;
+    impl WriteDescriptorSetAccelerationStructureKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkWriteDescriptorSetAccelerationStructureKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceAccelerationStructureFeaturesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceAccelerationStructureFeaturesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceAccelerationStructurePropertiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceAccelerationStructurePropertiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AccelerationStructureGeometryTrianglesDataKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkAccelerationStructureGeometryTrianglesDataKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AccelerationStructureGeometryAabbsDataKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkAccelerationStructureGeometryAabbsDataKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AccelerationStructureGeometryInstancesDataKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkAccelerationStructureGeometryInstancesDataKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AccelerationStructureGeometryKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkAccelerationStructureGeometryKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AccelerationStructureBuildGeometryInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkAccelerationStructureBuildGeometryInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AccelerationStructureCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkAccelerationStructureCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AccelerationStructureDeviceAddressInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkAccelerationStructureDeviceAddressInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AccelerationStructureVersionInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkAccelerationStructureVersionInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CopyAccelerationStructureInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCopyAccelerationStructureInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CopyAccelerationStructureToMemoryInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCopyAccelerationStructureToMemoryInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CopyMemoryToAccelerationStructureInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCopyMemoryToAccelerationStructureInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AccelerationStructureBuildSizesInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkAccelerationStructureBuildSizesInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DeviceOrHostAddressKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDeviceOrHostAddressKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DeviceOrHostAddressConstKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDeviceOrHostAddressConstKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AccelerationStructureGeometryDataKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkAccelerationStructureGeometryDataKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     create_acceleration_structure_khr: PFN_vkCreateAccelerationStructureKHR,
     destroy_acceleration_structure_khr: PFN_vkDestroyAccelerationStructureKHR,

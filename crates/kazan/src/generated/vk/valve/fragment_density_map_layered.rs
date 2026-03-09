@@ -187,3 +187,40 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE =
+        PhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE<'static>;
+    pub type VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE =
+        PhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE<'static>;
+    pub type VkPipelineFragmentDensityMapLayeredCreateInfoVALVE =
+        PipelineFragmentDensityMapLayeredCreateInfoVALVE<'static>;
+    impl PhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineFragmentDensityMapLayeredCreateInfoVALVE<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPipelineFragmentDensityMapLayeredCreateInfoVALVE {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

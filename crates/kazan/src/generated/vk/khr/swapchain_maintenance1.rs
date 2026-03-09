@@ -355,6 +355,58 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR =
+        PhysicalDeviceSwapchainMaintenance1FeaturesKHR<'static>;
+    pub type VkSwapchainPresentFenceInfoKHR = SwapchainPresentFenceInfoKHR<'static>;
+    pub type VkSwapchainPresentModesCreateInfoKHR = SwapchainPresentModesCreateInfoKHR<'static>;
+    pub type VkSwapchainPresentModeInfoKHR = SwapchainPresentModeInfoKHR<'static>;
+    pub type VkSwapchainPresentScalingCreateInfoKHR = SwapchainPresentScalingCreateInfoKHR<'static>;
+    pub type VkReleaseSwapchainImagesInfoKHR = ReleaseSwapchainImagesInfoKHR<'static>;
+    impl PhysicalDeviceSwapchainMaintenance1FeaturesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SwapchainPresentFenceInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSwapchainPresentFenceInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SwapchainPresentModesCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSwapchainPresentModesCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SwapchainPresentModeInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSwapchainPresentModeInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SwapchainPresentScalingCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSwapchainPresentScalingCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ReleaseSwapchainImagesInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkReleaseSwapchainImagesInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     release_swapchain_images_khr: PFN_vkReleaseSwapchainImagesKHR,
 }

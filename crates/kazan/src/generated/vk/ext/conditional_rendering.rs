@@ -253,6 +253,42 @@ pub(super) mod defs {
         unsafe extern "system" fn(command_buffer: CommandBuffer);
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkConditionalRenderingBeginInfoEXT = ConditionalRenderingBeginInfoEXT<'static>;
+    pub type VkCommandBufferInheritanceConditionalRenderingInfoEXT =
+        CommandBufferInheritanceConditionalRenderingInfoEXT<'static>;
+    pub type VkPhysicalDeviceConditionalRenderingFeaturesEXT =
+        PhysicalDeviceConditionalRenderingFeaturesEXT<'static>;
+    pub type VkConditionalRenderingFlagsEXT = ConditionalRenderingFlagsEXT;
+    pub type VkConditionalRenderingFlagBitsEXT = ConditionalRenderingFlagBitsEXT;
+    impl ConditionalRenderingBeginInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkConditionalRenderingBeginInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CommandBufferInheritanceConditionalRenderingInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkCommandBufferInheritanceConditionalRenderingInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceConditionalRenderingFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceConditionalRenderingFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_begin_conditional_rendering_ext: PFN_vkCmdBeginConditionalRenderingEXT,
     cmd_end_conditional_rendering_ext: PFN_vkCmdEndConditionalRenderingEXT,

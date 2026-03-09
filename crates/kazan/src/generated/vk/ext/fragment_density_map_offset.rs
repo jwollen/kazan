@@ -200,6 +200,44 @@ pub(super) mod defs {
     }
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT =
+        PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT<'static>;
+    pub type VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT =
+        PhysicalDeviceFragmentDensityMapOffsetPropertiesEXT<'static>;
+    pub type VkRenderPassFragmentDensityMapOffsetEndInfoEXT =
+        RenderPassFragmentDensityMapOffsetEndInfoEXT<'static>;
+    pub type VkRenderingEndInfoEXT = RenderingEndInfoEXT<'static>;
+    impl PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceFragmentDensityMapOffsetPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl RenderPassFragmentDensityMapOffsetEndInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkRenderPassFragmentDensityMapOffsetEndInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_end_rendering2_ext: PFN_vkCmdEndRendering2KHR,
 }

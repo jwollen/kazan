@@ -124,3 +124,30 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceLegacyVertexAttributesFeaturesEXT =
+        PhysicalDeviceLegacyVertexAttributesFeaturesEXT<'static>;
+    pub type VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT =
+        PhysicalDeviceLegacyVertexAttributesPropertiesEXT<'static>;
+    impl PhysicalDeviceLegacyVertexAttributesFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceLegacyVertexAttributesFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceLegacyVertexAttributesPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

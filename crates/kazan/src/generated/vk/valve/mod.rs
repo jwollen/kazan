@@ -9,3 +9,10 @@ pub(super) mod defs {
     pub use mutable_descriptor_type::defs::*;
     pub use video_encode_rgb_conversion::defs::*;
 }
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    pub use super::descriptor_set_host_mapping::ffi::*;
+    pub use super::fragment_density_map_layered::ffi::*;
+    pub use super::mutable_descriptor_type::ffi::*;
+    pub use super::video_encode_rgb_conversion::ffi::*;
+}

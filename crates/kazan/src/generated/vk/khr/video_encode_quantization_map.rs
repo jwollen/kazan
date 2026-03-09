@@ -596,3 +596,103 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkVideoEncodeQuantizationMapCapabilitiesKHR =
+        VideoEncodeQuantizationMapCapabilitiesKHR<'static>;
+    pub type VkVideoEncodeH264QuantizationMapCapabilitiesKHR =
+        VideoEncodeH264QuantizationMapCapabilitiesKHR<'static>;
+    pub type VkVideoEncodeH265QuantizationMapCapabilitiesKHR =
+        VideoEncodeH265QuantizationMapCapabilitiesKHR<'static>;
+    pub type VkVideoEncodeAV1QuantizationMapCapabilitiesKHR =
+        VideoEncodeAV1QuantizationMapCapabilitiesKHR<'static>;
+    pub type VkVideoFormatQuantizationMapPropertiesKHR =
+        VideoFormatQuantizationMapPropertiesKHR<'static>;
+    pub type VkVideoFormatH265QuantizationMapPropertiesKHR =
+        VideoFormatH265QuantizationMapPropertiesKHR<'static>;
+    pub type VkVideoFormatAV1QuantizationMapPropertiesKHR =
+        VideoFormatAV1QuantizationMapPropertiesKHR<'static>;
+    pub type VkVideoEncodeQuantizationMapInfoKHR = VideoEncodeQuantizationMapInfoKHR<'static>;
+    pub type VkVideoEncodeQuantizationMapSessionParametersCreateInfoKHR =
+        VideoEncodeQuantizationMapSessionParametersCreateInfoKHR<'static>;
+    pub type VkPhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR =
+        PhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR<'static>;
+    impl VideoEncodeQuantizationMapCapabilitiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeQuantizationMapCapabilitiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeH264QuantizationMapCapabilitiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkVideoEncodeH264QuantizationMapCapabilitiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeH265QuantizationMapCapabilitiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkVideoEncodeH265QuantizationMapCapabilitiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeAV1QuantizationMapCapabilitiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkVideoEncodeAV1QuantizationMapCapabilitiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoFormatQuantizationMapPropertiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoFormatQuantizationMapPropertiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoFormatH265QuantizationMapPropertiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkVideoFormatH265QuantizationMapPropertiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoFormatAV1QuantizationMapPropertiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkVideoFormatAV1QuantizationMapPropertiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeQuantizationMapInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkVideoEncodeQuantizationMapInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl VideoEncodeQuantizationMapSessionParametersCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkVideoEncodeQuantizationMapSessionParametersCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

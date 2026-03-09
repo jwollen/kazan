@@ -5,3 +5,8 @@ pub(super) mod defs {
     pub use frame_token::defs::*;
     pub use stream_descriptor_surface::defs::*;
 }
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    pub use super::frame_token::ffi::*;
+    pub use super::stream_descriptor_surface::ffi::*;
+}

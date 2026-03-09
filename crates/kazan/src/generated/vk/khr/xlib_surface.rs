@@ -107,6 +107,21 @@ pub(super) mod defs {
         ) -> Bool32;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkXlibSurfaceCreateInfoKHR = XlibSurfaceCreateInfoKHR<'static>;
+    pub type VkXlibSurfaceCreateFlagsKHR = XlibSurfaceCreateFlagsKHR;
+    impl XlibSurfaceCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkXlibSurfaceCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     create_xlib_surface_khr: PFN_vkCreateXlibSurfaceKHR,
     get_physical_device_xlib_presentation_support_khr:

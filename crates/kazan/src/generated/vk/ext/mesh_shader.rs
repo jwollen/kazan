@@ -571,6 +571,29 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceMeshShaderFeaturesEXT = PhysicalDeviceMeshShaderFeaturesEXT<'static>;
+    pub type VkPhysicalDeviceMeshShaderPropertiesEXT =
+        PhysicalDeviceMeshShaderPropertiesEXT<'static>;
+    pub type VkDrawMeshTasksIndirectCommandEXT = DrawMeshTasksIndirectCommandEXT;
+    impl PhysicalDeviceMeshShaderFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceMeshShaderFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceMeshShaderPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceMeshShaderPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_draw_mesh_tasks_ext: PFN_vkCmdDrawMeshTasksEXT,
     cmd_draw_mesh_tasks_indirect_ext: PFN_vkCmdDrawMeshTasksIndirectEXT,

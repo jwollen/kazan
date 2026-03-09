@@ -1993,6 +1993,197 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkTensorARM = TensorARM;
+    pub type VkTensorViewARM = TensorViewARM;
+    pub type VkTensorDescriptionARM = TensorDescriptionARM<'static>;
+    pub type VkTensorCreateInfoARM = TensorCreateInfoARM<'static>;
+    pub type VkTensorViewCreateInfoARM = TensorViewCreateInfoARM<'static>;
+    pub type VkTensorMemoryRequirementsInfoARM = TensorMemoryRequirementsInfoARM<'static>;
+    pub type VkBindTensorMemoryInfoARM = BindTensorMemoryInfoARM<'static>;
+    pub type VkWriteDescriptorSetTensorARM = WriteDescriptorSetTensorARM<'static>;
+    pub type VkTensorFormatPropertiesARM = TensorFormatPropertiesARM<'static>;
+    pub type VkPhysicalDeviceTensorPropertiesARM = PhysicalDeviceTensorPropertiesARM<'static>;
+    pub type VkTensorMemoryBarrierARM = TensorMemoryBarrierARM<'static>;
+    pub type VkTensorDependencyInfoARM = TensorDependencyInfoARM<'static>;
+    pub type VkPhysicalDeviceTensorFeaturesARM = PhysicalDeviceTensorFeaturesARM<'static>;
+    pub type VkDeviceTensorMemoryRequirementsARM = DeviceTensorMemoryRequirementsARM<'static>;
+    pub type VkCopyTensorInfoARM = CopyTensorInfoARM<'static>;
+    pub type VkTensorCopyARM = TensorCopyARM<'static>;
+    pub type VkMemoryDedicatedAllocateInfoTensorARM = MemoryDedicatedAllocateInfoTensorARM<'static>;
+    pub type VkPhysicalDeviceDescriptorBufferTensorPropertiesARM =
+        PhysicalDeviceDescriptorBufferTensorPropertiesARM<'static>;
+    pub type VkPhysicalDeviceDescriptorBufferTensorFeaturesARM =
+        PhysicalDeviceDescriptorBufferTensorFeaturesARM<'static>;
+    pub type VkTensorCaptureDescriptorDataInfoARM = TensorCaptureDescriptorDataInfoARM<'static>;
+    pub type VkTensorViewCaptureDescriptorDataInfoARM =
+        TensorViewCaptureDescriptorDataInfoARM<'static>;
+    pub type VkDescriptorGetTensorInfoARM = DescriptorGetTensorInfoARM<'static>;
+    pub type VkFrameBoundaryTensorsARM = FrameBoundaryTensorsARM<'static>;
+    pub type VkPhysicalDeviceExternalTensorInfoARM = PhysicalDeviceExternalTensorInfoARM<'static>;
+    pub type VkExternalTensorPropertiesARM = ExternalTensorPropertiesARM<'static>;
+    pub type VkExternalMemoryTensorCreateInfoARM = ExternalMemoryTensorCreateInfoARM<'static>;
+    pub type VkTensorTilingARM = TensorTilingARM;
+    pub type VkTensorCreateFlagsARM = TensorCreateFlagsARM;
+    pub type VkTensorCreateFlagBitsARM = TensorCreateFlagBitsARM;
+    pub type VkTensorUsageFlagsARM = TensorUsageFlagsARM;
+    pub type VkTensorUsageFlagBitsARM = TensorUsageFlagBitsARM;
+    pub type VkTensorViewCreateFlagsARM = TensorViewCreateFlagsARM;
+    pub type VkTensorViewCreateFlagBitsARM = TensorViewCreateFlagBitsARM;
+    impl TensorDescriptionARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkTensorDescriptionARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl TensorCreateInfoARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkTensorCreateInfoARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl TensorViewCreateInfoARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkTensorViewCreateInfoARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl TensorMemoryRequirementsInfoARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkTensorMemoryRequirementsInfoARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BindTensorMemoryInfoARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBindTensorMemoryInfoARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl WriteDescriptorSetTensorARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkWriteDescriptorSetTensorARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl TensorFormatPropertiesARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkTensorFormatPropertiesARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceTensorPropertiesARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceTensorPropertiesARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl TensorMemoryBarrierARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkTensorMemoryBarrierARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl TensorDependencyInfoARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkTensorDependencyInfoARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceTensorFeaturesARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceTensorFeaturesARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DeviceTensorMemoryRequirementsARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDeviceTensorMemoryRequirementsARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CopyTensorInfoARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCopyTensorInfoARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl TensorCopyARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkTensorCopyARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MemoryDedicatedAllocateInfoTensorARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMemoryDedicatedAllocateInfoTensorARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceDescriptorBufferTensorPropertiesARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceDescriptorBufferTensorPropertiesARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceDescriptorBufferTensorFeaturesARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceDescriptorBufferTensorFeaturesARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl TensorCaptureDescriptorDataInfoARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkTensorCaptureDescriptorDataInfoARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl TensorViewCaptureDescriptorDataInfoARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkTensorViewCaptureDescriptorDataInfoARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DescriptorGetTensorInfoARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDescriptorGetTensorInfoARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl FrameBoundaryTensorsARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkFrameBoundaryTensorsARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceExternalTensorInfoARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceExternalTensorInfoARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ExternalTensorPropertiesARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExternalTensorPropertiesARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ExternalMemoryTensorCreateInfoARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExternalMemoryTensorCreateInfoARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     get_physical_device_external_tensor_properties_arm:
         PFN_vkGetPhysicalDeviceExternalTensorPropertiesARM,

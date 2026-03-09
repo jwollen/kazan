@@ -197,6 +197,41 @@ pub(super) mod defs {
         unsafe extern "system" fn(command_buffer: CommandBuffer);
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkSubpassShadingPipelineCreateInfoHUAWEI =
+        SubpassShadingPipelineCreateInfoHUAWEI<'static>;
+    pub type VkPhysicalDeviceSubpassShadingPropertiesHUAWEI =
+        PhysicalDeviceSubpassShadingPropertiesHUAWEI<'static>;
+    pub type VkPhysicalDeviceSubpassShadingFeaturesHUAWEI =
+        PhysicalDeviceSubpassShadingFeaturesHUAWEI<'static>;
+    impl SubpassShadingPipelineCreateInfoHUAWEI<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSubpassShadingPipelineCreateInfoHUAWEI {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceSubpassShadingPropertiesHUAWEI<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceSubpassShadingPropertiesHUAWEI {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceSubpassShadingFeaturesHUAWEI<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceSubpassShadingFeaturesHUAWEI {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     get_device_subpass_shading_max_workgroup_size_huawei:
         PFN_vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI,

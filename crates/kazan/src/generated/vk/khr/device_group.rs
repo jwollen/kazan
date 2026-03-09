@@ -38,6 +38,22 @@ pub(super) mod defs {
     pub type PFN_vkCmdDispatchBaseKHR = PFN_vkCmdDispatchBase;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkMemoryAllocateFlagsInfoKHR = MemoryAllocateFlagsInfoKHR<'static>;
+    pub type VkBindBufferMemoryDeviceGroupInfoKHR = BindBufferMemoryDeviceGroupInfoKHR<'static>;
+    pub type VkBindImageMemoryDeviceGroupInfoKHR = BindImageMemoryDeviceGroupInfoKHR<'static>;
+    pub type VkDeviceGroupRenderPassBeginInfoKHR = DeviceGroupRenderPassBeginInfoKHR<'static>;
+    pub type VkDeviceGroupCommandBufferBeginInfoKHR = DeviceGroupCommandBufferBeginInfoKHR<'static>;
+    pub type VkDeviceGroupSubmitInfoKHR = DeviceGroupSubmitInfoKHR<'static>;
+    pub type VkDeviceGroupBindSparseInfoKHR = DeviceGroupBindSparseInfoKHR<'static>;
+    pub type VkPeerMemoryFeatureFlagsKHR = PeerMemoryFeatureFlagsKHR;
+    pub type VkMemoryAllocateFlagsKHR = MemoryAllocateFlagsKHR;
+}
+
 pub struct InstanceFn {
     get_physical_device_present_rectangles_khr: Option<PFN_vkGetPhysicalDevicePresentRectanglesKHR>,
 }

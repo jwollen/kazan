@@ -24,3 +24,15 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkResolveModeFlagsKHR.html>
     pub type ResolveModeFlagsKHR = ResolveModeFlags;
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceDepthStencilResolvePropertiesKHR =
+        PhysicalDeviceDepthStencilResolvePropertiesKHR<'static>;
+    pub type VkSubpassDescriptionDepthStencilResolveKHR =
+        SubpassDescriptionDepthStencilResolveKHR<'static>;
+    pub type VkResolveModeFlagsKHR = ResolveModeFlagsKHR;
+}

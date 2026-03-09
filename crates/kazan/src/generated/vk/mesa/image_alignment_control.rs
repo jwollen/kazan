@@ -178,3 +178,37 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceImageAlignmentControlFeaturesMESA =
+        PhysicalDeviceImageAlignmentControlFeaturesMESA<'static>;
+    pub type VkPhysicalDeviceImageAlignmentControlPropertiesMESA =
+        PhysicalDeviceImageAlignmentControlPropertiesMESA<'static>;
+    pub type VkImageAlignmentControlCreateInfoMESA = ImageAlignmentControlCreateInfoMESA<'static>;
+    impl PhysicalDeviceImageAlignmentControlFeaturesMESA<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceImageAlignmentControlFeaturesMESA {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceImageAlignmentControlPropertiesMESA<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceImageAlignmentControlPropertiesMESA {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImageAlignmentControlCreateInfoMESA<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImageAlignmentControlCreateInfoMESA {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

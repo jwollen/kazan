@@ -58,3 +58,37 @@ pub mod valve;
 pub use valve::defs::*;
 pub mod video;
 pub use video::defs::*;
+#[cfg(feature = "ffi")]
+#[allow(non_camel_case_types)]
+pub mod ffi {
+    pub use super::amd::ffi::*;
+    pub use super::amdx::ffi::*;
+    pub use super::android::ffi::*;
+    pub use super::arm::ffi::*;
+    pub use super::ext::ffi::*;
+    pub use super::fuchsia::ffi::*;
+    pub use super::ggp::ffi::*;
+    pub use super::google::ffi::*;
+    pub use super::huawei::ffi::*;
+    pub use super::img::ffi::*;
+    pub use super::intel::ffi::*;
+    pub use super::khr::ffi::*;
+    pub use super::lunarg::ffi::*;
+    pub use super::mesa::ffi::*;
+    pub use super::msft::ffi::*;
+    pub use super::mvk::ffi::*;
+    pub use super::nn::ffi::*;
+    pub use super::nv::ffi::*;
+    pub use super::nvx::ffi::*;
+    pub use super::ohos::ffi::*;
+    pub use super::qcom::ffi::*;
+    pub use super::qnx::ffi::*;
+    pub use super::sec::ffi::*;
+    pub use super::valve::ffi::*;
+    pub use super::video::ffi::*;
+    pub use super::vk1_0::ffi::*;
+    pub use super::vk1_1::ffi::*;
+    pub use super::vk1_2::ffi::*;
+    pub use super::vk1_3::ffi::*;
+    pub use super::vk1_4::ffi::*;
+}

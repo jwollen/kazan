@@ -307,3 +307,33 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceConservativeRasterizationPropertiesEXT =
+        PhysicalDeviceConservativeRasterizationPropertiesEXT<'static>;
+    pub type VkPipelineRasterizationConservativeStateCreateInfoEXT =
+        PipelineRasterizationConservativeStateCreateInfoEXT<'static>;
+    pub type VkConservativeRasterizationModeEXT = ConservativeRasterizationModeEXT;
+    pub type VkPipelineRasterizationConservativeStateCreateFlagsEXT =
+        PipelineRasterizationConservativeStateCreateFlagsEXT;
+    impl PhysicalDeviceConservativeRasterizationPropertiesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceConservativeRasterizationPropertiesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineRasterizationConservativeStateCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPipelineRasterizationConservativeStateCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

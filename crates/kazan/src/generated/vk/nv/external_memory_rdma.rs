@@ -131,6 +131,31 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkRemoteAddressNV = RemoteAddressNV;
+    pub type VkPhysicalDeviceExternalMemoryRDMAFeaturesNV =
+        PhysicalDeviceExternalMemoryRDMAFeaturesNV<'static>;
+    pub type VkMemoryGetRemoteAddressInfoNV = MemoryGetRemoteAddressInfoNV<'static>;
+    impl PhysicalDeviceExternalMemoryRDMAFeaturesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceExternalMemoryRDMAFeaturesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MemoryGetRemoteAddressInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMemoryGetRemoteAddressInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     get_memory_remote_address_nv: PFN_vkGetMemoryRemoteAddressNV,
 }

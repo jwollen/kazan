@@ -131,3 +131,30 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR =
+        PhysicalDeviceFragmentShaderBarycentricFeaturesKHR<'static>;
+    pub type VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR =
+        PhysicalDeviceFragmentShaderBarycentricPropertiesKHR<'static>;
+    impl PhysicalDeviceFragmentShaderBarycentricFeaturesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceFragmentShaderBarycentricPropertiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

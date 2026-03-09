@@ -175,3 +175,34 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT =
+        PhysicalDeviceMutableDescriptorTypeFeaturesEXT<'static>;
+    pub type VkMutableDescriptorTypeListEXT = MutableDescriptorTypeListEXT<'static>;
+    pub type VkMutableDescriptorTypeCreateInfoEXT = MutableDescriptorTypeCreateInfoEXT<'static>;
+    impl PhysicalDeviceMutableDescriptorTypeFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MutableDescriptorTypeListEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMutableDescriptorTypeListEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MutableDescriptorTypeCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMutableDescriptorTypeCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

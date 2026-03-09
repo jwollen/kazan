@@ -13,6 +13,7 @@ linked = []
 loaded = ["libloading", "std"]
 std = []
 window = ["raw-window-handle"]
+ffi = []
 
 [dependencies]
 libloading = { version = "0.9", optional = true }

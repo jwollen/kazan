@@ -94,6 +94,27 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceCopyMemoryIndirectFeaturesNV =
+        PhysicalDeviceCopyMemoryIndirectFeaturesNV<'static>;
+    pub type VkCopyMemoryIndirectCommandNV = CopyMemoryIndirectCommandNV;
+    pub type VkCopyMemoryToImageIndirectCommandNV = CopyMemoryToImageIndirectCommandNV;
+    pub type VkPhysicalDeviceCopyMemoryIndirectPropertiesNV =
+        PhysicalDeviceCopyMemoryIndirectPropertiesNV<'static>;
+    impl PhysicalDeviceCopyMemoryIndirectFeaturesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceCopyMemoryIndirectFeaturesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     cmd_copy_memory_indirect_nv: PFN_vkCmdCopyMemoryIndirectNV,
     cmd_copy_memory_to_image_indirect_nv: PFN_vkCmdCopyMemoryToImageIndirectNV,

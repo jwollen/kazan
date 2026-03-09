@@ -162,3 +162,31 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDevicePresentId2FeaturesKHR = PhysicalDevicePresentId2FeaturesKHR<'static>;
+    pub type VkPresentId2KHR = PresentId2KHR<'static>;
+    pub type VkSurfaceCapabilitiesPresentId2KHR = SurfaceCapabilitiesPresentId2KHR<'static>;
+    impl PhysicalDevicePresentId2FeaturesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDevicePresentId2FeaturesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PresentId2KHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPresentId2KHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SurfaceCapabilitiesPresentId2KHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSurfaceCapabilitiesPresentId2KHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

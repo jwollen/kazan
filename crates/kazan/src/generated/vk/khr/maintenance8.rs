@@ -159,3 +159,27 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceMaintenance8FeaturesKHR =
+        PhysicalDeviceMaintenance8FeaturesKHR<'static>;
+    pub type VkMemoryBarrierAccessFlags3KHR = MemoryBarrierAccessFlags3KHR<'static>;
+    pub type VkAccessFlags3KHR = AccessFlags3KHR;
+    pub type VkAccessFlagBits3KHR = AccessFlagBits3KHR;
+    impl PhysicalDeviceMaintenance8FeaturesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceMaintenance8FeaturesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MemoryBarrierAccessFlags3KHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMemoryBarrierAccessFlags3KHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

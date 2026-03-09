@@ -22520,6 +22520,630 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkSampleMask = SampleMask;
+    pub type VkBool32 = Bool32;
+    pub type VkFlags = Flags;
+    pub type VkDeviceSize = DeviceSize;
+    pub type VkDeviceAddress = DeviceAddress;
+    pub type VkInstance = Instance;
+    pub type VkPhysicalDevice = PhysicalDevice;
+    pub type VkDevice = Device;
+    pub type VkQueue = Queue;
+    pub type VkCommandBuffer = CommandBuffer;
+    pub type VkDeviceMemory = DeviceMemory;
+    pub type VkCommandPool = CommandPool;
+    pub type VkBuffer = Buffer;
+    pub type VkBufferView = BufferView;
+    pub type VkImage = Image;
+    pub type VkImageView = ImageView;
+    pub type VkShaderModule = ShaderModule;
+    pub type VkPipeline = Pipeline;
+    pub type VkPipelineLayout = PipelineLayout;
+    pub type VkSampler = Sampler;
+    pub type VkDescriptorSet = DescriptorSet;
+    pub type VkDescriptorSetLayout = DescriptorSetLayout;
+    pub type VkDescriptorPool = DescriptorPool;
+    pub type VkFence = Fence;
+    pub type VkSemaphore = Semaphore;
+    pub type VkEvent = Event;
+    pub type VkQueryPool = QueryPool;
+    pub type VkFramebuffer = Framebuffer;
+    pub type VkRenderPass = RenderPass;
+    pub type VkPipelineCache = PipelineCache;
+    pub type VkBaseOutStructure = BaseOutStructure<'static>;
+    pub type VkBaseInStructure = BaseInStructure<'static>;
+    pub type VkOffset2D = Offset2D;
+    pub type VkOffset3D = Offset3D;
+    pub type VkExtent2D = Extent2D;
+    pub type VkExtent3D = Extent3D;
+    pub type VkViewport = Viewport;
+    pub type VkRect2D = Rect2D;
+    pub type VkClearRect = ClearRect;
+    pub type VkComponentMapping = ComponentMapping;
+    pub type VkPhysicalDeviceProperties = PhysicalDeviceProperties;
+    pub type VkExtensionProperties = ExtensionProperties;
+    pub type VkLayerProperties = LayerProperties;
+    pub type VkApplicationInfo = ApplicationInfo<'static>;
+    pub type VkAllocationCallbacks = AllocationCallbacks<'static>;
+    pub type VkDeviceQueueCreateInfo = DeviceQueueCreateInfo<'static>;
+    pub type VkDeviceCreateInfo = DeviceCreateInfo<'static>;
+    pub type VkInstanceCreateInfo = InstanceCreateInfo<'static>;
+    pub type VkQueueFamilyProperties = QueueFamilyProperties;
+    pub type VkPhysicalDeviceMemoryProperties = PhysicalDeviceMemoryProperties;
+    pub type VkMemoryAllocateInfo = MemoryAllocateInfo<'static>;
+    pub type VkMemoryRequirements = MemoryRequirements;
+    pub type VkSparseImageFormatProperties = SparseImageFormatProperties;
+    pub type VkSparseImageMemoryRequirements = SparseImageMemoryRequirements;
+    pub type VkMemoryType = MemoryType;
+    pub type VkMemoryHeap = MemoryHeap;
+    pub type VkMappedMemoryRange = MappedMemoryRange<'static>;
+    pub type VkFormatProperties = FormatProperties;
+    pub type VkImageFormatProperties = ImageFormatProperties;
+    pub type VkDescriptorBufferInfo = DescriptorBufferInfo;
+    pub type VkDescriptorImageInfo = DescriptorImageInfo;
+    pub type VkWriteDescriptorSet = WriteDescriptorSet<'static>;
+    pub type VkCopyDescriptorSet = CopyDescriptorSet<'static>;
+    pub type VkBufferCreateInfo = BufferCreateInfo<'static>;
+    pub type VkBufferViewCreateInfo = BufferViewCreateInfo<'static>;
+    pub type VkImageSubresource = ImageSubresource;
+    pub type VkImageSubresourceLayers = ImageSubresourceLayers;
+    pub type VkImageSubresourceRange = ImageSubresourceRange;
+    pub type VkMemoryBarrier = MemoryBarrier<'static>;
+    pub type VkBufferMemoryBarrier = BufferMemoryBarrier<'static>;
+    pub type VkImageMemoryBarrier = ImageMemoryBarrier<'static>;
+    pub type VkImageCreateInfo = ImageCreateInfo<'static>;
+    pub type VkSubresourceLayout = SubresourceLayout;
+    pub type VkImageViewCreateInfo = ImageViewCreateInfo<'static>;
+    pub type VkBufferCopy = BufferCopy;
+    pub type VkSparseMemoryBind = SparseMemoryBind;
+    pub type VkSparseImageMemoryBind = SparseImageMemoryBind;
+    pub type VkSparseBufferMemoryBindInfo = SparseBufferMemoryBindInfo<'static>;
+    pub type VkSparseImageOpaqueMemoryBindInfo = SparseImageOpaqueMemoryBindInfo<'static>;
+    pub type VkSparseImageMemoryBindInfo = SparseImageMemoryBindInfo<'static>;
+    pub type VkBindSparseInfo = BindSparseInfo<'static>;
+    pub type VkImageCopy = ImageCopy;
+    pub type VkImageBlit = ImageBlit;
+    pub type VkBufferImageCopy = BufferImageCopy;
+    pub type VkImageResolve = ImageResolve;
+    pub type VkShaderModuleCreateInfo = ShaderModuleCreateInfo<'static>;
+    pub type VkDescriptorSetLayoutBinding = DescriptorSetLayoutBinding<'static>;
+    pub type VkDescriptorSetLayoutCreateInfo = DescriptorSetLayoutCreateInfo<'static>;
+    pub type VkDescriptorPoolSize = DescriptorPoolSize;
+    pub type VkDescriptorPoolCreateInfo = DescriptorPoolCreateInfo<'static>;
+    pub type VkDescriptorSetAllocateInfo = DescriptorSetAllocateInfo<'static>;
+    pub type VkSpecializationMapEntry = SpecializationMapEntry;
+    pub type VkSpecializationInfo = SpecializationInfo<'static>;
+    pub type VkPipelineShaderStageCreateInfo = PipelineShaderStageCreateInfo<'static>;
+    pub type VkComputePipelineCreateInfo = ComputePipelineCreateInfo<'static>;
+    pub type VkVertexInputBindingDescription = VertexInputBindingDescription;
+    pub type VkVertexInputAttributeDescription = VertexInputAttributeDescription;
+    pub type VkPipelineVertexInputStateCreateInfo = PipelineVertexInputStateCreateInfo<'static>;
+    pub type VkPipelineInputAssemblyStateCreateInfo = PipelineInputAssemblyStateCreateInfo<'static>;
+    pub type VkPipelineTessellationStateCreateInfo = PipelineTessellationStateCreateInfo<'static>;
+    pub type VkPipelineViewportStateCreateInfo = PipelineViewportStateCreateInfo<'static>;
+    pub type VkPipelineRasterizationStateCreateInfo = PipelineRasterizationStateCreateInfo<'static>;
+    pub type VkPipelineMultisampleStateCreateInfo = PipelineMultisampleStateCreateInfo<'static>;
+    pub type VkPipelineColorBlendAttachmentState = PipelineColorBlendAttachmentState;
+    pub type VkPipelineColorBlendStateCreateInfo = PipelineColorBlendStateCreateInfo<'static>;
+    pub type VkPipelineDynamicStateCreateInfo = PipelineDynamicStateCreateInfo<'static>;
+    pub type VkStencilOpState = StencilOpState;
+    pub type VkPipelineDepthStencilStateCreateInfo = PipelineDepthStencilStateCreateInfo<'static>;
+    pub type VkGraphicsPipelineCreateInfo = GraphicsPipelineCreateInfo<'static>;
+    pub type VkPipelineCacheCreateInfo = PipelineCacheCreateInfo<'static>;
+    pub type VkPipelineCacheHeaderVersionOne = PipelineCacheHeaderVersionOne;
+    pub type VkPushConstantRange = PushConstantRange;
+    pub type VkPipelineLayoutCreateInfo = PipelineLayoutCreateInfo<'static>;
+    pub type VkSamplerCreateInfo = SamplerCreateInfo<'static>;
+    pub type VkCommandPoolCreateInfo = CommandPoolCreateInfo<'static>;
+    pub type VkCommandBufferAllocateInfo = CommandBufferAllocateInfo<'static>;
+    pub type VkCommandBufferInheritanceInfo = CommandBufferInheritanceInfo<'static>;
+    pub type VkCommandBufferBeginInfo = CommandBufferBeginInfo<'static>;
+    pub type VkRenderPassBeginInfo = RenderPassBeginInfo<'static>;
+    pub type VkClearDepthStencilValue = ClearDepthStencilValue;
+    pub type VkClearAttachment = ClearAttachment;
+    pub type VkAttachmentDescription = AttachmentDescription;
+    pub type VkAttachmentReference = AttachmentReference;
+    pub type VkSubpassDescription = SubpassDescription<'static>;
+    pub type VkSubpassDependency = SubpassDependency;
+    pub type VkRenderPassCreateInfo = RenderPassCreateInfo<'static>;
+    pub type VkEventCreateInfo = EventCreateInfo<'static>;
+    pub type VkFenceCreateInfo = FenceCreateInfo<'static>;
+    pub type VkPhysicalDeviceFeatures = PhysicalDeviceFeatures;
+    pub type VkPhysicalDeviceSparseProperties = PhysicalDeviceSparseProperties;
+    pub type VkPhysicalDeviceLimits = PhysicalDeviceLimits;
+    pub type VkSemaphoreCreateInfo = SemaphoreCreateInfo<'static>;
+    pub type VkQueryPoolCreateInfo = QueryPoolCreateInfo<'static>;
+    pub type VkFramebufferCreateInfo = FramebufferCreateInfo<'static>;
+    pub type VkDrawIndirectCommand = DrawIndirectCommand;
+    pub type VkDrawIndexedIndirectCommand = DrawIndexedIndirectCommand;
+    pub type VkDispatchIndirectCommand = DispatchIndirectCommand;
+    pub type VkSubmitInfo = SubmitInfo<'static>;
+    pub type VkClearColorValue = ClearColorValue;
+    pub type VkClearValue = ClearValue;
+    pub type VkImageLayout = ImageLayout;
+    pub type VkAttachmentLoadOp = AttachmentLoadOp;
+    pub type VkAttachmentStoreOp = AttachmentStoreOp;
+    pub type VkImageType = ImageType;
+    pub type VkImageTiling = ImageTiling;
+    pub type VkImageViewType = ImageViewType;
+    pub type VkCommandBufferLevel = CommandBufferLevel;
+    pub type VkComponentSwizzle = ComponentSwizzle;
+    pub type VkDescriptorType = DescriptorType;
+    pub type VkQueryType = QueryType;
+    pub type VkBorderColor = BorderColor;
+    pub type VkPipelineBindPoint = PipelineBindPoint;
+    pub type VkPipelineCacheHeaderVersion = PipelineCacheHeaderVersion;
+    pub type VkPrimitiveTopology = PrimitiveTopology;
+    pub type VkSharingMode = SharingMode;
+    pub type VkIndexType = IndexType;
+    pub type VkFilter = Filter;
+    pub type VkSamplerMipmapMode = SamplerMipmapMode;
+    pub type VkSamplerAddressMode = SamplerAddressMode;
+    pub type VkCompareOp = CompareOp;
+    pub type VkPolygonMode = PolygonMode;
+    pub type VkFrontFace = FrontFace;
+    pub type VkBlendFactor = BlendFactor;
+    pub type VkBlendOp = BlendOp;
+    pub type VkStencilOp = StencilOp;
+    pub type VkLogicOp = LogicOp;
+    pub type VkInternalAllocationType = InternalAllocationType;
+    pub type VkSystemAllocationScope = SystemAllocationScope;
+    pub type VkPhysicalDeviceType = PhysicalDeviceType;
+    pub type VkVertexInputRate = VertexInputRate;
+    pub type VkFormat = Format;
+    pub type VkStructureType = StructureType;
+    pub type VkSubpassContents = SubpassContents;
+    pub type VkResult = Result;
+    pub type VkDynamicState = DynamicState;
+    pub type VkObjectType = ObjectType;
+    pub type VkVendorId = VendorId;
+    pub type VkFramebufferCreateFlags = FramebufferCreateFlags;
+    pub type VkFramebufferCreateFlagBits = FramebufferCreateFlagBits;
+    pub type VkQueryPoolCreateFlags = QueryPoolCreateFlags;
+    pub type VkQueryPoolCreateFlagBits = QueryPoolCreateFlagBits;
+    pub type VkRenderPassCreateFlags = RenderPassCreateFlags;
+    pub type VkRenderPassCreateFlagBits = RenderPassCreateFlagBits;
+    pub type VkSamplerCreateFlags = SamplerCreateFlags;
+    pub type VkSamplerCreateFlagBits = SamplerCreateFlagBits;
+    pub type VkPipelineLayoutCreateFlags = PipelineLayoutCreateFlags;
+    pub type VkPipelineLayoutCreateFlagBits = PipelineLayoutCreateFlagBits;
+    pub type VkPipelineCacheCreateFlags = PipelineCacheCreateFlags;
+    pub type VkPipelineCacheCreateFlagBits = PipelineCacheCreateFlagBits;
+    pub type VkPipelineDepthStencilStateCreateFlags = PipelineDepthStencilStateCreateFlags;
+    pub type VkPipelineDepthStencilStateCreateFlagBits = PipelineDepthStencilStateCreateFlagBits;
+    pub type VkPipelineDynamicStateCreateFlags = PipelineDynamicStateCreateFlags;
+    pub type VkPipelineColorBlendStateCreateFlags = PipelineColorBlendStateCreateFlags;
+    pub type VkPipelineColorBlendStateCreateFlagBits = PipelineColorBlendStateCreateFlagBits;
+    pub type VkPipelineMultisampleStateCreateFlags = PipelineMultisampleStateCreateFlags;
+    pub type VkPipelineRasterizationStateCreateFlags = PipelineRasterizationStateCreateFlags;
+    pub type VkPipelineViewportStateCreateFlags = PipelineViewportStateCreateFlags;
+    pub type VkPipelineTessellationStateCreateFlags = PipelineTessellationStateCreateFlags;
+    pub type VkPipelineInputAssemblyStateCreateFlags = PipelineInputAssemblyStateCreateFlags;
+    pub type VkPipelineVertexInputStateCreateFlags = PipelineVertexInputStateCreateFlags;
+    pub type VkPipelineShaderStageCreateFlags = PipelineShaderStageCreateFlags;
+    pub type VkPipelineShaderStageCreateFlagBits = PipelineShaderStageCreateFlagBits;
+    pub type VkDescriptorSetLayoutCreateFlags = DescriptorSetLayoutCreateFlags;
+    pub type VkDescriptorSetLayoutCreateFlagBits = DescriptorSetLayoutCreateFlagBits;
+    pub type VkBufferViewCreateFlags = BufferViewCreateFlags;
+    pub type VkInstanceCreateFlags = InstanceCreateFlags;
+    pub type VkInstanceCreateFlagBits = InstanceCreateFlagBits;
+    pub type VkDeviceCreateFlags = DeviceCreateFlags;
+    pub type VkDeviceQueueCreateFlags = DeviceQueueCreateFlags;
+    pub type VkDeviceQueueCreateFlagBits = DeviceQueueCreateFlagBits;
+    pub type VkQueueFlags = QueueFlags;
+    pub type VkQueueFlagBits = QueueFlagBits;
+    pub type VkMemoryPropertyFlags = MemoryPropertyFlags;
+    pub type VkMemoryPropertyFlagBits = MemoryPropertyFlagBits;
+    pub type VkMemoryHeapFlags = MemoryHeapFlags;
+    pub type VkMemoryHeapFlagBits = MemoryHeapFlagBits;
+    pub type VkAccessFlags = AccessFlags;
+    pub type VkAccessFlagBits = AccessFlagBits;
+    pub type VkBufferUsageFlags = BufferUsageFlags;
+    pub type VkBufferUsageFlagBits = BufferUsageFlagBits;
+    pub type VkBufferCreateFlags = BufferCreateFlags;
+    pub type VkBufferCreateFlagBits = BufferCreateFlagBits;
+    pub type VkShaderStageFlags = ShaderStageFlags;
+    pub type VkShaderStageFlagBits = ShaderStageFlagBits;
+    pub type VkImageUsageFlags = ImageUsageFlags;
+    pub type VkImageUsageFlagBits = ImageUsageFlagBits;
+    pub type VkImageCreateFlags = ImageCreateFlags;
+    pub type VkImageCreateFlagBits = ImageCreateFlagBits;
+    pub type VkImageViewCreateFlags = ImageViewCreateFlags;
+    pub type VkImageViewCreateFlagBits = ImageViewCreateFlagBits;
+    pub type VkPipelineCreateFlags = PipelineCreateFlags;
+    pub type VkPipelineCreateFlagBits = PipelineCreateFlagBits;
+    pub type VkColorComponentFlags = ColorComponentFlags;
+    pub type VkColorComponentFlagBits = ColorComponentFlagBits;
+    pub type VkFenceCreateFlags = FenceCreateFlags;
+    pub type VkFenceCreateFlagBits = FenceCreateFlagBits;
+    pub type VkSemaphoreCreateFlags = SemaphoreCreateFlags;
+    pub type VkFormatFeatureFlags = FormatFeatureFlags;
+    pub type VkFormatFeatureFlagBits = FormatFeatureFlagBits;
+    pub type VkQueryControlFlags = QueryControlFlags;
+    pub type VkQueryControlFlagBits = QueryControlFlagBits;
+    pub type VkQueryResultFlags = QueryResultFlags;
+    pub type VkQueryResultFlagBits = QueryResultFlagBits;
+    pub type VkShaderModuleCreateFlags = ShaderModuleCreateFlags;
+    pub type VkEventCreateFlags = EventCreateFlags;
+    pub type VkEventCreateFlagBits = EventCreateFlagBits;
+    pub type VkCommandPoolCreateFlags = CommandPoolCreateFlags;
+    pub type VkCommandPoolCreateFlagBits = CommandPoolCreateFlagBits;
+    pub type VkCommandPoolResetFlags = CommandPoolResetFlags;
+    pub type VkCommandPoolResetFlagBits = CommandPoolResetFlagBits;
+    pub type VkCommandBufferResetFlags = CommandBufferResetFlags;
+    pub type VkCommandBufferResetFlagBits = CommandBufferResetFlagBits;
+    pub type VkCommandBufferUsageFlags = CommandBufferUsageFlags;
+    pub type VkCommandBufferUsageFlagBits = CommandBufferUsageFlagBits;
+    pub type VkQueryPipelineStatisticFlags = QueryPipelineStatisticFlags;
+    pub type VkQueryPipelineStatisticFlagBits = QueryPipelineStatisticFlagBits;
+    pub type VkMemoryMapFlags = MemoryMapFlags;
+    pub type VkMemoryMapFlagBits = MemoryMapFlagBits;
+    pub type VkImageAspectFlags = ImageAspectFlags;
+    pub type VkImageAspectFlagBits = ImageAspectFlagBits;
+    pub type VkSparseMemoryBindFlags = SparseMemoryBindFlags;
+    pub type VkSparseMemoryBindFlagBits = SparseMemoryBindFlagBits;
+    pub type VkSparseImageFormatFlags = SparseImageFormatFlags;
+    pub type VkSparseImageFormatFlagBits = SparseImageFormatFlagBits;
+    pub type VkSubpassDescriptionFlags = SubpassDescriptionFlags;
+    pub type VkSubpassDescriptionFlagBits = SubpassDescriptionFlagBits;
+    pub type VkPipelineStageFlags = PipelineStageFlags;
+    pub type VkPipelineStageFlagBits = PipelineStageFlagBits;
+    pub type VkSampleCountFlags = SampleCountFlags;
+    pub type VkSampleCountFlagBits = SampleCountFlagBits;
+    pub type VkAttachmentDescriptionFlags = AttachmentDescriptionFlags;
+    pub type VkAttachmentDescriptionFlagBits = AttachmentDescriptionFlagBits;
+    pub type VkStencilFaceFlags = StencilFaceFlags;
+    pub type VkStencilFaceFlagBits = StencilFaceFlagBits;
+    pub type VkCullModeFlags = CullModeFlags;
+    pub type VkCullModeFlagBits = CullModeFlagBits;
+    pub type VkDescriptorPoolCreateFlags = DescriptorPoolCreateFlags;
+    pub type VkDescriptorPoolCreateFlagBits = DescriptorPoolCreateFlagBits;
+    pub type VkDescriptorPoolResetFlags = DescriptorPoolResetFlags;
+    pub type VkDependencyFlags = DependencyFlags;
+    pub type VkDependencyFlagBits = DependencyFlagBits;
+    impl BaseOutStructure<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBaseOutStructure {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BaseInStructure<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBaseInStructure {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ApplicationInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkApplicationInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AllocationCallbacks<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkAllocationCallbacks {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DeviceQueueCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDeviceQueueCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DeviceCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDeviceCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl InstanceCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkInstanceCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MemoryAllocateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMemoryAllocateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MappedMemoryRange<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMappedMemoryRange {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl WriteDescriptorSet<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkWriteDescriptorSet {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CopyDescriptorSet<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCopyDescriptorSet {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BufferCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBufferCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BufferViewCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBufferViewCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MemoryBarrier<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMemoryBarrier {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BufferMemoryBarrier<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBufferMemoryBarrier {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImageMemoryBarrier<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImageMemoryBarrier {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImageCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImageCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ImageViewCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImageViewCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SparseBufferMemoryBindInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSparseBufferMemoryBindInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SparseImageOpaqueMemoryBindInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSparseImageOpaqueMemoryBindInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SparseImageMemoryBindInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSparseImageMemoryBindInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl BindSparseInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkBindSparseInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ShaderModuleCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkShaderModuleCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DescriptorSetLayoutBinding<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDescriptorSetLayoutBinding {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DescriptorSetLayoutCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDescriptorSetLayoutCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DescriptorPoolCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDescriptorPoolCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DescriptorSetAllocateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDescriptorSetAllocateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SpecializationInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSpecializationInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineShaderStageCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineShaderStageCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ComputePipelineCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkComputePipelineCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineVertexInputStateCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineVertexInputStateCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineInputAssemblyStateCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineInputAssemblyStateCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineTessellationStateCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineTessellationStateCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineViewportStateCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineViewportStateCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineRasterizationStateCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineRasterizationStateCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineMultisampleStateCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineMultisampleStateCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineColorBlendStateCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineColorBlendStateCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineDynamicStateCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineDynamicStateCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineDepthStencilStateCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineDepthStencilStateCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl GraphicsPipelineCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkGraphicsPipelineCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineCacheCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineCacheCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineLayoutCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineLayoutCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SamplerCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSamplerCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CommandPoolCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCommandPoolCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CommandBufferAllocateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCommandBufferAllocateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CommandBufferInheritanceInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCommandBufferInheritanceInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl CommandBufferBeginInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkCommandBufferBeginInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl RenderPassBeginInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkRenderPassBeginInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SubpassDescription<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSubpassDescription {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl RenderPassCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkRenderPassCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl EventCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkEventCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl FenceCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkFenceCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SemaphoreCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSemaphoreCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl QueryPoolCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkQueryPoolCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl FramebufferCreateInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkFramebufferCreateInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SubmitInfo<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSubmitInfo {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct EntryFn {
     create_instance: PFN_vkCreateInstance,
     enumerate_instance_extension_properties: PFN_vkEnumerateInstanceExtensionProperties,

@@ -33,6 +33,22 @@ pub(super) mod defs {
         PFN_vkGetDeviceMemoryOpaqueCaptureAddress;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceBufferDeviceAddressFeaturesKHR =
+        PhysicalDeviceBufferDeviceAddressFeaturesKHR<'static>;
+    pub type VkBufferDeviceAddressInfoKHR = BufferDeviceAddressInfoKHR<'static>;
+    pub type VkBufferOpaqueCaptureAddressCreateInfoKHR =
+        BufferOpaqueCaptureAddressCreateInfoKHR<'static>;
+    pub type VkMemoryOpaqueCaptureAddressAllocateInfoKHR =
+        MemoryOpaqueCaptureAddressAllocateInfoKHR<'static>;
+    pub type VkDeviceMemoryOpaqueCaptureAddressInfoKHR =
+        DeviceMemoryOpaqueCaptureAddressInfoKHR<'static>;
+}
+
 pub struct DeviceFn {
     get_buffer_device_address_khr: PFN_vkGetBufferDeviceAddress,
     get_buffer_opaque_capture_address_khr: PFN_vkGetBufferOpaqueCaptureAddress,

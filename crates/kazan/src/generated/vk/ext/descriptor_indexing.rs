@@ -33,3 +33,21 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorBindingFlagsEXT.html>
     pub type DescriptorBindingFlagsEXT = DescriptorBindingFlags;
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceDescriptorIndexingFeaturesEXT =
+        PhysicalDeviceDescriptorIndexingFeaturesEXT<'static>;
+    pub type VkPhysicalDeviceDescriptorIndexingPropertiesEXT =
+        PhysicalDeviceDescriptorIndexingPropertiesEXT<'static>;
+    pub type VkDescriptorSetLayoutBindingFlagsCreateInfoEXT =
+        DescriptorSetLayoutBindingFlagsCreateInfoEXT<'static>;
+    pub type VkDescriptorSetVariableDescriptorCountAllocateInfoEXT =
+        DescriptorSetVariableDescriptorCountAllocateInfoEXT<'static>;
+    pub type VkDescriptorSetVariableDescriptorCountLayoutSupportEXT =
+        DescriptorSetVariableDescriptorCountLayoutSupportEXT<'static>;
+    pub type VkDescriptorBindingFlagsEXT = DescriptorBindingFlagsEXT;
+}

@@ -541,6 +541,71 @@ pub(super) mod defs {
         -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkImportAndroidHardwareBufferInfoANDROID =
+        ImportAndroidHardwareBufferInfoANDROID<'static>;
+    pub type VkAndroidHardwareBufferUsageANDROID = AndroidHardwareBufferUsageANDROID<'static>;
+    pub type VkAndroidHardwareBufferPropertiesANDROID =
+        AndroidHardwareBufferPropertiesANDROID<'static>;
+    pub type VkMemoryGetAndroidHardwareBufferInfoANDROID =
+        MemoryGetAndroidHardwareBufferInfoANDROID<'static>;
+    pub type VkAndroidHardwareBufferFormatPropertiesANDROID =
+        AndroidHardwareBufferFormatPropertiesANDROID<'static>;
+    pub type VkExternalFormatANDROID = ExternalFormatANDROID<'static>;
+    pub type VkAndroidHardwareBufferFormatProperties2ANDROID =
+        AndroidHardwareBufferFormatProperties2ANDROID<'static>;
+    impl ImportAndroidHardwareBufferInfoANDROID<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImportAndroidHardwareBufferInfoANDROID {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AndroidHardwareBufferUsageANDROID<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkAndroidHardwareBufferUsageANDROID {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AndroidHardwareBufferPropertiesANDROID<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkAndroidHardwareBufferPropertiesANDROID {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl MemoryGetAndroidHardwareBufferInfoANDROID<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMemoryGetAndroidHardwareBufferInfoANDROID {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AndroidHardwareBufferFormatPropertiesANDROID<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkAndroidHardwareBufferFormatPropertiesANDROID {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ExternalFormatANDROID<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkExternalFormatANDROID {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AndroidHardwareBufferFormatProperties2ANDROID<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkAndroidHardwareBufferFormatProperties2ANDROID {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     get_android_hardware_buffer_properties_android: PFN_vkGetAndroidHardwareBufferPropertiesANDROID,
     get_memory_android_hardware_buffer_android: PFN_vkGetMemoryAndroidHardwareBufferANDROID,

@@ -146,6 +146,28 @@ pub(super) mod defs {
         -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceTilePropertiesFeaturesQCOM =
+        PhysicalDeviceTilePropertiesFeaturesQCOM<'static>;
+    pub type VkTilePropertiesQCOM = TilePropertiesQCOM<'static>;
+    impl PhysicalDeviceTilePropertiesFeaturesQCOM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceTilePropertiesFeaturesQCOM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl TilePropertiesQCOM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkTilePropertiesQCOM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     get_framebuffer_tile_properties_qcom: PFN_vkGetFramebufferTilePropertiesQCOM,
     get_dynamic_rendering_tile_properties_qcom: PFN_vkGetDynamicRenderingTilePropertiesQCOM,

@@ -570,6 +570,78 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPerformanceConfigurationINTEL = PerformanceConfigurationINTEL;
+    pub type VkPerformanceValueINTEL = PerformanceValueINTEL<'static>;
+    pub type VkInitializePerformanceApiInfoINTEL = InitializePerformanceApiInfoINTEL<'static>;
+    pub type VkQueryPoolPerformanceQueryCreateInfoINTEL =
+        QueryPoolPerformanceQueryCreateInfoINTEL<'static>;
+    pub type VkPerformanceMarkerInfoINTEL = PerformanceMarkerInfoINTEL<'static>;
+    pub type VkPerformanceStreamMarkerInfoINTEL = PerformanceStreamMarkerInfoINTEL<'static>;
+    pub type VkPerformanceOverrideInfoINTEL = PerformanceOverrideInfoINTEL<'static>;
+    pub type VkPerformanceConfigurationAcquireInfoINTEL =
+        PerformanceConfigurationAcquireInfoINTEL<'static>;
+    pub type VkPerformanceValueDataINTEL = PerformanceValueDataINTEL<'static>;
+    pub type VkPerformanceConfigurationTypeINTEL = PerformanceConfigurationTypeINTEL;
+    pub type VkQueryPoolSamplingModeINTEL = QueryPoolSamplingModeINTEL;
+    pub type VkPerformanceOverrideTypeINTEL = PerformanceOverrideTypeINTEL;
+    pub type VkPerformanceParameterTypeINTEL = PerformanceParameterTypeINTEL;
+    pub type VkPerformanceValueTypeINTEL = PerformanceValueTypeINTEL;
+    pub type VkQueryPoolCreateInfoINTEL = QueryPoolCreateInfoINTEL<'static>;
+    impl PerformanceValueINTEL<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPerformanceValueINTEL {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl InitializePerformanceApiInfoINTEL<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkInitializePerformanceApiInfoINTEL {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl QueryPoolPerformanceQueryCreateInfoINTEL<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkQueryPoolPerformanceQueryCreateInfoINTEL {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PerformanceMarkerInfoINTEL<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPerformanceMarkerInfoINTEL {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PerformanceStreamMarkerInfoINTEL<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPerformanceStreamMarkerInfoINTEL {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PerformanceOverrideInfoINTEL<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPerformanceOverrideInfoINTEL {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PerformanceConfigurationAcquireInfoINTEL<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPerformanceConfigurationAcquireInfoINTEL {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PerformanceValueDataINTEL<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPerformanceValueDataINTEL {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     initialize_performance_api_intel: PFN_vkInitializePerformanceApiINTEL,
     uninitialize_performance_api_intel: PFN_vkUninitializePerformanceApiINTEL,

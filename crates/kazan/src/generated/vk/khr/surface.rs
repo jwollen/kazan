@@ -331,6 +331,20 @@ pub(super) mod defs {
         ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkSurfaceKHR = SurfaceKHR;
+    pub type VkSurfaceCapabilitiesKHR = SurfaceCapabilitiesKHR;
+    pub type VkSurfaceFormatKHR = SurfaceFormatKHR;
+    pub type VkPresentModeKHR = PresentModeKHR;
+    pub type VkColorSpaceKHR = ColorSpaceKHR;
+    pub type VkCompositeAlphaFlagsKHR = CompositeAlphaFlagsKHR;
+    pub type VkCompositeAlphaFlagBitsKHR = CompositeAlphaFlagBitsKHR;
+}
+
 pub struct InstanceFn {
     destroy_surface_khr: PFN_vkDestroySurfaceKHR,
     get_physical_device_surface_support_khr: PFN_vkGetPhysicalDeviceSurfaceSupportKHR,

@@ -718,6 +718,103 @@ pub(super) mod defs {
     ) -> vk::Result;
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPipelineBinaryKHR = PipelineBinaryKHR;
+    pub type VkPipelineBinaryCreateInfoKHR = PipelineBinaryCreateInfoKHR<'static>;
+    pub type VkPipelineBinaryHandlesInfoKHR = PipelineBinaryHandlesInfoKHR<'static>;
+    pub type VkPipelineBinaryDataKHR = PipelineBinaryDataKHR<'static>;
+    pub type VkPipelineBinaryKeysAndDataKHR = PipelineBinaryKeysAndDataKHR<'static>;
+    pub type VkPipelineBinaryKeyKHR = PipelineBinaryKeyKHR<'static>;
+    pub type VkPipelineBinaryInfoKHR = PipelineBinaryInfoKHR<'static>;
+    pub type VkReleaseCapturedPipelineDataInfoKHR = ReleaseCapturedPipelineDataInfoKHR<'static>;
+    pub type VkPipelineBinaryDataInfoKHR = PipelineBinaryDataInfoKHR<'static>;
+    pub type VkPipelineCreateInfoKHR = PipelineCreateInfoKHR<'static>;
+    pub type VkPhysicalDevicePipelineBinaryFeaturesKHR =
+        PhysicalDevicePipelineBinaryFeaturesKHR<'static>;
+    pub type VkDevicePipelineBinaryInternalCacheControlKHR =
+        DevicePipelineBinaryInternalCacheControlKHR<'static>;
+    pub type VkPhysicalDevicePipelineBinaryPropertiesKHR =
+        PhysicalDevicePipelineBinaryPropertiesKHR<'static>;
+    impl PipelineBinaryCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineBinaryCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineBinaryHandlesInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineBinaryHandlesInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineBinaryDataKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineBinaryDataKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineBinaryKeysAndDataKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineBinaryKeysAndDataKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineBinaryKeyKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineBinaryKeyKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineBinaryInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineBinaryInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl ReleaseCapturedPipelineDataInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkReleaseCapturedPipelineDataInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineBinaryDataInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineBinaryDataInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PipelineCreateInfoKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPipelineCreateInfoKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDevicePipelineBinaryFeaturesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDevicePipelineBinaryFeaturesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DevicePipelineBinaryInternalCacheControlKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkDevicePipelineBinaryInternalCacheControlKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDevicePipelineBinaryPropertiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDevicePipelineBinaryPropertiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     create_pipeline_binaries_khr: PFN_vkCreatePipelineBinariesKHR,
     destroy_pipeline_binary_khr: PFN_vkDestroyPipelineBinaryKHR,

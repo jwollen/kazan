@@ -125,3 +125,27 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkImageViewSlicedCreateInfoEXT = ImageViewSlicedCreateInfoEXT<'static>;
+    pub type VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT =
+        PhysicalDeviceImageSlicedViewOf3DFeaturesEXT<'static>;
+    impl ImageViewSlicedCreateInfoEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkImageViewSlicedCreateInfoEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceImageSlicedViewOf3DFeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

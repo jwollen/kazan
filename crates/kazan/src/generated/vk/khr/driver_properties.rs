@@ -22,3 +22,13 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDriverPropertiesKHR.html>
     pub type PhysicalDeviceDriverPropertiesKHR<'a> = PhysicalDeviceDriverProperties<'a>;
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkDriverIdKHR = DriverIdKHR;
+    pub type VkConformanceVersionKHR = ConformanceVersionKHR;
+    pub type VkPhysicalDeviceDriverPropertiesKHR = PhysicalDeviceDriverPropertiesKHR<'static>;
+}

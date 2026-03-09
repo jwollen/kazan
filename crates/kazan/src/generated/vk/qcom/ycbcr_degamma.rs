@@ -127,3 +127,28 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceYcbcrDegammaFeaturesQCOM =
+        PhysicalDeviceYcbcrDegammaFeaturesQCOM<'static>;
+    pub type VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM =
+        SamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM<'static>;
+    impl PhysicalDeviceYcbcrDegammaFeaturesQCOM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceYcbcrDegammaFeaturesQCOM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

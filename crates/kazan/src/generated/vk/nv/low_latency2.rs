@@ -700,6 +700,78 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkLatencySleepModeInfoNV = LatencySleepModeInfoNV<'static>;
+    pub type VkLatencySleepInfoNV = LatencySleepInfoNV<'static>;
+    pub type VkSetLatencyMarkerInfoNV = SetLatencyMarkerInfoNV<'static>;
+    pub type VkGetLatencyMarkerInfoNV = GetLatencyMarkerInfoNV<'static>;
+    pub type VkLatencyTimingsFrameReportNV = LatencyTimingsFrameReportNV<'static>;
+    pub type VkOutOfBandQueueTypeInfoNV = OutOfBandQueueTypeInfoNV<'static>;
+    pub type VkLatencySubmissionPresentIdNV = LatencySubmissionPresentIdNV<'static>;
+    pub type VkSwapchainLatencyCreateInfoNV = SwapchainLatencyCreateInfoNV<'static>;
+    pub type VkLatencySurfaceCapabilitiesNV = LatencySurfaceCapabilitiesNV<'static>;
+    pub type VkLatencyMarkerNV = LatencyMarkerNV;
+    pub type VkOutOfBandQueueTypeNV = OutOfBandQueueTypeNV;
+    impl LatencySleepModeInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkLatencySleepModeInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl LatencySleepInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkLatencySleepInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SetLatencyMarkerInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSetLatencyMarkerInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl GetLatencyMarkerInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkGetLatencyMarkerInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl LatencyTimingsFrameReportNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkLatencyTimingsFrameReportNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl OutOfBandQueueTypeInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkOutOfBandQueueTypeInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl LatencySubmissionPresentIdNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkLatencySubmissionPresentIdNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SwapchainLatencyCreateInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSwapchainLatencyCreateInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl LatencySurfaceCapabilitiesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkLatencySurfaceCapabilitiesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct DeviceFn {
     set_latency_sleep_mode_nv: PFN_vkSetLatencySleepModeNV,
     latency_sleep_nv: PFN_vkLatencySleepNV,

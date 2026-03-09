@@ -204,3 +204,31 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX =
+        PhysicalDeviceDenseGeometryFormatFeaturesAMDX<'static>;
+    pub type VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX =
+        AccelerationStructureDenseGeometryFormatTrianglesDataAMDX<'static>;
+    pub type VkCompressedTriangleFormatAMDX = CompressedTriangleFormatAMDX;
+    impl PhysicalDeviceDenseGeometryFormatFeaturesAMDX<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl AccelerationStructureDenseGeometryFormatTrianglesDataAMDX<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

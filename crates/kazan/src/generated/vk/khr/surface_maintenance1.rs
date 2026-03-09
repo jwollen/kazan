@@ -322,3 +322,35 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkSurfacePresentModeKHR = SurfacePresentModeKHR<'static>;
+    pub type VkSurfacePresentScalingCapabilitiesKHR = SurfacePresentScalingCapabilitiesKHR<'static>;
+    pub type VkSurfacePresentModeCompatibilityKHR = SurfacePresentModeCompatibilityKHR<'static>;
+    pub type VkPresentScalingFlagsKHR = PresentScalingFlagsKHR;
+    pub type VkPresentScalingFlagBitsKHR = PresentScalingFlagBitsKHR;
+    pub type VkPresentGravityFlagsKHR = PresentGravityFlagsKHR;
+    pub type VkPresentGravityFlagBitsKHR = PresentGravityFlagBitsKHR;
+    impl SurfacePresentModeKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSurfacePresentModeKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SurfacePresentScalingCapabilitiesKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSurfacePresentScalingCapabilitiesKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl SurfacePresentModeCompatibilityKHR<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkSurfacePresentModeCompatibilityKHR {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

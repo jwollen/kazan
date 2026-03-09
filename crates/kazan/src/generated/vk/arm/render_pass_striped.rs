@@ -287,3 +287,51 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceRenderPassStripedFeaturesARM =
+        PhysicalDeviceRenderPassStripedFeaturesARM<'static>;
+    pub type VkPhysicalDeviceRenderPassStripedPropertiesARM =
+        PhysicalDeviceRenderPassStripedPropertiesARM<'static>;
+    pub type VkRenderPassStripeInfoARM = RenderPassStripeInfoARM<'static>;
+    pub type VkRenderPassStripeBeginInfoARM = RenderPassStripeBeginInfoARM<'static>;
+    pub type VkRenderPassStripeSubmitInfoARM = RenderPassStripeSubmitInfoARM<'static>;
+    impl PhysicalDeviceRenderPassStripedFeaturesARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceRenderPassStripedFeaturesARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceRenderPassStripedPropertiesARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceRenderPassStripedPropertiesARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl RenderPassStripeInfoARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkRenderPassStripeInfoARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl RenderPassStripeBeginInfoARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkRenderPassStripeBeginInfoARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl RenderPassStripeSubmitInfoARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkRenderPassStripeSubmitInfoARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

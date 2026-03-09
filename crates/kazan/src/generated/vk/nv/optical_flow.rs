@@ -906,6 +906,75 @@ pub(super) mod defs {
     );
 }
 
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkOpticalFlowSessionNV = OpticalFlowSessionNV;
+    pub type VkPhysicalDeviceOpticalFlowFeaturesNV = PhysicalDeviceOpticalFlowFeaturesNV<'static>;
+    pub type VkPhysicalDeviceOpticalFlowPropertiesNV =
+        PhysicalDeviceOpticalFlowPropertiesNV<'static>;
+    pub type VkOpticalFlowImageFormatInfoNV = OpticalFlowImageFormatInfoNV<'static>;
+    pub type VkOpticalFlowImageFormatPropertiesNV = OpticalFlowImageFormatPropertiesNV<'static>;
+    pub type VkOpticalFlowSessionCreateInfoNV = OpticalFlowSessionCreateInfoNV<'static>;
+    pub type VkOpticalFlowSessionCreatePrivateDataInfoNV =
+        OpticalFlowSessionCreatePrivateDataInfoNV<'static>;
+    pub type VkOpticalFlowExecuteInfoNV = OpticalFlowExecuteInfoNV<'static>;
+    pub type VkOpticalFlowPerformanceLevelNV = OpticalFlowPerformanceLevelNV;
+    pub type VkOpticalFlowSessionBindingPointNV = OpticalFlowSessionBindingPointNV;
+    pub type VkOpticalFlowGridSizeFlagsNV = OpticalFlowGridSizeFlagsNV;
+    pub type VkOpticalFlowGridSizeFlagBitsNV = OpticalFlowGridSizeFlagBitsNV;
+    pub type VkOpticalFlowUsageFlagsNV = OpticalFlowUsageFlagsNV;
+    pub type VkOpticalFlowUsageFlagBitsNV = OpticalFlowUsageFlagBitsNV;
+    pub type VkOpticalFlowSessionCreateFlagsNV = OpticalFlowSessionCreateFlagsNV;
+    pub type VkOpticalFlowSessionCreateFlagBitsNV = OpticalFlowSessionCreateFlagBitsNV;
+    pub type VkOpticalFlowExecuteFlagsNV = OpticalFlowExecuteFlagsNV;
+    pub type VkOpticalFlowExecuteFlagBitsNV = OpticalFlowExecuteFlagBitsNV;
+    impl PhysicalDeviceOpticalFlowFeaturesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceOpticalFlowFeaturesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl PhysicalDeviceOpticalFlowPropertiesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceOpticalFlowPropertiesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl OpticalFlowImageFormatInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkOpticalFlowImageFormatInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl OpticalFlowImageFormatPropertiesNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkOpticalFlowImageFormatPropertiesNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl OpticalFlowSessionCreateInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkOpticalFlowSessionCreateInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl OpticalFlowSessionCreatePrivateDataInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkOpticalFlowSessionCreatePrivateDataInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl OpticalFlowExecuteInfoNV<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkOpticalFlowExecuteInfoNV {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
 pub struct InstanceFn {
     get_physical_device_optical_flow_image_formats_nv:
         PFN_vkGetPhysicalDeviceOpticalFlowImageFormatsNV,

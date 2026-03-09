@@ -85,3 +85,20 @@ pub(super) mod defs {
         }
     }
 }
+
+#[cfg(feature = "ffi")]
+pub(super) mod ffi {
+    #![allow(non_camel_case_types)]
+    use super::defs::*;
+
+    pub type VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT =
+        PhysicalDeviceShaderImageAtomicInt64FeaturesEXT<'static>;
+    impl PhysicalDeviceShaderImageAtomicInt64FeaturesEXT<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}

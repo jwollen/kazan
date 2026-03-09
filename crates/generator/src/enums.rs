@@ -16,14 +16,8 @@ use crate::{
 pub fn generate_enum_types(
     file: &mut impl Write,
     analysis: &Analysis,
-    owned: &HashSet<&str>,
+    enums: &[&xml::Enum],
 ) -> Result<()> {
-    let enums = analysis
-        .registry()
-        .enums
-        .iter()
-        .filter(|ty| owned.contains(ty.name));
-
     for ty in enums {
         write_enum(file, analysis, ty)?;
     }
@@ -33,15 +27,8 @@ pub fn generate_enum_types(
 pub fn generate_bitmask_types(
     file: &mut impl Write,
     analysis: &Analysis,
-    owned: &HashSet<&str>,
+    bitmask_types: &[&xml::BitMaskType],
 ) -> Result<()> {
-    let bitmask_types = analysis
-        .registry()
-        .bitmask_types
-        .iter()
-        .clone()
-        .filter(|ty| owned.contains(ty.name));
-
     for ty in bitmask_types {
         // A bitmask type references its FlagBits enum via either `bitvalues` (modern) or `requires` (legacy).
         let bitmask = ty.bitvalues.or(ty.requires).and_then(|b| {
