@@ -48,6 +48,9 @@ pub enum InstanceFn {
     #[cfg(target_os = "android")]
     Android(vk::khr::android_surface::InstanceFn),
 
+    #[cfg(target_env = "ohos")]
+    Ohos(vk::ohos::surface::InstanceFn),
+
     #[cfg(any(target_os = "macos", target_os = "ios"))]
     Metal(vk::ext::metal_surface::InstanceFn),
 }
@@ -118,6 +121,13 @@ impl InstanceFn {
                     let fns = vk::khr::android_surface::InstanceFn::load(&load)
                         .map_err(|_| vk::Result::ERROR_EXTENSION_NOT_PRESENT)?;
                     Ok(Self::Android(fns))
+                }
+
+                #[cfg(target_env = "ohos")]
+                RawDisplayHandle::Ohos(_) => {
+                    let fns = vk::ohos::surface::InstanceFn::load(&load)
+                        .map_err(|_| vk::Result::ERROR_EXTENSION_NOT_PRESENT)?;
+                    Ok(Self::Ohos(fns))
                 }
 
                 #[cfg(any(target_os = "macos", target_os = "ios"))]
@@ -238,6 +248,13 @@ impl InstanceFn {
                     fns.create_android_surface_khr(instance, &create_info, allocator)
                 }
 
+                #[cfg(target_env = "ohos")]
+                (Self::Ohos(fns), RawDisplayHandle::Ohos(_), RawWindowHandle::OhosNdk(window)) => {
+                    let create_info = vk::SurfaceCreateInfoOHOS::default()
+                        .window(window.native_window.as_ptr().cast());
+                    fns.create_surface_ohos(instance, &create_info, allocator)
+                }
+
                 #[cfg(target_os = "macos")]
                 (
                     Self::Metal(fns),
@@ -339,6 +356,15 @@ pub fn enumerate_required_extensions(
             const EXTS: [*const c_char; 2] = [
                 vk::khr::surface::EXTENSION_NAME.as_ptr(),
                 vk::khr::android_surface::EXTENSION_NAME.as_ptr(),
+            ];
+            &EXTS[..]
+        }
+
+        #[cfg(target_env = "ohos")]
+        RawDisplayHandle::Ohos(_) => {
+            const EXTS: [*const c_char; 2] = [
+                vk::khr::surface::EXTENSION_NAME.as_ptr(),
+                vk::ohos::surface::EXTENSION_NAME.as_ptr(),
             ];
             &EXTS[..]
         }
