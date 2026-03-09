@@ -23,7 +23,7 @@ pub struct Analysis {
     type_infos: BTreeMap<&'static str, TypeInfo>,
     handle_command_types: HandleCommandTypes,
     req_enum_data: ReqEnumData,
-    item_owner: HashMap<&'static str, usize>,
+    module_items: Vec<HashSet<&'static str>>,
     provisional_types: HashSet<&'static str>,
     provisional_extensions: HashSet<&'static str>,
     opaque_types: HashSet<&'static str>,
@@ -68,7 +68,7 @@ impl Analysis {
         let type_infos = compute_type_infos(&registry, &custom_types, &type_refs);
         let handle_command_types = collect_handle_command_types(&registry);
         let req_enum_data = ReqEnumData::from_registry(&registry);
-        let item_owner = compute_item_owners(&registry);
+        let module_items = compute_module_items(&registry);
 
         let provisional_extensions: HashSet<&'static str> = registry
             .extensions
@@ -113,7 +113,7 @@ impl Analysis {
             type_infos,
             handle_command_types,
             req_enum_data,
-            item_owner,
+            module_items,
             provisional_types,
             provisional_extensions,
             opaque_types,
@@ -149,9 +149,9 @@ impl Analysis {
         &self.req_enum_data
     }
 
-    /// Returns the index of the module that owns the named item.
-    pub fn item_owner(&self, name: &str) -> Option<&usize> {
-        self.item_owner.get(name)
+    /// Returns the set of items owned by the module at the given index.
+    pub fn module_items(&self, module_index: usize) -> &HashSet<&'static str> {
+        &self.module_items[module_index]
     }
 
     /// Returns true if the named C type belongs to a provisional extension.
@@ -608,12 +608,15 @@ type CustomTypes = external::ExternalTypes;
 /// module should own its definition. If the item has a vendor suffix that matches
 /// a specific module's vendor tag, that module is preferred. Otherwise, the first
 /// module that requires the item wins.
-fn compute_item_owners(registry: &xml::Registry) -> HashMap<&'static str, usize> {
-    // Collect all items required by each module, along with the module index.
+fn compute_module_items(registry: &xml::Registry) -> Vec<HashSet<&'static str>> {
+    let modules: Vec<_> = Module::from_registry(registry).collect();
+    let module_count = modules.len();
+
+    // For each item, track first requirer and vendor-matched requirer.
     let mut first_requirer: HashMap<&'static str, usize> = HashMap::new();
     let mut vendor_requirer: HashMap<&'static str, usize> = HashMap::new();
 
-    for (index, module) in Module::from_registry(registry).enumerate() {
+    for (index, module) in modules.iter().enumerate() {
         let module_vendor = match module {
             Module::Extension(ext) => registry.extension_vendor(ext.name),
             Module::Version(_) => None,
@@ -651,11 +654,11 @@ fn compute_item_owners(registry: &xml::Registry) -> HashMap<&'static str, usize>
         }
     }
 
-    // For each item, prefer the vendor-matched module; fall back to first requirer.
-    let mut owners = HashMap::new();
+    // Build per-module item sets. Prefer vendor-matched module; fall back to first requirer.
+    let mut result: Vec<HashSet<&'static str>> = vec![HashSet::new(); module_count];
     for (name, first) in &first_requirer {
-        let owner = vendor_requirer.get(name).unwrap_or(first);
-        owners.insert(*name, *owner);
+        let owner = *vendor_requirer.get(name).unwrap_or(first);
+        result[owner].insert(name);
     }
-    owners
+    result
 }

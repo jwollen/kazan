@@ -1,6 +1,6 @@
 use std::{
     borrow::Cow,
-    collections::{BTreeMap, HashMap, HashSet},
+    collections::{BTreeMap, HashSet},
     fs::{self, File},
     io::Write,
 };
@@ -120,46 +120,36 @@ fn generate_module(
     module: &Module<'_>,
 ) {
     let registry = analysis.registry();
-
     let requires: Vec<_> = module.requires();
-    let required_types = requires.iter().map(|r| &r.types).flatten();
-    let required_commands = requires.iter().map(|r| &r.commands).flatten();
+    let owned = analysis.module_items(module_index);
 
-    let required_api_constants =
-        requires
-            .iter()
-            .map(|r| &r.constants)
-            .flatten()
-            .filter_map(|constant| {
-                let global_api_constant = registry
-                    .constants
-                    .iter()
-                    .find(|api_constant| api_constant.name == constant.name);
+    let required_api_constants = requires
+        .iter()
+        .flat_map(|r| &r.constants)
+        .filter(|c| owned.contains(c.name))
+        .filter_map(|constant| {
+            let global_api_constant = registry
+                .constants
+                .iter()
+                .find(|api_constant| api_constant.name == constant.name);
 
-                if let Some(global_api_constant) = global_api_constant {
-                    Some(global_api_constant.clone())
-                } else if let (Some(ty), Some(value)) = (constant.ty, constant.value) {
-                    Some(Constant {
-                        name: constant.name,
-                        ty,
-                        value,
-                    })
-                } else {
-                    None
-                }
-            });
-
-    let new_items = required_types
-        .map(|ty| ty.name)
-        .chain(required_commands.clone().map(|cmd| cmd.name))
-        .chain(required_api_constants.clone().map(|constant| constant.name))
-        .filter(|name| analysis.item_owner(name) == Some(&module_index))
-        .collect::<HashSet<_>>();
+            if let Some(global_api_constant) = global_api_constant {
+                Some(global_api_constant.clone())
+            } else if let (Some(ty), Some(value)) = (constant.ty, constant.value) {
+                Some(Constant {
+                    name: constant.name,
+                    ty,
+                    value,
+                })
+            } else {
+                None
+            }
+        });
 
     let new_commands = registry
         .commands
         .iter()
-        .filter(|cmd| new_items.contains(cmd.name));
+        .filter(|cmd| owned.contains(cmd.name));
 
     let ModuleName {
         vendor,
@@ -218,7 +208,7 @@ fn generate_module(
 
     writeln!(file, "pub(super) mod defs {{").unwrap();
 
-    if !new_items.is_empty() {
+    if !owned.is_empty() {
         writeln!(
             file,
             "#![allow(non_camel_case_types, unused_imports)]
@@ -231,29 +221,29 @@ fn generate_module(
         )
         .unwrap();
 
-        generate_api_constants(&mut file, analysis, &new_items, required_api_constants);
+        generate_api_constants(&mut file, analysis, &owned, required_api_constants);
 
-        generate_basetypes(&mut file, analysis, &new_items);
+        generate_basetypes(&mut file, analysis, &owned);
 
-        generate_handles(&mut file, analysis, &new_items);
+        generate_handles(&mut file, analysis, &owned);
 
-        generate_type_aliases(&mut file, analysis, &new_items);
+        generate_type_aliases(&mut file, analysis, &owned);
 
-        generate_structs(&mut file, analysis, &new_items);
+        generate_structs(&mut file, analysis, &owned);
 
-        generate_unions(&mut file, analysis, &new_items);
+        generate_unions(&mut file, analysis, &owned);
 
-        generate_enum_types(&mut file, analysis, &new_items);
+        generate_enum_types(&mut file, analysis, &owned);
 
-        generate_bitmask_types(&mut file, analysis, &new_items);
+        generate_bitmask_types(&mut file, analysis, &owned);
 
-        generate_funcpointers(&mut file, analysis, &new_items);
+        generate_funcpointers(&mut file, analysis, &owned);
 
         generate_functions(&mut file, analysis, new_commands.clone());
     }
     writeln!(file, "}}\n").unwrap();
 
-    if required_commands.clone().next().is_some() {
+    if requires.iter().flat_map(|r| &r.commands).clone().next().is_some() {
         generate_commands(&mut file, analysis, &requires);
     }
 }
@@ -261,10 +251,10 @@ fn generate_module(
 fn generate_api_constants<'a>(
     file: &mut impl std::io::Write,
     _analysis: &Analysis,
-    new_items: &HashSet<&str>,
+    owned: &HashSet<&str>,
     required_api_constants: impl Iterator<Item = xml::Constant>,
 ) {
-    let constants = required_api_constants.filter(|constant| new_items.contains(constant.name));
+    let constants = required_api_constants.filter(|constant| owned.contains(constant.name));
 
     for constant in constants {
         writeln!(
@@ -298,16 +288,12 @@ use core::ffi::{{c_int, c_uint, c_ulong, c_void}};
     }
 }
 
-fn generate_basetypes(
-    file: &mut impl std::io::Write,
-    analysis: &Analysis,
-    new_items: &HashSet<&str>,
-) {
+fn generate_basetypes(file: &mut impl std::io::Write, analysis: &Analysis, owned: &HashSet<&str>) {
     let basetypes = analysis
         .registry()
         .basetypes
         .iter()
-        .filter(|ty| new_items.contains(ty.name));
+        .filter(|ty| owned.contains(ty.name));
 
     for ty in basetypes {
         writeln!(
@@ -321,16 +307,12 @@ fn generate_basetypes(
     writeln!(file).unwrap();
 }
 
-fn generate_handles(
-    file: &mut impl std::io::Write,
-    analysis: &Analysis,
-    new_items: &HashSet<&str>,
-) {
+fn generate_handles(file: &mut impl std::io::Write, analysis: &Analysis, owned: &HashSet<&str>) {
     let handles = analysis
         .registry()
         .handles
         .iter()
-        .filter(|ty| new_items.contains(ty.name));
+        .filter(|ty| owned.contains(ty.name));
 
     for handle in handles {
         let macro_name = match handle.ty {
@@ -355,7 +337,7 @@ fn generate_handles(
 fn generate_type_aliases(
     file: &mut impl std::io::Write,
     analysis: &Analysis,
-    new_items: &HashSet<&str>,
+    owned: &HashSet<&str>,
 ) {
     let registry = analysis.registry();
     let aliases = registry
@@ -372,7 +354,7 @@ fn generate_type_aliases(
         .chain(registry.handle_aliases.iter())
         .chain(registry.struct_aliases.iter())
         .chain(registry.bitmask_aliases.iter())
-        .filter(|alias| new_items.contains(alias.name));
+        .filter(|alias| owned.contains(alias.name));
 
     for alias in aliases {
         write_doc_link(file, alias.name);
@@ -388,7 +370,7 @@ fn generate_type_aliases(
     let command_aliases = registry
         .command_aliases
         .iter()
-        .filter(|alias| new_items.contains(alias.name));
+        .filter(|alias| owned.contains(alias.name));
 
     for ty in command_aliases {
         writeln!(
@@ -402,28 +384,24 @@ fn generate_type_aliases(
     writeln!(file).unwrap();
 }
 
-fn generate_structs(
-    file: &mut impl std::io::Write,
-    analysis: &Analysis,
-    new_items: &HashSet<&str>,
-) {
+fn generate_structs(file: &mut impl std::io::Write, analysis: &Analysis, owned: &HashSet<&str>) {
     let new_structs = analysis
         .registry()
         .structs
         .iter()
-        .filter(|ty| new_items.contains(ty.name));
+        .filter(|ty| owned.contains(ty.name));
 
     for ty in new_structs {
         write_struct(file, analysis, ty);
     }
 }
 
-fn generate_unions(file: &mut impl std::io::Write, analysis: &Analysis, new_items: &HashSet<&str>) {
+fn generate_unions(file: &mut impl std::io::Write, analysis: &Analysis, owned: &HashSet<&str>) {
     let unions = analysis
         .registry()
         .unions
         .iter()
-        .filter(|ty| new_items.contains(ty.name));
+        .filter(|ty| owned.contains(ty.name));
     for ty in unions {
         let name = normalize_ty_name(ty.name);
         let type_info = analysis.get_base_type_info(ty.name).unwrap();
@@ -474,16 +452,12 @@ fn generate_unions(file: &mut impl std::io::Write, analysis: &Analysis, new_item
     }
 }
 
-fn generate_enum_types(
-    file: &mut impl std::io::Write,
-    analysis: &Analysis,
-    new_items: &HashSet<&str>,
-) {
+fn generate_enum_types(file: &mut impl std::io::Write, analysis: &Analysis, owned: &HashSet<&str>) {
     let enums = analysis
         .registry()
         .enums
         .iter()
-        .filter(|ty| new_items.contains(ty.name));
+        .filter(|ty| owned.contains(ty.name));
 
     for ty in enums {
         write_enum(file, analysis, ty);
@@ -493,14 +467,14 @@ fn generate_enum_types(
 fn generate_bitmask_types(
     file: &mut impl std::io::Write,
     analysis: &Analysis,
-    new_items: &HashSet<&str>,
+    owned: &HashSet<&str>,
 ) {
     let bitmask_types = analysis
         .registry()
         .bitmask_types
         .iter()
         .clone()
-        .filter(|ty| new_items.contains(ty.name));
+        .filter(|ty| owned.contains(ty.name));
 
     for ty in bitmask_types {
         let bitmask = ty.bitvalues.or(ty.requires).and_then(|b| {
@@ -518,14 +492,14 @@ fn generate_bitmask_types(
 fn generate_funcpointers(
     file: &mut impl std::io::Write,
     analysis: &Analysis,
-    new_items: &HashSet<&str>,
+    owned: &HashSet<&str>,
 ) {
     let funcpointers = analysis
         .registry()
         .funcpointers
         .iter()
         .clone()
-        .filter(|ty| new_items.contains(ty.name));
+        .filter(|ty| owned.contains(ty.name));
 
     for ty in funcpointers {
         write_doc_link(file, ty.name);
