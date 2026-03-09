@@ -844,7 +844,7 @@ pub fn convert_setter_param_type(
                     pointee_name,
                     is_const,
                 } => {
-                    let use_slice_of_refs = matches!(ty, CType::Ptr { pointee: p, .. } if matches!(p.as_ref(), CType::Ptr { pointee: inner, .. } if matches!(inner.as_ref(), CType::Base(b) if !ctype_rust::is_opaque_type(b.name) && b.name == pointee_name)));
+                    let use_slice_of_refs = matches!(ty, CType::Ptr { pointee: p, .. } if matches!(p.as_ref(), CType::Ptr { pointee: inner, .. } if matches!(inner.as_ref(), CType::Base(b) if !analysis.is_opaque_type_name(b.name) && b.name == pointee_name)));
                     if use_slice_of_refs {
                         let inner = ctype_rust::type_name_with_lifetime(
                             analysis,
@@ -936,7 +936,8 @@ pub fn convert_setter_param_type(
         }
         CTypeCategory::TypedPointer { is_const, pointee } => {
             let ty = ctype_to_rust_type(analysis, pointee, lifetime_param);
-            if ctype_rust::is_opaque_type(ty.as_str()) {
+            let is_opaque = analysis.is_opaque_type(pointee);
+            if is_opaque {
                 if is_const {
                     format!("*const {}", ty)
                 } else {

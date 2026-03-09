@@ -22,6 +22,7 @@ mod cdecl;
 mod command;
 mod ctype_rust;
 mod enums;
+mod external;
 mod handle;
 mod module;
 mod overrides;
@@ -42,9 +43,12 @@ struct ModuleEntry {
 fn generate(analysis: &analysis::Analysis) {
     let registry = analysis.registry();
 
-    let output_dir = "crates/kazan/src/generated/vk";
+    let generated_dir = "crates/kazan/src/generated";
+    let output_dir = &format!("{}/vk", generated_dir);
 
     let _ = fs::remove_dir_all(output_dir);
+
+    generate_external_type_file(analysis, generated_dir);
 
     let mut vendor_modules: BTreeMap<Option<String>, Vec<ModuleEntry>> = BTreeMap::new();
 
@@ -53,7 +57,13 @@ fn generate(analysis: &analysis::Analysis) {
     let modules: Vec<_> = Module::from_registry(registry).collect();
 
     for (module_index, module) in modules.iter().enumerate() {
-        generate_module(analysis, output_dir, &mut vendor_modules, module_index, module);
+        generate_module(
+            analysis,
+            output_dir,
+            &mut vendor_modules,
+            module_index,
+            module,
+        );
     }
 
     fs::create_dir_all(output_dir).unwrap();
@@ -250,6 +260,25 @@ fn generate_api_constants<'a>(
         .unwrap();
     }
     writeln!(file).unwrap();
+}
+
+fn generate_external_type_file(analysis: &Analysis, generated_dir: &str) {
+    fs::create_dir_all(generated_dir).unwrap();
+    let path = format!("{}/external.rs", generated_dir);
+    let mut file = File::create(&path).unwrap();
+    writeln!(
+        file,
+        "#![allow(non_camel_case_types)]
+use core::ffi::{{c_int, c_uint, c_ulong, c_void}};
+"
+    )
+    .unwrap();
+
+    let external_types = external::external_types();
+    for (name, ty) in &external_types {
+        let rust_ty = ctype_to_rust_type(analysis, ty, None);
+        writeln!(file, "pub type {name} = {rust_ty};").unwrap();
+    }
 }
 
 fn generate_basetypes(
@@ -616,11 +645,14 @@ pub(crate) fn ctype_to_rust_type_str(name: &str) -> &str {
         "int64_t" => "i64",
         "uint64_t" => "u64",
         "size_t" => "usize",
+        "isize_t" => "isize",
         "float" => "f32",
         "double" => "f64",
         "void" => "c_void",
         "char" => "c_char",
         "int" => "c_int",
+        "unsigned int" => "c_uint",
+        "unsigned long" => "c_ulong",
         _ => normalize_ty_name(name),
     }
 }
@@ -739,26 +771,6 @@ fn get_len_kind<'a>(
     } else {
         LengthKind::Unknown(len)
     }
-}
-
-fn is_opaque_type(ty: &str) -> bool {
-    matches!(
-        ty,
-        "void"
-            | "wl_display"
-            | "wl_surface"
-            | "Display"
-            | "xcb_connection_t"
-            | "ANativeWindow"
-            | "AHardwareBuffer"
-            | "CAMetalLayer"
-            | "IDirectFB"
-            | "IDirectFBSurface"
-            | "_screen_buffer"
-            | "_screen_context"
-            | "_screen_window"
-            | "SECURITY_ATTRIBUTES"
-    )
 }
 
 pub fn normalize_param_name(name: &str) -> String {

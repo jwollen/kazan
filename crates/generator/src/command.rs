@@ -321,7 +321,7 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
                     if is_const || param.len.is_some() {
                         false
                     } else if let CType::Base(base) = pointee {
-                        !ctype_rust::is_opaque_type(base.name)
+                        !analysis.is_opaque_type_name(base.name)
                     } else {
                         false
                     }
@@ -337,10 +337,7 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
             let non_const_ptr = match category {
                 ctype_rust::CTypeCategory::OpaquePointer { is_const, .. } => !is_const,
                 ctype_rust::CTypeCategory::TypedPointer { is_const, pointee } => {
-                    !is_const
-                        && ctype_rust::is_opaque_type(
-                            ctype_to_rust_type(analysis, pointee, None).as_str(),
-                        )
+                    !is_const && analysis.is_opaque_type(pointee)
                 }
                 _ => false,
             };
@@ -600,7 +597,8 @@ pub fn convert_param_type(
         }
         CTypeCategory::TypedPointer { is_const, pointee } => {
             let ty = ctype_to_rust_type(analysis, pointee, lifetime_param);
-            let s = if ctype_rust::is_opaque_type(ty.as_str()) {
+            let is_opaque = analysis.is_opaque_type(pointee);
+            let s = if is_opaque {
                 if is_const {
                     format!("*const {}", ty)
                 } else if is_output_param {

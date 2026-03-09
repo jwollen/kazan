@@ -65,7 +65,7 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn window(mut self, window: &'a mut OHNativeWindow) -> Self {
+        pub fn window(mut self, window: *mut OHNativeWindow) -> Self {
             self.window = window;
             self
         }

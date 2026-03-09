@@ -6,7 +6,13 @@ use std::{
 use tracing::{debug, error_span};
 
 use crate::{
-    cdecl::CType, enums::ReqEnumData, handle::{HandleCommandTypes, collect_handle_command_types}, module::Module, xml
+    cdecl::CType,
+    ctype_rust,
+    enums::ReqEnumData,
+    external,
+    handle::{HandleCommandTypes, collect_handle_command_types},
+    module::Module,
+    xml,
 };
 
 /// Holds the analysis results for easy querying.
@@ -20,6 +26,7 @@ pub struct Analysis {
     item_owner: HashMap<&'static str, usize>,
     provisional_types: HashSet<&'static str>,
     provisional_extensions: HashSet<&'static str>,
+    opaque_types: HashSet<&'static str>,
 }
 
 impl Analysis {
@@ -45,8 +52,19 @@ impl Analysis {
             registry.merge(xml);
         }
 
-        let custom_types = custom_types();
+        let custom_types = external::external_types();
         let type_refs = build_type_refs(&registry, &custom_types);
+
+        // Assert every external type from vk.xml is resolvable (either a
+        // primitive or defined in overrides::external_types).
+        for ext in &registry.externals {
+            assert!(
+                type_refs.contains_key(ext.name),
+                "External type {:?} from vk.xml has no type definition. \
+                 Add it to external::external_types().",
+                ext.name,
+            );
+        }
         let type_infos = compute_type_infos(&registry, &custom_types, &type_refs);
         let handle_command_types = collect_handle_command_types(&registry);
         let req_enum_data = ReqEnumData::from_registry(&registry);
@@ -68,6 +86,26 @@ impl Analysis {
             .map(|ty| ty.name)
             .collect();
 
+        // Opaque types: "void" itself, external types aliasing void, plus
+        // basetypes with no underlying C type (forward-declared platform
+        // structs like ANativeWindow).
+        let opaque_types: HashSet<&'static str> = ["void"]
+            .into_iter()
+            .chain(
+                custom_types
+                    .iter()
+                    .filter(|(_, ty)| *ty == CType::VOID)
+                    .map(|(name, _)| *name),
+            )
+            .chain(
+                registry
+                    .basetypes
+                    .iter()
+                    .filter(|bt| bt.ty.is_none())
+                    .map(|bt| bt.name),
+            )
+            .collect();
+
         Self {
             registry,
             custom_types,
@@ -78,6 +116,7 @@ impl Analysis {
             item_owner,
             provisional_types,
             provisional_extensions,
+            opaque_types,
         }
     }
 
@@ -123,6 +162,17 @@ impl Analysis {
     /// Returns true if the named extension is provisional.
     pub fn is_provisional_extension(&self, name: &str) -> bool {
         self.provisional_extensions.contains(name)
+    }
+
+    /// Returns true if `name` (a C type name) is an opaque type whose pointers
+    /// should stay raw (`*const` / `*mut`) rather than being converted to Rust references.
+    pub fn is_opaque_type_name(&self, name: &str) -> bool {
+        self.opaque_types.contains(name)
+    }
+
+    /// Like [`is_opaque_type_name`], but extracts the base name from a `CType`.
+    pub fn is_opaque_type(&self, ty: &CType) -> bool {
+        ctype_rust::base_name(ty).is_some_and(|name| self.opaque_types.contains(name))
     }
 
     /// Returns true if the named type is a struct with an `sType` member (i.e. extensible via pNext).
@@ -552,76 +602,13 @@ pub enum PrimitiveType {
     Ulong,
 }
 
-const fn ctype(base: &str) -> CType<'_> {
-    CType::Base(crate::cdecl::CBaseType {
-        struct_tag: false,
-        name: base,
-    })
-}
-
-fn c_ptr_type(pointee: CType<'static>, is_const: bool) -> CType<'_> {
-    CType::Ptr {
-        implicit_for_decay: false,
-        is_const,
-        pointee: Box::new(pointee),
-    }
-}
-
-impl CType<'_> {
-    pub const UINT16_T: CType<'static> = ctype("uint16_t");
-    pub const UINT32_T: CType<'static> = ctype("uint32_t");
-    pub const ISIZE_T: CType<'static> = ctype("isize_t");
-    pub const INT: CType<'static> = ctype("int");
-    pub const UINT: CType<'static> = ctype("unsigned int");
-    pub const ULONG: CType<'static> = ctype("unsigned long");
-    pub const HANDLE: CType<'static> = ctype("HANDLE");
-}
-
-type CustomTypes = Vec<(&'static str, CType<'static>)>;
-
-fn custom_types() -> CustomTypes {
-    [
-        ("VisualID", CType::UINT),
-        ("Display", CType::VOID),
-        ("Window", CType::ULONG),
-        ("RROutput", CType::ULONG),
-        ("wl_display", CType::VOID),
-        ("wl_surface", CType::VOID),
-        ("HANDLE", CType::ISIZE_T),
-        ("HINSTANCE", CType::HANDLE),
-        ("HWND", CType::HANDLE),
-        ("HMONITOR", CType::HANDLE),
-        ("DWORD", CType::ULONG),
-        ("LPCWSTR", c_ptr_type(CType::UINT16_T, true)),
-        ("xcb_connection_t", CType::VOID),
-        ("xcb_window_t", CType::UINT32_T),
-        ("xcb_visualid_t", CType::UINT32_T),
-        ("SECURITY_ATTRIBUTES", CType::VOID),
-        ("IDirectFB", CType::VOID),
-        ("IDirectFBSurface", CType::VOID),
-        ("zx_handle_t", CType::UINT32_T),
-        ("GgpStreamDescriptor", CType::INT),
-        ("GgpFrameToken", CType::INT),
-        ("_screen_buffer", CType::VOID),
-        ("_screen_context", CType::VOID),
-        ("_screen_window", CType::VOID),
-        ("NvSciSyncAttrList", c_ptr_type(CType::VOID, true)),
-        ("NvSciSyncObj", c_ptr_type(CType::VOID, true)),
-        ("NvSciSyncFence", c_ptr_type(CType::VOID, false)),
-        ("NvSciBufAttrList", c_ptr_type(CType::VOID, true)),
-        ("NvSciBufObj", c_ptr_type(CType::VOID, true)),
-    ]
-    .into_iter()
-    .collect()
-}
+type CustomTypes = external::ExternalTypes;
 
 // For each item (type, command, constant) required by any module, determines which
 /// module should own its definition. If the item has a vendor suffix that matches
 /// a specific module's vendor tag, that module is preferred. Otherwise, the first
 /// module that requires the item wins.
-fn compute_item_owners(
-    registry: &xml::Registry,
-) -> HashMap<&'static str, usize> {
+fn compute_item_owners(registry: &xml::Registry) -> HashMap<&'static str, usize> {
     // Collect all items required by each module, along with the module index.
     let mut first_requirer: HashMap<&'static str, usize> = HashMap::new();
     let mut vendor_requirer: HashMap<&'static str, usize> = HashMap::new();

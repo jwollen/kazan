@@ -40,7 +40,7 @@ pub enum CTypeCategory<'a> {
 
 impl<'a> CTypeCategory<'a> {
     /// Returns the category for a C type. Use this instead of matching on `CType` directly.
-    pub fn from_ctype(ty: &'a CType<'a>, _analysis: &Analysis) -> CTypeCategory<'a> {
+    pub fn from_ctype(ty: &'a CType<'a>, analysis: &Analysis) -> CTypeCategory<'a> {
         match ty {
             CType::Base(base) => {
                 if base.name.starts_with("PFN_") {
@@ -56,7 +56,7 @@ impl<'a> CTypeCategory<'a> {
                 match pointee {
                     CType::Base(inner) => {
                         let name = inner.name;
-                        if name == "void" || name == "char" || is_opaque_type(name) {
+                        if name == "char" || analysis.is_opaque_type_name(name) {
                             if name == "char" {
                                 CTypeCategory::CharPointer {
                                     is_const: *is_const,
@@ -109,7 +109,7 @@ impl<'a> CTypeCategory<'a> {
     }
 }
 
-fn base_name<'a>(ty: &'a CType<'a>) -> Option<&'a str> {
+pub(crate) fn base_name<'a>(ty: &'a CType<'a>) -> Option<&'a str> {
     match ty {
         CType::Base(b) => Some(b.name),
         CType::Ptr { pointee, .. } => base_name(pointee),
@@ -120,26 +120,6 @@ fn base_name<'a>(ty: &'a CType<'a>) -> Option<&'a str> {
 
 pub fn is_bool32(ty: &CType) -> bool {
     matches!(ty, CType::Base(b) if b.name == "VkBool32")
-}
-
-pub fn is_opaque_type(name: &str) -> bool {
-    matches!(
-        name,
-        "void"
-            | "wl_display"
-            | "wl_surface"
-            | "Display"
-            | "xcb_connection_t"
-            | "ANativeWindow"
-            | "AHardwareBuffer"
-            | "CAMetalLayer"
-            | "IDirectFB"
-            | "IDirectFBSurface"
-            | "_screen_buffer"
-            | "_screen_context"
-            | "_screen_window"
-            | "SECURITY_ATTRIBUTES"
-    )
 }
 
 /// Structured representation of a Rust type. Rendered to string in one place.
@@ -342,7 +322,8 @@ fn ctype_category_to_rust(
                 }
             } else {
                 let inner = ctype_to_rust_repr(analysis, pointee, lifetime, context).to_string();
-                if is_opaque_type(inner.as_str()) {
+                let is_opaque = analysis.is_opaque_type(pointee);
+                if is_opaque {
                     if *is_const {
                         RustTypeRepr::PtrConst(inner)
                     } else {

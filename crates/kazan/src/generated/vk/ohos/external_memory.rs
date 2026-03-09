@@ -284,7 +284,7 @@ pub(super) mod defs {
 
     impl<'a> ImportNativeBufferInfoOHOS<'a> {
         #[inline]
-        pub fn buffer(mut self, buffer: &'a mut OH_NativeBuffer) -> Self {
+        pub fn buffer(mut self, buffer: *mut OH_NativeBuffer) -> Self {
             self.buffer = buffer;
             self
         }
@@ -428,7 +428,7 @@ impl DeviceFn {
     pub unsafe fn get_native_buffer_properties_ohos(
         &self,
         device: Device,
-        buffer: &OH_NativeBuffer,
+        buffer: *const OH_NativeBuffer,
         properties: &mut NativeBufferPropertiesOHOS<'_>,
     ) -> crate::Result<()> {
         unsafe {

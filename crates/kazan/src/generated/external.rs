@@ -1,0 +1,32 @@
+#![allow(non_camel_case_types)]
+use core::ffi::{c_int, c_uint, c_ulong, c_void};
+
+pub type VisualID = c_uint;
+pub type Display = c_void;
+pub type Window = c_ulong;
+pub type RROutput = c_ulong;
+pub type wl_display = c_void;
+pub type wl_surface = c_void;
+pub type HANDLE = isize;
+pub type HINSTANCE = HANDLE;
+pub type HWND = HANDLE;
+pub type HMONITOR = HANDLE;
+pub type DWORD = c_ulong;
+pub type LPCWSTR = *const u16;
+pub type SECURITY_ATTRIBUTES = c_void;
+pub type xcb_connection_t = c_void;
+pub type xcb_window_t = u32;
+pub type xcb_visualid_t = u32;
+pub type IDirectFB = c_void;
+pub type IDirectFBSurface = c_void;
+pub type zx_handle_t = u32;
+pub type GgpStreamDescriptor = c_int;
+pub type GgpFrameToken = c_int;
+pub type _screen_buffer = c_void;
+pub type _screen_context = c_void;
+pub type _screen_window = c_void;
+pub type NvSciSyncAttrList = *const c_void;
+pub type NvSciSyncObj = *const c_void;
+pub type NvSciSyncFence = *mut c_void;
+pub type NvSciBufAttrList = *const c_void;
+pub type NvSciBufObj = *const c_void;
