@@ -9,6 +9,13 @@ use raw_window_handle::{RawDisplayHandle, RawWindowHandle};
 
 use crate::vk;
 
+/// Combines an [`InstanceFn`] with a [`RawDisplayHandle`], so callers only need to pass
+/// a [`RawWindowHandle`] when creating surfaces.
+pub struct SurfaceFactory {
+    instance_fn: InstanceFn,
+    display_handle: RawDisplayHandle,
+}
+
 /// Loaded platform-specific surface creation function pointers.
 ///
 /// Constructed via [`InstanceFn::new()`], which loads the appropriate function pointers
@@ -55,6 +62,70 @@ pub enum InstanceFn {
     Metal(vk::ext::metal_surface::InstanceFn),
 }
 
+impl SurfaceFactory {
+    /// Load the platform-specific surface extension for the given display handle.
+    ///
+    /// # Safety
+    ///
+    /// The `load` function must return valid function pointers for the given instance.
+    /// The display handle must remain valid for the lifetime of this `SurfaceFactory`.
+    pub unsafe fn new(
+        load: impl Fn(&CStr) -> Option<vk::PFN_vkVoidFunction>,
+        display_handle: RawDisplayHandle,
+    ) -> crate::Result<Self> {
+        let instance_fn = unsafe { InstanceFn::load(load, display_handle)? };
+        Ok(Self {
+            instance_fn,
+            display_handle,
+        })
+    }
+
+    /// Query whether the given queue family on a physical device supports presentation
+    /// to this factory's display system.
+    ///
+    /// See [`InstanceFn::get_physical_device_presentation_support()`] for details on
+    /// platform-specific behavior.
+    ///
+    /// # Safety
+    ///
+    /// - `physical_device` must be a valid physical device.
+    /// - `window_handle` must be valid.
+    pub unsafe fn get_physical_device_presentation_support(
+        &self,
+        physical_device: vk::PhysicalDevice,
+        queue_family_index: u32,
+        window_handle: RawWindowHandle,
+    ) -> bool {
+        unsafe {
+            self.instance_fn.get_physical_device_presentation_support(
+                physical_device,
+                queue_family_index,
+                self.display_handle,
+                window_handle,
+            )
+        }
+    }
+
+    /// Create a [`vk::SurfaceKHR`] from a raw window handle.
+    ///
+    /// # Safety
+    ///
+    /// - `instance` must be a valid Vulkan instance.
+    /// - The window handle must be valid and must outlive the returned surface.
+    /// - The returned surface must be destroyed before the instance.
+    pub unsafe fn create_surface(
+        &self,
+        instance: vk::Instance,
+        window_handle: RawWindowHandle,
+        allocator: Option<&vk::AllocationCallbacks<'_>>,
+    ) -> crate::Result<vk::SurfaceKHR> {
+        unsafe {
+            self.instance_fn
+                .create_surface(instance, self.display_handle, window_handle, allocator)
+        }
+    }
+}
+
 impl InstanceFn {
     /// Load the platform-specific surface extension for the given display handle.
     ///
@@ -64,7 +135,7 @@ impl InstanceFn {
     /// # Safety
     ///
     /// The `load` function must return valid function pointers for the given instance.
-    pub unsafe fn new(
+    pub unsafe fn load(
         load: impl Fn(&CStr) -> Option<vk::PFN_vkVoidFunction>,
         display_handle: RawDisplayHandle,
     ) -> crate::Result<Self> {

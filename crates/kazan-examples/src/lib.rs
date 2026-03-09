@@ -315,14 +315,11 @@ impl ExampleBase {
             // Create surface
             let surface_fn = surface::InstanceFn::load(load_instance(instance)).unwrap();
 
+            let surface_factory =
+                kazan::window::SurfaceFactory::new(load_instance(instance), display_handle)?;
+
             let window_handle = window.window_handle()?.as_raw();
-            let surface = kazan::window::create_surface(
-                load_instance(instance),
-                instance,
-                display_handle,
-                window_handle,
-                None,
-            )?;
+            let surface = surface_factory.create_surface(instance, window_handle, None)?;
 
             let mut pdevices = Vec::new();
             instance_fn
