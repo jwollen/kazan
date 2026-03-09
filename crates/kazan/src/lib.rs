@@ -1,5 +1,5 @@
 mod generated;
-pub use generated::*;
+pub mod vk;
 
 mod chain;
 pub use chain::*;
