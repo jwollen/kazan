@@ -139,14 +139,3 @@ pub fn read_spv<R: io::Read + io::Seek>(x: &mut R) -> io::Result<Vec<u32>> {
     }
     Ok(result)
 }
-
-/// Copy a slice of `T` into a mapped memory pointer.
-///
-/// # Safety
-/// `dst` must be a valid, writable pointer with enough space for `src`.
-#[inline]
-pub unsafe fn copy_to_mapped<T: Copy>(dst: *mut c_void, src: &[T]) {
-    unsafe {
-        core::ptr::copy_nonoverlapping(src.as_ptr(), dst as *mut T, src.len());
-    }
-}
