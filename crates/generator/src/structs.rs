@@ -135,6 +135,162 @@ struct MemberInfo<'a> {
     len: Vec<LengthKind<'a>>,
 }
 
+/// Collect all array members whose length is derived from `len_member_index`.
+fn collect_array_params(
+    analysis: &Analysis,
+    struct_ty: &xml::Structure,
+    len_kinds: &[Vec<LengthKind<'_>>],
+    len_member_index: usize,
+    lifetime_param: Option<&str>,
+) -> Vec<(SetterParamInfo, bool)> {
+    let mut array_params = Vec::new();
+    for (array_member_index, array_member) in struct_ty.members.iter().enumerate() {
+        let member_len_kinds = len_kinds[array_member_index].as_slice();
+        let len = member_len_kinds.iter().next();
+        if let Some(LengthKind::Param { index, .. }) = len
+            && *index == len_member_index
+        {
+            let optional: Vec<_> = array_member
+                .optional
+                .iter()
+                .map(|s| s.parse::<bool>().unwrap())
+                .collect();
+
+            let array_param_ty = convert_setter_param_type(
+                analysis,
+                &array_member.c_decl.ty,
+                member_len_kinds,
+                &optional,
+                lifetime_param,
+            );
+
+            let mut name = normalize_setter_param_name(array_member.c_decl.name);
+            let category = ctype_rust::CTypeCategory::from_ctype(&array_member.c_decl.ty, analysis);
+            if matches!(
+                category,
+                ctype_rust::CTypeCategory::OpaquePointer {
+                    pointee_name: "char",
+                    ..
+                }
+            ) {
+                if let Some(stripped) = name.strip_suffix("_ptrs") {
+                    name = stripped.to_string();
+                }
+            }
+            let assignment = setter_assignment_kind(analysis, &array_member.c_decl.ty);
+            let is_optional = optional.first().copied().unwrap_or(false);
+            let noautovalidity = array_member.noautovalidity;
+
+            array_params.push((
+                SetterParamInfo {
+                    name,
+                    member_index: array_member_index,
+                    ty: array_param_ty,
+                    assignment,
+                    optional: is_optional,
+                },
+                noautovalidity,
+            ));
+        }
+    }
+    array_params
+}
+
+/// Group array params into setter groups: multiple params sharing one length
+/// get merged into a single setter; single params get their own setter.
+fn group_array_params(array_params: Vec<(SetterParamInfo, bool)>) -> Vec<Vec<SetterParamInfo>> {
+    if array_params.is_empty() {
+        vec![vec![]]
+    } else if array_params.len() >= 2 {
+        // Merge all array params sharing this length into one setter.
+        // Optional params and noautovalidity params become Option<...> in the signature.
+        vec![
+            array_params
+                .into_iter()
+                .map(|(mut p, noauto)| {
+                    if noauto {
+                        p.optional = true;
+                    }
+                    p
+                })
+                .collect(),
+        ]
+    } else {
+        array_params
+            .into_iter()
+            .map(|(mut p, _noauto)| {
+                p.optional = false;
+                vec![p]
+            })
+            .collect::<Vec<_>>()
+    }
+}
+
+/// Build setters for a length member and its associated array params.
+fn build_setters_for_length_member(
+    analysis: &Analysis,
+    struct_ty: &xml::Structure,
+    member: &xml::StructureMember,
+    member_index: usize,
+    param_name: &str,
+    array_param_groups: Vec<Vec<SetterParamInfo>>,
+    lifetime_param: Option<&str>,
+) -> Vec<MemberSetterInfo> {
+    let mut setters = Vec::new();
+    for array_params in array_param_groups {
+        let setter_name = if array_params.len() == 1 {
+            array_params[0].name.clone()
+        } else if !array_params.is_empty() {
+            let base = if let Some(name) = param_name.strip_suffix("_count") {
+                name
+            } else {
+                println!(
+                    "length member that doesn't end in 'count': {}.{}",
+                    struct_ty.name, member.c_decl.name
+                );
+                param_name
+            };
+            overrides::merged_setter_name(struct_ty.name, member.c_decl.name, base)
+        } else {
+            param_name.to_string()
+        };
+
+        let kind = if array_params.is_empty() {
+            let optional: Vec<_> = member
+                .optional
+                .iter()
+                .map(|s| s.parse::<bool>().unwrap())
+                .collect();
+
+            let param_ty = convert_setter_param_type(
+                analysis,
+                &member.c_decl.ty,
+                &[],
+                &optional,
+                lifetime_param,
+            );
+            SetterKind::Value(SetterParamInfo {
+                name: param_name.to_string(),
+                member_index,
+                ty: param_ty,
+                assignment: SetterAssignmentKind::CopyFromSlice, // unused for Value
+                optional: false,
+            })
+        } else {
+            SetterKind::Array {
+                len_member_index: member_index,
+                params: array_params,
+            }
+        };
+
+        setters.push(MemberSetterInfo {
+            name: setter_name,
+            kind,
+        });
+    }
+    setters
+}
+
 fn analyze_struct<'a>(analysis: &'a Analysis, struct_ty: &'a xml::Structure) -> StructInfo<'a> {
     let len_kinds: Vec<Vec<_>> = struct_ty
         .members
@@ -226,136 +382,24 @@ fn analyze_struct<'a>(analysis: &'a Analysis, struct_ty: &'a xml::Structure) -> 
 
         if len.is_empty() && !is_special_member {
             let param_name = normalize_setter_param_name(member.c_decl.name);
-
-            let mut array_params = Vec::new();
-            for (array_member_index, array_member) in struct_ty.members.iter().enumerate() {
-                let len_kinds = len_kinds[array_member_index].as_slice();
-                let len = len_kinds.iter().next();
-                if let Some(LengthKind::Param { index, .. }) = len
-                    && *index == member_index
-                {
-                    let optional: Vec<_> = array_member
-                        .optional
-                        .iter()
-                        .map(|s| s.parse::<bool>().unwrap())
-                        .collect();
-
-                    let array_param_ty = convert_setter_param_type(
-                        analysis,
-                        &array_member.c_decl.ty,
-                        len_kinds,
-                        &optional,
-                        lifetime_param,
-                    );
-
-                    let mut name = normalize_setter_param_name(array_member.c_decl.name);
-                    let category =
-                        ctype_rust::CTypeCategory::from_ctype(&array_member.c_decl.ty, analysis);
-                    if matches!(
-                        category,
-                        ctype_rust::CTypeCategory::OpaquePointer {
-                            pointee_name: "char",
-                            ..
-                        }
-                    ) {
-                        if let Some(stripped) = name.strip_suffix("_ptrs") {
-                            name = stripped.to_string();
-                        }
-                    }
-                    let assignment = setter_assignment_kind(analysis, &array_member.c_decl.ty);
-                    let is_optional = optional.first().copied().unwrap_or(false);
-                    let noautovalidity = array_member.noautovalidity;
-
-                    array_params.push((
-                        SetterParamInfo {
-                            name,
-                            member_index: array_member_index,
-                            ty: array_param_ty,
-                            assignment,
-                            optional: is_optional,
-                        },
-                        noautovalidity,
-                    ));
-                }
-            }
-
-            let array_param_groups = if array_params.is_empty() {
-                vec![vec![]]
-            } else if array_params.len() >= 2 {
-                // Merge all array params sharing this length into one setter.
-                // Optional params and noautovalidity params become Option<...> in the signature.
-                vec![
-                    array_params
-                        .into_iter()
-                        .map(|(mut p, noauto)| {
-                            if noauto {
-                                p.optional = true;
-                            }
-                            p
-                        })
-                        .collect(),
-                ]
-            } else {
-                array_params
-                    .into_iter()
-                    .map(|(mut p, _noauto)| {
-                        p.optional = false;
-                        vec![p]
-                    })
-                    .collect::<Vec<_>>()
-            };
-
-            for array_params in array_param_groups {
-                let setter_name = if array_params.len() == 1 {
-                    array_params[0].name.clone()
-                } else if !array_params.is_empty() {
-                    let base = if let Some(name) = param_name.strip_suffix("_count") {
-                        name
-                    } else {
-                        println!(
-                            "length member that doesn't end in 'count': {}.{}",
-                            struct_ty.name, member.c_decl.name
-                        );
-                        &param_name
-                    };
-                    overrides::merged_setter_name(struct_ty.name, member.c_decl.name, base)
-                } else {
-                    param_name.to_string()
-                };
-
-                let kind = if array_params.is_empty() {
-                    let optional: Vec<_> = member
-                        .optional
-                        .iter()
-                        .map(|s| s.parse::<bool>().unwrap())
-                        .collect();
-
-                    let param_ty = convert_setter_param_type(
-                        analysis,
-                        &member.c_decl.ty,
-                        &[],
-                        &optional,
-                        lifetime_param,
-                    );
-                    SetterKind::Value(SetterParamInfo {
-                        name: param_name.clone(),
-                        member_index,
-                        ty: param_ty,
-                        assignment: SetterAssignmentKind::CopyFromSlice, // unused for Value
-                        optional: false,
-                    })
-                } else {
-                    SetterKind::Array {
-                        len_member_index: member_index,
-                        params: array_params,
-                    }
-                };
-
-                setters.push(MemberSetterInfo {
-                    name: setter_name,
-                    kind,
-                });
-            }
+            let array_params = collect_array_params(
+                analysis,
+                struct_ty,
+                &len_kinds,
+                member_index,
+                lifetime_param,
+            );
+            let array_param_groups = group_array_params(array_params);
+            let new_setters = build_setters_for_length_member(
+                analysis,
+                struct_ty,
+                member,
+                member_index,
+                &param_name,
+                array_param_groups,
+                lifetime_param,
+            );
+            setters.extend(new_setters);
         }
 
         let ty = ctype_to_rust_type(analysis, &member.c_decl.ty, lifetime_param);
@@ -378,16 +422,16 @@ fn analyze_struct<'a>(analysis: &'a Analysis, struct_ty: &'a xml::Structure) -> 
     }
 }
 
-pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xml::Structure) {
-    let info = analyze_struct(analysis, ty);
-
-    let type_info = analysis.get_base_type_info(ty.name).unwrap();
-
-    let lifetime_spec = if type_info.lifetime_param { "<'a>" } else { "" };
-    let lifetime_spec_anon = if type_info.lifetime_param { "<'_>" } else { "" };
-
+fn write_struct_definition(
+    file: &mut impl std::io::Write,
+    analysis: &Analysis,
+    ty: &xml::Structure,
+    type_info: crate::analysis::TypeInfo,
+    has_derived_default: bool,
+    lifetime_spec: &str,
+) {
     let mut derives = vec!["Copy", "Clone"];
-    if info.has_default && type_info.default {
+    if has_derived_default {
         derives.push("Default");
     }
     let derives_str = derives.join(", ");
@@ -424,12 +468,14 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
         writeln!(file, "pub _marker: PhantomData<&'a ()>,",).unwrap();
     }
     writeln!(file, "}}\n").unwrap();
+}
 
-    if !type_info.trivial_debug {
-        writeln!(file, "#[cfg(feature = \"debug\")]").unwrap();
-        write_debug_impl(file, analysis, ty, &info, type_info);
-    }
-
+fn write_trait_impls(
+    file: &mut impl std::io::Write,
+    analysis: &Analysis,
+    ty: &xml::Structure,
+    info: &StructInfo<'_>,
+) {
     if let Some(tag) = info.tag {
         writeln!(
             file,
@@ -456,36 +502,140 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
     if !ty.structextends.is_empty() {
         writeln!(file).unwrap();
     }
+}
 
-    if info.has_default && !type_info.default {
+fn write_default_impl(
+    file: &mut impl std::io::Write,
+    analysis: &Analysis,
+    info: &StructInfo<'_>,
+    type_info: crate::analysis::TypeInfo,
+    lifetime_spec_anon: &str,
+) {
+    writeln!(
+        file,
+        "impl Default for {}{} {{
+        fn default() -> Self {{
+        Self {{",
+        info.name, lifetime_spec_anon
+    )
+    .unwrap();
+    for member in &info.members {
+        write!(file, "{}: ", member.name).unwrap();
+        if member.member.c_decl.name == "sType" {
+            writeln!(file, "Self::STRUCTURE_TYPE").unwrap()
+        } else {
+            write!(
+                file,
+                "{}",
+                default_value(analysis, &member.member.c_decl.ty)
+            )
+            .unwrap();
+        }
+        writeln!(file, ",").unwrap();
+    }
+    if type_info.lifetime_param {
+        writeln!(file, "_marker: PhantomData",).unwrap();
+    }
+    writeln!(file, "}} }} }}\n").unwrap();
+}
+
+fn write_value_setter_body(
+    file: &mut impl std::io::Write,
+    param: &SetterParamInfo,
+    member: &MemberInfo<'_>,
+) {
+    match param.assignment {
+        SetterAssignmentKind::CStrToPtr => {
+            writeln!(file, "self.{} = {}.as_ptr();", member.name, param.name).unwrap();
+        }
+        SetterAssignmentKind::CStrToArray => {
+            writeln!(
+                file,
+                "write_c_str_slice_with_nul(&mut self.{}, {})?;",
+                member.name, param.name
+            )
+            .unwrap();
+        }
+        _ => {
+            if member.ty.starts_with("PFN_") {
+                writeln!(file, "self.{} = Some({});", member.name, param.name).unwrap();
+            } else if ctype_rust::is_bool32(&member.member.c_decl.ty) {
+                writeln!(file, "self.{} = {}.into();", member.name, param.name).unwrap();
+            } else {
+                writeln!(file, "self.{} = {};", member.name, param.name).unwrap();
+            }
+        }
+    }
+}
+
+fn write_array_setter_body(
+    file: &mut impl std::io::Write,
+    info: &StructInfo<'_>,
+    len_member_index: usize,
+    params: &[SetterParamInfo],
+) {
+    // Find the first required (non-optional) param to derive length from.
+    let first_required = params.iter().find(|p| !p.optional);
+    let len_source = first_required.unwrap_or(&params[0]);
+
+    let len_member = &info.members[len_member_index];
+
+    if first_required.is_none() {
+        // All params are optional — derive length from first that is Some.
+        write!(file, "self.{} = None", len_member.name).unwrap();
+        for param in params {
+            write!(
+                file,
+                ".or_else(|| {}.as_deref().map(|s| s.len()))",
+                param.name
+            )
+            .unwrap();
+        }
+        writeln!(file, ".unwrap_or(0).try_into().unwrap();").unwrap();
+    } else {
         writeln!(
             file,
-            "impl Default for {}{} {{
-            fn default() -> Self {{
-            Self {{",
-            info.name, lifetime_spec_anon
+            "self.{} = {}.len().try_into().unwrap();",
+            len_member.name, len_source.name
         )
         .unwrap();
-        for member in &info.members {
-            write!(file, "{}: ", member.name).unwrap();
-            if member.member.c_decl.name == "sType" {
-                writeln!(file, "Self::STRUCTURE_TYPE").unwrap()
-            } else {
-                write!(
-                    file,
-                    "{}",
-                    default_value(analysis, &member.member.c_decl.ty)
-                )
-                .unwrap();
-            }
-            writeln!(file, ",").unwrap();
-        }
-        if type_info.lifetime_param {
-            writeln!(file, "_marker: PhantomData",).unwrap();
-        }
-        writeln!(file, "}} }} }}\n").unwrap();
     }
 
+    // Assert matching lengths for all other params.
+    for param in params {
+        if std::ptr::eq(param, len_source) {
+            continue;
+        }
+        if param.optional {
+            writeln!(
+                file,
+                "if let Some(s) = &{name} {{ assert_eq!(s.len(), self.{len} as usize); }}",
+                name = param.name,
+                len = len_member.name,
+            )
+            .unwrap();
+        } else {
+            writeln!(
+                file,
+                "assert_eq!({}.len(), self.{} as usize);",
+                param.name, len_member.name
+            )
+            .unwrap();
+        }
+    }
+
+    // Emit assignments.
+    for param in params {
+        let member = &info.members[param.member_index];
+        if param.optional {
+            emit_optional_setter_assignment(file, &member.name, &param.name, param.assignment);
+        } else {
+            emit_setter_assignment(file, &member.name, &param.name, param.assignment);
+        }
+    }
+}
+
+fn write_setters(file: &mut impl std::io::Write, info: &StructInfo<'_>, lifetime_spec: &str) {
     writeln!(
         file,
         "impl{} {}{}{{",
@@ -529,99 +679,13 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
 
         match &setter.kind {
             SetterKind::Value(param) => {
-                let member = &info.members[param.member_index];
-                match param.assignment {
-                    SetterAssignmentKind::CStrToPtr => {
-                        writeln!(file, "self.{} = {}.as_ptr();", member.name, param.name).unwrap();
-                    }
-                    SetterAssignmentKind::CStrToArray => {
-                        writeln!(
-                            file,
-                            "write_c_str_slice_with_nul(&mut self.{}, {})?;",
-                            member.name, param.name
-                        )
-                        .unwrap();
-                    }
-                    _ => {
-                        if member.ty.starts_with("PFN_") {
-                            writeln!(file, "self.{} = Some({});", member.name, param.name).unwrap();
-                        } else if ctype_rust::is_bool32(&member.member.c_decl.ty) {
-                            writeln!(file, "self.{} = {}.into();", member.name, param.name)
-                                .unwrap();
-                        } else {
-                            writeln!(file, "self.{} = {};", member.name, param.name).unwrap();
-                        }
-                    }
-                }
+                write_value_setter_body(file, param, &info.members[param.member_index]);
             }
             SetterKind::Array {
                 len_member_index,
                 params,
             } => {
-                // Find the first required (non-optional) param to derive length from.
-                let first_required = params.iter().find(|p| !p.optional);
-                let len_source = first_required.unwrap_or(&params[0]);
-
-                let len_member = &info.members[*len_member_index];
-
-                if first_required.is_none() {
-                    // All params are optional — derive length from first that is Some.
-                    write!(file, "self.{} = None", len_member.name).unwrap();
-                    for param in params {
-                        write!(
-                            file,
-                            ".or_else(|| {}.as_deref().map(|s| s.len()))",
-                            param.name
-                        )
-                        .unwrap();
-                    }
-                    writeln!(file, ".unwrap_or(0).try_into().unwrap();").unwrap();
-                } else {
-                    writeln!(
-                        file,
-                        "self.{} = {}.len().try_into().unwrap();",
-                        len_member.name, len_source.name
-                    )
-                    .unwrap();
-                }
-
-                // Assert matching lengths for all other params.
-                for param in params {
-                    if std::ptr::eq(param, len_source) {
-                        continue;
-                    }
-                    if param.optional {
-                        writeln!(
-                            file,
-                            "if let Some(s) = &{name} {{ assert_eq!(s.len(), self.{len} as usize); }}",
-                            name = param.name,
-                            len = len_member.name,
-                        )
-                        .unwrap();
-                    } else {
-                        writeln!(
-                            file,
-                            "assert_eq!({}.len(), self.{} as usize);",
-                            param.name, len_member.name
-                        )
-                        .unwrap();
-                    }
-                }
-
-                // Emit assignments.
-                for param in params {
-                    let member = &info.members[param.member_index];
-                    if param.optional {
-                        emit_optional_setter_assignment(
-                            file,
-                            &member.name,
-                            &param.name,
-                            param.assignment,
-                        );
-                    } else {
-                        emit_setter_assignment(file, &member.name, &param.name, param.assignment);
-                    }
-                }
+                write_array_setter_body(file, info, *len_member_index, params);
             }
         }
 
@@ -632,6 +696,38 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
         }
     }
     writeln!(file, "}}\n").unwrap();
+}
+
+pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xml::Structure) {
+    let info = analyze_struct(analysis, ty);
+    let type_info = analysis.get_base_type_info(ty.name).unwrap();
+
+    let lifetime_spec = if type_info.lifetime_param { "<'a>" } else { "" };
+    let lifetime_spec_anon = if type_info.lifetime_param { "<'_>" } else { "" };
+
+    let has_derived_default = info.has_default && type_info.default;
+
+    write_struct_definition(
+        file,
+        analysis,
+        ty,
+        type_info,
+        has_derived_default,
+        lifetime_spec,
+    );
+
+    if !type_info.trivial_debug {
+        writeln!(file, "#[cfg(feature = \"debug\")]").unwrap();
+        write_debug_impl(file, analysis, ty, &info, type_info);
+    }
+
+    write_trait_impls(file, analysis, ty, &info);
+
+    if info.has_default && !type_info.default {
+        write_default_impl(file, analysis, &info, type_info, lifetime_spec_anon);
+    }
+
+    write_setters(file, &info, lifetime_spec);
 }
 
 /// Classifies how a struct member should be formatted in a Debug impl.
@@ -1029,4 +1125,3 @@ pub fn convert_setter_param_type(
         }
     }
 }
-

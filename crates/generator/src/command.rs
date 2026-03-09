@@ -300,6 +300,172 @@ pub fn generate_commands(
     generate_commands(CommandType::Device, "DeviceFn");
 }
 
+/// Detect enumeration (two-call) pattern: a length param that is a mutable pointer,
+/// with one or more array params whose length refers to it.
+fn compute_enumeration_info(
+    analysis: &Analysis,
+    len_kinds: &[Option<LengthKind<'_>>],
+) -> Option<EnumerationCommandInfo> {
+    let len_param = len_kinds
+        .iter()
+        .enumerate()
+        .find_map(|(_param_index, len_kind)| {
+            let LengthKind::Param {
+                index: len_param_index,
+                c_decl,
+            } = len_kind.as_ref()?
+            else {
+                return None;
+            };
+            let category = ctype_rust::CTypeCategory::from_ctype(&c_decl.ty, analysis);
+            match category {
+                ctype_rust::CTypeCategory::TypedPointer { is_const, .. } if !is_const => {
+                    Some(*len_param_index)
+                }
+                _ => None,
+            }
+        })?;
+
+    let array_params = len_kinds
+        .iter()
+        .enumerate()
+        .filter_map(|(param_index, len_kind)| match len_kind {
+            Some(LengthKind::Param { index, .. }) if *index == len_param => Some(param_index),
+            _ => None,
+        })
+        .collect();
+
+    Some(EnumerationCommandInfo {
+        len_param,
+        array_params,
+    })
+}
+
+/// Classify a single command parameter's output/return characteristics.
+struct ParamClassification {
+    is_output_param: bool,
+    is_output_opaque_param: bool,
+    is_return_param: bool,
+}
+
+fn classify_param(
+    analysis: &Analysis,
+    param: &xml::CommandParam,
+    param_index: usize,
+    len_kinds: &[Option<LengthKind<'_>>],
+    _enumeration_info: &Option<EnumerationCommandInfo>,
+    has_regular_return: bool,
+) -> ParamClassification {
+    let optional_0: bool = param
+        .optional
+        .first()
+        .and_then(|s| s.parse().ok())
+        .unwrap_or_default();
+
+    let is_implicit_length = len_kinds.iter().any(
+        |len| matches!(len, Some(LengthKind::Param { index, .. }) if *index == param_index),
+    );
+
+    let is_output_param = {
+        let category = ctype_rust::CTypeCategory::from_ctype(&param.c_decl.ty, analysis);
+        match category {
+            ctype_rust::CTypeCategory::TypedPointer { is_const, pointee } => {
+                if is_const || param.len.is_some() {
+                    false
+                } else if let CType::Base(base) = pointee {
+                    !analysis.is_opaque_type_name(base.name)
+                } else {
+                    false
+                }
+            }
+            _ => false,
+        }
+    };
+
+    // Output opaque pointer only when C type is pointer-to-pointer (e.g. void**, OH_NativeBuffer**).
+    // Single opaque pointers (void* pData) stay as *mut T or &mut [u8] when they have a length.
+    let is_output_opaque_param = {
+        let category = ctype_rust::CTypeCategory::from_ctype(&param.c_decl.ty, analysis);
+        let non_const_ptr = match category {
+            ctype_rust::CTypeCategory::OpaquePointer { is_const, .. } => !is_const,
+            ctype_rust::CTypeCategory::TypedPointer { is_const, pointee } => {
+                !is_const && analysis.is_opaque_type(pointee)
+            }
+            _ => false,
+        };
+        non_const_ptr && param.len.is_none() && is_pointer_to_pointer(&param.c_decl.ty)
+    };
+
+    // Extensible structs (with sType/pNext) must remain as &mut output parameters
+    // so callers can pre-populate the pNext chain before calling.
+    let is_extensible_output = is_output_param && {
+        let category = ctype_rust::CTypeCategory::from_ctype(&param.c_decl.ty, analysis);
+        matches!(
+            category,
+            ctype_rust::CTypeCategory::TypedPointer { pointee: CType::Base(base), .. }
+                if analysis.is_extensible_struct(base.name)
+        )
+    };
+
+    let is_return_param = (is_output_param || is_output_opaque_param)
+        && !is_implicit_length
+        && !has_regular_return
+        && !is_extensible_output
+        && !optional_0;
+
+    ParamClassification {
+        is_output_param,
+        is_output_opaque_param,
+        is_return_param,
+    }
+}
+
+/// Build the wrapper return kind from collected return params and command info.
+fn build_wrapper_return<'a>(
+    analysis: &'a Analysis,
+    command: &'a xml::Command,
+    return_params: Vec<usize>,
+    params: &[ParamInfo<'a>],
+    has_regular_return: bool,
+) -> WrapperReturnKind<'a> {
+    if !return_params.is_empty() {
+        let return_wrapper_params = return_params
+            .into_iter()
+            .map(|param_index| {
+                let param = params[param_index].param;
+                let CType::Ptr { pointee, .. } = &param.c_decl.ty else {
+                    unreachable!()
+                };
+                let ty = if ctype_rust::is_bool32(&pointee) {
+                    "bool".to_string()
+                } else {
+                    ctype_to_rust_type(analysis, &pointee, None)
+                };
+                WrapperParamInfo {
+                    name: normalize_param_name(param.c_decl.name),
+                    ty,
+                    param_index,
+                    param,
+                    is_enumeration_array: false,
+                }
+            })
+            .collect();
+
+        WrapperReturnKind::OutputParams(return_wrapper_params)
+    } else if has_regular_return {
+        let ret_ty = command.return_type.as_ref().unwrap();
+        WrapperReturnKind::CommandReturnValue {
+            ty: if ctype_rust::is_bool32(ret_ty) {
+                "bool".to_string()
+            } else {
+                ctype_to_rust_type(analysis, ret_ty, None)
+            },
+        }
+    } else {
+        WrapperReturnKind::None
+    }
+}
+
 fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> WrapperCommandInfo<'a> {
     let command = info.command;
     let len_kinds: Vec<_> = command
@@ -312,41 +478,7 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
         })
         .collect();
 
-    let enumeration_len_param =
-        len_kinds
-            .iter()
-            .enumerate()
-            .find_map(|(_param_index, len_kind)| {
-                let LengthKind::Param {
-                    index: len_param_index,
-                    c_decl,
-                } = len_kind.as_ref()?
-                else {
-                    return None;
-                };
-                let category = ctype_rust::CTypeCategory::from_ctype(&c_decl.ty, analysis);
-                match category {
-                    ctype_rust::CTypeCategory::TypedPointer { is_const, .. } if !is_const => {
-                        Some(*len_param_index)
-                    }
-                    _ => None,
-                }
-            });
-
-    let enumeration_info = enumeration_len_param.map(|len_param| {
-        let array_params = len_kinds
-            .iter()
-            .enumerate()
-            .filter_map(|(param_index, len_kind)| match len_kind {
-                Some(LengthKind::Param { index, .. }) if *index == len_param => Some(param_index),
-                _ => None,
-            })
-            .collect();
-        EnumerationCommandInfo {
-            len_param,
-            array_params,
-        }
-    });
+    let enumeration_info = compute_enumeration_info(analysis, &len_kinds);
 
     let is_fallible =
         matches!(&command.return_type, Some(CType::Base(base)) if base.name == "VkResult");
@@ -388,52 +520,14 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
             |len| matches!(len, Some(LengthKind::Param { index, .. }) if *index == param_index),
         );
 
-        let is_output_param = {
-            let category = ctype_rust::CTypeCategory::from_ctype(&param.c_decl.ty, analysis);
-            match category {
-                ctype_rust::CTypeCategory::TypedPointer { is_const, pointee } => {
-                    if is_const || param.len.is_some() {
-                        false
-                    } else if let CType::Base(base) = pointee {
-                        !analysis.is_opaque_type_name(base.name)
-                    } else {
-                        false
-                    }
-                }
-                _ => false,
-            }
-        };
-
-        // Output opaque pointer only when C type is pointer-to-pointer (e.g. void**, OH_NativeBuffer**).
-        // Single opaque pointers (void* pData) stay as *mut T or &mut [u8] when they have a length.
-        let is_output_opaque_param = {
-            let category = ctype_rust::CTypeCategory::from_ctype(&param.c_decl.ty, analysis);
-            let non_const_ptr = match category {
-                ctype_rust::CTypeCategory::OpaquePointer { is_const, .. } => !is_const,
-                ctype_rust::CTypeCategory::TypedPointer { is_const, pointee } => {
-                    !is_const && analysis.is_opaque_type(pointee)
-                }
-                _ => false,
-            };
-            non_const_ptr && param.len.is_none() && is_pointer_to_pointer(&param.c_decl.ty)
-        };
-
-        // Extensible structs (with sType/pNext) must remain as &mut output parameters
-        // so callers can pre-populate the pNext chain before calling.
-        let is_extensible_output = is_output_param && {
-            let category = ctype_rust::CTypeCategory::from_ctype(&param.c_decl.ty, analysis);
-            matches!(
-                category,
-                ctype_rust::CTypeCategory::TypedPointer { pointee: CType::Base(base), .. }
-                    if analysis.is_extensible_struct(base.name)
-            )
-        };
-
-        let is_return_param = (is_output_param || is_output_opaque_param)
-            && !is_implicit_length
-            && !has_regular_return
-            && !is_extensible_output
-            && !optional.0;
+        let classification = classify_param(
+            analysis,
+            param,
+            param_index,
+            &len_kinds,
+            &enumeration_info,
+            has_regular_return,
+        );
 
         let is_enumeration_array = if let Some(enumeration_info) = &enumeration_info {
             enumeration_info.array_params.contains(&param_index)
@@ -442,7 +536,7 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
         };
 
         if !is_implicit_length {
-            if is_return_param {
+            if classification.is_return_param {
                 return_params.push(param_index);
             } else {
                 let name = normalize_param_name(param.c_decl.name);
@@ -452,7 +546,7 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
                     len_kinds[param_index].as_ref(),
                     optional,
                     lifetime_param,
-                    is_output_param || is_output_opaque_param,
+                    classification.is_output_param || classification.is_output_opaque_param,
                 );
 
                 wrapper_params.push(WrapperParamInfo {
@@ -471,50 +565,15 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
             ty: ctype_to_rust_type(analysis, &param.c_decl.ty, lifetime_param),
             len: len_kinds[param_index].clone(),
             optional,
-            is_output_param,
-            is_return_param,
-            is_output_opaque_param,
+            is_output_param: classification.is_output_param,
+            is_return_param: classification.is_return_param,
+            is_output_opaque_param: classification.is_output_opaque_param,
         });
     }
 
     let name = normalize_command_name(info.alias);
-
-    let wrapper_return = if !return_params.is_empty() {
-        let params = return_params
-            .into_iter()
-            .map(|param_index| {
-                let param = params[param_index].param;
-                let CType::Ptr { pointee, .. } = &param.c_decl.ty else {
-                    unreachable!()
-                };
-                let ty = if ctype_rust::is_bool32(&pointee) {
-                    "bool".to_string()
-                } else {
-                    ctype_to_rust_type(analysis, &pointee, None)
-                };
-                WrapperParamInfo {
-                    name: normalize_param_name(param.c_decl.name),
-                    ty,
-                    param_index,
-                    param,
-                    is_enumeration_array: false,
-                }
-            })
-            .collect();
-
-        WrapperReturnKind::OutputParams(params)
-    } else if has_regular_return {
-        let ret_ty = command.return_type.as_ref().unwrap();
-        WrapperReturnKind::CommandReturnValue {
-            ty: if ctype_rust::is_bool32(ret_ty) {
-                "bool".to_string()
-            } else {
-                ctype_to_rust_type(analysis, ret_ty, None)
-            },
-        }
-    } else {
-        WrapperReturnKind::None
-    };
+    let wrapper_return =
+        build_wrapper_return(analysis, command, return_params, &params, has_regular_return);
 
     WrapperCommandInfo {
         command,
