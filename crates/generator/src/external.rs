@@ -99,6 +99,9 @@ pub fn external_types() -> ExternalTypes {
         ("_screen_buffer", CType::VOID),
         ("_screen_context", CType::VOID),
         ("_screen_window", CType::VOID),
+        // Samsung UBM
+        ("ubm_device", CType::VOID),
+        ("ubm_surface", CType::VOID),
         // NVIDIA SCI
         ("NvSciSyncAttrList", c_ptr_type(CType::VOID, true)),
         ("NvSciSyncObj", c_ptr_type(CType::VOID, true)),

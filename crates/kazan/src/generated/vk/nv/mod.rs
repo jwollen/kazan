@@ -108,7 +108,6 @@ pub(super) mod defs {
     pub use partitioned_acceleration_structure::defs::*;
     pub use per_stage_descriptor_set::defs::*;
     pub use present_barrier::defs::*;
-    #[cfg(feature = "provisional")]
     pub use present_metering::defs::*;
     pub use push_constant_bank::defs::*;
     pub use raw_access_chains::defs::*;
@@ -171,7 +170,6 @@ pub(super) mod ffi {
     pub use super::partitioned_acceleration_structure::ffi::*;
     pub use super::per_stage_descriptor_set::ffi::*;
     pub use super::present_barrier::ffi::*;
-    #[cfg(feature = "provisional")]
     pub use super::present_metering::ffi::*;
     pub use super::push_constant_bank::ffi::*;
     pub use super::raw_access_chains::ffi::*;

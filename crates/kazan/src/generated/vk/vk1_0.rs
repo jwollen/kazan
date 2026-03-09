@@ -9781,6 +9781,9 @@ pub(super) mod defs {
 
         // VK_ARM_tensors
         pub const R8_BOOL_ARM: Self = Self(1000460000);
+        pub const R16_SFLOAT_FPENCODING_BFLOAT16_ARM: Self = Self(1000460001);
+        pub const R8_SFLOAT_FPENCODING_FLOAT8E4M3_ARM: Self = Self(1000460002);
+        pub const R8_SFLOAT_FPENCODING_FLOAT8E5M2_ARM: Self = Self(1000460003);
 
         // VK_EXT_4444_formats
         pub const A4R4G4B4_UNORM_PACK16_EXT: Self = Self::A4R4G4B4_UNORM_PACK16;
@@ -10190,6 +10193,15 @@ pub(super) mod defs {
                     Some("G14X2_B14X2R14X2_2PLANE_422_UNORM_3PACK16_ARM")
                 }
                 Self::R8_BOOL_ARM => Some("R8_BOOL_ARM"),
+                Self::R16_SFLOAT_FPENCODING_BFLOAT16_ARM => {
+                    Some("R16_SFLOAT_FPENCODING_BFLOAT16_ARM")
+                }
+                Self::R8_SFLOAT_FPENCODING_FLOAT8E4M3_ARM => {
+                    Some("R8_SFLOAT_FPENCODING_FLOAT8E4M3_ARM")
+                }
+                Self::R8_SFLOAT_FPENCODING_FLOAT8E5M2_ARM => {
+                    Some("R8_SFLOAT_FPENCODING_FLOAT8E5M2_ARM")
+                }
                 Self::ASTC_3X3X3_UNORM_BLOCK_EXT => Some("ASTC_3X3X3_UNORM_BLOCK_EXT"),
                 Self::ASTC_3X3X3_SRGB_BLOCK_EXT => Some("ASTC_3X3X3_SRGB_BLOCK_EXT"),
                 Self::ASTC_3X3X3_SFLOAT_BLOCK_EXT => Some("ASTC_3X3X3_SFLOAT_BLOCK_EXT"),
@@ -10524,6 +10536,12 @@ pub(super) mod defs {
 
         // VK_ARM_shader_core_properties
         pub const PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_ARM: Self = Self(1000415000);
+
+        // VK_ARM_shader_instrumentation
+        pub const PHYSICAL_DEVICE_SHADER_INSTRUMENTATION_FEATURES_ARM: Self = Self(1000607000);
+        pub const PHYSICAL_DEVICE_SHADER_INSTRUMENTATION_PROPERTIES_ARM: Self = Self(1000607001);
+        pub const SHADER_INSTRUMENTATION_CREATE_INFO_ARM: Self = Self(1000607002);
+        pub const SHADER_INSTRUMENTATION_METRIC_DESCRIPTION_ARM: Self = Self(1000607003);
 
         // VK_ARM_tensors
         pub const TENSOR_CREATE_INFO_ARM: Self = Self(1000460000);
@@ -12358,9 +12376,7 @@ pub(super) mod defs {
         pub const SWAPCHAIN_PRESENT_BARRIER_CREATE_INFO_NV: Self = Self(1000292002);
 
         // VK_NV_present_metering
-        #[cfg(feature = "provisional")]
         pub const SET_PRESENT_CONFIG_NV: Self = Self(1000613000);
-        #[cfg(feature = "provisional")]
         pub const PHYSICAL_DEVICE_PRESENT_METERING_FEATURES_NV: Self = Self(1000613001);
 
         // VK_NV_push_constant_bank
@@ -12448,6 +12464,10 @@ pub(super) mod defs {
 
         // VK_OHOS_surface
         pub const SURFACE_CREATE_INFO_OHOS: Self = Self(1000685000);
+
+        // VK_QCOM_cooperative_matrix_conversion
+        pub const PHYSICAL_DEVICE_COOPERATIVE_MATRIX_CONVERSION_FEATURES_QCOM: Self =
+            Self(1000172000);
 
         // VK_QCOM_data_graph_model
         pub const PHYSICAL_DEVICE_DATA_GRAPH_MODEL_FEATURES_QCOM: Self = Self(1000629000);
@@ -12539,6 +12559,9 @@ pub(super) mod defs {
         pub const PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC: Self =
             Self(1000637000);
 
+        // VK_SEC_ubm_surface
+        pub const UBM_SURFACE_CREATE_INFO_SEC: Self = Self(1000664000);
+
         // VK_VALVE_descriptor_set_host_mapping
         pub const PHYSICAL_DEVICE_DESCRIPTOR_SET_HOST_MAPPING_FEATURES_VALVE: Self =
             Self(1000420000);
@@ -12557,6 +12580,10 @@ pub(super) mod defs {
             Self::PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT;
         pub const MUTABLE_DESCRIPTOR_TYPE_CREATE_INFO_VALVE: Self =
             Self::MUTABLE_DESCRIPTOR_TYPE_CREATE_INFO_EXT;
+
+        // VK_VALVE_shader_mixed_float_dot_product
+        pub const PHYSICAL_DEVICE_SHADER_MIXED_FLOAT_DOT_PRODUCT_FEATURES_VALVE: Self =
+            Self(1000673000);
 
         // VK_VALVE_video_encode_rgb_conversion
         pub const PHYSICAL_DEVICE_VIDEO_ENCODE_RGB_CONVERSION_FEATURES_VALVE: Self =
@@ -12637,8 +12664,8 @@ pub(super) mod defs {
             Self::PHYSICAL_DEVICE_SHADER_DRAW_PARAMETERS_FEATURES;
 
         // VK_VERSION_1_2
-        pub const IMAGE_FORMAT_LIST_CREATE_INFO: Self = Self(1000147000);
         pub const PHYSICAL_DEVICE_DRIVER_PROPERTIES: Self = Self(1000196000);
+        pub const IMAGE_FORMAT_LIST_CREATE_INFO: Self = Self(1000147000);
         pub const PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES: Self = Self(1000211000);
         pub const PHYSICAL_DEVICE_HOST_QUERY_RESET_FEATURES: Self = Self(1000261000);
         pub const PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES: Self = Self(1000207000);
@@ -13068,6 +13095,18 @@ pub(super) mod defs {
                 }
                 Self::PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_ARM => {
                     Some("PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_ARM")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_INSTRUMENTATION_FEATURES_ARM => {
+                    Some("PHYSICAL_DEVICE_SHADER_INSTRUMENTATION_FEATURES_ARM")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_INSTRUMENTATION_PROPERTIES_ARM => {
+                    Some("PHYSICAL_DEVICE_SHADER_INSTRUMENTATION_PROPERTIES_ARM")
+                }
+                Self::SHADER_INSTRUMENTATION_CREATE_INFO_ARM => {
+                    Some("SHADER_INSTRUMENTATION_CREATE_INFO_ARM")
+                }
+                Self::SHADER_INSTRUMENTATION_METRIC_DESCRIPTION_ARM => {
+                    Some("SHADER_INSTRUMENTATION_METRIC_DESCRIPTION_ARM")
                 }
                 Self::TENSOR_CREATE_INFO_ARM => Some("TENSOR_CREATE_INFO_ARM"),
                 Self::TENSOR_VIEW_CREATE_INFO_ARM => Some("TENSOR_VIEW_CREATE_INFO_ARM"),
@@ -14912,9 +14951,7 @@ pub(super) mod defs {
                 Self::SWAPCHAIN_PRESENT_BARRIER_CREATE_INFO_NV => {
                     Some("SWAPCHAIN_PRESENT_BARRIER_CREATE_INFO_NV")
                 }
-                #[cfg(feature = "provisional")]
                 Self::SET_PRESENT_CONFIG_NV => Some("SET_PRESENT_CONFIG_NV"),
-                #[cfg(feature = "provisional")]
                 Self::PHYSICAL_DEVICE_PRESENT_METERING_FEATURES_NV => {
                     Some("PHYSICAL_DEVICE_PRESENT_METERING_FEATURES_NV")
                 }
@@ -15033,6 +15070,9 @@ pub(super) mod defs {
                 }
                 Self::EXTERNAL_FORMAT_OHOS => Some("EXTERNAL_FORMAT_OHOS"),
                 Self::SURFACE_CREATE_INFO_OHOS => Some("SURFACE_CREATE_INFO_OHOS"),
+                Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_CONVERSION_FEATURES_QCOM => {
+                    Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_CONVERSION_FEATURES_QCOM")
+                }
                 Self::PHYSICAL_DEVICE_DATA_GRAPH_MODEL_FEATURES_QCOM => {
                     Some("PHYSICAL_DEVICE_DATA_GRAPH_MODEL_FEATURES_QCOM")
                 }
@@ -15133,6 +15173,7 @@ pub(super) mod defs {
                 Self::PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC => {
                     Some("PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC")
                 }
+                Self::UBM_SURFACE_CREATE_INFO_SEC => Some("UBM_SURFACE_CREATE_INFO_SEC"),
                 Self::PHYSICAL_DEVICE_DESCRIPTOR_SET_HOST_MAPPING_FEATURES_VALVE => {
                     Some("PHYSICAL_DEVICE_DESCRIPTOR_SET_HOST_MAPPING_FEATURES_VALVE")
                 }
@@ -15150,6 +15191,9 @@ pub(super) mod defs {
                 }
                 Self::PIPELINE_FRAGMENT_DENSITY_MAP_LAYERED_CREATE_INFO_VALVE => {
                     Some("PIPELINE_FRAGMENT_DENSITY_MAP_LAYERED_CREATE_INFO_VALVE")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_MIXED_FLOAT_DOT_PRODUCT_FEATURES_VALVE => {
+                    Some("PHYSICAL_DEVICE_SHADER_MIXED_FLOAT_DOT_PRODUCT_FEATURES_VALVE")
                 }
                 Self::PHYSICAL_DEVICE_VIDEO_ENCODE_RGB_CONVERSION_FEATURES_VALVE => {
                     Some("PHYSICAL_DEVICE_VIDEO_ENCODE_RGB_CONVERSION_FEATURES_VALVE")
@@ -15296,10 +15340,10 @@ pub(super) mod defs {
                 Self::PHYSICAL_DEVICE_SHADER_DRAW_PARAMETERS_FEATURES => {
                     Some("PHYSICAL_DEVICE_SHADER_DRAW_PARAMETERS_FEATURES")
                 }
-                Self::IMAGE_FORMAT_LIST_CREATE_INFO => Some("IMAGE_FORMAT_LIST_CREATE_INFO"),
                 Self::PHYSICAL_DEVICE_DRIVER_PROPERTIES => {
                     Some("PHYSICAL_DEVICE_DRIVER_PROPERTIES")
                 }
+                Self::IMAGE_FORMAT_LIST_CREATE_INFO => Some("IMAGE_FORMAT_LIST_CREATE_INFO"),
                 Self::PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES => {
                     Some("PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES")
                 }
@@ -16180,6 +16224,9 @@ pub(super) mod defs {
         // VK_ARM_data_graph
         pub const DATA_GRAPH_PIPELINE_SESSION_ARM: Self = Self(1000507000);
 
+        // VK_ARM_shader_instrumentation
+        pub const SHADER_INSTRUMENTATION_ARM: Self = Self(1000607000);
+
         // VK_ARM_tensors
         pub const TENSOR_ARM: Self = Self(1000460000);
         pub const TENSOR_VIEW_ARM: Self = Self(1000460001);
@@ -16304,6 +16351,7 @@ pub(super) mod defs {
                 Self::FRAMEBUFFER => Some("FRAMEBUFFER"),
                 Self::COMMAND_POOL => Some("COMMAND_POOL"),
                 Self::DATA_GRAPH_PIPELINE_SESSION_ARM => Some("DATA_GRAPH_PIPELINE_SESSION_ARM"),
+                Self::SHADER_INSTRUMENTATION_ARM => Some("SHADER_INSTRUMENTATION_ARM"),
                 Self::TENSOR_ARM => Some("TENSOR_ARM"),
                 Self::TENSOR_VIEW_ARM => Some("TENSOR_VIEW_ARM"),
                 Self::DEBUG_REPORT_CALLBACK_EXT => Some("DEBUG_REPORT_CALLBACK_EXT"),

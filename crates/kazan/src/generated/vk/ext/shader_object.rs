@@ -303,6 +303,10 @@ pub(super) mod defs {
     impl ShaderCreateFlagsEXT {
         pub const LINK_STAGE_EXT: Self = Self(ShaderCreateFlagBitsEXT::LINK_STAGE_EXT.0);
 
+        // VK_ARM_shader_instrumentation
+        pub const INSTRUMENT_SHADER_ARM: Self =
+            Self(ShaderCreateFlagBitsEXT::INSTRUMENT_SHADER_ARM.0);
+
         // VK_EXT_descriptor_heap
         pub const DESCRIPTOR_HEAP_EXT: Self = Self(ShaderCreateFlagBitsEXT::DESCRIPTOR_HEAP_EXT.0);
 
@@ -330,6 +334,10 @@ pub(super) mod defs {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (ShaderCreateFlagsEXT::LINK_STAGE_EXT.0, "LINK_STAGE_EXT"),
+                (
+                    ShaderCreateFlagsEXT::INSTRUMENT_SHADER_ARM.0,
+                    "INSTRUMENT_SHADER_ARM",
+                ),
                 (
                     ShaderCreateFlagsEXT::DESCRIPTOR_HEAP_EXT.0,
                     "DESCRIPTOR_HEAP_EXT",
@@ -375,6 +383,9 @@ pub(super) mod defs {
 
     impl ShaderCreateFlagBitsEXT {
         pub const LINK_STAGE_EXT: Self = Self(1 << 0);
+        // VK_ARM_shader_instrumentation
+        pub const INSTRUMENT_SHADER_ARM: Self = Self(1 << 11);
+
         // VK_EXT_descriptor_heap
         pub const DESCRIPTOR_HEAP_EXT: Self = Self(1 << 10);
 
@@ -397,6 +408,7 @@ pub(super) mod defs {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
                 Self::LINK_STAGE_EXT => Some("LINK_STAGE_EXT"),
+                Self::INSTRUMENT_SHADER_ARM => Some("INSTRUMENT_SHADER_ARM"),
                 Self::DESCRIPTOR_HEAP_EXT => Some("DESCRIPTOR_HEAP_EXT"),
                 Self::INDIRECT_BINDABLE_EXT => Some("INDIRECT_BINDABLE_EXT"),
                 Self::_64_INDEXING_EXT => Some("_64_INDEXING_EXT"),

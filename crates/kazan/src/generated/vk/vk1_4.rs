@@ -4123,6 +4123,10 @@ pub(super) mod defs {
         pub const DISALLOW_OPACITY_MICROMAP_ARM: Self =
             Self(PipelineCreateFlagBits2::DISALLOW_OPACITY_MICROMAP_ARM.0);
 
+        // VK_ARM_shader_instrumentation
+        pub const INSTRUMENT_SHADERS_ARM: Self =
+            Self(PipelineCreateFlagBits2::INSTRUMENT_SHADERS_ARM.0);
+
         // VK_EXT_descriptor_heap
         pub const DESCRIPTOR_HEAP_EXT: Self = Self(PipelineCreateFlagBits2::DESCRIPTOR_HEAP_EXT.0);
 
@@ -4248,6 +4252,10 @@ pub(super) mod defs {
                 (
                     PipelineCreateFlags2::DISALLOW_OPACITY_MICROMAP_ARM.0,
                     "DISALLOW_OPACITY_MICROMAP_ARM",
+                ),
+                (
+                    PipelineCreateFlags2::INSTRUMENT_SHADERS_ARM.0,
+                    "INSTRUMENT_SHADERS_ARM",
                 ),
                 (
                     PipelineCreateFlags2::DESCRIPTOR_HEAP_EXT.0,
@@ -4380,6 +4388,9 @@ pub(super) mod defs {
         // VK_ARM_pipeline_opacity_micromap
         pub const DISALLOW_OPACITY_MICROMAP_ARM: Self = Self(1 << 37);
 
+        // VK_ARM_shader_instrumentation
+        pub const INSTRUMENT_SHADERS_ARM: Self = Self(1 << 39);
+
         // VK_EXT_descriptor_heap
         pub const DESCRIPTOR_HEAP_EXT: Self = Self(1 << 36);
 
@@ -4457,6 +4468,7 @@ pub(super) mod defs {
                 #[cfg(feature = "provisional")]
                 Self::EXECUTION_GRAPH_AMDX => Some("EXECUTION_GRAPH_AMDX"),
                 Self::DISALLOW_OPACITY_MICROMAP_ARM => Some("DISALLOW_OPACITY_MICROMAP_ARM"),
+                Self::INSTRUMENT_SHADERS_ARM => Some("INSTRUMENT_SHADERS_ARM"),
                 Self::DESCRIPTOR_HEAP_EXT => Some("DESCRIPTOR_HEAP_EXT"),
                 Self::INDIRECT_BINDABLE_EXT => Some("INDIRECT_BINDABLE_EXT"),
                 Self::ENABLE_LEGACY_DITHERING_EXT => Some("ENABLE_LEGACY_DITHERING_EXT"),

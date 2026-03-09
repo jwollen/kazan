@@ -1,3 +1,4 @@
+pub mod cooperative_matrix_conversion;
 pub mod data_graph_model;
 pub mod filter_cubic_clamp;
 pub mod filter_cubic_weights;
@@ -16,6 +17,7 @@ pub mod tile_shading;
 pub mod ycbcr_degamma;
 pub(super) mod defs {
     use super::*;
+    pub use cooperative_matrix_conversion::defs::*;
     pub use data_graph_model::defs::*;
     pub use filter_cubic_clamp::defs::*;
     pub use filter_cubic_weights::defs::*;
@@ -33,6 +35,7 @@ pub(super) mod defs {
 }
 #[cfg(feature = "ffi")]
 pub(super) mod ffi {
+    pub use super::cooperative_matrix_conversion::ffi::*;
     pub use super::data_graph_model::ffi::*;
     pub use super::filter_cubic_clamp::ffi::*;
     pub use super::filter_cubic_weights::ffi::*;

@@ -338,14 +338,9 @@ pub(super) mod defs {
 
     impl<'a> RenderPassPerformanceCountersByRegionBeginInfoARM<'a> {
         #[inline]
-        pub fn counter_address_count(mut self, counter_address_count: u32) -> Self {
-            self.counter_address_count = counter_address_count;
-            self
-        }
-
-        #[inline]
-        pub fn counter_addresses(mut self, counter_addresses: &'a DeviceAddress) -> Self {
-            self.p_counter_addresses = counter_addresses;
+        pub fn counter_addresses(mut self, counter_addresses: &'a [DeviceAddress]) -> Self {
+            self.counter_address_count = counter_addresses.len().try_into().unwrap();
+            self.p_counter_addresses = counter_addresses.as_ptr();
             self
         }
 
@@ -356,14 +351,9 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn counter_index_count(mut self, counter_index_count: u32) -> Self {
-            self.counter_index_count = counter_index_count;
-            self
-        }
-
-        #[inline]
-        pub fn counter_indices(mut self, counter_indices: &'a mut u32) -> Self {
-            self.p_counter_indices = counter_indices;
+        pub fn counter_indices(mut self, counter_indices: &'a mut [u32]) -> Self {
+            self.counter_index_count = counter_indices.len().try_into().unwrap();
+            self.p_counter_indices = counter_indices.as_mut_ptr();
             self
         }
     }
