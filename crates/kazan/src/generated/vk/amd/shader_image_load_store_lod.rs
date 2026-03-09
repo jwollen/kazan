@@ -6,5 +6,3 @@ use core::mem::transmute;
 use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_AMD_shader_image_load_store_lod";
-
-pub(super) mod defs {}

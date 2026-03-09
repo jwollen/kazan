@@ -6,5 +6,3 @@ use core::mem::transmute;
 use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_KHR_shader_non_semantic_info";
-
-pub(super) mod defs {}

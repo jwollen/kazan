@@ -6,5 +6,3 @@ use core::mem::transmute;
 use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_NV_viewport_array2";
-
-pub(super) mod defs {}

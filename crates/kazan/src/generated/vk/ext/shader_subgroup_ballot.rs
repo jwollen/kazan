@@ -6,5 +6,3 @@ use core::mem::transmute;
 use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_EXT_shader_subgroup_ballot";
-
-pub(super) mod defs {}

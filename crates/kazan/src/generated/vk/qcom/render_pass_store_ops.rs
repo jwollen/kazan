@@ -6,5 +6,3 @@ use core::mem::transmute;
 use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_QCOM_render_pass_store_ops";
-
-pub(super) mod defs {}

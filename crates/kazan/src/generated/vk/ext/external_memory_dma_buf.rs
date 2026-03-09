@@ -6,5 +6,3 @@ use core::mem::transmute;
 use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_EXT_external_memory_dma_buf";
-
-pub(super) mod defs {}

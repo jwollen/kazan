@@ -6,5 +6,3 @@ use core::mem::transmute;
 use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_KHR_load_store_op_none";
-
-pub(super) mod defs {}

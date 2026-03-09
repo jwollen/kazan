@@ -94,13 +94,10 @@ pub(super) mod defs {
     pub use external_memory_capabilities::defs::*;
     pub use external_memory_rdma::defs::*;
     pub use external_memory_win32::defs::*;
-    pub use fill_rectangle::defs::*;
     pub use fragment_coverage_to_color::defs::*;
     pub use fragment_shader_barycentric::defs::*;
     pub use fragment_shading_rate_enums::defs::*;
     pub use framebuffer_mixed_samples::defs::*;
-    pub use geometry_shader_passthrough::defs::*;
-    pub use glsl_shader::defs::*;
     pub use inherited_viewport_scissor::defs::*;
     pub use linear_color_attachment::defs::*;
     pub use low_latency::defs::*;
@@ -121,14 +118,11 @@ pub(super) mod defs {
     pub use ray_tracing_motion_blur::defs::*;
     pub use ray_tracing_validation::defs::*;
     pub use representative_fragment_test::defs::*;
-    pub use sample_mask_override_coverage::defs::*;
     pub use scissor_exclusive::defs::*;
     pub use shader_atomic_float16_vector::defs::*;
     pub use shader_image_footprint::defs::*;
     pub use shader_sm_builtins::defs::*;
-    pub use shader_subgroup_partitioned::defs::*;
     pub use shading_rate_image::defs::*;
-    pub use viewport_array2::defs::*;
     pub use viewport_swizzle::defs::*;
     pub use win32_keyed_mutex::defs::*;
 }

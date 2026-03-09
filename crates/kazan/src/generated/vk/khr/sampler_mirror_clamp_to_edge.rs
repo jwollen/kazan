@@ -6,5 +6,3 @@ use core::mem::transmute;
 use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_KHR_sampler_mirror_clamp_to_edge";
-
-pub(super) mod defs {}

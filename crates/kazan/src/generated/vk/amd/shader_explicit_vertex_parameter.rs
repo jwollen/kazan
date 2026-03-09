@@ -6,5 +6,3 @@ use core::mem::transmute;
 use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_AMD_shader_explicit_vertex_parameter";
-
-pub(super) mod defs {}

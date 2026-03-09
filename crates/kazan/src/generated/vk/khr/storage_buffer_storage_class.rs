@@ -6,5 +6,3 @@ use core::mem::transmute;
 use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_KHR_storage_buffer_storage_class";
-
-pub(super) mod defs {}

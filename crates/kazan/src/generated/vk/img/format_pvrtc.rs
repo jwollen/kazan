@@ -6,5 +6,3 @@ use core::mem::transmute;
 use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_IMG_format_pvrtc";
-
-pub(super) mod defs {}

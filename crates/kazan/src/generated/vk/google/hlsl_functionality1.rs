@@ -6,5 +6,3 @@ use core::mem::transmute;
 use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_GOOGLE_hlsl_functionality1";
-
-pub(super) mod defs {}

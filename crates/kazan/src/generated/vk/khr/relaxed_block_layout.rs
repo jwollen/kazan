@@ -6,5 +6,3 @@ use core::mem::transmute;
 use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_KHR_relaxed_block_layout";
-
-pub(super) mod defs {}

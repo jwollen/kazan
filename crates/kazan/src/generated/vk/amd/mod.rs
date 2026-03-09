@@ -28,22 +28,13 @@ pub(super) mod defs {
     pub use device_coherent_memory::defs::*;
     pub use display_native_hdr::defs::*;
     pub use draw_indirect_count::defs::*;
-    pub use gcn_shader::defs::*;
-    pub use gpu_shader_half_float::defs::*;
-    pub use gpu_shader_int16::defs::*;
     pub use memory_overallocation_behavior::defs::*;
     pub use mixed_attachment_samples::defs::*;
-    pub use negative_viewport_height::defs::*;
     pub use pipeline_compiler_control::defs::*;
     pub use rasterization_order::defs::*;
-    pub use shader_ballot::defs::*;
     pub use shader_core_properties::defs::*;
     pub use shader_core_properties2::defs::*;
     pub use shader_early_and_late_fragment_tests::defs::*;
-    pub use shader_explicit_vertex_parameter::defs::*;
-    pub use shader_fragment_mask::defs::*;
-    pub use shader_image_load_store_lod::defs::*;
     pub use shader_info::defs::*;
-    pub use shader_trinary_minmax::defs::*;
     pub use texture_gather_bias_lod::defs::*;
 }

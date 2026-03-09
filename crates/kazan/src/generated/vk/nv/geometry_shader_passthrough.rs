@@ -6,5 +6,3 @@ use core::mem::transmute;
 use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_NV_geometry_shader_passthrough";
-
-pub(super) mod defs {}

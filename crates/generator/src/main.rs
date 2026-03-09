@@ -36,6 +36,7 @@ fn main() -> Result<()> {
 struct ModuleEntry {
     name: String,
     provisional: bool,
+    has_defs: bool,
 }
 
 fn generate(analysis: &analysis::Analysis) -> Result<()> {
@@ -71,8 +72,12 @@ fn generate(analysis: &analysis::Analysis) -> Result<()> {
         // Vendor-tagged extensions go under `vk/{vendor}/mod.rs` with a combined `defs` re-export module.
         // Core/unvendored modules are emitted directly into `vk/mod.rs`.
         if let Some(vendor) = vendor {
+            let has_any_defs = entries.iter().any(|e| e.has_defs);
+
             writeln!(mod_file, "pub mod {};", vendor)?;
-            writeln!(mod_file, "pub use {}::defs::*;", vendor)?;
+            if has_any_defs {
+                writeln!(mod_file, "pub use {}::defs::*;", vendor)?;
+            }
 
             fs::create_dir_all(format!("{}/{}", output_dir, vendor))?;
             let mut file = File::create(format!("{}/{}/mod.rs", output_dir, vendor))?;
@@ -81,21 +86,25 @@ fn generate(analysis: &analysis::Analysis) -> Result<()> {
                 write!(file, "pub mod {};\n", entry.name)?;
             }
 
-            writeln!(file, "pub(super) mod defs {{")?;
-            writeln!(file, "use super::*;")?;
-            for entry in entries {
-                let cfg = if entry.provisional {
-                    "#[cfg(feature = \"provisional\")]\n"
-                } else {
-                    ""
-                };
-                write!(file, "{}pub use {}::defs::*;\n", cfg, entry.name)?;
+            if has_any_defs {
+                writeln!(file, "pub(super) mod defs {{")?;
+                writeln!(file, "use super::*;")?;
+                for entry in entries.iter().filter(|e| e.has_defs) {
+                    let cfg = if entry.provisional {
+                        "#[cfg(feature = \"provisional\")]\n"
+                    } else {
+                        ""
+                    };
+                    write!(file, "{}pub use {}::defs::*;\n", cfg, entry.name)?;
+                }
+                writeln!(file, "}}")?;
             }
-            writeln!(file, "}}")?;
         } else {
             for entry in entries {
                 writeln!(mod_file, "pub mod {};", entry.name)?;
-                writeln!(mod_file, "pub use {}::defs::*;", entry.name)?;
+                if entry.has_defs {
+                    writeln!(mod_file, "pub use {}::defs::*;", entry.name)?;
+                }
             }
         }
     }
@@ -154,12 +163,14 @@ fn generate_module(
     } = module.name();
 
     let provisional = matches!(module, Module::Extension(ext) if ext.provisional);
+    let has_defs = !owned.is_empty();
     vendor_modules
         .entry(vendor.clone())
         .or_insert_with(Vec::new)
         .push(ModuleEntry {
             name: module_name.clone(),
             provisional,
+            has_defs,
         });
 
     let vendor_path = match vendor {
@@ -200,9 +211,8 @@ fn generate_module(
         )?;
     }
 
-    writeln!(file, "pub(super) mod defs {{")?;
-
     if !owned.is_empty() {
+        writeln!(file, "pub(super) mod defs {{")?;
         writeln!(
             file,
             "#![allow(non_camel_case_types, unused_imports)]
@@ -233,8 +243,9 @@ fn generate_module(
         command::generate_funcpointers(&mut file, analysis, &owned)?;
 
         command::generate_functions(&mut file, analysis, new_commands.clone())?;
+
+        writeln!(file, "}}\n")?;
     }
-    writeln!(file, "}}\n")?;
 
     if requires
         .iter()

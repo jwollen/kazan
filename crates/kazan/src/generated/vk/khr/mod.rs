@@ -192,7 +192,6 @@ pub(super) mod defs {
     pub use index_type_uint8::defs::*;
     pub use internally_synchronized_queues::defs::*;
     pub use line_rasterization::defs::*;
-    pub use load_store_op_none::defs::*;
     pub use maintenance1::defs::*;
     pub use maintenance2::defs::*;
     pub use maintenance3::defs::*;
@@ -209,7 +208,6 @@ pub(super) mod defs {
     pub use pipeline_binary::defs::*;
     pub use pipeline_executable_properties::defs::*;
     pub use pipeline_library::defs::*;
-    pub use portability_enumeration::defs::*;
     #[cfg(feature = "provisional")]
     pub use portability_subset::defs::*;
     pub use present_id::defs::*;
@@ -222,15 +220,12 @@ pub(super) mod defs {
     pub use ray_tracing_maintenance1::defs::*;
     pub use ray_tracing_pipeline::defs::*;
     pub use ray_tracing_position_fetch::defs::*;
-    pub use relaxed_block_layout::defs::*;
     pub use robustness2::defs::*;
-    pub use sampler_mirror_clamp_to_edge::defs::*;
     pub use sampler_ycbcr_conversion::defs::*;
     pub use separate_depth_stencil_layouts::defs::*;
     pub use shader_atomic_int64::defs::*;
     pub use shader_bfloat16::defs::*;
     pub use shader_clock::defs::*;
-    pub use shader_draw_parameters::defs::*;
     pub use shader_expect_assume::defs::*;
     pub use shader_float_controls::defs::*;
     pub use shader_float_controls2::defs::*;
@@ -238,7 +233,6 @@ pub(super) mod defs {
     pub use shader_fma::defs::*;
     pub use shader_integer_dot_product::defs::*;
     pub use shader_maximal_reconvergence::defs::*;
-    pub use shader_non_semantic_info::defs::*;
     pub use shader_quad_control::defs::*;
     pub use shader_relaxed_extended_instruction::defs::*;
     pub use shader_subgroup_extended_types::defs::*;
@@ -247,14 +241,11 @@ pub(super) mod defs {
     pub use shader_terminate_invocation::defs::*;
     pub use shader_untyped_pointers::defs::*;
     pub use shared_presentable_image::defs::*;
-    pub use spirv_1_4::defs::*;
-    pub use storage_buffer_storage_class::defs::*;
     pub use surface::defs::*;
     pub use surface_maintenance1::defs::*;
     pub use surface_protected_capabilities::defs::*;
     pub use swapchain::defs::*;
     pub use swapchain_maintenance1::defs::*;
-    pub use swapchain_mutable_format::defs::*;
     pub use synchronization2::defs::*;
     pub use timeline_semaphore::defs::*;
     pub use unified_image_layouts::defs::*;

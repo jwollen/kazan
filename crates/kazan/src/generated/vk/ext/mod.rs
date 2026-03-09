@@ -169,7 +169,6 @@ pub(super) mod defs {
     pub use depth_clamp_zero_one::defs::*;
     pub use depth_clip_control::defs::*;
     pub use depth_clip_enable::defs::*;
-    pub use depth_range_unrestricted::defs::*;
     pub use descriptor_buffer::defs::*;
     pub use descriptor_heap::defs::*;
     pub use descriptor_indexing::defs::*;
@@ -187,7 +186,6 @@ pub(super) mod defs {
     pub use extended_dynamic_state2::defs::*;
     pub use extended_dynamic_state3::defs::*;
     pub use external_memory_acquire_unmodified::defs::*;
-    pub use external_memory_dma_buf::defs::*;
     pub use external_memory_host::defs::*;
     pub use external_memory_metal::defs::*;
     pub use filter_cubic::defs::*;
@@ -217,7 +215,6 @@ pub(super) mod defs {
     pub use legacy_dithering::defs::*;
     pub use legacy_vertex_attributes::defs::*;
     pub use line_rasterization::defs::*;
-    pub use load_store_op_none::defs::*;
     pub use map_memory_placed::defs::*;
     pub use memory_budget::defs::*;
     pub use memory_decompression::defs::*;
@@ -240,7 +237,6 @@ pub(super) mod defs {
     pub use pipeline_properties::defs::*;
     pub use pipeline_protected_access::defs::*;
     pub use pipeline_robustness::defs::*;
-    pub use post_depth_coverage::defs::*;
     pub use present_mode_fifo_latest_ready::defs::*;
     pub use present_timing::defs::*;
     pub use primitive_topology_list_restart::defs::*;
@@ -266,17 +262,12 @@ pub(super) mod defs {
     pub use shader_module_identifier::defs::*;
     pub use shader_object::defs::*;
     pub use shader_replicated_composites::defs::*;
-    pub use shader_stencil_export::defs::*;
-    pub use shader_subgroup_ballot::defs::*;
     pub use shader_subgroup_partitioned::defs::*;
-    pub use shader_subgroup_vote::defs::*;
     pub use shader_tile_image::defs::*;
     pub use shader_uniform_buffer_unsized_array::defs::*;
-    pub use shader_viewport_index_layer::defs::*;
     pub use subgroup_size_control::defs::*;
     pub use subpass_merge_feedback::defs::*;
     pub use surface_maintenance1::defs::*;
-    pub use swapchain_colorspace::defs::*;
     pub use swapchain_maintenance1::defs::*;
     pub use texel_buffer_alignment::defs::*;
     pub use texture_compression_astc_3d::defs::*;

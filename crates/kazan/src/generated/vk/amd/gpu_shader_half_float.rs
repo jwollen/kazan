@@ -6,5 +6,3 @@ use core::mem::transmute;
 use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_AMD_gpu_shader_half_float";
-
-pub(super) mod defs {}

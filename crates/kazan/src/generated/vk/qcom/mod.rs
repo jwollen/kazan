@@ -24,8 +24,6 @@ pub(super) mod defs {
     pub use image_processing2::defs::*;
     pub use multiview_per_view_render_areas::defs::*;
     pub use multiview_per_view_viewports::defs::*;
-    pub use render_pass_shader_resolve::defs::*;
-    pub use render_pass_store_ops::defs::*;
     pub use render_pass_transform::defs::*;
     pub use rotated_copy_commands::defs::*;
     pub use tile_memory_heap::defs::*;

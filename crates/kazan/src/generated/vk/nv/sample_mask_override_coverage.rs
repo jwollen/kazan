@@ -6,5 +6,3 @@ use core::mem::transmute;
 use core::ptr;
 
 pub const EXTENSION_NAME: &CStr = c"VK_NV_sample_mask_override_coverage";
-
-pub(super) mod defs {}
