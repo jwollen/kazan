@@ -124,12 +124,14 @@ pub enum CArrayLen<'a> {
 }
 
 #[derive(Debug)]
+#[allow(dead_code)]
 pub struct CDeclParseError<'a, 'b> {
     pub kind: CDeclParseErrorKind<'a>,
     pub tokens: &'b [CTok<'a>],
 }
 
 #[derive(Debug)]
+#[allow(dead_code)]
 pub enum CDeclParseErrorKind<'a> {
     Missing(&'static str),
     Multiple(&'static str),

@@ -75,11 +75,6 @@ fn generate(analysis: &analysis::Analysis) {
             let mut file = File::create(format!("{}/{}/mod.rs", output_dir, vendor)).unwrap();
 
             for entry in entries {
-                let cfg = if entry.provisional {
-                    "#[cfg(feature = \"provisional\")]\n"
-                } else {
-                    ""
-                };
                 write!(file, "pub mod {};\n", entry.name).unwrap();
             }
 
@@ -282,48 +277,11 @@ pub(crate) fn normalize_ty_name(name: &str) -> &str {
     }
 }
 
-fn type_name_with_lifetime(analysis: &Analysis, name: &str, lifetime: Option<&str>) -> String {
-    let type_info = analysis.get_base_type_info(name).unwrap();
-    let name = ctype_to_rust_type_str(name);
-    if type_info.lifetime_param {
-        format!("{}<'{}>", name, lifetime.unwrap_or("_"))
-    } else {
-        name.to_string()
-    }
-}
-
-// TODO: Replace occurances with type_name_with_lifetime
-pub(crate) fn ctype_to_rust_type_str(name: &str) -> &str {
-    match name {
-        "int8_t" => "i8",
-        "uint8_t" => "u8",
-        "int16_t" => "i16",
-        "uint16_t" => "u16",
-        "int32_t" => "i32",
-        "uint32_t" => "u32",
-        "int64_t" => "i64",
-        "uint64_t" => "u64",
-        "size_t" => "usize",
-        "isize_t" => "isize",
-        "float" => "f32",
-        "double" => "f64",
-        "void" => "c_void",
-        "char" => "c_char",
-        "int" => "c_int",
-        "unsigned int" => "c_uint",
-        "unsigned long" => "c_ulong",
-        _ => normalize_ty_name(name),
-    }
-}
-
 fn ctype_to_rust_type(analysis: &Analysis, ty: &CType, lifetime: Option<&str>) -> String {
     match ty {
-        CType::Base(base) => type_name_with_lifetime(analysis, base.name, lifetime),
+        CType::Base(base) => ctype_rust::type_name_with_lifetime(analysis, base.name, lifetime),
         CType::Ptr {
-            pointee,
-            implicit_for_decay,
-            is_const,
-            ..
+            pointee, is_const, ..
         } => {
             let pointee = ctype_to_rust_type(analysis, pointee.as_ref(), lifetime);
             if *is_const {
@@ -354,10 +312,9 @@ enum LengthKind<'a> {
         c_decl: &'a cdecl::CDecl<'static>,
     },
     ParamField {
-        index: usize,
         field: &'a xml::StructureMember,
     },
-    Unknown(&'static str),
+    Unknown,
 }
 
 trait Param {
@@ -420,7 +377,7 @@ fn get_len_kind<'a>(
             .find(|field| field.c_decl.name == field_name)
             .unwrap_or_else(|| panic!("failed to find field {}", field_name));
 
-        LengthKind::ParamField { index, field }
+        LengthKind::ParamField { field }
     } else if let Some(index) = get_param_index(params, len) {
         let param = &params[index];
         LengthKind::Param {
@@ -428,7 +385,7 @@ fn get_len_kind<'a>(
             c_decl: param.c_decl(),
         }
     } else {
-        LengthKind::Unknown(len)
+        LengthKind::Unknown
     }
 }
 

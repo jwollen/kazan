@@ -194,6 +194,7 @@ impl Analysis {
 }
 
 #[derive(Debug)]
+#[allow(dead_code)]
 pub enum TypeKind<'a> {
     Struct(&'a xml::Structure),
     Union(&'a xml::Structure),

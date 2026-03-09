@@ -8,7 +8,9 @@ use std::{
 use heck::ToShoutySnakeCase;
 use regex::Regex;
 
-use crate::{analysis::Analysis, ctype_to_rust_type_str, module::Module, normalize_ty_name, xml};
+use crate::{
+    analysis::Analysis, ctype_rust::base_ctype_to_rust_str, module::Module, normalize_ty_name, xml,
+};
 
 pub fn generate_enum_types(file: &mut impl Write, analysis: &Analysis, owned: &HashSet<&str>) {
     let enums = analysis
@@ -705,7 +707,7 @@ pub fn write_bitmask(
     req: &ReqEnumData,
 ) {
     let name = normalize_ty_name(ty.name);
-    let base_type = ctype_to_rust_type_str(ty.ty);
+    let base_type = base_ctype_to_rust_str(ty.ty);
 
     crate::write_doc_link(file, ty.name);
     writeln!(

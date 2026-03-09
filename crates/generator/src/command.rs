@@ -9,7 +9,6 @@ use crate::{
 };
 
 pub struct CommandGroup<'a> {
-    pub require: &'a xml::Require,
     pub commands: Vec<CommandInfo<'a>>,
 }
 
@@ -33,13 +32,12 @@ struct WrapperCommandInfo<'a> {
     lifetime_param: Option<&'a str>,
 
     // Wrapper signature
-    wrapper_params: Vec<WrapperParamInfo<'a>>,
-    wrapper_return: WrapperReturnKind<'a>,
+    wrapper_params: Vec<WrapperParamInfo>,
+    wrapper_return: WrapperReturnKind,
 
     // Original signature
     params: Vec<ParamInfo<'a>>,
     is_fallible: bool,
-    has_regular_return: bool,
 }
 
 struct EnumerationCommandInfo {
@@ -47,24 +45,22 @@ struct EnumerationCommandInfo {
     array_params: Vec<usize>,
 }
 
-struct WrapperParamInfo<'a> {
+struct WrapperParamInfo {
     name: String,
     param_index: usize,
-    param: &'a xml::CommandParam,
     ty: String,
     is_enumeration_array: bool,
 }
 
-enum WrapperReturnKind<'a> {
+enum WrapperReturnKind {
     None,
     CommandReturnValue { ty: String },
-    OutputParams(Vec<WrapperParamInfo<'a>>),
+    OutputParams(Vec<WrapperParamInfo>),
 }
 
 struct ParamInfo<'a> {
     name: String,
     param: &'a xml::CommandParam,
-    ty: String,
     len: Option<LengthKind<'a>>,
     optional: (bool, bool),
     is_output_param: bool,
@@ -83,11 +79,8 @@ enum ArgEmitKind {
     SliceAsPtr { is_const: bool, optional: bool },
     /// Return (output) param: `{name}.as_mut_ptr()`
     ReturnParamAsMutPtr,
-    /// Optional pointer: `.to_raw_ptr()` / `.to_raw_mut_ptr()`, or todo! when in enumeration command
-    OptionalPtrToRaw {
-        is_const: bool,
-        in_enumeration: bool,
-    },
+    /// Optional pointer: `.to_raw_ptr()` / `.to_raw_mut_ptr()`
+    OptionalPtrToRaw { is_const: bool },
     /// Enumeration buffer param: `{name} as _`
     TransmuteForEnumeration,
     /// Bool param: `{name}.into()` (bool → Bool32)
@@ -242,7 +235,7 @@ pub fn generate_commands(
                 if commands.is_empty() {
                     None
                 } else {
-                    Some(CommandGroup { require, commands })
+                    Some(CommandGroup { commands })
                 }
             })
             .collect::<Vec<_>>();
@@ -362,9 +355,9 @@ fn classify_param(
         .and_then(|s| s.parse().ok())
         .unwrap_or_default();
 
-    let is_implicit_length = len_kinds.iter().any(
-        |len| matches!(len, Some(LengthKind::Param { index, .. }) if *index == param_index),
-    );
+    let is_implicit_length = len_kinds
+        .iter()
+        .any(|len| matches!(len, Some(LengthKind::Param { index, .. }) if *index == param_index));
 
     let is_output_param = {
         let category = ctype_rust::CTypeCategory::from_ctype(&param.c_decl.ty, analysis);
@@ -427,7 +420,7 @@ fn build_wrapper_return<'a>(
     return_params: Vec<usize>,
     params: &[ParamInfo<'a>],
     has_regular_return: bool,
-) -> WrapperReturnKind<'a> {
+) -> WrapperReturnKind {
     if !return_params.is_empty() {
         let return_wrapper_params = return_params
             .into_iter()
@@ -445,7 +438,6 @@ fn build_wrapper_return<'a>(
                     name: normalize_param_name(param.c_decl.name),
                     ty,
                     param_index,
-                    param,
                     is_enumeration_array: false,
                 }
             })
@@ -552,7 +544,6 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
                 wrapper_params.push(WrapperParamInfo {
                     name: name.clone(),
                     param_index,
-                    param,
                     ty,
                     is_enumeration_array,
                 });
@@ -562,7 +553,6 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
         params.push(ParamInfo {
             name,
             param,
-            ty: ctype_to_rust_type(analysis, &param.c_decl.ty, lifetime_param),
             len: len_kinds[param_index].clone(),
             optional,
             is_output_param: classification.is_output_param,
@@ -572,8 +562,13 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
     }
 
     let name = normalize_command_name(info.alias);
-    let wrapper_return =
-        build_wrapper_return(analysis, command, return_params, &params, has_regular_return);
+    let wrapper_return = build_wrapper_return(
+        analysis,
+        command,
+        return_params,
+        &params,
+        has_regular_return,
+    );
 
     WrapperCommandInfo {
         command,
@@ -583,7 +578,6 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
         wrapper_return,
         params,
         is_fallible,
-        has_regular_return,
         lifetime_param,
     }
 }
@@ -976,8 +970,6 @@ fn arg_emit_kind(
 ) -> ArgEmitKind {
     let ty = &param.param.c_decl.ty;
     let category = ctype_rust::CTypeCategory::from_ctype(ty, analysis);
-    let in_enumeration = wrapper.enumeration_info.is_some();
-
     // Is this param the length for another param (another param's len points to this index)?
     let is_length_for = wrapper.params.iter().any(|p| {
         matches!(
@@ -1043,10 +1035,7 @@ fn arg_emit_kind(
             | ctype_rust::CTypeCategory::OpaquePointer { is_const, .. } => is_const,
             _ => true,
         };
-        return ArgEmitKind::OptionalPtrToRaw {
-            is_const,
-            in_enumeration,
-        };
+        return ArgEmitKind::OptionalPtrToRaw { is_const };
     }
 
     if ctype_rust::is_bool32(ty) {

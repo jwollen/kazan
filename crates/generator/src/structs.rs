@@ -1,8 +1,11 @@
 use std::{collections::HashSet, io::Write};
 
 use crate::{
-    LengthKind, analysis::Analysis, cdecl::CType, ctype_rust, ctype_to_rust_type,
-    ctype_to_rust_type_str, get_len_kind, normalize_name, normalize_setter_param_name,
+    LengthKind,
+    analysis::Analysis,
+    cdecl::CType,
+    ctype_rust::{CTypeCategory, base_ctype_to_rust_str, is_bool32, type_name_with_lifetime},
+    ctype_to_rust_type, get_len_kind, normalize_name, normalize_setter_param_name,
     normalize_ty_name, overrides, write_doc_link, xml,
 };
 
@@ -77,7 +80,6 @@ pub fn generate_unions(file: &mut impl Write, analysis: &Analysis, owned: &HashS
 #[derive(Debug)]
 struct StructInfo<'a> {
     name: String,
-    ty: &'a xml::Structure,
     tag: Option<&'static str>,
     has_default: bool,
     members: Vec<MemberInfo<'a>>,
@@ -132,7 +134,6 @@ struct MemberInfo<'a> {
     member: &'a xml::StructureMember,
     name: String,
     ty: String,
-    len: Vec<LengthKind<'a>>,
 }
 
 /// Collect all array members whose length is derived from `len_member_index`.
@@ -165,10 +166,10 @@ fn collect_array_params(
             );
 
             let mut name = normalize_setter_param_name(array_member.c_decl.name);
-            let category = ctype_rust::CTypeCategory::from_ctype(&array_member.c_decl.ty, analysis);
+            let category = CTypeCategory::from_ctype(&array_member.c_decl.ty, analysis);
             if matches!(
                 category,
-                ctype_rust::CTypeCategory::OpaquePointer {
+                CTypeCategory::OpaquePointer {
                     pointee_name: "char",
                     ..
                 }
@@ -330,18 +331,18 @@ fn analyze_struct<'a>(analysis: &'a Analysis, struct_ty: &'a xml::Structure) -> 
             && matches!(len.first(), Some(LengthKind::NullTerminated))
             && !is_special_member
         {
-            let category = ctype_rust::CTypeCategory::from_ctype(&member.c_decl.ty, analysis);
+            let category = CTypeCategory::from_ctype(&member.c_decl.ty, analysis);
             let is_char_ptr = matches!(
                 category,
-                ctype_rust::CTypeCategory::CharPointer { .. }
-                    | ctype_rust::CTypeCategory::OpaquePointer {
+                CTypeCategory::CharPointer { .. }
+                    | CTypeCategory::OpaquePointer {
                         pointee_name: "char",
                         ..
                     }
             );
             let is_char_array = matches!(
                 &category,
-                ctype_rust::CTypeCategory::Array { element, .. }
+                CTypeCategory::Array { element, .. }
                     if matches!(element, CType::Base(b) if b.name == "char")
             );
             if is_char_ptr {
@@ -370,12 +371,7 @@ fn analyze_struct<'a>(analysis: &'a Analysis, struct_ty: &'a xml::Structure) -> 
                 });
 
                 let ty = ctype_to_rust_type(analysis, &member.c_decl.ty, lifetime_param);
-                members.push(MemberInfo {
-                    member,
-                    name,
-                    ty,
-                    len,
-                });
+                members.push(MemberInfo { member, name, ty });
                 continue;
             }
         }
@@ -403,18 +399,12 @@ fn analyze_struct<'a>(analysis: &'a Analysis, struct_ty: &'a xml::Structure) -> 
         }
 
         let ty = ctype_to_rust_type(analysis, &member.c_decl.ty, lifetime_param);
-        members.push(MemberInfo {
-            member,
-            name,
-            ty,
-            len,
-        });
+        members.push(MemberInfo { member, name, ty });
     }
 
     let name = normalize_ty_name(struct_ty.name).to_string();
     StructInfo {
         name,
-        ty: struct_ty,
         members,
         tag,
         has_default,
@@ -455,9 +445,9 @@ fn write_struct_definition(
 
         let field_ty = ctype_to_rust_type(analysis, &member.c_decl.ty, Some("a"));
         let field_ty = {
-            let category = ctype_rust::CTypeCategory::from_ctype(&member.c_decl.ty, analysis);
+            let category = CTypeCategory::from_ctype(&member.c_decl.ty, analysis);
             match category {
-                ctype_rust::CTypeCategory::FuncPointer => format!("Option<{}>", field_ty),
+                CTypeCategory::FuncPointer => format!("Option<{}>", field_ty),
                 _ => field_ty,
             }
         };
@@ -488,7 +478,7 @@ fn write_trait_impls(
     }
 
     for extends in &ty.structextends {
-        let rust_ty = ctype_to_rust_type_str(extends);
+        let rust_ty = base_ctype_to_rust_str(extends);
         if analysis.is_provisional_type(extends) {
             writeln!(file, "#[cfg(feature = \"provisional\")]").unwrap();
         }
@@ -559,7 +549,7 @@ fn write_value_setter_body(
         _ => {
             if member.ty.starts_with("PFN_") {
                 writeln!(file, "self.{} = Some({});", member.name, param.name).unwrap();
-            } else if ctype_rust::is_bool32(&member.member.c_decl.ty) {
+            } else if is_bool32(&member.member.c_decl.ty) {
                 writeln!(file, "self.{} = {}.into();", member.name, param.name).unwrap();
             } else {
                 writeln!(file, "self.{} = {};", member.name, param.name).unwrap();
@@ -744,11 +734,11 @@ enum DebugFieldKind {
 
 fn debug_field_kind(analysis: &Analysis, member: &xml::StructureMember) -> DebugFieldKind {
     let ty = &member.c_decl.ty;
-    let category = ctype_rust::CTypeCategory::from_ctype(ty, analysis);
+    let category = CTypeCategory::from_ctype(ty, analysis);
 
     match &category {
         // *const c_char with null-terminated length → CStr display
-        ctype_rust::CTypeCategory::CharPointer { .. } => {
+        CTypeCategory::CharPointer { .. } => {
             if member.len.iter().any(|l| *l == "null-terminated") {
                 DebugFieldKind::CStrPtr
             } else {
@@ -756,7 +746,7 @@ fn debug_field_kind(analysis: &Analysis, member: &xml::StructureMember) -> Debug
             }
         }
         // [c_char; N] → CStr display
-        ctype_rust::CTypeCategory::Array { element, .. } => {
+        CTypeCategory::Array { element, .. } => {
             if matches!(element, CType::Base(b) if b.name == "char") {
                 DebugFieldKind::CStrArray
             } else {
@@ -764,10 +754,11 @@ fn debug_field_kind(analysis: &Analysis, member: &xml::StructureMember) -> Debug
             }
         }
         // Any pointer → normal Debug (prints address)
-        ctype_rust::CTypeCategory::OpaquePointer { .. }
-        | ctype_rust::CTypeCategory::TypedPointer { .. } => DebugFieldKind::Normal,
+        CTypeCategory::OpaquePointer { .. } | CTypeCategory::TypedPointer { .. } => {
+            DebugFieldKind::Normal
+        }
         // Function pointer (wrapped in Option) → show as pointer
-        ctype_rust::CTypeCategory::FuncPointer => DebugFieldKind::FuncPointer,
+        CTypeCategory::FuncPointer => DebugFieldKind::FuncPointer,
         // Everything else
         _ => DebugFieldKind::Normal,
     }
@@ -827,14 +818,14 @@ fn write_debug_impl(
 }
 
 fn default_value(analysis: &Analysis, ty: &CType) -> std::borrow::Cow<'static, str> {
-    let category = ctype_rust::CTypeCategory::from_ctype(ty, analysis);
+    let category = CTypeCategory::from_ctype(ty, analysis);
     match category {
-        ctype_rust::CTypeCategory::Array { element, .. } => {
+        CTypeCategory::Array { element, .. } => {
             format!("[{}; _]", default_value(analysis, element)).into()
         }
-        ctype_rust::CTypeCategory::OpaquePointer { is_const, .. }
-        | ctype_rust::CTypeCategory::CharPointer { is_const }
-        | ctype_rust::CTypeCategory::TypedPointer { is_const, .. } => {
+        CTypeCategory::OpaquePointer { is_const, .. }
+        | CTypeCategory::CharPointer { is_const }
+        | CTypeCategory::TypedPointer { is_const, .. } => {
             if is_const {
                 "ptr::null()".into()
             } else {
@@ -846,7 +837,7 @@ fn default_value(analysis: &Analysis, ty: &CType) -> std::borrow::Cow<'static, s
 }
 
 fn setter_assignment_kind(analysis: &Analysis, ty: &CType) -> SetterAssignmentKind {
-    use ctype_rust::CTypeCategory;
+    use CTypeCategory;
     let category = CTypeCategory::from_ctype(ty, analysis);
     match category {
         CTypeCategory::Array { .. } => SetterAssignmentKind::CopyFromSlice,
@@ -969,7 +960,7 @@ pub fn convert_setter_param_type(
     optional: &[bool],
     lifetime_param: Option<&str>,
 ) -> String {
-    use ctype_rust::CTypeCategory;
+    use CTypeCategory;
 
     if let Some(len) = lengths.iter().next() {
         if !matches!(len, LengthKind::Literal(1)) {
@@ -1012,22 +1003,14 @@ pub fn convert_setter_param_type(
                 } => {
                     let use_slice_of_refs = matches!(ty, CType::Ptr { pointee: p, .. } if matches!(p.as_ref(), CType::Ptr { pointee: inner, .. } if matches!(inner.as_ref(), CType::Base(b) if !analysis.is_opaque_type_name(b.name) && b.name == pointee_name)));
                     if use_slice_of_refs {
-                        let inner = ctype_rust::type_name_with_lifetime(
-                            analysis,
-                            pointee_name,
-                            lifetime_param,
-                        );
+                        let inner = type_name_with_lifetime(analysis, pointee_name, lifetime_param);
                         if is_const {
                             format!("&'a [&'a {}]", inner)
                         } else {
                             format!("&'a mut [&'a mut {}]", inner)
                         }
                     } else {
-                        let inner = ctype_rust::type_name_with_lifetime(
-                            analysis,
-                            pointee_name,
-                            lifetime_param,
-                        );
+                        let inner = type_name_with_lifetime(analysis, pointee_name, lifetime_param);
                         if is_const {
                             format!("&'a [*const {}]", inner)
                         } else {
@@ -1086,7 +1069,7 @@ pub fn convert_setter_param_type(
             is_const,
             pointee_name,
         } => {
-            let ty = ctype_rust::type_name_with_lifetime(analysis, pointee_name, lifetime_param);
+            let ty = type_name_with_lifetime(analysis, pointee_name, lifetime_param);
             if is_const {
                 format!("*const {}", ty)
             } else {
@@ -1118,7 +1101,7 @@ pub fn convert_setter_param_type(
             }
         }
         _ => {
-            if ctype_rust::is_bool32(ty) {
+            if is_bool32(ty) {
                 return "bool".to_string();
             }
             ctype_to_rust_type(analysis, ty, lifetime_param)

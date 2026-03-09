@@ -1,8 +1,9 @@
 use std::{borrow::Cow, collections::HashSet, io::Write};
 
 use crate::{
-    analysis::Analysis, ctype_to_rust_type_str, normalize_const_name, normalize_ty_name,
-    type_name_with_lifetime, write_doc_link, xml,
+    analysis::Analysis,
+    ctype_rust::{base_ctype_to_rust_str, type_name_with_lifetime},
+    normalize_const_name, normalize_ty_name, write_doc_link, xml,
 };
 
 pub fn generate_api_constants(
@@ -17,7 +18,7 @@ pub fn generate_api_constants(
             file,
             "pub const {}: {} = {};",
             normalize_const_name(constant.name),
-            ctype_to_rust_type_str(constant.ty),
+            base_ctype_to_rust_str(constant.ty),
             convert_c_expr(constant.value),
         )
         .unwrap();
@@ -37,7 +38,7 @@ pub fn generate_basetypes(file: &mut impl Write, analysis: &Analysis, owned: &Ha
             file,
             "pub type {} = {};",
             normalize_ty_name(ty.name),
-            ctype_to_rust_type_str(ty.ty.unwrap_or("*const c_void"))
+            base_ctype_to_rust_str(ty.ty.unwrap_or("*const c_void"))
         )
         .unwrap();
     }

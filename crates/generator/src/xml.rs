@@ -357,6 +357,7 @@ impl Alias {
 }
 
 #[derive(Debug)]
+#[allow(dead_code)]
 pub struct External {
     pub name: &'static str,
     pub requires: Option<&'static str>,
@@ -452,6 +453,7 @@ impl FuncPointerParam {
 }
 
 #[derive(Debug)]
+#[allow(dead_code)]
 pub struct FuncPointer {
     pub return_type: Option<CType<'static>>,
     pub name: &'static str,
@@ -481,6 +483,7 @@ impl FuncPointer {
 }
 
 #[derive(Debug)]
+#[allow(dead_code)]
 pub struct StructureMember {
     pub c_decl: CDecl<'static>,
     pub values: Option<&'static str>,
@@ -648,6 +651,7 @@ impl BitMask {
 }
 
 #[derive(Debug)]
+#[allow(dead_code)]
 pub struct CommandParam {
     pub c_decl: CDecl<'static>,
     pub len: Option<&'static str>,
@@ -826,6 +830,7 @@ impl RequireCommand {
 }
 
 #[derive(Debug)]
+#[allow(dead_code)]
 pub struct Version {
     pub api: &'static str,
     pub major: u32,
@@ -846,6 +851,7 @@ impl Version {
 }
 
 #[derive(Debug)]
+#[allow(dead_code)]
 pub enum Depends {
     Version(Version),
     Feature {
@@ -919,6 +925,7 @@ impl Require {
 }
 
 #[derive(Debug)]
+#[allow(dead_code)]
 pub struct Feature {
     pub name: &'static str,
     pub version: Version,
@@ -947,6 +954,7 @@ impl Feature {
 }
 
 #[derive(Debug)]
+#[allow(dead_code)]
 pub struct Extension {
     pub name: &'static str,
     pub number: Option<u32>,

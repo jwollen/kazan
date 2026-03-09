@@ -1,16 +1,6 @@
 //! Strongly-typed C type classification and C→Rust type conversion.
-//!
-//! Replaces ad-hoc `CType` matching with:
-//! - **CTypeCategory**: what kind of C type we have (opaque ptr, char ptr, slice ptr, etc.)
-//! - **RustTypeRepr**: structured Rust type that can be rendered to a string in one place.
 
-use std::fmt;
-
-use crate::{
-    analysis::Analysis,
-    cdecl::{CArrayLen, CType},
-    normalize_const_name, normalize_ty_name,
-};
+use crate::{analysis::Analysis, cdecl::CType, normalize_ty_name};
 
 /// Classification of a C type for clear branching without deep matching.
 #[derive(Debug, Clone)]
@@ -18,10 +8,7 @@ pub enum CTypeCategory<'a> {
     /// Base type (integer, float, named struct/enum/handle, etc.)
     Base(&'a str),
     /// Fixed-size array
-    Array {
-        element: &'a CType<'a>,
-        len: &'a CArrayLen<'a>,
-    },
+    Array { element: &'a CType<'a> },
     /// Pointer to opaque type (void*, handle ptr, etc.) — stays as raw pointer in Rust.
     OpaquePointer {
         is_const: bool,
@@ -87,25 +74,9 @@ impl<'a> CTypeCategory<'a> {
                     },
                 }
             }
-            CType::Array { element, len } => CTypeCategory::Array { element, len },
+            CType::Array { element, .. } => CTypeCategory::Array { element },
             CType::Func { .. } => CTypeCategory::FuncPointer,
         }
-    }
-
-    pub fn is_opaque_or_char_ptr(&self) -> bool {
-        matches!(
-            self,
-            CTypeCategory::OpaquePointer { .. } | CTypeCategory::CharPointer { .. }
-        )
-    }
-
-    pub fn is_ptr(&self) -> bool {
-        matches!(
-            self,
-            CTypeCategory::OpaquePointer { .. }
-                | CTypeCategory::CharPointer { .. }
-                | CTypeCategory::TypedPointer { .. }
-        )
     }
 }
 
@@ -122,233 +93,6 @@ pub fn is_bool32(ty: &CType) -> bool {
     matches!(ty, CType::Base(b) if b.name == "VkBool32")
 }
 
-/// Structured representation of a Rust type. Rendered to string in one place.
-#[derive(Debug, Clone)]
-pub enum RustTypeRepr {
-    Named(String),
-    PtrConst(String),
-    PtrMut(String),
-    Ref {
-        lifetime: Option<String>,
-        is_mut: bool,
-        inner: String,
-    },
-    Slice {
-        lifetime: Option<String>,
-        is_mut: bool,
-        element: String,
-    },
-    Array {
-        element: String,
-        len: ArrayLenRepr,
-    },
-    Option(Box<RustTypeRepr>),
-}
-
-#[derive(Debug, Clone)]
-pub enum ArrayLenRepr {
-    Named(String),
-    Literal(u128),
-}
-
-impl fmt::Display for RustTypeRepr {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        match self {
-            RustTypeRepr::Named(s) => write!(f, "{}", s),
-            RustTypeRepr::PtrConst(s) => write!(f, "*const {}", s),
-            RustTypeRepr::PtrMut(s) => write!(f, "*mut {}", s),
-            RustTypeRepr::Ref {
-                lifetime,
-                is_mut,
-                inner,
-            } => {
-                let lt = lifetime
-                    .as_deref()
-                    .map(|l| format!("'{} ", l))
-                    .unwrap_or_default();
-                if *is_mut {
-                    write!(f, "&{}mut {}", lt, inner)
-                } else {
-                    write!(f, "&{}{}", lt, inner)
-                }
-            }
-            RustTypeRepr::Slice {
-                lifetime,
-                is_mut,
-                element,
-            } => {
-                let lt = lifetime
-                    .as_deref()
-                    .map(|l| format!("'{} ", l))
-                    .unwrap_or_default();
-                if *is_mut {
-                    write!(f, "&{}mut [{}]", lt, element)
-                } else {
-                    write!(f, "&{}[{}]", lt, element)
-                }
-            }
-            RustTypeRepr::Array { element, len } => {
-                let len_str = match len {
-                    ArrayLenRepr::Named(n) => n.clone(),
-                    ArrayLenRepr::Literal(l) => l.to_string(),
-                };
-                write!(f, "[{}; {}]", element, len_str)
-            }
-            RustTypeRepr::Option(inner) => write!(f, "Option<{}>", inner),
-        }
-    }
-}
-
-/// Context for C→Rust conversion: struct field (raw), setter param (slices/refs), or command param.
-#[derive(Debug, Clone, Copy)]
-pub enum ConversionContext {
-    /// FFI / struct field: pointers stay as *const T / *mut T.
-    Raw,
-    /// Setter parameter: pointers with length can become &[T], optional can wrap.
-    SetterParam {
-        has_non_literal_len: bool,
-        lifetime: Option<&'static str>,
-    },
-    /// Command parameter: same idea as setter; used for wrapper API.
-    CommandParam {
-        has_non_literal_len: bool,
-        optional: (bool, bool),
-        lifetime: Option<&'static str>,
-    },
-}
-
-/// Convert a C type to a structured Rust type representation.
-pub fn ctype_to_rust_repr(
-    analysis: &Analysis,
-    ty: &CType,
-    lifetime: Option<&str>,
-    context: ConversionContext,
-) -> RustTypeRepr {
-    let category = CTypeCategory::from_ctype(ty, analysis);
-    ctype_category_to_rust(analysis, ty, &category, lifetime, context)
-}
-
-fn ctype_category_to_rust(
-    analysis: &Analysis,
-    ty: &CType,
-    category: &CTypeCategory,
-    lifetime: Option<&str>,
-    context: ConversionContext,
-) -> RustTypeRepr {
-    let lt = lifetime.map(String::from);
-    let base_name_str = |name: &str| type_name_with_lifetime(analysis, name, lifetime);
-
-    match (category, context) {
-        (CTypeCategory::Base(name), _) => RustTypeRepr::Named(base_name_str(name).to_string()),
-
-        (CTypeCategory::Array { element, len }, _) => {
-            let element_ty = ctype_to_rust_repr(analysis, element, lifetime, context);
-            let element_s = element_ty.to_string();
-            let len_repr = match len {
-                CArrayLen::Named(n) => {
-                    ArrayLenRepr::Named(format!("{} as usize", normalize_const_name(n)))
-                }
-                CArrayLen::Literal(l) => ArrayLenRepr::Literal(*l),
-            };
-            RustTypeRepr::Array {
-                element: element_s,
-                len: len_repr,
-            }
-        }
-
-        (
-            CTypeCategory::OpaquePointer {
-                is_const,
-                pointee_name,
-            },
-            _,
-        ) => {
-            let inner = base_name_str(pointee_name).to_string();
-            if *is_const {
-                RustTypeRepr::PtrConst(inner)
-            } else {
-                RustTypeRepr::PtrMut(inner)
-            }
-        }
-
-        (CTypeCategory::CharPointer { is_const }, ConversionContext::Raw) => {
-            let inner = "c_char".to_string();
-            if *is_const {
-                RustTypeRepr::PtrConst(inner)
-            } else {
-                RustTypeRepr::PtrMut(inner)
-            }
-        }
-        (CTypeCategory::CharPointer { is_const }, _) => {
-            let inner = "CStr".to_string();
-            let is_mut = !*is_const;
-            RustTypeRepr::Ref {
-                lifetime: lt,
-                is_mut,
-                inner,
-            }
-        }
-
-        (CTypeCategory::TypedPointer { is_const, pointee }, ConversionContext::Raw) => {
-            let inner = ctype_to_rust_repr(analysis, pointee, lifetime, context).to_string();
-            if *is_const {
-                RustTypeRepr::PtrConst(inner)
-            } else {
-                RustTypeRepr::PtrMut(inner)
-            }
-        }
-        (
-            CTypeCategory::TypedPointer { is_const, pointee },
-            ConversionContext::SetterParam {
-                has_non_literal_len,
-                ..
-            }
-            | ConversionContext::CommandParam {
-                has_non_literal_len,
-                ..
-            },
-        ) => {
-            if has_non_literal_len {
-                let element_ty = ctype_to_rust_repr(analysis, pointee, lifetime, context);
-                let element_s = if element_ty.to_string() == "c_void" {
-                    "u8".to_string()
-                } else {
-                    element_ty.to_string()
-                };
-                RustTypeRepr::Slice {
-                    lifetime: lt,
-                    is_mut: !*is_const,
-                    element: element_s,
-                }
-            } else {
-                let inner = ctype_to_rust_repr(analysis, pointee, lifetime, context).to_string();
-                let is_opaque = analysis.is_opaque_type(pointee);
-                if is_opaque {
-                    if *is_const {
-                        RustTypeRepr::PtrConst(inner)
-                    } else {
-                        RustTypeRepr::PtrMut(inner)
-                    }
-                } else {
-                    RustTypeRepr::Ref {
-                        lifetime: lt,
-                        is_mut: !*is_const,
-                        inner,
-                    }
-                }
-            }
-        }
-
-        (CTypeCategory::FuncPointer, _) => {
-            let name = match ty {
-                CType::Base(b) => b.name,
-                _ => "c_void",
-            };
-            RustTypeRepr::Named(base_name_str(name).to_string())
-        }
-    }
-}
-
 pub fn type_name_with_lifetime(analysis: &Analysis, name: &str, lifetime: Option<&str>) -> String {
     let type_info = match analysis.get_base_type_info(name) {
         Some(t) => t,
@@ -363,8 +107,8 @@ pub fn type_name_with_lifetime(analysis: &Analysis, name: &str, lifetime: Option
 }
 
 /// Base type name only (no pointers/arrays). Used for primitives and type names in the registry.
-pub fn base_ctype_to_rust_str(name: &str) -> std::borrow::Cow<'_, str> {
-    let s = match name {
+pub fn base_ctype_to_rust_str(name: &str) -> &str {
+    match name {
         "int8_t" => "i8",
         "uint8_t" => "u8",
         "int16_t" => "i16",
@@ -374,12 +118,14 @@ pub fn base_ctype_to_rust_str(name: &str) -> std::borrow::Cow<'_, str> {
         "int64_t" => "i64",
         "uint64_t" => "u64",
         "size_t" => "usize",
+        "isize_t" => "isize",
         "float" => "f32",
         "double" => "f64",
         "void" => "c_void",
         "char" => "c_char",
         "int" => "c_int",
-        _ => return std::borrow::Cow::Owned(normalize_ty_name(name).to_string()),
-    };
-    std::borrow::Cow::Borrowed(s)
+        "unsigned int" => "c_uint",
+        "unsigned long" => "c_ulong",
+        _ => normalize_ty_name(name),
+    }
 }
