@@ -6,6 +6,9 @@ pub use generated::external::*;
 mod chain;
 pub use chain::*;
 
+mod extensions;
+pub use extensions::{ExtensionSet, UnknownExtensionError};
+
 pub(crate) mod macros;
 
 mod loading;
