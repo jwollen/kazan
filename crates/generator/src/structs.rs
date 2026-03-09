@@ -1,5 +1,7 @@
 use std::{collections::HashSet, io::Write};
 
+use anyhow::Result;
+
 use crate::{
     LengthKind,
     analysis::Analysis,
@@ -9,7 +11,11 @@ use crate::{
     normalize_ty_name, overrides, write_doc_link, xml,
 };
 
-pub fn generate_structs(file: &mut impl Write, analysis: &Analysis, owned: &HashSet<&str>) {
+pub fn generate_structs(
+    file: &mut impl Write,
+    analysis: &Analysis,
+    owned: &HashSet<&str>,
+) -> Result<()> {
     let new_structs = analysis
         .registry()
         .structs
@@ -17,11 +23,16 @@ pub fn generate_structs(file: &mut impl Write, analysis: &Analysis, owned: &Hash
         .filter(|ty| owned.contains(ty.name));
 
     for ty in new_structs {
-        write_struct(file, analysis, ty);
+        write_struct(file, analysis, ty)?;
     }
+    Ok(())
 }
 
-pub fn generate_unions(file: &mut impl Write, analysis: &Analysis, owned: &HashSet<&str>) {
+pub fn generate_unions(
+    file: &mut impl Write,
+    analysis: &Analysis,
+    owned: &HashSet<&str>,
+) -> Result<()> {
     let unions = analysis
         .registry()
         .unions
@@ -30,7 +41,7 @@ pub fn generate_unions(file: &mut impl Write, analysis: &Analysis, owned: &HashS
     for ty in unions {
         let name = normalize_ty_name(ty.name);
         let type_info = analysis.get_base_type_info(ty.name).unwrap();
-        write_doc_link(file, ty.name);
+        write_doc_link(file, ty.name)?;
         writeln!(
             file,
             "#[repr(C)]
@@ -38,8 +49,7 @@ pub fn generate_unions(file: &mut impl Write, analysis: &Analysis, owned: &HashS
             pub union {}{} {{",
             name,
             if type_info.lifetime_param { "<'a>" } else { "" }
-        )
-        .unwrap();
+        )?;
         for member in &ty.members {
             let field_ty = ctype_to_rust_type(analysis, &member.c_decl.ty, Some("a"));
             writeln!(
@@ -47,13 +57,12 @@ pub fn generate_unions(file: &mut impl Write, analysis: &Analysis, owned: &HashS
                 "pub {}: {},",
                 normalize_name(member.c_decl.name),
                 field_ty
-            )
-            .unwrap();
+            )?;
         }
         if type_info.lifetime_param {
-            writeln!(file, "pub _marker: PhantomData<&'a ()>,",).unwrap();
+            writeln!(file, "pub _marker: PhantomData<&'a ()>,")?;
         }
-        writeln!(file, "}}\n").unwrap();
+        writeln!(file, "}}\n")?;
         let anon = if type_info.lifetime_param { "<'_>" } else { "" };
         writeln!(
             file,
@@ -63,8 +72,7 @@ pub fn generate_unions(file: &mut impl Write, analysis: &Analysis, owned: &HashS
                     f.debug_struct(\"{name}\").finish()
                 }}
             }}\n"
-        )
-        .unwrap();
+        )?;
         writeln!(
             file,
             "impl Default for {name}{anon} {{
@@ -72,9 +80,9 @@ pub fn generate_unions(file: &mut impl Write, analysis: &Analysis, owned: &HashS
                     unsafe {{ core::mem::zeroed() }}
                 }}
             }}\n"
-        )
-        .unwrap();
+        )?;
     }
+    Ok(())
 }
 
 #[derive(Debug)]
@@ -420,17 +428,17 @@ fn write_struct_definition(
     type_info: crate::analysis::TypeInfo,
     has_derived_default: bool,
     lifetime_spec: &str,
-) {
+) -> Result<()> {
     let mut derives = vec!["Copy", "Clone"];
     if has_derived_default {
         derives.push("Default");
     }
     let derives_str = derives.join(", ");
 
-    crate::write_doc_link(file, ty.name);
-    writeln!(file, "#[repr(C)]").unwrap();
+    crate::write_doc_link(file, ty.name)?;
+    writeln!(file, "#[repr(C)]")?;
     if type_info.trivial_debug {
-        writeln!(file, "#[cfg_attr(feature = \"debug\", derive(Debug))]").unwrap();
+        writeln!(file, "#[cfg_attr(feature = \"debug\", derive(Debug))]")?;
     }
     writeln!(
         file,
@@ -439,8 +447,7 @@ fn write_struct_definition(
         pub struct {}{} {{",
         normalize_ty_name(ty.name),
         lifetime_spec
-    )
-    .unwrap();
+    )?;
     for member in &ty.members {
         let name = normalize_name(member.c_decl.name);
 
@@ -453,12 +460,13 @@ fn write_struct_definition(
             }
         };
 
-        writeln!(file, "pub {}: {},", name, field_ty).unwrap();
+        writeln!(file, "pub {}: {},", name, field_ty)?;
     }
     if type_info.lifetime_param {
-        writeln!(file, "pub _marker: PhantomData<&'a ()>,",).unwrap();
+        writeln!(file, "pub _marker: PhantomData<&'a ()>,")?;
     }
-    writeln!(file, "}}\n").unwrap();
+    writeln!(file, "}}\n")?;
+    Ok(())
 }
 
 fn write_trait_impls(
@@ -466,7 +474,7 @@ fn write_trait_impls(
     analysis: &Analysis,
     ty: &xml::Structure,
     info: &StructInfo<'_>,
-) {
+) -> Result<()> {
     if let Some(tag) = info.stype_suffix {
         writeln!(
             file,
@@ -474,25 +482,24 @@ fn write_trait_impls(
                 const STRUCTURE_TYPE: StructureType = StructureType::{};
             }}\n",
             info.name, tag
-        )
-        .unwrap();
+        )?;
     }
 
     for extends in &ty.structextends {
         let rust_ty = base_ctype_to_rust_str(extends);
         if analysis.is_provisional_type(extends) {
-            writeln!(file, "#[cfg(feature = \"provisional\")]").unwrap();
+            writeln!(file, "#[cfg(feature = \"provisional\")]")?;
         }
         writeln!(
             file,
             "unsafe impl<'a> Extends<{}<'a>> for {}<'a> {{}}",
             rust_ty, info.name
-        )
-        .unwrap();
+        )?;
     }
     if !ty.structextends.is_empty() {
-        writeln!(file).unwrap();
+        writeln!(file)?;
     }
+    Ok(())
 }
 
 fn write_default_impl(
@@ -501,62 +508,61 @@ fn write_default_impl(
     info: &StructInfo<'_>,
     type_info: crate::analysis::TypeInfo,
     lifetime_spec_anon: &str,
-) {
+) -> Result<()> {
     writeln!(
         file,
         "impl Default for {}{} {{
         fn default() -> Self {{
         Self {{",
         info.name, lifetime_spec_anon
-    )
-    .unwrap();
+    )?;
     for member in &info.members {
-        write!(file, "{}: ", member.name).unwrap();
+        write!(file, "{}: ", member.name)?;
         if member.member.c_decl.name == "sType" {
-            writeln!(file, "Self::STRUCTURE_TYPE").unwrap()
+            writeln!(file, "Self::STRUCTURE_TYPE")?
         } else {
             write!(
                 file,
                 "{}",
                 default_value(analysis, &member.member.c_decl.ty)
-            )
-            .unwrap();
+            )?;
         }
-        writeln!(file, ",").unwrap();
+        writeln!(file, ",")?;
     }
     if type_info.lifetime_param {
-        writeln!(file, "_marker: PhantomData",).unwrap();
+        writeln!(file, "_marker: PhantomData")?;
     }
-    writeln!(file, "}} }} }}\n").unwrap();
+    writeln!(file, "}} }} }}\n")?;
+    Ok(())
 }
 
 fn write_value_setter_body(
     file: &mut impl std::io::Write,
     param: &SetterParamInfo,
     member: &MemberInfo<'_>,
-) {
+) -> Result<()> {
     match param.assignment {
         SetterAssignmentKind::CStrToPtr => {
-            writeln!(file, "self.{} = {}.as_ptr();", member.name, param.name).unwrap();
+            writeln!(file, "self.{} = {}.as_ptr();", member.name, param.name)?;
         }
         SetterAssignmentKind::CStrToArray => {
             writeln!(
                 file,
                 "write_c_str_slice_with_nul(&mut self.{}, {})?;",
                 member.name, param.name
-            )
-            .unwrap();
+            )?;
         }
         _ => {
             if member.ty.starts_with("PFN_") {
-                writeln!(file, "self.{} = Some({});", member.name, param.name).unwrap();
+                writeln!(file, "self.{} = Some({});", member.name, param.name)?;
             } else if is_bool32(&member.member.c_decl.ty) {
-                writeln!(file, "self.{} = {}.into();", member.name, param.name).unwrap();
+                writeln!(file, "self.{} = {}.into();", member.name, param.name)?;
             } else {
-                writeln!(file, "self.{} = {};", member.name, param.name).unwrap();
+                writeln!(file, "self.{} = {};", member.name, param.name)?;
             }
         }
     }
+    Ok(())
 }
 
 fn write_array_setter_body(
@@ -564,7 +570,7 @@ fn write_array_setter_body(
     info: &StructInfo<'_>,
     len_member_index: usize,
     params: &[SetterParamInfo],
-) {
+) -> Result<()> {
     // Find the first required (non-optional) param to derive length from.
     let first_required = params.iter().find(|p| !p.optional);
     let len_source = first_required.unwrap_or(&params[0]);
@@ -573,23 +579,21 @@ fn write_array_setter_body(
 
     if first_required.is_none() {
         // All params are optional — derive length from first that is Some.
-        write!(file, "self.{} = None", len_member.name).unwrap();
+        write!(file, "self.{} = None", len_member.name)?;
         for param in params {
             write!(
                 file,
                 ".or_else(|| {}.as_deref().map(|s| s.len()))",
                 param.name
-            )
-            .unwrap();
+            )?;
         }
-        writeln!(file, ".unwrap_or(0).try_into().unwrap();").unwrap();
+        writeln!(file, ".unwrap_or(0).try_into().unwrap();")?;
     } else {
         writeln!(
             file,
             "self.{} = {}.len().try_into().unwrap();",
             len_member.name, len_source.name
-        )
-        .unwrap();
+        )?;
     }
 
     // Assert matching lengths for all other params.
@@ -603,15 +607,13 @@ fn write_array_setter_body(
                 "if let Some(s) = &{name} {{ assert_eq!(s.len(), self.{len} as usize); }}",
                 name = param.name,
                 len = len_member.name,
-            )
-            .unwrap();
+            )?;
         } else {
             writeln!(
                 file,
                 "assert_eq!({}.len(), self.{} as usize);",
                 param.name, len_member.name
-            )
-            .unwrap();
+            )?;
         }
     }
 
@@ -619,39 +621,42 @@ fn write_array_setter_body(
     for param in params {
         let member = &info.members[param.member_index];
         if param.optional {
-            emit_optional_setter_assignment(file, &member.name, &param.name, param.assignment);
+            emit_optional_setter_assignment(file, &member.name, &param.name, param.assignment)?;
         } else {
-            emit_setter_assignment(file, &member.name, &param.name, param.assignment);
+            emit_setter_assignment(file, &member.name, &param.name, param.assignment)?;
         }
     }
+    Ok(())
 }
 
-fn write_setters(file: &mut impl std::io::Write, info: &StructInfo<'_>, lifetime_spec: &str) {
+fn write_setters(
+    file: &mut impl std::io::Write,
+    info: &StructInfo<'_>,
+    lifetime_spec: &str,
+) -> Result<()> {
     writeln!(
         file,
         "impl{} {}{}{{",
         lifetime_spec, info.name, lifetime_spec
-    )
-    .unwrap();
+    )?;
     for setter in &info.setters {
         writeln!(
             file,
             "#[inline]
             pub fn {}(mut self,",
             setter.name
-        )
-        .unwrap();
+        )?;
 
         match &setter.kind {
             SetterKind::Value(param) => {
-                writeln!(file, "{}: {},", param.name, param.ty).unwrap();
+                writeln!(file, "{}: {},", param.name, param.ty)?;
             }
             SetterKind::Array { params, .. } => {
                 for param in params {
                     if param.optional {
-                        writeln!(file, "{}: Option<{}>,", param.name, param.ty).unwrap();
+                        writeln!(file, "{}: Option<{}>,", param.name, param.ty)?;
                     } else {
-                        writeln!(file, "{}: {},", param.name, param.ty).unwrap();
+                        writeln!(file, "{}: {},", param.name, param.ty)?;
                     }
                 }
             }
@@ -662,34 +667,38 @@ fn write_setters(file: &mut impl std::io::Write, info: &StructInfo<'_>, lifetime
             writeln!(
                 file,
                 ") -> core::result::Result<Self, CStrTooLargeForStaticArray> {{"
-            )
-            .unwrap();
+            )?;
         } else {
-            writeln!(file, ") -> Self {{").unwrap();
+            writeln!(file, ") -> Self {{")?;
         }
 
         match &setter.kind {
             SetterKind::Value(param) => {
-                write_value_setter_body(file, param, &info.members[param.member_index]);
+                write_value_setter_body(file, param, &info.members[param.member_index])?;
             }
             SetterKind::Array {
                 len_member_index,
                 params,
             } => {
-                write_array_setter_body(file, info, *len_member_index, params);
+                write_array_setter_body(file, info, *len_member_index, params)?;
             }
         }
 
         if is_cstr_array {
-            writeln!(file, "Ok(self) }}\n").unwrap();
+            writeln!(file, "Ok(self) }}\n")?;
         } else {
-            writeln!(file, "self }}\n").unwrap();
+            writeln!(file, "self }}\n")?;
         }
     }
-    writeln!(file, "}}\n").unwrap();
+    writeln!(file, "}}\n")?;
+    Ok(())
 }
 
-pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xml::Structure) {
+pub fn write_struct(
+    file: &mut impl std::io::Write,
+    analysis: &Analysis,
+    ty: &xml::Structure,
+) -> Result<()> {
     let info = analyze_struct(analysis, ty);
     let type_info = analysis.get_base_type_info(ty.name).unwrap();
 
@@ -706,21 +715,22 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
         type_info,
         has_derived_default,
         lifetime_spec,
-    );
+    )?;
 
     if !type_info.trivial_debug {
-        writeln!(file, "#[cfg(feature = \"debug\")]").unwrap();
-        write_debug_impl(file, analysis, ty, &info, type_info);
+        writeln!(file, "#[cfg(feature = \"debug\")]")?;
+        write_debug_impl(file, analysis, ty, &info, type_info)?;
     }
 
-    write_trait_impls(file, analysis, ty, &info);
+    write_trait_impls(file, analysis, ty, &info)?;
 
     // Manual Default impl needed: sType must be set, and zeroed memory isn't a valid default.
     if info.has_stype_default && !type_info.default {
-        write_default_impl(file, analysis, &info, type_info, lifetime_spec_anon);
+        write_default_impl(file, analysis, &info, type_info, lifetime_spec_anon)?;
     }
 
-    write_setters(file, &info, lifetime_spec);
+    write_setters(file, &info, lifetime_spec)?;
+    Ok(())
 }
 
 /// Classifies how a struct member should be formatted in a Debug impl.
@@ -773,7 +783,7 @@ fn write_debug_impl(
     ty: &xml::Structure,
     info: &StructInfo<'_>,
     type_info: crate::analysis::TypeInfo,
-) {
+) -> Result<()> {
     let name = &info.name;
     let lifetime_spec_anon = if type_info.lifetime_param { "<'_>" } else { "" };
 
@@ -782,8 +792,7 @@ fn write_debug_impl(
         "impl fmt::Debug for {name}{lifetime_spec_anon} {{
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {{
             f.debug_struct(\"{name}\")"
-    )
-    .unwrap();
+    )?;
 
     for member in &ty.members {
         let field_name = normalize_name(member.c_decl.name);
@@ -791,33 +800,31 @@ fn write_debug_impl(
 
         match kind {
             DebugFieldKind::Normal => {
-                writeln!(file, ".field(\"{field_name}\", &self.{field_name})").unwrap();
+                writeln!(file, ".field(\"{field_name}\", &self.{field_name})")?;
             }
             DebugFieldKind::CStrPtr => {
                 writeln!(
                     file,
                     ".field(\"{field_name}\", &unsafe {{ as_c_str(self.{field_name}) }})"
-                )
-                .unwrap();
+                )?;
             }
             DebugFieldKind::CStrArray => {
                 writeln!(
                     file,
                     ".field(\"{field_name}\", &wrap_c_str_slice_until_nul(&self.{field_name}))"
-                )
-                .unwrap();
+                )?;
             }
             DebugFieldKind::FuncPointer => {
                 writeln!(
                     file,
                     ".field(\"{field_name}\", &self.{field_name}.map(|f| f as *const ()))"
-                )
-                .unwrap();
+                )?;
             }
         }
     }
 
-    writeln!(file, ".finish()\n}} }}\n").unwrap();
+    writeln!(file, ".finish()\n}} }}\n")?;
+    Ok(())
 }
 
 fn default_value(analysis: &Analysis, ty: &CType) -> std::borrow::Cow<'static, str> {
@@ -863,51 +870,49 @@ fn emit_setter_assignment(
     member_name: &str,
     param_name: &str,
     kind: SetterAssignmentKind,
-) {
+) -> Result<()> {
     match kind {
         SetterAssignmentKind::CopyFromSlice => {
             writeln!(
                 file,
                 "self.{}[..{}.len()].copy_from_slice({});",
                 member_name, param_name, param_name
-            )
-            .unwrap();
+            )?;
         }
         SetterAssignmentKind::PtrFromSlice { is_const } => {
             if is_const {
-                writeln!(file, "self.{} = {}.as_ptr() as _;", member_name, param_name).unwrap();
+                writeln!(file, "self.{} = {}.as_ptr() as _;", member_name, param_name)?;
             } else {
                 writeln!(
                     file,
                     "self.{} = {}.as_mut_ptr() as _;",
                     member_name, param_name
-                )
-                .unwrap();
+                )?;
             }
         }
         SetterAssignmentKind::PtrFromRefNested { is_const } => {
             if is_const {
-                writeln!(file, "self.{} = {}.as_ptr() as _;", member_name, param_name).unwrap();
+                writeln!(file, "self.{} = {}.as_ptr() as _;", member_name, param_name)?;
             } else {
                 writeln!(
                     file,
                     "self.{} = {}.as_mut_ptr() as _;",
                     member_name, param_name
-                )
-                .unwrap();
+                )?;
             }
         }
         SetterAssignmentKind::PtrFromRef { is_const } => {
             if is_const {
-                writeln!(file, "self.{} = {}.as_ptr();", member_name, param_name).unwrap();
+                writeln!(file, "self.{} = {}.as_ptr();", member_name, param_name)?;
             } else {
-                writeln!(file, "self.{} = {}.as_mut_ptr();", member_name, param_name).unwrap();
+                writeln!(file, "self.{} = {}.as_mut_ptr();", member_name, param_name)?;
             }
         }
         SetterAssignmentKind::CStrToPtr | SetterAssignmentKind::CStrToArray => {
             unreachable!("CStr assignments only used for Value setters")
         }
     }
+    Ok(())
 }
 
 /// Emit assignment for an optional array param (`Option<&[T]>` → pointer or null).
@@ -916,7 +921,7 @@ fn emit_optional_setter_assignment(
     member_name: &str,
     param_name: &str,
     kind: SetterAssignmentKind,
-) {
+) -> Result<()> {
     // For optional params, emit: if let Some(s) = param { ptr } else { null }
     let (map_expr, null_expr) = match kind {
         SetterAssignmentKind::CopyFromSlice => {
@@ -925,9 +930,8 @@ fn emit_optional_setter_assignment(
                 file,
                 "if let Some(s) = {} {{ self.{}[..s.len()].copy_from_slice(s); }}",
                 param_name, member_name
-            )
-            .unwrap();
-            return;
+            )?;
+            return Ok(());
         }
         SetterAssignmentKind::PtrFromSlice { is_const }
         | SetterAssignmentKind::PtrFromRefNested { is_const } => {
@@ -952,8 +956,8 @@ fn emit_optional_setter_assignment(
         file,
         "self.{} = {}.map_or({}, {});",
         member_name, param_name, null_expr, map_expr
-    )
-    .unwrap();
+    )?;
+    Ok(())
 }
 
 pub fn convert_setter_param_type(

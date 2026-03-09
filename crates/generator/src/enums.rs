@@ -5,6 +5,7 @@ use std::{
     sync::OnceLock,
 };
 
+use anyhow::Result;
 use heck::ToShoutySnakeCase;
 use regex::Regex;
 
@@ -12,7 +13,11 @@ use crate::{
     analysis::Analysis, ctype_rust::base_ctype_to_rust_str, module::Module, normalize_ty_name, xml,
 };
 
-pub fn generate_enum_types(file: &mut impl Write, analysis: &Analysis, owned: &HashSet<&str>) {
+pub fn generate_enum_types(
+    file: &mut impl Write,
+    analysis: &Analysis,
+    owned: &HashSet<&str>,
+) -> Result<()> {
     let enums = analysis
         .registry()
         .enums
@@ -20,11 +25,16 @@ pub fn generate_enum_types(file: &mut impl Write, analysis: &Analysis, owned: &H
         .filter(|ty| owned.contains(ty.name));
 
     for ty in enums {
-        write_enum(file, analysis, ty);
+        write_enum(file, analysis, ty)?;
     }
+    Ok(())
 }
 
-pub fn generate_bitmask_types(file: &mut impl Write, analysis: &Analysis, owned: &HashSet<&str>) {
+pub fn generate_bitmask_types(
+    file: &mut impl Write,
+    analysis: &Analysis,
+    owned: &HashSet<&str>,
+) -> Result<()> {
     let bitmask_types = analysis
         .registry()
         .bitmask_types
@@ -42,8 +52,9 @@ pub fn generate_bitmask_types(file: &mut impl Write, analysis: &Analysis, owned:
                 .find(|bitmask| bitmask.name == b)
         });
 
-        write_bitmask(file, analysis, ty, bitmask, analysis.req_enum_data());
+        write_bitmask(file, analysis, ty, bitmask, analysis.req_enum_data())?;
     }
+    Ok(())
 }
 
 pub struct ContribVariant {
@@ -228,10 +239,11 @@ fn is_useful_comment(comment: &str) -> bool {
         && !comment.starts_with("No need to add")
 }
 
-fn write_doc_comment(file: &mut impl Write, comment: Option<&str>) {
+fn write_doc_comment(file: &mut impl Write, comment: Option<&str>) -> Result<()> {
     if let Some(comment) = comment.filter(|c| is_useful_comment(c)) {
-        writeln!(file, "/// {comment}").unwrap();
+        writeln!(file, "/// {comment}")?;
     }
+    Ok(())
 }
 
 fn format_doc_comment(comment: Option<&str>) -> String {
@@ -246,21 +258,22 @@ fn write_module_group(
     module_name: &str,
     entries: &[String],
     provisional: bool,
-) {
+) -> Result<()> {
     if entries.is_empty() {
-        return;
+        return Ok(());
     }
-    writeln!(file, "// {}", module_name).unwrap();
+    writeln!(file, "// {}", module_name)?;
     for entry in entries {
         if provisional {
-            writeln!(file, "#[cfg(feature = \"provisional\")]").unwrap();
+            writeln!(file, "#[cfg(feature = \"provisional\")]")?;
         }
-        writeln!(file, "{}", entry).unwrap();
+        writeln!(file, "{}", entry)?;
     }
-    writeln!(file).unwrap();
+    writeln!(file)?;
+    Ok(())
 }
 
-pub fn write_enum(file: &mut impl Write, analysis: &Analysis, ty: &xml::Enum) {
+pub fn write_enum(file: &mut impl Write, analysis: &Analysis, ty: &xml::Enum) -> Result<()> {
     let tags = &analysis.registry().tags;
     let req = analysis.req_enum_data();
     // VkResult values use "VK_" prefix (e.g. VK_SUCCESS) instead of the type-derived "VK_RESULT_".
@@ -277,30 +290,29 @@ pub fn write_enum(file: &mut impl Write, analysis: &Analysis, ty: &xml::Enum) {
         normalize_ty_name(ty.name)
     };
 
-    crate::write_doc_link(file, ty.name);
+    crate::write_doc_link(file, ty.name)?;
     writeln!(
         file,
         "#[repr(transparent)]
         #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
         pub struct {}(i32);",
         name
-    )
-    .unwrap();
-    writeln!(file).unwrap();
+    )?;
+    writeln!(file)?;
 
     let mut debug_variants: Vec<(String, bool)> = Vec::new(); // (variant_name, is_provisional)
     let mut visited = HashSet::new();
 
-    writeln!(file, "impl {} {{", name).unwrap();
+    writeln!(file, "impl {} {{", name)?;
 
     for bit in &ty.values {
         let vname = normalize_variant_name(bit.name, &value_prefix);
-        write_doc_comment(file, bit.comment);
-        writeln!(file, "pub const {}: Self = Self({});", vname, bit.value).unwrap();
+        write_doc_comment(file, bit.comment)?;
+        writeln!(file, "pub const {}: Self = Self({});", vname, bit.value)?;
         visited.insert(vname.clone());
         debug_variants.push((vname, false));
     }
-    writeln!(file).unwrap();
+    writeln!(file)?;
 
     if let Some(modules) = req.get(ty.name) {
         for (module_name, contributions) in modules {
@@ -339,24 +351,23 @@ pub fn write_enum(file: &mut impl Write, analysis: &Analysis, ty: &xml::Enum) {
                 }
             }
 
-            write_module_group(file, module_name, &entries, provisional);
+            write_module_group(file, module_name, &entries, provisional)?;
         }
     }
 
-    writeln!(file, "}}\n").unwrap();
+    writeln!(file, "}}\n")?;
 
     writeln!(
         file,
         "impl fmt::Debug for {name} {{
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {{"
-    )
-    .unwrap();
-    writeln!(file, "let name = match *self {{").unwrap();
+    )?;
+    writeln!(file, "let name = match *self {{")?;
     for (vname, provisional) in &debug_variants {
         if *provisional {
-            writeln!(file, "#[cfg(feature = \"provisional\")]").unwrap();
+            writeln!(file, "#[cfg(feature = \"provisional\")]")?;
         }
-        writeln!(file, "Self::{vname} => Some(\"{vname}\"),").unwrap();
+        writeln!(file, "Self::{vname} => Some(\"{vname}\"),")?;
     }
     writeln!(
         file,
@@ -367,8 +378,8 @@ pub fn write_enum(file: &mut impl Write, analysis: &Analysis, ty: &xml::Enum) {
         }} else {{
             self.0.fmt(f)
         }} }} }}\n"
-    )
-    .unwrap();
+    )?;
+    Ok(())
 }
 
 struct NormalizedBit {
@@ -497,26 +508,25 @@ fn write_flags_constants(
     flags_name: &str,
     bitmask: &xml::BitMask,
     data: &NormalizedBitmaskData,
-) {
+) -> Result<()> {
     let mut visited = HashSet::new();
-    writeln!(file, "impl {flags_name} {{").unwrap();
+    writeln!(file, "impl {flags_name} {{")?;
 
     for b in &data.base_bits {
         if visited.insert(b.name.clone()) {
-            write_doc_comment(file, b.comment);
+            write_doc_comment(file, b.comment)?;
             writeln!(
                 file,
                 "pub const {}: Self = Self({}::{}.0);",
                 b.name, data.bitmask_name, b.name
-            )
-            .unwrap();
+            )?;
         }
     }
     for alias in &bitmask.aliases {
         let aname = normalize_bit_name(alias.name, Some(data.value_prefix.as_str()));
         let target = normalize_bit_name(alias.alias, Some(data.value_prefix.as_str()));
         if visited.insert(aname.clone()) {
-            writeln!(file, "pub const {}: Self = Self::{};", aname, target).unwrap();
+            writeln!(file, "pub const {}: Self = Self::{};", aname, target)?;
         }
     }
     for value in &bitmask.values {
@@ -527,10 +537,10 @@ fn write_flags_constants(
             .strip_prefix('_')
             .unwrap();
         let vname = strip_vendor_suffix(vname, &analysis.registry().tags);
-        write_doc_comment(file, value.comment);
-        writeln!(file, "pub const {}: Self = Self({});", vname, value.value).unwrap();
+        write_doc_comment(file, value.comment)?;
+        writeln!(file, "pub const {}: Self = Self({});", vname, value.value)?;
     }
-    writeln!(file).unwrap();
+    writeln!(file)?;
 
     for md in &data.module_data {
         let mut entries = Vec::new();
@@ -558,10 +568,11 @@ fn write_flags_constants(
                 v.value
             ));
         }
-        write_module_group(file, &md.name, &entries, md.provisional);
+        write_module_group(file, &md.name, &entries, md.provisional)?;
     }
 
-    writeln!(file, "}}\n").unwrap();
+    writeln!(file, "}}\n")?;
+    Ok(())
 }
 
 fn write_flags_debug(
@@ -569,7 +580,7 @@ fn write_flags_debug(
     flags_name: &str,
     base_type: &str,
     data: &NormalizedBitmaskData,
-) {
+) -> Result<()> {
     let mut debug_bits: Vec<(String, u8, bool)> = Vec::new();
     let mut visited_bits = HashSet::new();
 
@@ -591,35 +602,33 @@ fn write_flags_debug(
         "impl fmt::Debug for {flags_name} {{
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {{
             const KNOWN: &[({base_type}, &str)] = &["
-    )
-    .unwrap();
+    )?;
     for (bit_name, _, provisional) in &debug_bits {
         if *provisional {
-            writeln!(file, "#[cfg(feature = \"provisional\")]").unwrap();
+            writeln!(file, "#[cfg(feature = \"provisional\")]")?;
         }
         writeln!(
             file,
             "                ({flags_name}::{bit_name}.0, \"{bit_name}\"),"
-        )
-        .unwrap();
+        )?;
     }
     writeln!(
         file,
         "            ];
         debug_flags(f, KNOWN, self.0)
         }} }}\n"
-    )
-    .unwrap();
+    )?;
+    Ok(())
 }
 
 fn write_flagbits_constants(
     file: &mut impl Write,
     bitmask: &xml::BitMask,
     data: &NormalizedBitmaskData,
-) {
+) -> Result<()> {
     let bitmask_name = &data.bitmask_name;
 
-    crate::write_doc_link(file, bitmask.name);
+    crate::write_doc_link(file, bitmask.name)?;
     writeln!(
         file,
         "#[repr(transparent)]
@@ -627,21 +636,19 @@ fn write_flagbits_constants(
         pub struct {}(u{});\n",
         bitmask_name,
         bitmask.bitwidth.unwrap_or(32),
-    )
-    .unwrap();
+    )?;
 
     let mut visited = HashSet::new();
-    writeln!(file, "impl {} {{", bitmask_name).unwrap();
+    writeln!(file, "impl {} {{", bitmask_name)?;
 
     for b in &data.base_bits {
         if visited.insert(b.name.clone()) {
-            write_doc_comment(file, b.comment);
+            write_doc_comment(file, b.comment)?;
             writeln!(
                 file,
                 "pub const {}: Self = Self(1 << {});",
                 b.name, b.bitpos
-            )
-            .unwrap();
+            )?;
         }
     }
 
@@ -666,13 +673,14 @@ fn write_flagbits_constants(
                 entries.push(format!("pub const {}: Self = Self::{};", a.name, a.target));
             }
         }
-        write_module_group(file, &md.name, &entries, md.provisional);
+        write_module_group(file, &md.name, &entries, md.provisional)?;
     }
 
-    writeln!(file, "}}\n").unwrap();
+    writeln!(file, "}}\n")?;
+    Ok(())
 }
 
-fn write_flagbits_debug(file: &mut impl Write, data: &NormalizedBitmaskData) {
+fn write_flagbits_debug(file: &mut impl Write, data: &NormalizedBitmaskData) -> Result<()> {
     let bitmask_name = &data.bitmask_name;
     let mut debug_variants: Vec<(String, bool)> = Vec::new(); // (variant_name, is_provisional)
     let mut debug_visited = HashSet::new();
@@ -694,14 +702,13 @@ fn write_flagbits_debug(file: &mut impl Write, data: &NormalizedBitmaskData) {
         file,
         "impl fmt::Debug for {bitmask_name} {{
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {{"
-    )
-    .unwrap();
-    writeln!(file, "let name = match *self {{").unwrap();
+    )?;
+    writeln!(file, "let name = match *self {{")?;
     for (vname, provisional) in &debug_variants {
         if *provisional {
-            writeln!(file, "#[cfg(feature = \"provisional\")]").unwrap();
+            writeln!(file, "#[cfg(feature = \"provisional\")]")?;
         }
-        writeln!(file, "Self::{vname} => Some(\"{vname}\"),").unwrap();
+        writeln!(file, "Self::{vname} => Some(\"{vname}\"),")?;
     }
     writeln!(
         file,
@@ -712,8 +719,8 @@ fn write_flagbits_debug(file: &mut impl Write, data: &NormalizedBitmaskData) {
         }} else {{
             self.0.fmt(f)
         }} }} }}\n"
-    )
-    .unwrap();
+    )?;
+    Ok(())
 }
 
 /// Writes a bitmask type (bitflags + optional FlagBits struct) to `file`.
@@ -723,11 +730,11 @@ pub fn write_bitmask(
     ty: &xml::BitMaskType,
     bitmask: Option<&xml::BitMask>,
     req: &ReqEnumData,
-) {
+) -> Result<()> {
     let name = normalize_ty_name(ty.name);
     let base_type = base_ctype_to_rust_str(ty.ty);
 
-    crate::write_doc_link(file, ty.name);
+    crate::write_doc_link(file, ty.name)?;
     writeln!(
         file,
         "#[repr(transparent)]
@@ -735,8 +742,7 @@ pub fn write_bitmask(
         pub struct {name}({base_type});
         vk_bitflags_wrapped!({name}, {base_type});
 "
-    )
-    .unwrap();
+    )?;
 
     let Some(bitmask) = bitmask else {
         writeln!(
@@ -745,16 +751,16 @@ pub fn write_bitmask(
             fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {{
                 debug_flags(f, &[], self.0)
             }} }}"
-        )
-        .unwrap();
-        writeln!(file).unwrap();
-        return;
+        )?;
+        writeln!(file)?;
+        return Ok(());
     };
 
     let data = normalize_bitmask_data(analysis, bitmask, req);
 
-    write_flags_constants(file, analysis, name, bitmask, &data);
-    write_flags_debug(file, name, base_type, &data);
-    write_flagbits_constants(file, bitmask, &data);
-    write_flagbits_debug(file, &data);
+    write_flags_constants(file, analysis, name, bitmask, &data)?;
+    write_flags_debug(file, name, base_type, &data)?;
+    write_flagbits_constants(file, bitmask, &data)?;
+    write_flagbits_debug(file, &data)?;
+    Ok(())
 }

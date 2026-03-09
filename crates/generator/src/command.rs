@@ -1,5 +1,6 @@
 use std::{collections::HashSet, io::Write};
 
+use anyhow::Result;
 use itertools::Itertools;
 
 use crate::{
@@ -116,7 +117,11 @@ fn is_pointer_to_pointer(ty: &CType) -> bool {
     )
 }
 
-pub fn generate_funcpointers(file: &mut impl Write, analysis: &Analysis, owned: &HashSet<&str>) {
+pub fn generate_funcpointers(
+    file: &mut impl Write,
+    analysis: &Analysis,
+    owned: &HashSet<&str>,
+) -> Result<()> {
     let funcpointers = analysis
         .registry()
         .funcpointers
@@ -125,73 +130,70 @@ pub fn generate_funcpointers(file: &mut impl Write, analysis: &Analysis, owned: 
         .filter(|ty| owned.contains(ty.name));
 
     for ty in funcpointers {
-        write_doc_link(file, ty.name);
-        writeln!(file, "pub type {} = unsafe extern \"system\" fn(", ty.name).unwrap();
+        write_doc_link(file, ty.name)?;
+        writeln!(file, "pub type {} = unsafe extern \"system\" fn(", ty.name)?;
         for param in &ty.params {
             writeln!(
                 file,
                 "    {}: {},",
                 normalize_name(param.c_decl.name),
                 ctype_to_rust_type(analysis, &param.c_decl.ty, None)
-            )
-            .unwrap();
+            )?;
         }
         if let Some(ref return_type) = ty.return_type {
             writeln!(
                 file,
                 ") -> {};",
                 ctype_to_rust_type(analysis, &return_type, None)
-            )
-            .unwrap();
+            )?;
         } else {
-            writeln!(file, ");").unwrap();
+            writeln!(file, ");")?;
         }
     }
-    writeln!(file).unwrap();
+    writeln!(file)?;
+    Ok(())
 }
 
 pub fn generate_functions<'a>(
     file: &mut impl Write,
     analysis: &Analysis,
     new_commands: impl Iterator<Item = &'a xml::Command>,
-) {
+) -> Result<()> {
     for command in new_commands {
-        write_doc_link(file, command.name);
+        write_doc_link(file, command.name)?;
         writeln!(
             file,
             "pub type PFN_{} = unsafe extern \"system\" fn(",
             command.name
-        )
-        .unwrap();
+        )?;
         for param in &command.params {
             writeln!(
                 file,
                 "    {}: {},",
                 normalize_name(param.c_decl.name),
                 ctype_to_rust_type(analysis, &param.c_decl.ty, None)
-            )
-            .unwrap();
+            )?;
         }
         if let Some(ref return_type) = command.return_type {
             writeln!(
                 file,
                 ") -> {};",
                 ctype_to_rust_type(analysis, &return_type, None)
-            )
-            .unwrap();
+            )?;
         } else {
-            writeln!(file, ");").unwrap();
+            writeln!(file, ");")?;
         }
     }
-    writeln!(file).unwrap();
+    writeln!(file)?;
+    Ok(())
 }
 
 pub fn generate_commands(
     file: &mut impl std::io::Write,
     analysis: &Analysis,
     requires: &[&xml::Require],
-) {
-    let mut generate_commands = |cmd_type: CommandType, fn_type_name: &str| {
+) -> Result<()> {
+    let mut generate_commands = |cmd_type: CommandType, fn_type_name: &str| -> Result<()> {
         let command_groups: Vec<_> = requires
             .iter()
             .flat_map(|require| {
@@ -249,10 +251,10 @@ pub fn generate_commands(
             .collect::<Vec<_>>();
 
         if command_groups.is_empty() {
-            return;
+            return Ok(());
         }
 
-        writeln!(file, "pub struct {} {{", fn_type_name).unwrap();
+        writeln!(file, "pub struct {} {{", fn_type_name)?;
         for command_group in &command_groups {
             for command in &command_group.commands {
                 let name = normalize_command_name(command.required_name);
@@ -262,14 +264,17 @@ pub fn generate_commands(
                 } else {
                     ty
                 };
-                writeln!(file, "{}: {},", name, ty).unwrap();
+                writeln!(file, "{}: {},", name, ty)?;
             }
         }
-        writeln!(file, "}}\n").unwrap();
+        writeln!(file, "}}\n")?;
 
-        writeln!(file, "impl {} {{", fn_type_name).unwrap();
-        writeln!(file, "pub unsafe fn load(load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>) -> core::result::Result<Self, MissingEntryPointError> {{").unwrap();
-        writeln!(file, "unsafe {{ Ok(Self {{").unwrap();
+        writeln!(file, "impl {} {{", fn_type_name)?;
+        writeln!(
+            file,
+            "pub unsafe fn load(load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>) -> core::result::Result<Self, MissingEntryPointError> {{"
+        )?;
+        writeln!(file, "unsafe {{ Ok(Self {{")?;
         for command_group in &command_groups {
             for command in &command_group.commands {
                 let name = normalize_command_name(command.required_name);
@@ -278,32 +283,32 @@ pub fn generate_commands(
                         file,
                         "{}: transmute(load(c\"{}\")),",
                         name, command.required_name
-                    )
-                    .unwrap();
+                    )?;
                 } else {
                     writeln!(
                         file,
                         "{}: transmute(load(c\"{}\").ok_or(MissingEntryPointError)?),",
                         name, command.required_name
-                    )
-                    .unwrap();
+                    )?;
                 }
             }
         }
-        writeln!(file, "}}) }} }} }}\n").unwrap();
+        writeln!(file, "}}) }} }} }}\n")?;
 
-        writeln!(file, "impl {} {{", fn_type_name).unwrap();
+        writeln!(file, "impl {} {{", fn_type_name)?;
         for command_group in &command_groups {
             for command in &command_group.commands {
-                write_command_wrapper(file, analysis, command);
+                write_command_wrapper(file, analysis, command)?;
             }
         }
-        writeln!(file, "}}\n").unwrap();
+        writeln!(file, "}}\n")?;
+        Ok(())
     };
 
-    generate_commands(CommandType::Entry, "EntryFn");
-    generate_commands(CommandType::Instance, "InstanceFn");
-    generate_commands(CommandType::Device, "DeviceFn");
+    generate_commands(CommandType::Entry, "EntryFn")?;
+    generate_commands(CommandType::Instance, "InstanceFn")?;
+    generate_commands(CommandType::Device, "DeviceFn")?;
+    Ok(())
 }
 
 /// Detect enumeration (two-call) pattern: a length param that is a mutable pointer,
@@ -776,13 +781,13 @@ pub fn write_command_wrapper(
     file: &mut impl std::io::Write,
     analysis: &Analysis,
     info: &CommandInfo<'_>,
-) {
+) -> Result<()> {
     if crate::overrides::write_command_override(
         file,
         info.required_name,
         info.conditionally_required,
-    ) {
-        return;
+    )? {
+        return Ok(());
     }
 
     let wrapper = analyze_command(analysis, info);
@@ -791,20 +796,19 @@ pub fn write_command_wrapper(
         .lifetime_param
         .map(|lifetime| format!("<'{}>", lifetime))
         .unwrap_or_default();
-    crate::write_doc_link(file, info.required_name);
+    crate::write_doc_link(file, info.required_name)?;
     writeln!(
         file,
         "#[inline]
         pub unsafe fn {}{}(&self,",
         wrapper.name, lifetime_param
-    )
-    .unwrap();
+    )?;
 
     for param in &wrapper.wrapper_params {
         if param.is_enumeration_array {
-            write!(file, "mut ").unwrap();
+            write!(file, "mut ")?;
         }
-        writeln!(file, "{}: {},", param.name, param.ty).unwrap();
+        writeln!(file, "{}: {},", param.name, param.ty)?;
     }
 
     let ok_codes_override = crate::overrides::ok_codes(info.required_name);
@@ -838,17 +842,17 @@ pub fn write_command_wrapper(
         } else {
             return_ty.as_deref().unwrap_or("()").to_string()
         };
-        writeln!(file, ") -> crate::Result<{}> {{", inner).unwrap();
+        writeln!(file, ") -> crate::Result<{}> {{", inner)?;
     } else if let Some(return_ty) = return_ty {
-        writeln!(file, ") -> {} {{", return_ty).unwrap();
+        writeln!(file, ") -> {} {{", return_ty)?;
     } else {
-        writeln!(file, ") {{").unwrap();
+        writeln!(file, ") {{")?;
     }
 
-    writeln!(file, "unsafe {{").unwrap();
+    writeln!(file, "unsafe {{")?;
 
     if let Some(enumeration_info) = &wrapper.enumeration_info {
-        write_enumeration_fn_body(file, analysis, info, &wrapper, enumeration_info);
+        write_enumeration_fn_body(file, analysis, info, &wrapper, enumeration_info)?;
     } else {
         write_fn_body(
             file,
@@ -857,10 +861,11 @@ pub fn write_command_wrapper(
             info.conditionally_required,
             ok_codes_override.as_ref(),
             false,
-        );
+        )?;
     }
 
-    writeln!(file, "}} }}\n").unwrap();
+    writeln!(file, "}} }}\n")?;
+    Ok(())
 }
 
 fn write_enumeration_fn_body(
@@ -869,11 +874,11 @@ fn write_enumeration_fn_body(
     info: &CommandInfo<'_>,
     wrapper: &WrapperCommandInfo<'_>,
     enumeration_info: &EnumerationCommandInfo,
-) {
+) -> Result<()> {
     let len_param = &wrapper.params[enumeration_info.len_param_index].name;
-    writeln!(file, "let call = |{len_param}, ").unwrap();
+    writeln!(file, "let call = |{len_param}, ")?;
     for param in &enumeration_info.array_param_indices {
-        writeln!(file, "{}, ", wrapper.params[*param].name).unwrap();
+        writeln!(file, "{}, ", wrapper.params[*param].name)?;
     }
     for wrapper_param in &wrapper.wrapper_params {
         let param = &wrapper.params[wrapper_param.param_index];
@@ -881,10 +886,10 @@ fn write_enumeration_fn_body(
             && wrapper_param.param_index != enumeration_info.len_param_index
             && !param.is_return_param
         {
-            writeln!(file, "{}: {}, ", wrapper_param.name, wrapper_param.ty).unwrap();
+            writeln!(file, "{}: {}, ", wrapper_param.name, wrapper_param.ty)?;
         }
     }
-    writeln!(file, "| {{ ").unwrap();
+    writeln!(file, "| {{ ")?;
     // Accept all declared success codes in the enumeration closure
     // (SUCCESS and INCOMPLETE) so the two-call pattern works.
     let enum_ok_codes = crate::overrides::OkCodes {
@@ -898,12 +903,12 @@ fn write_enumeration_fn_body(
         info.conditionally_required,
         Some(&enum_ok_codes),
         true,
-    );
-    writeln!(file, "}};").unwrap();
+    )?;
+    writeln!(file, "}};")?;
 
-    writeln!(file, "let mut len = 0; call(&mut len, ").unwrap();
+    writeln!(file, "let mut len = 0; call(&mut len, ")?;
     for _ in &enumeration_info.array_param_indices {
-        writeln!(file, "std::ptr::null_mut(), ").unwrap();
+        writeln!(file, "std::ptr::null_mut(), ")?;
     }
     for wrapper_param in &wrapper.wrapper_params {
         let param = &wrapper.params[wrapper_param.param_index];
@@ -913,22 +918,21 @@ fn write_enumeration_fn_body(
         {
             // Skip in the first call if optional
             if param.optional.0 {
-                writeln!(file, "None, ").unwrap();
+                writeln!(file, "None, ")?;
             } else {
-                writeln!(file, "{}, ", param.name).unwrap();
+                writeln!(file, "{}, ", param.name)?;
             }
         }
     }
     if wrapper.is_fallible {
-        writeln!(file, ")?;").unwrap();
+        writeln!(file, ")?;")?;
     } else {
-        writeln!(file, ");").unwrap();
+        writeln!(file, ");")?;
     }
     writeln!(
         file,
         "let capacity = len.try_into().expect(\"failed to convert `N` to usize\");"
-    )
-    .unwrap();
+    )?;
 
     for (array_param_index, param) in enumeration_info.array_param_indices.iter().enumerate() {
         let param = &wrapper.params[*param];
@@ -936,27 +940,25 @@ fn write_enumeration_fn_body(
         writeln!(
             file,
             "let {param_name}_buf = {param_name}.reserve(capacity);"
-        )
-        .unwrap();
+        )?;
         if array_param_index == 0 {
-            writeln!(file, "len = {param_name}_buf.len().try_into().unwrap();").unwrap();
+            writeln!(file, "len = {param_name}_buf.len().try_into().unwrap();")?;
         } else {
             let first_param = &wrapper.params[enumeration_info.array_param_indices[0]].name;
             writeln!(
                 file,
                 "assert_eq!({param_name}_buf.len(), {first_param}_buf.len());"
-            )
-            .unwrap();
+            )?;
         }
     }
     if wrapper.is_fallible {
-        writeln!(file, "let result = ").unwrap();
+        writeln!(file, "let result = ")?;
     }
-    writeln!(file, "call(&mut len, ").unwrap();
+    writeln!(file, "call(&mut len, ")?;
     for param in &enumeration_info.array_param_indices {
         let param = &wrapper.params[*param];
         let param_name = &param.name;
-        writeln!(file, "{param_name}_buf.as_mut_ptr() as *mut _, ").unwrap();
+        writeln!(file, "{param_name}_buf.as_mut_ptr() as *mut _, ")?;
     }
     for wrapper_param in &wrapper.wrapper_params {
         let param = &wrapper.params[wrapper_param.param_index];
@@ -964,23 +966,24 @@ fn write_enumeration_fn_body(
             && wrapper_param.param_index != enumeration_info.len_param_index
             && !param.is_return_param
         {
-            writeln!(file, "{}, ", param.name).unwrap();
+            writeln!(file, "{}, ", param.name)?;
         }
     }
     if wrapper.is_fallible {
-        writeln!(file, ")?;").unwrap();
+        writeln!(file, ")?;")?;
     } else {
-        writeln!(file, ");").unwrap();
+        writeln!(file, ");")?;
     }
 
     for param in &enumeration_info.array_param_indices {
         let param = &wrapper.params[*param];
         let param_name = &param.name;
-        writeln!(file, "{param_name}.set_len(len.try_into().unwrap());").unwrap();
+        writeln!(file, "{param_name}.set_len(len.try_into().unwrap());")?;
     }
     if wrapper.is_fallible {
-        writeln!(file, "Ok(result)").unwrap();
+        writeln!(file, "Ok(result)")?;
     }
+    Ok(())
 }
 
 /// Determine how to emit this parameter as an argument in the generated FFI call site.
@@ -1067,46 +1070,47 @@ fn arg_emit_kind(
     ArgEmitKind::Direct
 }
 
-fn emit_arg(file: &mut impl std::io::Write, param_name: &str, kind: ArgEmitKind) {
+fn emit_arg(file: &mut impl std::io::Write, param_name: &str, kind: ArgEmitKind) -> Result<()> {
     match kind {
         ArgEmitKind::Direct => {
-            writeln!(file, "{},", param_name).unwrap();
+            writeln!(file, "{},", param_name)?;
         }
         ArgEmitKind::LenFromSlice { slice_param_name } => {
-            writeln!(file, "{}.len().try_into().unwrap(),", slice_param_name).unwrap();
+            writeln!(file, "{}.len().try_into().unwrap(),", slice_param_name)?;
         }
         ArgEmitKind::SliceAsPtr { is_const, optional } => {
             if optional {
                 if is_const {
-                    writeln!(file, "{}.to_raw_ptr(),", param_name).unwrap();
+                    writeln!(file, "{}.to_raw_ptr(),", param_name)?;
                 } else {
-                    writeln!(file, "{}.to_raw_mut_ptr(),", param_name).unwrap();
+                    writeln!(file, "{}.to_raw_mut_ptr(),", param_name)?;
                 }
             } else {
                 if is_const {
-                    writeln!(file, "{}.as_ptr() as _,", param_name).unwrap();
+                    writeln!(file, "{}.as_ptr() as _,", param_name)?;
                 } else {
-                    writeln!(file, "{}.as_mut_ptr() as _,", param_name).unwrap();
+                    writeln!(file, "{}.as_mut_ptr() as _,", param_name)?;
                 }
             }
         }
         ArgEmitKind::ReturnParamAsMutPtr => {
-            writeln!(file, "{}.as_mut_ptr(),", param_name).unwrap();
+            writeln!(file, "{}.as_mut_ptr(),", param_name)?;
         }
         ArgEmitKind::OptionalPtrToRaw { is_const, .. } => {
             if is_const {
-                writeln!(file, "{}.to_raw_ptr(),", param_name).unwrap();
+                writeln!(file, "{}.to_raw_ptr(),", param_name)?;
             } else {
-                writeln!(file, "{}.to_raw_mut_ptr(),", param_name).unwrap();
+                writeln!(file, "{}.to_raw_mut_ptr(),", param_name)?;
             }
         }
         ArgEmitKind::TransmuteForEnumeration => {
-            writeln!(file, "{} as _,", param_name).unwrap();
+            writeln!(file, "{} as _,", param_name)?;
         }
         ArgEmitKind::BoolInto => {
-            writeln!(file, "{}.into(),", param_name).unwrap();
+            writeln!(file, "{}.into(),", param_name)?;
         }
     }
+    Ok(())
 }
 
 fn write_fn_body(
@@ -1116,37 +1120,36 @@ fn write_fn_body(
     conditionally_required: bool,
     ok_codes: Option<&crate::overrides::OkCodes>,
     in_enumeration: bool,
-) {
+) -> Result<()> {
     if let WrapperReturnKind::OutputParams(params) = &wrapper.wrapper_return {
         for param in params {
             writeln!(
                 file,
                 "let mut {} = core::mem::MaybeUninit::uninit();",
                 param.name
-            )
-            .unwrap();
+            )?;
         }
     }
 
     if wrapper.is_fallible {
-        writeln!(file, "let result = ").unwrap();
+        writeln!(file, "let result = ")?;
     }
 
     if conditionally_required {
-        writeln!(file, "(self.{}.unwrap())(", wrapper.name).unwrap();
+        writeln!(file, "(self.{}.unwrap())(", wrapper.name)?;
     } else {
-        writeln!(file, "(self.{})(", wrapper.name).unwrap();
+        writeln!(file, "(self.{})(", wrapper.name)?;
     }
 
     for (param_index, param) in wrapper.params.iter().enumerate() {
         let kind = arg_emit_kind(param_index, param, wrapper, analysis);
-        emit_arg(file, &param.name, kind);
+        emit_arg(file, &param.name, kind)?;
     }
     if matches!(&wrapper.wrapper_return, WrapperReturnKind::CommandReturnValue { ty } if ty == "bool")
     {
-        writeln!(file, ") != 0").unwrap();
+        writeln!(file, ") != 0")?;
     } else {
-        writeln!(file, ")").unwrap();
+        writeln!(file, ")")?;
     }
 
     let return_value = match &wrapper.wrapper_return {
@@ -1185,8 +1188,8 @@ fn write_fn_body(
         // but not in enumeration closures (which accept INCOMPLETE silently).
         let expose_success_code = !in_enumeration && ok_codes.is_some_and(|o| o.codes.len() > 1);
 
-        writeln!(file, ";\n").unwrap();
-        writeln!(file, "match result {{").unwrap();
+        writeln!(file, ";\n")?;
+        writeln!(file, "match result {{")?;
 
         // Multiple success codes: expose which code was returned alongside the output value.
         if expose_success_code {
@@ -1211,8 +1214,7 @@ fn write_fn_body(
                     "VkResult::{} => Ok({}),",
                     code.strip_prefix("VK_").unwrap_or(code),
                     ok_value,
-                )
-                .unwrap();
+                )?;
             }
         } else {
             let ok_value = return_value.as_deref().unwrap_or("()");
@@ -1222,15 +1224,15 @@ fn write_fn_body(
                     "VkResult::{} => Ok({}),",
                     code.strip_prefix("VK_").unwrap_or(code),
                     ok_value,
-                )
-                .unwrap();
+                )?;
             }
         }
 
-        writeln!(file, "err => Err(err),").unwrap();
-        writeln!(file, "}}").unwrap();
+        writeln!(file, "err => Err(err),")?;
+        writeln!(file, "}}")?;
     } else if let Some(return_value) = return_value {
-        writeln!(file, ";").unwrap();
-        writeln!(file, "{}", return_value).unwrap();
+        writeln!(file, ";")?;
+        writeln!(file, "{}", return_value)?;
     };
+    Ok(())
 }

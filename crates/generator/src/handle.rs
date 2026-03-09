@@ -3,6 +3,8 @@ use std::{
     io::Write,
 };
 
+use anyhow::Result;
+
 use crate::{doc_url, normalize_ty_name, xml};
 
 pub type HandleCommandTypes = HashMap<&'static str, CommandType>;
@@ -40,7 +42,7 @@ pub fn generate_handles(
     file: &mut impl Write,
     analysis: &crate::analysis::Analysis,
     owned: &HashSet<&str>,
-) {
+) -> Result<()> {
     let handles = analysis
         .registry()
         .handles
@@ -61,8 +63,8 @@ pub fn generate_handles(
         writeln!(
             file,
             "{macro_name}!({name}, {obj_type}, doc = \"<{doc_url}>\");"
-        )
-        .unwrap();
+        )?;
     }
-    writeln!(file).unwrap();
+    writeln!(file)?;
+    Ok(())
 }

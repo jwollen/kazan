@@ -7,6 +7,7 @@ edition.workspace = true
 publish = false
 
 [dependencies]
+anyhow = "1"
 heck = "0.5"
 itertools = "0.14"
 regex = "1.12"

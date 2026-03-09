@@ -1,5 +1,7 @@
 use std::{borrow::Cow, collections::HashSet, io::Write};
 
+use anyhow::Result;
+
 use crate::{
     analysis::Analysis,
     ctype_rust::{base_ctype_to_rust_str, type_name_with_lifetime},
@@ -10,7 +12,7 @@ pub fn generate_api_constants(
     file: &mut impl Write,
     owned: &HashSet<&str>,
     required_api_constants: impl Iterator<Item = xml::Constant>,
-) {
+) -> Result<()> {
     let constants = required_api_constants.filter(|constant| owned.contains(constant.name));
 
     for constant in constants {
@@ -20,13 +22,17 @@ pub fn generate_api_constants(
             normalize_const_name(constant.name),
             base_ctype_to_rust_str(constant.ty),
             convert_c_expr(constant.value),
-        )
-        .unwrap();
+        )?;
     }
-    writeln!(file).unwrap();
+    writeln!(file)?;
+    Ok(())
 }
 
-pub fn generate_basetypes(file: &mut impl Write, analysis: &Analysis, owned: &HashSet<&str>) {
+pub fn generate_basetypes(
+    file: &mut impl Write,
+    analysis: &Analysis,
+    owned: &HashSet<&str>,
+) -> Result<()> {
     let basetypes = analysis
         .registry()
         .basetypes
@@ -39,13 +45,17 @@ pub fn generate_basetypes(file: &mut impl Write, analysis: &Analysis, owned: &Ha
             "pub type {} = {};",
             normalize_ty_name(ty.name),
             base_ctype_to_rust_str(ty.ty.unwrap_or("*const c_void"))
-        )
-        .unwrap();
+        )?;
     }
-    writeln!(file).unwrap();
+    writeln!(file)?;
+    Ok(())
 }
 
-pub fn generate_type_aliases(file: &mut impl Write, analysis: &Analysis, owned: &HashSet<&str>) {
+pub fn generate_type_aliases(
+    file: &mut impl Write,
+    analysis: &Analysis,
+    owned: &HashSet<&str>,
+) -> Result<()> {
     let registry = analysis.registry();
     let aliases = registry
         .enum_aliases
@@ -64,14 +74,13 @@ pub fn generate_type_aliases(file: &mut impl Write, analysis: &Analysis, owned: 
         .filter(|alias| owned.contains(alias.name));
 
     for alias in aliases {
-        write_doc_link(file, alias.name);
+        write_doc_link(file, alias.name)?;
         writeln!(
             file,
             "pub type {} = {};",
             type_name_with_lifetime(analysis, alias.name, Some("a")),
             type_name_with_lifetime(analysis, alias.alias, Some("a"))
-        )
-        .unwrap();
+        )?;
     }
 
     let command_aliases = registry
@@ -85,10 +94,10 @@ pub fn generate_type_aliases(file: &mut impl Write, analysis: &Analysis, owned: 
             "pub type PFN_{} = PFN_{};",
             normalize_ty_name(ty.name),
             normalize_ty_name(ty.alias)
-        )
-        .unwrap();
+        )?;
     }
-    writeln!(file).unwrap();
+    writeln!(file)?;
+    Ok(())
 }
 
 fn convert_c_expr<'a>(expr: &'a str) -> Cow<'a, str> {

@@ -4,6 +4,7 @@ use std::{
     io::Write,
 };
 
+use anyhow::Result;
 use heck::ToSnakeCase;
 
 use crate::{
@@ -26,10 +27,10 @@ mod overrides;
 mod structs;
 mod xml;
 
-fn main() {
+fn main() -> Result<()> {
     let analysis = analysis::Analysis::new("crates/generator/external/Vulkan-Headers");
 
-    generate(&analysis);
+    generate(&analysis)
 }
 
 struct ModuleEntry {
@@ -37,7 +38,7 @@ struct ModuleEntry {
     provisional: bool,
 }
 
-fn generate(analysis: &analysis::Analysis) {
+fn generate(analysis: &analysis::Analysis) -> Result<()> {
     let registry = analysis.registry();
 
     let generated_dir = "crates/kazan/src/generated";
@@ -45,7 +46,7 @@ fn generate(analysis: &analysis::Analysis) {
 
     let _ = fs::remove_dir_all(output_dir);
 
-    external::generate_external_type_file(analysis, generated_dir);
+    external::generate_external_type_file(analysis, generated_dir)?;
 
     let mut vendor_modules: BTreeMap<Option<String>, Vec<ModuleEntry>> = BTreeMap::new();
 
@@ -60,41 +61,41 @@ fn generate(analysis: &analysis::Analysis) {
             &mut vendor_modules,
             module_index,
             module,
-        );
+        )?;
     }
 
-    fs::create_dir_all(output_dir).unwrap();
-    let mut mod_file = File::create(format!("{}/mod.rs", output_dir)).unwrap();
+    fs::create_dir_all(output_dir)?;
+    let mut mod_file = File::create(format!("{}/mod.rs", output_dir))?;
 
     for (vendor, entries) in &vendor_modules {
         // Vendor-tagged extensions go under `vk/{vendor}/mod.rs` with a combined `defs` re-export module.
         // Core/unvendored modules are emitted directly into `vk/mod.rs`.
         if let Some(vendor) = vendor {
-            writeln!(mod_file, "pub mod {};", vendor).unwrap();
-            writeln!(mod_file, "pub use {}::defs::*;", vendor).unwrap();
+            writeln!(mod_file, "pub mod {};", vendor)?;
+            writeln!(mod_file, "pub use {}::defs::*;", vendor)?;
 
-            fs::create_dir_all(format!("{}/{}", output_dir, vendor)).unwrap();
-            let mut file = File::create(format!("{}/{}/mod.rs", output_dir, vendor)).unwrap();
+            fs::create_dir_all(format!("{}/{}", output_dir, vendor))?;
+            let mut file = File::create(format!("{}/{}/mod.rs", output_dir, vendor))?;
 
             for entry in entries {
-                write!(file, "pub mod {};\n", entry.name).unwrap();
+                write!(file, "pub mod {};\n", entry.name)?;
             }
 
-            writeln!(file, "pub(super) mod defs {{").unwrap();
-            writeln!(file, "use super::*;").unwrap();
+            writeln!(file, "pub(super) mod defs {{")?;
+            writeln!(file, "use super::*;")?;
             for entry in entries {
                 let cfg = if entry.provisional {
                     "#[cfg(feature = \"provisional\")]\n"
                 } else {
                     ""
                 };
-                write!(file, "{}pub use {}::defs::*;\n", cfg, entry.name).unwrap();
+                write!(file, "{}pub use {}::defs::*;\n", cfg, entry.name)?;
             }
-            writeln!(file, "}}").unwrap();
+            writeln!(file, "}}")?;
         } else {
             for entry in entries {
-                writeln!(mod_file, "pub mod {};", entry.name).unwrap();
-                writeln!(mod_file, "pub use {}::defs::*;", entry.name).unwrap();
+                writeln!(mod_file, "pub mod {};", entry.name)?;
+                writeln!(mod_file, "pub use {}::defs::*;", entry.name)?;
             }
         }
     }
@@ -102,10 +103,10 @@ fn generate(analysis: &analysis::Analysis) {
     std::process::Command::new("rustfmt")
         .arg(format!("{}/mod.rs", output_dir))
         .arg("--edition=2024")
-        .output()
-        .unwrap();
+        .output()?;
 
-    module::generate_extension_set_file(registry, generated_dir);
+    module::generate_extension_set_file(registry, generated_dir)?;
+    Ok(())
 }
 
 fn generate_module(
@@ -114,7 +115,7 @@ fn generate_module(
     vendor_modules: &mut BTreeMap<Option<String>, Vec<ModuleEntry>>,
     module_index: usize,
     module: &Module<'_>,
-) {
+) -> Result<()> {
     let registry = analysis.registry();
     let requires: Vec<_> = module.requires();
     let owned = analysis.module_items(module_index);
@@ -166,11 +167,11 @@ fn generate_module(
         None => output_dir.to_string(),
     };
 
-    fs::create_dir_all(&vendor_path).unwrap();
-    let mut file = File::create(format!("{}/{}.rs", &vendor_path, module_name)).unwrap();
+    fs::create_dir_all(&vendor_path)?;
+    let mut file = File::create(format!("{}/{}.rs", &vendor_path, module_name))?;
 
     if provisional {
-        writeln!(file, "#![cfg(feature = \"provisional\")]").unwrap();
+        writeln!(file, "#![cfg(feature = \"provisional\")]")?;
     }
 
     if let Module::Extension(extension) = module {
@@ -178,8 +179,7 @@ fn generate_module(
             file,
             "//! <https://registry.khronos.org/vulkan/specs/latest/man/html/{}.html>",
             extension.name
-        )
-        .unwrap();
+        )?;
     }
 
     writeln!(
@@ -190,19 +190,17 @@ fn generate_module(
             use core::ptr;
             use crate::{{*, vk::*, vk::Result as VkResult}};
             "
-    )
-    .unwrap();
+    )?;
 
     if let Module::Extension(extension) = module {
         writeln!(
             file,
             "pub const EXTENSION_NAME: &CStr = c\"{}\";\n",
             extension.name
-        )
-        .unwrap();
+        )?;
     }
 
-    writeln!(file, "pub(super) mod defs {{").unwrap();
+    writeln!(file, "pub(super) mod defs {{")?;
 
     if !owned.is_empty() {
         writeln!(
@@ -214,30 +212,29 @@ fn generate_module(
                 use core::ptr;
                 use crate::{{*, vk::*}};
                 "
-        )
-        .unwrap();
+        )?;
 
-        constants::generate_api_constants(&mut file, &owned, required_api_constants);
+        constants::generate_api_constants(&mut file, &owned, required_api_constants)?;
 
-        constants::generate_basetypes(&mut file, analysis, &owned);
+        constants::generate_basetypes(&mut file, analysis, &owned)?;
 
-        handle::generate_handles(&mut file, analysis, &owned);
+        handle::generate_handles(&mut file, analysis, &owned)?;
 
-        constants::generate_type_aliases(&mut file, analysis, &owned);
+        constants::generate_type_aliases(&mut file, analysis, &owned)?;
 
-        structs::generate_structs(&mut file, analysis, &owned);
+        structs::generate_structs(&mut file, analysis, &owned)?;
 
-        structs::generate_unions(&mut file, analysis, &owned);
+        structs::generate_unions(&mut file, analysis, &owned)?;
 
-        enums::generate_enum_types(&mut file, analysis, &owned);
+        enums::generate_enum_types(&mut file, analysis, &owned)?;
 
-        enums::generate_bitmask_types(&mut file, analysis, &owned);
+        enums::generate_bitmask_types(&mut file, analysis, &owned)?;
 
-        command::generate_funcpointers(&mut file, analysis, &owned);
+        command::generate_funcpointers(&mut file, analysis, &owned)?;
 
-        command::generate_functions(&mut file, analysis, new_commands.clone());
+        command::generate_functions(&mut file, analysis, new_commands.clone())?;
     }
-    writeln!(file, "}}\n").unwrap();
+    writeln!(file, "}}\n")?;
 
     if requires
         .iter()
@@ -246,8 +243,9 @@ fn generate_module(
         .next()
         .is_some()
     {
-        command::generate_commands(&mut file, analysis, &requires);
+        command::generate_commands(&mut file, analysis, &requires)?;
     }
+    Ok(())
 }
 
 pub(crate) fn doc_url(name: &str) -> String {
@@ -255,9 +253,10 @@ pub(crate) fn doc_url(name: &str) -> String {
 }
 
 /// Write a doc comment linking to the Vulkan spec for the given Vk-prefixed name.
-pub(crate) fn write_doc_link(file: &mut impl std::io::Write, name: &str) {
+pub(crate) fn write_doc_link(file: &mut impl std::io::Write, name: &str) -> Result<()> {
     let url = doc_url(name);
-    writeln!(file, "/// <{url}>").unwrap();
+    writeln!(file, "/// <{url}>")?;
+    Ok(())
 }
 
 /// Convert a C struct member / field name to a Rust-style snake_case identifier.

@@ -3,6 +3,8 @@ use std::{
     io::Write,
 };
 
+use anyhow::Result;
+
 use crate::{
     analysis::Analysis,
     cdecl::{CBaseType, CType},
@@ -36,23 +38,23 @@ impl CType<'_> {
     const HANDLE: CType<'static> = ctype("HANDLE");
 }
 
-pub fn generate_external_type_file(analysis: &Analysis, generated_dir: &str) {
-    fs::create_dir_all(generated_dir).unwrap();
+pub fn generate_external_type_file(analysis: &Analysis, generated_dir: &str) -> Result<()> {
+    fs::create_dir_all(generated_dir)?;
     let path = format!("{}/external.rs", generated_dir);
-    let mut file = File::create(&path).unwrap();
+    let mut file = File::create(&path)?;
     writeln!(
         file,
         "#![allow(non_camel_case_types)]
 use core::ffi::{{c_int, c_uint, c_ulong, c_void}};
 "
-    )
-    .unwrap();
+    )?;
 
     let external_types = external_types();
     for (name, ty) in &external_types {
         let rust_ty = ctype_to_rust_type(analysis, ty, None);
-        writeln!(file, "pub type {name} = {rust_ty};").unwrap();
+        writeln!(file, "pub type {name} = {rust_ty};")?;
     }
+    Ok(())
 }
 
 pub type ExternalTypes = Vec<(&'static str, CType<'static>)>;
@@ -106,4 +108,3 @@ pub fn external_types() -> ExternalTypes {
     .into_iter()
     .collect()
 }
-
