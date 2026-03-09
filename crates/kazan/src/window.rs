@@ -213,6 +213,100 @@ impl InstanceFn {
         }
     }
 
+    /// Query whether the given queue family on a physical device supports presentation
+    /// to the display system associated with this `InstanceFn`.
+    ///
+    /// Returns `true` on platforms that have no dedicated presentation support query
+    /// (Android, OHOS, Metal), or when the Xlib/Xcb window handle has no `visual_id`.
+    ///
+    /// # Safety
+    ///
+    /// - `physical_device` must be a valid physical device.
+    /// - `display_handle` and `window_handle` must be valid and match this `InstanceFn` variant.
+    pub unsafe fn get_physical_device_presentation_support(
+        &self,
+        physical_device: vk::PhysicalDevice,
+        queue_family_index: u32,
+        display_handle: RawDisplayHandle,
+        window_handle: RawWindowHandle,
+    ) -> bool {
+        unsafe {
+            match (self, display_handle, window_handle) {
+                #[cfg(target_os = "windows")]
+                (Self::Win32(fns), RawDisplayHandle::Windows(_), _) => fns
+                    .get_physical_device_win32_presentation_support_khr(
+                        physical_device,
+                        queue_family_index,
+                    ),
+
+                #[cfg(any(
+                    target_os = "linux",
+                    target_os = "dragonfly",
+                    target_os = "freebsd",
+                    target_os = "netbsd",
+                    target_os = "openbsd",
+                ))]
+                (Self::Wayland(fns), RawDisplayHandle::Wayland(display), _) => fns
+                    .get_physical_device_wayland_presentation_support_khr(
+                        physical_device,
+                        queue_family_index,
+                        display.display.as_ptr().cast(),
+                    ),
+
+                #[cfg(any(
+                    target_os = "linux",
+                    target_os = "dragonfly",
+                    target_os = "freebsd",
+                    target_os = "netbsd",
+                    target_os = "openbsd",
+                ))]
+                (
+                    Self::Xlib(fns),
+                    RawDisplayHandle::Xlib(display),
+                    RawWindowHandle::Xlib(window),
+                ) => {
+                    let Some(dpy) = display.display else {
+                        return true;
+                    };
+                    if window.visual_id == 0 {
+                        return true;
+                    }
+                    fns.get_physical_device_xlib_presentation_support_khr(
+                        physical_device,
+                        queue_family_index,
+                        dpy.as_ptr().cast(),
+                        window.visual_id as crate::VisualID,
+                    )
+                }
+
+                #[cfg(any(
+                    target_os = "linux",
+                    target_os = "dragonfly",
+                    target_os = "freebsd",
+                    target_os = "netbsd",
+                    target_os = "openbsd",
+                ))]
+                (Self::Xcb(fns), RawDisplayHandle::Xcb(display), RawWindowHandle::Xcb(window)) => {
+                    let Some(connection) = display.connection else {
+                        return true;
+                    };
+                    let Some(visual_id) = window.visual_id else {
+                        return true;
+                    };
+                    fns.get_physical_device_xcb_presentation_support_khr(
+                        physical_device,
+                        queue_family_index,
+                        connection.as_ptr().cast(),
+                        visual_id.get(),
+                    )
+                }
+
+                // Android, OHOS, and Metal have no presentation support query.
+                _ => true,
+            }
+        }
+    }
+
     /// Create a [`vk::SurfaceKHR`] from raw display and window handles.
     ///
     /// # Safety
