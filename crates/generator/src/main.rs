@@ -78,14 +78,22 @@ fn generate(analysis: &analysis::Analysis) {
             let mut file = File::create(format!("{}/{}/mod.rs", output_dir, vendor)).unwrap();
 
             for entry in entries {
-                let cfg = if entry.provisional { "#[cfg(feature = \"provisional\")]\n" } else { "" };
+                let cfg = if entry.provisional {
+                    "#[cfg(feature = \"provisional\")]\n"
+                } else {
+                    ""
+                };
                 write!(file, "pub mod {};\n", entry.name).unwrap();
             }
 
             writeln!(file, "pub(super) mod defs {{").unwrap();
             writeln!(file, "use super::*;").unwrap();
             for entry in entries {
-                let cfg = if entry.provisional { "#[cfg(feature = \"provisional\")]\n" } else { "" };
+                let cfg = if entry.provisional {
+                    "#[cfg(feature = \"provisional\")]\n"
+                } else {
+                    ""
+                };
                 write!(file, "{}pub use {}::defs::*;\n", cfg, entry.name).unwrap();
             }
             writeln!(file, "}}").unwrap();
@@ -104,7 +112,13 @@ fn generate(analysis: &analysis::Analysis) {
         .unwrap();
 }
 
-fn generate_module(analysis: &Analysis, output_dir: &str, vendor_modules: &mut BTreeMap<Option<String>, Vec<ModuleEntry>>, module_index: usize, module: &Module<'_>) {
+fn generate_module(
+    analysis: &Analysis,
+    output_dir: &str,
+    vendor_modules: &mut BTreeMap<Option<String>, Vec<ModuleEntry>>,
+    module_index: usize,
+    module: &Module<'_>,
+) {
     let registry = analysis.registry();
 
     let requires: Vec<_> = module.requires();
@@ -156,7 +170,10 @@ fn generate_module(analysis: &Analysis, output_dir: &str, vendor_modules: &mut B
     vendor_modules
         .entry(vendor.clone())
         .or_insert_with(Vec::new)
-        .push(ModuleEntry { name: module_name.clone(), provisional });
+        .push(ModuleEntry {
+            name: module_name.clone(),
+            provisional,
+        });
 
     let vendor_path = match vendor {
         Some(ref vendor) => format!("{}/{}", output_dir, vendor),
