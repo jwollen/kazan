@@ -12,8 +12,10 @@ use std::{
     os::raw::c_char,
 };
 
+pub use kazan::read_spv;
 use kazan::{
-    Entry, make_api_version,
+    Entry,
+    vk::make_api_version,
     vk::{
         self,
         ext::debug_utils,
@@ -21,7 +23,6 @@ use kazan::{
         vk1_0,
     },
 };
-pub use kazan::{copy_to_mapped, read_spv};
 use winit::{
     event::{ElementState, Event, KeyEvent, WindowEvent},
     event_loop::{ControlFlow, EventLoop},
