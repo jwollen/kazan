@@ -1,4 +1,4 @@
-use std::{fs::File, io::Write};
+use std::{fs::File, io::Write, path::Path};
 
 use anyhow::Result;
 use itertools::Itertools as _;
@@ -113,11 +113,11 @@ fn get_extension_name(extension: &xml::Extension) -> ModuleName {
     }
 }
 
-pub fn generate_extension_set_file(registry: &xml::Registry, generated_dir: &str) -> Result<()> {
+pub fn generate_extension_set_file(registry: &xml::Registry, generated_dir: &Path) -> Result<()> {
     let extensions: Vec<&str> = registry.extensions.iter().map(|ext| ext.name).collect();
     let count = extensions.len();
 
-    let path = format!("{}/extensions.rs", generated_dir);
+    let path = generated_dir.join("extensions.rs");
     let mut file = File::create(&path)?;
 
     writeln!(

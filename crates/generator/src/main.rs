@@ -2,6 +2,7 @@ use std::{
     collections::BTreeMap,
     fs::{self, File},
     io::Write,
+    path::{Path, PathBuf},
 };
 
 use anyhow::Result;
@@ -27,10 +28,24 @@ mod overrides;
 mod structs;
 mod xml;
 
-fn main() -> Result<()> {
-    let analysis = analysis::Analysis::new("crates/generator/external/Vulkan-Headers");
+/// Return the workspace root directory.
+///
+/// The generator crate lives at `<workspace>/crates/generator`, so the
+/// workspace root is two levels up from `CARGO_MANIFEST_DIR`.
+fn workspace_root() -> PathBuf {
+    Path::new(env!("CARGO_MANIFEST_DIR"))
+        .parent()
+        .unwrap()
+        .parent()
+        .unwrap()
+        .to_path_buf()
+}
 
-    generate(&analysis)
+fn main() -> Result<()> {
+    let root = workspace_root();
+    let analysis = analysis::Analysis::new(root.join("crates/generator/external/Vulkan-Headers"));
+
+    generate(&analysis, &root)
 }
 
 struct ModuleEntry {
@@ -39,15 +54,15 @@ struct ModuleEntry {
     has_defs: bool,
 }
 
-fn generate(analysis: &analysis::Analysis) -> Result<()> {
+fn generate(analysis: &analysis::Analysis, root: &Path) -> Result<()> {
     let registry = analysis.registry();
 
-    let generated_dir = "crates/kazan/src/generated";
-    let output_dir = &format!("{}/vk", generated_dir);
+    let generated_dir = root.join("crates/kazan/src/generated");
+    let output_dir = generated_dir.join("vk");
 
-    let _ = fs::remove_dir_all(output_dir);
+    let _ = fs::remove_dir_all(&output_dir);
 
-    external::generate_external_type_file(analysis, generated_dir)?;
+    external::generate_external_type_file(analysis, &generated_dir)?;
 
     let mut vendor_modules: BTreeMap<Option<String>, Vec<ModuleEntry>> = BTreeMap::new();
 
@@ -58,15 +73,15 @@ fn generate(analysis: &analysis::Analysis) -> Result<()> {
     for (module_index, module) in modules.iter().enumerate() {
         generate_module(
             analysis,
-            output_dir,
+            &output_dir,
             &mut vendor_modules,
             module_index,
             module,
         )?;
     }
 
-    fs::create_dir_all(output_dir)?;
-    let mut mod_file = File::create(format!("{}/mod.rs", output_dir))?;
+    fs::create_dir_all(&output_dir)?;
+    let mut mod_file = File::create(output_dir.join("mod.rs"))?;
 
     for (vendor, entries) in &vendor_modules {
         // Vendor-tagged extensions go under `vk/{vendor}/mod.rs` with a combined `defs` re-export module.
@@ -79,8 +94,8 @@ fn generate(analysis: &analysis::Analysis) -> Result<()> {
                 writeln!(mod_file, "pub use {}::defs::*;", vendor)?;
             }
 
-            fs::create_dir_all(format!("{}/{}", output_dir, vendor))?;
-            let mut file = File::create(format!("{}/{}/mod.rs", output_dir, vendor))?;
+            fs::create_dir_all(output_dir.join(vendor))?;
+            let mut file = File::create(output_dir.join(vendor).join("mod.rs"))?;
 
             for entry in entries {
                 write!(file, "pub mod {};\n", entry.name)?;
@@ -110,17 +125,17 @@ fn generate(analysis: &analysis::Analysis) -> Result<()> {
     }
 
     std::process::Command::new("rustfmt")
-        .arg(format!("{}/mod.rs", output_dir))
+        .arg(output_dir.join("mod.rs"))
         .arg("--edition=2024")
         .output()?;
 
-    module::generate_extension_set_file(registry, generated_dir)?;
+    module::generate_extension_set_file(registry, &generated_dir)?;
     Ok(())
 }
 
 fn generate_module(
     analysis: &Analysis,
-    output_dir: &str,
+    output_dir: &Path,
     vendor_modules: &mut BTreeMap<Option<String>, Vec<ModuleEntry>>,
     module_index: usize,
     module: &Module<'_>,
@@ -174,12 +189,12 @@ fn generate_module(
         });
 
     let vendor_path = match vendor {
-        Some(ref vendor) => format!("{}/{}", output_dir, vendor),
-        None => output_dir.to_string(),
+        Some(ref vendor) => output_dir.join(vendor),
+        None => output_dir.to_path_buf(),
     };
 
     fs::create_dir_all(&vendor_path)?;
-    let mut file = File::create(format!("{}/{}.rs", &vendor_path, module_name))?;
+    let mut file = File::create(vendor_path.join(format!("{}.rs", module_name)))?;
 
     if provisional {
         writeln!(file, "#![cfg(feature = \"provisional\")]")?;

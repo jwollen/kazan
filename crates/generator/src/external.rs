@@ -1,6 +1,7 @@
 use std::{
     fs::{self, File},
     io::Write,
+    path::Path,
 };
 
 use anyhow::Result;
@@ -38,9 +39,9 @@ impl CType<'_> {
     const HANDLE: CType<'static> = ctype("HANDLE");
 }
 
-pub fn generate_external_type_file(analysis: &Analysis, generated_dir: &str) -> Result<()> {
+pub fn generate_external_type_file(analysis: &Analysis, generated_dir: &Path) -> Result<()> {
     fs::create_dir_all(generated_dir)?;
-    let path = format!("{}/external.rs", generated_dir);
+    let path = generated_dir.join("external.rs");
     let mut file = File::create(&path)?;
     writeln!(
         file,
