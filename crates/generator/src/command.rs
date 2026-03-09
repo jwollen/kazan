@@ -14,8 +14,10 @@ pub struct CommandGroup<'a> {
 
 pub struct CommandInfo<'a> {
     pub command: &'a xml::Command,
-    pub alias: &'a str,
-    pub optional: bool,
+    /// The name from the `<require>` element — may differ from `command.name` when this is an alias.
+    pub required_name: &'a str,
+    /// True when the `<require>` block has a `depends` attribute (entry point may be absent at runtime).
+    pub conditionally_required: bool,
 }
 
 struct WrapperCommandInfo<'a> {
@@ -40,14 +42,18 @@ struct WrapperCommandInfo<'a> {
     is_fallible: bool,
 }
 
+/// Info for the two-call enumeration pattern (vkEnumerate* / vkGet*).
 struct EnumerationCommandInfo {
-    len_param: usize,
-    array_params: Vec<usize>,
+    /// Index into the command's parameter list for the count/length parameter.
+    len_param_index: usize,
+    /// Indices into the command's parameter list for the array output parameter(s).
+    array_param_indices: Vec<usize>,
 }
 
 struct WrapperParamInfo {
     name: String,
     param_index: usize,
+    /// Rust type used in the safe wrapper signature (not the raw C type).
     ty: String,
     is_enumeration_array: bool,
 }
@@ -62,6 +68,7 @@ struct ParamInfo<'a> {
     name: String,
     param: &'a xml::CommandParam,
     len: Option<LengthKind<'a>>,
+    /// (caller_may_pass_null, output_length_may_be_zero) — from the XML `optional` attribute.
     optional: (bool, bool),
     is_output_param: bool,
     is_return_param: bool,
@@ -88,7 +95,8 @@ enum ArgEmitKind {
 }
 
 impl<'a> LengthKind<'a> {
-    fn ty(&self) -> Option<&CType<'a>> {
+    /// Returns the C type of the parameter/field that specifies the length, if any.
+    fn len_ctype(&self) -> Option<&CType<'a>> {
         match self {
             LengthKind::Param { c_decl, .. } => Some(&c_decl.ty),
             LengthKind::ParamField { field, .. } => Some(&field.c_decl.ty),
@@ -210,9 +218,9 @@ pub fn generate_commands(
                             .find(|cmd| cmd.name == name)
                             .unwrap();
                         CommandInfo {
-                            alias: req_cmd.name,
+                            required_name: req_cmd.name,
                             command,
-                            optional: !require.depends.is_empty(),
+                            conditionally_required: !require.depends.is_empty(),
                         }
                     })
                     .filter(|cmd| {
@@ -247,9 +255,9 @@ pub fn generate_commands(
         writeln!(file, "pub struct {} {{", fn_type_name).unwrap();
         for command_group in &command_groups {
             for command in &command_group.commands {
-                let name = normalize_command_name(command.alias);
+                let name = normalize_command_name(command.required_name);
                 let ty = format!("PFN_{}", normalize_ty_name(command.command.name));
-                let ty = if command.optional {
+                let ty = if command.conditionally_required {
                     format!("Option<{}>", ty)
                 } else {
                     ty
@@ -264,14 +272,19 @@ pub fn generate_commands(
         writeln!(file, "unsafe {{ Ok(Self {{").unwrap();
         for command_group in &command_groups {
             for command in &command_group.commands {
-                let name = normalize_command_name(command.alias);
-                if command.optional {
-                    writeln!(file, "{}: transmute(load(c\"{}\")),", name, command.alias).unwrap();
+                let name = normalize_command_name(command.required_name);
+                if command.conditionally_required {
+                    writeln!(
+                        file,
+                        "{}: transmute(load(c\"{}\")),",
+                        name, command.required_name
+                    )
+                    .unwrap();
                 } else {
                     writeln!(
                         file,
                         "{}: transmute(load(c\"{}\").ok_or(MissingEntryPointError)?),",
-                        name, command.alias
+                        name, command.required_name
                     )
                     .unwrap();
                 }
@@ -299,7 +312,7 @@ fn compute_enumeration_info(
     analysis: &Analysis,
     len_kinds: &[Option<LengthKind<'_>>],
 ) -> Option<EnumerationCommandInfo> {
-    let len_param = len_kinds
+    let len_param_index = len_kinds
         .iter()
         .enumerate()
         .find_map(|(_param_index, len_kind)| {
@@ -319,18 +332,18 @@ fn compute_enumeration_info(
             }
         })?;
 
-    let array_params = len_kinds
+    let array_param_indices = len_kinds
         .iter()
         .enumerate()
         .filter_map(|(param_index, len_kind)| match len_kind {
-            Some(LengthKind::Param { index, .. }) if *index == len_param => Some(param_index),
+            Some(LengthKind::Param { index, .. }) if *index == len_param_index => Some(param_index),
             _ => None,
         })
         .collect();
 
     Some(EnumerationCommandInfo {
-        len_param,
-        array_params,
+        len_param_index,
+        array_param_indices,
     })
 }
 
@@ -522,7 +535,7 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
         );
 
         let is_enumeration_array = if let Some(enumeration_info) = &enumeration_info {
-            enumeration_info.array_params.contains(&param_index)
+            enumeration_info.array_param_indices.contains(&param_index)
         } else {
             false
         };
@@ -561,7 +574,7 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
         });
     }
 
-    let name = normalize_command_name(info.alias);
+    let name = normalize_command_name(info.required_name);
     let wrapper_return = build_wrapper_return(
         analysis,
         command,
@@ -582,6 +595,7 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
     }
 }
 
+/// Convert a C parameter type into the Rust type string used in the safe wrapper signature.
 pub fn convert_param_type(
     analysis: &Analysis,
     ty: &CType,
@@ -596,6 +610,7 @@ pub fn convert_param_type(
         .map(|l| !matches!(l, LengthKind::Literal(1)))
         .unwrap_or(false);
 
+    // Parameter has a dynamic length → emit as a slice type (&[T], &mut [T], etc.)
     if has_non_literal_len {
         let category = CTypeCategory::from_ctype(ty, analysis);
         match category {
@@ -613,7 +628,9 @@ pub fn convert_param_type(
                 is_const,
             } => {
                 // Writable void* with length-from-pointer (two-call pattern) → ExtendUninit<u8>
-                if !is_const && matches!(len.and_then(LengthKind::ty), Some(CType::Ptr { .. })) {
+                if !is_const
+                    && matches!(len.and_then(LengthKind::len_ctype), Some(CType::Ptr { .. }))
+                {
                     return "impl ExtendUninit<u8>".to_string();
                 }
                 let s = if is_const { "&[u8]" } else { "&mut [u8]" };
@@ -669,7 +686,7 @@ pub fn convert_param_type(
                     format!("&[{}]", element_ty)
                 } else {
                     // Command-specific: length can be from a pointer (count param) → ExtendUninit
-                    if matches!(len.and_then(LengthKind::ty), Some(CType::Ptr { .. })) {
+                    if matches!(len.and_then(LengthKind::len_ctype), Some(CType::Ptr { .. })) {
                         return format!("impl ExtendUninit<{}>", element_ty);
                     }
                     format!("&mut [{}]", element_ty)
@@ -760,7 +777,11 @@ pub fn write_command_wrapper(
     analysis: &Analysis,
     info: &CommandInfo<'_>,
 ) {
-    if crate::overrides::write_command_override(file, info.alias, info.optional) {
+    if crate::overrides::write_command_override(
+        file,
+        info.required_name,
+        info.conditionally_required,
+    ) {
         return;
     }
 
@@ -770,7 +791,7 @@ pub fn write_command_wrapper(
         .lifetime_param
         .map(|lifetime| format!("<'{}>", lifetime))
         .unwrap_or_default();
-    crate::write_doc_link(file, info.alias);
+    crate::write_doc_link(file, info.required_name);
     writeln!(
         file,
         "#[inline]
@@ -786,7 +807,7 @@ pub fn write_command_wrapper(
         writeln!(file, "{}: {},", param.name, param.ty).unwrap();
     }
 
-    let ok_codes_override = crate::overrides::ok_codes(info.alias);
+    let ok_codes_override = crate::overrides::ok_codes(info.required_name);
     let has_multiple_ok_codes = ok_codes_override
         .as_ref()
         .is_some_and(|o| o.codes.len() > 1);
@@ -833,7 +854,7 @@ pub fn write_command_wrapper(
             file,
             analysis,
             &wrapper,
-            info.optional,
+            info.conditionally_required,
             ok_codes_override.as_ref(),
             false,
         );
@@ -849,15 +870,15 @@ fn write_enumeration_fn_body(
     wrapper: &WrapperCommandInfo<'_>,
     enumeration_info: &EnumerationCommandInfo,
 ) {
-    let len_param = &wrapper.params[enumeration_info.len_param].name;
+    let len_param = &wrapper.params[enumeration_info.len_param_index].name;
     writeln!(file, "let call = |{len_param}, ").unwrap();
-    for param in &enumeration_info.array_params {
+    for param in &enumeration_info.array_param_indices {
         writeln!(file, "{}, ", wrapper.params[*param].name).unwrap();
     }
     for wrapper_param in &wrapper.wrapper_params {
         let param = &wrapper.params[wrapper_param.param_index];
         if param.is_output_param
-            && wrapper_param.param_index != enumeration_info.len_param
+            && wrapper_param.param_index != enumeration_info.len_param_index
             && !param.is_return_param
         {
             writeln!(file, "{}: {}, ", wrapper_param.name, wrapper_param.ty).unwrap();
@@ -874,20 +895,20 @@ fn write_enumeration_fn_body(
         file,
         analysis,
         wrapper,
-        info.optional,
+        info.conditionally_required,
         Some(&enum_ok_codes),
         true,
     );
     writeln!(file, "}};").unwrap();
 
     writeln!(file, "let mut len = 0; call(&mut len, ").unwrap();
-    for _ in &enumeration_info.array_params {
+    for _ in &enumeration_info.array_param_indices {
         writeln!(file, "std::ptr::null_mut(), ").unwrap();
     }
     for wrapper_param in &wrapper.wrapper_params {
         let param = &wrapper.params[wrapper_param.param_index];
         if param.is_output_param
-            && wrapper_param.param_index != enumeration_info.len_param
+            && wrapper_param.param_index != enumeration_info.len_param_index
             && !param.is_return_param
         {
             // Skip in the first call if optional
@@ -909,7 +930,7 @@ fn write_enumeration_fn_body(
     )
     .unwrap();
 
-    for (array_param_index, param) in enumeration_info.array_params.iter().enumerate() {
+    for (array_param_index, param) in enumeration_info.array_param_indices.iter().enumerate() {
         let param = &wrapper.params[*param];
         let param_name = &param.name;
         writeln!(
@@ -920,7 +941,7 @@ fn write_enumeration_fn_body(
         if array_param_index == 0 {
             writeln!(file, "len = {param_name}_buf.len().try_into().unwrap();").unwrap();
         } else {
-            let first_param = &wrapper.params[enumeration_info.array_params[0]].name;
+            let first_param = &wrapper.params[enumeration_info.array_param_indices[0]].name;
             writeln!(
                 file,
                 "assert_eq!({param_name}_buf.len(), {first_param}_buf.len());"
@@ -932,7 +953,7 @@ fn write_enumeration_fn_body(
         writeln!(file, "let result = ").unwrap();
     }
     writeln!(file, "call(&mut len, ").unwrap();
-    for param in &enumeration_info.array_params {
+    for param in &enumeration_info.array_param_indices {
         let param = &wrapper.params[*param];
         let param_name = &param.name;
         writeln!(file, "{param_name}_buf.as_mut_ptr() as *mut _, ").unwrap();
@@ -940,7 +961,7 @@ fn write_enumeration_fn_body(
     for wrapper_param in &wrapper.wrapper_params {
         let param = &wrapper.params[wrapper_param.param_index];
         if param.is_output_param
-            && wrapper_param.param_index != enumeration_info.len_param
+            && wrapper_param.param_index != enumeration_info.len_param_index
             && !param.is_return_param
         {
             writeln!(file, "{}, ", param.name).unwrap();
@@ -952,7 +973,7 @@ fn write_enumeration_fn_body(
         writeln!(file, ");").unwrap();
     }
 
-    for param in &enumeration_info.array_params {
+    for param in &enumeration_info.array_param_indices {
         let param = &wrapper.params[*param];
         let param_name = &param.name;
         writeln!(file, "{param_name}.set_len(len.try_into().unwrap());").unwrap();
@@ -962,6 +983,7 @@ fn write_enumeration_fn_body(
     }
 }
 
+/// Determine how to emit this parameter as an argument in the generated FFI call site.
 fn arg_emit_kind(
     param_index: usize,
     param: &ParamInfo,
@@ -997,7 +1019,7 @@ fn arg_emit_kind(
     }
 
     if let Some(enumeration_info) = &wrapper.enumeration_info {
-        if enumeration_info.array_params.contains(&param_index) {
+        if enumeration_info.array_param_indices.contains(&param_index) {
             return ArgEmitKind::TransmuteForEnumeration;
         }
     }
@@ -1091,7 +1113,7 @@ fn write_fn_body(
     file: &mut impl std::io::Write,
     analysis: &Analysis,
     wrapper: &WrapperCommandInfo,
-    optional: bool,
+    conditionally_required: bool,
     ok_codes: Option<&crate::overrides::OkCodes>,
     in_enumeration: bool,
 ) {
@@ -1110,7 +1132,7 @@ fn write_fn_body(
         writeln!(file, "let result = ").unwrap();
     }
 
-    if optional {
+    if conditionally_required {
         writeln!(file, "(self.{}.unwrap())(", wrapper.name).unwrap();
     } else {
         writeln!(file, "(self.{})(", wrapper.name).unwrap();
@@ -1166,6 +1188,7 @@ fn write_fn_body(
         writeln!(file, ";\n").unwrap();
         writeln!(file, "match result {{").unwrap();
 
+        // Multiple success codes: expose which code was returned alongside the output value.
         if expose_success_code {
             let ok_codes = ok_codes.unwrap();
             for (i, code) in codes.iter().enumerate() {

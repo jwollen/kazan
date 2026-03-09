@@ -33,6 +33,7 @@ pub fn generate_bitmask_types(file: &mut impl Write, analysis: &Analysis, owned:
         .filter(|ty| owned.contains(ty.name));
 
     for ty in bitmask_types {
+        // A bitmask type references its FlagBits enum via either `bitvalues` (modern) or `requires` (legacy).
         let bitmask = ty.bitvalues.or(ty.requires).and_then(|b| {
             analysis
                 .registry()
@@ -53,13 +54,15 @@ pub struct ContribVariant {
 
 pub struct ContribValue {
     pub name: &'static str,
-    pub value: &'static str,
+    /// Raw value string from vk.xml (e.g. `"0"`, `"1000"`).
+    pub literal_value: &'static str,
     pub comment: Option<&'static str>,
 }
 
 pub struct ContribAlias {
     pub name: &'static str,
-    pub alias: &'static str,
+    /// The existing enum value this alias points to.
+    pub target: &'static str,
 }
 
 pub struct ContribBitpos {
@@ -108,9 +111,7 @@ impl ReqEnumData {
             let module_name = module.display_name();
             for req in module.requires() {
                 for variant in &req.enum_variants {
-                    let ext_number = variant.extnumber.or(ext_number).unwrap() as i32;
-                    let value = 1_000_000_000i32 + (ext_number - 1) * 1000 + variant.offset as i32;
-                    let value = if variant.negative { -value } else { value };
+                    let value = get_enum_value(ext_number, variant);
                     data.contributions(variant.extends, &module_name)
                         .variants
                         .push(ContribVariant {
@@ -134,7 +135,7 @@ impl ReqEnumData {
                             .aliases
                             .push(ContribAlias {
                                 name: alias.name,
-                                alias: alias.alias,
+                                target: alias.alias,
                             });
                     }
                 }
@@ -143,7 +144,7 @@ impl ReqEnumData {
                         .values
                         .push(ContribValue {
                             name: value.name,
-                            value: value.value,
+                            literal_value: value.value,
                             comment: value.comment,
                         });
                 }
@@ -152,6 +153,14 @@ impl ReqEnumData {
 
         data
     }
+}
+
+fn get_enum_value(ext_number: Option<u32>, variant: &xml::RequireEnumVariant) -> i32 {
+    // Vulkan enum value formula: base (1e9) + (ext_number - 1) * 1000 + offset
+    let ext_number = variant.extnumber.or(ext_number).unwrap() as i32;
+    let value = 1_000_000_000i32 + (ext_number - 1) * 1000 + variant.offset as i32;
+    let value = if variant.negative { -value } else { value };
+    value
 }
 
 fn strip_vendor_suffix<'a>(name: &'a str, tags: &[&str]) -> &'a str {
@@ -168,6 +177,7 @@ fn strip_vendor_suffix<'a>(name: &'a str, tags: &[&str]) -> &'a str {
     }
 }
 
+/// Strip the enum type prefix from a Vulkan enum value name (e.g. `VK_STRUCTURE_TYPE_FOO` → `FOO`).
 fn normalize_variant_name(name: &str, value_prefix: &str) -> String {
     let name = name
         .strip_prefix(value_prefix)
@@ -182,6 +192,7 @@ fn normalize_variant_name(name: &str, value_prefix: &str) -> String {
     }
 }
 
+/// Strip the bitmask type prefix and `_BIT` suffix from a Vulkan flag bit name.
 fn normalize_bit_name(name: &str, value_prefix: Option<&str>) -> String {
     let name = match value_prefix {
         Some(prefix) => name.strip_prefix(prefix).unwrap_or(name),
@@ -202,11 +213,14 @@ fn normalize_bit_name(name: &str, value_prefix: Option<&str>) -> String {
 
 static TRAILING_NUMBER: OnceLock<Regex> = OnceLock::new();
 
+/// Insert underscore before trailing digits so case conversion keeps them separate
+/// (e.g. `DEVICE_GROUP2` → `DEVICE_GROUP_2`).
 fn separate_trailing_number(name: &str) -> Cow<'_, str> {
     let trailing_number = TRAILING_NUMBER.get_or_init(|| regex::Regex::new(r"(\d+)$").unwrap());
     trailing_number.replace(name, "_$1")
 }
 
+/// Filter out vk.xml comments that are meta-notes rather than meaningful documentation.
 fn is_useful_comment(comment: &str) -> bool {
     !matches!(comment, "Optional" | "Required")
         && !comment.starts_with("Not promoted to")
@@ -249,6 +263,7 @@ fn write_module_group(
 pub fn write_enum(file: &mut impl Write, analysis: &Analysis, ty: &xml::Enum) {
     let tags = &analysis.registry().tags;
     let req = analysis.req_enum_data();
+    // VkResult values use "VK_" prefix (e.g. VK_SUCCESS) instead of the type-derived "VK_RESULT_".
     let value_prefix = if ty.name == "VkResult" {
         "VK".to_string()
     } else {
@@ -273,7 +288,7 @@ pub fn write_enum(file: &mut impl Write, analysis: &Analysis, ty: &xml::Enum) {
     .unwrap();
     writeln!(file).unwrap();
 
-    let mut debug_variants: Vec<(String, bool)> = Vec::new();
+    let mut debug_variants: Vec<(String, bool)> = Vec::new(); // (variant_name, is_provisional)
     let mut visited = HashSet::new();
 
     writeln!(file, "impl {} {{", name).unwrap();
@@ -311,7 +326,7 @@ pub fn write_enum(file: &mut impl Write, analysis: &Analysis, ty: &xml::Enum) {
                         "{}pub const {}: Self = Self({});",
                         format_doc_comment(v.comment),
                         vname,
-                        v.value
+                        v.literal_value
                     ));
                     debug_variants.push((vname, provisional));
                 }
@@ -319,7 +334,7 @@ pub fn write_enum(file: &mut impl Write, analysis: &Analysis, ty: &xml::Enum) {
             for a in &contributions.aliases {
                 let aname = normalize_variant_name(a.name, &value_prefix);
                 if visited.insert(aname.clone()) {
-                    let target = normalize_variant_name(a.alias, &value_prefix);
+                    let target = normalize_variant_name(a.target, &value_prefix);
                     entries.push(format!("pub const {}: Self = Self::{};", aname, target));
                 }
             }
@@ -397,6 +412,8 @@ fn normalize_bitmask_data(
 ) -> NormalizedBitmaskData {
     let bitmask_name = normalize_ty_name(bitmask.name).to_string();
     let tags = &analysis.registry().tags;
+    // Derive constant name prefix: remove "FlagBits" from type name,
+    // e.g. "VkAccessFlagBits2" → "ACCESS_2_".
     let value_prefix = {
         let prefix = strip_vendor_suffix(bitmask.name, tags)
             .replace("FlagBits", "")
@@ -440,7 +457,7 @@ fn normalize_bitmask_data(
                 .iter()
                 .map(|a| NormalizedAlias {
                     name: normalize_bit_name(a.name, Some(value_prefix.as_str())),
-                    target: normalize_bit_name(a.alias, Some(value_prefix.as_str())),
+                    target: normalize_bit_name(a.target, Some(value_prefix.as_str())),
                 })
                 .collect(),
             values: c
@@ -448,7 +465,7 @@ fn normalize_bitmask_data(
                 .iter()
                 .map(|v| NormalizedValue {
                     name: normalize_bit_name(v.name, Some(value_prefix.as_str())),
-                    value: v.value.to_string(),
+                    value: v.literal_value.to_string(),
                     comment: v.comment,
                 })
                 .collect(),
@@ -641,6 +658,7 @@ fn write_flagbits_constants(
             }
         }
         for a in &md.aliases {
+            // Skip aliases whose target bit was not emitted (defined in a different/disabled extension).
             if !data.all_bit_names.contains(a.target.as_str()) {
                 continue;
             }
@@ -656,7 +674,7 @@ fn write_flagbits_constants(
 
 fn write_flagbits_debug(file: &mut impl Write, data: &NormalizedBitmaskData) {
     let bitmask_name = &data.bitmask_name;
-    let mut debug_variants: Vec<(String, bool)> = Vec::new();
+    let mut debug_variants: Vec<(String, bool)> = Vec::new(); // (variant_name, is_provisional)
     let mut debug_visited = HashSet::new();
 
     for b in &data.base_bits {

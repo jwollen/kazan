@@ -67,6 +67,8 @@ fn generate(analysis: &analysis::Analysis) {
     let mut mod_file = File::create(format!("{}/mod.rs", output_dir)).unwrap();
 
     for (vendor, entries) in &vendor_modules {
+        // Vendor-tagged extensions go under `vk/{vendor}/mod.rs` with a combined `defs` re-export module.
+        // Core/unvendored modules are emitted directly into `vk/mod.rs`.
         if let Some(vendor) = vendor {
             writeln!(mod_file, "pub mod {};", vendor).unwrap();
             writeln!(mod_file, "pub use {}::defs::*;", vendor).unwrap();
@@ -258,6 +260,7 @@ pub(crate) fn write_doc_link(file: &mut impl std::io::Write, name: &str) {
     writeln!(file, "/// <{url}>").unwrap();
 }
 
+/// Convert a C struct member / field name to a Rust-style snake_case identifier.
 fn normalize_name(name: &str) -> String {
     match name {
         "type" => "ty".to_string(),
@@ -303,17 +306,22 @@ fn ctype_to_rust_type(analysis: &Analysis, ty: &CType, lifetime: Option<&str>) -
     }
 }
 
+/// Classification of a Vulkan `len` attribute (e.g. `"null-terminated"`, `"2"`, `"dataSize"`).
 #[derive(Clone, Debug)]
 enum LengthKind<'a> {
     NullTerminated,
     Literal(u32),
+    /// Length given by another parameter in the same command/struct.
     Param {
+        /// Index of the length parameter in the parameter list.
         index: usize,
         c_decl: &'a cdecl::CDecl<'static>,
     },
+    /// Length given by a field of a struct pointed to by another parameter (e.g. `pCreateInfo->count`).
     ParamField {
         field: &'a xml::StructureMember,
     },
+    /// Unrecognized length expression — treated as no length info.
     Unknown,
 }
 
@@ -343,6 +351,8 @@ fn get_param_index(params: &[impl Param], param_name: &str) -> Option<usize> {
     })
 }
 
+/// Classify a `len` attribute string (e.g. `"null-terminated"`, `"2"`, `"pCreateInfo->count"`)
+/// into a `LengthKind`.
 fn get_len_kind<'a>(
     analysis: &'a Analysis,
     params: &'a [impl Param],
@@ -352,6 +362,8 @@ fn get_len_kind<'a>(
         LengthKind::NullTerminated
     } else if let Ok(len) = len.parse() {
         LengthKind::Literal(len)
+    // Length via struct field dereference (e.g. "pAllocateInfo->commandBufferCount"):
+    // resolve the struct the parameter points to, then find the named field.
     } else if let Some((param_name, field_name)) = len.split_once("->")
         && let Some(index) = get_param_index(params, param_name)
     {
@@ -389,6 +401,7 @@ fn get_len_kind<'a>(
     }
 }
 
+/// Convert a C parameter name to Rust style, stripping `p_`/`pp_` pointer prefixes.
 pub fn normalize_param_name(name: &str) -> String {
     let name = normalize_name(name);
 
@@ -398,6 +411,8 @@ pub fn normalize_param_name(name: &str) -> String {
         .to_string()
 }
 
+/// Like `normalize_param_name`, but for struct setter parameters:
+/// `pp_`-prefixed names get a `_ptrs` suffix (e.g. `ppGeometries` → `geometries_ptrs`).
 pub fn normalize_setter_param_name(name: &str) -> String {
     let name = normalize_name(name);
 

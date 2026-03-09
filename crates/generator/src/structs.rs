@@ -80,8 +80,10 @@ pub fn generate_unions(file: &mut impl Write, analysis: &Analysis, owned: &HashS
 #[derive(Debug)]
 struct StructInfo<'a> {
     name: String,
-    tag: Option<&'static str>,
-    has_default: bool,
+    /// The sType suffix (e.g. `"PHYSICAL_DEVICE_FEATURES_2"`), if this struct has a known sType.
+    stype_suffix: Option<&'static str>,
+    /// True if sType has a known value, enabling a manual Default impl that sets it.
+    has_stype_default: bool,
     members: Vec<MemberInfo<'a>>,
     setters: Vec<MemberSetterInfo>,
 }
@@ -96,6 +98,7 @@ struct MemberSetterInfo {
 enum SetterKind {
     Value(SetterParamInfo),
     Array {
+        /// Index into `StructInfo::members` for the member that holds the array length.
         len_member_index: usize,
         params: Vec<SetterParamInfo>,
     },
@@ -104,7 +107,9 @@ enum SetterKind {
 #[derive(Debug)]
 struct SetterParamInfo {
     name: String,
+    /// Index into `StructInfo::members` for the struct field this parameter writes to.
     member_index: usize,
+    /// Rust type string for this parameter in the setter signature.
     ty: String,
     /// How to assign this param to the struct member when emitting the setter body.
     assignment: SetterAssignmentKind,
@@ -199,6 +204,8 @@ fn collect_array_params(
 
 /// Group array params into setter groups: multiple params sharing one length
 /// get merged into a single setter; single params get their own setter.
+/// Returns `vec![vec![]]` (one empty group) when there are no array params,
+/// signaling the caller to generate a plain value setter for the length member itself.
 fn group_array_params(array_params: Vec<(SetterParamInfo, bool)>) -> Vec<Vec<SetterParamInfo>> {
     if array_params.is_empty() {
         vec![vec![]]
@@ -242,15 +249,7 @@ fn build_setters_for_length_member(
         let setter_name = if array_params.len() == 1 {
             array_params[0].name.clone()
         } else if !array_params.is_empty() {
-            let base = if let Some(name) = param_name.strip_suffix("_count") {
-                name
-            } else {
-                println!(
-                    "length member that doesn't end in 'count': {}.{}",
-                    struct_ty.name, member.c_decl.name
-                );
-                param_name
-            };
+            let base = param_name.strip_suffix("_count").unwrap_or(param_name);
             overrides::merged_setter_name(struct_ty.name, member.c_decl.name, base)
         } else {
             param_name.to_string()
@@ -305,8 +304,8 @@ fn analyze_struct<'a>(analysis: &'a Analysis, struct_ty: &'a xml::Structure) -> 
         })
         .collect();
 
-    let mut has_default = true;
-    let mut tag = None;
+    let mut has_stype_default = true;
+    let mut stype_suffix = None;
     let lifetime_param = Some("a");
 
     let mut members = Vec::new();
@@ -318,9 +317,9 @@ fn analyze_struct<'a>(analysis: &'a Analysis, struct_ty: &'a xml::Structure) -> 
 
         if member.c_decl.name == "sType" {
             if let Some(value) = member.values {
-                tag = Some(value.strip_prefix("VK_STRUCTURE_TYPE_").unwrap());
+                stype_suffix = Some(value.strip_prefix("VK_STRUCTURE_TYPE_").unwrap());
             } else {
-                has_default = false;
+                has_stype_default = false;
             }
         }
 
@@ -372,10 +371,12 @@ fn analyze_struct<'a>(analysis: &'a Analysis, struct_ty: &'a xml::Structure) -> 
 
                 let ty = ctype_to_rust_type(analysis, &member.c_decl.ty, lifetime_param);
                 members.push(MemberInfo { member, name, ty });
-                continue;
+                continue; // CStr-to-array: skip the general setter logic below
             }
         }
 
+        // Members without a length annotation: either plain values or length-count fields.
+        // collect_array_params checks whether other members reference this one as their length.
         if len.is_empty() && !is_special_member {
             let param_name = normalize_setter_param_name(member.c_decl.name);
             let array_params = collect_array_params(
@@ -406,8 +407,8 @@ fn analyze_struct<'a>(analysis: &'a Analysis, struct_ty: &'a xml::Structure) -> 
     StructInfo {
         name,
         members,
-        tag,
-        has_default,
+        stype_suffix,
+        has_stype_default,
         setters,
     }
 }
@@ -466,7 +467,7 @@ fn write_trait_impls(
     ty: &xml::Structure,
     info: &StructInfo<'_>,
 ) {
-    if let Some(tag) = info.tag {
+    if let Some(tag) = info.stype_suffix {
         writeln!(
             file,
             "unsafe impl<'a> TaggedStructure<'a> for {}<'a> {{
@@ -695,7 +696,8 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
     let lifetime_spec = if type_info.lifetime_param { "<'a>" } else { "" };
     let lifetime_spec_anon = if type_info.lifetime_param { "<'_>" } else { "" };
 
-    let has_derived_default = info.has_default && type_info.default;
+    // True when zeroed memory is a valid default — use #[derive(Default)] instead of manual impl.
+    let has_derived_default = info.has_stype_default && type_info.default;
 
     write_struct_definition(
         file,
@@ -713,7 +715,8 @@ pub fn write_struct(file: &mut impl std::io::Write, analysis: &Analysis, ty: &xm
 
     write_trait_impls(file, analysis, ty, &info);
 
-    if info.has_default && !type_info.default {
+    // Manual Default impl needed: sType must be set, and zeroed memory isn't a valid default.
+    if info.has_stype_default && !type_info.default {
         write_default_impl(file, analysis, &info, type_info, lifetime_spec_anon);
     }
 
@@ -962,7 +965,7 @@ pub fn convert_setter_param_type(
 ) -> String {
     use CTypeCategory;
 
-    if let Some(len) = lengths.iter().next() {
+    if let Some(len) = lengths.first() {
         if !matches!(len, LengthKind::Literal(1)) {
             let category = CTypeCategory::from_ctype(ty, analysis);
             return match category {
@@ -1001,7 +1004,19 @@ pub fn convert_setter_param_type(
                     pointee_name,
                     is_const,
                 } => {
-                    let use_slice_of_refs = matches!(ty, CType::Ptr { pointee: p, .. } if matches!(p.as_ref(), CType::Ptr { pointee: inner, .. } if matches!(inner.as_ref(), CType::Base(b) if !analysis.is_opaque_type_name(b.name) && b.name == pointee_name)));
+                    // Use &[&T] when the C type is T** and T is a known non-opaque struct.
+                    let use_slice_of_refs = matches!(
+                        ty,
+                        CType::Ptr { pointee: p, .. }
+                            if matches!(p.as_ref(),
+                                CType::Ptr { pointee: inner, .. }
+                                    if matches!(inner.as_ref(),
+                                        CType::Base(b)
+                                            if !analysis.is_opaque_type_name(b.name)
+                                               && b.name == pointee_name
+                                    )
+                            )
+                    );
                     if use_slice_of_refs {
                         let inner = type_name_with_lifetime(analysis, pointee_name, lifetime_param);
                         if is_const {
