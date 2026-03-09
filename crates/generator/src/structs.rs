@@ -259,13 +259,17 @@ fn build_setters_for_length_member(
                 .map(|s| s.parse::<bool>().unwrap())
                 .collect();
 
-            let param_ty = convert_setter_param_type(
-                analysis,
-                &member.c_decl.ty,
-                &[],
-                &optional,
-                lifetime_param,
-            );
+            let param_ty = overrides::member_type_override(member.c_decl.name)
+                .map(|s| s.to_string())
+                .unwrap_or_else(|| {
+                    convert_setter_param_type(
+                        analysis,
+                        &member.c_decl.ty,
+                        &[],
+                        &optional,
+                        lifetime_param,
+                    )
+                });
             SetterKind::Value(SetterParamInfo {
                 name: param_name.to_string(),
                 member_index,
@@ -440,14 +444,17 @@ fn write_struct_definition(
     for member in &ty.members {
         let name = normalize_name(member.c_decl.name);
 
-        let field_ty = ctype_to_rust_type(analysis, &member.c_decl.ty, Some("a"));
-        let field_ty = {
-            let category = CTypeCategory::from_ctype(&member.c_decl.ty, analysis);
-            match category {
-                CTypeCategory::FuncPointer => format!("Option<{}>", field_ty),
-                _ => field_ty,
-            }
-        };
+        let field_ty =
+            if let Some(override_ty) = overrides::member_type_override(member.c_decl.name) {
+                override_ty.to_string()
+            } else {
+                let field_ty = ctype_to_rust_type(analysis, &member.c_decl.ty, Some("a"));
+                let category = CTypeCategory::from_ctype(&member.c_decl.ty, analysis);
+                match category {
+                    CTypeCategory::FuncPointer => format!("Option<{}>", field_ty),
+                    _ => field_ty,
+                }
+            };
 
         writeln!(file, "pub {}: {},", name, field_ty)?;
     }

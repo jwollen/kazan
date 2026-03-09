@@ -231,6 +231,14 @@ fn generate_module(
         )?;
     }
 
+    if let Module::Version(version) = module {
+        writeln!(
+            file,
+            "pub const API_VERSION: ApiVersion = ApiVersion::new(0, {}, {}, 0);\n",
+            version.major, version.minor
+        )?;
+    }
+
     if !items.is_empty() {
         writeln!(file, "pub(super) mod defs {{")?;
         writeln!(

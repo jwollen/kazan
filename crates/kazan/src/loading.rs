@@ -199,9 +199,9 @@ mod tests {
         let entry = unsafe { Entry::load()? };
 
         let api_version = if let Some(vk1_1) = entry.vk1_1 {
-            unsafe { vk1_1.enumerate_instance_version()? }
+            crate::ApiVersion::from_raw(unsafe { vk1_1.enumerate_instance_version()? })
         } else {
-            crate::vk::make_api_version(0, 1, 0, 0)
+            vk::vk1_0::API_VERSION
         };
         println!("API version: {}", api_version);
 

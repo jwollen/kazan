@@ -46,6 +46,16 @@ pub fn merged_setter_name(_struct_name: &str, len_member: &str, base: &str) -> S
     }
 }
 
+/// Override the Rust type for a struct member or command parameter based on its C name.
+///
+/// Returns `Some("ApiVersion")` for `apiVersion` fields, replacing the default `u32`.
+pub fn member_type_override(c_name: &str) -> Option<&'static str> {
+    match c_name {
+        "apiVersion" => Some("ApiVersion"),
+        _ => None,
+    }
+}
+
 /// Override which success codes mean "output is valid" for a command.
 ///
 /// By default, only `VK_SUCCESS` maps to `Ok`. Some commands write their output

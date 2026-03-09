@@ -15,7 +15,6 @@ use std::{
 pub use kazan::read_spv;
 use kazan::{
     Entry,
-    vk::make_api_version,
     vk::{
         self,
         ext::debug_utils,
@@ -273,7 +272,7 @@ impl ExampleBase {
                 .application_version(0)
                 .engine_name(app_name)
                 .engine_version(0)
-                .api_version(make_api_version(0, 1, 0, 0));
+                .api_version(vk1_0::API_VERSION);
 
             let create_flags = if cfg!(any(target_os = "macos", target_os = "ios")) {
                 vk::InstanceCreateFlags::ENUMERATE_PORTABILITY_KHR

@@ -6,6 +6,9 @@ pub use vk::ffi;
 mod generated;
 pub use generated::external::*;
 
+mod version;
+pub use version::ApiVersion;
+
 mod chain;
 pub use chain::*;
 

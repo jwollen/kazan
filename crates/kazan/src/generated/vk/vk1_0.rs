@@ -4,6 +4,8 @@ use core::ffi::{CStr, c_char, c_int, c_void};
 use core::mem::transmute;
 use core::ptr;
 
+pub const API_VERSION: ApiVersion = ApiVersion::new(0, 1, 0, 0);
+
 pub(super) mod defs {
     #![allow(non_camel_case_types, unused_imports)]
     use crate::{vk::*, *};
@@ -464,7 +466,7 @@ pub(super) mod defs {
     #[derive(Copy, Clone)]
     #[must_use]
     pub struct PhysicalDeviceProperties {
-        pub api_version: u32,
+        pub api_version: ApiVersion,
         pub driver_version: u32,
         pub vendor_id: u32,
         pub device_id: u32,
@@ -513,7 +515,7 @@ pub(super) mod defs {
 
     impl PhysicalDeviceProperties {
         #[inline]
-        pub fn api_version(mut self, api_version: u32) -> Self {
+        pub fn api_version(mut self, api_version: ApiVersion) -> Self {
             self.api_version = api_version;
             self
         }
@@ -704,7 +706,7 @@ pub(super) mod defs {
         pub application_version: u32,
         pub p_engine_name: *const c_char,
         pub engine_version: u32,
-        pub api_version: u32,
+        pub api_version: ApiVersion,
         pub _marker: PhantomData<&'a ()>,
     }
 
@@ -770,7 +772,7 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn api_version(mut self, api_version: u32) -> Self {
+        pub fn api_version(mut self, api_version: ApiVersion) -> Self {
             self.api_version = api_version;
             self
         }

@@ -320,7 +320,7 @@ pub(super) mod defs {
         pub application_version: u32,
         pub engine_name_offset: u32,
         pub engine_version: u32,
-        pub api_version: u32,
+        pub api_version: ApiVersion,
     }
 
     impl Default for DeviceFaultVendorBinaryHeaderVersionOneEXT {
@@ -409,7 +409,7 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn api_version(mut self, api_version: u32) -> Self {
+        pub fn api_version(mut self, api_version: ApiVersion) -> Self {
             self.api_version = api_version;
             self
         }
