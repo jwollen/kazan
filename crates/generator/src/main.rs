@@ -1,6 +1,5 @@
 use std::{
-    borrow::Cow,
-    collections::{BTreeMap, HashSet},
+    collections::BTreeMap,
     fs::{self, File},
     io::Write,
 };
@@ -10,16 +9,14 @@ use heck::ToSnakeCase;
 use crate::{
     analysis::Analysis,
     cdecl::CType,
-    command::generate_commands,
-    enums::{write_bitmask, write_enum},
     module::{Module, ModuleName},
-    structs::write_struct,
     xml::Constant,
 };
 
 mod analysis;
 mod cdecl;
 mod command;
+mod constants;
 mod ctype_rust;
 mod enums;
 mod external;
@@ -48,7 +45,7 @@ fn generate(analysis: &analysis::Analysis) {
 
     let _ = fs::remove_dir_all(output_dir);
 
-    generate_external_type_file(analysis, generated_dir);
+    external::generate_external_type_file(analysis, generated_dir);
 
     let mut vendor_modules: BTreeMap<Option<String>, Vec<ModuleEntry>> = BTreeMap::new();
 
@@ -111,7 +108,7 @@ fn generate(analysis: &analysis::Analysis) {
         .output()
         .unwrap();
 
-    generate_extension_set_file(registry, generated_dir);
+    module::generate_extension_set_file(registry, generated_dir);
 }
 
 fn generate_module(
@@ -223,399 +220,36 @@ fn generate_module(
         )
         .unwrap();
 
-        generate_api_constants(&mut file, analysis, &owned, required_api_constants);
+        constants::generate_api_constants(&mut file, &owned, required_api_constants);
 
-        generate_basetypes(&mut file, analysis, &owned);
+        constants::generate_basetypes(&mut file, analysis, &owned);
 
-        generate_handles(&mut file, analysis, &owned);
+        handle::generate_handles(&mut file, analysis, &owned);
 
-        generate_type_aliases(&mut file, analysis, &owned);
+        constants::generate_type_aliases(&mut file, analysis, &owned);
 
-        generate_structs(&mut file, analysis, &owned);
+        structs::generate_structs(&mut file, analysis, &owned);
 
-        generate_unions(&mut file, analysis, &owned);
+        structs::generate_unions(&mut file, analysis, &owned);
 
-        generate_enum_types(&mut file, analysis, &owned);
+        enums::generate_enum_types(&mut file, analysis, &owned);
 
-        generate_bitmask_types(&mut file, analysis, &owned);
+        enums::generate_bitmask_types(&mut file, analysis, &owned);
 
-        generate_funcpointers(&mut file, analysis, &owned);
+        command::generate_funcpointers(&mut file, analysis, &owned);
 
-        generate_functions(&mut file, analysis, new_commands.clone());
+        command::generate_functions(&mut file, analysis, new_commands.clone());
     }
     writeln!(file, "}}\n").unwrap();
 
-    if requires.iter().flat_map(|r| &r.commands).clone().next().is_some() {
-        generate_commands(&mut file, analysis, &requires);
-    }
-}
-
-fn generate_extension_set_file(registry: &xml::Registry, generated_dir: &str) {
-    let extensions: Vec<&str> = registry.extensions.iter().map(|ext| ext.name).collect();
-    let count = extensions.len();
-
-    let path = format!("{}/extensions.rs", generated_dir);
-    let mut file = File::create(&path).unwrap();
-
-    writeln!(
-        file,
-        "pub(crate) const EXTENSION_COUNT: usize = {count};
-pub(crate) const EXTENSIONS: &[&core::ffi::CStr; EXTENSION_COUNT] = &["
-    )
-    .unwrap();
-
-    for name in &extensions {
-        writeln!(file, "    c\"{}\",", name).unwrap();
-    }
-
-    writeln!(file, "];\n").unwrap();
-
-    writeln!(
-        file,
-        "pub(crate) fn extension_index(name: &core::ffi::CStr) -> Option<usize> {{
-    match name.to_bytes() {{"
-    )
-    .unwrap();
-    for (i, name) in extensions.iter().enumerate() {
-        writeln!(file, "        b\"{}\" => Some({i}),", name).unwrap();
-    }
-    writeln!(file, "        _ => None,\n    }}\n}}").unwrap();
-}
-
-fn generate_api_constants<'a>(
-    file: &mut impl std::io::Write,
-    _analysis: &Analysis,
-    owned: &HashSet<&str>,
-    required_api_constants: impl Iterator<Item = xml::Constant>,
-) {
-    let constants = required_api_constants.filter(|constant| owned.contains(constant.name));
-
-    for constant in constants {
-        writeln!(
-            file,
-            "pub const {}: {} = {};",
-            normalize_const_name(constant.name),
-            ctype_to_rust_type_str(constant.ty),
-            convert_c_expr(constant.value),
-        )
-        .unwrap();
-    }
-    writeln!(file).unwrap();
-}
-
-fn generate_external_type_file(analysis: &Analysis, generated_dir: &str) {
-    fs::create_dir_all(generated_dir).unwrap();
-    let path = format!("{}/external.rs", generated_dir);
-    let mut file = File::create(&path).unwrap();
-    writeln!(
-        file,
-        "#![allow(non_camel_case_types)]
-use core::ffi::{{c_int, c_uint, c_ulong, c_void}};
-"
-    )
-    .unwrap();
-
-    let external_types = external::external_types();
-    for (name, ty) in &external_types {
-        let rust_ty = ctype_to_rust_type(analysis, ty, None);
-        writeln!(file, "pub type {name} = {rust_ty};").unwrap();
-    }
-}
-
-fn generate_basetypes(file: &mut impl std::io::Write, analysis: &Analysis, owned: &HashSet<&str>) {
-    let basetypes = analysis
-        .registry()
-        .basetypes
+    if requires
         .iter()
-        .filter(|ty| owned.contains(ty.name));
-
-    for ty in basetypes {
-        writeln!(
-            file,
-            "pub type {} = {};",
-            normalize_ty_name(ty.name),
-            ctype_to_rust_type_str(ty.ty.unwrap_or("*const c_void"))
-        )
-        .unwrap();
-    }
-    writeln!(file).unwrap();
-}
-
-fn generate_handles(file: &mut impl std::io::Write, analysis: &Analysis, owned: &HashSet<&str>) {
-    let handles = analysis
-        .registry()
-        .handles
-        .iter()
-        .filter(|ty| owned.contains(ty.name));
-
-    for handle in handles {
-        let macro_name = match handle.ty {
-            "VK_DEFINE_HANDLE" => "define_handle",
-            "VK_DEFINE_NON_DISPATCHABLE_HANDLE" => "handle_nondispatchable",
-            _ => panic!(),
-        };
-
-        let name = normalize_ty_name(handle.name);
-        let obj_type = handle.objtypeenum.strip_prefix("VK_OBJECT_TYPE_").unwrap();
-
-        let doc_url = doc_url(handle.name);
-        writeln!(
-            file,
-            "{macro_name}!({name}, {obj_type}, doc = \"<{doc_url}>\");"
-        )
-        .unwrap();
-    }
-    writeln!(file).unwrap();
-}
-
-fn generate_type_aliases(
-    file: &mut impl std::io::Write,
-    analysis: &Analysis,
-    owned: &HashSet<&str>,
-) {
-    let registry = analysis.registry();
-    let aliases = registry
-        .enum_aliases
-        .iter()
+        .flat_map(|r| &r.commands)
         .clone()
-        .filter(|alias| {
-            registry
-                .enums
-                .iter()
-                .find(|ty| ty.name == alias.alias)
-                .is_some()
-        })
-        .chain(registry.handle_aliases.iter())
-        .chain(registry.struct_aliases.iter())
-        .chain(registry.bitmask_aliases.iter())
-        .filter(|alias| owned.contains(alias.name));
-
-    for alias in aliases {
-        write_doc_link(file, alias.name);
-        writeln!(
-            file,
-            "pub type {} = {};",
-            type_name_with_lifetime(analysis, alias.name, Some("a")),
-            type_name_with_lifetime(analysis, alias.alias, Some("a"))
-        )
-        .unwrap();
-    }
-
-    let command_aliases = registry
-        .command_aliases
-        .iter()
-        .filter(|alias| owned.contains(alias.name));
-
-    for ty in command_aliases {
-        writeln!(
-            file,
-            "pub type PFN_{} = PFN_{};",
-            normalize_ty_name(ty.name),
-            normalize_ty_name(ty.alias)
-        )
-        .unwrap();
-    }
-    writeln!(file).unwrap();
-}
-
-fn generate_structs(file: &mut impl std::io::Write, analysis: &Analysis, owned: &HashSet<&str>) {
-    let new_structs = analysis
-        .registry()
-        .structs
-        .iter()
-        .filter(|ty| owned.contains(ty.name));
-
-    for ty in new_structs {
-        write_struct(file, analysis, ty);
-    }
-}
-
-fn generate_unions(file: &mut impl std::io::Write, analysis: &Analysis, owned: &HashSet<&str>) {
-    let unions = analysis
-        .registry()
-        .unions
-        .iter()
-        .filter(|ty| owned.contains(ty.name));
-    for ty in unions {
-        let name = normalize_ty_name(ty.name);
-        let type_info = analysis.get_base_type_info(ty.name).unwrap();
-        write_doc_link(file, ty.name);
-        writeln!(
-            file,
-            "#[repr(C)]
-            #[derive(Copy, Clone)]
-            pub union {}{} {{",
-            name,
-            if type_info.lifetime_param { "<'a>" } else { "" }
-        )
-        .unwrap();
-        for member in &ty.members {
-            let field_ty = ctype_to_rust_type(analysis, &member.c_decl.ty, Some("a"));
-            writeln!(
-                file,
-                "pub {}: {},",
-                normalize_name(member.c_decl.name),
-                field_ty
-            )
-            .unwrap();
-        }
-        if type_info.lifetime_param {
-            writeln!(file, "pub _marker: PhantomData<&'a ()>,",).unwrap();
-        }
-        writeln!(file, "}}\n").unwrap();
-        let anon = if type_info.lifetime_param { "<'_>" } else { "" };
-        writeln!(
-            file,
-            "#[cfg(feature = \"debug\")]
-            impl fmt::Debug for {name}{anon} {{
-                fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {{
-                    f.debug_struct(\"{name}\").finish()
-                }}
-            }}\n"
-        )
-        .unwrap();
-        writeln!(
-            file,
-            "impl Default for {name}{anon} {{
-                fn default() -> Self {{
-                    unsafe {{ core::mem::zeroed() }}
-                }}
-            }}\n"
-        )
-        .unwrap();
-    }
-}
-
-fn generate_enum_types(file: &mut impl std::io::Write, analysis: &Analysis, owned: &HashSet<&str>) {
-    let enums = analysis
-        .registry()
-        .enums
-        .iter()
-        .filter(|ty| owned.contains(ty.name));
-
-    for ty in enums {
-        write_enum(file, analysis, ty);
-    }
-}
-
-fn generate_bitmask_types(
-    file: &mut impl std::io::Write,
-    analysis: &Analysis,
-    owned: &HashSet<&str>,
-) {
-    let bitmask_types = analysis
-        .registry()
-        .bitmask_types
-        .iter()
-        .clone()
-        .filter(|ty| owned.contains(ty.name));
-
-    for ty in bitmask_types {
-        let bitmask = ty.bitvalues.or(ty.requires).and_then(|b| {
-            analysis
-                .registry()
-                .bitmasks
-                .iter()
-                .find(|bitmask| bitmask.name == b)
-        });
-
-        write_bitmask(file, analysis, ty, bitmask, analysis.req_enum_data());
-    }
-}
-
-fn generate_funcpointers(
-    file: &mut impl std::io::Write,
-    analysis: &Analysis,
-    owned: &HashSet<&str>,
-) {
-    let funcpointers = analysis
-        .registry()
-        .funcpointers
-        .iter()
-        .clone()
-        .filter(|ty| owned.contains(ty.name));
-
-    for ty in funcpointers {
-        write_doc_link(file, ty.name);
-        writeln!(file, "pub type {} = unsafe extern \"system\" fn(", ty.name).unwrap();
-        for param in &ty.params {
-            writeln!(
-                file,
-                "    {}: {},",
-                normalize_name(param.c_decl.name),
-                ctype_to_rust_type(analysis, &param.c_decl.ty, None)
-            )
-            .unwrap();
-        }
-        if let Some(ref return_type) = ty.return_type {
-            writeln!(
-                file,
-                ") -> {};",
-                ctype_to_rust_type(analysis, &return_type, None)
-            )
-            .unwrap();
-        } else {
-            writeln!(file, ");").unwrap();
-        }
-    }
-    writeln!(file).unwrap();
-}
-
-fn generate_functions<'a>(
-    file: &mut impl std::io::Write,
-    analysis: &Analysis,
-    new_commands: impl Iterator<Item = &'a xml::Command>,
-) {
-    let mut count = 0;
-    for command in new_commands {
-        write_doc_link(file, command.name);
-        writeln!(
-            file,
-            "pub type PFN_{} = unsafe extern \"system\" fn(",
-            command.name
-        )
-        .unwrap();
-        for param in &command.params {
-            writeln!(
-                file,
-                "    {}: {},",
-                normalize_name(param.c_decl.name),
-                ctype_to_rust_type(analysis, &param.c_decl.ty, None)
-            )
-            .unwrap();
-        }
-        if let Some(ref return_type) = command.return_type {
-            writeln!(
-                file,
-                ") -> {};",
-                ctype_to_rust_type(analysis, &return_type, None)
-            )
-            .unwrap();
-        } else {
-            writeln!(file, ");").unwrap();
-        }
-    }
-    writeln!(file).unwrap();
-}
-
-fn convert_c_expr<'a>(expr: &'a str) -> Cow<'a, str> {
-    let expr = expr
-        .strip_prefix('(')
-        .and_then(|expr| expr.strip_suffix(')'))
-        .unwrap_or(expr);
-
-    let expr = expr
-        .strip_suffix('f')
-        .or_else(|| expr.strip_suffix('F'))
-        .or_else(|| expr.strip_suffix("ULL"))
-        .or_else(|| expr.strip_suffix("LL"))
-        .or_else(|| expr.strip_suffix('U'))
-        .unwrap_or(expr);
-
-    if let Some(expr) = expr.strip_prefix("~") {
-        Cow::Owned(format!("!{}", expr))
-    } else {
-        Cow::Borrowed(expr)
+        .next()
+        .is_some()
+    {
+        command::generate_commands(&mut file, analysis, &requires);
     }
 }
 

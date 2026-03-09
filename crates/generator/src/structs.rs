@@ -1,8 +1,78 @@
+use std::{collections::HashSet, io::Write};
+
 use crate::{
     LengthKind, analysis::Analysis, cdecl::CType, ctype_rust, ctype_to_rust_type,
     ctype_to_rust_type_str, get_len_kind, normalize_name, normalize_setter_param_name,
-    normalize_ty_name, overrides, xml,
+    normalize_ty_name, overrides, write_doc_link, xml,
 };
+
+pub fn generate_structs(file: &mut impl Write, analysis: &Analysis, owned: &HashSet<&str>) {
+    let new_structs = analysis
+        .registry()
+        .structs
+        .iter()
+        .filter(|ty| owned.contains(ty.name));
+
+    for ty in new_structs {
+        write_struct(file, analysis, ty);
+    }
+}
+
+pub fn generate_unions(file: &mut impl Write, analysis: &Analysis, owned: &HashSet<&str>) {
+    let unions = analysis
+        .registry()
+        .unions
+        .iter()
+        .filter(|ty| owned.contains(ty.name));
+    for ty in unions {
+        let name = normalize_ty_name(ty.name);
+        let type_info = analysis.get_base_type_info(ty.name).unwrap();
+        write_doc_link(file, ty.name);
+        writeln!(
+            file,
+            "#[repr(C)]
+            #[derive(Copy, Clone)]
+            pub union {}{} {{",
+            name,
+            if type_info.lifetime_param { "<'a>" } else { "" }
+        )
+        .unwrap();
+        for member in &ty.members {
+            let field_ty = ctype_to_rust_type(analysis, &member.c_decl.ty, Some("a"));
+            writeln!(
+                file,
+                "pub {}: {},",
+                normalize_name(member.c_decl.name),
+                field_ty
+            )
+            .unwrap();
+        }
+        if type_info.lifetime_param {
+            writeln!(file, "pub _marker: PhantomData<&'a ()>,",).unwrap();
+        }
+        writeln!(file, "}}\n").unwrap();
+        let anon = if type_info.lifetime_param { "<'_>" } else { "" };
+        writeln!(
+            file,
+            "#[cfg(feature = \"debug\")]
+            impl fmt::Debug for {name}{anon} {{
+                fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {{
+                    f.debug_struct(\"{name}\").finish()
+                }}
+            }}\n"
+        )
+        .unwrap();
+        writeln!(
+            file,
+            "impl Default for {name}{anon} {{
+                fn default() -> Self {{
+                    unsafe {{ core::mem::zeroed() }}
+                }}
+            }}\n"
+        )
+        .unwrap();
+    }
+}
 
 #[derive(Debug)]
 struct StructInfo<'a> {
@@ -959,3 +1029,4 @@ pub fn convert_setter_param_type(
         }
     }
 }
+

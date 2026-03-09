@@ -1,8 +1,12 @@
+use std::{collections::HashSet, io::Write};
+
+use itertools::Itertools;
+
 use crate::{
     LengthKind, analysis::Analysis, cdecl::CType, ctype_rust, ctype_to_rust_type, get_len_kind,
-    handle::CommandType, normalize_command_name, normalize_param_name, normalize_ty_name, xml,
+    handle::CommandType, normalize_command_name, normalize_name, normalize_param_name,
+    normalize_ty_name, write_doc_link, xml,
 };
-use itertools::Itertools;
 
 pub struct CommandGroup<'a> {
     pub require: &'a xml::Require,
@@ -109,6 +113,76 @@ fn is_pointer_to_pointer(ty: &CType) -> bool {
             ..
         } if matches!(pointee.as_ref(), CType::Ptr { .. })
     )
+}
+
+pub fn generate_funcpointers(file: &mut impl Write, analysis: &Analysis, owned: &HashSet<&str>) {
+    let funcpointers = analysis
+        .registry()
+        .funcpointers
+        .iter()
+        .clone()
+        .filter(|ty| owned.contains(ty.name));
+
+    for ty in funcpointers {
+        write_doc_link(file, ty.name);
+        writeln!(file, "pub type {} = unsafe extern \"system\" fn(", ty.name).unwrap();
+        for param in &ty.params {
+            writeln!(
+                file,
+                "    {}: {},",
+                normalize_name(param.c_decl.name),
+                ctype_to_rust_type(analysis, &param.c_decl.ty, None)
+            )
+            .unwrap();
+        }
+        if let Some(ref return_type) = ty.return_type {
+            writeln!(
+                file,
+                ") -> {};",
+                ctype_to_rust_type(analysis, &return_type, None)
+            )
+            .unwrap();
+        } else {
+            writeln!(file, ");").unwrap();
+        }
+    }
+    writeln!(file).unwrap();
+}
+
+pub fn generate_functions<'a>(
+    file: &mut impl Write,
+    analysis: &Analysis,
+    new_commands: impl Iterator<Item = &'a xml::Command>,
+) {
+    for command in new_commands {
+        write_doc_link(file, command.name);
+        writeln!(
+            file,
+            "pub type PFN_{} = unsafe extern \"system\" fn(",
+            command.name
+        )
+        .unwrap();
+        for param in &command.params {
+            writeln!(
+                file,
+                "    {}: {},",
+                normalize_name(param.c_decl.name),
+                ctype_to_rust_type(analysis, &param.c_decl.ty, None)
+            )
+            .unwrap();
+        }
+        if let Some(ref return_type) = command.return_type {
+            writeln!(
+                file,
+                ") -> {};",
+                ctype_to_rust_type(analysis, &return_type, None)
+            )
+            .unwrap();
+        } else {
+            writeln!(file, ");").unwrap();
+        }
+    }
+    writeln!(file).unwrap();
 }
 
 pub fn generate_commands(

@@ -1,4 +1,13 @@
-use crate::cdecl::{CBaseType, CType};
+use std::{
+    fs::{self, File},
+    io::Write,
+};
+
+use crate::{
+    analysis::Analysis,
+    cdecl::{CBaseType, CType},
+    ctype_to_rust_type,
+};
 
 /// Shorthand: build a `CType::Base` from a C type name.
 const fn ctype(base: &str) -> CType<'_> {
@@ -25,6 +34,25 @@ impl CType<'_> {
     pub(crate) const UINT: CType<'static> = ctype("unsigned int");
     pub(crate) const ULONG: CType<'static> = ctype("unsigned long");
     const HANDLE: CType<'static> = ctype("HANDLE");
+}
+
+pub fn generate_external_type_file(analysis: &Analysis, generated_dir: &str) {
+    fs::create_dir_all(generated_dir).unwrap();
+    let path = format!("{}/external.rs", generated_dir);
+    let mut file = File::create(&path).unwrap();
+    writeln!(
+        file,
+        "#![allow(non_camel_case_types)]
+use core::ffi::{{c_int, c_uint, c_ulong, c_void}};
+"
+    )
+    .unwrap();
+
+    let external_types = external_types();
+    for (name, ty) in &external_types {
+        let rust_ty = ctype_to_rust_type(analysis, ty, None);
+        writeln!(file, "pub type {name} = {rust_ty};").unwrap();
+    }
 }
 
 pub type ExternalTypes = Vec<(&'static str, CType<'static>)>;
@@ -78,3 +106,4 @@ pub fn external_types() -> ExternalTypes {
     .into_iter()
     .collect()
 }
+

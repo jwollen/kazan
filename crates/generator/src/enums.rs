@@ -10,6 +10,39 @@ use regex::Regex;
 
 use crate::{analysis::Analysis, ctype_to_rust_type_str, module::Module, normalize_ty_name, xml};
 
+pub fn generate_enum_types(file: &mut impl Write, analysis: &Analysis, owned: &HashSet<&str>) {
+    let enums = analysis
+        .registry()
+        .enums
+        .iter()
+        .filter(|ty| owned.contains(ty.name));
+
+    for ty in enums {
+        write_enum(file, analysis, ty);
+    }
+}
+
+pub fn generate_bitmask_types(file: &mut impl Write, analysis: &Analysis, owned: &HashSet<&str>) {
+    let bitmask_types = analysis
+        .registry()
+        .bitmask_types
+        .iter()
+        .clone()
+        .filter(|ty| owned.contains(ty.name));
+
+    for ty in bitmask_types {
+        let bitmask = ty.bitvalues.or(ty.requires).and_then(|b| {
+            analysis
+                .registry()
+                .bitmasks
+                .iter()
+                .find(|bitmask| bitmask.name == b)
+        });
+
+        write_bitmask(file, analysis, ty, bitmask, analysis.req_enum_data());
+    }
+}
+
 pub struct ContribVariant {
     pub name: &'static str,
     pub value: i32,
@@ -667,3 +700,4 @@ pub fn write_bitmask(
         .unwrap();
     }
 }
+

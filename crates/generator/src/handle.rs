@@ -1,6 +1,9 @@
-use std::collections::{HashMap, VecDeque};
+use std::{
+    collections::{HashMap, HashSet, VecDeque},
+    io::Write,
+};
 
-use crate::xml;
+use crate::{doc_url, normalize_ty_name, xml};
 
 pub type HandleCommandTypes = HashMap<&'static str, CommandType>;
 
@@ -31,4 +34,35 @@ pub fn collect_handle_command_types(registry: &xml::Registry) -> HandleCommandTy
     }
 
     handle_command_types
+}
+
+pub fn generate_handles(
+    file: &mut impl Write,
+    analysis: &crate::analysis::Analysis,
+    owned: &HashSet<&str>,
+) {
+    let handles = analysis
+        .registry()
+        .handles
+        .iter()
+        .filter(|ty| owned.contains(ty.name));
+
+    for handle in handles {
+        let macro_name = match handle.ty {
+            "VK_DEFINE_HANDLE" => "define_handle",
+            "VK_DEFINE_NON_DISPATCHABLE_HANDLE" => "handle_nondispatchable",
+            _ => panic!(),
+        };
+
+        let name = normalize_ty_name(handle.name);
+        let obj_type = handle.objtypeenum.strip_prefix("VK_OBJECT_TYPE_").unwrap();
+
+        let doc_url = doc_url(handle.name);
+        writeln!(
+            file,
+            "{macro_name}!({name}, {obj_type}, doc = \"<{doc_url}>\");"
+        )
+        .unwrap();
+    }
+    writeln!(file).unwrap();
 }

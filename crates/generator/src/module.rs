@@ -1,3 +1,5 @@
+use std::{fs::File, io::Write};
+
 use itertools::Itertools as _;
 
 use crate::xml;
@@ -108,4 +110,36 @@ fn get_extension_name(extension: &xml::Extension) -> ModuleName {
         vendor: Some(vendor),
         name,
     }
+}
+
+pub fn generate_extension_set_file(registry: &xml::Registry, generated_dir: &str) {
+    let extensions: Vec<&str> = registry.extensions.iter().map(|ext| ext.name).collect();
+    let count = extensions.len();
+
+    let path = format!("{}/extensions.rs", generated_dir);
+    let mut file = File::create(&path).unwrap();
+
+    writeln!(
+        file,
+        "pub(crate) const EXTENSION_COUNT: usize = {count};
+pub(crate) const EXTENSIONS: &[&core::ffi::CStr; EXTENSION_COUNT] = &["
+    )
+    .unwrap();
+
+    for name in &extensions {
+        writeln!(file, "    c\"{}\",", name).unwrap();
+    }
+
+    writeln!(file, "];\n").unwrap();
+
+    writeln!(
+        file,
+        "pub(crate) fn extension_index(name: &core::ffi::CStr) -> Option<usize> {{
+    match name.to_bytes() {{"
+    )
+    .unwrap();
+    for (i, name) in extensions.iter().enumerate() {
+        writeln!(file, "        b\"{}\" => Some({i}),", name).unwrap();
+    }
+    writeln!(file, "        _ => None,\n    }}\n}}").unwrap();
 }
