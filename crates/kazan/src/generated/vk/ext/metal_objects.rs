@@ -679,48 +679,37 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ExportMetalObjectTypeFlagsEXT(Flags);
-    vk_bitflags_wrapped!(ExportMetalObjectTypeFlagsEXT, Flags);
-
-    impl ExportMetalObjectTypeFlagsEXT {
-        pub const METAL_DEVICE_EXT: Self =
-            Self(ExportMetalObjectTypeFlagBitsEXT::METAL_DEVICE_EXT.0);
-        pub const METAL_COMMAND_QUEUE_EXT: Self =
-            Self(ExportMetalObjectTypeFlagBitsEXT::METAL_COMMAND_QUEUE_EXT.0);
-        pub const METAL_BUFFER_EXT: Self =
-            Self(ExportMetalObjectTypeFlagBitsEXT::METAL_BUFFER_EXT.0);
-        pub const METAL_TEXTURE_EXT: Self =
-            Self(ExportMetalObjectTypeFlagBitsEXT::METAL_TEXTURE_EXT.0);
-        pub const METAL_IOSURFACE_EXT: Self =
-            Self(ExportMetalObjectTypeFlagBitsEXT::METAL_IOSURFACE_EXT.0);
-        pub const METAL_SHARED_EVENT_EXT: Self =
-            Self(ExportMetalObjectTypeFlagBitsEXT::METAL_SHARED_EVENT_EXT.0);
-    }
+    vk_bitflags_wrapped!(
+        ExportMetalObjectTypeFlagsEXT,
+        Flags,
+        ExportMetalObjectTypeFlagBitsEXT
+    );
 
     impl fmt::Debug for ExportMetalObjectTypeFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    ExportMetalObjectTypeFlagsEXT::METAL_DEVICE_EXT.0,
+                    ExportMetalObjectTypeFlagBitsEXT::METAL_DEVICE_EXT.0,
                     "METAL_DEVICE_EXT",
                 ),
                 (
-                    ExportMetalObjectTypeFlagsEXT::METAL_COMMAND_QUEUE_EXT.0,
+                    ExportMetalObjectTypeFlagBitsEXT::METAL_COMMAND_QUEUE_EXT.0,
                     "METAL_COMMAND_QUEUE_EXT",
                 ),
                 (
-                    ExportMetalObjectTypeFlagsEXT::METAL_BUFFER_EXT.0,
+                    ExportMetalObjectTypeFlagBitsEXT::METAL_BUFFER_EXT.0,
                     "METAL_BUFFER_EXT",
                 ),
                 (
-                    ExportMetalObjectTypeFlagsEXT::METAL_TEXTURE_EXT.0,
+                    ExportMetalObjectTypeFlagBitsEXT::METAL_TEXTURE_EXT.0,
                     "METAL_TEXTURE_EXT",
                 ),
                 (
-                    ExportMetalObjectTypeFlagsEXT::METAL_IOSURFACE_EXT.0,
+                    ExportMetalObjectTypeFlagBitsEXT::METAL_IOSURFACE_EXT.0,
                     "METAL_IOSURFACE_EXT",
                 ),
                 (
-                    ExportMetalObjectTypeFlagsEXT::METAL_SHARED_EVENT_EXT.0,
+                    ExportMetalObjectTypeFlagBitsEXT::METAL_SHARED_EVENT_EXT.0,
                     "METAL_SHARED_EVENT_EXT",
                 ),
             ];

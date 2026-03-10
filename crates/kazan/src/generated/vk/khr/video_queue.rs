@@ -1234,62 +1234,45 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoCodecOperationFlagsKHR(Flags);
-    vk_bitflags_wrapped!(VideoCodecOperationFlagsKHR, Flags);
+    vk_bitflags_wrapped!(
+        VideoCodecOperationFlagsKHR,
+        Flags,
+        VideoCodecOperationFlagBitsKHR
+    );
 
     impl VideoCodecOperationFlagsKHR {
         pub const NONE: Self = Self(0);
-
-        // VK_KHR_video_decode_av1
-        pub const DECODE_AV1_KHR: Self = Self(VideoCodecOperationFlagBitsKHR::DECODE_AV1_KHR.0);
-
-        // VK_KHR_video_decode_h264
-        pub const DECODE_H264_KHR: Self = Self(VideoCodecOperationFlagBitsKHR::DECODE_H264_KHR.0);
-
-        // VK_KHR_video_decode_h265
-        pub const DECODE_H265_KHR: Self = Self(VideoCodecOperationFlagBitsKHR::DECODE_H265_KHR.0);
-
-        // VK_KHR_video_decode_vp9
-        pub const DECODE_VP9_KHR: Self = Self(VideoCodecOperationFlagBitsKHR::DECODE_VP9_KHR.0);
-
-        // VK_KHR_video_encode_av1
-        pub const ENCODE_AV1_KHR: Self = Self(VideoCodecOperationFlagBitsKHR::ENCODE_AV1_KHR.0);
-
-        // VK_KHR_video_encode_h264
-        pub const ENCODE_H264_KHR: Self = Self(VideoCodecOperationFlagBitsKHR::ENCODE_H264_KHR.0);
-
-        // VK_KHR_video_encode_h265
-        pub const ENCODE_H265_KHR: Self = Self(VideoCodecOperationFlagBitsKHR::ENCODE_H265_KHR.0);
     }
 
     impl fmt::Debug for VideoCodecOperationFlagsKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    VideoCodecOperationFlagsKHR::DECODE_AV1_KHR.0,
+                    VideoCodecOperationFlagBitsKHR::DECODE_AV1_KHR.0,
                     "DECODE_AV1_KHR",
                 ),
                 (
-                    VideoCodecOperationFlagsKHR::DECODE_H264_KHR.0,
+                    VideoCodecOperationFlagBitsKHR::DECODE_H264_KHR.0,
                     "DECODE_H264_KHR",
                 ),
                 (
-                    VideoCodecOperationFlagsKHR::DECODE_H265_KHR.0,
+                    VideoCodecOperationFlagBitsKHR::DECODE_H265_KHR.0,
                     "DECODE_H265_KHR",
                 ),
                 (
-                    VideoCodecOperationFlagsKHR::DECODE_VP9_KHR.0,
+                    VideoCodecOperationFlagBitsKHR::DECODE_VP9_KHR.0,
                     "DECODE_VP9_KHR",
                 ),
                 (
-                    VideoCodecOperationFlagsKHR::ENCODE_AV1_KHR.0,
+                    VideoCodecOperationFlagBitsKHR::ENCODE_AV1_KHR.0,
                     "ENCODE_AV1_KHR",
                 ),
                 (
-                    VideoCodecOperationFlagsKHR::ENCODE_H264_KHR.0,
+                    VideoCodecOperationFlagBitsKHR::ENCODE_H264_KHR.0,
                     "ENCODE_H264_KHR",
                 ),
                 (
-                    VideoCodecOperationFlagsKHR::ENCODE_H265_KHR.0,
+                    VideoCodecOperationFlagBitsKHR::ENCODE_H265_KHR.0,
                     "ENCODE_H265_KHR",
                 ),
             ];
@@ -1349,24 +1332,17 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoCapabilityFlagsKHR(Flags);
-    vk_bitflags_wrapped!(VideoCapabilityFlagsKHR, Flags);
-
-    impl VideoCapabilityFlagsKHR {
-        pub const PROTECTED_CONTENT_KHR: Self =
-            Self(VideoCapabilityFlagBitsKHR::PROTECTED_CONTENT_KHR.0);
-        pub const SEPARATE_REFERENCE_IMAGES_KHR: Self =
-            Self(VideoCapabilityFlagBitsKHR::SEPARATE_REFERENCE_IMAGES_KHR.0);
-    }
+    vk_bitflags_wrapped!(VideoCapabilityFlagsKHR, Flags, VideoCapabilityFlagBitsKHR);
 
     impl fmt::Debug for VideoCapabilityFlagsKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    VideoCapabilityFlagsKHR::PROTECTED_CONTENT_KHR.0,
+                    VideoCapabilityFlagBitsKHR::PROTECTED_CONTENT_KHR.0,
                     "PROTECTED_CONTENT_KHR",
                 ),
                 (
-                    VideoCapabilityFlagsKHR::SEPARATE_REFERENCE_IMAGES_KHR.0,
+                    VideoCapabilityFlagBitsKHR::SEPARATE_REFERENCE_IMAGES_KHR.0,
                     "SEPARATE_REFERENCE_IMAGES_KHR",
                 ),
             ];
@@ -1403,56 +1379,37 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoSessionCreateFlagsKHR(Flags);
-    vk_bitflags_wrapped!(VideoSessionCreateFlagsKHR, Flags);
-
-    impl VideoSessionCreateFlagsKHR {
-        pub const PROTECTED_CONTENT_KHR: Self =
-            Self(VideoSessionCreateFlagBitsKHR::PROTECTED_CONTENT_KHR.0);
-
-        // VK_KHR_video_encode_quantization_map
-        pub const ALLOW_ENCODE_QUANTIZATION_DELTA_MAP_KHR: Self =
-            Self(VideoSessionCreateFlagBitsKHR::ALLOW_ENCODE_QUANTIZATION_DELTA_MAP_KHR.0);
-        pub const ALLOW_ENCODE_EMPHASIS_MAP_KHR: Self =
-            Self(VideoSessionCreateFlagBitsKHR::ALLOW_ENCODE_EMPHASIS_MAP_KHR.0);
-
-        // VK_KHR_video_encode_queue
-        pub const ALLOW_ENCODE_PARAMETER_OPTIMIZATIONS_KHR: Self =
-            Self(VideoSessionCreateFlagBitsKHR::ALLOW_ENCODE_PARAMETER_OPTIMIZATIONS_KHR.0);
-
-        // VK_KHR_video_maintenance1
-        pub const INLINE_QUERIES_KHR: Self =
-            Self(VideoSessionCreateFlagBitsKHR::INLINE_QUERIES_KHR.0);
-
-        // VK_KHR_video_maintenance2
-        pub const INLINE_SESSION_PARAMETERS_KHR: Self =
-            Self(VideoSessionCreateFlagBitsKHR::INLINE_SESSION_PARAMETERS_KHR.0);
-    }
+    vk_bitflags_wrapped!(
+        VideoSessionCreateFlagsKHR,
+        Flags,
+        VideoSessionCreateFlagBitsKHR
+    );
 
     impl fmt::Debug for VideoSessionCreateFlagsKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    VideoSessionCreateFlagsKHR::PROTECTED_CONTENT_KHR.0,
+                    VideoSessionCreateFlagBitsKHR::PROTECTED_CONTENT_KHR.0,
                     "PROTECTED_CONTENT_KHR",
                 ),
                 (
-                    VideoSessionCreateFlagsKHR::ALLOW_ENCODE_QUANTIZATION_DELTA_MAP_KHR.0,
+                    VideoSessionCreateFlagBitsKHR::ALLOW_ENCODE_QUANTIZATION_DELTA_MAP_KHR.0,
                     "ALLOW_ENCODE_QUANTIZATION_DELTA_MAP_KHR",
                 ),
                 (
-                    VideoSessionCreateFlagsKHR::ALLOW_ENCODE_EMPHASIS_MAP_KHR.0,
+                    VideoSessionCreateFlagBitsKHR::ALLOW_ENCODE_EMPHASIS_MAP_KHR.0,
                     "ALLOW_ENCODE_EMPHASIS_MAP_KHR",
                 ),
                 (
-                    VideoSessionCreateFlagsKHR::ALLOW_ENCODE_PARAMETER_OPTIMIZATIONS_KHR.0,
+                    VideoSessionCreateFlagBitsKHR::ALLOW_ENCODE_PARAMETER_OPTIMIZATIONS_KHR.0,
                     "ALLOW_ENCODE_PARAMETER_OPTIMIZATIONS_KHR",
                 ),
                 (
-                    VideoSessionCreateFlagsKHR::INLINE_QUERIES_KHR.0,
+                    VideoSessionCreateFlagBitsKHR::INLINE_QUERIES_KHR.0,
                     "INLINE_QUERIES_KHR",
                 ),
                 (
-                    VideoSessionCreateFlagsKHR::INLINE_SESSION_PARAMETERS_KHR.0,
+                    VideoSessionCreateFlagBitsKHR::INLINE_SESSION_PARAMETERS_KHR.0,
                     "INLINE_SESSION_PARAMETERS_KHR",
                 ),
             ];
@@ -1508,18 +1465,16 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoSessionParametersCreateFlagsKHR(Flags);
-    vk_bitflags_wrapped!(VideoSessionParametersCreateFlagsKHR, Flags);
-
-    impl VideoSessionParametersCreateFlagsKHR {
-        // VK_KHR_video_encode_quantization_map
-        pub const QUANTIZATION_MAP_COMPATIBLE_KHR: Self =
-            Self(VideoSessionParametersCreateFlagBitsKHR::QUANTIZATION_MAP_COMPATIBLE_KHR.0);
-    }
+    vk_bitflags_wrapped!(
+        VideoSessionParametersCreateFlagsKHR,
+        Flags,
+        VideoSessionParametersCreateFlagBitsKHR
+    );
 
     impl fmt::Debug for VideoSessionParametersCreateFlagsKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[(
-                VideoSessionParametersCreateFlagsKHR::QUANTIZATION_MAP_COMPATIBLE_KHR.0,
+                VideoSessionParametersCreateFlagBitsKHR::QUANTIZATION_MAP_COMPATIBLE_KHR.0,
                 "QUANTIZATION_MAP_COMPATIBLE_KHR",
             )];
             debug_flags(f, KNOWN, self.0)
@@ -1578,28 +1533,22 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoCodingControlFlagsKHR(Flags);
-    vk_bitflags_wrapped!(VideoCodingControlFlagsKHR, Flags);
-
-    impl VideoCodingControlFlagsKHR {
-        pub const RESET_KHR: Self = Self(VideoCodingControlFlagBitsKHR::RESET_KHR.0);
-
-        // VK_KHR_video_encode_queue
-        pub const ENCODE_RATE_CONTROL_KHR: Self =
-            Self(VideoCodingControlFlagBitsKHR::ENCODE_RATE_CONTROL_KHR.0);
-        pub const ENCODE_QUALITY_LEVEL_KHR: Self =
-            Self(VideoCodingControlFlagBitsKHR::ENCODE_QUALITY_LEVEL_KHR.0);
-    }
+    vk_bitflags_wrapped!(
+        VideoCodingControlFlagsKHR,
+        Flags,
+        VideoCodingControlFlagBitsKHR
+    );
 
     impl fmt::Debug for VideoCodingControlFlagsKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (VideoCodingControlFlagsKHR::RESET_KHR.0, "RESET_KHR"),
+                (VideoCodingControlFlagBitsKHR::RESET_KHR.0, "RESET_KHR"),
                 (
-                    VideoCodingControlFlagsKHR::ENCODE_RATE_CONTROL_KHR.0,
+                    VideoCodingControlFlagBitsKHR::ENCODE_RATE_CONTROL_KHR.0,
                     "ENCODE_RATE_CONTROL_KHR",
                 ),
                 (
-                    VideoCodingControlFlagsKHR::ENCODE_QUALITY_LEVEL_KHR.0,
+                    VideoCodingControlFlagBitsKHR::ENCODE_QUALITY_LEVEL_KHR.0,
                     "ENCODE_QUALITY_LEVEL_KHR",
                 ),
             ];
@@ -1639,13 +1588,13 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoChromaSubsamplingFlagsKHR(Flags);
-    vk_bitflags_wrapped!(VideoChromaSubsamplingFlagsKHR, Flags);
+    vk_bitflags_wrapped!(
+        VideoChromaSubsamplingFlagsKHR,
+        Flags,
+        VideoChromaSubsamplingFlagBitsKHR
+    );
 
     impl VideoChromaSubsamplingFlagsKHR {
-        pub const MONOCHROME_KHR: Self = Self(VideoChromaSubsamplingFlagBitsKHR::MONOCHROME_KHR.0);
-        pub const _420_KHR: Self = Self(VideoChromaSubsamplingFlagBitsKHR::_420_KHR.0);
-        pub const _422_KHR: Self = Self(VideoChromaSubsamplingFlagBitsKHR::_422_KHR.0);
-        pub const _444_KHR: Self = Self(VideoChromaSubsamplingFlagBitsKHR::_444_KHR.0);
         pub const INVALID: Self = Self(0);
     }
 
@@ -1653,12 +1602,12 @@ pub(super) mod defs {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    VideoChromaSubsamplingFlagsKHR::MONOCHROME_KHR.0,
+                    VideoChromaSubsamplingFlagBitsKHR::MONOCHROME_KHR.0,
                     "MONOCHROME_KHR",
                 ),
-                (VideoChromaSubsamplingFlagsKHR::_420_KHR.0, "_420_KHR"),
-                (VideoChromaSubsamplingFlagsKHR::_422_KHR.0, "_422_KHR"),
-                (VideoChromaSubsamplingFlagsKHR::_444_KHR.0, "_444_KHR"),
+                (VideoChromaSubsamplingFlagBitsKHR::_420_KHR.0, "_420_KHR"),
+                (VideoChromaSubsamplingFlagBitsKHR::_422_KHR.0, "_422_KHR"),
+                (VideoChromaSubsamplingFlagBitsKHR::_444_KHR.0, "_444_KHR"),
             ];
             debug_flags(f, KNOWN, self.0)
         }
@@ -1697,21 +1646,22 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoComponentBitDepthFlagsKHR(Flags);
-    vk_bitflags_wrapped!(VideoComponentBitDepthFlagsKHR, Flags);
+    vk_bitflags_wrapped!(
+        VideoComponentBitDepthFlagsKHR,
+        Flags,
+        VideoComponentBitDepthFlagBitsKHR
+    );
 
     impl VideoComponentBitDepthFlagsKHR {
-        pub const _8_KHR: Self = Self(VideoComponentBitDepthFlagBitsKHR::_8_KHR.0);
-        pub const _10_KHR: Self = Self(VideoComponentBitDepthFlagBitsKHR::_10_KHR.0);
-        pub const _12_KHR: Self = Self(VideoComponentBitDepthFlagBitsKHR::_12_KHR.0);
         pub const INVALID: Self = Self(0);
     }
 
     impl fmt::Debug for VideoComponentBitDepthFlagsKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (VideoComponentBitDepthFlagsKHR::_8_KHR.0, "_8_KHR"),
-                (VideoComponentBitDepthFlagsKHR::_10_KHR.0, "_10_KHR"),
-                (VideoComponentBitDepthFlagsKHR::_12_KHR.0, "_12_KHR"),
+                (VideoComponentBitDepthFlagBitsKHR::_8_KHR.0, "_8_KHR"),
+                (VideoComponentBitDepthFlagBitsKHR::_10_KHR.0, "_10_KHR"),
+                (VideoComponentBitDepthFlagBitsKHR::_12_KHR.0, "_12_KHR"),
             ];
             debug_flags(f, KNOWN, self.0)
         }

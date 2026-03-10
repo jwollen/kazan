@@ -239,18 +239,16 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct MemoryDecompressionMethodFlagsEXT(Flags64);
-    vk_bitflags_wrapped!(MemoryDecompressionMethodFlagsEXT, Flags64);
-
-    impl MemoryDecompressionMethodFlagsEXT {
-        pub const GDEFLATE_1_0_EXT: Self =
-            Self(MemoryDecompressionMethodFlagBitsEXT::GDEFLATE_1_0_EXT.0);
-        pub const GDEFLATE_1_0_NV: Self = Self::GDEFLATE_1_0_EXT;
-    }
+    vk_bitflags_wrapped!(
+        MemoryDecompressionMethodFlagsEXT,
+        Flags64,
+        MemoryDecompressionMethodFlagBitsEXT
+    );
 
     impl fmt::Debug for MemoryDecompressionMethodFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags64, &str)] = &[(
-                MemoryDecompressionMethodFlagsEXT::GDEFLATE_1_0_EXT.0,
+                MemoryDecompressionMethodFlagBitsEXT::GDEFLATE_1_0_EXT.0,
                 "GDEFLATE_1_0_EXT",
             )];
             debug_flags(f, KNOWN, self.0)
@@ -264,6 +262,7 @@ pub(super) mod defs {
 
     impl MemoryDecompressionMethodFlagBitsEXT {
         pub const GDEFLATE_1_0_EXT: Self = Self(1 << 0);
+        pub const GDEFLATE_1_0_NV: Self = Self::GDEFLATE_1_0_EXT;
     }
 
     impl fmt::Debug for MemoryDecompressionMethodFlagBitsEXT {

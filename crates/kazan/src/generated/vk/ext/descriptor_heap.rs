@@ -1969,68 +1969,53 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SpirvResourceTypeFlagsEXT(Flags);
-    vk_bitflags_wrapped!(SpirvResourceTypeFlagsEXT, Flags);
+    vk_bitflags_wrapped!(
+        SpirvResourceTypeFlagsEXT,
+        Flags,
+        SpirvResourceTypeFlagBitsEXT
+    );
 
     impl SpirvResourceTypeFlagsEXT {
-        pub const SAMPLER_EXT: Self = Self(SpirvResourceTypeFlagBitsEXT::SAMPLER_EXT.0);
-        pub const SAMPLED_IMAGE_EXT: Self = Self(SpirvResourceTypeFlagBitsEXT::SAMPLED_IMAGE_EXT.0);
-        pub const READ_ONLY_IMAGE_EXT: Self =
-            Self(SpirvResourceTypeFlagBitsEXT::READ_ONLY_IMAGE_EXT.0);
-        pub const READ_WRITE_IMAGE_EXT: Self =
-            Self(SpirvResourceTypeFlagBitsEXT::READ_WRITE_IMAGE_EXT.0);
-        pub const COMBINED_SAMPLED_IMAGE_EXT: Self =
-            Self(SpirvResourceTypeFlagBitsEXT::COMBINED_SAMPLED_IMAGE_EXT.0);
-        pub const UNIFORM_BUFFER_EXT: Self =
-            Self(SpirvResourceTypeFlagBitsEXT::UNIFORM_BUFFER_EXT.0);
-        pub const READ_ONLY_STORAGE_BUFFER_EXT: Self =
-            Self(SpirvResourceTypeFlagBitsEXT::READ_ONLY_STORAGE_BUFFER_EXT.0);
-        pub const READ_WRITE_STORAGE_BUFFER_EXT: Self =
-            Self(SpirvResourceTypeFlagBitsEXT::READ_WRITE_STORAGE_BUFFER_EXT.0);
         pub const ALL: Self = Self(0x7FFFFFFF);
-
-        // VK_EXT_descriptor_heap
-        pub const ACCELERATION_STRUCTURE_EXT: Self =
-            Self(SpirvResourceTypeFlagBitsEXT::ACCELERATION_STRUCTURE_EXT.0);
-        pub const TENSOR_ARM: Self = Self(SpirvResourceTypeFlagBitsEXT::TENSOR_ARM.0);
     }
 
     impl fmt::Debug for SpirvResourceTypeFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (SpirvResourceTypeFlagsEXT::SAMPLER_EXT.0, "SAMPLER_EXT"),
+                (SpirvResourceTypeFlagBitsEXT::SAMPLER_EXT.0, "SAMPLER_EXT"),
                 (
-                    SpirvResourceTypeFlagsEXT::SAMPLED_IMAGE_EXT.0,
+                    SpirvResourceTypeFlagBitsEXT::SAMPLED_IMAGE_EXT.0,
                     "SAMPLED_IMAGE_EXT",
                 ),
                 (
-                    SpirvResourceTypeFlagsEXT::READ_ONLY_IMAGE_EXT.0,
+                    SpirvResourceTypeFlagBitsEXT::READ_ONLY_IMAGE_EXT.0,
                     "READ_ONLY_IMAGE_EXT",
                 ),
                 (
-                    SpirvResourceTypeFlagsEXT::READ_WRITE_IMAGE_EXT.0,
+                    SpirvResourceTypeFlagBitsEXT::READ_WRITE_IMAGE_EXT.0,
                     "READ_WRITE_IMAGE_EXT",
                 ),
                 (
-                    SpirvResourceTypeFlagsEXT::COMBINED_SAMPLED_IMAGE_EXT.0,
+                    SpirvResourceTypeFlagBitsEXT::COMBINED_SAMPLED_IMAGE_EXT.0,
                     "COMBINED_SAMPLED_IMAGE_EXT",
                 ),
                 (
-                    SpirvResourceTypeFlagsEXT::UNIFORM_BUFFER_EXT.0,
+                    SpirvResourceTypeFlagBitsEXT::UNIFORM_BUFFER_EXT.0,
                     "UNIFORM_BUFFER_EXT",
                 ),
                 (
-                    SpirvResourceTypeFlagsEXT::READ_ONLY_STORAGE_BUFFER_EXT.0,
+                    SpirvResourceTypeFlagBitsEXT::READ_ONLY_STORAGE_BUFFER_EXT.0,
                     "READ_ONLY_STORAGE_BUFFER_EXT",
                 ),
                 (
-                    SpirvResourceTypeFlagsEXT::READ_WRITE_STORAGE_BUFFER_EXT.0,
+                    SpirvResourceTypeFlagBitsEXT::READ_WRITE_STORAGE_BUFFER_EXT.0,
                     "READ_WRITE_STORAGE_BUFFER_EXT",
                 ),
                 (
-                    SpirvResourceTypeFlagsEXT::ACCELERATION_STRUCTURE_EXT.0,
+                    SpirvResourceTypeFlagBitsEXT::ACCELERATION_STRUCTURE_EXT.0,
                     "ACCELERATION_STRUCTURE_EXT",
                 ),
-                (SpirvResourceTypeFlagsEXT::TENSOR_ARM.0, "TENSOR_ARM"),
+                (SpirvResourceTypeFlagBitsEXT::TENSOR_ARM.0, "TENSOR_ARM"),
             ];
             debug_flags(f, KNOWN, self.0)
         }

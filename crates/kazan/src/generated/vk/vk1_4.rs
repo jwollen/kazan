@@ -4018,16 +4018,11 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct MemoryUnmapFlags(Flags);
-    vk_bitflags_wrapped!(MemoryUnmapFlags, Flags);
-
-    impl MemoryUnmapFlags {
-        // VK_EXT_map_memory_placed
-        pub const RESERVE_EXT: Self = Self(MemoryUnmapFlagBits::RESERVE_EXT.0);
-    }
+    vk_bitflags_wrapped!(MemoryUnmapFlags, Flags, MemoryUnmapFlagBits);
 
     impl fmt::Debug for MemoryUnmapFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-            const KNOWN: &[(Flags, &str)] = &[(MemoryUnmapFlags::RESERVE_EXT.0, "RESERVE_EXT")];
+            const KNOWN: &[(Flags, &str)] = &[(MemoryUnmapFlagBits::RESERVE_EXT.0, "RESERVE_EXT")];
             debug_flags(f, KNOWN, self.0)
         }
     }
@@ -4060,269 +4055,166 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineCreateFlags2(Flags64);
-    vk_bitflags_wrapped!(PipelineCreateFlags2, Flags64);
-
-    impl PipelineCreateFlags2 {
-        pub const DISABLE_OPTIMIZATION: Self =
-            Self(PipelineCreateFlagBits2::DISABLE_OPTIMIZATION.0);
-        pub const ALLOW_DERIVATIVES: Self = Self(PipelineCreateFlagBits2::ALLOW_DERIVATIVES.0);
-        pub const DERIVATIVE: Self = Self(PipelineCreateFlagBits2::DERIVATIVE.0);
-        pub const VIEW_INDEX_FROM_DEVICE_INDEX: Self =
-            Self(PipelineCreateFlagBits2::VIEW_INDEX_FROM_DEVICE_INDEX.0);
-        pub const DISPATCH_BASE: Self = Self(PipelineCreateFlagBits2::DISPATCH_BASE.0);
-        pub const FAIL_ON_PIPELINE_COMPILE_REQUIRED: Self =
-            Self(PipelineCreateFlagBits2::FAIL_ON_PIPELINE_COMPILE_REQUIRED.0);
-        pub const EARLY_RETURN_ON_FAILURE: Self =
-            Self(PipelineCreateFlagBits2::EARLY_RETURN_ON_FAILURE.0);
-        pub const NO_PROTECTED_ACCESS: Self = Self(PipelineCreateFlagBits2::NO_PROTECTED_ACCESS.0);
-        pub const PROTECTED_ACCESS_ONLY: Self =
-            Self(PipelineCreateFlagBits2::PROTECTED_ACCESS_ONLY.0);
-
-        // VK_AMDX_shader_enqueue
-        #[cfg(feature = "provisional")]
-        pub const EXECUTION_GRAPH_AMDX: Self =
-            Self(PipelineCreateFlagBits2::EXECUTION_GRAPH_AMDX.0);
-
-        // VK_ARM_pipeline_opacity_micromap
-        pub const DISALLOW_OPACITY_MICROMAP_ARM: Self =
-            Self(PipelineCreateFlagBits2::DISALLOW_OPACITY_MICROMAP_ARM.0);
-
-        // VK_ARM_shader_instrumentation
-        pub const INSTRUMENT_SHADERS_ARM: Self =
-            Self(PipelineCreateFlagBits2::INSTRUMENT_SHADERS_ARM.0);
-
-        // VK_EXT_descriptor_heap
-        pub const DESCRIPTOR_HEAP_EXT: Self = Self(PipelineCreateFlagBits2::DESCRIPTOR_HEAP_EXT.0);
-
-        // VK_EXT_device_generated_commands
-        pub const INDIRECT_BINDABLE_EXT: Self =
-            Self(PipelineCreateFlagBits2::INDIRECT_BINDABLE_EXT.0);
-
-        // VK_EXT_legacy_dithering
-        pub const ENABLE_LEGACY_DITHERING_EXT: Self =
-            Self(PipelineCreateFlagBits2::ENABLE_LEGACY_DITHERING_EXT.0);
-
-        // VK_EXT_shader_64bit_indexing
-        pub const _64_INDEXING_EXT: Self = Self(PipelineCreateFlagBits2::_64_INDEXING_EXT.0);
-
-        // VK_KHR_maintenance5
-        pub const DEFER_COMPILE_NV: Self = Self(PipelineCreateFlagBits2::DEFER_COMPILE_NV.0);
-        pub const CAPTURE_STATISTICS_KHR: Self =
-            Self(PipelineCreateFlagBits2::CAPTURE_STATISTICS_KHR.0);
-        pub const CAPTURE_INTERNAL_REPRESENTATIONS_KHR: Self =
-            Self(PipelineCreateFlagBits2::CAPTURE_INTERNAL_REPRESENTATIONS_KHR.0);
-        pub const LINK_TIME_OPTIMIZATION_EXT: Self =
-            Self(PipelineCreateFlagBits2::LINK_TIME_OPTIMIZATION_EXT.0);
-        pub const LIBRARY_KHR: Self = Self(PipelineCreateFlagBits2::LIBRARY_KHR.0);
-        pub const RAY_TRACING_SKIP_TRIANGLES_KHR: Self =
-            Self(PipelineCreateFlagBits2::RAY_TRACING_SKIP_TRIANGLES_KHR.0);
-        pub const RAY_TRACING_SKIP_AABBS_KHR: Self =
-            Self(PipelineCreateFlagBits2::RAY_TRACING_SKIP_AABBS_KHR.0);
-        pub const RAY_TRACING_NO_NULL_ANY_HIT_SHADERS_KHR: Self =
-            Self(PipelineCreateFlagBits2::RAY_TRACING_NO_NULL_ANY_HIT_SHADERS_KHR.0);
-        pub const RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_KHR: Self =
-            Self(PipelineCreateFlagBits2::RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_KHR.0);
-        pub const RAY_TRACING_NO_NULL_MISS_SHADERS_KHR: Self =
-            Self(PipelineCreateFlagBits2::RAY_TRACING_NO_NULL_MISS_SHADERS_KHR.0);
-        pub const RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_KHR: Self =
-            Self(PipelineCreateFlagBits2::RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_KHR.0);
-        pub const INDIRECT_BINDABLE_NV: Self =
-            Self(PipelineCreateFlagBits2::INDIRECT_BINDABLE_NV.0);
-        pub const RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_KHR: Self =
-            Self(PipelineCreateFlagBits2::RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_KHR.0);
-        pub const RAY_TRACING_ALLOW_MOTION_NV: Self =
-            Self(PipelineCreateFlagBits2::RAY_TRACING_ALLOW_MOTION_NV.0);
-        pub const RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self =
-            Self(PipelineCreateFlagBits2::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0);
-        pub const RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT: Self =
-            Self(PipelineCreateFlagBits2::RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT.0);
-        pub const RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT: Self =
-            Self(PipelineCreateFlagBits2::RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT.0);
-        pub const RAY_TRACING_OPACITY_MICROMAP_EXT: Self =
-            Self(PipelineCreateFlagBits2::RAY_TRACING_OPACITY_MICROMAP_EXT.0);
-        pub const COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT: Self =
-            Self(PipelineCreateFlagBits2::COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT.0);
-        pub const DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT: Self =
-            Self(PipelineCreateFlagBits2::DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT.0);
-        pub const RAY_TRACING_DISPLACEMENT_MICROMAP_NV: Self =
-            Self(PipelineCreateFlagBits2::RAY_TRACING_DISPLACEMENT_MICROMAP_NV.0);
-        pub const DESCRIPTOR_BUFFER_EXT: Self =
-            Self(PipelineCreateFlagBits2::DESCRIPTOR_BUFFER_EXT.0);
-        pub const DISABLE_OPTIMIZATION_KHR: Self = Self::DISABLE_OPTIMIZATION;
-        pub const ALLOW_DERIVATIVES_KHR: Self = Self::ALLOW_DERIVATIVES;
-        pub const DERIVATIVE_KHR: Self = Self::DERIVATIVE;
-        pub const VIEW_INDEX_FROM_DEVICE_INDEX_KHR: Self = Self::VIEW_INDEX_FROM_DEVICE_INDEX;
-        pub const DISPATCH_BASE_KHR: Self = Self::DISPATCH_BASE;
-        pub const FAIL_ON_PIPELINE_COMPILE_REQUIRED_KHR: Self =
-            Self::FAIL_ON_PIPELINE_COMPILE_REQUIRED;
-        pub const EARLY_RETURN_ON_FAILURE_KHR: Self = Self::EARLY_RETURN_ON_FAILURE;
-        pub const NO_PROTECTED_ACCESS_EXT: Self = Self::NO_PROTECTED_ACCESS;
-        pub const PROTECTED_ACCESS_ONLY_EXT: Self = Self::PROTECTED_ACCESS_ONLY;
-
-        // VK_KHR_pipeline_binary
-        pub const CAPTURE_DATA_KHR: Self = Self(PipelineCreateFlagBits2::CAPTURE_DATA_KHR.0);
-
-        // VK_KHR_ray_tracing_pipeline
-        pub const RAY_TRACING_SKIP_BUILT_IN_PRIMITIVES_KHR: Self =
-            Self::RAY_TRACING_SKIP_TRIANGLES_KHR;
-
-        // VK_NV_ray_tracing_linear_swept_spheres
-        pub const RAY_TRACING_ALLOW_SPHERES_AND_LINEAR_SWEPT_SPHERES_NV: Self =
-            Self(PipelineCreateFlagBits2::RAY_TRACING_ALLOW_SPHERES_AND_LINEAR_SWEPT_SPHERES_NV.0);
-
-        // VK_VALVE_fragment_density_map_layered
-        pub const PER_LAYER_FRAGMENT_DENSITY_VALVE: Self =
-            Self(PipelineCreateFlagBits2::PER_LAYER_FRAGMENT_DENSITY_VALVE.0);
-    }
+    vk_bitflags_wrapped!(PipelineCreateFlags2, Flags64, PipelineCreateFlagBits2);
 
     impl fmt::Debug for PipelineCreateFlags2 {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags64, &str)] = &[
                 (
-                    PipelineCreateFlags2::DISABLE_OPTIMIZATION.0,
+                    PipelineCreateFlagBits2::DISABLE_OPTIMIZATION.0,
                     "DISABLE_OPTIMIZATION",
                 ),
                 (
-                    PipelineCreateFlags2::ALLOW_DERIVATIVES.0,
+                    PipelineCreateFlagBits2::ALLOW_DERIVATIVES.0,
                     "ALLOW_DERIVATIVES",
                 ),
-                (PipelineCreateFlags2::DERIVATIVE.0, "DERIVATIVE"),
+                (PipelineCreateFlagBits2::DERIVATIVE.0, "DERIVATIVE"),
                 (
-                    PipelineCreateFlags2::VIEW_INDEX_FROM_DEVICE_INDEX.0,
+                    PipelineCreateFlagBits2::VIEW_INDEX_FROM_DEVICE_INDEX.0,
                     "VIEW_INDEX_FROM_DEVICE_INDEX",
                 ),
-                (PipelineCreateFlags2::DISPATCH_BASE.0, "DISPATCH_BASE"),
+                (PipelineCreateFlagBits2::DISPATCH_BASE.0, "DISPATCH_BASE"),
                 (
-                    PipelineCreateFlags2::FAIL_ON_PIPELINE_COMPILE_REQUIRED.0,
+                    PipelineCreateFlagBits2::FAIL_ON_PIPELINE_COMPILE_REQUIRED.0,
                     "FAIL_ON_PIPELINE_COMPILE_REQUIRED",
                 ),
                 (
-                    PipelineCreateFlags2::EARLY_RETURN_ON_FAILURE.0,
+                    PipelineCreateFlagBits2::EARLY_RETURN_ON_FAILURE.0,
                     "EARLY_RETURN_ON_FAILURE",
                 ),
                 (
-                    PipelineCreateFlags2::NO_PROTECTED_ACCESS.0,
+                    PipelineCreateFlagBits2::NO_PROTECTED_ACCESS.0,
                     "NO_PROTECTED_ACCESS",
                 ),
                 (
-                    PipelineCreateFlags2::PROTECTED_ACCESS_ONLY.0,
+                    PipelineCreateFlagBits2::PROTECTED_ACCESS_ONLY.0,
                     "PROTECTED_ACCESS_ONLY",
                 ),
                 #[cfg(feature = "provisional")]
                 (
-                    PipelineCreateFlags2::EXECUTION_GRAPH_AMDX.0,
+                    PipelineCreateFlagBits2::EXECUTION_GRAPH_AMDX.0,
                     "EXECUTION_GRAPH_AMDX",
                 ),
                 (
-                    PipelineCreateFlags2::DISALLOW_OPACITY_MICROMAP_ARM.0,
+                    PipelineCreateFlagBits2::DISALLOW_OPACITY_MICROMAP_ARM.0,
                     "DISALLOW_OPACITY_MICROMAP_ARM",
                 ),
                 (
-                    PipelineCreateFlags2::INSTRUMENT_SHADERS_ARM.0,
+                    PipelineCreateFlagBits2::INSTRUMENT_SHADERS_ARM.0,
                     "INSTRUMENT_SHADERS_ARM",
                 ),
                 (
-                    PipelineCreateFlags2::DESCRIPTOR_HEAP_EXT.0,
+                    PipelineCreateFlagBits2::DESCRIPTOR_HEAP_EXT.0,
                     "DESCRIPTOR_HEAP_EXT",
                 ),
                 (
-                    PipelineCreateFlags2::INDIRECT_BINDABLE_EXT.0,
+                    PipelineCreateFlagBits2::INDIRECT_BINDABLE_EXT.0,
                     "INDIRECT_BINDABLE_EXT",
                 ),
                 (
-                    PipelineCreateFlags2::ENABLE_LEGACY_DITHERING_EXT.0,
+                    PipelineCreateFlagBits2::ENABLE_LEGACY_DITHERING_EXT.0,
                     "ENABLE_LEGACY_DITHERING_EXT",
                 ),
-                (PipelineCreateFlags2::_64_INDEXING_EXT.0, "_64_INDEXING_EXT"),
-                (PipelineCreateFlags2::DEFER_COMPILE_NV.0, "DEFER_COMPILE_NV"),
                 (
-                    PipelineCreateFlags2::CAPTURE_STATISTICS_KHR.0,
+                    PipelineCreateFlagBits2::_64_INDEXING_EXT.0,
+                    "_64_INDEXING_EXT",
+                ),
+                (
+                    PipelineCreateFlagBits2::DEFER_COMPILE_NV.0,
+                    "DEFER_COMPILE_NV",
+                ),
+                (
+                    PipelineCreateFlagBits2::CAPTURE_STATISTICS_KHR.0,
                     "CAPTURE_STATISTICS_KHR",
                 ),
                 (
-                    PipelineCreateFlags2::CAPTURE_INTERNAL_REPRESENTATIONS_KHR.0,
+                    PipelineCreateFlagBits2::CAPTURE_INTERNAL_REPRESENTATIONS_KHR.0,
                     "CAPTURE_INTERNAL_REPRESENTATIONS_KHR",
                 ),
                 (
-                    PipelineCreateFlags2::LINK_TIME_OPTIMIZATION_EXT.0,
+                    PipelineCreateFlagBits2::LINK_TIME_OPTIMIZATION_EXT.0,
                     "LINK_TIME_OPTIMIZATION_EXT",
                 ),
-                (PipelineCreateFlags2::LIBRARY_KHR.0, "LIBRARY_KHR"),
+                (PipelineCreateFlagBits2::LIBRARY_KHR.0, "LIBRARY_KHR"),
                 (
-                    PipelineCreateFlags2::RAY_TRACING_SKIP_TRIANGLES_KHR.0,
+                    PipelineCreateFlagBits2::RAY_TRACING_SKIP_TRIANGLES_KHR.0,
                     "RAY_TRACING_SKIP_TRIANGLES_KHR",
                 ),
                 (
-                    PipelineCreateFlags2::RAY_TRACING_SKIP_AABBS_KHR.0,
+                    PipelineCreateFlagBits2::RAY_TRACING_SKIP_AABBS_KHR.0,
                     "RAY_TRACING_SKIP_AABBS_KHR",
                 ),
                 (
-                    PipelineCreateFlags2::RAY_TRACING_NO_NULL_ANY_HIT_SHADERS_KHR.0,
+                    PipelineCreateFlagBits2::RAY_TRACING_NO_NULL_ANY_HIT_SHADERS_KHR.0,
                     "RAY_TRACING_NO_NULL_ANY_HIT_SHADERS_KHR",
                 ),
                 (
-                    PipelineCreateFlags2::RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_KHR.0,
+                    PipelineCreateFlagBits2::RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_KHR.0,
                     "RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_KHR",
                 ),
                 (
-                    PipelineCreateFlags2::RAY_TRACING_NO_NULL_MISS_SHADERS_KHR.0,
+                    PipelineCreateFlagBits2::RAY_TRACING_NO_NULL_MISS_SHADERS_KHR.0,
                     "RAY_TRACING_NO_NULL_MISS_SHADERS_KHR",
                 ),
                 (
-                    PipelineCreateFlags2::RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_KHR.0,
+                    PipelineCreateFlagBits2::RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_KHR.0,
                     "RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_KHR",
                 ),
                 (
-                    PipelineCreateFlags2::INDIRECT_BINDABLE_NV.0,
+                    PipelineCreateFlagBits2::INDIRECT_BINDABLE_NV.0,
                     "INDIRECT_BINDABLE_NV",
                 ),
                 (
-                    PipelineCreateFlags2::RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_KHR.0,
+                    PipelineCreateFlagBits2::RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_KHR.0,
                     "RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_KHR",
                 ),
                 (
-                    PipelineCreateFlags2::RAY_TRACING_ALLOW_MOTION_NV.0,
+                    PipelineCreateFlagBits2::RAY_TRACING_ALLOW_MOTION_NV.0,
                     "RAY_TRACING_ALLOW_MOTION_NV",
                 ),
                 (
-                    PipelineCreateFlags2::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0,
+                    PipelineCreateFlagBits2::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0,
                     "RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR",
                 ),
                 (
-                    PipelineCreateFlags2::RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT.0,
+                    PipelineCreateFlagBits2::RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT.0,
                     "RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT",
                 ),
                 (
-                    PipelineCreateFlags2::RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT.0,
+                    PipelineCreateFlagBits2::RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT.0,
                     "RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT",
                 ),
                 (
-                    PipelineCreateFlags2::RAY_TRACING_OPACITY_MICROMAP_EXT.0,
+                    PipelineCreateFlagBits2::RAY_TRACING_OPACITY_MICROMAP_EXT.0,
                     "RAY_TRACING_OPACITY_MICROMAP_EXT",
                 ),
                 (
-                    PipelineCreateFlags2::COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT.0,
+                    PipelineCreateFlagBits2::COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT.0,
                     "COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT",
                 ),
                 (
-                    PipelineCreateFlags2::DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT.0,
+                    PipelineCreateFlagBits2::DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT.0,
                     "DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT",
                 ),
                 (
-                    PipelineCreateFlags2::RAY_TRACING_DISPLACEMENT_MICROMAP_NV.0,
+                    PipelineCreateFlagBits2::RAY_TRACING_DISPLACEMENT_MICROMAP_NV.0,
                     "RAY_TRACING_DISPLACEMENT_MICROMAP_NV",
                 ),
                 (
-                    PipelineCreateFlags2::DESCRIPTOR_BUFFER_EXT.0,
+                    PipelineCreateFlagBits2::DESCRIPTOR_BUFFER_EXT.0,
                     "DESCRIPTOR_BUFFER_EXT",
                 ),
-                (PipelineCreateFlags2::CAPTURE_DATA_KHR.0, "CAPTURE_DATA_KHR"),
                 (
-                    PipelineCreateFlags2::RAY_TRACING_ALLOW_SPHERES_AND_LINEAR_SWEPT_SPHERES_NV.0,
+                    PipelineCreateFlagBits2::CAPTURE_DATA_KHR.0,
+                    "CAPTURE_DATA_KHR",
+                ),
+                (
+                    PipelineCreateFlagBits2::RAY_TRACING_ALLOW_SPHERES_AND_LINEAR_SWEPT_SPHERES_NV
+                        .0,
                     "RAY_TRACING_ALLOW_SPHERES_AND_LINEAR_SWEPT_SPHERES_NV",
                 ),
                 (
-                    PipelineCreateFlags2::PER_LAYER_FRAGMENT_DENSITY_VALVE.0,
+                    PipelineCreateFlagBits2::PER_LAYER_FRAGMENT_DENSITY_VALVE.0,
                     "PER_LAYER_FRAGMENT_DENSITY_VALVE",
                 ),
             ];
@@ -4502,195 +4394,115 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct BufferUsageFlags2(Flags64);
-    vk_bitflags_wrapped!(BufferUsageFlags2, Flags64);
-
-    impl BufferUsageFlags2 {
-        pub const TRANSFER_SRC: Self = Self(BufferUsageFlagBits2::TRANSFER_SRC.0);
-        pub const TRANSFER_DST: Self = Self(BufferUsageFlagBits2::TRANSFER_DST.0);
-        pub const UNIFORM_TEXEL_BUFFER: Self = Self(BufferUsageFlagBits2::UNIFORM_TEXEL_BUFFER.0);
-        pub const STORAGE_TEXEL_BUFFER: Self = Self(BufferUsageFlagBits2::STORAGE_TEXEL_BUFFER.0);
-        pub const UNIFORM_BUFFER: Self = Self(BufferUsageFlagBits2::UNIFORM_BUFFER.0);
-        pub const STORAGE_BUFFER: Self = Self(BufferUsageFlagBits2::STORAGE_BUFFER.0);
-        pub const INDEX_BUFFER: Self = Self(BufferUsageFlagBits2::INDEX_BUFFER.0);
-        pub const VERTEX_BUFFER: Self = Self(BufferUsageFlagBits2::VERTEX_BUFFER.0);
-        pub const INDIRECT_BUFFER: Self = Self(BufferUsageFlagBits2::INDIRECT_BUFFER.0);
-
-        // VK_AMDX_dense_geometry_format
-        #[cfg(feature = "provisional")]
-        pub const COMPRESSED_DATA_DGF1_AMDX: Self =
-            Self(BufferUsageFlagBits2::COMPRESSED_DATA_DGF1_AMDX.0);
-
-        // VK_AMDX_shader_enqueue
-        #[cfg(feature = "provisional")]
-        pub const EXECUTION_GRAPH_SCRATCH_AMDX: Self =
-            Self(BufferUsageFlagBits2::EXECUTION_GRAPH_SCRATCH_AMDX.0);
-
-        // VK_ARM_data_graph
-        pub const DATA_GRAPH_FOREIGN_DESCRIPTOR_ARM: Self =
-            Self(BufferUsageFlagBits2::DATA_GRAPH_FOREIGN_DESCRIPTOR_ARM.0);
-
-        // VK_EXT_descriptor_heap
-        pub const DESCRIPTOR_HEAP_EXT: Self = Self(BufferUsageFlagBits2::DESCRIPTOR_HEAP_EXT.0);
-
-        // VK_EXT_device_generated_commands
-        pub const PREPROCESS_BUFFER_EXT: Self = Self(BufferUsageFlagBits2::PREPROCESS_BUFFER_EXT.0);
-
-        // VK_EXT_memory_decompression
-        pub const MEMORY_DECOMPRESSION_EXT: Self =
-            Self(BufferUsageFlagBits2::MEMORY_DECOMPRESSION_EXT.0);
-
-        // VK_KHR_maintenance5
-        pub const CONDITIONAL_RENDERING_EXT: Self =
-            Self(BufferUsageFlagBits2::CONDITIONAL_RENDERING_EXT.0);
-        pub const SHADER_BINDING_TABLE_KHR: Self =
-            Self(BufferUsageFlagBits2::SHADER_BINDING_TABLE_KHR.0);
-        pub const TRANSFORM_FEEDBACK_BUFFER_EXT: Self =
-            Self(BufferUsageFlagBits2::TRANSFORM_FEEDBACK_BUFFER_EXT.0);
-        pub const TRANSFORM_FEEDBACK_COUNTER_BUFFER_EXT: Self =
-            Self(BufferUsageFlagBits2::TRANSFORM_FEEDBACK_COUNTER_BUFFER_EXT.0);
-        pub const VIDEO_DECODE_SRC_KHR: Self = Self(BufferUsageFlagBits2::VIDEO_DECODE_SRC_KHR.0);
-        pub const VIDEO_DECODE_DST_KHR: Self = Self(BufferUsageFlagBits2::VIDEO_DECODE_DST_KHR.0);
-        pub const VIDEO_ENCODE_DST_KHR: Self = Self(BufferUsageFlagBits2::VIDEO_ENCODE_DST_KHR.0);
-        pub const VIDEO_ENCODE_SRC_KHR: Self = Self(BufferUsageFlagBits2::VIDEO_ENCODE_SRC_KHR.0);
-        pub const ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR: Self =
-            Self(BufferUsageFlagBits2::ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR.0);
-        pub const ACCELERATION_STRUCTURE_STORAGE_KHR: Self =
-            Self(BufferUsageFlagBits2::ACCELERATION_STRUCTURE_STORAGE_KHR.0);
-        pub const SAMPLER_DESCRIPTOR_BUFFER_EXT: Self =
-            Self(BufferUsageFlagBits2::SAMPLER_DESCRIPTOR_BUFFER_EXT.0);
-        pub const RESOURCE_DESCRIPTOR_BUFFER_EXT: Self =
-            Self(BufferUsageFlagBits2::RESOURCE_DESCRIPTOR_BUFFER_EXT.0);
-        pub const MICROMAP_BUILD_INPUT_READ_ONLY_EXT: Self =
-            Self(BufferUsageFlagBits2::MICROMAP_BUILD_INPUT_READ_ONLY_EXT.0);
-        pub const MICROMAP_STORAGE_EXT: Self = Self(BufferUsageFlagBits2::MICROMAP_STORAGE_EXT.0);
-        pub const PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT: Self =
-            Self(BufferUsageFlagBits2::PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT.0);
-        pub const TRANSFER_SRC_KHR: Self = Self::TRANSFER_SRC;
-        pub const TRANSFER_DST_KHR: Self = Self::TRANSFER_DST;
-        pub const UNIFORM_TEXEL_BUFFER_KHR: Self = Self::UNIFORM_TEXEL_BUFFER;
-        pub const STORAGE_TEXEL_BUFFER_KHR: Self = Self::STORAGE_TEXEL_BUFFER;
-        pub const UNIFORM_BUFFER_KHR: Self = Self::UNIFORM_BUFFER;
-        pub const STORAGE_BUFFER_KHR: Self = Self::STORAGE_BUFFER;
-        pub const INDEX_BUFFER_KHR: Self = Self::INDEX_BUFFER;
-        pub const VERTEX_BUFFER_KHR: Self = Self::VERTEX_BUFFER;
-        pub const INDIRECT_BUFFER_KHR: Self = Self::INDIRECT_BUFFER;
-        pub const RAY_TRACING_NV: Self = Self::SHADER_BINDING_TABLE_KHR;
-        pub const SHADER_DEVICE_ADDRESS_KHR: Self = Self::SHADER_DEVICE_ADDRESS;
-
-        // VK_QCOM_tile_memory_heap
-        pub const TILE_MEMORY_QCOM: Self = Self(BufferUsageFlagBits2::TILE_MEMORY_QCOM.0);
-
-        // VK_VERSION_1_4
-        pub const SHADER_DEVICE_ADDRESS: Self = Self(BufferUsageFlagBits2::SHADER_DEVICE_ADDRESS.0);
-    }
+    vk_bitflags_wrapped!(BufferUsageFlags2, Flags64, BufferUsageFlagBits2);
 
     impl fmt::Debug for BufferUsageFlags2 {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags64, &str)] = &[
-                (BufferUsageFlags2::TRANSFER_SRC.0, "TRANSFER_SRC"),
-                (BufferUsageFlags2::TRANSFER_DST.0, "TRANSFER_DST"),
+                (BufferUsageFlagBits2::TRANSFER_SRC.0, "TRANSFER_SRC"),
+                (BufferUsageFlagBits2::TRANSFER_DST.0, "TRANSFER_DST"),
                 (
-                    BufferUsageFlags2::UNIFORM_TEXEL_BUFFER.0,
+                    BufferUsageFlagBits2::UNIFORM_TEXEL_BUFFER.0,
                     "UNIFORM_TEXEL_BUFFER",
                 ),
                 (
-                    BufferUsageFlags2::STORAGE_TEXEL_BUFFER.0,
+                    BufferUsageFlagBits2::STORAGE_TEXEL_BUFFER.0,
                     "STORAGE_TEXEL_BUFFER",
                 ),
-                (BufferUsageFlags2::UNIFORM_BUFFER.0, "UNIFORM_BUFFER"),
-                (BufferUsageFlags2::STORAGE_BUFFER.0, "STORAGE_BUFFER"),
-                (BufferUsageFlags2::INDEX_BUFFER.0, "INDEX_BUFFER"),
-                (BufferUsageFlags2::VERTEX_BUFFER.0, "VERTEX_BUFFER"),
-                (BufferUsageFlags2::INDIRECT_BUFFER.0, "INDIRECT_BUFFER"),
+                (BufferUsageFlagBits2::UNIFORM_BUFFER.0, "UNIFORM_BUFFER"),
+                (BufferUsageFlagBits2::STORAGE_BUFFER.0, "STORAGE_BUFFER"),
+                (BufferUsageFlagBits2::INDEX_BUFFER.0, "INDEX_BUFFER"),
+                (BufferUsageFlagBits2::VERTEX_BUFFER.0, "VERTEX_BUFFER"),
+                (BufferUsageFlagBits2::INDIRECT_BUFFER.0, "INDIRECT_BUFFER"),
                 #[cfg(feature = "provisional")]
                 (
-                    BufferUsageFlags2::COMPRESSED_DATA_DGF1_AMDX.0,
+                    BufferUsageFlagBits2::COMPRESSED_DATA_DGF1_AMDX.0,
                     "COMPRESSED_DATA_DGF1_AMDX",
                 ),
                 #[cfg(feature = "provisional")]
                 (
-                    BufferUsageFlags2::EXECUTION_GRAPH_SCRATCH_AMDX.0,
+                    BufferUsageFlagBits2::EXECUTION_GRAPH_SCRATCH_AMDX.0,
                     "EXECUTION_GRAPH_SCRATCH_AMDX",
                 ),
                 (
-                    BufferUsageFlags2::DATA_GRAPH_FOREIGN_DESCRIPTOR_ARM.0,
+                    BufferUsageFlagBits2::DATA_GRAPH_FOREIGN_DESCRIPTOR_ARM.0,
                     "DATA_GRAPH_FOREIGN_DESCRIPTOR_ARM",
                 ),
                 (
-                    BufferUsageFlags2::DESCRIPTOR_HEAP_EXT.0,
+                    BufferUsageFlagBits2::DESCRIPTOR_HEAP_EXT.0,
                     "DESCRIPTOR_HEAP_EXT",
                 ),
                 (
-                    BufferUsageFlags2::PREPROCESS_BUFFER_EXT.0,
+                    BufferUsageFlagBits2::PREPROCESS_BUFFER_EXT.0,
                     "PREPROCESS_BUFFER_EXT",
                 ),
                 (
-                    BufferUsageFlags2::MEMORY_DECOMPRESSION_EXT.0,
+                    BufferUsageFlagBits2::MEMORY_DECOMPRESSION_EXT.0,
                     "MEMORY_DECOMPRESSION_EXT",
                 ),
                 (
-                    BufferUsageFlags2::CONDITIONAL_RENDERING_EXT.0,
+                    BufferUsageFlagBits2::CONDITIONAL_RENDERING_EXT.0,
                     "CONDITIONAL_RENDERING_EXT",
                 ),
                 (
-                    BufferUsageFlags2::SHADER_BINDING_TABLE_KHR.0,
+                    BufferUsageFlagBits2::SHADER_BINDING_TABLE_KHR.0,
                     "SHADER_BINDING_TABLE_KHR",
                 ),
                 (
-                    BufferUsageFlags2::TRANSFORM_FEEDBACK_BUFFER_EXT.0,
+                    BufferUsageFlagBits2::TRANSFORM_FEEDBACK_BUFFER_EXT.0,
                     "TRANSFORM_FEEDBACK_BUFFER_EXT",
                 ),
                 (
-                    BufferUsageFlags2::TRANSFORM_FEEDBACK_COUNTER_BUFFER_EXT.0,
+                    BufferUsageFlagBits2::TRANSFORM_FEEDBACK_COUNTER_BUFFER_EXT.0,
                     "TRANSFORM_FEEDBACK_COUNTER_BUFFER_EXT",
                 ),
                 (
-                    BufferUsageFlags2::VIDEO_DECODE_SRC_KHR.0,
+                    BufferUsageFlagBits2::VIDEO_DECODE_SRC_KHR.0,
                     "VIDEO_DECODE_SRC_KHR",
                 ),
                 (
-                    BufferUsageFlags2::VIDEO_DECODE_DST_KHR.0,
+                    BufferUsageFlagBits2::VIDEO_DECODE_DST_KHR.0,
                     "VIDEO_DECODE_DST_KHR",
                 ),
                 (
-                    BufferUsageFlags2::VIDEO_ENCODE_DST_KHR.0,
+                    BufferUsageFlagBits2::VIDEO_ENCODE_DST_KHR.0,
                     "VIDEO_ENCODE_DST_KHR",
                 ),
                 (
-                    BufferUsageFlags2::VIDEO_ENCODE_SRC_KHR.0,
+                    BufferUsageFlagBits2::VIDEO_ENCODE_SRC_KHR.0,
                     "VIDEO_ENCODE_SRC_KHR",
                 ),
                 (
-                    BufferUsageFlags2::ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR.0,
+                    BufferUsageFlagBits2::ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR.0,
                     "ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR",
                 ),
                 (
-                    BufferUsageFlags2::ACCELERATION_STRUCTURE_STORAGE_KHR.0,
+                    BufferUsageFlagBits2::ACCELERATION_STRUCTURE_STORAGE_KHR.0,
                     "ACCELERATION_STRUCTURE_STORAGE_KHR",
                 ),
                 (
-                    BufferUsageFlags2::SAMPLER_DESCRIPTOR_BUFFER_EXT.0,
+                    BufferUsageFlagBits2::SAMPLER_DESCRIPTOR_BUFFER_EXT.0,
                     "SAMPLER_DESCRIPTOR_BUFFER_EXT",
                 ),
                 (
-                    BufferUsageFlags2::RESOURCE_DESCRIPTOR_BUFFER_EXT.0,
+                    BufferUsageFlagBits2::RESOURCE_DESCRIPTOR_BUFFER_EXT.0,
                     "RESOURCE_DESCRIPTOR_BUFFER_EXT",
                 ),
                 (
-                    BufferUsageFlags2::MICROMAP_BUILD_INPUT_READ_ONLY_EXT.0,
+                    BufferUsageFlagBits2::MICROMAP_BUILD_INPUT_READ_ONLY_EXT.0,
                     "MICROMAP_BUILD_INPUT_READ_ONLY_EXT",
                 ),
                 (
-                    BufferUsageFlags2::MICROMAP_STORAGE_EXT.0,
+                    BufferUsageFlagBits2::MICROMAP_STORAGE_EXT.0,
                     "MICROMAP_STORAGE_EXT",
                 ),
                 (
-                    BufferUsageFlags2::PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT.0,
+                    BufferUsageFlagBits2::PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT.0,
                     "PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT",
                 ),
-                (BufferUsageFlags2::TILE_MEMORY_QCOM.0, "TILE_MEMORY_QCOM"),
+                (BufferUsageFlagBits2::TILE_MEMORY_QCOM.0, "TILE_MEMORY_QCOM"),
                 (
-                    BufferUsageFlags2::SHADER_DEVICE_ADDRESS.0,
+                    BufferUsageFlagBits2::SHADER_DEVICE_ADDRESS.0,
                     "SHADER_DEVICE_ADDRESS",
                 ),
             ];
@@ -4831,18 +4643,11 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct HostImageCopyFlags(Flags);
-    vk_bitflags_wrapped!(HostImageCopyFlags, Flags);
-
-    impl HostImageCopyFlags {
-        pub const MEMCPY: Self = Self(HostImageCopyFlagBits::MEMCPY.0);
-
-        // VK_EXT_host_image_copy
-        pub const MEMCPY_EXT: Self = Self::MEMCPY;
-    }
+    vk_bitflags_wrapped!(HostImageCopyFlags, Flags, HostImageCopyFlagBits);
 
     impl fmt::Debug for HostImageCopyFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-            const KNOWN: &[(Flags, &str)] = &[(HostImageCopyFlags::MEMCPY.0, "MEMCPY")];
+            const KNOWN: &[(Flags, &str)] = &[(HostImageCopyFlagBits::MEMCPY.0, "MEMCPY")];
             debug_flags(f, KNOWN, self.0)
         }
     }

@@ -79,9 +79,11 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ShaderCorePropertiesFlagsAMD(Flags);
-    vk_bitflags_wrapped!(ShaderCorePropertiesFlagsAMD, Flags);
-
-    impl ShaderCorePropertiesFlagsAMD {}
+    vk_bitflags_wrapped!(
+        ShaderCorePropertiesFlagsAMD,
+        Flags,
+        ShaderCorePropertiesFlagBitsAMD
+    );
 
     impl fmt::Debug for ShaderCorePropertiesFlagsAMD {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {

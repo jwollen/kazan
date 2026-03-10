@@ -281,7 +281,8 @@ mod tests {
         assert_eq!(
             format!(
                 "{:?}",
-                vk::AccessFlags::INDIRECT_COMMAND_READ | vk::AccessFlags::VERTEX_ATTRIBUTE_READ
+                vk::AccessFlagBits::INDIRECT_COMMAND_READ
+                    | vk::AccessFlagBits::VERTEX_ATTRIBUTE_READ
             ),
             "INDIRECT_COMMAND_READ | VERTEX_ATTRIBUTE_READ"
         );

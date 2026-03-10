@@ -226,12 +226,9 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoDecodeUsageFlagsKHR(Flags);
-    vk_bitflags_wrapped!(VideoDecodeUsageFlagsKHR, Flags);
+    vk_bitflags_wrapped!(VideoDecodeUsageFlagsKHR, Flags, VideoDecodeUsageFlagBitsKHR);
 
     impl VideoDecodeUsageFlagsKHR {
-        pub const TRANSCODING_KHR: Self = Self(VideoDecodeUsageFlagBitsKHR::TRANSCODING_KHR.0);
-        pub const OFFLINE_KHR: Self = Self(VideoDecodeUsageFlagBitsKHR::OFFLINE_KHR.0);
-        pub const STREAMING_KHR: Self = Self(VideoDecodeUsageFlagBitsKHR::STREAMING_KHR.0);
         pub const DEFAULT: Self = Self(0);
     }
 
@@ -239,11 +236,14 @@ pub(super) mod defs {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    VideoDecodeUsageFlagsKHR::TRANSCODING_KHR.0,
+                    VideoDecodeUsageFlagBitsKHR::TRANSCODING_KHR.0,
                     "TRANSCODING_KHR",
                 ),
-                (VideoDecodeUsageFlagsKHR::OFFLINE_KHR.0, "OFFLINE_KHR"),
-                (VideoDecodeUsageFlagsKHR::STREAMING_KHR.0, "STREAMING_KHR"),
+                (VideoDecodeUsageFlagBitsKHR::OFFLINE_KHR.0, "OFFLINE_KHR"),
+                (
+                    VideoDecodeUsageFlagBitsKHR::STREAMING_KHR.0,
+                    "STREAMING_KHR",
+                ),
             ];
             debug_flags(f, KNOWN, self.0)
         }
@@ -280,24 +280,21 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoDecodeCapabilityFlagsKHR(Flags);
-    vk_bitflags_wrapped!(VideoDecodeCapabilityFlagsKHR, Flags);
-
-    impl VideoDecodeCapabilityFlagsKHR {
-        pub const DPB_AND_OUTPUT_COINCIDE_KHR: Self =
-            Self(VideoDecodeCapabilityFlagBitsKHR::DPB_AND_OUTPUT_COINCIDE_KHR.0);
-        pub const DPB_AND_OUTPUT_DISTINCT_KHR: Self =
-            Self(VideoDecodeCapabilityFlagBitsKHR::DPB_AND_OUTPUT_DISTINCT_KHR.0);
-    }
+    vk_bitflags_wrapped!(
+        VideoDecodeCapabilityFlagsKHR,
+        Flags,
+        VideoDecodeCapabilityFlagBitsKHR
+    );
 
     impl fmt::Debug for VideoDecodeCapabilityFlagsKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    VideoDecodeCapabilityFlagsKHR::DPB_AND_OUTPUT_COINCIDE_KHR.0,
+                    VideoDecodeCapabilityFlagBitsKHR::DPB_AND_OUTPUT_COINCIDE_KHR.0,
                     "DPB_AND_OUTPUT_COINCIDE_KHR",
                 ),
                 (
-                    VideoDecodeCapabilityFlagsKHR::DPB_AND_OUTPUT_DISTINCT_KHR.0,
+                    VideoDecodeCapabilityFlagBitsKHR::DPB_AND_OUTPUT_DISTINCT_KHR.0,
                     "DPB_AND_OUTPUT_DISTINCT_KHR",
                 ),
             ];

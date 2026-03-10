@@ -296,42 +296,33 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRgbModelConversionFlagsVALVE(Flags);
-    vk_bitflags_wrapped!(VideoEncodeRgbModelConversionFlagsVALVE, Flags);
-
-    impl VideoEncodeRgbModelConversionFlagsVALVE {
-        pub const RGB_IDENTITY_VALVE: Self =
-            Self(VideoEncodeRgbModelConversionFlagBitsVALVE::RGB_IDENTITY_VALVE.0);
-        pub const YCBCR_IDENTITY_VALVE: Self =
-            Self(VideoEncodeRgbModelConversionFlagBitsVALVE::YCBCR_IDENTITY_VALVE.0);
-        pub const YCBCR_709_VALVE: Self =
-            Self(VideoEncodeRgbModelConversionFlagBitsVALVE::YCBCR_709_VALVE.0);
-        pub const YCBCR_601_VALVE: Self =
-            Self(VideoEncodeRgbModelConversionFlagBitsVALVE::YCBCR_601_VALVE.0);
-        pub const YCBCR_2020_VALVE: Self =
-            Self(VideoEncodeRgbModelConversionFlagBitsVALVE::YCBCR_2020_VALVE.0);
-    }
+    vk_bitflags_wrapped!(
+        VideoEncodeRgbModelConversionFlagsVALVE,
+        Flags,
+        VideoEncodeRgbModelConversionFlagBitsVALVE
+    );
 
     impl fmt::Debug for VideoEncodeRgbModelConversionFlagsVALVE {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    VideoEncodeRgbModelConversionFlagsVALVE::RGB_IDENTITY_VALVE.0,
+                    VideoEncodeRgbModelConversionFlagBitsVALVE::RGB_IDENTITY_VALVE.0,
                     "RGB_IDENTITY_VALVE",
                 ),
                 (
-                    VideoEncodeRgbModelConversionFlagsVALVE::YCBCR_IDENTITY_VALVE.0,
+                    VideoEncodeRgbModelConversionFlagBitsVALVE::YCBCR_IDENTITY_VALVE.0,
                     "YCBCR_IDENTITY_VALVE",
                 ),
                 (
-                    VideoEncodeRgbModelConversionFlagsVALVE::YCBCR_709_VALVE.0,
+                    VideoEncodeRgbModelConversionFlagBitsVALVE::YCBCR_709_VALVE.0,
                     "YCBCR_709_VALVE",
                 ),
                 (
-                    VideoEncodeRgbModelConversionFlagsVALVE::YCBCR_601_VALVE.0,
+                    VideoEncodeRgbModelConversionFlagBitsVALVE::YCBCR_601_VALVE.0,
                     "YCBCR_601_VALVE",
                 ),
                 (
-                    VideoEncodeRgbModelConversionFlagsVALVE::YCBCR_2020_VALVE.0,
+                    VideoEncodeRgbModelConversionFlagBitsVALVE::YCBCR_2020_VALVE.0,
                     "YCBCR_2020_VALVE",
                 ),
             ];
@@ -374,24 +365,21 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRgbRangeCompressionFlagsVALVE(Flags);
-    vk_bitflags_wrapped!(VideoEncodeRgbRangeCompressionFlagsVALVE, Flags);
-
-    impl VideoEncodeRgbRangeCompressionFlagsVALVE {
-        pub const FULL_RANGE_VALVE: Self =
-            Self(VideoEncodeRgbRangeCompressionFlagBitsVALVE::FULL_RANGE_VALVE.0);
-        pub const NARROW_RANGE_VALVE: Self =
-            Self(VideoEncodeRgbRangeCompressionFlagBitsVALVE::NARROW_RANGE_VALVE.0);
-    }
+    vk_bitflags_wrapped!(
+        VideoEncodeRgbRangeCompressionFlagsVALVE,
+        Flags,
+        VideoEncodeRgbRangeCompressionFlagBitsVALVE
+    );
 
     impl fmt::Debug for VideoEncodeRgbRangeCompressionFlagsVALVE {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    VideoEncodeRgbRangeCompressionFlagsVALVE::FULL_RANGE_VALVE.0,
+                    VideoEncodeRgbRangeCompressionFlagBitsVALVE::FULL_RANGE_VALVE.0,
                     "FULL_RANGE_VALVE",
                 ),
                 (
-                    VideoEncodeRgbRangeCompressionFlagsVALVE::NARROW_RANGE_VALVE.0,
+                    VideoEncodeRgbRangeCompressionFlagBitsVALVE::NARROW_RANGE_VALVE.0,
                     "NARROW_RANGE_VALVE",
                 ),
             ];
@@ -428,24 +416,21 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeRgbChromaOffsetFlagsVALVE(Flags);
-    vk_bitflags_wrapped!(VideoEncodeRgbChromaOffsetFlagsVALVE, Flags);
-
-    impl VideoEncodeRgbChromaOffsetFlagsVALVE {
-        pub const COSITED_EVEN_VALVE: Self =
-            Self(VideoEncodeRgbChromaOffsetFlagBitsVALVE::COSITED_EVEN_VALVE.0);
-        pub const MIDPOINT_VALVE: Self =
-            Self(VideoEncodeRgbChromaOffsetFlagBitsVALVE::MIDPOINT_VALVE.0);
-    }
+    vk_bitflags_wrapped!(
+        VideoEncodeRgbChromaOffsetFlagsVALVE,
+        Flags,
+        VideoEncodeRgbChromaOffsetFlagBitsVALVE
+    );
 
     impl fmt::Debug for VideoEncodeRgbChromaOffsetFlagsVALVE {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    VideoEncodeRgbChromaOffsetFlagsVALVE::COSITED_EVEN_VALVE.0,
+                    VideoEncodeRgbChromaOffsetFlagBitsVALVE::COSITED_EVEN_VALVE.0,
                     "COSITED_EVEN_VALVE",
                 ),
                 (
-                    VideoEncodeRgbChromaOffsetFlagsVALVE::MIDPOINT_VALVE.0,
+                    VideoEncodeRgbChromaOffsetFlagBitsVALVE::MIDPOINT_VALVE.0,
                     "MIDPOINT_VALVE",
                 ),
             ];

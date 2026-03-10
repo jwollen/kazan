@@ -351,17 +351,13 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoEncodeIntraRefreshModeFlagsKHR(Flags);
-    vk_bitflags_wrapped!(VideoEncodeIntraRefreshModeFlagsKHR, Flags);
+    vk_bitflags_wrapped!(
+        VideoEncodeIntraRefreshModeFlagsKHR,
+        Flags,
+        VideoEncodeIntraRefreshModeFlagBitsKHR
+    );
 
     impl VideoEncodeIntraRefreshModeFlagsKHR {
-        pub const PER_PICTURE_PARTITION_KHR: Self =
-            Self(VideoEncodeIntraRefreshModeFlagBitsKHR::PER_PICTURE_PARTITION_KHR.0);
-        pub const BLOCK_BASED_KHR: Self =
-            Self(VideoEncodeIntraRefreshModeFlagBitsKHR::BLOCK_BASED_KHR.0);
-        pub const BLOCK_ROW_BASED_KHR: Self =
-            Self(VideoEncodeIntraRefreshModeFlagBitsKHR::BLOCK_ROW_BASED_KHR.0);
-        pub const BLOCK_COLUMN_BASED_KHR: Self =
-            Self(VideoEncodeIntraRefreshModeFlagBitsKHR::BLOCK_COLUMN_BASED_KHR.0);
         pub const NONE: Self = Self(0);
     }
 
@@ -369,19 +365,19 @@ pub(super) mod defs {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    VideoEncodeIntraRefreshModeFlagsKHR::PER_PICTURE_PARTITION_KHR.0,
+                    VideoEncodeIntraRefreshModeFlagBitsKHR::PER_PICTURE_PARTITION_KHR.0,
                     "PER_PICTURE_PARTITION_KHR",
                 ),
                 (
-                    VideoEncodeIntraRefreshModeFlagsKHR::BLOCK_BASED_KHR.0,
+                    VideoEncodeIntraRefreshModeFlagBitsKHR::BLOCK_BASED_KHR.0,
                     "BLOCK_BASED_KHR",
                 ),
                 (
-                    VideoEncodeIntraRefreshModeFlagsKHR::BLOCK_ROW_BASED_KHR.0,
+                    VideoEncodeIntraRefreshModeFlagBitsKHR::BLOCK_ROW_BASED_KHR.0,
                     "BLOCK_ROW_BASED_KHR",
                 ),
                 (
-                    VideoEncodeIntraRefreshModeFlagsKHR::BLOCK_COLUMN_BASED_KHR.0,
+                    VideoEncodeIntraRefreshModeFlagBitsKHR::BLOCK_COLUMN_BASED_KHR.0,
                     "BLOCK_COLUMN_BASED_KHR",
                 ),
             ];

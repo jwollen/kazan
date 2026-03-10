@@ -80,6 +80,75 @@ macro_rules! vk_bitflags_wrapped {
             }
         }
     };
+    ($ name : ident , $ flag_type : ty , $ bits : ident) => {
+        vk_bitflags_wrapped!($name, $flag_type);
+        impl From<$bits> for $name {
+            #[inline]
+            fn from(bit: $bits) -> Self {
+                Self(bit.0)
+            }
+        }
+        impl $name {
+            #[doc = r" Returns whether the given bit is set"]
+            #[inline]
+            pub const fn contains_bit(self, bit: $bits) -> bool {
+                self.0 & bit.0 == bit.0
+            }
+        }
+        impl ::core::ops::BitOr<$bits> for $name {
+            type Output = Self;
+            #[inline]
+            fn bitor(self, rhs: $bits) -> Self {
+                Self(self.0 | rhs.0)
+            }
+        }
+        impl ::core::ops::BitOrAssign<$bits> for $name {
+            #[inline]
+            fn bitor_assign(&mut self, rhs: $bits) {
+                self.0 |= rhs.0;
+            }
+        }
+        impl ::core::ops::BitAnd<$bits> for $name {
+            type Output = Self;
+            #[inline]
+            fn bitand(self, rhs: $bits) -> Self {
+                Self(self.0 & rhs.0)
+            }
+        }
+        impl ::core::ops::BitAndAssign<$bits> for $name {
+            #[inline]
+            fn bitand_assign(&mut self, rhs: $bits) {
+                self.0 &= rhs.0;
+            }
+        }
+        impl ::core::ops::Sub<$bits> for $name {
+            type Output = Self;
+            #[inline]
+            fn sub(self, rhs: $bits) -> Self {
+                Self(self.0 & !rhs.0)
+            }
+        }
+        impl ::core::ops::SubAssign<$bits> for $name {
+            #[inline]
+            fn sub_assign(&mut self, rhs: $bits) {
+                self.0 &= !rhs.0;
+            }
+        }
+        impl ::core::ops::BitOr<$bits> for $bits {
+            type Output = $name;
+            #[inline]
+            fn bitor(self, rhs: $bits) -> $name {
+                $name(self.0 | rhs.0)
+            }
+        }
+        impl ::core::ops::BitOr<$name> for $bits {
+            type Output = $name;
+            #[inline]
+            fn bitor(self, rhs: $name) -> $name {
+                $name(self.0 | rhs.0)
+            }
+        }
+    };
 }
 #[macro_export]
 macro_rules! handle_nondispatchable {

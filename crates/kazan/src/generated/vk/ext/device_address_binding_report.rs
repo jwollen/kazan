@@ -174,17 +174,16 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DeviceAddressBindingFlagsEXT(Flags);
-    vk_bitflags_wrapped!(DeviceAddressBindingFlagsEXT, Flags);
-
-    impl DeviceAddressBindingFlagsEXT {
-        pub const INTERNAL_OBJECT_EXT: Self =
-            Self(DeviceAddressBindingFlagBitsEXT::INTERNAL_OBJECT_EXT.0);
-    }
+    vk_bitflags_wrapped!(
+        DeviceAddressBindingFlagsEXT,
+        Flags,
+        DeviceAddressBindingFlagBitsEXT
+    );
 
     impl fmt::Debug for DeviceAddressBindingFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[(
-                DeviceAddressBindingFlagsEXT::INTERNAL_OBJECT_EXT.0,
+                DeviceAddressBindingFlagBitsEXT::INTERNAL_OBJECT_EXT.0,
                 "INTERNAL_OBJECT_EXT",
             )];
             debug_flags(f, KNOWN, self.0)

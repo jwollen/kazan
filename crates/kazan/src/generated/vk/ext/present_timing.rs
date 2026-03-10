@@ -746,36 +746,25 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PresentStageFlagsEXT(Flags);
-    vk_bitflags_wrapped!(PresentStageFlagsEXT, Flags);
-
-    impl PresentStageFlagsEXT {
-        pub const QUEUE_OPERATIONS_END_EXT: Self =
-            Self(PresentStageFlagBitsEXT::QUEUE_OPERATIONS_END_EXT.0);
-        pub const REQUEST_DEQUEUED_EXT: Self =
-            Self(PresentStageFlagBitsEXT::REQUEST_DEQUEUED_EXT.0);
-        pub const IMAGE_FIRST_PIXEL_OUT_EXT: Self =
-            Self(PresentStageFlagBitsEXT::IMAGE_FIRST_PIXEL_OUT_EXT.0);
-        pub const IMAGE_FIRST_PIXEL_VISIBLE_EXT: Self =
-            Self(PresentStageFlagBitsEXT::IMAGE_FIRST_PIXEL_VISIBLE_EXT.0);
-    }
+    vk_bitflags_wrapped!(PresentStageFlagsEXT, Flags, PresentStageFlagBitsEXT);
 
     impl fmt::Debug for PresentStageFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    PresentStageFlagsEXT::QUEUE_OPERATIONS_END_EXT.0,
+                    PresentStageFlagBitsEXT::QUEUE_OPERATIONS_END_EXT.0,
                     "QUEUE_OPERATIONS_END_EXT",
                 ),
                 (
-                    PresentStageFlagsEXT::REQUEST_DEQUEUED_EXT.0,
+                    PresentStageFlagBitsEXT::REQUEST_DEQUEUED_EXT.0,
                     "REQUEST_DEQUEUED_EXT",
                 ),
                 (
-                    PresentStageFlagsEXT::IMAGE_FIRST_PIXEL_OUT_EXT.0,
+                    PresentStageFlagBitsEXT::IMAGE_FIRST_PIXEL_OUT_EXT.0,
                     "IMAGE_FIRST_PIXEL_OUT_EXT",
                 ),
                 (
-                    PresentStageFlagsEXT::IMAGE_FIRST_PIXEL_VISIBLE_EXT.0,
+                    PresentStageFlagBitsEXT::IMAGE_FIRST_PIXEL_VISIBLE_EXT.0,
                     "IMAGE_FIRST_PIXEL_VISIBLE_EXT",
                 ),
             ];
@@ -816,24 +805,21 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PastPresentationTimingFlagsEXT(Flags);
-    vk_bitflags_wrapped!(PastPresentationTimingFlagsEXT, Flags);
-
-    impl PastPresentationTimingFlagsEXT {
-        pub const ALLOW_PARTIAL_RESULTS_EXT: Self =
-            Self(PastPresentationTimingFlagBitsEXT::ALLOW_PARTIAL_RESULTS_EXT.0);
-        pub const ALLOW_OUT_OF_ORDER_RESULTS_EXT: Self =
-            Self(PastPresentationTimingFlagBitsEXT::ALLOW_OUT_OF_ORDER_RESULTS_EXT.0);
-    }
+    vk_bitflags_wrapped!(
+        PastPresentationTimingFlagsEXT,
+        Flags,
+        PastPresentationTimingFlagBitsEXT
+    );
 
     impl fmt::Debug for PastPresentationTimingFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    PastPresentationTimingFlagsEXT::ALLOW_PARTIAL_RESULTS_EXT.0,
+                    PastPresentationTimingFlagBitsEXT::ALLOW_PARTIAL_RESULTS_EXT.0,
                     "ALLOW_PARTIAL_RESULTS_EXT",
                 ),
                 (
-                    PastPresentationTimingFlagsEXT::ALLOW_OUT_OF_ORDER_RESULTS_EXT.0,
+                    PastPresentationTimingFlagBitsEXT::ALLOW_OUT_OF_ORDER_RESULTS_EXT.0,
                     "ALLOW_OUT_OF_ORDER_RESULTS_EXT",
                 ),
             ];
@@ -870,24 +856,21 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PresentTimingInfoFlagsEXT(Flags);
-    vk_bitflags_wrapped!(PresentTimingInfoFlagsEXT, Flags);
-
-    impl PresentTimingInfoFlagsEXT {
-        pub const PRESENT_AT_RELATIVE_TIME_EXT: Self =
-            Self(PresentTimingInfoFlagBitsEXT::PRESENT_AT_RELATIVE_TIME_EXT.0);
-        pub const PRESENT_AT_NEAREST_REFRESH_CYCLE_EXT: Self =
-            Self(PresentTimingInfoFlagBitsEXT::PRESENT_AT_NEAREST_REFRESH_CYCLE_EXT.0);
-    }
+    vk_bitflags_wrapped!(
+        PresentTimingInfoFlagsEXT,
+        Flags,
+        PresentTimingInfoFlagBitsEXT
+    );
 
     impl fmt::Debug for PresentTimingInfoFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    PresentTimingInfoFlagsEXT::PRESENT_AT_RELATIVE_TIME_EXT.0,
+                    PresentTimingInfoFlagBitsEXT::PRESENT_AT_RELATIVE_TIME_EXT.0,
                     "PRESENT_AT_RELATIVE_TIME_EXT",
                 ),
                 (
-                    PresentTimingInfoFlagsEXT::PRESENT_AT_NEAREST_REFRESH_CYCLE_EXT.0,
+                    PresentTimingInfoFlagBitsEXT::PRESENT_AT_NEAREST_REFRESH_CYCLE_EXT.0,
                     "PRESENT_AT_NEAREST_REFRESH_CYCLE_EXT",
                 ),
             ];

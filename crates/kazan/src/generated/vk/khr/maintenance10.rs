@@ -302,31 +302,25 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct RenderingAttachmentFlagsKHR(Flags);
-    vk_bitflags_wrapped!(RenderingAttachmentFlagsKHR, Flags);
-
-    impl RenderingAttachmentFlagsKHR {
-        // VK_KHR_maintenance10
-        pub const INPUT_ATTACHMENT_FEEDBACK_KHR: Self =
-            Self(RenderingAttachmentFlagBitsKHR::INPUT_ATTACHMENT_FEEDBACK_KHR.0);
-        pub const RESOLVE_SKIP_TRANSFER_FUNCTION_KHR: Self =
-            Self(RenderingAttachmentFlagBitsKHR::RESOLVE_SKIP_TRANSFER_FUNCTION_KHR.0);
-        pub const RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR: Self =
-            Self(RenderingAttachmentFlagBitsKHR::RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR.0);
-    }
+    vk_bitflags_wrapped!(
+        RenderingAttachmentFlagsKHR,
+        Flags,
+        RenderingAttachmentFlagBitsKHR
+    );
 
     impl fmt::Debug for RenderingAttachmentFlagsKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    RenderingAttachmentFlagsKHR::INPUT_ATTACHMENT_FEEDBACK_KHR.0,
+                    RenderingAttachmentFlagBitsKHR::INPUT_ATTACHMENT_FEEDBACK_KHR.0,
                     "INPUT_ATTACHMENT_FEEDBACK_KHR",
                 ),
                 (
-                    RenderingAttachmentFlagsKHR::RESOLVE_SKIP_TRANSFER_FUNCTION_KHR.0,
+                    RenderingAttachmentFlagBitsKHR::RESOLVE_SKIP_TRANSFER_FUNCTION_KHR.0,
                     "RESOLVE_SKIP_TRANSFER_FUNCTION_KHR",
                 ),
                 (
-                    RenderingAttachmentFlagsKHR::RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR.0,
+                    RenderingAttachmentFlagBitsKHR::RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR.0,
                     "RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR",
                 ),
             ];
@@ -370,25 +364,17 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ResolveImageFlagsKHR(Flags);
-    vk_bitflags_wrapped!(ResolveImageFlagsKHR, Flags);
-
-    impl ResolveImageFlagsKHR {
-        // VK_KHR_maintenance10
-        pub const SKIP_TRANSFER_FUNCTION_KHR: Self =
-            Self(ResolveImageFlagBitsKHR::SKIP_TRANSFER_FUNCTION_KHR.0);
-        pub const ENABLE_TRANSFER_FUNCTION_KHR: Self =
-            Self(ResolveImageFlagBitsKHR::ENABLE_TRANSFER_FUNCTION_KHR.0);
-    }
+    vk_bitflags_wrapped!(ResolveImageFlagsKHR, Flags, ResolveImageFlagBitsKHR);
 
     impl fmt::Debug for ResolveImageFlagsKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    ResolveImageFlagsKHR::SKIP_TRANSFER_FUNCTION_KHR.0,
+                    ResolveImageFlagBitsKHR::SKIP_TRANSFER_FUNCTION_KHR.0,
                     "SKIP_TRANSFER_FUNCTION_KHR",
                 ),
                 (
-                    ResolveImageFlagsKHR::ENABLE_TRANSFER_FUNCTION_KHR.0,
+                    ResolveImageFlagBitsKHR::ENABLE_TRANSFER_FUNCTION_KHR.0,
                     "ENABLE_TRANSFER_FUNCTION_KHR",
                 ),
             ];

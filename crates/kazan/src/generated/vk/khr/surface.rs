@@ -235,29 +235,21 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct CompositeAlphaFlagsKHR(Flags);
-    vk_bitflags_wrapped!(CompositeAlphaFlagsKHR, Flags);
-
-    impl CompositeAlphaFlagsKHR {
-        pub const OPAQUE_KHR: Self = Self(CompositeAlphaFlagBitsKHR::OPAQUE_KHR.0);
-        pub const PRE_MULTIPLIED_KHR: Self = Self(CompositeAlphaFlagBitsKHR::PRE_MULTIPLIED_KHR.0);
-        pub const POST_MULTIPLIED_KHR: Self =
-            Self(CompositeAlphaFlagBitsKHR::POST_MULTIPLIED_KHR.0);
-        pub const INHERIT_KHR: Self = Self(CompositeAlphaFlagBitsKHR::INHERIT_KHR.0);
-    }
+    vk_bitflags_wrapped!(CompositeAlphaFlagsKHR, Flags, CompositeAlphaFlagBitsKHR);
 
     impl fmt::Debug for CompositeAlphaFlagsKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (CompositeAlphaFlagsKHR::OPAQUE_KHR.0, "OPAQUE_KHR"),
+                (CompositeAlphaFlagBitsKHR::OPAQUE_KHR.0, "OPAQUE_KHR"),
                 (
-                    CompositeAlphaFlagsKHR::PRE_MULTIPLIED_KHR.0,
+                    CompositeAlphaFlagBitsKHR::PRE_MULTIPLIED_KHR.0,
                     "PRE_MULTIPLIED_KHR",
                 ),
                 (
-                    CompositeAlphaFlagsKHR::POST_MULTIPLIED_KHR.0,
+                    CompositeAlphaFlagBitsKHR::POST_MULTIPLIED_KHR.0,
                     "POST_MULTIPLIED_KHR",
                 ),
-                (CompositeAlphaFlagsKHR::INHERIT_KHR.0, "INHERIT_KHR"),
+                (CompositeAlphaFlagBitsKHR::INHERIT_KHR.0, "INHERIT_KHR"),
             ];
             debug_flags(f, KNOWN, self.0)
         }

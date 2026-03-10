@@ -417,20 +417,17 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct AddressCopyFlagsKHR(Flags);
-    vk_bitflags_wrapped!(AddressCopyFlagsKHR, Flags);
-
-    impl AddressCopyFlagsKHR {
-        pub const DEVICE_LOCAL_KHR: Self = Self(AddressCopyFlagBitsKHR::DEVICE_LOCAL_KHR.0);
-        pub const SPARSE_KHR: Self = Self(AddressCopyFlagBitsKHR::SPARSE_KHR.0);
-        pub const PROTECTED_KHR: Self = Self(AddressCopyFlagBitsKHR::PROTECTED_KHR.0);
-    }
+    vk_bitflags_wrapped!(AddressCopyFlagsKHR, Flags, AddressCopyFlagBitsKHR);
 
     impl fmt::Debug for AddressCopyFlagsKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (AddressCopyFlagsKHR::DEVICE_LOCAL_KHR.0, "DEVICE_LOCAL_KHR"),
-                (AddressCopyFlagsKHR::SPARSE_KHR.0, "SPARSE_KHR"),
-                (AddressCopyFlagsKHR::PROTECTED_KHR.0, "PROTECTED_KHR"),
+                (
+                    AddressCopyFlagBitsKHR::DEVICE_LOCAL_KHR.0,
+                    "DEVICE_LOCAL_KHR",
+                ),
+                (AddressCopyFlagBitsKHR::SPARSE_KHR.0, "SPARSE_KHR"),
+                (AddressCopyFlagBitsKHR::PROTECTED_KHR.0, "PROTECTED_KHR"),
             ];
             debug_flags(f, KNOWN, self.0)
         }

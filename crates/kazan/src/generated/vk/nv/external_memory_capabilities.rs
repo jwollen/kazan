@@ -69,35 +69,29 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ExternalMemoryHandleTypeFlagsNV(Flags);
-    vk_bitflags_wrapped!(ExternalMemoryHandleTypeFlagsNV, Flags);
-
-    impl ExternalMemoryHandleTypeFlagsNV {
-        pub const OPAQUE_WIN32_NV: Self =
-            Self(ExternalMemoryHandleTypeFlagBitsNV::OPAQUE_WIN32_NV.0);
-        pub const OPAQUE_WIN32_KMT_NV: Self =
-            Self(ExternalMemoryHandleTypeFlagBitsNV::OPAQUE_WIN32_KMT_NV.0);
-        pub const D3D11_IMAGE_NV: Self = Self(ExternalMemoryHandleTypeFlagBitsNV::D3D11_IMAGE_NV.0);
-        pub const D3D11_IMAGE_KMT_NV: Self =
-            Self(ExternalMemoryHandleTypeFlagBitsNV::D3D11_IMAGE_KMT_NV.0);
-    }
+    vk_bitflags_wrapped!(
+        ExternalMemoryHandleTypeFlagsNV,
+        Flags,
+        ExternalMemoryHandleTypeFlagBitsNV
+    );
 
     impl fmt::Debug for ExternalMemoryHandleTypeFlagsNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    ExternalMemoryHandleTypeFlagsNV::OPAQUE_WIN32_NV.0,
+                    ExternalMemoryHandleTypeFlagBitsNV::OPAQUE_WIN32_NV.0,
                     "OPAQUE_WIN32_NV",
                 ),
                 (
-                    ExternalMemoryHandleTypeFlagsNV::OPAQUE_WIN32_KMT_NV.0,
+                    ExternalMemoryHandleTypeFlagBitsNV::OPAQUE_WIN32_KMT_NV.0,
                     "OPAQUE_WIN32_KMT_NV",
                 ),
                 (
-                    ExternalMemoryHandleTypeFlagsNV::D3D11_IMAGE_NV.0,
+                    ExternalMemoryHandleTypeFlagBitsNV::D3D11_IMAGE_NV.0,
                     "D3D11_IMAGE_NV",
                 ),
                 (
-                    ExternalMemoryHandleTypeFlagsNV::D3D11_IMAGE_KMT_NV.0,
+                    ExternalMemoryHandleTypeFlagBitsNV::D3D11_IMAGE_KMT_NV.0,
                     "D3D11_IMAGE_KMT_NV",
                 ),
             ];
@@ -138,28 +132,25 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ExternalMemoryFeatureFlagsNV(Flags);
-    vk_bitflags_wrapped!(ExternalMemoryFeatureFlagsNV, Flags);
-
-    impl ExternalMemoryFeatureFlagsNV {
-        pub const DEDICATED_ONLY_NV: Self =
-            Self(ExternalMemoryFeatureFlagBitsNV::DEDICATED_ONLY_NV.0);
-        pub const EXPORTABLE_NV: Self = Self(ExternalMemoryFeatureFlagBitsNV::EXPORTABLE_NV.0);
-        pub const IMPORTABLE_NV: Self = Self(ExternalMemoryFeatureFlagBitsNV::IMPORTABLE_NV.0);
-    }
+    vk_bitflags_wrapped!(
+        ExternalMemoryFeatureFlagsNV,
+        Flags,
+        ExternalMemoryFeatureFlagBitsNV
+    );
 
     impl fmt::Debug for ExternalMemoryFeatureFlagsNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    ExternalMemoryFeatureFlagsNV::DEDICATED_ONLY_NV.0,
+                    ExternalMemoryFeatureFlagBitsNV::DEDICATED_ONLY_NV.0,
                     "DEDICATED_ONLY_NV",
                 ),
                 (
-                    ExternalMemoryFeatureFlagsNV::EXPORTABLE_NV.0,
+                    ExternalMemoryFeatureFlagBitsNV::EXPORTABLE_NV.0,
                     "EXPORTABLE_NV",
                 ),
                 (
-                    ExternalMemoryFeatureFlagsNV::IMPORTABLE_NV.0,
+                    ExternalMemoryFeatureFlagBitsNV::IMPORTABLE_NV.0,
                     "IMPORTABLE_NV",
                 ),
             ];

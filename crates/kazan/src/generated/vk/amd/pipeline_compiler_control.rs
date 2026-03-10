@@ -76,9 +76,11 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineCompilerControlFlagsAMD(Flags);
-    vk_bitflags_wrapped!(PipelineCompilerControlFlagsAMD, Flags);
-
-    impl PipelineCompilerControlFlagsAMD {}
+    vk_bitflags_wrapped!(
+        PipelineCompilerControlFlagsAMD,
+        Flags,
+        PipelineCompilerControlFlagBitsAMD
+    );
 
     impl fmt::Debug for PipelineCompilerControlFlagsAMD {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {

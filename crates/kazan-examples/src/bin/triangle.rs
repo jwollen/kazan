@@ -45,10 +45,10 @@ fn main() -> Result<(), Box<dyn Error>> {
         };
         let dependencies = [vk::SubpassDependency {
             src_subpass: vk::SUBPASS_EXTERNAL,
-            src_stage_mask: vk::PipelineStageFlags::COLOR_ATTACHMENT_OUTPUT,
-            dst_access_mask: vk::AccessFlags::COLOR_ATTACHMENT_READ
-                | vk::AccessFlags::COLOR_ATTACHMENT_WRITE,
-            dst_stage_mask: vk::PipelineStageFlags::COLOR_ATTACHMENT_OUTPUT,
+            src_stage_mask: vk::PipelineStageFlagBits::COLOR_ATTACHMENT_OUTPUT.into(),
+            dst_access_mask: vk::AccessFlagBits::COLOR_ATTACHMENT_READ
+                | vk::AccessFlagBits::COLOR_ATTACHMENT_WRITE,
+            dst_stage_mask: vk::PipelineStageFlagBits::COLOR_ATTACHMENT_OUTPUT.into(),
             ..Default::default()
         }];
 
@@ -88,7 +88,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         let index_buffer_data = [0u32, 1, 2];
         let index_buffer_info = vk::BufferCreateInfo::default()
             .size(size_of_val(&index_buffer_data) as u64)
-            .usage(vk::BufferUsageFlags::INDEX_BUFFER)
+            .usage(vk::BufferUsageFlagBits::INDEX_BUFFER.into())
             .sharing_mode(vk::SharingMode::EXCLUSIVE);
 
         let index_buffer = base
@@ -101,7 +101,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         let index_buffer_memory_index = find_memorytype_index(
             &index_buffer_memory_req,
             &base.device_memory_properties,
-            vk::MemoryPropertyFlags::HOST_VISIBLE | vk::MemoryPropertyFlags::HOST_COHERENT,
+            vk::MemoryPropertyFlagBits::HOST_VISIBLE | vk::MemoryPropertyFlagBits::HOST_COHERENT,
         )
         .expect("Unable to find suitable memorytype for the index buffer.");
 
@@ -138,7 +138,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
         let vertex_input_buffer_info = vk::BufferCreateInfo {
             size: 3 * size_of::<Vertex>() as u64,
-            usage: vk::BufferUsageFlags::VERTEX_BUFFER,
+            usage: vk::BufferUsageFlagBits::VERTEX_BUFFER.into(),
             sharing_mode: vk::SharingMode::EXCLUSIVE,
             ..Default::default()
         };
@@ -155,7 +155,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         let vertex_input_buffer_memory_index = find_memorytype_index(
             &vertex_input_buffer_memory_req,
             &base.device_memory_properties,
-            vk::MemoryPropertyFlags::HOST_VISIBLE | vk::MemoryPropertyFlags::HOST_COHERENT,
+            vk::MemoryPropertyFlagBits::HOST_VISIBLE | vk::MemoryPropertyFlagBits::HOST_COHERENT,
         )
         .expect("Unable to find suitable memorytype for the vertex buffer.");
 
@@ -332,10 +332,10 @@ fn main() -> Result<(), Box<dyn Error>> {
             src_alpha_blend_factor: vk::BlendFactor::ZERO,
             dst_alpha_blend_factor: vk::BlendFactor::ZERO,
             alpha_blend_op: vk::BlendOp::ADD,
-            color_write_mask: vk::ColorComponentFlags::R
-                | vk::ColorComponentFlags::G
-                | vk::ColorComponentFlags::B
-                | vk::ColorComponentFlags::A,
+            color_write_mask: vk::ColorComponentFlagBits::R
+                | vk::ColorComponentFlagBits::G
+                | vk::ColorComponentFlagBits::B
+                | vk::ColorComponentFlagBits::A,
         }];
         let color_blend_state = vk::PipelineColorBlendStateCreateInfo::default()
             .logic_op(vk::LogicOp::CLEAR)
@@ -417,7 +417,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                 draw_command_buffer,
                 draw_commands_reuse_fence,
                 base.present_queue,
-                &[vk::PipelineStageFlags::COLOR_ATTACHMENT_OUTPUT],
+                &[vk::PipelineStageFlagBits::COLOR_ATTACHMENT_OUTPUT.into()],
                 &[present_complete_semaphore],
                 &[rendering_complete_semaphore],
                 |device_fn, draw_command_buffer| {

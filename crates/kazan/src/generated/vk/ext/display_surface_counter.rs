@@ -166,15 +166,12 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SurfaceCounterFlagsEXT(Flags);
-    vk_bitflags_wrapped!(SurfaceCounterFlagsEXT, Flags);
-
-    impl SurfaceCounterFlagsEXT {
-        pub const VBLANK_EXT: Self = Self(SurfaceCounterFlagBitsEXT::VBLANK_EXT.0);
-    }
+    vk_bitflags_wrapped!(SurfaceCounterFlagsEXT, Flags, SurfaceCounterFlagBitsEXT);
 
     impl fmt::Debug for SurfaceCounterFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-            const KNOWN: &[(Flags, &str)] = &[(SurfaceCounterFlagsEXT::VBLANK_EXT.0, "VBLANK_EXT")];
+            const KNOWN: &[(Flags, &str)] =
+                &[(SurfaceCounterFlagBitsEXT::VBLANK_EXT.0, "VBLANK_EXT")];
             debug_flags(f, KNOWN, self.0)
         }
     }

@@ -203,16 +203,18 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ConditionalRenderingFlagsEXT(Flags);
-    vk_bitflags_wrapped!(ConditionalRenderingFlagsEXT, Flags);
-
-    impl ConditionalRenderingFlagsEXT {
-        pub const INVERTED_EXT: Self = Self(ConditionalRenderingFlagBitsEXT::INVERTED_EXT.0);
-    }
+    vk_bitflags_wrapped!(
+        ConditionalRenderingFlagsEXT,
+        Flags,
+        ConditionalRenderingFlagBitsEXT
+    );
 
     impl fmt::Debug for ConditionalRenderingFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-            const KNOWN: &[(Flags, &str)] =
-                &[(ConditionalRenderingFlagsEXT::INVERTED_EXT.0, "INVERTED_EXT")];
+            const KNOWN: &[(Flags, &str)] = &[(
+                ConditionalRenderingFlagBitsEXT::INVERTED_EXT.0,
+                "INVERTED_EXT",
+            )];
             debug_flags(f, KNOWN, self.0)
         }
     }

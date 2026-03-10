@@ -61,12 +61,12 @@ pub fn record_submit_commandbuffer<F: FnOnce(&vk1_0::DeviceFn, vk::CommandBuffer
         device_fn
             .reset_command_buffer(
                 command_buffer,
-                vk::CommandBufferResetFlags::RELEASE_RESOURCES,
+                vk::CommandBufferResetFlagBits::RELEASE_RESOURCES.into(),
             )
             .expect("Reset command buffer failed.");
 
         let command_buffer_begin_info = vk::CommandBufferBeginInfo::default()
-            .flags(vk::CommandBufferUsageFlags::ONE_TIME_SUBMIT);
+            .flags(vk::CommandBufferUsageFlagBits::ONE_TIME_SUBMIT.into());
 
         device_fn
             .begin_command_buffer(command_buffer, &command_buffer_begin_info)
@@ -267,7 +267,7 @@ impl ExampleBase {
                 .api_version(vk1_0::API_VERSION);
 
             let create_flags = if cfg!(any(target_os = "macos", target_os = "ios")) {
-                vk::InstanceCreateFlags::ENUMERATE_PORTABILITY_KHR
+                vk::InstanceCreateFlagBits::ENUMERATE_PORTABILITY_KHR.into()
             } else {
                 vk::InstanceCreateFlags::default()
             };
@@ -287,14 +287,14 @@ impl ExampleBase {
 
             let debug_info = vk::DebugUtilsMessengerCreateInfoEXT::default()
                 .message_severity(
-                    vk::DebugUtilsMessageSeverityFlagsEXT::ERROR_EXT
-                        | vk::DebugUtilsMessageSeverityFlagsEXT::WARNING_EXT
-                        | vk::DebugUtilsMessageSeverityFlagsEXT::INFO_EXT,
+                    vk::DebugUtilsMessageSeverityFlagBitsEXT::ERROR_EXT
+                        | vk::DebugUtilsMessageSeverityFlagBitsEXT::WARNING_EXT
+                        | vk::DebugUtilsMessageSeverityFlagBitsEXT::INFO_EXT,
                 )
                 .message_type(
-                    vk::DebugUtilsMessageTypeFlagsEXT::GENERAL_EXT
-                        | vk::DebugUtilsMessageTypeFlagsEXT::VALIDATION_EXT
-                        | vk::DebugUtilsMessageTypeFlagsEXT::PERFORMANCE_EXT,
+                    vk::DebugUtilsMessageTypeFlagBitsEXT::GENERAL_EXT
+                        | vk::DebugUtilsMessageTypeFlagBitsEXT::VALIDATION_EXT
+                        | vk::DebugUtilsMessageTypeFlagBitsEXT::PERFORMANCE_EXT,
                 )
                 .pfn_user_callback(vulkan_debug_callback);
 
@@ -329,7 +329,7 @@ impl ExampleBase {
                         .enumerate()
                         .find_map(|(index, info)| {
                             let supports_graphic_and_surface =
-                                info.queue_flags.contains(vk::QueueFlags::GRAPHICS)
+                                info.queue_flags.contains_bit(vk::QueueFlagBits::GRAPHICS)
                                     && surface_fn
                                         .get_physical_device_surface_support_khr(
                                             *pdevice,
@@ -398,7 +398,7 @@ impl ExampleBase {
             };
             let pre_transform = if surface_capabilities
                 .supported_transforms
-                .contains(vk::SurfaceTransformFlagsKHR::IDENTITY_KHR)
+                .contains_bit(vk::SurfaceTransformFlagBitsKHR::IDENTITY_KHR)
             {
                 vk::SurfaceTransformFlagBitsKHR::IDENTITY_KHR
             } else {
@@ -421,7 +421,7 @@ impl ExampleBase {
                 .image_color_space(surface_format.color_space)
                 .image_format(surface_format.format)
                 .image_extent(surface_resolution)
-                .image_usage(vk::ImageUsageFlags::COLOR_ATTACHMENT)
+                .image_usage(vk::ImageUsageFlagBits::COLOR_ATTACHMENT.into())
                 .image_sharing_mode(vk::SharingMode::EXCLUSIVE)
                 .pre_transform(pre_transform)
                 .composite_alpha(vk::CompositeAlphaFlagBitsKHR::OPAQUE_KHR)
@@ -434,7 +434,7 @@ impl ExampleBase {
                 .unwrap();
 
             let pool_create_info = vk::CommandPoolCreateInfo::default()
-                .flags(vk::CommandPoolCreateFlags::RESET_COMMAND_BUFFER)
+                .flags(vk::CommandPoolCreateFlagBits::RESET_COMMAND_BUFFER.into())
                 .queue_family_index(queue_family_index);
 
             let pool = device_fn
@@ -477,7 +477,7 @@ impl ExampleBase {
                             a: vk::ComponentSwizzle::A,
                         })
                         .subresource_range(vk::ImageSubresourceRange {
-                            aspect_mask: vk::ImageAspectFlags::COLOR,
+                            aspect_mask: vk::ImageAspectFlagBits::COLOR.into(),
                             base_mip_level: 0,
                             level_count: 1,
                             base_array_layer: 0,
@@ -499,7 +499,7 @@ impl ExampleBase {
                 .array_layers(1)
                 .samples(vk::SampleCountFlagBits::_1)
                 .tiling(vk::ImageTiling::OPTIMAL)
-                .usage(vk::ImageUsageFlags::DEPTH_STENCIL_ATTACHMENT)
+                .usage(vk::ImageUsageFlagBits::DEPTH_STENCIL_ATTACHMENT.into())
                 .sharing_mode(vk::SharingMode::EXCLUSIVE);
 
             let depth_image = device_fn
@@ -510,7 +510,7 @@ impl ExampleBase {
             let depth_image_memory_index = find_memorytype_index(
                 &depth_image_memory_req,
                 &device_memory_properties,
-                vk::MemoryPropertyFlags::DEVICE_LOCAL,
+                vk::MemoryPropertyFlagBits::DEVICE_LOCAL.into(),
             )
             .expect("Unable to find suitable memory index for depth image.");
 
@@ -539,22 +539,22 @@ impl ExampleBase {
                     let layout_transition_barriers = vk::ImageMemoryBarrier::default()
                         .image(depth_image)
                         .dst_access_mask(
-                            vk::AccessFlags::DEPTH_STENCIL_ATTACHMENT_READ
-                                | vk::AccessFlags::DEPTH_STENCIL_ATTACHMENT_WRITE,
+                            vk::AccessFlagBits::DEPTH_STENCIL_ATTACHMENT_READ
+                                | vk::AccessFlagBits::DEPTH_STENCIL_ATTACHMENT_WRITE,
                         )
                         .new_layout(vk::ImageLayout::DEPTH_STENCIL_ATTACHMENT_OPTIMAL)
                         .old_layout(vk::ImageLayout::UNDEFINED)
                         .subresource_range(
                             vk::ImageSubresourceRange::default()
-                                .aspect_mask(vk::ImageAspectFlags::DEPTH)
+                                .aspect_mask(vk::ImageAspectFlagBits::DEPTH.into())
                                 .layer_count(1)
                                 .level_count(1),
                         );
 
                     device_fn.cmd_pipeline_barrier(
                         setup_command_buffer,
-                        vk::PipelineStageFlags::BOTTOM_OF_PIPE,
-                        vk::PipelineStageFlags::LATE_FRAGMENT_TESTS,
+                        vk::PipelineStageFlagBits::BOTTOM_OF_PIPE.into(),
+                        vk::PipelineStageFlagBits::LATE_FRAGMENT_TESTS.into(),
                         vk::DependencyFlags::empty(),
                         &[],
                         &[],
@@ -566,7 +566,7 @@ impl ExampleBase {
             let depth_image_view_info = vk::ImageViewCreateInfo::default()
                 .subresource_range(
                     vk::ImageSubresourceRange::default()
-                        .aspect_mask(vk::ImageAspectFlags::DEPTH)
+                        .aspect_mask(vk::ImageAspectFlagBits::DEPTH.into())
                         .level_count(1)
                         .layer_count(1),
                 )
@@ -594,7 +594,7 @@ impl ExampleBase {
                 .collect();
 
             let fence_create_info =
-                vk::FenceCreateInfo::default().flags(vk::FenceCreateFlags::SIGNALED);
+                vk::FenceCreateInfo::default().flags(vk::FenceCreateFlagBits::SIGNALED.into());
 
             let draw_commands_reuse_fences = std::array::from_fn(|_| {
                 device_fn

@@ -1006,30 +1006,21 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct BuildMicromapFlagsEXT(Flags);
-    vk_bitflags_wrapped!(BuildMicromapFlagsEXT, Flags);
-
-    impl BuildMicromapFlagsEXT {
-        pub const PREFER_FAST_TRACE_EXT: Self =
-            Self(BuildMicromapFlagBitsEXT::PREFER_FAST_TRACE_EXT.0);
-        pub const PREFER_FAST_BUILD_EXT: Self =
-            Self(BuildMicromapFlagBitsEXT::PREFER_FAST_BUILD_EXT.0);
-        pub const ALLOW_COMPACTION_EXT: Self =
-            Self(BuildMicromapFlagBitsEXT::ALLOW_COMPACTION_EXT.0);
-    }
+    vk_bitflags_wrapped!(BuildMicromapFlagsEXT, Flags, BuildMicromapFlagBitsEXT);
 
     impl fmt::Debug for BuildMicromapFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    BuildMicromapFlagsEXT::PREFER_FAST_TRACE_EXT.0,
+                    BuildMicromapFlagBitsEXT::PREFER_FAST_TRACE_EXT.0,
                     "PREFER_FAST_TRACE_EXT",
                 ),
                 (
-                    BuildMicromapFlagsEXT::PREFER_FAST_BUILD_EXT.0,
+                    BuildMicromapFlagBitsEXT::PREFER_FAST_BUILD_EXT.0,
                     "PREFER_FAST_BUILD_EXT",
                 ),
                 (
-                    BuildMicromapFlagsEXT::ALLOW_COMPACTION_EXT.0,
+                    BuildMicromapFlagBitsEXT::ALLOW_COMPACTION_EXT.0,
                     "ALLOW_COMPACTION_EXT",
                 ),
             ];
@@ -1068,17 +1059,12 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct MicromapCreateFlagsEXT(Flags);
-    vk_bitflags_wrapped!(MicromapCreateFlagsEXT, Flags);
-
-    impl MicromapCreateFlagsEXT {
-        pub const DEVICE_ADDRESS_CAPTURE_REPLAY_EXT: Self =
-            Self(MicromapCreateFlagBitsEXT::DEVICE_ADDRESS_CAPTURE_REPLAY_EXT.0);
-    }
+    vk_bitflags_wrapped!(MicromapCreateFlagsEXT, Flags, MicromapCreateFlagBitsEXT);
 
     impl fmt::Debug for MicromapCreateFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[(
-                MicromapCreateFlagsEXT::DEVICE_ADDRESS_CAPTURE_REPLAY_EXT.0,
+                MicromapCreateFlagBitsEXT::DEVICE_ADDRESS_CAPTURE_REPLAY_EXT.0,
                 "DEVICE_ADDRESS_CAPTURE_REPLAY_EXT",
             )];
             debug_flags(f, KNOWN, self.0)

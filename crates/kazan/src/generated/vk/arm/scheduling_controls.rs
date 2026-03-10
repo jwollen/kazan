@@ -174,17 +174,16 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PhysicalDeviceSchedulingControlsFlagsARM(Flags64);
-    vk_bitflags_wrapped!(PhysicalDeviceSchedulingControlsFlagsARM, Flags64);
-
-    impl PhysicalDeviceSchedulingControlsFlagsARM {
-        pub const SHADER_CORE_COUNT_ARM: Self =
-            Self(PhysicalDeviceSchedulingControlsFlagBitsARM::SHADER_CORE_COUNT_ARM.0);
-    }
+    vk_bitflags_wrapped!(
+        PhysicalDeviceSchedulingControlsFlagsARM,
+        Flags64,
+        PhysicalDeviceSchedulingControlsFlagBitsARM
+    );
 
     impl fmt::Debug for PhysicalDeviceSchedulingControlsFlagsARM {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags64, &str)] = &[(
-                PhysicalDeviceSchedulingControlsFlagsARM::SHADER_CORE_COUNT_ARM.0,
+                PhysicalDeviceSchedulingControlsFlagBitsARM::SHADER_CORE_COUNT_ARM.0,
                 "SHADER_CORE_COUNT_ARM",
             )];
             debug_flags(f, KNOWN, self.0)

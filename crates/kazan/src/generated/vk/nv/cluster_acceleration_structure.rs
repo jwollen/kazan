@@ -1298,34 +1298,18 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ClusterAccelerationStructureGeometryFlagsNV(Flags);
-    vk_bitflags_wrapped!(ClusterAccelerationStructureGeometryFlagsNV, Flags);
-
-    impl ClusterAccelerationStructureGeometryFlagsNV {
-        pub const CULL_DISABLE_NV: Self =
-            Self(ClusterAccelerationStructureGeometryFlagBitsNV::CULL_DISABLE_NV.0);
-        pub const NO_DUPLICATE_ANYHIT_INVOCATION_NV: Self = Self(
-            ClusterAccelerationStructureGeometryFlagBitsNV::NO_DUPLICATE_ANYHIT_INVOCATION_NV.0,
-        );
-        pub const OPAQUE_NV: Self =
-            Self(ClusterAccelerationStructureGeometryFlagBitsNV::OPAQUE_NV.0);
-    }
+    vk_bitflags_wrapped!(
+        ClusterAccelerationStructureGeometryFlagsNV,
+        Flags,
+        ClusterAccelerationStructureGeometryFlagBitsNV
+    );
 
     impl fmt::Debug for ClusterAccelerationStructureGeometryFlagsNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (
-                    ClusterAccelerationStructureGeometryFlagsNV::CULL_DISABLE_NV.0,
-                    "CULL_DISABLE_NV",
-                ),
-                (
-                    ClusterAccelerationStructureGeometryFlagsNV::NO_DUPLICATE_ANYHIT_INVOCATION_NV
-                        .0,
-                    "NO_DUPLICATE_ANYHIT_INVOCATION_NV",
-                ),
-                (
-                    ClusterAccelerationStructureGeometryFlagsNV::OPAQUE_NV.0,
-                    "OPAQUE_NV",
-                ),
+                (ClusterAccelerationStructureGeometryFlagBitsNV::CULL_DISABLE_NV.0, "CULL_DISABLE_NV"),
+                (ClusterAccelerationStructureGeometryFlagBitsNV::NO_DUPLICATE_ANYHIT_INVOCATION_NV.0, "NO_DUPLICATE_ANYHIT_INVOCATION_NV"),
+                (ClusterAccelerationStructureGeometryFlagBitsNV::OPAQUE_NV.0, "OPAQUE_NV"),
             ];
             debug_flags(f, KNOWN, self.0)
         }
@@ -1364,18 +1348,16 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ClusterAccelerationStructureClusterFlagsNV(Flags);
-    vk_bitflags_wrapped!(ClusterAccelerationStructureClusterFlagsNV, Flags);
-
-    impl ClusterAccelerationStructureClusterFlagsNV {
-        pub const ALLOW_DISABLE_OPACITY_MICROMAPS_NV: Self = Self(
-            ClusterAccelerationStructureClusterFlagBitsNV::ALLOW_DISABLE_OPACITY_MICROMAPS_NV.0,
-        );
-    }
+    vk_bitflags_wrapped!(
+        ClusterAccelerationStructureClusterFlagsNV,
+        Flags,
+        ClusterAccelerationStructureClusterFlagBitsNV
+    );
 
     impl fmt::Debug for ClusterAccelerationStructureClusterFlagsNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[(
-                ClusterAccelerationStructureClusterFlagsNV::ALLOW_DISABLE_OPACITY_MICROMAPS_NV.0,
+                ClusterAccelerationStructureClusterFlagBitsNV::ALLOW_DISABLE_OPACITY_MICROMAPS_NV.0,
                 "ALLOW_DISABLE_OPACITY_MICROMAPS_NV",
             )];
             debug_flags(f, KNOWN, self.0)
@@ -1411,38 +1393,25 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ClusterAccelerationStructureAddressResolutionFlagsNV(Flags);
-    vk_bitflags_wrapped!(ClusterAccelerationStructureAddressResolutionFlagsNV, Flags);
+    vk_bitflags_wrapped!(
+        ClusterAccelerationStructureAddressResolutionFlagsNV,
+        Flags,
+        ClusterAccelerationStructureAddressResolutionFlagBitsNV
+    );
 
     impl ClusterAccelerationStructureAddressResolutionFlagsNV {
-        pub const INDIRECTED_DST_IMPLICIT_DATA_NV: Self = Self(ClusterAccelerationStructureAddressResolutionFlagBitsNV::INDIRECTED_DST_IMPLICIT_DATA_NV.0);
-        pub const INDIRECTED_SCRATCH_DATA_NV: Self = Self(
-            ClusterAccelerationStructureAddressResolutionFlagBitsNV::INDIRECTED_SCRATCH_DATA_NV.0,
-        );
-        pub const INDIRECTED_DST_ADDRESS_ARRAY_NV: Self = Self(ClusterAccelerationStructureAddressResolutionFlagBitsNV::INDIRECTED_DST_ADDRESS_ARRAY_NV.0);
-        pub const INDIRECTED_DST_SIZES_ARRAY_NV: Self = Self(
-            ClusterAccelerationStructureAddressResolutionFlagBitsNV::INDIRECTED_DST_SIZES_ARRAY_NV
-                .0,
-        );
-        pub const INDIRECTED_SRC_INFOS_ARRAY_NV: Self = Self(
-            ClusterAccelerationStructureAddressResolutionFlagBitsNV::INDIRECTED_SRC_INFOS_ARRAY_NV
-                .0,
-        );
-        pub const INDIRECTED_SRC_INFOS_COUNT_NV: Self = Self(
-            ClusterAccelerationStructureAddressResolutionFlagBitsNV::INDIRECTED_SRC_INFOS_COUNT_NV
-                .0,
-        );
         pub const NONE: Self = Self(0);
     }
 
     impl fmt::Debug for ClusterAccelerationStructureAddressResolutionFlagsNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (ClusterAccelerationStructureAddressResolutionFlagsNV::INDIRECTED_DST_IMPLICIT_DATA_NV.0, "INDIRECTED_DST_IMPLICIT_DATA_NV"),
-                (ClusterAccelerationStructureAddressResolutionFlagsNV::INDIRECTED_SCRATCH_DATA_NV.0, "INDIRECTED_SCRATCH_DATA_NV"),
-                (ClusterAccelerationStructureAddressResolutionFlagsNV::INDIRECTED_DST_ADDRESS_ARRAY_NV.0, "INDIRECTED_DST_ADDRESS_ARRAY_NV"),
-                (ClusterAccelerationStructureAddressResolutionFlagsNV::INDIRECTED_DST_SIZES_ARRAY_NV.0, "INDIRECTED_DST_SIZES_ARRAY_NV"),
-                (ClusterAccelerationStructureAddressResolutionFlagsNV::INDIRECTED_SRC_INFOS_ARRAY_NV.0, "INDIRECTED_SRC_INFOS_ARRAY_NV"),
-                (ClusterAccelerationStructureAddressResolutionFlagsNV::INDIRECTED_SRC_INFOS_COUNT_NV.0, "INDIRECTED_SRC_INFOS_COUNT_NV"),
+                (ClusterAccelerationStructureAddressResolutionFlagBitsNV::INDIRECTED_DST_IMPLICIT_DATA_NV.0, "INDIRECTED_DST_IMPLICIT_DATA_NV"),
+                (ClusterAccelerationStructureAddressResolutionFlagBitsNV::INDIRECTED_SCRATCH_DATA_NV.0, "INDIRECTED_SCRATCH_DATA_NV"),
+                (ClusterAccelerationStructureAddressResolutionFlagBitsNV::INDIRECTED_DST_ADDRESS_ARRAY_NV.0, "INDIRECTED_DST_ADDRESS_ARRAY_NV"),
+                (ClusterAccelerationStructureAddressResolutionFlagBitsNV::INDIRECTED_DST_SIZES_ARRAY_NV.0, "INDIRECTED_DST_SIZES_ARRAY_NV"),
+                (ClusterAccelerationStructureAddressResolutionFlagBitsNV::INDIRECTED_SRC_INFOS_ARRAY_NV.0, "INDIRECTED_SRC_INFOS_ARRAY_NV"),
+                (ClusterAccelerationStructureAddressResolutionFlagBitsNV::INDIRECTED_SRC_INFOS_COUNT_NV.0, "INDIRECTED_SRC_INFOS_COUNT_NV"),
             ];
             debug_flags(f, KNOWN, self.0)
         }
@@ -1485,30 +1454,25 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ClusterAccelerationStructureIndexFormatFlagsNV(Flags);
-    vk_bitflags_wrapped!(ClusterAccelerationStructureIndexFormatFlagsNV, Flags);
-
-    impl ClusterAccelerationStructureIndexFormatFlagsNV {
-        pub const _8BIT_NV: Self =
-            Self(ClusterAccelerationStructureIndexFormatFlagBitsNV::_8BIT_NV.0);
-        pub const _16BIT_NV: Self =
-            Self(ClusterAccelerationStructureIndexFormatFlagBitsNV::_16BIT_NV.0);
-        pub const _32BIT_NV: Self =
-            Self(ClusterAccelerationStructureIndexFormatFlagBitsNV::_32BIT_NV.0);
-    }
+    vk_bitflags_wrapped!(
+        ClusterAccelerationStructureIndexFormatFlagsNV,
+        Flags,
+        ClusterAccelerationStructureIndexFormatFlagBitsNV
+    );
 
     impl fmt::Debug for ClusterAccelerationStructureIndexFormatFlagsNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    ClusterAccelerationStructureIndexFormatFlagsNV::_8BIT_NV.0,
+                    ClusterAccelerationStructureIndexFormatFlagBitsNV::_8BIT_NV.0,
                     "_8BIT_NV",
                 ),
                 (
-                    ClusterAccelerationStructureIndexFormatFlagsNV::_16BIT_NV.0,
+                    ClusterAccelerationStructureIndexFormatFlagBitsNV::_16BIT_NV.0,
                     "_16BIT_NV",
                 ),
                 (
-                    ClusterAccelerationStructureIndexFormatFlagsNV::_32BIT_NV.0,
+                    ClusterAccelerationStructureIndexFormatFlagBitsNV::_32BIT_NV.0,
                     "_32BIT_NV",
                 ),
             ];

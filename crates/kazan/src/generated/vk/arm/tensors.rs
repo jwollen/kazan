@@ -1727,35 +1727,22 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct TensorCreateFlagsARM(Flags64);
-    vk_bitflags_wrapped!(TensorCreateFlagsARM, Flags64);
-
-    impl TensorCreateFlagsARM {
-        pub const MUTABLE_FORMAT_ARM: Self = Self(TensorCreateFlagBitsARM::MUTABLE_FORMAT_ARM.0);
-        pub const PROTECTED_ARM: Self = Self(TensorCreateFlagBitsARM::PROTECTED_ARM.0);
-
-        // VK_ARM_tensors
-        pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM: Self =
-            Self(TensorCreateFlagBitsARM::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM.0);
-
-        // VK_EXT_descriptor_heap
-        pub const DESCRIPTOR_HEAP_CAPTURE_REPLAY_ARM: Self =
-            Self(TensorCreateFlagBitsARM::DESCRIPTOR_HEAP_CAPTURE_REPLAY_ARM.0);
-    }
+    vk_bitflags_wrapped!(TensorCreateFlagsARM, Flags64, TensorCreateFlagBitsARM);
 
     impl fmt::Debug for TensorCreateFlagsARM {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags64, &str)] = &[
                 (
-                    TensorCreateFlagsARM::MUTABLE_FORMAT_ARM.0,
+                    TensorCreateFlagBitsARM::MUTABLE_FORMAT_ARM.0,
                     "MUTABLE_FORMAT_ARM",
                 ),
-                (TensorCreateFlagsARM::PROTECTED_ARM.0, "PROTECTED_ARM"),
+                (TensorCreateFlagBitsARM::PROTECTED_ARM.0, "PROTECTED_ARM"),
                 (
-                    TensorCreateFlagsARM::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM.0,
+                    TensorCreateFlagBitsARM::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM.0,
                     "DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM",
                 ),
                 (
-                    TensorCreateFlagsARM::DESCRIPTOR_HEAP_CAPTURE_REPLAY_ARM.0,
+                    TensorCreateFlagBitsARM::DESCRIPTOR_HEAP_CAPTURE_REPLAY_ARM.0,
                     "DESCRIPTOR_HEAP_CAPTURE_REPLAY_ARM",
                 ),
             ];
@@ -1803,33 +1790,25 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct TensorUsageFlagsARM(Flags64);
-    vk_bitflags_wrapped!(TensorUsageFlagsARM, Flags64);
-
-    impl TensorUsageFlagsARM {
-        /// Tensor written/read through shader descriptor
-        pub const SHADER_ARM: Self = Self(TensorUsageFlagBitsARM::SHADER_ARM.0);
-        /// Tensor can be src of a transfer operation
-        pub const TRANSFER_SRC_ARM: Self = Self(TensorUsageFlagBitsARM::TRANSFER_SRC_ARM.0);
-        /// Tensor can be dst of a transfer operation
-        pub const TRANSFER_DST_ARM: Self = Self(TensorUsageFlagBitsARM::TRANSFER_DST_ARM.0);
-        /// Tensor can be aliased with an image
-        pub const IMAGE_ALIASING_ARM: Self = Self(TensorUsageFlagBitsARM::IMAGE_ALIASING_ARM.0);
-
-        // VK_ARM_data_graph
-        pub const DATA_GRAPH_ARM: Self = Self(TensorUsageFlagBitsARM::DATA_GRAPH_ARM.0);
-    }
+    vk_bitflags_wrapped!(TensorUsageFlagsARM, Flags64, TensorUsageFlagBitsARM);
 
     impl fmt::Debug for TensorUsageFlagsARM {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags64, &str)] = &[
-                (TensorUsageFlagsARM::SHADER_ARM.0, "SHADER_ARM"),
-                (TensorUsageFlagsARM::TRANSFER_SRC_ARM.0, "TRANSFER_SRC_ARM"),
-                (TensorUsageFlagsARM::TRANSFER_DST_ARM.0, "TRANSFER_DST_ARM"),
+                (TensorUsageFlagBitsARM::SHADER_ARM.0, "SHADER_ARM"),
                 (
-                    TensorUsageFlagsARM::IMAGE_ALIASING_ARM.0,
+                    TensorUsageFlagBitsARM::TRANSFER_SRC_ARM.0,
+                    "TRANSFER_SRC_ARM",
+                ),
+                (
+                    TensorUsageFlagBitsARM::TRANSFER_DST_ARM.0,
+                    "TRANSFER_DST_ARM",
+                ),
+                (
+                    TensorUsageFlagBitsARM::IMAGE_ALIASING_ARM.0,
                     "IMAGE_ALIASING_ARM",
                 ),
-                (TensorUsageFlagsARM::DATA_GRAPH_ARM.0, "DATA_GRAPH_ARM"),
+                (TensorUsageFlagBitsARM::DATA_GRAPH_ARM.0, "DATA_GRAPH_ARM"),
             ];
             debug_flags(f, KNOWN, self.0)
         }
@@ -1875,18 +1854,16 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct TensorViewCreateFlagsARM(Flags64);
-    vk_bitflags_wrapped!(TensorViewCreateFlagsARM, Flags64);
-
-    impl TensorViewCreateFlagsARM {
-        // VK_ARM_tensors
-        pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM: Self =
-            Self(TensorViewCreateFlagBitsARM::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM.0);
-    }
+    vk_bitflags_wrapped!(
+        TensorViewCreateFlagsARM,
+        Flags64,
+        TensorViewCreateFlagBitsARM
+    );
 
     impl fmt::Debug for TensorViewCreateFlagsARM {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags64, &str)] = &[(
-                TensorViewCreateFlagsARM::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM.0,
+                TensorViewCreateFlagBitsARM::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM.0,
                 "DESCRIPTOR_BUFFER_CAPTURE_REPLAY_ARM",
             )];
             debug_flags(f, KNOWN, self.0)

@@ -674,28 +674,20 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PartitionedAccelerationStructureInstanceFlagsNV(Flags);
-    vk_bitflags_wrapped!(PartitionedAccelerationStructureInstanceFlagsNV, Flags);
-
-    impl PartitionedAccelerationStructureInstanceFlagsNV {
-        pub const FLAG_TRIANGLE_FACING_CULL_DISABLE_NV: Self = Self(PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_TRIANGLE_FACING_CULL_DISABLE_NV.0);
-        pub const FLAG_TRIANGLE_FLIP_FACING_NV: Self = Self(
-            PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_TRIANGLE_FLIP_FACING_NV.0,
-        );
-        pub const FLAG_FORCE_OPAQUE_NV: Self =
-            Self(PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_FORCE_OPAQUE_NV.0);
-        pub const FLAG_FORCE_NO_OPAQUE_NV: Self =
-            Self(PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_FORCE_NO_OPAQUE_NV.0);
-        pub const FLAG_ENABLE_EXPLICIT_BOUNDING_BOX_NV: Self = Self(PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_ENABLE_EXPLICIT_BOUNDING_BOX_NV.0);
-    }
+    vk_bitflags_wrapped!(
+        PartitionedAccelerationStructureInstanceFlagsNV,
+        Flags,
+        PartitionedAccelerationStructureInstanceFlagBitsNV
+    );
 
     impl fmt::Debug for PartitionedAccelerationStructureInstanceFlagsNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (PartitionedAccelerationStructureInstanceFlagsNV::FLAG_TRIANGLE_FACING_CULL_DISABLE_NV.0, "FLAG_TRIANGLE_FACING_CULL_DISABLE_NV"),
-                (PartitionedAccelerationStructureInstanceFlagsNV::FLAG_TRIANGLE_FLIP_FACING_NV.0, "FLAG_TRIANGLE_FLIP_FACING_NV"),
-                (PartitionedAccelerationStructureInstanceFlagsNV::FLAG_FORCE_OPAQUE_NV.0, "FLAG_FORCE_OPAQUE_NV"),
-                (PartitionedAccelerationStructureInstanceFlagsNV::FLAG_FORCE_NO_OPAQUE_NV.0, "FLAG_FORCE_NO_OPAQUE_NV"),
-                (PartitionedAccelerationStructureInstanceFlagsNV::FLAG_ENABLE_EXPLICIT_BOUNDING_BOX_NV.0, "FLAG_ENABLE_EXPLICIT_BOUNDING_BOX_NV"),
+                (PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_TRIANGLE_FACING_CULL_DISABLE_NV.0, "FLAG_TRIANGLE_FACING_CULL_DISABLE_NV"),
+                (PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_TRIANGLE_FLIP_FACING_NV.0, "FLAG_TRIANGLE_FLIP_FACING_NV"),
+                (PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_FORCE_OPAQUE_NV.0, "FLAG_FORCE_OPAQUE_NV"),
+                (PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_FORCE_NO_OPAQUE_NV.0, "FLAG_FORCE_NO_OPAQUE_NV"),
+                (PartitionedAccelerationStructureInstanceFlagBitsNV::FLAG_ENABLE_EXPLICIT_BOUNDING_BOX_NV.0, "FLAG_ENABLE_EXPLICIT_BOUNDING_BOX_NV"),
             ];
             debug_flags(f, KNOWN, self.0)
         }

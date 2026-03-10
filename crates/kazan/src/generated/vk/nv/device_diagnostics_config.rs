@@ -116,36 +116,29 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DeviceDiagnosticsConfigFlagsNV(Flags);
-    vk_bitflags_wrapped!(DeviceDiagnosticsConfigFlagsNV, Flags);
-
-    impl DeviceDiagnosticsConfigFlagsNV {
-        pub const ENABLE_SHADER_DEBUG_INFO_NV: Self =
-            Self(DeviceDiagnosticsConfigFlagBitsNV::ENABLE_SHADER_DEBUG_INFO_NV.0);
-        pub const ENABLE_RESOURCE_TRACKING_NV: Self =
-            Self(DeviceDiagnosticsConfigFlagBitsNV::ENABLE_RESOURCE_TRACKING_NV.0);
-        pub const ENABLE_AUTOMATIC_CHECKPOINTS_NV: Self =
-            Self(DeviceDiagnosticsConfigFlagBitsNV::ENABLE_AUTOMATIC_CHECKPOINTS_NV.0);
-        pub const ENABLE_SHADER_ERROR_REPORTING_NV: Self =
-            Self(DeviceDiagnosticsConfigFlagBitsNV::ENABLE_SHADER_ERROR_REPORTING_NV.0);
-    }
+    vk_bitflags_wrapped!(
+        DeviceDiagnosticsConfigFlagsNV,
+        Flags,
+        DeviceDiagnosticsConfigFlagBitsNV
+    );
 
     impl fmt::Debug for DeviceDiagnosticsConfigFlagsNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    DeviceDiagnosticsConfigFlagsNV::ENABLE_SHADER_DEBUG_INFO_NV.0,
+                    DeviceDiagnosticsConfigFlagBitsNV::ENABLE_SHADER_DEBUG_INFO_NV.0,
                     "ENABLE_SHADER_DEBUG_INFO_NV",
                 ),
                 (
-                    DeviceDiagnosticsConfigFlagsNV::ENABLE_RESOURCE_TRACKING_NV.0,
+                    DeviceDiagnosticsConfigFlagBitsNV::ENABLE_RESOURCE_TRACKING_NV.0,
                     "ENABLE_RESOURCE_TRACKING_NV",
                 ),
                 (
-                    DeviceDiagnosticsConfigFlagsNV::ENABLE_AUTOMATIC_CHECKPOINTS_NV.0,
+                    DeviceDiagnosticsConfigFlagBitsNV::ENABLE_AUTOMATIC_CHECKPOINTS_NV.0,
                     "ENABLE_AUTOMATIC_CHECKPOINTS_NV",
                 ),
                 (
-                    DeviceDiagnosticsConfigFlagsNV::ENABLE_SHADER_ERROR_REPORTING_NV.0,
+                    DeviceDiagnosticsConfigFlagBitsNV::ENABLE_SHADER_ERROR_REPORTING_NV.0,
                     "ENABLE_SHADER_ERROR_REPORTING_NV",
                 ),
             ];

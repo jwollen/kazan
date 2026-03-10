@@ -215,28 +215,19 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DebugReportFlagsEXT(Flags);
-    vk_bitflags_wrapped!(DebugReportFlagsEXT, Flags);
-
-    impl DebugReportFlagsEXT {
-        pub const INFORMATION_EXT: Self = Self(DebugReportFlagBitsEXT::INFORMATION_EXT.0);
-        pub const WARNING_EXT: Self = Self(DebugReportFlagBitsEXT::WARNING_EXT.0);
-        pub const PERFORMANCE_WARNING_EXT: Self =
-            Self(DebugReportFlagBitsEXT::PERFORMANCE_WARNING_EXT.0);
-        pub const ERROR_EXT: Self = Self(DebugReportFlagBitsEXT::ERROR_EXT.0);
-        pub const DEBUG_EXT: Self = Self(DebugReportFlagBitsEXT::DEBUG_EXT.0);
-    }
+    vk_bitflags_wrapped!(DebugReportFlagsEXT, Flags, DebugReportFlagBitsEXT);
 
     impl fmt::Debug for DebugReportFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (DebugReportFlagsEXT::INFORMATION_EXT.0, "INFORMATION_EXT"),
-                (DebugReportFlagsEXT::WARNING_EXT.0, "WARNING_EXT"),
+                (DebugReportFlagBitsEXT::INFORMATION_EXT.0, "INFORMATION_EXT"),
+                (DebugReportFlagBitsEXT::WARNING_EXT.0, "WARNING_EXT"),
                 (
-                    DebugReportFlagsEXT::PERFORMANCE_WARNING_EXT.0,
+                    DebugReportFlagBitsEXT::PERFORMANCE_WARNING_EXT.0,
                     "PERFORMANCE_WARNING_EXT",
                 ),
-                (DebugReportFlagsEXT::ERROR_EXT.0, "ERROR_EXT"),
-                (DebugReportFlagsEXT::DEBUG_EXT.0, "DEBUG_EXT"),
+                (DebugReportFlagBitsEXT::ERROR_EXT.0, "ERROR_EXT"),
+                (DebugReportFlagBitsEXT::DEBUG_EXT.0, "DEBUG_EXT"),
             ];
             debug_flags(f, KNOWN, self.0)
         }

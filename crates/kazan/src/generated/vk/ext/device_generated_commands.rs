@@ -1440,24 +1440,21 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct IndirectCommandsLayoutUsageFlagsEXT(Flags);
-    vk_bitflags_wrapped!(IndirectCommandsLayoutUsageFlagsEXT, Flags);
-
-    impl IndirectCommandsLayoutUsageFlagsEXT {
-        pub const EXPLICIT_PREPROCESS_EXT: Self =
-            Self(IndirectCommandsLayoutUsageFlagBitsEXT::EXPLICIT_PREPROCESS_EXT.0);
-        pub const UNORDERED_SEQUENCES_EXT: Self =
-            Self(IndirectCommandsLayoutUsageFlagBitsEXT::UNORDERED_SEQUENCES_EXT.0);
-    }
+    vk_bitflags_wrapped!(
+        IndirectCommandsLayoutUsageFlagsEXT,
+        Flags,
+        IndirectCommandsLayoutUsageFlagBitsEXT
+    );
 
     impl fmt::Debug for IndirectCommandsLayoutUsageFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    IndirectCommandsLayoutUsageFlagsEXT::EXPLICIT_PREPROCESS_EXT.0,
+                    IndirectCommandsLayoutUsageFlagBitsEXT::EXPLICIT_PREPROCESS_EXT.0,
                     "EXPLICIT_PREPROCESS_EXT",
                 ),
                 (
-                    IndirectCommandsLayoutUsageFlagsEXT::UNORDERED_SEQUENCES_EXT.0,
+                    IndirectCommandsLayoutUsageFlagBitsEXT::UNORDERED_SEQUENCES_EXT.0,
                     "UNORDERED_SEQUENCES_EXT",
                 ),
             ];
@@ -1494,24 +1491,21 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct IndirectCommandsInputModeFlagsEXT(Flags);
-    vk_bitflags_wrapped!(IndirectCommandsInputModeFlagsEXT, Flags);
-
-    impl IndirectCommandsInputModeFlagsEXT {
-        pub const VULKAN_INDEX_BUFFER_EXT: Self =
-            Self(IndirectCommandsInputModeFlagBitsEXT::VULKAN_INDEX_BUFFER_EXT.0);
-        pub const DXGI_INDEX_BUFFER_EXT: Self =
-            Self(IndirectCommandsInputModeFlagBitsEXT::DXGI_INDEX_BUFFER_EXT.0);
-    }
+    vk_bitflags_wrapped!(
+        IndirectCommandsInputModeFlagsEXT,
+        Flags,
+        IndirectCommandsInputModeFlagBitsEXT
+    );
 
     impl fmt::Debug for IndirectCommandsInputModeFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    IndirectCommandsInputModeFlagsEXT::VULKAN_INDEX_BUFFER_EXT.0,
+                    IndirectCommandsInputModeFlagBitsEXT::VULKAN_INDEX_BUFFER_EXT.0,
                     "VULKAN_INDEX_BUFFER_EXT",
                 ),
                 (
-                    IndirectCommandsInputModeFlagsEXT::DXGI_INDEX_BUFFER_EXT.0,
+                    IndirectCommandsInputModeFlagBitsEXT::DXGI_INDEX_BUFFER_EXT.0,
                     "DXGI_INDEX_BUFFER_EXT",
                 ),
             ];

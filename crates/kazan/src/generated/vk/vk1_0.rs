@@ -16445,19 +16445,12 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct FramebufferCreateFlags(Flags);
-    vk_bitflags_wrapped!(FramebufferCreateFlags, Flags);
-
-    impl FramebufferCreateFlags {
-        // VK_KHR_imageless_framebuffer
-        pub const IMAGELESS_KHR: Self = Self::IMAGELESS;
-
-        // VK_VERSION_1_2
-        pub const IMAGELESS: Self = Self(FramebufferCreateFlagBits::IMAGELESS.0);
-    }
+    vk_bitflags_wrapped!(FramebufferCreateFlags, Flags, FramebufferCreateFlagBits);
 
     impl fmt::Debug for FramebufferCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-            const KNOWN: &[(Flags, &str)] = &[(FramebufferCreateFlags::IMAGELESS.0, "IMAGELESS")];
+            const KNOWN: &[(Flags, &str)] =
+                &[(FramebufferCreateFlagBits::IMAGELESS.0, "IMAGELESS")];
             debug_flags(f, KNOWN, self.0)
         }
     }
@@ -16493,16 +16486,11 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct QueryPoolCreateFlags(Flags);
-    vk_bitflags_wrapped!(QueryPoolCreateFlags, Flags);
-
-    impl QueryPoolCreateFlags {
-        // VK_KHR_maintenance9
-        pub const RESET_KHR: Self = Self(QueryPoolCreateFlagBits::RESET_KHR.0);
-    }
+    vk_bitflags_wrapped!(QueryPoolCreateFlags, Flags, QueryPoolCreateFlagBits);
 
     impl fmt::Debug for QueryPoolCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-            const KNOWN: &[(Flags, &str)] = &[(QueryPoolCreateFlags::RESET_KHR.0, "RESET_KHR")];
+            const KNOWN: &[(Flags, &str)] = &[(QueryPoolCreateFlagBits::RESET_KHR.0, "RESET_KHR")];
             debug_flags(f, KNOWN, self.0)
         }
     }
@@ -16535,23 +16523,14 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct RenderPassCreateFlags(Flags);
-    vk_bitflags_wrapped!(RenderPassCreateFlags, Flags);
-
-    impl RenderPassCreateFlags {
-        // VK_QCOM_render_pass_transform
-        pub const TRANSFORM_QCOM: Self = Self(RenderPassCreateFlagBits::TRANSFORM_QCOM.0);
-
-        // VK_VALVE_fragment_density_map_layered
-        pub const PER_LAYER_FRAGMENT_DENSITY_VALVE: Self =
-            Self(RenderPassCreateFlagBits::PER_LAYER_FRAGMENT_DENSITY_VALVE.0);
-    }
+    vk_bitflags_wrapped!(RenderPassCreateFlags, Flags, RenderPassCreateFlagBits);
 
     impl fmt::Debug for RenderPassCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (RenderPassCreateFlags::TRANSFORM_QCOM.0, "TRANSFORM_QCOM"),
+                (RenderPassCreateFlagBits::TRANSFORM_QCOM.0, "TRANSFORM_QCOM"),
                 (
-                    RenderPassCreateFlags::PER_LAYER_FRAGMENT_DENSITY_VALVE.0,
+                    RenderPassCreateFlagBits::PER_LAYER_FRAGMENT_DENSITY_VALVE.0,
                     "PER_LAYER_FRAGMENT_DENSITY_VALVE",
                 ),
             ];
@@ -16591,45 +16570,26 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SamplerCreateFlags(Flags);
-    vk_bitflags_wrapped!(SamplerCreateFlags, Flags);
-
-    impl SamplerCreateFlags {
-        // VK_EXT_descriptor_buffer
-        pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self =
-            Self(SamplerCreateFlagBits::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT.0);
-
-        // VK_EXT_fragment_density_map
-        pub const SUBSAMPLED_EXT: Self = Self(SamplerCreateFlagBits::SUBSAMPLED_EXT.0);
-        pub const SUBSAMPLED_COARSE_RECONSTRUCTION_EXT: Self =
-            Self(SamplerCreateFlagBits::SUBSAMPLED_COARSE_RECONSTRUCTION_EXT.0);
-
-        // VK_EXT_non_seamless_cube_map
-        pub const NON_SEAMLESS_CUBE_MAP_EXT: Self =
-            Self(SamplerCreateFlagBits::NON_SEAMLESS_CUBE_MAP_EXT.0);
-
-        // VK_QCOM_image_processing
-        pub const IMAGE_PROCESSING_QCOM: Self =
-            Self(SamplerCreateFlagBits::IMAGE_PROCESSING_QCOM.0);
-    }
+    vk_bitflags_wrapped!(SamplerCreateFlags, Flags, SamplerCreateFlagBits);
 
     impl fmt::Debug for SamplerCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    SamplerCreateFlags::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT.0,
+                    SamplerCreateFlagBits::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT.0,
                     "DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT",
                 ),
-                (SamplerCreateFlags::SUBSAMPLED_EXT.0, "SUBSAMPLED_EXT"),
+                (SamplerCreateFlagBits::SUBSAMPLED_EXT.0, "SUBSAMPLED_EXT"),
                 (
-                    SamplerCreateFlags::SUBSAMPLED_COARSE_RECONSTRUCTION_EXT.0,
+                    SamplerCreateFlagBits::SUBSAMPLED_COARSE_RECONSTRUCTION_EXT.0,
                     "SUBSAMPLED_COARSE_RECONSTRUCTION_EXT",
                 ),
                 (
-                    SamplerCreateFlags::NON_SEAMLESS_CUBE_MAP_EXT.0,
+                    SamplerCreateFlagBits::NON_SEAMLESS_CUBE_MAP_EXT.0,
                     "NON_SEAMLESS_CUBE_MAP_EXT",
                 ),
                 (
-                    SamplerCreateFlags::IMAGE_PROCESSING_QCOM.0,
+                    SamplerCreateFlagBits::IMAGE_PROCESSING_QCOM.0,
                     "IMAGE_PROCESSING_QCOM",
                 ),
             ];
@@ -16683,18 +16643,16 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineLayoutCreateFlags(Flags);
-    vk_bitflags_wrapped!(PipelineLayoutCreateFlags, Flags);
-
-    impl PipelineLayoutCreateFlags {
-        // VK_EXT_graphics_pipeline_library
-        pub const INDEPENDENT_SETS_EXT: Self =
-            Self(PipelineLayoutCreateFlagBits::INDEPENDENT_SETS_EXT.0);
-    }
+    vk_bitflags_wrapped!(
+        PipelineLayoutCreateFlags,
+        Flags,
+        PipelineLayoutCreateFlagBits
+    );
 
     impl fmt::Debug for PipelineLayoutCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[(
-                PipelineLayoutCreateFlags::INDEPENDENT_SETS_EXT.0,
+                PipelineLayoutCreateFlagBits::INDEPENDENT_SETS_EXT.0,
                 "INDEPENDENT_SETS_EXT",
             )];
             debug_flags(f, KNOWN, self.0)
@@ -16729,30 +16687,17 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineCacheCreateFlags(Flags);
-    vk_bitflags_wrapped!(PipelineCacheCreateFlags, Flags);
-
-    impl PipelineCacheCreateFlags {
-        // VK_EXT_pipeline_creation_cache_control
-        pub const EXTERNALLY_SYNCHRONIZED_EXT: Self = Self::EXTERNALLY_SYNCHRONIZED;
-
-        // VK_KHR_maintenance8
-        pub const INTERNALLY_SYNCHRONIZED_MERGE_KHR: Self =
-            Self(PipelineCacheCreateFlagBits::INTERNALLY_SYNCHRONIZED_MERGE_KHR.0);
-
-        // VK_VERSION_1_3
-        pub const EXTERNALLY_SYNCHRONIZED: Self =
-            Self(PipelineCacheCreateFlagBits::EXTERNALLY_SYNCHRONIZED.0);
-    }
+    vk_bitflags_wrapped!(PipelineCacheCreateFlags, Flags, PipelineCacheCreateFlagBits);
 
     impl fmt::Debug for PipelineCacheCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    PipelineCacheCreateFlags::INTERNALLY_SYNCHRONIZED_MERGE_KHR.0,
+                    PipelineCacheCreateFlagBits::INTERNALLY_SYNCHRONIZED_MERGE_KHR.0,
                     "INTERNALLY_SYNCHRONIZED_MERGE_KHR",
                 ),
                 (
-                    PipelineCacheCreateFlags::EXTERNALLY_SYNCHRONIZED.0,
+                    PipelineCacheCreateFlagBits::EXTERNALLY_SYNCHRONIZED.0,
                     "EXTERNALLY_SYNCHRONIZED",
                 ),
             ];
@@ -16797,25 +16742,17 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineDepthStencilStateCreateFlags(Flags);
-    vk_bitflags_wrapped!(PipelineDepthStencilStateCreateFlags, Flags);
-
-    impl PipelineDepthStencilStateCreateFlags {
-        // VK_ARM_rasterization_order_attachment_access
-        pub const RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_ARM: Self =
-            Self::RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT;
-        pub const RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_ARM: Self =
-            Self::RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT;
-
-        // VK_EXT_rasterization_order_attachment_access
-        pub const RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT: Self = Self(PipelineDepthStencilStateCreateFlagBits::RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT.0);
-        pub const RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT: Self = Self(PipelineDepthStencilStateCreateFlagBits::RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT.0);
-    }
+    vk_bitflags_wrapped!(
+        PipelineDepthStencilStateCreateFlags,
+        Flags,
+        PipelineDepthStencilStateCreateFlagBits
+    );
 
     impl fmt::Debug for PipelineDepthStencilStateCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (PipelineDepthStencilStateCreateFlags::RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT.0, "RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT"),
-                (PipelineDepthStencilStateCreateFlags::RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT.0, "RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT"),
+                (PipelineDepthStencilStateCreateFlagBits::RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT.0, "RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT"),
+                (PipelineDepthStencilStateCreateFlagBits::RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT.0, "RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT"),
             ];
             debug_flags(f, KNOWN, self.0)
         }
@@ -16873,23 +16810,16 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineColorBlendStateCreateFlags(Flags);
-    vk_bitflags_wrapped!(PipelineColorBlendStateCreateFlags, Flags);
-
-    impl PipelineColorBlendStateCreateFlags {
-        // VK_ARM_rasterization_order_attachment_access
-        pub const RASTERIZATION_ORDER_ATTACHMENT_ACCESS_ARM: Self =
-            Self::RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXT;
-
-        // VK_EXT_rasterization_order_attachment_access
-        pub const RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXT: Self = Self(
-            PipelineColorBlendStateCreateFlagBits::RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXT.0,
-        );
-    }
+    vk_bitflags_wrapped!(
+        PipelineColorBlendStateCreateFlags,
+        Flags,
+        PipelineColorBlendStateCreateFlagBits
+    );
 
     impl fmt::Debug for PipelineColorBlendStateCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[(
-                PipelineColorBlendStateCreateFlags::RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXT.0,
+                PipelineColorBlendStateCreateFlagBits::RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXT.0,
                 "RASTERIZATION_ORDER_ATTACHMENT_ACCESS_EXT",
             )];
             debug_flags(f, KNOWN, self.0)
@@ -17002,29 +16932,21 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineShaderStageCreateFlags(Flags);
-    vk_bitflags_wrapped!(PipelineShaderStageCreateFlags, Flags);
-
-    impl PipelineShaderStageCreateFlags {
-        // VK_EXT_subgroup_size_control
-        pub const ALLOW_VARYING_SUBGROUP_SIZE_EXT: Self = Self::ALLOW_VARYING_SUBGROUP_SIZE;
-        pub const REQUIRE_FULL_SUBGROUPS_EXT: Self = Self::REQUIRE_FULL_SUBGROUPS;
-
-        // VK_VERSION_1_3
-        pub const ALLOW_VARYING_SUBGROUP_SIZE: Self =
-            Self(PipelineShaderStageCreateFlagBits::ALLOW_VARYING_SUBGROUP_SIZE.0);
-        pub const REQUIRE_FULL_SUBGROUPS: Self =
-            Self(PipelineShaderStageCreateFlagBits::REQUIRE_FULL_SUBGROUPS.0);
-    }
+    vk_bitflags_wrapped!(
+        PipelineShaderStageCreateFlags,
+        Flags,
+        PipelineShaderStageCreateFlagBits
+    );
 
     impl fmt::Debug for PipelineShaderStageCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    PipelineShaderStageCreateFlags::ALLOW_VARYING_SUBGROUP_SIZE.0,
+                    PipelineShaderStageCreateFlagBits::ALLOW_VARYING_SUBGROUP_SIZE.0,
                     "ALLOW_VARYING_SUBGROUP_SIZE",
                 ),
                 (
-                    PipelineShaderStageCreateFlags::REQUIRE_FULL_SUBGROUPS.0,
+                    PipelineShaderStageCreateFlagBits::REQUIRE_FULL_SUBGROUPS.0,
                     "REQUIRE_FULL_SUBGROUPS",
                 ),
             ];
@@ -17066,73 +16988,41 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DescriptorSetLayoutCreateFlags(Flags);
-    vk_bitflags_wrapped!(DescriptorSetLayoutCreateFlags, Flags);
-
-    impl DescriptorSetLayoutCreateFlags {
-        // VK_EXT_descriptor_buffer
-        pub const DESCRIPTOR_BUFFER_EXT: Self =
-            Self(DescriptorSetLayoutCreateFlagBits::DESCRIPTOR_BUFFER_EXT.0);
-        pub const EMBEDDED_IMMUTABLE_SAMPLERS_EXT: Self =
-            Self(DescriptorSetLayoutCreateFlagBits::EMBEDDED_IMMUTABLE_SAMPLERS_EXT.0);
-
-        // VK_EXT_descriptor_indexing
-        pub const UPDATE_AFTER_BIND_POOL_EXT: Self = Self::UPDATE_AFTER_BIND_POOL;
-
-        // VK_EXT_mutable_descriptor_type
-        pub const HOST_ONLY_POOL_EXT: Self =
-            Self(DescriptorSetLayoutCreateFlagBits::HOST_ONLY_POOL_EXT.0);
-
-        // VK_KHR_push_descriptor
-        pub const PUSH_DESCRIPTOR_KHR: Self = Self::PUSH_DESCRIPTOR;
-
-        // VK_NV_device_generated_commands_compute
-        pub const INDIRECT_BINDABLE_NV: Self =
-            Self(DescriptorSetLayoutCreateFlagBits::INDIRECT_BINDABLE_NV.0);
-
-        // VK_NV_per_stage_descriptor_set
-        pub const PER_STAGE_NV: Self = Self(DescriptorSetLayoutCreateFlagBits::PER_STAGE_NV.0);
-
-        // VK_VALVE_mutable_descriptor_type
-        pub const HOST_ONLY_POOL_VALVE: Self = Self::HOST_ONLY_POOL_EXT;
-
-        // VK_VERSION_1_2
-        pub const UPDATE_AFTER_BIND_POOL: Self =
-            Self(DescriptorSetLayoutCreateFlagBits::UPDATE_AFTER_BIND_POOL.0);
-
-        // VK_VERSION_1_4
-        pub const PUSH_DESCRIPTOR: Self =
-            Self(DescriptorSetLayoutCreateFlagBits::PUSH_DESCRIPTOR.0);
-    }
+    vk_bitflags_wrapped!(
+        DescriptorSetLayoutCreateFlags,
+        Flags,
+        DescriptorSetLayoutCreateFlagBits
+    );
 
     impl fmt::Debug for DescriptorSetLayoutCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    DescriptorSetLayoutCreateFlags::DESCRIPTOR_BUFFER_EXT.0,
+                    DescriptorSetLayoutCreateFlagBits::DESCRIPTOR_BUFFER_EXT.0,
                     "DESCRIPTOR_BUFFER_EXT",
                 ),
                 (
-                    DescriptorSetLayoutCreateFlags::EMBEDDED_IMMUTABLE_SAMPLERS_EXT.0,
+                    DescriptorSetLayoutCreateFlagBits::EMBEDDED_IMMUTABLE_SAMPLERS_EXT.0,
                     "EMBEDDED_IMMUTABLE_SAMPLERS_EXT",
                 ),
                 (
-                    DescriptorSetLayoutCreateFlags::HOST_ONLY_POOL_EXT.0,
+                    DescriptorSetLayoutCreateFlagBits::HOST_ONLY_POOL_EXT.0,
                     "HOST_ONLY_POOL_EXT",
                 ),
                 (
-                    DescriptorSetLayoutCreateFlags::INDIRECT_BINDABLE_NV.0,
+                    DescriptorSetLayoutCreateFlagBits::INDIRECT_BINDABLE_NV.0,
                     "INDIRECT_BINDABLE_NV",
                 ),
                 (
-                    DescriptorSetLayoutCreateFlags::PER_STAGE_NV.0,
+                    DescriptorSetLayoutCreateFlagBits::PER_STAGE_NV.0,
                     "PER_STAGE_NV",
                 ),
                 (
-                    DescriptorSetLayoutCreateFlags::UPDATE_AFTER_BIND_POOL.0,
+                    DescriptorSetLayoutCreateFlagBits::UPDATE_AFTER_BIND_POOL.0,
                     "UPDATE_AFTER_BIND_POOL",
                 ),
                 (
-                    DescriptorSetLayoutCreateFlags::PUSH_DESCRIPTOR.0,
+                    DescriptorSetLayoutCreateFlagBits::PUSH_DESCRIPTOR.0,
                     "PUSH_DESCRIPTOR",
                 ),
             ];
@@ -17211,18 +17101,12 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct InstanceCreateFlags(Flags);
-    vk_bitflags_wrapped!(InstanceCreateFlags, Flags);
-
-    impl InstanceCreateFlags {
-        // VK_KHR_portability_enumeration
-        pub const ENUMERATE_PORTABILITY_KHR: Self =
-            Self(InstanceCreateFlagBits::ENUMERATE_PORTABILITY_KHR.0);
-    }
+    vk_bitflags_wrapped!(InstanceCreateFlags, Flags, InstanceCreateFlagBits);
 
     impl fmt::Debug for InstanceCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[(
-                InstanceCreateFlags::ENUMERATE_PORTABILITY_KHR.0,
+                InstanceCreateFlagBits::ENUMERATE_PORTABILITY_KHR.0,
                 "ENUMERATE_PORTABILITY_KHR",
             )];
             debug_flags(f, KNOWN, self.0)
@@ -17269,26 +17153,16 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DeviceQueueCreateFlags(Flags);
-    vk_bitflags_wrapped!(DeviceQueueCreateFlags, Flags);
-
-    impl DeviceQueueCreateFlags {
-        // VK_KHR_internally_synchronized_queues
-        pub const INTERNALLY_SYNCHRONIZED_KHR: Self =
-            Self(DeviceQueueCreateFlagBits::INTERNALLY_SYNCHRONIZED_KHR.0);
-
-        // VK_VERSION_1_1
-        /// Queue is a protected-capable device queue
-        pub const PROTECTED: Self = Self(DeviceQueueCreateFlagBits::PROTECTED.0);
-    }
+    vk_bitflags_wrapped!(DeviceQueueCreateFlags, Flags, DeviceQueueCreateFlagBits);
 
     impl fmt::Debug for DeviceQueueCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    DeviceQueueCreateFlags::INTERNALLY_SYNCHRONIZED_KHR.0,
+                    DeviceQueueCreateFlagBits::INTERNALLY_SYNCHRONIZED_KHR.0,
                     "INTERNALLY_SYNCHRONIZED_KHR",
                 ),
-                (DeviceQueueCreateFlags::PROTECTED.0, "PROTECTED"),
+                (DeviceQueueCreateFlagBits::PROTECTED.0, "PROTECTED"),
             ];
             debug_flags(f, KNOWN, self.0)
         }
@@ -17327,47 +17201,20 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct QueueFlags(Flags);
-    vk_bitflags_wrapped!(QueueFlags, Flags);
-
-    impl QueueFlags {
-        /// Queue supports graphics operations
-        pub const GRAPHICS: Self = Self(QueueFlagBits::GRAPHICS.0);
-        /// Queue supports compute operations
-        pub const COMPUTE: Self = Self(QueueFlagBits::COMPUTE.0);
-        /// Queue supports transfer operations
-        pub const TRANSFER: Self = Self(QueueFlagBits::TRANSFER.0);
-        /// Queue supports sparse resource memory management operations
-        pub const SPARSE_BINDING: Self = Self(QueueFlagBits::SPARSE_BINDING.0);
-
-        // VK_ARM_data_graph
-        pub const DATA_GRAPH_ARM: Self = Self(QueueFlagBits::DATA_GRAPH_ARM.0);
-
-        // VK_KHR_video_decode_queue
-        pub const VIDEO_DECODE_KHR: Self = Self(QueueFlagBits::VIDEO_DECODE_KHR.0);
-
-        // VK_KHR_video_encode_queue
-        pub const VIDEO_ENCODE_KHR: Self = Self(QueueFlagBits::VIDEO_ENCODE_KHR.0);
-
-        // VK_NV_optical_flow
-        pub const OPTICAL_FLOW_NV: Self = Self(QueueFlagBits::OPTICAL_FLOW_NV.0);
-
-        // VK_VERSION_1_1
-        /// Queues may support protected operations
-        pub const PROTECTED: Self = Self(QueueFlagBits::PROTECTED.0);
-    }
+    vk_bitflags_wrapped!(QueueFlags, Flags, QueueFlagBits);
 
     impl fmt::Debug for QueueFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (QueueFlags::GRAPHICS.0, "GRAPHICS"),
-                (QueueFlags::COMPUTE.0, "COMPUTE"),
-                (QueueFlags::TRANSFER.0, "TRANSFER"),
-                (QueueFlags::SPARSE_BINDING.0, "SPARSE_BINDING"),
-                (QueueFlags::DATA_GRAPH_ARM.0, "DATA_GRAPH_ARM"),
-                (QueueFlags::VIDEO_DECODE_KHR.0, "VIDEO_DECODE_KHR"),
-                (QueueFlags::VIDEO_ENCODE_KHR.0, "VIDEO_ENCODE_KHR"),
-                (QueueFlags::OPTICAL_FLOW_NV.0, "OPTICAL_FLOW_NV"),
-                (QueueFlags::PROTECTED.0, "PROTECTED"),
+                (QueueFlagBits::GRAPHICS.0, "GRAPHICS"),
+                (QueueFlagBits::COMPUTE.0, "COMPUTE"),
+                (QueueFlagBits::TRANSFER.0, "TRANSFER"),
+                (QueueFlagBits::SPARSE_BINDING.0, "SPARSE_BINDING"),
+                (QueueFlagBits::DATA_GRAPH_ARM.0, "DATA_GRAPH_ARM"),
+                (QueueFlagBits::VIDEO_DECODE_KHR.0, "VIDEO_DECODE_KHR"),
+                (QueueFlagBits::VIDEO_ENCODE_KHR.0, "VIDEO_ENCODE_KHR"),
+                (QueueFlagBits::OPTICAL_FLOW_NV.0, "OPTICAL_FLOW_NV"),
+                (QueueFlagBits::PROTECTED.0, "PROTECTED"),
             ];
             debug_flags(f, KNOWN, self.0)
         }
@@ -17430,50 +17277,29 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct MemoryPropertyFlags(Flags);
-    vk_bitflags_wrapped!(MemoryPropertyFlags, Flags);
-
-    impl MemoryPropertyFlags {
-        /// If otherwise stated, then allocate memory on device
-        pub const DEVICE_LOCAL: Self = Self(MemoryPropertyFlagBits::DEVICE_LOCAL.0);
-        /// Memory is mappable by host
-        pub const HOST_VISIBLE: Self = Self(MemoryPropertyFlagBits::HOST_VISIBLE.0);
-        /// Memory will have i/o coherency. If not set, application may need to use vkFlushMappedMemoryRanges and vkInvalidateMappedMemoryRanges to flush/invalidate host cache
-        pub const HOST_COHERENT: Self = Self(MemoryPropertyFlagBits::HOST_COHERENT.0);
-        /// Memory will be cached by the host
-        pub const HOST_CACHED: Self = Self(MemoryPropertyFlagBits::HOST_CACHED.0);
-        /// Memory may be allocated by the driver when it is required
-        pub const LAZILY_ALLOCATED: Self = Self(MemoryPropertyFlagBits::LAZILY_ALLOCATED.0);
-
-        // VK_AMD_device_coherent_memory
-        pub const DEVICE_COHERENT_AMD: Self = Self(MemoryPropertyFlagBits::DEVICE_COHERENT_AMD.0);
-        pub const DEVICE_UNCACHED_AMD: Self = Self(MemoryPropertyFlagBits::DEVICE_UNCACHED_AMD.0);
-
-        // VK_NV_external_memory_rdma
-        pub const RDMA_CAPABLE_NV: Self = Self(MemoryPropertyFlagBits::RDMA_CAPABLE_NV.0);
-
-        // VK_VERSION_1_1
-        /// Memory is protected
-        pub const PROTECTED: Self = Self(MemoryPropertyFlagBits::PROTECTED.0);
-    }
+    vk_bitflags_wrapped!(MemoryPropertyFlags, Flags, MemoryPropertyFlagBits);
 
     impl fmt::Debug for MemoryPropertyFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (MemoryPropertyFlags::DEVICE_LOCAL.0, "DEVICE_LOCAL"),
-                (MemoryPropertyFlags::HOST_VISIBLE.0, "HOST_VISIBLE"),
-                (MemoryPropertyFlags::HOST_COHERENT.0, "HOST_COHERENT"),
-                (MemoryPropertyFlags::HOST_CACHED.0, "HOST_CACHED"),
-                (MemoryPropertyFlags::LAZILY_ALLOCATED.0, "LAZILY_ALLOCATED"),
+                (MemoryPropertyFlagBits::DEVICE_LOCAL.0, "DEVICE_LOCAL"),
+                (MemoryPropertyFlagBits::HOST_VISIBLE.0, "HOST_VISIBLE"),
+                (MemoryPropertyFlagBits::HOST_COHERENT.0, "HOST_COHERENT"),
+                (MemoryPropertyFlagBits::HOST_CACHED.0, "HOST_CACHED"),
                 (
-                    MemoryPropertyFlags::DEVICE_COHERENT_AMD.0,
+                    MemoryPropertyFlagBits::LAZILY_ALLOCATED.0,
+                    "LAZILY_ALLOCATED",
+                ),
+                (
+                    MemoryPropertyFlagBits::DEVICE_COHERENT_AMD.0,
                     "DEVICE_COHERENT_AMD",
                 ),
                 (
-                    MemoryPropertyFlags::DEVICE_UNCACHED_AMD.0,
+                    MemoryPropertyFlagBits::DEVICE_UNCACHED_AMD.0,
                     "DEVICE_UNCACHED_AMD",
                 ),
-                (MemoryPropertyFlags::RDMA_CAPABLE_NV.0, "RDMA_CAPABLE_NV"),
-                (MemoryPropertyFlags::PROTECTED.0, "PROTECTED"),
+                (MemoryPropertyFlagBits::RDMA_CAPABLE_NV.0, "RDMA_CAPABLE_NV"),
+                (MemoryPropertyFlagBits::PROTECTED.0, "PROTECTED"),
             ];
             debug_flags(f, KNOWN, self.0)
         }
@@ -17533,29 +17359,14 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct MemoryHeapFlags(Flags);
-    vk_bitflags_wrapped!(MemoryHeapFlags, Flags);
-
-    impl MemoryHeapFlags {
-        /// If set, heap represents device memory
-        pub const DEVICE_LOCAL: Self = Self(MemoryHeapFlagBits::DEVICE_LOCAL.0);
-
-        // VK_KHR_device_group_creation
-        pub const MULTI_INSTANCE_KHR: Self = Self::MULTI_INSTANCE;
-
-        // VK_QCOM_tile_memory_heap
-        pub const TILE_MEMORY_QCOM: Self = Self(MemoryHeapFlagBits::TILE_MEMORY_QCOM.0);
-
-        // VK_VERSION_1_1
-        /// If set, heap allocations allocate multiple instances by default
-        pub const MULTI_INSTANCE: Self = Self(MemoryHeapFlagBits::MULTI_INSTANCE.0);
-    }
+    vk_bitflags_wrapped!(MemoryHeapFlags, Flags, MemoryHeapFlagBits);
 
     impl fmt::Debug for MemoryHeapFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (MemoryHeapFlags::DEVICE_LOCAL.0, "DEVICE_LOCAL"),
-                (MemoryHeapFlags::TILE_MEMORY_QCOM.0, "TILE_MEMORY_QCOM"),
-                (MemoryHeapFlags::MULTI_INSTANCE.0, "MULTI_INSTANCE"),
+                (MemoryHeapFlagBits::DEVICE_LOCAL.0, "DEVICE_LOCAL"),
+                (MemoryHeapFlagBits::TILE_MEMORY_QCOM.0, "TILE_MEMORY_QCOM"),
+                (MemoryHeapFlagBits::MULTI_INSTANCE.0, "MULTI_INSTANCE"),
             ];
             debug_flags(f, KNOWN, self.0)
         }
@@ -17600,98 +17411,9 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct AccessFlags(Flags);
-    vk_bitflags_wrapped!(AccessFlags, Flags);
+    vk_bitflags_wrapped!(AccessFlags, Flags, AccessFlagBits);
 
     impl AccessFlags {
-        /// Controls coherency of indirect command reads
-        pub const INDIRECT_COMMAND_READ: Self = Self(AccessFlagBits::INDIRECT_COMMAND_READ.0);
-        /// Controls coherency of index reads
-        pub const INDEX_READ: Self = Self(AccessFlagBits::INDEX_READ.0);
-        /// Controls coherency of vertex attribute reads
-        pub const VERTEX_ATTRIBUTE_READ: Self = Self(AccessFlagBits::VERTEX_ATTRIBUTE_READ.0);
-        /// Controls coherency of uniform buffer reads
-        pub const UNIFORM_READ: Self = Self(AccessFlagBits::UNIFORM_READ.0);
-        /// Controls coherency of input attachment reads
-        pub const INPUT_ATTACHMENT_READ: Self = Self(AccessFlagBits::INPUT_ATTACHMENT_READ.0);
-        /// Controls coherency of shader reads
-        pub const SHADER_READ: Self = Self(AccessFlagBits::SHADER_READ.0);
-        /// Controls coherency of shader writes
-        pub const SHADER_WRITE: Self = Self(AccessFlagBits::SHADER_WRITE.0);
-        /// Controls coherency of color attachment reads
-        pub const COLOR_ATTACHMENT_READ: Self = Self(AccessFlagBits::COLOR_ATTACHMENT_READ.0);
-        /// Controls coherency of color attachment writes
-        pub const COLOR_ATTACHMENT_WRITE: Self = Self(AccessFlagBits::COLOR_ATTACHMENT_WRITE.0);
-        /// Controls coherency of depth/stencil attachment reads
-        pub const DEPTH_STENCIL_ATTACHMENT_READ: Self =
-            Self(AccessFlagBits::DEPTH_STENCIL_ATTACHMENT_READ.0);
-        /// Controls coherency of depth/stencil attachment writes
-        pub const DEPTH_STENCIL_ATTACHMENT_WRITE: Self =
-            Self(AccessFlagBits::DEPTH_STENCIL_ATTACHMENT_WRITE.0);
-        /// Controls coherency of transfer reads
-        pub const TRANSFER_READ: Self = Self(AccessFlagBits::TRANSFER_READ.0);
-        /// Controls coherency of transfer writes
-        pub const TRANSFER_WRITE: Self = Self(AccessFlagBits::TRANSFER_WRITE.0);
-        /// Controls coherency of host reads
-        pub const HOST_READ: Self = Self(AccessFlagBits::HOST_READ.0);
-        /// Controls coherency of host writes
-        pub const HOST_WRITE: Self = Self(AccessFlagBits::HOST_WRITE.0);
-        /// Controls coherency of memory reads
-        pub const MEMORY_READ: Self = Self(AccessFlagBits::MEMORY_READ.0);
-        /// Controls coherency of memory writes
-        pub const MEMORY_WRITE: Self = Self(AccessFlagBits::MEMORY_WRITE.0);
-
-        // VK_EXT_blend_operation_advanced
-        pub const COLOR_ATTACHMENT_READ_NONCOHERENT_EXT: Self =
-            Self(AccessFlagBits::COLOR_ATTACHMENT_READ_NONCOHERENT_EXT.0);
-
-        // VK_EXT_conditional_rendering
-        /// read access flag for reading conditional rendering predicate
-        pub const CONDITIONAL_RENDERING_READ_EXT: Self =
-            Self(AccessFlagBits::CONDITIONAL_RENDERING_READ_EXT.0);
-
-        // VK_EXT_device_generated_commands
-        pub const COMMAND_PREPROCESS_READ_EXT: Self =
-            Self(AccessFlagBits::COMMAND_PREPROCESS_READ_EXT.0);
-        pub const COMMAND_PREPROCESS_WRITE_EXT: Self =
-            Self(AccessFlagBits::COMMAND_PREPROCESS_WRITE_EXT.0);
-
-        // VK_EXT_fragment_density_map
-        pub const FRAGMENT_DENSITY_MAP_READ_EXT: Self =
-            Self(AccessFlagBits::FRAGMENT_DENSITY_MAP_READ_EXT.0);
-
-        // VK_EXT_transform_feedback
-        pub const TRANSFORM_FEEDBACK_WRITE_EXT: Self =
-            Self(AccessFlagBits::TRANSFORM_FEEDBACK_WRITE_EXT.0);
-        pub const TRANSFORM_FEEDBACK_COUNTER_READ_EXT: Self =
-            Self(AccessFlagBits::TRANSFORM_FEEDBACK_COUNTER_READ_EXT.0);
-        pub const TRANSFORM_FEEDBACK_COUNTER_WRITE_EXT: Self =
-            Self(AccessFlagBits::TRANSFORM_FEEDBACK_COUNTER_WRITE_EXT.0);
-
-        // VK_KHR_acceleration_structure
-        pub const ACCELERATION_STRUCTURE_READ_KHR: Self =
-            Self(AccessFlagBits::ACCELERATION_STRUCTURE_READ_KHR.0);
-        pub const ACCELERATION_STRUCTURE_WRITE_KHR: Self =
-            Self(AccessFlagBits::ACCELERATION_STRUCTURE_WRITE_KHR.0);
-
-        // VK_KHR_fragment_shading_rate
-        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR: Self =
-            Self(AccessFlagBits::FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR.0);
-
-        // VK_KHR_synchronization2
-        pub const NONE_KHR: Self = Self::NONE;
-
-        // VK_NV_device_generated_commands
-        pub const COMMAND_PREPROCESS_READ_NV: Self = Self::COMMAND_PREPROCESS_READ_EXT;
-        pub const COMMAND_PREPROCESS_WRITE_NV: Self = Self::COMMAND_PREPROCESS_WRITE_EXT;
-
-        // VK_NV_ray_tracing
-        pub const ACCELERATION_STRUCTURE_READ_NV: Self = Self::ACCELERATION_STRUCTURE_READ_KHR;
-        pub const ACCELERATION_STRUCTURE_WRITE_NV: Self = Self::ACCELERATION_STRUCTURE_WRITE_KHR;
-
-        // VK_NV_shading_rate_image
-        pub const SHADING_RATE_IMAGE_READ_NV: Self =
-            Self::FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR;
-
         // VK_VERSION_1_3
         pub const NONE: Self = Self(0);
     }
@@ -17700,85 +17422,85 @@ pub(super) mod defs {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    AccessFlags::INDIRECT_COMMAND_READ.0,
+                    AccessFlagBits::INDIRECT_COMMAND_READ.0,
                     "INDIRECT_COMMAND_READ",
                 ),
-                (AccessFlags::INDEX_READ.0, "INDEX_READ"),
+                (AccessFlagBits::INDEX_READ.0, "INDEX_READ"),
                 (
-                    AccessFlags::VERTEX_ATTRIBUTE_READ.0,
+                    AccessFlagBits::VERTEX_ATTRIBUTE_READ.0,
                     "VERTEX_ATTRIBUTE_READ",
                 ),
-                (AccessFlags::UNIFORM_READ.0, "UNIFORM_READ"),
+                (AccessFlagBits::UNIFORM_READ.0, "UNIFORM_READ"),
                 (
-                    AccessFlags::INPUT_ATTACHMENT_READ.0,
+                    AccessFlagBits::INPUT_ATTACHMENT_READ.0,
                     "INPUT_ATTACHMENT_READ",
                 ),
-                (AccessFlags::SHADER_READ.0, "SHADER_READ"),
-                (AccessFlags::SHADER_WRITE.0, "SHADER_WRITE"),
+                (AccessFlagBits::SHADER_READ.0, "SHADER_READ"),
+                (AccessFlagBits::SHADER_WRITE.0, "SHADER_WRITE"),
                 (
-                    AccessFlags::COLOR_ATTACHMENT_READ.0,
+                    AccessFlagBits::COLOR_ATTACHMENT_READ.0,
                     "COLOR_ATTACHMENT_READ",
                 ),
                 (
-                    AccessFlags::COLOR_ATTACHMENT_WRITE.0,
+                    AccessFlagBits::COLOR_ATTACHMENT_WRITE.0,
                     "COLOR_ATTACHMENT_WRITE",
                 ),
                 (
-                    AccessFlags::DEPTH_STENCIL_ATTACHMENT_READ.0,
+                    AccessFlagBits::DEPTH_STENCIL_ATTACHMENT_READ.0,
                     "DEPTH_STENCIL_ATTACHMENT_READ",
                 ),
                 (
-                    AccessFlags::DEPTH_STENCIL_ATTACHMENT_WRITE.0,
+                    AccessFlagBits::DEPTH_STENCIL_ATTACHMENT_WRITE.0,
                     "DEPTH_STENCIL_ATTACHMENT_WRITE",
                 ),
-                (AccessFlags::TRANSFER_READ.0, "TRANSFER_READ"),
-                (AccessFlags::TRANSFER_WRITE.0, "TRANSFER_WRITE"),
-                (AccessFlags::HOST_READ.0, "HOST_READ"),
-                (AccessFlags::HOST_WRITE.0, "HOST_WRITE"),
-                (AccessFlags::MEMORY_READ.0, "MEMORY_READ"),
-                (AccessFlags::MEMORY_WRITE.0, "MEMORY_WRITE"),
+                (AccessFlagBits::TRANSFER_READ.0, "TRANSFER_READ"),
+                (AccessFlagBits::TRANSFER_WRITE.0, "TRANSFER_WRITE"),
+                (AccessFlagBits::HOST_READ.0, "HOST_READ"),
+                (AccessFlagBits::HOST_WRITE.0, "HOST_WRITE"),
+                (AccessFlagBits::MEMORY_READ.0, "MEMORY_READ"),
+                (AccessFlagBits::MEMORY_WRITE.0, "MEMORY_WRITE"),
                 (
-                    AccessFlags::COLOR_ATTACHMENT_READ_NONCOHERENT_EXT.0,
+                    AccessFlagBits::COLOR_ATTACHMENT_READ_NONCOHERENT_EXT.0,
                     "COLOR_ATTACHMENT_READ_NONCOHERENT_EXT",
                 ),
                 (
-                    AccessFlags::CONDITIONAL_RENDERING_READ_EXT.0,
+                    AccessFlagBits::CONDITIONAL_RENDERING_READ_EXT.0,
                     "CONDITIONAL_RENDERING_READ_EXT",
                 ),
                 (
-                    AccessFlags::COMMAND_PREPROCESS_READ_EXT.0,
+                    AccessFlagBits::COMMAND_PREPROCESS_READ_EXT.0,
                     "COMMAND_PREPROCESS_READ_EXT",
                 ),
                 (
-                    AccessFlags::COMMAND_PREPROCESS_WRITE_EXT.0,
+                    AccessFlagBits::COMMAND_PREPROCESS_WRITE_EXT.0,
                     "COMMAND_PREPROCESS_WRITE_EXT",
                 ),
                 (
-                    AccessFlags::FRAGMENT_DENSITY_MAP_READ_EXT.0,
+                    AccessFlagBits::FRAGMENT_DENSITY_MAP_READ_EXT.0,
                     "FRAGMENT_DENSITY_MAP_READ_EXT",
                 ),
                 (
-                    AccessFlags::TRANSFORM_FEEDBACK_WRITE_EXT.0,
+                    AccessFlagBits::TRANSFORM_FEEDBACK_WRITE_EXT.0,
                     "TRANSFORM_FEEDBACK_WRITE_EXT",
                 ),
                 (
-                    AccessFlags::TRANSFORM_FEEDBACK_COUNTER_READ_EXT.0,
+                    AccessFlagBits::TRANSFORM_FEEDBACK_COUNTER_READ_EXT.0,
                     "TRANSFORM_FEEDBACK_COUNTER_READ_EXT",
                 ),
                 (
-                    AccessFlags::TRANSFORM_FEEDBACK_COUNTER_WRITE_EXT.0,
+                    AccessFlagBits::TRANSFORM_FEEDBACK_COUNTER_WRITE_EXT.0,
                     "TRANSFORM_FEEDBACK_COUNTER_WRITE_EXT",
                 ),
                 (
-                    AccessFlags::ACCELERATION_STRUCTURE_READ_KHR.0,
+                    AccessFlagBits::ACCELERATION_STRUCTURE_READ_KHR.0,
                     "ACCELERATION_STRUCTURE_READ_KHR",
                 ),
                 (
-                    AccessFlags::ACCELERATION_STRUCTURE_WRITE_KHR.0,
+                    AccessFlagBits::ACCELERATION_STRUCTURE_WRITE_KHR.0,
                     "ACCELERATION_STRUCTURE_WRITE_KHR",
                 ),
                 (
-                    AccessFlags::FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR.0,
+                    AccessFlagBits::FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR.0,
                     "FRAGMENT_SHADING_RATE_ATTACHMENT_READ_KHR",
                 ),
             ];
@@ -17918,184 +17640,98 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct BufferUsageFlags(Flags);
-    vk_bitflags_wrapped!(BufferUsageFlags, Flags);
-
-    impl BufferUsageFlags {
-        /// Can be used as a source of transfer operations
-        pub const TRANSFER_SRC: Self = Self(BufferUsageFlagBits::TRANSFER_SRC.0);
-        /// Can be used as a destination of transfer operations
-        pub const TRANSFER_DST: Self = Self(BufferUsageFlagBits::TRANSFER_DST.0);
-        /// Can be used as TBO
-        pub const UNIFORM_TEXEL_BUFFER: Self = Self(BufferUsageFlagBits::UNIFORM_TEXEL_BUFFER.0);
-        /// Can be used as IBO
-        pub const STORAGE_TEXEL_BUFFER: Self = Self(BufferUsageFlagBits::STORAGE_TEXEL_BUFFER.0);
-        /// Can be used as UBO
-        pub const UNIFORM_BUFFER: Self = Self(BufferUsageFlagBits::UNIFORM_BUFFER.0);
-        /// Can be used as SSBO
-        pub const STORAGE_BUFFER: Self = Self(BufferUsageFlagBits::STORAGE_BUFFER.0);
-        /// Can be used as source of fixed-function index fetch (index buffer)
-        pub const INDEX_BUFFER: Self = Self(BufferUsageFlagBits::INDEX_BUFFER.0);
-        /// Can be used as source of fixed-function vertex fetch (VBO)
-        pub const VERTEX_BUFFER: Self = Self(BufferUsageFlagBits::VERTEX_BUFFER.0);
-        /// Can be the source of indirect parameters (e.g. indirect buffer, parameter buffer)
-        pub const INDIRECT_BUFFER: Self = Self(BufferUsageFlagBits::INDIRECT_BUFFER.0);
-
-        // VK_AMDX_shader_enqueue
-        #[cfg(feature = "provisional")]
-        pub const EXECUTION_GRAPH_SCRATCH_AMDX: Self =
-            Self(BufferUsageFlagBits::EXECUTION_GRAPH_SCRATCH_AMDX.0);
-
-        // VK_EXT_buffer_device_address
-        pub const SHADER_DEVICE_ADDRESS_EXT: Self = Self::SHADER_DEVICE_ADDRESS;
-
-        // VK_EXT_conditional_rendering
-        /// Specifies the buffer can be used as predicate in conditional rendering
-        pub const CONDITIONAL_RENDERING_EXT: Self =
-            Self(BufferUsageFlagBits::CONDITIONAL_RENDERING_EXT.0);
-
-        // VK_EXT_descriptor_buffer
-        pub const SAMPLER_DESCRIPTOR_BUFFER_EXT: Self =
-            Self(BufferUsageFlagBits::SAMPLER_DESCRIPTOR_BUFFER_EXT.0);
-        pub const RESOURCE_DESCRIPTOR_BUFFER_EXT: Self =
-            Self(BufferUsageFlagBits::RESOURCE_DESCRIPTOR_BUFFER_EXT.0);
-        pub const PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT: Self =
-            Self(BufferUsageFlagBits::PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT.0);
-
-        // VK_EXT_descriptor_heap
-        pub const DESCRIPTOR_HEAP_EXT: Self = Self(BufferUsageFlagBits::DESCRIPTOR_HEAP_EXT.0);
-
-        // VK_EXT_opacity_micromap
-        pub const MICROMAP_BUILD_INPUT_READ_ONLY_EXT: Self =
-            Self(BufferUsageFlagBits::MICROMAP_BUILD_INPUT_READ_ONLY_EXT.0);
-        pub const MICROMAP_STORAGE_EXT: Self = Self(BufferUsageFlagBits::MICROMAP_STORAGE_EXT.0);
-
-        // VK_EXT_transform_feedback
-        pub const TRANSFORM_FEEDBACK_BUFFER_EXT: Self =
-            Self(BufferUsageFlagBits::TRANSFORM_FEEDBACK_BUFFER_EXT.0);
-        pub const TRANSFORM_FEEDBACK_COUNTER_BUFFER_EXT: Self =
-            Self(BufferUsageFlagBits::TRANSFORM_FEEDBACK_COUNTER_BUFFER_EXT.0);
-
-        // VK_KHR_acceleration_structure
-        pub const ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR: Self =
-            Self(BufferUsageFlagBits::ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR.0);
-        pub const ACCELERATION_STRUCTURE_STORAGE_KHR: Self =
-            Self(BufferUsageFlagBits::ACCELERATION_STRUCTURE_STORAGE_KHR.0);
-
-        // VK_KHR_buffer_device_address
-        pub const SHADER_DEVICE_ADDRESS_KHR: Self = Self::SHADER_DEVICE_ADDRESS;
-
-        // VK_KHR_ray_tracing_pipeline
-        pub const SHADER_BINDING_TABLE_KHR: Self =
-            Self(BufferUsageFlagBits::SHADER_BINDING_TABLE_KHR.0);
-
-        // VK_KHR_video_decode_queue
-        pub const VIDEO_DECODE_SRC_KHR: Self = Self(BufferUsageFlagBits::VIDEO_DECODE_SRC_KHR.0);
-        pub const VIDEO_DECODE_DST_KHR: Self = Self(BufferUsageFlagBits::VIDEO_DECODE_DST_KHR.0);
-
-        // VK_KHR_video_encode_queue
-        pub const VIDEO_ENCODE_DST_KHR: Self = Self(BufferUsageFlagBits::VIDEO_ENCODE_DST_KHR.0);
-        pub const VIDEO_ENCODE_SRC_KHR: Self = Self(BufferUsageFlagBits::VIDEO_ENCODE_SRC_KHR.0);
-
-        // VK_NV_ray_tracing
-        pub const RAY_TRACING_NV: Self = Self::SHADER_BINDING_TABLE_KHR;
-
-        // VK_QCOM_tile_memory_heap
-        pub const TILE_MEMORY_QCOM: Self = Self(BufferUsageFlagBits::TILE_MEMORY_QCOM.0);
-
-        // VK_VERSION_1_2
-        pub const SHADER_DEVICE_ADDRESS: Self = Self(BufferUsageFlagBits::SHADER_DEVICE_ADDRESS.0);
-    }
+    vk_bitflags_wrapped!(BufferUsageFlags, Flags, BufferUsageFlagBits);
 
     impl fmt::Debug for BufferUsageFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (BufferUsageFlags::TRANSFER_SRC.0, "TRANSFER_SRC"),
-                (BufferUsageFlags::TRANSFER_DST.0, "TRANSFER_DST"),
+                (BufferUsageFlagBits::TRANSFER_SRC.0, "TRANSFER_SRC"),
+                (BufferUsageFlagBits::TRANSFER_DST.0, "TRANSFER_DST"),
                 (
-                    BufferUsageFlags::UNIFORM_TEXEL_BUFFER.0,
+                    BufferUsageFlagBits::UNIFORM_TEXEL_BUFFER.0,
                     "UNIFORM_TEXEL_BUFFER",
                 ),
                 (
-                    BufferUsageFlags::STORAGE_TEXEL_BUFFER.0,
+                    BufferUsageFlagBits::STORAGE_TEXEL_BUFFER.0,
                     "STORAGE_TEXEL_BUFFER",
                 ),
-                (BufferUsageFlags::UNIFORM_BUFFER.0, "UNIFORM_BUFFER"),
-                (BufferUsageFlags::STORAGE_BUFFER.0, "STORAGE_BUFFER"),
-                (BufferUsageFlags::INDEX_BUFFER.0, "INDEX_BUFFER"),
-                (BufferUsageFlags::VERTEX_BUFFER.0, "VERTEX_BUFFER"),
-                (BufferUsageFlags::INDIRECT_BUFFER.0, "INDIRECT_BUFFER"),
+                (BufferUsageFlagBits::UNIFORM_BUFFER.0, "UNIFORM_BUFFER"),
+                (BufferUsageFlagBits::STORAGE_BUFFER.0, "STORAGE_BUFFER"),
+                (BufferUsageFlagBits::INDEX_BUFFER.0, "INDEX_BUFFER"),
+                (BufferUsageFlagBits::VERTEX_BUFFER.0, "VERTEX_BUFFER"),
+                (BufferUsageFlagBits::INDIRECT_BUFFER.0, "INDIRECT_BUFFER"),
                 #[cfg(feature = "provisional")]
                 (
-                    BufferUsageFlags::EXECUTION_GRAPH_SCRATCH_AMDX.0,
+                    BufferUsageFlagBits::EXECUTION_GRAPH_SCRATCH_AMDX.0,
                     "EXECUTION_GRAPH_SCRATCH_AMDX",
                 ),
                 (
-                    BufferUsageFlags::CONDITIONAL_RENDERING_EXT.0,
+                    BufferUsageFlagBits::CONDITIONAL_RENDERING_EXT.0,
                     "CONDITIONAL_RENDERING_EXT",
                 ),
                 (
-                    BufferUsageFlags::SAMPLER_DESCRIPTOR_BUFFER_EXT.0,
+                    BufferUsageFlagBits::SAMPLER_DESCRIPTOR_BUFFER_EXT.0,
                     "SAMPLER_DESCRIPTOR_BUFFER_EXT",
                 ),
                 (
-                    BufferUsageFlags::RESOURCE_DESCRIPTOR_BUFFER_EXT.0,
+                    BufferUsageFlagBits::RESOURCE_DESCRIPTOR_BUFFER_EXT.0,
                     "RESOURCE_DESCRIPTOR_BUFFER_EXT",
                 ),
                 (
-                    BufferUsageFlags::PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT.0,
+                    BufferUsageFlagBits::PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT.0,
                     "PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT",
                 ),
                 (
-                    BufferUsageFlags::DESCRIPTOR_HEAP_EXT.0,
+                    BufferUsageFlagBits::DESCRIPTOR_HEAP_EXT.0,
                     "DESCRIPTOR_HEAP_EXT",
                 ),
                 (
-                    BufferUsageFlags::MICROMAP_BUILD_INPUT_READ_ONLY_EXT.0,
+                    BufferUsageFlagBits::MICROMAP_BUILD_INPUT_READ_ONLY_EXT.0,
                     "MICROMAP_BUILD_INPUT_READ_ONLY_EXT",
                 ),
                 (
-                    BufferUsageFlags::MICROMAP_STORAGE_EXT.0,
+                    BufferUsageFlagBits::MICROMAP_STORAGE_EXT.0,
                     "MICROMAP_STORAGE_EXT",
                 ),
                 (
-                    BufferUsageFlags::TRANSFORM_FEEDBACK_BUFFER_EXT.0,
+                    BufferUsageFlagBits::TRANSFORM_FEEDBACK_BUFFER_EXT.0,
                     "TRANSFORM_FEEDBACK_BUFFER_EXT",
                 ),
                 (
-                    BufferUsageFlags::TRANSFORM_FEEDBACK_COUNTER_BUFFER_EXT.0,
+                    BufferUsageFlagBits::TRANSFORM_FEEDBACK_COUNTER_BUFFER_EXT.0,
                     "TRANSFORM_FEEDBACK_COUNTER_BUFFER_EXT",
                 ),
                 (
-                    BufferUsageFlags::ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR.0,
+                    BufferUsageFlagBits::ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR.0,
                     "ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_KHR",
                 ),
                 (
-                    BufferUsageFlags::ACCELERATION_STRUCTURE_STORAGE_KHR.0,
+                    BufferUsageFlagBits::ACCELERATION_STRUCTURE_STORAGE_KHR.0,
                     "ACCELERATION_STRUCTURE_STORAGE_KHR",
                 ),
                 (
-                    BufferUsageFlags::SHADER_BINDING_TABLE_KHR.0,
+                    BufferUsageFlagBits::SHADER_BINDING_TABLE_KHR.0,
                     "SHADER_BINDING_TABLE_KHR",
                 ),
                 (
-                    BufferUsageFlags::VIDEO_DECODE_SRC_KHR.0,
+                    BufferUsageFlagBits::VIDEO_DECODE_SRC_KHR.0,
                     "VIDEO_DECODE_SRC_KHR",
                 ),
                 (
-                    BufferUsageFlags::VIDEO_DECODE_DST_KHR.0,
+                    BufferUsageFlagBits::VIDEO_DECODE_DST_KHR.0,
                     "VIDEO_DECODE_DST_KHR",
                 ),
                 (
-                    BufferUsageFlags::VIDEO_ENCODE_DST_KHR.0,
+                    BufferUsageFlagBits::VIDEO_ENCODE_DST_KHR.0,
                     "VIDEO_ENCODE_DST_KHR",
                 ),
                 (
-                    BufferUsageFlags::VIDEO_ENCODE_SRC_KHR.0,
+                    BufferUsageFlagBits::VIDEO_ENCODE_SRC_KHR.0,
                     "VIDEO_ENCODE_SRC_KHR",
                 ),
-                (BufferUsageFlags::TILE_MEMORY_QCOM.0, "TILE_MEMORY_QCOM"),
+                (BufferUsageFlagBits::TILE_MEMORY_QCOM.0, "TILE_MEMORY_QCOM"),
                 (
-                    BufferUsageFlags::SHADER_DEVICE_ADDRESS.0,
+                    BufferUsageFlagBits::SHADER_DEVICE_ADDRESS.0,
                     "SHADER_DEVICE_ADDRESS",
                 ),
             ];
@@ -18238,56 +17874,25 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct BufferCreateFlags(Flags);
-    vk_bitflags_wrapped!(BufferCreateFlags, Flags);
-
-    impl BufferCreateFlags {
-        /// Buffer should support sparse backing
-        pub const SPARSE_BINDING: Self = Self(BufferCreateFlagBits::SPARSE_BINDING.0);
-        /// Buffer should support sparse backing with partial residency
-        pub const SPARSE_RESIDENCY: Self = Self(BufferCreateFlagBits::SPARSE_RESIDENCY.0);
-        /// Buffer should support constant data access to physical memory ranges mapped into multiple locations of sparse buffers
-        pub const SPARSE_ALIASED: Self = Self(BufferCreateFlagBits::SPARSE_ALIASED.0);
-
-        // VK_EXT_buffer_device_address
-        pub const DEVICE_ADDRESS_CAPTURE_REPLAY_EXT: Self = Self::DEVICE_ADDRESS_CAPTURE_REPLAY;
-
-        // VK_EXT_descriptor_buffer
-        pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self =
-            Self(BufferCreateFlagBits::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT.0);
-
-        // VK_KHR_buffer_device_address
-        pub const DEVICE_ADDRESS_CAPTURE_REPLAY_KHR: Self = Self::DEVICE_ADDRESS_CAPTURE_REPLAY;
-
-        // VK_KHR_video_maintenance1
-        pub const VIDEO_PROFILE_INDEPENDENT_KHR: Self =
-            Self(BufferCreateFlagBits::VIDEO_PROFILE_INDEPENDENT_KHR.0);
-
-        // VK_VERSION_1_1
-        /// Buffer requires protected memory
-        pub const PROTECTED: Self = Self(BufferCreateFlagBits::PROTECTED.0);
-
-        // VK_VERSION_1_2
-        pub const DEVICE_ADDRESS_CAPTURE_REPLAY: Self =
-            Self(BufferCreateFlagBits::DEVICE_ADDRESS_CAPTURE_REPLAY.0);
-    }
+    vk_bitflags_wrapped!(BufferCreateFlags, Flags, BufferCreateFlagBits);
 
     impl fmt::Debug for BufferCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (BufferCreateFlags::SPARSE_BINDING.0, "SPARSE_BINDING"),
-                (BufferCreateFlags::SPARSE_RESIDENCY.0, "SPARSE_RESIDENCY"),
-                (BufferCreateFlags::SPARSE_ALIASED.0, "SPARSE_ALIASED"),
+                (BufferCreateFlagBits::SPARSE_BINDING.0, "SPARSE_BINDING"),
+                (BufferCreateFlagBits::SPARSE_RESIDENCY.0, "SPARSE_RESIDENCY"),
+                (BufferCreateFlagBits::SPARSE_ALIASED.0, "SPARSE_ALIASED"),
                 (
-                    BufferCreateFlags::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT.0,
+                    BufferCreateFlagBits::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT.0,
                     "DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT",
                 ),
                 (
-                    BufferCreateFlags::VIDEO_PROFILE_INDEPENDENT_KHR.0,
+                    BufferCreateFlagBits::VIDEO_PROFILE_INDEPENDENT_KHR.0,
                     "VIDEO_PROFILE_INDEPENDENT_KHR",
                 ),
-                (BufferCreateFlags::PROTECTED.0, "PROTECTED"),
+                (BufferCreateFlagBits::PROTECTED.0, "PROTECTED"),
                 (
-                    BufferCreateFlags::DEVICE_ADDRESS_CAPTURE_REPLAY.0,
+                    BufferCreateFlagBits::DEVICE_ADDRESS_CAPTURE_REPLAY.0,
                     "DEVICE_ADDRESS_CAPTURE_REPLAY",
                 ),
             ];
@@ -18353,83 +17958,44 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ShaderStageFlags(Flags);
-    vk_bitflags_wrapped!(ShaderStageFlags, Flags);
+    vk_bitflags_wrapped!(ShaderStageFlags, Flags, ShaderStageFlagBits);
 
     impl ShaderStageFlags {
-        pub const VERTEX: Self = Self(ShaderStageFlagBits::VERTEX.0);
-        pub const TESSELLATION_CONTROL: Self = Self(ShaderStageFlagBits::TESSELLATION_CONTROL.0);
-        pub const TESSELLATION_EVALUATION: Self =
-            Self(ShaderStageFlagBits::TESSELLATION_EVALUATION.0);
-        pub const GEOMETRY: Self = Self(ShaderStageFlagBits::GEOMETRY.0);
-        pub const FRAGMENT: Self = Self(ShaderStageFlagBits::FRAGMENT.0);
-        pub const COMPUTE: Self = Self(ShaderStageFlagBits::COMPUTE.0);
         pub const ALL_GRAPHICS: Self = Self(0x0000001F);
         pub const ALL: Self = Self(0x7FFFFFFF);
-
-        // VK_EXT_mesh_shader
-        pub const TASK_EXT: Self = Self(ShaderStageFlagBits::TASK_EXT.0);
-        pub const MESH_EXT: Self = Self(ShaderStageFlagBits::MESH_EXT.0);
-
-        // VK_HUAWEI_cluster_culling_shader
-        pub const CLUSTER_CULLING_HUAWEI: Self =
-            Self(ShaderStageFlagBits::CLUSTER_CULLING_HUAWEI.0);
-
-        // VK_HUAWEI_subpass_shading
-        pub const SUBPASS_SHADING_HUAWEI: Self =
-            Self(ShaderStageFlagBits::SUBPASS_SHADING_HUAWEI.0);
-
-        // VK_KHR_ray_tracing_pipeline
-        pub const RAYGEN_KHR: Self = Self(ShaderStageFlagBits::RAYGEN_KHR.0);
-        pub const ANY_HIT_KHR: Self = Self(ShaderStageFlagBits::ANY_HIT_KHR.0);
-        pub const CLOSEST_HIT_KHR: Self = Self(ShaderStageFlagBits::CLOSEST_HIT_KHR.0);
-        pub const MISS_KHR: Self = Self(ShaderStageFlagBits::MISS_KHR.0);
-        pub const INTERSECTION_KHR: Self = Self(ShaderStageFlagBits::INTERSECTION_KHR.0);
-        pub const CALLABLE_KHR: Self = Self(ShaderStageFlagBits::CALLABLE_KHR.0);
-
-        // VK_NV_mesh_shader
-        pub const TASK_NV: Self = Self::TASK_EXT;
-        pub const MESH_NV: Self = Self::MESH_EXT;
-
-        // VK_NV_ray_tracing
-        pub const RAYGEN_NV: Self = Self::RAYGEN_KHR;
-        pub const ANY_HIT_NV: Self = Self::ANY_HIT_KHR;
-        pub const CLOSEST_HIT_NV: Self = Self::CLOSEST_HIT_KHR;
-        pub const MISS_NV: Self = Self::MISS_KHR;
-        pub const INTERSECTION_NV: Self = Self::INTERSECTION_KHR;
-        pub const CALLABLE_NV: Self = Self::CALLABLE_KHR;
     }
 
     impl fmt::Debug for ShaderStageFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (ShaderStageFlags::VERTEX.0, "VERTEX"),
+                (ShaderStageFlagBits::VERTEX.0, "VERTEX"),
                 (
-                    ShaderStageFlags::TESSELLATION_CONTROL.0,
+                    ShaderStageFlagBits::TESSELLATION_CONTROL.0,
                     "TESSELLATION_CONTROL",
                 ),
                 (
-                    ShaderStageFlags::TESSELLATION_EVALUATION.0,
+                    ShaderStageFlagBits::TESSELLATION_EVALUATION.0,
                     "TESSELLATION_EVALUATION",
                 ),
-                (ShaderStageFlags::GEOMETRY.0, "GEOMETRY"),
-                (ShaderStageFlags::FRAGMENT.0, "FRAGMENT"),
-                (ShaderStageFlags::COMPUTE.0, "COMPUTE"),
-                (ShaderStageFlags::TASK_EXT.0, "TASK_EXT"),
-                (ShaderStageFlags::MESH_EXT.0, "MESH_EXT"),
+                (ShaderStageFlagBits::GEOMETRY.0, "GEOMETRY"),
+                (ShaderStageFlagBits::FRAGMENT.0, "FRAGMENT"),
+                (ShaderStageFlagBits::COMPUTE.0, "COMPUTE"),
+                (ShaderStageFlagBits::TASK_EXT.0, "TASK_EXT"),
+                (ShaderStageFlagBits::MESH_EXT.0, "MESH_EXT"),
                 (
-                    ShaderStageFlags::CLUSTER_CULLING_HUAWEI.0,
+                    ShaderStageFlagBits::CLUSTER_CULLING_HUAWEI.0,
                     "CLUSTER_CULLING_HUAWEI",
                 ),
                 (
-                    ShaderStageFlags::SUBPASS_SHADING_HUAWEI.0,
+                    ShaderStageFlagBits::SUBPASS_SHADING_HUAWEI.0,
                     "SUBPASS_SHADING_HUAWEI",
                 ),
-                (ShaderStageFlags::RAYGEN_KHR.0, "RAYGEN_KHR"),
-                (ShaderStageFlags::ANY_HIT_KHR.0, "ANY_HIT_KHR"),
-                (ShaderStageFlags::CLOSEST_HIT_KHR.0, "CLOSEST_HIT_KHR"),
-                (ShaderStageFlags::MISS_KHR.0, "MISS_KHR"),
-                (ShaderStageFlags::INTERSECTION_KHR.0, "INTERSECTION_KHR"),
-                (ShaderStageFlags::CALLABLE_KHR.0, "CALLABLE_KHR"),
+                (ShaderStageFlagBits::RAYGEN_KHR.0, "RAYGEN_KHR"),
+                (ShaderStageFlagBits::ANY_HIT_KHR.0, "ANY_HIT_KHR"),
+                (ShaderStageFlagBits::CLOSEST_HIT_KHR.0, "CLOSEST_HIT_KHR"),
+                (ShaderStageFlagBits::MISS_KHR.0, "MISS_KHR"),
+                (ShaderStageFlagBits::INTERSECTION_KHR.0, "INTERSECTION_KHR"),
+                (ShaderStageFlagBits::CALLABLE_KHR.0, "CALLABLE_KHR"),
             ];
             debug_flags(f, KNOWN, self.0)
         }
@@ -18511,155 +18077,87 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageUsageFlags(Flags);
-    vk_bitflags_wrapped!(ImageUsageFlags, Flags);
-
-    impl ImageUsageFlags {
-        /// Can be used as a source of transfer operations
-        pub const TRANSFER_SRC: Self = Self(ImageUsageFlagBits::TRANSFER_SRC.0);
-        /// Can be used as a destination of transfer operations
-        pub const TRANSFER_DST: Self = Self(ImageUsageFlagBits::TRANSFER_DST.0);
-        /// Can be sampled from (SAMPLED_IMAGE and COMBINED_IMAGE_SAMPLER descriptor types)
-        pub const SAMPLED: Self = Self(ImageUsageFlagBits::SAMPLED.0);
-        /// Can be used as storage image (STORAGE_IMAGE descriptor type)
-        pub const STORAGE: Self = Self(ImageUsageFlagBits::STORAGE.0);
-        /// Can be used as framebuffer color attachment
-        pub const COLOR_ATTACHMENT: Self = Self(ImageUsageFlagBits::COLOR_ATTACHMENT.0);
-        /// Can be used as framebuffer depth/stencil attachment
-        pub const DEPTH_STENCIL_ATTACHMENT: Self =
-            Self(ImageUsageFlagBits::DEPTH_STENCIL_ATTACHMENT.0);
-        /// Image data not needed outside of rendering
-        pub const TRANSIENT_ATTACHMENT: Self = Self(ImageUsageFlagBits::TRANSIENT_ATTACHMENT.0);
-        /// Can be used as framebuffer input attachment
-        pub const INPUT_ATTACHMENT: Self = Self(ImageUsageFlagBits::INPUT_ATTACHMENT.0);
-
-        // VK_ARM_tensors
-        pub const TENSOR_ALIASING_ARM: Self = Self(ImageUsageFlagBits::TENSOR_ALIASING_ARM.0);
-
-        // VK_EXT_attachment_feedback_loop_layout
-        pub const ATTACHMENT_FEEDBACK_LOOP_EXT: Self =
-            Self(ImageUsageFlagBits::ATTACHMENT_FEEDBACK_LOOP_EXT.0);
-
-        // VK_EXT_fragment_density_map
-        pub const FRAGMENT_DENSITY_MAP_EXT: Self =
-            Self(ImageUsageFlagBits::FRAGMENT_DENSITY_MAP_EXT.0);
-
-        // VK_EXT_host_image_copy
-        pub const HOST_TRANSFER_EXT: Self = Self::HOST_TRANSFER;
-
-        // VK_HUAWEI_invocation_mask
-        pub const INVOCATION_MASK_HUAWEI: Self = Self(ImageUsageFlagBits::INVOCATION_MASK_HUAWEI.0);
-
-        // VK_KHR_fragment_shading_rate
-        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self =
-            Self(ImageUsageFlagBits::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0);
-
-        // VK_KHR_video_decode_queue
-        pub const VIDEO_DECODE_DST_KHR: Self = Self(ImageUsageFlagBits::VIDEO_DECODE_DST_KHR.0);
-        pub const VIDEO_DECODE_SRC_KHR: Self = Self(ImageUsageFlagBits::VIDEO_DECODE_SRC_KHR.0);
-        pub const VIDEO_DECODE_DPB_KHR: Self = Self(ImageUsageFlagBits::VIDEO_DECODE_DPB_KHR.0);
-
-        // VK_KHR_video_encode_quantization_map
-        pub const VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR: Self =
-            Self(ImageUsageFlagBits::VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR.0);
-        pub const VIDEO_ENCODE_EMPHASIS_MAP_KHR: Self =
-            Self(ImageUsageFlagBits::VIDEO_ENCODE_EMPHASIS_MAP_KHR.0);
-
-        // VK_KHR_video_encode_queue
-        pub const VIDEO_ENCODE_DST_KHR: Self = Self(ImageUsageFlagBits::VIDEO_ENCODE_DST_KHR.0);
-        pub const VIDEO_ENCODE_SRC_KHR: Self = Self(ImageUsageFlagBits::VIDEO_ENCODE_SRC_KHR.0);
-        pub const VIDEO_ENCODE_DPB_KHR: Self = Self(ImageUsageFlagBits::VIDEO_ENCODE_DPB_KHR.0);
-
-        // VK_NV_shading_rate_image
-        pub const SHADING_RATE_IMAGE_NV: Self = Self::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
-
-        // VK_QCOM_image_processing
-        pub const SAMPLE_WEIGHT_QCOM: Self = Self(ImageUsageFlagBits::SAMPLE_WEIGHT_QCOM.0);
-        pub const SAMPLE_BLOCK_MATCH_QCOM: Self =
-            Self(ImageUsageFlagBits::SAMPLE_BLOCK_MATCH_QCOM.0);
-
-        // VK_QCOM_tile_memory_heap
-        pub const TILE_MEMORY_QCOM: Self = Self(ImageUsageFlagBits::TILE_MEMORY_QCOM.0);
-
-        // VK_VERSION_1_4
-        pub const HOST_TRANSFER: Self = Self(ImageUsageFlagBits::HOST_TRANSFER.0);
-    }
+    vk_bitflags_wrapped!(ImageUsageFlags, Flags, ImageUsageFlagBits);
 
     impl fmt::Debug for ImageUsageFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (ImageUsageFlags::TRANSFER_SRC.0, "TRANSFER_SRC"),
-                (ImageUsageFlags::TRANSFER_DST.0, "TRANSFER_DST"),
-                (ImageUsageFlags::SAMPLED.0, "SAMPLED"),
-                (ImageUsageFlags::STORAGE.0, "STORAGE"),
-                (ImageUsageFlags::COLOR_ATTACHMENT.0, "COLOR_ATTACHMENT"),
+                (ImageUsageFlagBits::TRANSFER_SRC.0, "TRANSFER_SRC"),
+                (ImageUsageFlagBits::TRANSFER_DST.0, "TRANSFER_DST"),
+                (ImageUsageFlagBits::SAMPLED.0, "SAMPLED"),
+                (ImageUsageFlagBits::STORAGE.0, "STORAGE"),
+                (ImageUsageFlagBits::COLOR_ATTACHMENT.0, "COLOR_ATTACHMENT"),
                 (
-                    ImageUsageFlags::DEPTH_STENCIL_ATTACHMENT.0,
+                    ImageUsageFlagBits::DEPTH_STENCIL_ATTACHMENT.0,
                     "DEPTH_STENCIL_ATTACHMENT",
                 ),
                 (
-                    ImageUsageFlags::TRANSIENT_ATTACHMENT.0,
+                    ImageUsageFlagBits::TRANSIENT_ATTACHMENT.0,
                     "TRANSIENT_ATTACHMENT",
                 ),
-                (ImageUsageFlags::INPUT_ATTACHMENT.0, "INPUT_ATTACHMENT"),
+                (ImageUsageFlagBits::INPUT_ATTACHMENT.0, "INPUT_ATTACHMENT"),
                 (
-                    ImageUsageFlags::TENSOR_ALIASING_ARM.0,
+                    ImageUsageFlagBits::TENSOR_ALIASING_ARM.0,
                     "TENSOR_ALIASING_ARM",
                 ),
                 (
-                    ImageUsageFlags::ATTACHMENT_FEEDBACK_LOOP_EXT.0,
+                    ImageUsageFlagBits::ATTACHMENT_FEEDBACK_LOOP_EXT.0,
                     "ATTACHMENT_FEEDBACK_LOOP_EXT",
                 ),
                 (
-                    ImageUsageFlags::FRAGMENT_DENSITY_MAP_EXT.0,
+                    ImageUsageFlagBits::FRAGMENT_DENSITY_MAP_EXT.0,
                     "FRAGMENT_DENSITY_MAP_EXT",
                 ),
                 (
-                    ImageUsageFlags::INVOCATION_MASK_HUAWEI.0,
+                    ImageUsageFlagBits::INVOCATION_MASK_HUAWEI.0,
                     "INVOCATION_MASK_HUAWEI",
                 ),
                 (
-                    ImageUsageFlags::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0,
+                    ImageUsageFlagBits::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0,
                     "FRAGMENT_SHADING_RATE_ATTACHMENT_KHR",
                 ),
                 (
-                    ImageUsageFlags::VIDEO_DECODE_DST_KHR.0,
+                    ImageUsageFlagBits::VIDEO_DECODE_DST_KHR.0,
                     "VIDEO_DECODE_DST_KHR",
                 ),
                 (
-                    ImageUsageFlags::VIDEO_DECODE_SRC_KHR.0,
+                    ImageUsageFlagBits::VIDEO_DECODE_SRC_KHR.0,
                     "VIDEO_DECODE_SRC_KHR",
                 ),
                 (
-                    ImageUsageFlags::VIDEO_DECODE_DPB_KHR.0,
+                    ImageUsageFlagBits::VIDEO_DECODE_DPB_KHR.0,
                     "VIDEO_DECODE_DPB_KHR",
                 ),
                 (
-                    ImageUsageFlags::VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR.0,
+                    ImageUsageFlagBits::VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR.0,
                     "VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_KHR",
                 ),
                 (
-                    ImageUsageFlags::VIDEO_ENCODE_EMPHASIS_MAP_KHR.0,
+                    ImageUsageFlagBits::VIDEO_ENCODE_EMPHASIS_MAP_KHR.0,
                     "VIDEO_ENCODE_EMPHASIS_MAP_KHR",
                 ),
                 (
-                    ImageUsageFlags::VIDEO_ENCODE_DST_KHR.0,
+                    ImageUsageFlagBits::VIDEO_ENCODE_DST_KHR.0,
                     "VIDEO_ENCODE_DST_KHR",
                 ),
                 (
-                    ImageUsageFlags::VIDEO_ENCODE_SRC_KHR.0,
+                    ImageUsageFlagBits::VIDEO_ENCODE_SRC_KHR.0,
                     "VIDEO_ENCODE_SRC_KHR",
                 ),
                 (
-                    ImageUsageFlags::VIDEO_ENCODE_DPB_KHR.0,
+                    ImageUsageFlagBits::VIDEO_ENCODE_DPB_KHR.0,
                     "VIDEO_ENCODE_DPB_KHR",
                 ),
-                (ImageUsageFlags::SAMPLE_WEIGHT_QCOM.0, "SAMPLE_WEIGHT_QCOM"),
                 (
-                    ImageUsageFlags::SAMPLE_BLOCK_MATCH_QCOM.0,
+                    ImageUsageFlagBits::SAMPLE_WEIGHT_QCOM.0,
+                    "SAMPLE_WEIGHT_QCOM",
+                ),
+                (
+                    ImageUsageFlagBits::SAMPLE_BLOCK_MATCH_QCOM.0,
                     "SAMPLE_BLOCK_MATCH_QCOM",
                 ),
-                (ImageUsageFlags::TILE_MEMORY_QCOM.0, "TILE_MEMORY_QCOM"),
-                (ImageUsageFlags::HOST_TRANSFER.0, "HOST_TRANSFER"),
+                (ImageUsageFlagBits::TILE_MEMORY_QCOM.0, "TILE_MEMORY_QCOM"),
+                (ImageUsageFlagBits::HOST_TRANSFER.0, "HOST_TRANSFER"),
             ];
             debug_flags(f, KNOWN, self.0)
         }
@@ -18779,139 +18277,61 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageCreateFlags(Flags);
-    vk_bitflags_wrapped!(ImageCreateFlags, Flags);
-
-    impl ImageCreateFlags {
-        /// Image should support sparse backing
-        pub const SPARSE_BINDING: Self = Self(ImageCreateFlagBits::SPARSE_BINDING.0);
-        /// Image should support sparse backing with partial residency
-        pub const SPARSE_RESIDENCY: Self = Self(ImageCreateFlagBits::SPARSE_RESIDENCY.0);
-        /// Image should support constant data access to physical memory ranges mapped into multiple locations of sparse images
-        pub const SPARSE_ALIASED: Self = Self(ImageCreateFlagBits::SPARSE_ALIASED.0);
-        /// Allows image views to have different format than the base image
-        pub const MUTABLE_FORMAT: Self = Self(ImageCreateFlagBits::MUTABLE_FORMAT.0);
-        /// Allows creating image views with cube type from the created image
-        pub const CUBE_COMPATIBLE: Self = Self(ImageCreateFlagBits::CUBE_COMPATIBLE.0);
-
-        // VK_EXT_descriptor_buffer
-        pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self =
-            Self::DESCRIPTOR_HEAP_CAPTURE_REPLAY_EXT;
-
-        // VK_EXT_descriptor_heap
-        pub const DESCRIPTOR_HEAP_CAPTURE_REPLAY_EXT: Self =
-            Self(ImageCreateFlagBits::DESCRIPTOR_HEAP_CAPTURE_REPLAY_EXT.0);
-
-        // VK_EXT_fragment_density_map
-        pub const SUBSAMPLED_EXT: Self = Self(ImageCreateFlagBits::SUBSAMPLED_EXT.0);
-
-        // VK_EXT_fragment_density_map_offset
-        pub const FRAGMENT_DENSITY_MAP_OFFSET_EXT: Self =
-            Self(ImageCreateFlagBits::FRAGMENT_DENSITY_MAP_OFFSET_EXT.0);
-
-        // VK_EXT_image_2d_view_of_3d
-        /// Image is created with a layout where individual slices are capable of being used as 2D images
-        pub const _2D_VIEW_COMPATIBLE_EXT: Self =
-            Self(ImageCreateFlagBits::_2D_VIEW_COMPATIBLE_EXT.0);
-
-        // VK_EXT_multisampled_render_to_single_sampled
-        pub const MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_EXT: Self =
-            Self(ImageCreateFlagBits::MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_EXT.0);
-
-        // VK_EXT_sample_locations
-        pub const SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_EXT: Self =
-            Self(ImageCreateFlagBits::SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_EXT.0);
-
-        // VK_KHR_bind_memory2
-        pub const ALIAS_KHR: Self = Self::ALIAS;
-
-        // VK_KHR_device_group
-        pub const SPLIT_INSTANCE_BIND_REGIONS_KHR: Self = Self::SPLIT_INSTANCE_BIND_REGIONS;
-
-        // VK_KHR_maintenance1
-        pub const _2D_ARRAY_COMPATIBLE_KHR: Self = Self::_2D_ARRAY_COMPATIBLE;
-
-        // VK_KHR_maintenance2
-        pub const BLOCK_TEXEL_VIEW_COMPATIBLE_KHR: Self = Self::BLOCK_TEXEL_VIEW_COMPATIBLE;
-        pub const EXTENDED_USAGE_KHR: Self = Self::EXTENDED_USAGE;
-
-        // VK_KHR_sampler_ycbcr_conversion
-        pub const DISJOINT_KHR: Self = Self::DISJOINT;
-
-        // VK_KHR_video_maintenance1
-        pub const VIDEO_PROFILE_INDEPENDENT_KHR: Self =
-            Self(ImageCreateFlagBits::VIDEO_PROFILE_INDEPENDENT_KHR.0);
-
-        // VK_NV_corner_sampled_image
-        pub const CORNER_SAMPLED_NV: Self = Self(ImageCreateFlagBits::CORNER_SAMPLED_NV.0);
-
-        // VK_QCOM_fragment_density_map_offset
-        pub const FRAGMENT_DENSITY_MAP_OFFSET_QCOM: Self = Self::FRAGMENT_DENSITY_MAP_OFFSET_EXT;
-
-        // VK_VERSION_1_1
-        /// The 3D image can be viewed as a 2D or 2D array image
-        pub const _2D_ARRAY_COMPATIBLE: Self = Self(ImageCreateFlagBits::_2D_ARRAY_COMPATIBLE.0);
-        /// Allows using VkBindImageMemoryDeviceGroupInfo::pSplitInstanceBindRegions when binding memory to the image
-        pub const SPLIT_INSTANCE_BIND_REGIONS: Self =
-            Self(ImageCreateFlagBits::SPLIT_INSTANCE_BIND_REGIONS.0);
-        pub const BLOCK_TEXEL_VIEW_COMPATIBLE: Self =
-            Self(ImageCreateFlagBits::BLOCK_TEXEL_VIEW_COMPATIBLE.0);
-        pub const EXTENDED_USAGE: Self = Self(ImageCreateFlagBits::EXTENDED_USAGE.0);
-        pub const DISJOINT: Self = Self(ImageCreateFlagBits::DISJOINT.0);
-        pub const ALIAS: Self = Self(ImageCreateFlagBits::ALIAS.0);
-        /// Image requires protected memory
-        pub const PROTECTED: Self = Self(ImageCreateFlagBits::PROTECTED.0);
-    }
+    vk_bitflags_wrapped!(ImageCreateFlags, Flags, ImageCreateFlagBits);
 
     impl fmt::Debug for ImageCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (ImageCreateFlags::SPARSE_BINDING.0, "SPARSE_BINDING"),
-                (ImageCreateFlags::SPARSE_RESIDENCY.0, "SPARSE_RESIDENCY"),
-                (ImageCreateFlags::SPARSE_ALIASED.0, "SPARSE_ALIASED"),
-                (ImageCreateFlags::MUTABLE_FORMAT.0, "MUTABLE_FORMAT"),
-                (ImageCreateFlags::CUBE_COMPATIBLE.0, "CUBE_COMPATIBLE"),
+                (ImageCreateFlagBits::SPARSE_BINDING.0, "SPARSE_BINDING"),
+                (ImageCreateFlagBits::SPARSE_RESIDENCY.0, "SPARSE_RESIDENCY"),
+                (ImageCreateFlagBits::SPARSE_ALIASED.0, "SPARSE_ALIASED"),
+                (ImageCreateFlagBits::MUTABLE_FORMAT.0, "MUTABLE_FORMAT"),
+                (ImageCreateFlagBits::CUBE_COMPATIBLE.0, "CUBE_COMPATIBLE"),
                 (
-                    ImageCreateFlags::DESCRIPTOR_HEAP_CAPTURE_REPLAY_EXT.0,
+                    ImageCreateFlagBits::DESCRIPTOR_HEAP_CAPTURE_REPLAY_EXT.0,
                     "DESCRIPTOR_HEAP_CAPTURE_REPLAY_EXT",
                 ),
-                (ImageCreateFlags::SUBSAMPLED_EXT.0, "SUBSAMPLED_EXT"),
+                (ImageCreateFlagBits::SUBSAMPLED_EXT.0, "SUBSAMPLED_EXT"),
                 (
-                    ImageCreateFlags::FRAGMENT_DENSITY_MAP_OFFSET_EXT.0,
+                    ImageCreateFlagBits::FRAGMENT_DENSITY_MAP_OFFSET_EXT.0,
                     "FRAGMENT_DENSITY_MAP_OFFSET_EXT",
                 ),
                 (
-                    ImageCreateFlags::_2D_VIEW_COMPATIBLE_EXT.0,
+                    ImageCreateFlagBits::_2D_VIEW_COMPATIBLE_EXT.0,
                     "_2D_VIEW_COMPATIBLE_EXT",
                 ),
                 (
-                    ImageCreateFlags::MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_EXT.0,
+                    ImageCreateFlagBits::MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_EXT.0,
                     "MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_EXT",
                 ),
                 (
-                    ImageCreateFlags::SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_EXT.0,
+                    ImageCreateFlagBits::SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_EXT.0,
                     "SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_EXT",
                 ),
                 (
-                    ImageCreateFlags::VIDEO_PROFILE_INDEPENDENT_KHR.0,
+                    ImageCreateFlagBits::VIDEO_PROFILE_INDEPENDENT_KHR.0,
                     "VIDEO_PROFILE_INDEPENDENT_KHR",
                 ),
-                (ImageCreateFlags::CORNER_SAMPLED_NV.0, "CORNER_SAMPLED_NV"),
                 (
-                    ImageCreateFlags::_2D_ARRAY_COMPATIBLE.0,
+                    ImageCreateFlagBits::CORNER_SAMPLED_NV.0,
+                    "CORNER_SAMPLED_NV",
+                ),
+                (
+                    ImageCreateFlagBits::_2D_ARRAY_COMPATIBLE.0,
                     "_2D_ARRAY_COMPATIBLE",
                 ),
                 (
-                    ImageCreateFlags::SPLIT_INSTANCE_BIND_REGIONS.0,
+                    ImageCreateFlagBits::SPLIT_INSTANCE_BIND_REGIONS.0,
                     "SPLIT_INSTANCE_BIND_REGIONS",
                 ),
                 (
-                    ImageCreateFlags::BLOCK_TEXEL_VIEW_COMPATIBLE.0,
+                    ImageCreateFlagBits::BLOCK_TEXEL_VIEW_COMPATIBLE.0,
                     "BLOCK_TEXEL_VIEW_COMPATIBLE",
                 ),
-                (ImageCreateFlags::EXTENDED_USAGE.0, "EXTENDED_USAGE"),
-                (ImageCreateFlags::DISJOINT.0, "DISJOINT"),
-                (ImageCreateFlags::ALIAS.0, "ALIAS"),
-                (ImageCreateFlags::PROTECTED.0, "PROTECTED"),
+                (ImageCreateFlagBits::EXTENDED_USAGE.0, "EXTENDED_USAGE"),
+                (ImageCreateFlagBits::DISJOINT.0, "DISJOINT"),
+                (ImageCreateFlagBits::ALIAS.0, "ALIAS"),
+                (ImageCreateFlagBits::PROTECTED.0, "PROTECTED"),
             ];
             debug_flags(f, KNOWN, self.0)
         }
@@ -19037,35 +18457,21 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageViewCreateFlags(Flags);
-    vk_bitflags_wrapped!(ImageViewCreateFlags, Flags);
-
-    impl ImageViewCreateFlags {
-        // VK_EXT_descriptor_buffer
-        pub const DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT: Self =
-            Self(ImageViewCreateFlagBits::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT.0);
-
-        // VK_EXT_fragment_density_map
-        pub const FRAGMENT_DENSITY_MAP_DYNAMIC_EXT: Self =
-            Self(ImageViewCreateFlagBits::FRAGMENT_DENSITY_MAP_DYNAMIC_EXT.0);
-
-        // VK_EXT_fragment_density_map2
-        pub const FRAGMENT_DENSITY_MAP_DEFERRED_EXT: Self =
-            Self(ImageViewCreateFlagBits::FRAGMENT_DENSITY_MAP_DEFERRED_EXT.0);
-    }
+    vk_bitflags_wrapped!(ImageViewCreateFlags, Flags, ImageViewCreateFlagBits);
 
     impl fmt::Debug for ImageViewCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    ImageViewCreateFlags::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT.0,
+                    ImageViewCreateFlagBits::DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT.0,
                     "DESCRIPTOR_BUFFER_CAPTURE_REPLAY_EXT",
                 ),
                 (
-                    ImageViewCreateFlags::FRAGMENT_DENSITY_MAP_DYNAMIC_EXT.0,
+                    ImageViewCreateFlagBits::FRAGMENT_DENSITY_MAP_DYNAMIC_EXT.0,
                     "FRAGMENT_DENSITY_MAP_DYNAMIC_EXT",
                 ),
                 (
-                    ImageViewCreateFlags::FRAGMENT_DENSITY_MAP_DEFERRED_EXT.0,
+                    ImageViewCreateFlagBits::FRAGMENT_DENSITY_MAP_DEFERRED_EXT.0,
                     "FRAGMENT_DENSITY_MAP_DEFERRED_EXT",
                 ),
             ];
@@ -19113,229 +18519,125 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineCreateFlags(Flags);
-    vk_bitflags_wrapped!(PipelineCreateFlags, Flags);
-
-    impl PipelineCreateFlags {
-        pub const DISABLE_OPTIMIZATION: Self = Self(PipelineCreateFlagBits::DISABLE_OPTIMIZATION.0);
-        pub const ALLOW_DERIVATIVES: Self = Self(PipelineCreateFlagBits::ALLOW_DERIVATIVES.0);
-        pub const DERIVATIVE: Self = Self(PipelineCreateFlagBits::DERIVATIVE.0);
-
-        // VK_EXT_attachment_feedback_loop_layout
-        pub const COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT: Self =
-            Self(PipelineCreateFlagBits::COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT.0);
-        pub const DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT: Self =
-            Self(PipelineCreateFlagBits::DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT.0);
-
-        // VK_EXT_descriptor_buffer
-        pub const DESCRIPTOR_BUFFER_EXT: Self =
-            Self(PipelineCreateFlagBits::DESCRIPTOR_BUFFER_EXT.0);
-
-        // VK_EXT_fragment_density_map
-        pub const RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT: Self =
-            Self(PipelineCreateFlagBits::RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT.0);
-        pub const PIPELINE_RASTERIZATION_STATE_CREATE_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT: Self =
-            Self::RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT;
-
-        // VK_EXT_graphics_pipeline_library
-        pub const LINK_TIME_OPTIMIZATION_EXT: Self =
-            Self(PipelineCreateFlagBits::LINK_TIME_OPTIMIZATION_EXT.0);
-        pub const RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT: Self =
-            Self(PipelineCreateFlagBits::RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT.0);
-
-        // VK_EXT_opacity_micromap
-        pub const RAY_TRACING_OPACITY_MICROMAP_EXT: Self =
-            Self(PipelineCreateFlagBits::RAY_TRACING_OPACITY_MICROMAP_EXT.0);
-
-        // VK_EXT_pipeline_creation_cache_control
-        pub const FAIL_ON_PIPELINE_COMPILE_REQUIRED_EXT: Self =
-            Self::FAIL_ON_PIPELINE_COMPILE_REQUIRED;
-        pub const EARLY_RETURN_ON_FAILURE_EXT: Self = Self::EARLY_RETURN_ON_FAILURE;
-
-        // VK_EXT_pipeline_protected_access
-        pub const NO_PROTECTED_ACCESS_EXT: Self = Self::NO_PROTECTED_ACCESS;
-        pub const PROTECTED_ACCESS_ONLY_EXT: Self = Self::PROTECTED_ACCESS_ONLY;
-
-        // VK_KHR_device_group
-        pub const VIEW_INDEX_FROM_DEVICE_INDEX_KHR: Self = Self::VIEW_INDEX_FROM_DEVICE_INDEX;
-        pub const DISPATCH_BASE_KHR: Self = Self::DISPATCH_BASE;
-
-        // VK_KHR_fragment_shading_rate
-        pub const RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self =
-            Self(PipelineCreateFlagBits::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0);
-        pub const PIPELINE_RASTERIZATION_STATE_CREATE_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self =
-            Self::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
-
-        // VK_KHR_pipeline_executable_properties
-        pub const CAPTURE_STATISTICS_KHR: Self =
-            Self(PipelineCreateFlagBits::CAPTURE_STATISTICS_KHR.0);
-        pub const CAPTURE_INTERNAL_REPRESENTATIONS_KHR: Self =
-            Self(PipelineCreateFlagBits::CAPTURE_INTERNAL_REPRESENTATIONS_KHR.0);
-
-        // VK_KHR_pipeline_library
-        pub const LIBRARY_KHR: Self = Self(PipelineCreateFlagBits::LIBRARY_KHR.0);
-
-        // VK_KHR_ray_tracing_pipeline
-        pub const RAY_TRACING_SKIP_TRIANGLES_KHR: Self =
-            Self(PipelineCreateFlagBits::RAY_TRACING_SKIP_TRIANGLES_KHR.0);
-        pub const RAY_TRACING_SKIP_AABBS_KHR: Self =
-            Self(PipelineCreateFlagBits::RAY_TRACING_SKIP_AABBS_KHR.0);
-        pub const RAY_TRACING_NO_NULL_ANY_HIT_SHADERS_KHR: Self =
-            Self(PipelineCreateFlagBits::RAY_TRACING_NO_NULL_ANY_HIT_SHADERS_KHR.0);
-        pub const RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_KHR: Self =
-            Self(PipelineCreateFlagBits::RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_KHR.0);
-        pub const RAY_TRACING_NO_NULL_MISS_SHADERS_KHR: Self =
-            Self(PipelineCreateFlagBits::RAY_TRACING_NO_NULL_MISS_SHADERS_KHR.0);
-        pub const RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_KHR: Self =
-            Self(PipelineCreateFlagBits::RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_KHR.0);
-        pub const RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_KHR: Self =
-            Self(PipelineCreateFlagBits::RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_KHR.0);
-
-        // VK_NV_device_generated_commands
-        pub const INDIRECT_BINDABLE_NV: Self = Self(PipelineCreateFlagBits::INDIRECT_BINDABLE_NV.0);
-
-        // VK_NV_displacement_micromap
-        #[cfg(feature = "provisional")]
-        pub const RAY_TRACING_DISPLACEMENT_MICROMAP_NV: Self =
-            Self(PipelineCreateFlagBits::RAY_TRACING_DISPLACEMENT_MICROMAP_NV.0);
-
-        // VK_NV_ray_tracing
-        pub const DEFER_COMPILE_NV: Self = Self(PipelineCreateFlagBits::DEFER_COMPILE_NV.0);
-
-        // VK_NV_ray_tracing_motion_blur
-        pub const RAY_TRACING_ALLOW_MOTION_NV: Self =
-            Self(PipelineCreateFlagBits::RAY_TRACING_ALLOW_MOTION_NV.0);
-
-        // VK_VERSION_1_1
-        pub const VIEW_INDEX_FROM_DEVICE_INDEX: Self =
-            Self(PipelineCreateFlagBits::VIEW_INDEX_FROM_DEVICE_INDEX.0);
-        pub const DISPATCH_BASE: Self = Self(PipelineCreateFlagBits::DISPATCH_BASE.0);
-
-        // VK_VERSION_1_3
-        pub const FAIL_ON_PIPELINE_COMPILE_REQUIRED: Self =
-            Self(PipelineCreateFlagBits::FAIL_ON_PIPELINE_COMPILE_REQUIRED.0);
-        pub const EARLY_RETURN_ON_FAILURE: Self =
-            Self(PipelineCreateFlagBits::EARLY_RETURN_ON_FAILURE.0);
-
-        // VK_VERSION_1_4
-        pub const NO_PROTECTED_ACCESS: Self = Self(PipelineCreateFlagBits::NO_PROTECTED_ACCESS.0);
-        pub const PROTECTED_ACCESS_ONLY: Self =
-            Self(PipelineCreateFlagBits::PROTECTED_ACCESS_ONLY.0);
-    }
+    vk_bitflags_wrapped!(PipelineCreateFlags, Flags, PipelineCreateFlagBits);
 
     impl fmt::Debug for PipelineCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    PipelineCreateFlags::DISABLE_OPTIMIZATION.0,
+                    PipelineCreateFlagBits::DISABLE_OPTIMIZATION.0,
                     "DISABLE_OPTIMIZATION",
                 ),
                 (
-                    PipelineCreateFlags::ALLOW_DERIVATIVES.0,
+                    PipelineCreateFlagBits::ALLOW_DERIVATIVES.0,
                     "ALLOW_DERIVATIVES",
                 ),
-                (PipelineCreateFlags::DERIVATIVE.0, "DERIVATIVE"),
+                (PipelineCreateFlagBits::DERIVATIVE.0, "DERIVATIVE"),
                 (
-                    PipelineCreateFlags::COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT.0,
+                    PipelineCreateFlagBits::COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT.0,
                     "COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT",
                 ),
                 (
-                    PipelineCreateFlags::DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT.0,
+                    PipelineCreateFlagBits::DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT.0,
                     "DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT",
                 ),
                 (
-                    PipelineCreateFlags::DESCRIPTOR_BUFFER_EXT.0,
+                    PipelineCreateFlagBits::DESCRIPTOR_BUFFER_EXT.0,
                     "DESCRIPTOR_BUFFER_EXT",
                 ),
                 (
-                    PipelineCreateFlags::RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT.0,
+                    PipelineCreateFlagBits::RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT.0,
                     "RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT",
                 ),
                 (
-                    PipelineCreateFlags::LINK_TIME_OPTIMIZATION_EXT.0,
+                    PipelineCreateFlagBits::LINK_TIME_OPTIMIZATION_EXT.0,
                     "LINK_TIME_OPTIMIZATION_EXT",
                 ),
                 (
-                    PipelineCreateFlags::RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT.0,
+                    PipelineCreateFlagBits::RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT.0,
                     "RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT",
                 ),
                 (
-                    PipelineCreateFlags::RAY_TRACING_OPACITY_MICROMAP_EXT.0,
+                    PipelineCreateFlagBits::RAY_TRACING_OPACITY_MICROMAP_EXT.0,
                     "RAY_TRACING_OPACITY_MICROMAP_EXT",
                 ),
                 (
-                    PipelineCreateFlags::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0,
+                    PipelineCreateFlagBits::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0,
                     "RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR",
                 ),
                 (
-                    PipelineCreateFlags::CAPTURE_STATISTICS_KHR.0,
+                    PipelineCreateFlagBits::CAPTURE_STATISTICS_KHR.0,
                     "CAPTURE_STATISTICS_KHR",
                 ),
                 (
-                    PipelineCreateFlags::CAPTURE_INTERNAL_REPRESENTATIONS_KHR.0,
+                    PipelineCreateFlagBits::CAPTURE_INTERNAL_REPRESENTATIONS_KHR.0,
                     "CAPTURE_INTERNAL_REPRESENTATIONS_KHR",
                 ),
-                (PipelineCreateFlags::LIBRARY_KHR.0, "LIBRARY_KHR"),
+                (PipelineCreateFlagBits::LIBRARY_KHR.0, "LIBRARY_KHR"),
                 (
-                    PipelineCreateFlags::RAY_TRACING_SKIP_TRIANGLES_KHR.0,
+                    PipelineCreateFlagBits::RAY_TRACING_SKIP_TRIANGLES_KHR.0,
                     "RAY_TRACING_SKIP_TRIANGLES_KHR",
                 ),
                 (
-                    PipelineCreateFlags::RAY_TRACING_SKIP_AABBS_KHR.0,
+                    PipelineCreateFlagBits::RAY_TRACING_SKIP_AABBS_KHR.0,
                     "RAY_TRACING_SKIP_AABBS_KHR",
                 ),
                 (
-                    PipelineCreateFlags::RAY_TRACING_NO_NULL_ANY_HIT_SHADERS_KHR.0,
+                    PipelineCreateFlagBits::RAY_TRACING_NO_NULL_ANY_HIT_SHADERS_KHR.0,
                     "RAY_TRACING_NO_NULL_ANY_HIT_SHADERS_KHR",
                 ),
                 (
-                    PipelineCreateFlags::RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_KHR.0,
+                    PipelineCreateFlagBits::RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_KHR.0,
                     "RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_KHR",
                 ),
                 (
-                    PipelineCreateFlags::RAY_TRACING_NO_NULL_MISS_SHADERS_KHR.0,
+                    PipelineCreateFlagBits::RAY_TRACING_NO_NULL_MISS_SHADERS_KHR.0,
                     "RAY_TRACING_NO_NULL_MISS_SHADERS_KHR",
                 ),
                 (
-                    PipelineCreateFlags::RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_KHR.0,
+                    PipelineCreateFlagBits::RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_KHR.0,
                     "RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_KHR",
                 ),
                 (
-                    PipelineCreateFlags::RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_KHR.0,
+                    PipelineCreateFlagBits::RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_KHR.0,
                     "RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_KHR",
                 ),
                 (
-                    PipelineCreateFlags::INDIRECT_BINDABLE_NV.0,
+                    PipelineCreateFlagBits::INDIRECT_BINDABLE_NV.0,
                     "INDIRECT_BINDABLE_NV",
                 ),
                 #[cfg(feature = "provisional")]
                 (
-                    PipelineCreateFlags::RAY_TRACING_DISPLACEMENT_MICROMAP_NV.0,
+                    PipelineCreateFlagBits::RAY_TRACING_DISPLACEMENT_MICROMAP_NV.0,
                     "RAY_TRACING_DISPLACEMENT_MICROMAP_NV",
                 ),
-                (PipelineCreateFlags::DEFER_COMPILE_NV.0, "DEFER_COMPILE_NV"),
                 (
-                    PipelineCreateFlags::RAY_TRACING_ALLOW_MOTION_NV.0,
+                    PipelineCreateFlagBits::DEFER_COMPILE_NV.0,
+                    "DEFER_COMPILE_NV",
+                ),
+                (
+                    PipelineCreateFlagBits::RAY_TRACING_ALLOW_MOTION_NV.0,
                     "RAY_TRACING_ALLOW_MOTION_NV",
                 ),
                 (
-                    PipelineCreateFlags::VIEW_INDEX_FROM_DEVICE_INDEX.0,
+                    PipelineCreateFlagBits::VIEW_INDEX_FROM_DEVICE_INDEX.0,
                     "VIEW_INDEX_FROM_DEVICE_INDEX",
                 ),
-                (PipelineCreateFlags::DISPATCH_BASE.0, "DISPATCH_BASE"),
+                (PipelineCreateFlagBits::DISPATCH_BASE.0, "DISPATCH_BASE"),
                 (
-                    PipelineCreateFlags::FAIL_ON_PIPELINE_COMPILE_REQUIRED.0,
+                    PipelineCreateFlagBits::FAIL_ON_PIPELINE_COMPILE_REQUIRED.0,
                     "FAIL_ON_PIPELINE_COMPILE_REQUIRED",
                 ),
                 (
-                    PipelineCreateFlags::EARLY_RETURN_ON_FAILURE.0,
+                    PipelineCreateFlagBits::EARLY_RETURN_ON_FAILURE.0,
                     "EARLY_RETURN_ON_FAILURE",
                 ),
                 (
-                    PipelineCreateFlags::NO_PROTECTED_ACCESS.0,
+                    PipelineCreateFlagBits::NO_PROTECTED_ACCESS.0,
                     "NO_PROTECTED_ACCESS",
                 ),
                 (
-                    PipelineCreateFlags::PROTECTED_ACCESS_ONLY.0,
+                    PipelineCreateFlagBits::PROTECTED_ACCESS_ONLY.0,
                     "PROTECTED_ACCESS_ONLY",
                 ),
             ];
@@ -19506,22 +18808,15 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ColorComponentFlags(Flags);
-    vk_bitflags_wrapped!(ColorComponentFlags, Flags);
-
-    impl ColorComponentFlags {
-        pub const R: Self = Self(ColorComponentFlagBits::R.0);
-        pub const G: Self = Self(ColorComponentFlagBits::G.0);
-        pub const B: Self = Self(ColorComponentFlagBits::B.0);
-        pub const A: Self = Self(ColorComponentFlagBits::A.0);
-    }
+    vk_bitflags_wrapped!(ColorComponentFlags, Flags, ColorComponentFlagBits);
 
     impl fmt::Debug for ColorComponentFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (ColorComponentFlags::R.0, "R"),
-                (ColorComponentFlags::G.0, "G"),
-                (ColorComponentFlags::B.0, "B"),
-                (ColorComponentFlags::A.0, "A"),
+                (ColorComponentFlagBits::R.0, "R"),
+                (ColorComponentFlagBits::G.0, "G"),
+                (ColorComponentFlagBits::B.0, "B"),
+                (ColorComponentFlagBits::A.0, "A"),
             ];
             debug_flags(f, KNOWN, self.0)
         }
@@ -19560,15 +18855,11 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct FenceCreateFlags(Flags);
-    vk_bitflags_wrapped!(FenceCreateFlags, Flags);
-
-    impl FenceCreateFlags {
-        pub const SIGNALED: Self = Self(FenceCreateFlagBits::SIGNALED.0);
-    }
+    vk_bitflags_wrapped!(FenceCreateFlags, Flags, FenceCreateFlagBits);
 
     impl fmt::Debug for FenceCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-            const KNOWN: &[(Flags, &str)] = &[(FenceCreateFlags::SIGNALED.0, "SIGNALED")];
+            const KNOWN: &[(Flags, &str)] = &[(FenceCreateFlagBits::SIGNALED.0, "SIGNALED")];
             debug_flags(f, KNOWN, self.0)
         }
     }
@@ -19612,154 +18903,42 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct FormatFeatureFlags(Flags);
-    vk_bitflags_wrapped!(FormatFeatureFlags, Flags);
-
-    impl FormatFeatureFlags {
-        /// Format can be used for sampled images (SAMPLED_IMAGE and COMBINED_IMAGE_SAMPLER descriptor types)
-        pub const SAMPLED_IMAGE: Self = Self(FormatFeatureFlagBits::SAMPLED_IMAGE.0);
-        /// Format can be used for storage images (STORAGE_IMAGE descriptor type)
-        pub const STORAGE_IMAGE: Self = Self(FormatFeatureFlagBits::STORAGE_IMAGE.0);
-        /// Format supports atomic operations in case it is used for storage images
-        pub const STORAGE_IMAGE_ATOMIC: Self = Self(FormatFeatureFlagBits::STORAGE_IMAGE_ATOMIC.0);
-        /// Format can be used for uniform texel buffers (TBOs)
-        pub const UNIFORM_TEXEL_BUFFER: Self = Self(FormatFeatureFlagBits::UNIFORM_TEXEL_BUFFER.0);
-        /// Format can be used for storage texel buffers (IBOs)
-        pub const STORAGE_TEXEL_BUFFER: Self = Self(FormatFeatureFlagBits::STORAGE_TEXEL_BUFFER.0);
-        /// Format supports atomic operations in case it is used for storage texel buffers
-        pub const STORAGE_TEXEL_BUFFER_ATOMIC: Self =
-            Self(FormatFeatureFlagBits::STORAGE_TEXEL_BUFFER_ATOMIC.0);
-        /// Format can be used for vertex buffers (VBOs)
-        pub const VERTEX_BUFFER: Self = Self(FormatFeatureFlagBits::VERTEX_BUFFER.0);
-        /// Format can be used for color attachment images
-        pub const COLOR_ATTACHMENT: Self = Self(FormatFeatureFlagBits::COLOR_ATTACHMENT.0);
-        /// Format supports blending in case it is used for color attachment images
-        pub const COLOR_ATTACHMENT_BLEND: Self =
-            Self(FormatFeatureFlagBits::COLOR_ATTACHMENT_BLEND.0);
-        /// Format can be used for depth/stencil attachment images
-        pub const DEPTH_STENCIL_ATTACHMENT: Self =
-            Self(FormatFeatureFlagBits::DEPTH_STENCIL_ATTACHMENT.0);
-        /// Format can be used as the source image of blits with vkCmdBlitImage
-        pub const BLIT_SRC: Self = Self(FormatFeatureFlagBits::BLIT_SRC.0);
-        /// Format can be used as the destination image of blits with vkCmdBlitImage
-        pub const BLIT_DST: Self = Self(FormatFeatureFlagBits::BLIT_DST.0);
-        /// Format can be filtered with VK_FILTER_LINEAR when being sampled
-        pub const SAMPLED_IMAGE_FILTER_LINEAR: Self =
-            Self(FormatFeatureFlagBits::SAMPLED_IMAGE_FILTER_LINEAR.0);
-
-        // VK_EXT_filter_cubic
-        pub const SAMPLED_IMAGE_FILTER_CUBIC_EXT: Self =
-            Self(FormatFeatureFlagBits::SAMPLED_IMAGE_FILTER_CUBIC_EXT.0);
-
-        // VK_EXT_fragment_density_map
-        pub const FRAGMENT_DENSITY_MAP_EXT: Self =
-            Self(FormatFeatureFlagBits::FRAGMENT_DENSITY_MAP_EXT.0);
-
-        // VK_EXT_sampler_filter_minmax
-        pub const SAMPLED_IMAGE_FILTER_MINMAX_EXT: Self = Self::SAMPLED_IMAGE_FILTER_MINMAX;
-
-        // VK_IMG_filter_cubic
-        pub const SAMPLED_IMAGE_FILTER_CUBIC_IMG: Self = Self::SAMPLED_IMAGE_FILTER_CUBIC_EXT;
-
-        // VK_KHR_acceleration_structure
-        pub const ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR: Self =
-            Self(FormatFeatureFlagBits::ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR.0);
-
-        // VK_KHR_fragment_shading_rate
-        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self =
-            Self(FormatFeatureFlagBits::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0);
-
-        // VK_KHR_maintenance1
-        pub const TRANSFER_SRC_KHR: Self = Self::TRANSFER_SRC;
-        pub const TRANSFER_DST_KHR: Self = Self::TRANSFER_DST;
-
-        // VK_KHR_sampler_ycbcr_conversion
-        pub const MIDPOINT_CHROMA_SAMPLES_KHR: Self = Self::MIDPOINT_CHROMA_SAMPLES;
-        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_KHR: Self =
-            Self::SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER;
-        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_KHR: Self =
-            Self::SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER;
-        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_KHR: Self =
-            Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT;
-        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_KHR:
-            Self = Self::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE;
-        pub const DISJOINT_KHR: Self = Self::DISJOINT;
-        pub const COSITED_CHROMA_SAMPLES_KHR: Self = Self::COSITED_CHROMA_SAMPLES;
-
-        // VK_KHR_video_decode_queue
-        pub const VIDEO_DECODE_OUTPUT_KHR: Self =
-            Self(FormatFeatureFlagBits::VIDEO_DECODE_OUTPUT_KHR.0);
-        pub const VIDEO_DECODE_DPB_KHR: Self = Self(FormatFeatureFlagBits::VIDEO_DECODE_DPB_KHR.0);
-
-        // VK_KHR_video_encode_queue
-        pub const VIDEO_ENCODE_INPUT_KHR: Self =
-            Self(FormatFeatureFlagBits::VIDEO_ENCODE_INPUT_KHR.0);
-        pub const VIDEO_ENCODE_DPB_KHR: Self = Self(FormatFeatureFlagBits::VIDEO_ENCODE_DPB_KHR.0);
-
-        // VK_VERSION_1_1
-        /// Format can be used as the source image of image transfer commands
-        pub const TRANSFER_SRC: Self = Self(FormatFeatureFlagBits::TRANSFER_SRC.0);
-        /// Format can be used as the destination image of image transfer commands
-        pub const TRANSFER_DST: Self = Self(FormatFeatureFlagBits::TRANSFER_DST.0);
-        /// Format can have midpoint rather than cosited chroma samples
-        pub const MIDPOINT_CHROMA_SAMPLES: Self =
-            Self(FormatFeatureFlagBits::MIDPOINT_CHROMA_SAMPLES.0);
-        /// Format can be used with linear filtering whilst color conversion is enabled
-        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER: Self =
-            Self(FormatFeatureFlagBits::SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER.0);
-        /// Format can have different chroma, min and mag filters
-        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER: Self = Self(
-            FormatFeatureFlagBits::SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER.0,
-        );
-        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT: Self = Self(
-            FormatFeatureFlagBits::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT.0,
-        );
-        pub const SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE: Self = Self(FormatFeatureFlagBits::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE.0);
-        /// Format supports disjoint planes
-        pub const DISJOINT: Self = Self(FormatFeatureFlagBits::DISJOINT.0);
-        /// Format can have cosited rather than midpoint chroma samples
-        pub const COSITED_CHROMA_SAMPLES: Self =
-            Self(FormatFeatureFlagBits::COSITED_CHROMA_SAMPLES.0);
-
-        // VK_VERSION_1_2
-        /// Format can be used with min/max reduction filtering
-        pub const SAMPLED_IMAGE_FILTER_MINMAX: Self =
-            Self(FormatFeatureFlagBits::SAMPLED_IMAGE_FILTER_MINMAX.0);
-    }
+    vk_bitflags_wrapped!(FormatFeatureFlags, Flags, FormatFeatureFlagBits);
 
     impl fmt::Debug for FormatFeatureFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (FormatFeatureFlags::SAMPLED_IMAGE.0, "SAMPLED_IMAGE"),
-                (FormatFeatureFlags::STORAGE_IMAGE.0, "STORAGE_IMAGE"),
-                (FormatFeatureFlags::STORAGE_IMAGE_ATOMIC.0, "STORAGE_IMAGE_ATOMIC"),
-                (FormatFeatureFlags::UNIFORM_TEXEL_BUFFER.0, "UNIFORM_TEXEL_BUFFER"),
-                (FormatFeatureFlags::STORAGE_TEXEL_BUFFER.0, "STORAGE_TEXEL_BUFFER"),
-                (FormatFeatureFlags::STORAGE_TEXEL_BUFFER_ATOMIC.0, "STORAGE_TEXEL_BUFFER_ATOMIC"),
-                (FormatFeatureFlags::VERTEX_BUFFER.0, "VERTEX_BUFFER"),
-                (FormatFeatureFlags::COLOR_ATTACHMENT.0, "COLOR_ATTACHMENT"),
-                (FormatFeatureFlags::COLOR_ATTACHMENT_BLEND.0, "COLOR_ATTACHMENT_BLEND"),
-                (FormatFeatureFlags::DEPTH_STENCIL_ATTACHMENT.0, "DEPTH_STENCIL_ATTACHMENT"),
-                (FormatFeatureFlags::BLIT_SRC.0, "BLIT_SRC"),
-                (FormatFeatureFlags::BLIT_DST.0, "BLIT_DST"),
-                (FormatFeatureFlags::SAMPLED_IMAGE_FILTER_LINEAR.0, "SAMPLED_IMAGE_FILTER_LINEAR"),
-                (FormatFeatureFlags::SAMPLED_IMAGE_FILTER_CUBIC_EXT.0, "SAMPLED_IMAGE_FILTER_CUBIC_EXT"),
-                (FormatFeatureFlags::FRAGMENT_DENSITY_MAP_EXT.0, "FRAGMENT_DENSITY_MAP_EXT"),
-                (FormatFeatureFlags::ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR.0, "ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR"),
-                (FormatFeatureFlags::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0, "FRAGMENT_SHADING_RATE_ATTACHMENT_KHR"),
-                (FormatFeatureFlags::VIDEO_DECODE_OUTPUT_KHR.0, "VIDEO_DECODE_OUTPUT_KHR"),
-                (FormatFeatureFlags::VIDEO_DECODE_DPB_KHR.0, "VIDEO_DECODE_DPB_KHR"),
-                (FormatFeatureFlags::VIDEO_ENCODE_INPUT_KHR.0, "VIDEO_ENCODE_INPUT_KHR"),
-                (FormatFeatureFlags::VIDEO_ENCODE_DPB_KHR.0, "VIDEO_ENCODE_DPB_KHR"),
-                (FormatFeatureFlags::TRANSFER_SRC.0, "TRANSFER_SRC"),
-                (FormatFeatureFlags::TRANSFER_DST.0, "TRANSFER_DST"),
-                (FormatFeatureFlags::MIDPOINT_CHROMA_SAMPLES.0, "MIDPOINT_CHROMA_SAMPLES"),
-                (FormatFeatureFlags::SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER.0, "SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER"),
-                (FormatFeatureFlags::SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER.0, "SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER"),
-                (FormatFeatureFlags::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT.0, "SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT"),
-                (FormatFeatureFlags::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE.0, "SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE"),
-                (FormatFeatureFlags::DISJOINT.0, "DISJOINT"),
-                (FormatFeatureFlags::COSITED_CHROMA_SAMPLES.0, "COSITED_CHROMA_SAMPLES"),
-                (FormatFeatureFlags::SAMPLED_IMAGE_FILTER_MINMAX.0, "SAMPLED_IMAGE_FILTER_MINMAX"),
+                (FormatFeatureFlagBits::SAMPLED_IMAGE.0, "SAMPLED_IMAGE"),
+                (FormatFeatureFlagBits::STORAGE_IMAGE.0, "STORAGE_IMAGE"),
+                (FormatFeatureFlagBits::STORAGE_IMAGE_ATOMIC.0, "STORAGE_IMAGE_ATOMIC"),
+                (FormatFeatureFlagBits::UNIFORM_TEXEL_BUFFER.0, "UNIFORM_TEXEL_BUFFER"),
+                (FormatFeatureFlagBits::STORAGE_TEXEL_BUFFER.0, "STORAGE_TEXEL_BUFFER"),
+                (FormatFeatureFlagBits::STORAGE_TEXEL_BUFFER_ATOMIC.0, "STORAGE_TEXEL_BUFFER_ATOMIC"),
+                (FormatFeatureFlagBits::VERTEX_BUFFER.0, "VERTEX_BUFFER"),
+                (FormatFeatureFlagBits::COLOR_ATTACHMENT.0, "COLOR_ATTACHMENT"),
+                (FormatFeatureFlagBits::COLOR_ATTACHMENT_BLEND.0, "COLOR_ATTACHMENT_BLEND"),
+                (FormatFeatureFlagBits::DEPTH_STENCIL_ATTACHMENT.0, "DEPTH_STENCIL_ATTACHMENT"),
+                (FormatFeatureFlagBits::BLIT_SRC.0, "BLIT_SRC"),
+                (FormatFeatureFlagBits::BLIT_DST.0, "BLIT_DST"),
+                (FormatFeatureFlagBits::SAMPLED_IMAGE_FILTER_LINEAR.0, "SAMPLED_IMAGE_FILTER_LINEAR"),
+                (FormatFeatureFlagBits::SAMPLED_IMAGE_FILTER_CUBIC_EXT.0, "SAMPLED_IMAGE_FILTER_CUBIC_EXT"),
+                (FormatFeatureFlagBits::FRAGMENT_DENSITY_MAP_EXT.0, "FRAGMENT_DENSITY_MAP_EXT"),
+                (FormatFeatureFlagBits::ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR.0, "ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR"),
+                (FormatFeatureFlagBits::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0, "FRAGMENT_SHADING_RATE_ATTACHMENT_KHR"),
+                (FormatFeatureFlagBits::VIDEO_DECODE_OUTPUT_KHR.0, "VIDEO_DECODE_OUTPUT_KHR"),
+                (FormatFeatureFlagBits::VIDEO_DECODE_DPB_KHR.0, "VIDEO_DECODE_DPB_KHR"),
+                (FormatFeatureFlagBits::VIDEO_ENCODE_INPUT_KHR.0, "VIDEO_ENCODE_INPUT_KHR"),
+                (FormatFeatureFlagBits::VIDEO_ENCODE_DPB_KHR.0, "VIDEO_ENCODE_DPB_KHR"),
+                (FormatFeatureFlagBits::TRANSFER_SRC.0, "TRANSFER_SRC"),
+                (FormatFeatureFlagBits::TRANSFER_DST.0, "TRANSFER_DST"),
+                (FormatFeatureFlagBits::MIDPOINT_CHROMA_SAMPLES.0, "MIDPOINT_CHROMA_SAMPLES"),
+                (FormatFeatureFlagBits::SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER.0, "SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER"),
+                (FormatFeatureFlagBits::SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER.0, "SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER"),
+                (FormatFeatureFlagBits::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT.0, "SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT"),
+                (FormatFeatureFlagBits::SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE.0, "SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE"),
+                (FormatFeatureFlagBits::DISJOINT.0, "DISJOINT"),
+                (FormatFeatureFlagBits::COSITED_CHROMA_SAMPLES.0, "COSITED_CHROMA_SAMPLES"),
+                (FormatFeatureFlagBits::SAMPLED_IMAGE_FILTER_MINMAX.0, "SAMPLED_IMAGE_FILTER_MINMAX"),
             ];
             debug_flags(f, KNOWN, self.0)
         }
@@ -19926,16 +19105,11 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct QueryControlFlags(Flags);
-    vk_bitflags_wrapped!(QueryControlFlags, Flags);
-
-    impl QueryControlFlags {
-        /// Require precise results to be collected by the query
-        pub const PRECISE: Self = Self(QueryControlFlagBits::PRECISE.0);
-    }
+    vk_bitflags_wrapped!(QueryControlFlags, Flags, QueryControlFlagBits);
 
     impl fmt::Debug for QueryControlFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-            const KNOWN: &[(Flags, &str)] = &[(QueryControlFlags::PRECISE.0, "PRECISE")];
+            const KNOWN: &[(Flags, &str)] = &[(QueryControlFlagBits::PRECISE.0, "PRECISE")];
             debug_flags(f, KNOWN, self.0)
         }
     }
@@ -19968,30 +19142,19 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct QueryResultFlags(Flags);
-    vk_bitflags_wrapped!(QueryResultFlags, Flags);
-
-    impl QueryResultFlags {
-        /// Results of the queries are written to the destination buffer as 64-bit values
-        pub const _64: Self = Self(QueryResultFlagBits::_64.0);
-        /// Results of the queries are waited on before proceeding with the result copy
-        pub const WAIT: Self = Self(QueryResultFlagBits::WAIT.0);
-        /// Besides the results of the query, the availability of the results is also written
-        pub const WITH_AVAILABILITY: Self = Self(QueryResultFlagBits::WITH_AVAILABILITY.0);
-        /// Copy the partial results of the query even if the final results are not available
-        pub const PARTIAL: Self = Self(QueryResultFlagBits::PARTIAL.0);
-
-        // VK_KHR_video_queue
-        pub const WITH_STATUS_KHR: Self = Self(QueryResultFlagBits::WITH_STATUS_KHR.0);
-    }
+    vk_bitflags_wrapped!(QueryResultFlags, Flags, QueryResultFlagBits);
 
     impl fmt::Debug for QueryResultFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (QueryResultFlags::_64.0, "_64"),
-                (QueryResultFlags::WAIT.0, "WAIT"),
-                (QueryResultFlags::WITH_AVAILABILITY.0, "WITH_AVAILABILITY"),
-                (QueryResultFlags::PARTIAL.0, "PARTIAL"),
-                (QueryResultFlags::WITH_STATUS_KHR.0, "WITH_STATUS_KHR"),
+                (QueryResultFlagBits::_64.0, "_64"),
+                (QueryResultFlagBits::WAIT.0, "WAIT"),
+                (
+                    QueryResultFlagBits::WITH_AVAILABILITY.0,
+                    "WITH_AVAILABILITY",
+                ),
+                (QueryResultFlagBits::PARTIAL.0, "PARTIAL"),
+                (QueryResultFlagBits::WITH_STATUS_KHR.0, "WITH_STATUS_KHR"),
             ];
             debug_flags(f, KNOWN, self.0)
         }
@@ -20049,19 +19212,11 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct EventCreateFlags(Flags);
-    vk_bitflags_wrapped!(EventCreateFlags, Flags);
-
-    impl EventCreateFlags {
-        // VK_KHR_synchronization2
-        pub const DEVICE_ONLY_KHR: Self = Self::DEVICE_ONLY;
-
-        // VK_VERSION_1_3
-        pub const DEVICE_ONLY: Self = Self(EventCreateFlagBits::DEVICE_ONLY.0);
-    }
+    vk_bitflags_wrapped!(EventCreateFlags, Flags, EventCreateFlagBits);
 
     impl fmt::Debug for EventCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-            const KNOWN: &[(Flags, &str)] = &[(EventCreateFlags::DEVICE_ONLY.0, "DEVICE_ONLY")];
+            const KNOWN: &[(Flags, &str)] = &[(EventCreateFlagBits::DEVICE_ONLY.0, "DEVICE_ONLY")];
             debug_flags(f, KNOWN, self.0)
         }
     }
@@ -20097,29 +19252,17 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct CommandPoolCreateFlags(Flags);
-    vk_bitflags_wrapped!(CommandPoolCreateFlags, Flags);
-
-    impl CommandPoolCreateFlags {
-        /// Command buffers have a short lifetime
-        pub const TRANSIENT: Self = Self(CommandPoolCreateFlagBits::TRANSIENT.0);
-        /// Command buffers may release their memory individually
-        pub const RESET_COMMAND_BUFFER: Self =
-            Self(CommandPoolCreateFlagBits::RESET_COMMAND_BUFFER.0);
-
-        // VK_VERSION_1_1
-        /// Command buffers allocated from pool are protected command buffers
-        pub const PROTECTED: Self = Self(CommandPoolCreateFlagBits::PROTECTED.0);
-    }
+    vk_bitflags_wrapped!(CommandPoolCreateFlags, Flags, CommandPoolCreateFlagBits);
 
     impl fmt::Debug for CommandPoolCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (CommandPoolCreateFlags::TRANSIENT.0, "TRANSIENT"),
+                (CommandPoolCreateFlagBits::TRANSIENT.0, "TRANSIENT"),
                 (
-                    CommandPoolCreateFlags::RESET_COMMAND_BUFFER.0,
+                    CommandPoolCreateFlagBits::RESET_COMMAND_BUFFER.0,
                     "RESET_COMMAND_BUFFER",
                 ),
-                (CommandPoolCreateFlags::PROTECTED.0, "PROTECTED"),
+                (CommandPoolCreateFlagBits::PROTECTED.0, "PROTECTED"),
             ];
             debug_flags(f, KNOWN, self.0)
         }
@@ -20160,17 +19303,12 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct CommandPoolResetFlags(Flags);
-    vk_bitflags_wrapped!(CommandPoolResetFlags, Flags);
-
-    impl CommandPoolResetFlags {
-        /// Release resources owned by the pool
-        pub const RELEASE_RESOURCES: Self = Self(CommandPoolResetFlagBits::RELEASE_RESOURCES.0);
-    }
+    vk_bitflags_wrapped!(CommandPoolResetFlags, Flags, CommandPoolResetFlagBits);
 
     impl fmt::Debug for CommandPoolResetFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[(
-                CommandPoolResetFlags::RELEASE_RESOURCES.0,
+                CommandPoolResetFlagBits::RELEASE_RESOURCES.0,
                 "RELEASE_RESOURCES",
             )];
             debug_flags(f, KNOWN, self.0)
@@ -20205,17 +19343,12 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct CommandBufferResetFlags(Flags);
-    vk_bitflags_wrapped!(CommandBufferResetFlags, Flags);
-
-    impl CommandBufferResetFlags {
-        /// Release resources owned by the buffer
-        pub const RELEASE_RESOURCES: Self = Self(CommandBufferResetFlagBits::RELEASE_RESOURCES.0);
-    }
+    vk_bitflags_wrapped!(CommandBufferResetFlags, Flags, CommandBufferResetFlagBits);
 
     impl fmt::Debug for CommandBufferResetFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[(
-                CommandBufferResetFlags::RELEASE_RESOURCES.0,
+                CommandBufferResetFlagBits::RELEASE_RESOURCES.0,
                 "RELEASE_RESOURCES",
             )];
             debug_flags(f, KNOWN, self.0)
@@ -20250,29 +19383,21 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct CommandBufferUsageFlags(Flags);
-    vk_bitflags_wrapped!(CommandBufferUsageFlags, Flags);
-
-    impl CommandBufferUsageFlags {
-        pub const ONE_TIME_SUBMIT: Self = Self(CommandBufferUsageFlagBits::ONE_TIME_SUBMIT.0);
-        pub const RENDER_PASS_CONTINUE: Self =
-            Self(CommandBufferUsageFlagBits::RENDER_PASS_CONTINUE.0);
-        /// Command buffer may be submitted/executed more than once simultaneously
-        pub const SIMULTANEOUS_USE: Self = Self(CommandBufferUsageFlagBits::SIMULTANEOUS_USE.0);
-    }
+    vk_bitflags_wrapped!(CommandBufferUsageFlags, Flags, CommandBufferUsageFlagBits);
 
     impl fmt::Debug for CommandBufferUsageFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    CommandBufferUsageFlags::ONE_TIME_SUBMIT.0,
+                    CommandBufferUsageFlagBits::ONE_TIME_SUBMIT.0,
                     "ONE_TIME_SUBMIT",
                 ),
                 (
-                    CommandBufferUsageFlags::RENDER_PASS_CONTINUE.0,
+                    CommandBufferUsageFlagBits::RENDER_PASS_CONTINUE.0,
                     "RENDER_PASS_CONTINUE",
                 ),
                 (
-                    CommandBufferUsageFlags::SIMULTANEOUS_USE.0,
+                    CommandBufferUsageFlagBits::SIMULTANEOUS_USE.0,
                     "SIMULTANEOUS_USE",
                 ),
             ];
@@ -20312,100 +19437,69 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct QueryPipelineStatisticFlags(Flags);
-    vk_bitflags_wrapped!(QueryPipelineStatisticFlags, Flags);
-
-    impl QueryPipelineStatisticFlags {
-        pub const INPUT_ASSEMBLY_VERTICES: Self =
-            Self(QueryPipelineStatisticFlagBits::INPUT_ASSEMBLY_VERTICES.0);
-        pub const INPUT_ASSEMBLY_PRIMITIVES: Self =
-            Self(QueryPipelineStatisticFlagBits::INPUT_ASSEMBLY_PRIMITIVES.0);
-        pub const VERTEX_SHADER_INVOCATIONS: Self =
-            Self(QueryPipelineStatisticFlagBits::VERTEX_SHADER_INVOCATIONS.0);
-        pub const GEOMETRY_SHADER_INVOCATIONS: Self =
-            Self(QueryPipelineStatisticFlagBits::GEOMETRY_SHADER_INVOCATIONS.0);
-        pub const GEOMETRY_SHADER_PRIMITIVES: Self =
-            Self(QueryPipelineStatisticFlagBits::GEOMETRY_SHADER_PRIMITIVES.0);
-        pub const CLIPPING_INVOCATIONS: Self =
-            Self(QueryPipelineStatisticFlagBits::CLIPPING_INVOCATIONS.0);
-        pub const CLIPPING_PRIMITIVES: Self =
-            Self(QueryPipelineStatisticFlagBits::CLIPPING_PRIMITIVES.0);
-        pub const FRAGMENT_SHADER_INVOCATIONS: Self =
-            Self(QueryPipelineStatisticFlagBits::FRAGMENT_SHADER_INVOCATIONS.0);
-        pub const TESSELLATION_CONTROL_SHADER_PATCHES: Self =
-            Self(QueryPipelineStatisticFlagBits::TESSELLATION_CONTROL_SHADER_PATCHES.0);
-        pub const TESSELLATION_EVALUATION_SHADER_INVOCATIONS: Self =
-            Self(QueryPipelineStatisticFlagBits::TESSELLATION_EVALUATION_SHADER_INVOCATIONS.0);
-        pub const COMPUTE_SHADER_INVOCATIONS: Self =
-            Self(QueryPipelineStatisticFlagBits::COMPUTE_SHADER_INVOCATIONS.0);
-
-        // VK_EXT_mesh_shader
-        pub const TASK_SHADER_INVOCATIONS_EXT: Self =
-            Self(QueryPipelineStatisticFlagBits::TASK_SHADER_INVOCATIONS_EXT.0);
-        pub const MESH_SHADER_INVOCATIONS_EXT: Self =
-            Self(QueryPipelineStatisticFlagBits::MESH_SHADER_INVOCATIONS_EXT.0);
-
-        // VK_HUAWEI_cluster_culling_shader
-        pub const CLUSTER_CULLING_SHADER_INVOCATIONS_HUAWEI: Self =
-            Self(QueryPipelineStatisticFlagBits::CLUSTER_CULLING_SHADER_INVOCATIONS_HUAWEI.0);
-    }
+    vk_bitflags_wrapped!(
+        QueryPipelineStatisticFlags,
+        Flags,
+        QueryPipelineStatisticFlagBits
+    );
 
     impl fmt::Debug for QueryPipelineStatisticFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    QueryPipelineStatisticFlags::INPUT_ASSEMBLY_VERTICES.0,
+                    QueryPipelineStatisticFlagBits::INPUT_ASSEMBLY_VERTICES.0,
                     "INPUT_ASSEMBLY_VERTICES",
                 ),
                 (
-                    QueryPipelineStatisticFlags::INPUT_ASSEMBLY_PRIMITIVES.0,
+                    QueryPipelineStatisticFlagBits::INPUT_ASSEMBLY_PRIMITIVES.0,
                     "INPUT_ASSEMBLY_PRIMITIVES",
                 ),
                 (
-                    QueryPipelineStatisticFlags::VERTEX_SHADER_INVOCATIONS.0,
+                    QueryPipelineStatisticFlagBits::VERTEX_SHADER_INVOCATIONS.0,
                     "VERTEX_SHADER_INVOCATIONS",
                 ),
                 (
-                    QueryPipelineStatisticFlags::GEOMETRY_SHADER_INVOCATIONS.0,
+                    QueryPipelineStatisticFlagBits::GEOMETRY_SHADER_INVOCATIONS.0,
                     "GEOMETRY_SHADER_INVOCATIONS",
                 ),
                 (
-                    QueryPipelineStatisticFlags::GEOMETRY_SHADER_PRIMITIVES.0,
+                    QueryPipelineStatisticFlagBits::GEOMETRY_SHADER_PRIMITIVES.0,
                     "GEOMETRY_SHADER_PRIMITIVES",
                 ),
                 (
-                    QueryPipelineStatisticFlags::CLIPPING_INVOCATIONS.0,
+                    QueryPipelineStatisticFlagBits::CLIPPING_INVOCATIONS.0,
                     "CLIPPING_INVOCATIONS",
                 ),
                 (
-                    QueryPipelineStatisticFlags::CLIPPING_PRIMITIVES.0,
+                    QueryPipelineStatisticFlagBits::CLIPPING_PRIMITIVES.0,
                     "CLIPPING_PRIMITIVES",
                 ),
                 (
-                    QueryPipelineStatisticFlags::FRAGMENT_SHADER_INVOCATIONS.0,
+                    QueryPipelineStatisticFlagBits::FRAGMENT_SHADER_INVOCATIONS.0,
                     "FRAGMENT_SHADER_INVOCATIONS",
                 ),
                 (
-                    QueryPipelineStatisticFlags::TESSELLATION_CONTROL_SHADER_PATCHES.0,
+                    QueryPipelineStatisticFlagBits::TESSELLATION_CONTROL_SHADER_PATCHES.0,
                     "TESSELLATION_CONTROL_SHADER_PATCHES",
                 ),
                 (
-                    QueryPipelineStatisticFlags::TESSELLATION_EVALUATION_SHADER_INVOCATIONS.0,
+                    QueryPipelineStatisticFlagBits::TESSELLATION_EVALUATION_SHADER_INVOCATIONS.0,
                     "TESSELLATION_EVALUATION_SHADER_INVOCATIONS",
                 ),
                 (
-                    QueryPipelineStatisticFlags::COMPUTE_SHADER_INVOCATIONS.0,
+                    QueryPipelineStatisticFlagBits::COMPUTE_SHADER_INVOCATIONS.0,
                     "COMPUTE_SHADER_INVOCATIONS",
                 ),
                 (
-                    QueryPipelineStatisticFlags::TASK_SHADER_INVOCATIONS_EXT.0,
+                    QueryPipelineStatisticFlagBits::TASK_SHADER_INVOCATIONS_EXT.0,
                     "TASK_SHADER_INVOCATIONS_EXT",
                 ),
                 (
-                    QueryPipelineStatisticFlags::MESH_SHADER_INVOCATIONS_EXT.0,
+                    QueryPipelineStatisticFlagBits::MESH_SHADER_INVOCATIONS_EXT.0,
                     "MESH_SHADER_INVOCATIONS_EXT",
                 ),
                 (
-                    QueryPipelineStatisticFlags::CLUSTER_CULLING_SHADER_INVOCATIONS_HUAWEI.0,
+                    QueryPipelineStatisticFlagBits::CLUSTER_CULLING_SHADER_INVOCATIONS_HUAWEI.0,
                     "CLUSTER_CULLING_SHADER_INVOCATIONS_HUAWEI",
                 ),
             ];
@@ -20475,16 +19569,11 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct MemoryMapFlags(Flags);
-    vk_bitflags_wrapped!(MemoryMapFlags, Flags);
-
-    impl MemoryMapFlags {
-        // VK_EXT_map_memory_placed
-        pub const PLACED_EXT: Self = Self(MemoryMapFlagBits::PLACED_EXT.0);
-    }
+    vk_bitflags_wrapped!(MemoryMapFlags, Flags, MemoryMapFlagBits);
 
     impl fmt::Debug for MemoryMapFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-            const KNOWN: &[(Flags, &str)] = &[(MemoryMapFlags::PLACED_EXT.0, "PLACED_EXT")];
+            const KNOWN: &[(Flags, &str)] = &[(MemoryMapFlagBits::PLACED_EXT.0, "PLACED_EXT")];
             debug_flags(f, KNOWN, self.0)
         }
     }
@@ -20517,33 +19606,9 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageAspectFlags(Flags);
-    vk_bitflags_wrapped!(ImageAspectFlags, Flags);
+    vk_bitflags_wrapped!(ImageAspectFlags, Flags, ImageAspectFlagBits);
 
     impl ImageAspectFlags {
-        pub const COLOR: Self = Self(ImageAspectFlagBits::COLOR.0);
-        pub const DEPTH: Self = Self(ImageAspectFlagBits::DEPTH.0);
-        pub const STENCIL: Self = Self(ImageAspectFlagBits::STENCIL.0);
-        pub const METADATA: Self = Self(ImageAspectFlagBits::METADATA.0);
-
-        // VK_EXT_image_drm_format_modifier
-        pub const MEMORY_PLANE_0_EXT: Self = Self(ImageAspectFlagBits::MEMORY_PLANE_0_EXT.0);
-        pub const MEMORY_PLANE_1_EXT: Self = Self(ImageAspectFlagBits::MEMORY_PLANE_1_EXT.0);
-        pub const MEMORY_PLANE_2_EXT: Self = Self(ImageAspectFlagBits::MEMORY_PLANE_2_EXT.0);
-        pub const MEMORY_PLANE_3_EXT: Self = Self(ImageAspectFlagBits::MEMORY_PLANE_3_EXT.0);
-
-        // VK_KHR_maintenance4
-        pub const NONE_KHR: Self = Self::NONE;
-
-        // VK_KHR_sampler_ycbcr_conversion
-        pub const PLANE_0_KHR: Self = Self::PLANE_0;
-        pub const PLANE_1_KHR: Self = Self::PLANE_1;
-        pub const PLANE_2_KHR: Self = Self::PLANE_2;
-
-        // VK_VERSION_1_1
-        pub const PLANE_0: Self = Self(ImageAspectFlagBits::PLANE_0.0);
-        pub const PLANE_1: Self = Self(ImageAspectFlagBits::PLANE_1.0);
-        pub const PLANE_2: Self = Self(ImageAspectFlagBits::PLANE_2.0);
-
         // VK_VERSION_1_3
         pub const NONE: Self = Self(0);
     }
@@ -20551,17 +19616,29 @@ pub(super) mod defs {
     impl fmt::Debug for ImageAspectFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (ImageAspectFlags::COLOR.0, "COLOR"),
-                (ImageAspectFlags::DEPTH.0, "DEPTH"),
-                (ImageAspectFlags::STENCIL.0, "STENCIL"),
-                (ImageAspectFlags::METADATA.0, "METADATA"),
-                (ImageAspectFlags::MEMORY_PLANE_0_EXT.0, "MEMORY_PLANE_0_EXT"),
-                (ImageAspectFlags::MEMORY_PLANE_1_EXT.0, "MEMORY_PLANE_1_EXT"),
-                (ImageAspectFlags::MEMORY_PLANE_2_EXT.0, "MEMORY_PLANE_2_EXT"),
-                (ImageAspectFlags::MEMORY_PLANE_3_EXT.0, "MEMORY_PLANE_3_EXT"),
-                (ImageAspectFlags::PLANE_0.0, "PLANE_0"),
-                (ImageAspectFlags::PLANE_1.0, "PLANE_1"),
-                (ImageAspectFlags::PLANE_2.0, "PLANE_2"),
+                (ImageAspectFlagBits::COLOR.0, "COLOR"),
+                (ImageAspectFlagBits::DEPTH.0, "DEPTH"),
+                (ImageAspectFlagBits::STENCIL.0, "STENCIL"),
+                (ImageAspectFlagBits::METADATA.0, "METADATA"),
+                (
+                    ImageAspectFlagBits::MEMORY_PLANE_0_EXT.0,
+                    "MEMORY_PLANE_0_EXT",
+                ),
+                (
+                    ImageAspectFlagBits::MEMORY_PLANE_1_EXT.0,
+                    "MEMORY_PLANE_1_EXT",
+                ),
+                (
+                    ImageAspectFlagBits::MEMORY_PLANE_2_EXT.0,
+                    "MEMORY_PLANE_2_EXT",
+                ),
+                (
+                    ImageAspectFlagBits::MEMORY_PLANE_3_EXT.0,
+                    "MEMORY_PLANE_3_EXT",
+                ),
+                (ImageAspectFlagBits::PLANE_0.0, "PLANE_0"),
+                (ImageAspectFlagBits::PLANE_1.0, "PLANE_1"),
+                (ImageAspectFlagBits::PLANE_2.0, "PLANE_2"),
             ];
             debug_flags(f, KNOWN, self.0)
         }
@@ -20622,16 +19699,11 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SparseMemoryBindFlags(Flags);
-    vk_bitflags_wrapped!(SparseMemoryBindFlags, Flags);
-
-    impl SparseMemoryBindFlags {
-        /// Operation binds resource metadata to memory
-        pub const METADATA: Self = Self(SparseMemoryBindFlagBits::METADATA.0);
-    }
+    vk_bitflags_wrapped!(SparseMemoryBindFlags, Flags, SparseMemoryBindFlagBits);
 
     impl fmt::Debug for SparseMemoryBindFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-            const KNOWN: &[(Flags, &str)] = &[(SparseMemoryBindFlags::METADATA.0, "METADATA")];
+            const KNOWN: &[(Flags, &str)] = &[(SparseMemoryBindFlagBits::METADATA.0, "METADATA")];
             debug_flags(f, KNOWN, self.0)
         }
     }
@@ -20664,28 +19736,21 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SparseImageFormatFlags(Flags);
-    vk_bitflags_wrapped!(SparseImageFormatFlags, Flags);
-
-    impl SparseImageFormatFlags {
-        /// Image uses a single mip tail region for all array layers
-        pub const SINGLE_MIPTAIL: Self = Self(SparseImageFormatFlagBits::SINGLE_MIPTAIL.0);
-        /// Image requires mip level dimensions to be an integer multiple of the sparse image block dimensions for non-tail mip levels.
-        pub const ALIGNED_MIP_SIZE: Self = Self(SparseImageFormatFlagBits::ALIGNED_MIP_SIZE.0);
-        /// Image uses a non-standard sparse image block dimensions
-        pub const NONSTANDARD_BLOCK_SIZE: Self =
-            Self(SparseImageFormatFlagBits::NONSTANDARD_BLOCK_SIZE.0);
-    }
+    vk_bitflags_wrapped!(SparseImageFormatFlags, Flags, SparseImageFormatFlagBits);
 
     impl fmt::Debug for SparseImageFormatFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (SparseImageFormatFlags::SINGLE_MIPTAIL.0, "SINGLE_MIPTAIL"),
                 (
-                    SparseImageFormatFlags::ALIGNED_MIP_SIZE.0,
+                    SparseImageFormatFlagBits::SINGLE_MIPTAIL.0,
+                    "SINGLE_MIPTAIL",
+                ),
+                (
+                    SparseImageFormatFlagBits::ALIGNED_MIP_SIZE.0,
                     "ALIGNED_MIP_SIZE",
                 ),
                 (
-                    SparseImageFormatFlags::NONSTANDARD_BLOCK_SIZE.0,
+                    SparseImageFormatFlagBits::NONSTANDARD_BLOCK_SIZE.0,
                     "NONSTANDARD_BLOCK_SIZE",
                 ),
             ];
@@ -20727,86 +19792,45 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SubpassDescriptionFlags(Flags);
-    vk_bitflags_wrapped!(SubpassDescriptionFlags, Flags);
-
-    impl SubpassDescriptionFlags {
-        // VK_ARM_rasterization_order_attachment_access
-        pub const RASTERIZATION_ORDER_ATTACHMENT_COLOR_ACCESS_ARM: Self =
-            Self::RASTERIZATION_ORDER_ATTACHMENT_COLOR_ACCESS_EXT;
-        pub const RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_ARM: Self =
-            Self::RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT;
-        pub const RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_ARM: Self =
-            Self::RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT;
-
-        // VK_EXT_custom_resolve
-        pub const FRAGMENT_REGION_EXT: Self =
-            Self(SubpassDescriptionFlagBits::FRAGMENT_REGION_EXT.0);
-        pub const CUSTOM_RESOLVE_EXT: Self = Self(SubpassDescriptionFlagBits::CUSTOM_RESOLVE_EXT.0);
-
-        // VK_EXT_legacy_dithering
-        pub const ENABLE_LEGACY_DITHERING_EXT: Self =
-            Self(SubpassDescriptionFlagBits::ENABLE_LEGACY_DITHERING_EXT.0);
-
-        // VK_EXT_rasterization_order_attachment_access
-        pub const RASTERIZATION_ORDER_ATTACHMENT_COLOR_ACCESS_EXT: Self =
-            Self(SubpassDescriptionFlagBits::RASTERIZATION_ORDER_ATTACHMENT_COLOR_ACCESS_EXT.0);
-        pub const RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT: Self =
-            Self(SubpassDescriptionFlagBits::RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT.0);
-        pub const RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT: Self =
-            Self(SubpassDescriptionFlagBits::RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT.0);
-
-        // VK_NVX_multiview_per_view_attributes
-        pub const PER_VIEW_ATTRIBUTES_NVX: Self =
-            Self(SubpassDescriptionFlagBits::PER_VIEW_ATTRIBUTES_NVX.0);
-        pub const PER_VIEW_POSITION_X_ONLY_NVX: Self =
-            Self(SubpassDescriptionFlagBits::PER_VIEW_POSITION_X_ONLY_NVX.0);
-
-        // VK_QCOM_render_pass_shader_resolve
-        pub const FRAGMENT_REGION_QCOM: Self = Self::FRAGMENT_REGION_EXT;
-        pub const SHADER_RESOLVE_QCOM: Self = Self::CUSTOM_RESOLVE_EXT;
-
-        // VK_QCOM_tile_shading
-        pub const TILE_SHADING_APRON_QCOM: Self =
-            Self(SubpassDescriptionFlagBits::TILE_SHADING_APRON_QCOM.0);
-    }
+    vk_bitflags_wrapped!(SubpassDescriptionFlags, Flags, SubpassDescriptionFlagBits);
 
     impl fmt::Debug for SubpassDescriptionFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    SubpassDescriptionFlags::FRAGMENT_REGION_EXT.0,
+                    SubpassDescriptionFlagBits::FRAGMENT_REGION_EXT.0,
                     "FRAGMENT_REGION_EXT",
                 ),
                 (
-                    SubpassDescriptionFlags::CUSTOM_RESOLVE_EXT.0,
+                    SubpassDescriptionFlagBits::CUSTOM_RESOLVE_EXT.0,
                     "CUSTOM_RESOLVE_EXT",
                 ),
                 (
-                    SubpassDescriptionFlags::ENABLE_LEGACY_DITHERING_EXT.0,
+                    SubpassDescriptionFlagBits::ENABLE_LEGACY_DITHERING_EXT.0,
                     "ENABLE_LEGACY_DITHERING_EXT",
                 ),
                 (
-                    SubpassDescriptionFlags::RASTERIZATION_ORDER_ATTACHMENT_COLOR_ACCESS_EXT.0,
+                    SubpassDescriptionFlagBits::RASTERIZATION_ORDER_ATTACHMENT_COLOR_ACCESS_EXT.0,
                     "RASTERIZATION_ORDER_ATTACHMENT_COLOR_ACCESS_EXT",
                 ),
                 (
-                    SubpassDescriptionFlags::RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT.0,
+                    SubpassDescriptionFlagBits::RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT.0,
                     "RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_EXT",
                 ),
                 (
-                    SubpassDescriptionFlags::RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT.0,
+                    SubpassDescriptionFlagBits::RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT.0,
                     "RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_EXT",
                 ),
                 (
-                    SubpassDescriptionFlags::PER_VIEW_ATTRIBUTES_NVX.0,
+                    SubpassDescriptionFlagBits::PER_VIEW_ATTRIBUTES_NVX.0,
                     "PER_VIEW_ATTRIBUTES_NVX",
                 ),
                 (
-                    SubpassDescriptionFlags::PER_VIEW_POSITION_X_ONLY_NVX.0,
+                    SubpassDescriptionFlagBits::PER_VIEW_POSITION_X_ONLY_NVX.0,
                     "PER_VIEW_POSITION_X_ONLY_NVX",
                 ),
                 (
-                    SubpassDescriptionFlags::TILE_SHADING_APRON_QCOM.0,
+                    SubpassDescriptionFlagBits::TILE_SHADING_APRON_QCOM.0,
                     "TILE_SHADING_APRON_QCOM",
                 ),
             ];
@@ -20884,97 +19908,9 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PipelineStageFlags(Flags);
-    vk_bitflags_wrapped!(PipelineStageFlags, Flags);
+    vk_bitflags_wrapped!(PipelineStageFlags, Flags, PipelineStageFlagBits);
 
     impl PipelineStageFlags {
-        /// Before subsequent commands are processed
-        pub const TOP_OF_PIPE: Self = Self(PipelineStageFlagBits::TOP_OF_PIPE.0);
-        /// Draw/DispatchIndirect command fetch
-        pub const DRAW_INDIRECT: Self = Self(PipelineStageFlagBits::DRAW_INDIRECT.0);
-        /// Vertex/index fetch
-        pub const VERTEX_INPUT: Self = Self(PipelineStageFlagBits::VERTEX_INPUT.0);
-        /// Vertex shading
-        pub const VERTEX_SHADER: Self = Self(PipelineStageFlagBits::VERTEX_SHADER.0);
-        /// Tessellation control shading
-        pub const TESSELLATION_CONTROL_SHADER: Self =
-            Self(PipelineStageFlagBits::TESSELLATION_CONTROL_SHADER.0);
-        /// Tessellation evaluation shading
-        pub const TESSELLATION_EVALUATION_SHADER: Self =
-            Self(PipelineStageFlagBits::TESSELLATION_EVALUATION_SHADER.0);
-        /// Geometry shading
-        pub const GEOMETRY_SHADER: Self = Self(PipelineStageFlagBits::GEOMETRY_SHADER.0);
-        /// Fragment shading
-        pub const FRAGMENT_SHADER: Self = Self(PipelineStageFlagBits::FRAGMENT_SHADER.0);
-        /// Early fragment (depth and stencil) tests
-        pub const EARLY_FRAGMENT_TESTS: Self = Self(PipelineStageFlagBits::EARLY_FRAGMENT_TESTS.0);
-        /// Late fragment (depth and stencil) tests
-        pub const LATE_FRAGMENT_TESTS: Self = Self(PipelineStageFlagBits::LATE_FRAGMENT_TESTS.0);
-        /// Color attachment writes
-        pub const COLOR_ATTACHMENT_OUTPUT: Self =
-            Self(PipelineStageFlagBits::COLOR_ATTACHMENT_OUTPUT.0);
-        /// Compute shading
-        pub const COMPUTE_SHADER: Self = Self(PipelineStageFlagBits::COMPUTE_SHADER.0);
-        /// Transfer/copy operations
-        pub const TRANSFER: Self = Self(PipelineStageFlagBits::TRANSFER.0);
-        /// After previous commands have completed
-        pub const BOTTOM_OF_PIPE: Self = Self(PipelineStageFlagBits::BOTTOM_OF_PIPE.0);
-        /// Indicates host (CPU) is a source/sink of the dependency
-        pub const HOST: Self = Self(PipelineStageFlagBits::HOST.0);
-        /// All stages of the graphics pipeline
-        pub const ALL_GRAPHICS: Self = Self(PipelineStageFlagBits::ALL_GRAPHICS.0);
-        /// All stages supported on the queue
-        pub const ALL_COMMANDS: Self = Self(PipelineStageFlagBits::ALL_COMMANDS.0);
-
-        // VK_EXT_conditional_rendering
-        /// A pipeline stage for conditional rendering predicate fetch
-        pub const CONDITIONAL_RENDERING_EXT: Self =
-            Self(PipelineStageFlagBits::CONDITIONAL_RENDERING_EXT.0);
-
-        // VK_EXT_device_generated_commands
-        pub const COMMAND_PREPROCESS_EXT: Self =
-            Self(PipelineStageFlagBits::COMMAND_PREPROCESS_EXT.0);
-
-        // VK_EXT_fragment_density_map
-        pub const FRAGMENT_DENSITY_PROCESS_EXT: Self =
-            Self(PipelineStageFlagBits::FRAGMENT_DENSITY_PROCESS_EXT.0);
-
-        // VK_EXT_mesh_shader
-        pub const TASK_SHADER_EXT: Self = Self(PipelineStageFlagBits::TASK_SHADER_EXT.0);
-        pub const MESH_SHADER_EXT: Self = Self(PipelineStageFlagBits::MESH_SHADER_EXT.0);
-
-        // VK_EXT_transform_feedback
-        pub const TRANSFORM_FEEDBACK_EXT: Self =
-            Self(PipelineStageFlagBits::TRANSFORM_FEEDBACK_EXT.0);
-
-        // VK_KHR_acceleration_structure
-        pub const ACCELERATION_STRUCTURE_BUILD_KHR: Self =
-            Self(PipelineStageFlagBits::ACCELERATION_STRUCTURE_BUILD_KHR.0);
-
-        // VK_KHR_fragment_shading_rate
-        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self =
-            Self(PipelineStageFlagBits::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0);
-
-        // VK_KHR_ray_tracing_pipeline
-        pub const RAY_TRACING_SHADER_KHR: Self =
-            Self(PipelineStageFlagBits::RAY_TRACING_SHADER_KHR.0);
-
-        // VK_KHR_synchronization2
-        pub const NONE_KHR: Self = Self::NONE;
-
-        // VK_NV_device_generated_commands
-        pub const COMMAND_PREPROCESS_NV: Self = Self::COMMAND_PREPROCESS_EXT;
-
-        // VK_NV_mesh_shader
-        pub const TASK_SHADER_NV: Self = Self::TASK_SHADER_EXT;
-        pub const MESH_SHADER_NV: Self = Self::MESH_SHADER_EXT;
-
-        // VK_NV_ray_tracing
-        pub const RAY_TRACING_SHADER_NV: Self = Self::RAY_TRACING_SHADER_KHR;
-        pub const ACCELERATION_STRUCTURE_BUILD_NV: Self = Self::ACCELERATION_STRUCTURE_BUILD_KHR;
-
-        // VK_NV_shading_rate_image
-        pub const SHADING_RATE_IMAGE_NV: Self = Self::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
-
         // VK_VERSION_1_3
         pub const NONE: Self = Self(0);
     }
@@ -20982,66 +19918,66 @@ pub(super) mod defs {
     impl fmt::Debug for PipelineStageFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (PipelineStageFlags::TOP_OF_PIPE.0, "TOP_OF_PIPE"),
-                (PipelineStageFlags::DRAW_INDIRECT.0, "DRAW_INDIRECT"),
-                (PipelineStageFlags::VERTEX_INPUT.0, "VERTEX_INPUT"),
-                (PipelineStageFlags::VERTEX_SHADER.0, "VERTEX_SHADER"),
+                (PipelineStageFlagBits::TOP_OF_PIPE.0, "TOP_OF_PIPE"),
+                (PipelineStageFlagBits::DRAW_INDIRECT.0, "DRAW_INDIRECT"),
+                (PipelineStageFlagBits::VERTEX_INPUT.0, "VERTEX_INPUT"),
+                (PipelineStageFlagBits::VERTEX_SHADER.0, "VERTEX_SHADER"),
                 (
-                    PipelineStageFlags::TESSELLATION_CONTROL_SHADER.0,
+                    PipelineStageFlagBits::TESSELLATION_CONTROL_SHADER.0,
                     "TESSELLATION_CONTROL_SHADER",
                 ),
                 (
-                    PipelineStageFlags::TESSELLATION_EVALUATION_SHADER.0,
+                    PipelineStageFlagBits::TESSELLATION_EVALUATION_SHADER.0,
                     "TESSELLATION_EVALUATION_SHADER",
                 ),
-                (PipelineStageFlags::GEOMETRY_SHADER.0, "GEOMETRY_SHADER"),
-                (PipelineStageFlags::FRAGMENT_SHADER.0, "FRAGMENT_SHADER"),
+                (PipelineStageFlagBits::GEOMETRY_SHADER.0, "GEOMETRY_SHADER"),
+                (PipelineStageFlagBits::FRAGMENT_SHADER.0, "FRAGMENT_SHADER"),
                 (
-                    PipelineStageFlags::EARLY_FRAGMENT_TESTS.0,
+                    PipelineStageFlagBits::EARLY_FRAGMENT_TESTS.0,
                     "EARLY_FRAGMENT_TESTS",
                 ),
                 (
-                    PipelineStageFlags::LATE_FRAGMENT_TESTS.0,
+                    PipelineStageFlagBits::LATE_FRAGMENT_TESTS.0,
                     "LATE_FRAGMENT_TESTS",
                 ),
                 (
-                    PipelineStageFlags::COLOR_ATTACHMENT_OUTPUT.0,
+                    PipelineStageFlagBits::COLOR_ATTACHMENT_OUTPUT.0,
                     "COLOR_ATTACHMENT_OUTPUT",
                 ),
-                (PipelineStageFlags::COMPUTE_SHADER.0, "COMPUTE_SHADER"),
-                (PipelineStageFlags::TRANSFER.0, "TRANSFER"),
-                (PipelineStageFlags::BOTTOM_OF_PIPE.0, "BOTTOM_OF_PIPE"),
-                (PipelineStageFlags::HOST.0, "HOST"),
-                (PipelineStageFlags::ALL_GRAPHICS.0, "ALL_GRAPHICS"),
-                (PipelineStageFlags::ALL_COMMANDS.0, "ALL_COMMANDS"),
+                (PipelineStageFlagBits::COMPUTE_SHADER.0, "COMPUTE_SHADER"),
+                (PipelineStageFlagBits::TRANSFER.0, "TRANSFER"),
+                (PipelineStageFlagBits::BOTTOM_OF_PIPE.0, "BOTTOM_OF_PIPE"),
+                (PipelineStageFlagBits::HOST.0, "HOST"),
+                (PipelineStageFlagBits::ALL_GRAPHICS.0, "ALL_GRAPHICS"),
+                (PipelineStageFlagBits::ALL_COMMANDS.0, "ALL_COMMANDS"),
                 (
-                    PipelineStageFlags::CONDITIONAL_RENDERING_EXT.0,
+                    PipelineStageFlagBits::CONDITIONAL_RENDERING_EXT.0,
                     "CONDITIONAL_RENDERING_EXT",
                 ),
                 (
-                    PipelineStageFlags::COMMAND_PREPROCESS_EXT.0,
+                    PipelineStageFlagBits::COMMAND_PREPROCESS_EXT.0,
                     "COMMAND_PREPROCESS_EXT",
                 ),
                 (
-                    PipelineStageFlags::FRAGMENT_DENSITY_PROCESS_EXT.0,
+                    PipelineStageFlagBits::FRAGMENT_DENSITY_PROCESS_EXT.0,
                     "FRAGMENT_DENSITY_PROCESS_EXT",
                 ),
-                (PipelineStageFlags::TASK_SHADER_EXT.0, "TASK_SHADER_EXT"),
-                (PipelineStageFlags::MESH_SHADER_EXT.0, "MESH_SHADER_EXT"),
+                (PipelineStageFlagBits::TASK_SHADER_EXT.0, "TASK_SHADER_EXT"),
+                (PipelineStageFlagBits::MESH_SHADER_EXT.0, "MESH_SHADER_EXT"),
                 (
-                    PipelineStageFlags::TRANSFORM_FEEDBACK_EXT.0,
+                    PipelineStageFlagBits::TRANSFORM_FEEDBACK_EXT.0,
                     "TRANSFORM_FEEDBACK_EXT",
                 ),
                 (
-                    PipelineStageFlags::ACCELERATION_STRUCTURE_BUILD_KHR.0,
+                    PipelineStageFlagBits::ACCELERATION_STRUCTURE_BUILD_KHR.0,
                     "ACCELERATION_STRUCTURE_BUILD_KHR",
                 ),
                 (
-                    PipelineStageFlags::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0,
+                    PipelineStageFlagBits::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0,
                     "FRAGMENT_SHADING_RATE_ATTACHMENT_KHR",
                 ),
                 (
-                    PipelineStageFlags::RAY_TRACING_SHADER_KHR.0,
+                    PipelineStageFlagBits::RAY_TRACING_SHADER_KHR.0,
                     "RAY_TRACING_SHADER_KHR",
                 ),
             ];
@@ -21175,35 +20111,18 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SampleCountFlags(Flags);
-    vk_bitflags_wrapped!(SampleCountFlags, Flags);
-
-    impl SampleCountFlags {
-        /// Sample count 1 supported
-        pub const _1: Self = Self(SampleCountFlagBits::_1.0);
-        /// Sample count 2 supported
-        pub const _2: Self = Self(SampleCountFlagBits::_2.0);
-        /// Sample count 4 supported
-        pub const _4: Self = Self(SampleCountFlagBits::_4.0);
-        /// Sample count 8 supported
-        pub const _8: Self = Self(SampleCountFlagBits::_8.0);
-        /// Sample count 16 supported
-        pub const _16: Self = Self(SampleCountFlagBits::_16.0);
-        /// Sample count 32 supported
-        pub const _32: Self = Self(SampleCountFlagBits::_32.0);
-        /// Sample count 64 supported
-        pub const _64: Self = Self(SampleCountFlagBits::_64.0);
-    }
+    vk_bitflags_wrapped!(SampleCountFlags, Flags, SampleCountFlagBits);
 
     impl fmt::Debug for SampleCountFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (SampleCountFlags::_1.0, "_1"),
-                (SampleCountFlags::_2.0, "_2"),
-                (SampleCountFlags::_4.0, "_4"),
-                (SampleCountFlags::_8.0, "_8"),
-                (SampleCountFlags::_16.0, "_16"),
-                (SampleCountFlags::_32.0, "_32"),
-                (SampleCountFlags::_64.0, "_64"),
+                (SampleCountFlagBits::_1.0, "_1"),
+                (SampleCountFlagBits::_2.0, "_2"),
+                (SampleCountFlagBits::_4.0, "_4"),
+                (SampleCountFlagBits::_8.0, "_8"),
+                (SampleCountFlagBits::_16.0, "_16"),
+                (SampleCountFlagBits::_32.0, "_32"),
+                (SampleCountFlagBits::_64.0, "_64"),
             ];
             debug_flags(f, KNOWN, self.0)
         }
@@ -21255,29 +20174,22 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct AttachmentDescriptionFlags(Flags);
-    vk_bitflags_wrapped!(AttachmentDescriptionFlags, Flags);
-
-    impl AttachmentDescriptionFlags {
-        /// The attachment may alias physical memory of another attachment in the same render pass
-        pub const MAY_ALIAS: Self = Self(AttachmentDescriptionFlagBits::MAY_ALIAS.0);
-
-        // VK_KHR_maintenance10
-        pub const RESOLVE_SKIP_TRANSFER_FUNCTION_KHR: Self =
-            Self(AttachmentDescriptionFlagBits::RESOLVE_SKIP_TRANSFER_FUNCTION_KHR.0);
-        pub const RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR: Self =
-            Self(AttachmentDescriptionFlagBits::RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR.0);
-    }
+    vk_bitflags_wrapped!(
+        AttachmentDescriptionFlags,
+        Flags,
+        AttachmentDescriptionFlagBits
+    );
 
     impl fmt::Debug for AttachmentDescriptionFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (AttachmentDescriptionFlags::MAY_ALIAS.0, "MAY_ALIAS"),
+                (AttachmentDescriptionFlagBits::MAY_ALIAS.0, "MAY_ALIAS"),
                 (
-                    AttachmentDescriptionFlags::RESOLVE_SKIP_TRANSFER_FUNCTION_KHR.0,
+                    AttachmentDescriptionFlagBits::RESOLVE_SKIP_TRANSFER_FUNCTION_KHR.0,
                     "RESOLVE_SKIP_TRANSFER_FUNCTION_KHR",
                 ),
                 (
-                    AttachmentDescriptionFlags::RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR.0,
+                    AttachmentDescriptionFlagBits::RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR.0,
                     "RESOLVE_ENABLE_TRANSFER_FUNCTION_KHR",
                 ),
             ];
@@ -21322,14 +20234,9 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct StencilFaceFlags(Flags);
-    vk_bitflags_wrapped!(StencilFaceFlags, Flags);
+    vk_bitflags_wrapped!(StencilFaceFlags, Flags, StencilFaceFlagBits);
 
     impl StencilFaceFlags {
-        /// Front face
-        pub const FRONT: Self = Self(StencilFaceFlagBits::FRONT.0);
-        /// Back face
-        pub const BACK: Self = Self(StencilFaceFlagBits::BACK.0);
-        pub const STENCIL_FRONT_AND_BACK: Self = Self::FRONT_AND_BACK;
         /// Front and back faces
         pub const FRONT_AND_BACK: Self = Self(0x00000003);
     }
@@ -21337,8 +20244,8 @@ pub(super) mod defs {
     impl fmt::Debug for StencilFaceFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (StencilFaceFlags::FRONT.0, "FRONT"),
-                (StencilFaceFlags::BACK.0, "BACK"),
+                (StencilFaceFlagBits::FRONT.0, "FRONT"),
+                (StencilFaceFlagBits::BACK.0, "BACK"),
             ];
             debug_flags(f, KNOWN, self.0)
         }
@@ -21375,11 +20282,9 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct CullModeFlags(Flags);
-    vk_bitflags_wrapped!(CullModeFlags, Flags);
+    vk_bitflags_wrapped!(CullModeFlags, Flags, CullModeFlagBits);
 
     impl CullModeFlags {
-        pub const FRONT: Self = Self(CullModeFlagBits::FRONT.0);
-        pub const BACK: Self = Self(CullModeFlagBits::BACK.0);
         pub const NONE: Self = Self(0);
         pub const FRONT_AND_BACK: Self = Self(0x00000003);
     }
@@ -21387,8 +20292,8 @@ pub(super) mod defs {
     impl fmt::Debug for CullModeFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (CullModeFlags::FRONT.0, "FRONT"),
-                (CullModeFlags::BACK.0, "BACK"),
+                (CullModeFlagBits::FRONT.0, "FRONT"),
+                (CullModeFlagBits::BACK.0, "BACK"),
             ];
             debug_flags(f, KNOWN, self.0)
         }
@@ -21423,50 +20328,33 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DescriptorPoolCreateFlags(Flags);
-    vk_bitflags_wrapped!(DescriptorPoolCreateFlags, Flags);
-
-    impl DescriptorPoolCreateFlags {
-        /// Descriptor sets may be freed individually
-        pub const FREE_DESCRIPTOR_SET: Self =
-            Self(DescriptorPoolCreateFlagBits::FREE_DESCRIPTOR_SET.0);
-
-        // VK_EXT_descriptor_indexing
-        pub const UPDATE_AFTER_BIND_EXT: Self = Self::UPDATE_AFTER_BIND;
-
-        // VK_EXT_mutable_descriptor_type
-        pub const HOST_ONLY_EXT: Self = Self(DescriptorPoolCreateFlagBits::HOST_ONLY_EXT.0);
-
-        // VK_NV_descriptor_pool_overallocation
-        pub const ALLOW_OVERALLOCATION_SETS_NV: Self =
-            Self(DescriptorPoolCreateFlagBits::ALLOW_OVERALLOCATION_SETS_NV.0);
-        pub const ALLOW_OVERALLOCATION_POOLS_NV: Self =
-            Self(DescriptorPoolCreateFlagBits::ALLOW_OVERALLOCATION_POOLS_NV.0);
-
-        // VK_VALVE_mutable_descriptor_type
-        pub const HOST_ONLY_VALVE: Self = Self::HOST_ONLY_EXT;
-
-        // VK_VERSION_1_2
-        pub const UPDATE_AFTER_BIND: Self = Self(DescriptorPoolCreateFlagBits::UPDATE_AFTER_BIND.0);
-    }
+    vk_bitflags_wrapped!(
+        DescriptorPoolCreateFlags,
+        Flags,
+        DescriptorPoolCreateFlagBits
+    );
 
     impl fmt::Debug for DescriptorPoolCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    DescriptorPoolCreateFlags::FREE_DESCRIPTOR_SET.0,
+                    DescriptorPoolCreateFlagBits::FREE_DESCRIPTOR_SET.0,
                     "FREE_DESCRIPTOR_SET",
                 ),
-                (DescriptorPoolCreateFlags::HOST_ONLY_EXT.0, "HOST_ONLY_EXT"),
                 (
-                    DescriptorPoolCreateFlags::ALLOW_OVERALLOCATION_SETS_NV.0,
+                    DescriptorPoolCreateFlagBits::HOST_ONLY_EXT.0,
+                    "HOST_ONLY_EXT",
+                ),
+                (
+                    DescriptorPoolCreateFlagBits::ALLOW_OVERALLOCATION_SETS_NV.0,
                     "ALLOW_OVERALLOCATION_SETS_NV",
                 ),
                 (
-                    DescriptorPoolCreateFlags::ALLOW_OVERALLOCATION_POOLS_NV.0,
+                    DescriptorPoolCreateFlagBits::ALLOW_OVERALLOCATION_POOLS_NV.0,
                     "ALLOW_OVERALLOCATION_POOLS_NV",
                 ),
                 (
-                    DescriptorPoolCreateFlags::UPDATE_AFTER_BIND.0,
+                    DescriptorPoolCreateFlagBits::UPDATE_AFTER_BIND.0,
                     "UPDATE_AFTER_BIND",
                 ),
             ];
@@ -21533,50 +20421,23 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DependencyFlags(Flags);
-    vk_bitflags_wrapped!(DependencyFlags, Flags);
-
-    impl DependencyFlags {
-        /// Dependency is per pixel region
-        pub const BY_REGION: Self = Self(DependencyFlagBits::BY_REGION.0);
-
-        // VK_EXT_attachment_feedback_loop_layout
-        /// Dependency may be a feedback loop
-        pub const FEEDBACK_LOOP_EXT: Self = Self(DependencyFlagBits::FEEDBACK_LOOP_EXT.0);
-
-        // VK_KHR_device_group
-        pub const DEVICE_GROUP_KHR: Self = Self::DEVICE_GROUP;
-
-        // VK_KHR_maintenance8
-        pub const QUEUE_FAMILY_OWNERSHIP_TRANSFER_USE_ALL_STAGES_KHR: Self =
-            Self(DependencyFlagBits::QUEUE_FAMILY_OWNERSHIP_TRANSFER_USE_ALL_STAGES_KHR.0);
-
-        // VK_KHR_maintenance9
-        pub const ASYMMETRIC_EVENT_KHR: Self = Self(DependencyFlagBits::ASYMMETRIC_EVENT_KHR.0);
-
-        // VK_KHR_multiview
-        pub const VIEW_LOCAL_KHR: Self = Self::VIEW_LOCAL;
-
-        // VK_VERSION_1_1
-        pub const VIEW_LOCAL: Self = Self(DependencyFlagBits::VIEW_LOCAL.0);
-        /// Dependency is across devices
-        pub const DEVICE_GROUP: Self = Self(DependencyFlagBits::DEVICE_GROUP.0);
-    }
+    vk_bitflags_wrapped!(DependencyFlags, Flags, DependencyFlagBits);
 
     impl fmt::Debug for DependencyFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (DependencyFlags::BY_REGION.0, "BY_REGION"),
-                (DependencyFlags::FEEDBACK_LOOP_EXT.0, "FEEDBACK_LOOP_EXT"),
+                (DependencyFlagBits::BY_REGION.0, "BY_REGION"),
+                (DependencyFlagBits::FEEDBACK_LOOP_EXT.0, "FEEDBACK_LOOP_EXT"),
                 (
-                    DependencyFlags::QUEUE_FAMILY_OWNERSHIP_TRANSFER_USE_ALL_STAGES_KHR.0,
+                    DependencyFlagBits::QUEUE_FAMILY_OWNERSHIP_TRANSFER_USE_ALL_STAGES_KHR.0,
                     "QUEUE_FAMILY_OWNERSHIP_TRANSFER_USE_ALL_STAGES_KHR",
                 ),
                 (
-                    DependencyFlags::ASYMMETRIC_EVENT_KHR.0,
+                    DependencyFlagBits::ASYMMETRIC_EVENT_KHR.0,
                     "ASYMMETRIC_EVENT_KHR",
                 ),
-                (DependencyFlags::VIEW_LOCAL.0, "VIEW_LOCAL"),
-                (DependencyFlags::DEVICE_GROUP.0, "DEVICE_GROUP"),
+                (DependencyFlagBits::VIEW_LOCAL.0, "VIEW_LOCAL"),
+                (DependencyFlagBits::DEVICE_GROUP.0, "DEVICE_GROUP"),
             ];
             debug_flags(f, KNOWN, self.0)
         }

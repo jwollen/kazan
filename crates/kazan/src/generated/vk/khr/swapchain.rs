@@ -624,66 +624,34 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SwapchainCreateFlagsKHR(Flags);
-    vk_bitflags_wrapped!(SwapchainCreateFlagsKHR, Flags);
-
-    impl SwapchainCreateFlagsKHR {
-        // VK_EXT_present_timing
-        pub const PRESENT_TIMING_EXT: Self = Self(SwapchainCreateFlagBitsKHR::PRESENT_TIMING_EXT.0);
-
-        // VK_EXT_swapchain_maintenance1
-        pub const DEFERRED_MEMORY_ALLOCATION_EXT: Self = Self::DEFERRED_MEMORY_ALLOCATION_KHR;
-
-        // VK_KHR_device_group
-        /// Allow images with VK_IMAGE_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT
-        pub const SPLIT_INSTANCE_BIND_REGIONS_KHR: Self =
-            Self(SwapchainCreateFlagBitsKHR::SPLIT_INSTANCE_BIND_REGIONS_KHR.0);
-
-        // VK_KHR_present_id2
-        /// Allow use of VK_KHR_present_id2 with this swapchain
-        pub const PRESENT_ID_2_KHR: Self = Self(SwapchainCreateFlagBitsKHR::PRESENT_ID_2_KHR.0);
-
-        // VK_KHR_present_wait2
-        /// Allow use of VK_KHR_present_wait2 with this swapchain
-        pub const PRESENT_WAIT_2_KHR: Self = Self(SwapchainCreateFlagBitsKHR::PRESENT_WAIT_2_KHR.0);
-
-        // VK_KHR_swapchain
-        /// Swapchain is protected
-        pub const PROTECTED_KHR: Self = Self(SwapchainCreateFlagBitsKHR::PROTECTED_KHR.0);
-
-        // VK_KHR_swapchain_maintenance1
-        pub const DEFERRED_MEMORY_ALLOCATION_KHR: Self =
-            Self(SwapchainCreateFlagBitsKHR::DEFERRED_MEMORY_ALLOCATION_KHR.0);
-
-        // VK_KHR_swapchain_mutable_format
-        pub const MUTABLE_FORMAT_KHR: Self = Self(SwapchainCreateFlagBitsKHR::MUTABLE_FORMAT_KHR.0);
-    }
+    vk_bitflags_wrapped!(SwapchainCreateFlagsKHR, Flags, SwapchainCreateFlagBitsKHR);
 
     impl fmt::Debug for SwapchainCreateFlagsKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    SwapchainCreateFlagsKHR::PRESENT_TIMING_EXT.0,
+                    SwapchainCreateFlagBitsKHR::PRESENT_TIMING_EXT.0,
                     "PRESENT_TIMING_EXT",
                 ),
                 (
-                    SwapchainCreateFlagsKHR::SPLIT_INSTANCE_BIND_REGIONS_KHR.0,
+                    SwapchainCreateFlagBitsKHR::SPLIT_INSTANCE_BIND_REGIONS_KHR.0,
                     "SPLIT_INSTANCE_BIND_REGIONS_KHR",
                 ),
                 (
-                    SwapchainCreateFlagsKHR::PRESENT_ID_2_KHR.0,
+                    SwapchainCreateFlagBitsKHR::PRESENT_ID_2_KHR.0,
                     "PRESENT_ID_2_KHR",
                 ),
                 (
-                    SwapchainCreateFlagsKHR::PRESENT_WAIT_2_KHR.0,
+                    SwapchainCreateFlagBitsKHR::PRESENT_WAIT_2_KHR.0,
                     "PRESENT_WAIT_2_KHR",
                 ),
-                (SwapchainCreateFlagsKHR::PROTECTED_KHR.0, "PROTECTED_KHR"),
+                (SwapchainCreateFlagBitsKHR::PROTECTED_KHR.0, "PROTECTED_KHR"),
                 (
-                    SwapchainCreateFlagsKHR::DEFERRED_MEMORY_ALLOCATION_KHR.0,
+                    SwapchainCreateFlagBitsKHR::DEFERRED_MEMORY_ALLOCATION_KHR.0,
                     "DEFERRED_MEMORY_ALLOCATION_KHR",
                 ),
                 (
-                    SwapchainCreateFlagsKHR::MUTABLE_FORMAT_KHR.0,
+                    SwapchainCreateFlagBitsKHR::MUTABLE_FORMAT_KHR.0,
                     "MUTABLE_FORMAT_KHR",
                 ),
             ];
@@ -750,28 +718,23 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DeviceGroupPresentModeFlagsKHR(Flags);
-    vk_bitflags_wrapped!(DeviceGroupPresentModeFlagsKHR, Flags);
-
-    impl DeviceGroupPresentModeFlagsKHR {
-        /// Present from local memory
-        pub const LOCAL_KHR: Self = Self(DeviceGroupPresentModeFlagBitsKHR::LOCAL_KHR.0);
-        /// Present from remote memory
-        pub const REMOTE_KHR: Self = Self(DeviceGroupPresentModeFlagBitsKHR::REMOTE_KHR.0);
-        /// Present sum of local and/or remote memory
-        pub const SUM_KHR: Self = Self(DeviceGroupPresentModeFlagBitsKHR::SUM_KHR.0);
-        /// Each physical device presents from local memory
-        pub const LOCAL_MULTI_DEVICE_KHR: Self =
-            Self(DeviceGroupPresentModeFlagBitsKHR::LOCAL_MULTI_DEVICE_KHR.0);
-    }
+    vk_bitflags_wrapped!(
+        DeviceGroupPresentModeFlagsKHR,
+        Flags,
+        DeviceGroupPresentModeFlagBitsKHR
+    );
 
     impl fmt::Debug for DeviceGroupPresentModeFlagsKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (DeviceGroupPresentModeFlagsKHR::LOCAL_KHR.0, "LOCAL_KHR"),
-                (DeviceGroupPresentModeFlagsKHR::REMOTE_KHR.0, "REMOTE_KHR"),
-                (DeviceGroupPresentModeFlagsKHR::SUM_KHR.0, "SUM_KHR"),
+                (DeviceGroupPresentModeFlagBitsKHR::LOCAL_KHR.0, "LOCAL_KHR"),
                 (
-                    DeviceGroupPresentModeFlagsKHR::LOCAL_MULTI_DEVICE_KHR.0,
+                    DeviceGroupPresentModeFlagBitsKHR::REMOTE_KHR.0,
+                    "REMOTE_KHR",
+                ),
+                (DeviceGroupPresentModeFlagBitsKHR::SUM_KHR.0, "SUM_KHR"),
+                (
+                    DeviceGroupPresentModeFlagBitsKHR::LOCAL_MULTI_DEVICE_KHR.0,
                     "LOCAL_MULTI_DEVICE_KHR",
                 ),
             ];

@@ -175,16 +175,12 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct FrameBoundaryFlagsEXT(Flags);
-    vk_bitflags_wrapped!(FrameBoundaryFlagsEXT, Flags);
-
-    impl FrameBoundaryFlagsEXT {
-        pub const FRAME_END_EXT: Self = Self(FrameBoundaryFlagBitsEXT::FRAME_END_EXT.0);
-    }
+    vk_bitflags_wrapped!(FrameBoundaryFlagsEXT, Flags, FrameBoundaryFlagBitsEXT);
 
     impl fmt::Debug for FrameBoundaryFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] =
-                &[(FrameBoundaryFlagsEXT::FRAME_END_EXT.0, "FRAME_END_EXT")];
+                &[(FrameBoundaryFlagBitsEXT::FRAME_END_EXT.0, "FRAME_END_EXT")];
             debug_flags(f, KNOWN, self.0)
         }
     }

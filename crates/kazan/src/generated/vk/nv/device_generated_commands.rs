@@ -1034,30 +1034,25 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct IndirectCommandsLayoutUsageFlagsNV(Flags);
-    vk_bitflags_wrapped!(IndirectCommandsLayoutUsageFlagsNV, Flags);
-
-    impl IndirectCommandsLayoutUsageFlagsNV {
-        pub const EXPLICIT_PREPROCESS_NV: Self =
-            Self(IndirectCommandsLayoutUsageFlagBitsNV::EXPLICIT_PREPROCESS_NV.0);
-        pub const INDEXED_SEQUENCES_NV: Self =
-            Self(IndirectCommandsLayoutUsageFlagBitsNV::INDEXED_SEQUENCES_NV.0);
-        pub const UNORDERED_SEQUENCES_NV: Self =
-            Self(IndirectCommandsLayoutUsageFlagBitsNV::UNORDERED_SEQUENCES_NV.0);
-    }
+    vk_bitflags_wrapped!(
+        IndirectCommandsLayoutUsageFlagsNV,
+        Flags,
+        IndirectCommandsLayoutUsageFlagBitsNV
+    );
 
     impl fmt::Debug for IndirectCommandsLayoutUsageFlagsNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    IndirectCommandsLayoutUsageFlagsNV::EXPLICIT_PREPROCESS_NV.0,
+                    IndirectCommandsLayoutUsageFlagBitsNV::EXPLICIT_PREPROCESS_NV.0,
                     "EXPLICIT_PREPROCESS_NV",
                 ),
                 (
-                    IndirectCommandsLayoutUsageFlagsNV::INDEXED_SEQUENCES_NV.0,
+                    IndirectCommandsLayoutUsageFlagBitsNV::INDEXED_SEQUENCES_NV.0,
                     "INDEXED_SEQUENCES_NV",
                 ),
                 (
-                    IndirectCommandsLayoutUsageFlagsNV::UNORDERED_SEQUENCES_NV.0,
+                    IndirectCommandsLayoutUsageFlagBitsNV::UNORDERED_SEQUENCES_NV.0,
                     "UNORDERED_SEQUENCES_NV",
                 ),
             ];
@@ -1096,16 +1091,12 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct IndirectStateFlagsNV(Flags);
-    vk_bitflags_wrapped!(IndirectStateFlagsNV, Flags);
-
-    impl IndirectStateFlagsNV {
-        pub const FLAG_FRONTFACE_NV: Self = Self(IndirectStateFlagBitsNV::FLAG_FRONTFACE_NV.0);
-    }
+    vk_bitflags_wrapped!(IndirectStateFlagsNV, Flags, IndirectStateFlagBitsNV);
 
     impl fmt::Debug for IndirectStateFlagsNV {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[(
-                IndirectStateFlagsNV::FLAG_FRONTFACE_NV.0,
+                IndirectStateFlagBitsNV::FLAG_FRONTFACE_NV.0,
                 "FLAG_FRONTFACE_NV",
             )];
             debug_flags(f, KNOWN, self.0)

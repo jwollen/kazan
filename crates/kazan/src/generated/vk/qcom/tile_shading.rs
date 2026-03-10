@@ -485,20 +485,21 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct TileShadingRenderPassFlagsQCOM(Flags);
-    vk_bitflags_wrapped!(TileShadingRenderPassFlagsQCOM, Flags);
-
-    impl TileShadingRenderPassFlagsQCOM {
-        pub const ENABLE_QCOM: Self = Self(TileShadingRenderPassFlagBitsQCOM::ENABLE_QCOM.0);
-        pub const PER_TILE_EXECUTION_QCOM: Self =
-            Self(TileShadingRenderPassFlagBitsQCOM::PER_TILE_EXECUTION_QCOM.0);
-    }
+    vk_bitflags_wrapped!(
+        TileShadingRenderPassFlagsQCOM,
+        Flags,
+        TileShadingRenderPassFlagBitsQCOM
+    );
 
     impl fmt::Debug for TileShadingRenderPassFlagsQCOM {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (TileShadingRenderPassFlagsQCOM::ENABLE_QCOM.0, "ENABLE_QCOM"),
                 (
-                    TileShadingRenderPassFlagsQCOM::PER_TILE_EXECUTION_QCOM.0,
+                    TileShadingRenderPassFlagBitsQCOM::ENABLE_QCOM.0,
+                    "ENABLE_QCOM",
+                ),
+                (
+                    TileShadingRenderPassFlagBitsQCOM::PER_TILE_EXECUTION_QCOM.0,
                     "PER_TILE_EXECUTION_QCOM",
                 ),
             ];

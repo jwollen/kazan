@@ -428,28 +428,28 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DebugUtilsMessageSeverityFlagsEXT(Flags);
-    vk_bitflags_wrapped!(DebugUtilsMessageSeverityFlagsEXT, Flags);
-
-    impl DebugUtilsMessageSeverityFlagsEXT {
-        pub const VERBOSE_EXT: Self = Self(DebugUtilsMessageSeverityFlagBitsEXT::VERBOSE_EXT.0);
-        pub const INFO_EXT: Self = Self(DebugUtilsMessageSeverityFlagBitsEXT::INFO_EXT.0);
-        pub const WARNING_EXT: Self = Self(DebugUtilsMessageSeverityFlagBitsEXT::WARNING_EXT.0);
-        pub const ERROR_EXT: Self = Self(DebugUtilsMessageSeverityFlagBitsEXT::ERROR_EXT.0);
-    }
+    vk_bitflags_wrapped!(
+        DebugUtilsMessageSeverityFlagsEXT,
+        Flags,
+        DebugUtilsMessageSeverityFlagBitsEXT
+    );
 
     impl fmt::Debug for DebugUtilsMessageSeverityFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    DebugUtilsMessageSeverityFlagsEXT::VERBOSE_EXT.0,
+                    DebugUtilsMessageSeverityFlagBitsEXT::VERBOSE_EXT.0,
                     "VERBOSE_EXT",
                 ),
-                (DebugUtilsMessageSeverityFlagsEXT::INFO_EXT.0, "INFO_EXT"),
+                (DebugUtilsMessageSeverityFlagBitsEXT::INFO_EXT.0, "INFO_EXT"),
                 (
-                    DebugUtilsMessageSeverityFlagsEXT::WARNING_EXT.0,
+                    DebugUtilsMessageSeverityFlagBitsEXT::WARNING_EXT.0,
                     "WARNING_EXT",
                 ),
-                (DebugUtilsMessageSeverityFlagsEXT::ERROR_EXT.0, "ERROR_EXT"),
+                (
+                    DebugUtilsMessageSeverityFlagBitsEXT::ERROR_EXT.0,
+                    "ERROR_EXT",
+                ),
             ];
             debug_flags(f, KNOWN, self.0)
         }
@@ -488,32 +488,29 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DebugUtilsMessageTypeFlagsEXT(Flags);
-    vk_bitflags_wrapped!(DebugUtilsMessageTypeFlagsEXT, Flags);
-
-    impl DebugUtilsMessageTypeFlagsEXT {
-        pub const GENERAL_EXT: Self = Self(DebugUtilsMessageTypeFlagBitsEXT::GENERAL_EXT.0);
-        pub const VALIDATION_EXT: Self = Self(DebugUtilsMessageTypeFlagBitsEXT::VALIDATION_EXT.0);
-        pub const PERFORMANCE_EXT: Self = Self(DebugUtilsMessageTypeFlagBitsEXT::PERFORMANCE_EXT.0);
-
-        // VK_EXT_device_address_binding_report
-        pub const DEVICE_ADDRESS_BINDING_EXT: Self =
-            Self(DebugUtilsMessageTypeFlagBitsEXT::DEVICE_ADDRESS_BINDING_EXT.0);
-    }
+    vk_bitflags_wrapped!(
+        DebugUtilsMessageTypeFlagsEXT,
+        Flags,
+        DebugUtilsMessageTypeFlagBitsEXT
+    );
 
     impl fmt::Debug for DebugUtilsMessageTypeFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (DebugUtilsMessageTypeFlagsEXT::GENERAL_EXT.0, "GENERAL_EXT"),
                 (
-                    DebugUtilsMessageTypeFlagsEXT::VALIDATION_EXT.0,
+                    DebugUtilsMessageTypeFlagBitsEXT::GENERAL_EXT.0,
+                    "GENERAL_EXT",
+                ),
+                (
+                    DebugUtilsMessageTypeFlagBitsEXT::VALIDATION_EXT.0,
                     "VALIDATION_EXT",
                 ),
                 (
-                    DebugUtilsMessageTypeFlagsEXT::PERFORMANCE_EXT.0,
+                    DebugUtilsMessageTypeFlagBitsEXT::PERFORMANCE_EXT.0,
                     "PERFORMANCE_EXT",
                 ),
                 (
-                    DebugUtilsMessageTypeFlagsEXT::DEVICE_ADDRESS_BINDING_EXT.0,
+                    DebugUtilsMessageTypeFlagBitsEXT::DEVICE_ADDRESS_BINDING_EXT.0,
                     "DEVICE_ADDRESS_BINDING_EXT",
                 ),
             ];

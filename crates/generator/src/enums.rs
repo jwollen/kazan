@@ -496,27 +496,15 @@ fn write_flags_constants(
     bitmask: &xml::BitMask,
     data: &NormalizedBitmaskData,
 ) -> Result<()> {
-    let mut visited = HashSet::new();
-    writeln!(file, "impl {flags_name} {{")?;
+    // Only emit non-bit values (e.g. NONE = 0, FRONT_AND_BACK = 0x3).
+    // Single-bit constants live on FlagBits; use From/BitOr to combine them into Flags.
+    let mut has_values = false;
 
-    for b in &data.base_bits {
-        if visited.insert(b.name.clone()) {
-            write_doc_comment(file, b.comment)?;
-            writeln!(
-                file,
-                "pub const {}: Self = Self({}::{}.0);",
-                b.name, data.bitmask_name, b.name
-            )?;
-        }
-    }
-    for alias in &bitmask.aliases {
-        let aname = normalize_bit_name(alias.name, Some(data.value_prefix.as_str()));
-        let target = normalize_bit_name(alias.alias, Some(data.value_prefix.as_str()));
-        if visited.insert(aname.clone()) {
-            writeln!(file, "pub const {}: Self = Self::{};", aname, target)?;
-        }
-    }
     for value in &bitmask.values {
+        if !has_values {
+            writeln!(file, "impl {flags_name} {{")?;
+            has_values = true;
+        }
         let vname = value
             .name
             .strip_prefix(&data.value_prefix)
@@ -527,26 +515,9 @@ fn write_flags_constants(
         write_doc_comment(file, value.comment)?;
         writeln!(file, "pub const {}: Self = Self({});", vname, value.value)?;
     }
-    writeln!(file)?;
 
     for md in &data.module_data {
         let mut entries = Vec::new();
-        for b in &md.bits {
-            if visited.insert(b.name.clone()) {
-                entries.push(format!(
-                    "{}pub const {}: Self = Self({}::{}.0);",
-                    format_doc_comment(b.comment),
-                    b.name,
-                    data.bitmask_name,
-                    b.name
-                ));
-            }
-        }
-        for a in &md.aliases {
-            if visited.insert(a.name.clone()) {
-                entries.push(format!("pub const {}: Self = Self::{};", a.name, a.target));
-            }
-        }
         for v in &md.values {
             entries.push(format!(
                 "{}pub const {}: Self = Self({});",
@@ -555,10 +526,16 @@ fn write_flags_constants(
                 v.value
             ));
         }
+        if !entries.is_empty() && !has_values {
+            writeln!(file, "impl {flags_name} {{")?;
+            has_values = true;
+        }
         write_module_group(file, &md.name, &entries, md.provisional)?;
     }
 
-    writeln!(file, "}}\n")?;
+    if has_values {
+        writeln!(file, "}}\n")?;
+    }
     Ok(())
 }
 
@@ -568,6 +545,7 @@ fn write_flags_debug(
     base_type: &str,
     data: &NormalizedBitmaskData,
 ) -> Result<()> {
+    let bitmask_name = &data.bitmask_name;
     let mut debug_bits: Vec<(String, u8, bool)> = Vec::new();
     let mut visited_bits = HashSet::new();
 
@@ -596,7 +574,7 @@ fn write_flags_debug(
         }
         writeln!(
             file,
-            "                ({flags_name}::{bit_name}.0, \"{bit_name}\"),"
+            "                ({bitmask_name}::{bit_name}.0, \"{bit_name}\"),"
         )?;
     }
     writeln!(
@@ -636,6 +614,14 @@ fn write_flagbits_constants(
                 "pub const {}: Self = Self(1 << {});",
                 b.name, b.bitpos
             )?;
+        }
+    }
+    // Base-level aliases (previously only on Flags).
+    for alias in &bitmask.aliases {
+        let aname = normalize_bit_name(alias.name, Some(data.value_prefix.as_str()));
+        let target = normalize_bit_name(alias.alias, Some(data.value_prefix.as_str()));
+        if data.all_bit_names.contains(target.as_str()) && visited.insert(aname.clone()) {
+            writeln!(file, "pub const {}: Self = Self::{};", aname, target)?;
         }
     }
 
@@ -726,12 +712,12 @@ pub fn write_bitmask(
         file,
         "#[repr(transparent)]
         #[derive(Copy, Clone, PartialEq, Eq, Hash)]
-        pub struct {name}({base_type});
-        vk_bitflags_wrapped!({name}, {base_type});
-"
+        pub struct {name}({base_type});"
     )?;
 
     let Some(bitmask) = bitmask else {
+        writeln!(file, "vk_bitflags_wrapped!({name}, {base_type});")?;
+        writeln!(file)?;
         writeln!(
             file,
             "impl fmt::Debug for {name} {{
@@ -744,6 +730,12 @@ pub fn write_bitmask(
     };
 
     let data = normalize_bitmask_data(analysis, bitmask, req);
+    let bitmask_name = &data.bitmask_name;
+
+    writeln!(
+        file,
+        "vk_bitflags_wrapped!({name}, {base_type}, {bitmask_name});\n"
+    )?;
 
     write_flags_constants(file, analysis, name, bitmask, &data)?;
     write_flags_debug(file, name, base_type, &data)?;

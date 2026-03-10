@@ -5951,18 +5951,11 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct SemaphoreWaitFlags(Flags);
-    vk_bitflags_wrapped!(SemaphoreWaitFlags, Flags);
-
-    impl SemaphoreWaitFlags {
-        pub const ANY: Self = Self(SemaphoreWaitFlagBits::ANY.0);
-
-        // VK_KHR_timeline_semaphore
-        pub const ANY_KHR: Self = Self::ANY;
-    }
+    vk_bitflags_wrapped!(SemaphoreWaitFlags, Flags, SemaphoreWaitFlagBits);
 
     impl fmt::Debug for SemaphoreWaitFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-            const KNOWN: &[(Flags, &str)] = &[(SemaphoreWaitFlags::ANY.0, "ANY")];
+            const KNOWN: &[(Flags, &str)] = &[(SemaphoreWaitFlagBits::ANY.0, "ANY")];
             debug_flags(f, KNOWN, self.0)
         }
     }
@@ -5996,37 +5989,25 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct DescriptorBindingFlags(Flags);
-    vk_bitflags_wrapped!(DescriptorBindingFlags, Flags);
-
-    impl DescriptorBindingFlags {
-        pub const UPDATE_AFTER_BIND: Self = Self(DescriptorBindingFlagBits::UPDATE_AFTER_BIND.0);
-        pub const UPDATE_UNUSED_WHILE_PENDING: Self =
-            Self(DescriptorBindingFlagBits::UPDATE_UNUSED_WHILE_PENDING.0);
-        pub const PARTIALLY_BOUND: Self = Self(DescriptorBindingFlagBits::PARTIALLY_BOUND.0);
-        pub const VARIABLE_DESCRIPTOR_COUNT: Self =
-            Self(DescriptorBindingFlagBits::VARIABLE_DESCRIPTOR_COUNT.0);
-
-        // VK_EXT_descriptor_indexing
-        pub const UPDATE_AFTER_BIND_EXT: Self = Self::UPDATE_AFTER_BIND;
-        pub const UPDATE_UNUSED_WHILE_PENDING_EXT: Self = Self::UPDATE_UNUSED_WHILE_PENDING;
-        pub const PARTIALLY_BOUND_EXT: Self = Self::PARTIALLY_BOUND;
-        pub const VARIABLE_DESCRIPTOR_COUNT_EXT: Self = Self::VARIABLE_DESCRIPTOR_COUNT;
-    }
+    vk_bitflags_wrapped!(DescriptorBindingFlags, Flags, DescriptorBindingFlagBits);
 
     impl fmt::Debug for DescriptorBindingFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    DescriptorBindingFlags::UPDATE_AFTER_BIND.0,
+                    DescriptorBindingFlagBits::UPDATE_AFTER_BIND.0,
                     "UPDATE_AFTER_BIND",
                 ),
                 (
-                    DescriptorBindingFlags::UPDATE_UNUSED_WHILE_PENDING.0,
+                    DescriptorBindingFlagBits::UPDATE_UNUSED_WHILE_PENDING.0,
                     "UPDATE_UNUSED_WHILE_PENDING",
                 ),
-                (DescriptorBindingFlags::PARTIALLY_BOUND.0, "PARTIALLY_BOUND"),
                 (
-                    DescriptorBindingFlags::VARIABLE_DESCRIPTOR_COUNT.0,
+                    DescriptorBindingFlagBits::PARTIALLY_BOUND.0,
+                    "PARTIALLY_BOUND",
+                ),
+                (
+                    DescriptorBindingFlagBits::VARIABLE_DESCRIPTOR_COUNT.0,
                     "VARIABLE_DESCRIPTOR_COUNT",
                 ),
             ];
@@ -6072,42 +6053,24 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ResolveModeFlags(Flags);
-    vk_bitflags_wrapped!(ResolveModeFlags, Flags);
+    vk_bitflags_wrapped!(ResolveModeFlags, Flags, ResolveModeFlagBits);
 
     impl ResolveModeFlags {
-        pub const SAMPLE_ZERO: Self = Self(ResolveModeFlagBits::SAMPLE_ZERO.0);
-        pub const AVERAGE: Self = Self(ResolveModeFlagBits::AVERAGE.0);
-        pub const MIN: Self = Self(ResolveModeFlagBits::MIN.0);
-        pub const MAX: Self = Self(ResolveModeFlagBits::MAX.0);
         pub const NONE: Self = Self(0);
-
-        // VK_ANDROID_external_format_resolve
-        pub const EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID: Self =
-            Self(ResolveModeFlagBits::EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID.0);
-
-        // VK_EXT_custom_resolve
-        pub const CUSTOM_EXT: Self = Self(ResolveModeFlagBits::CUSTOM_EXT.0);
-
-        // VK_KHR_depth_stencil_resolve
-        pub const NONE_KHR: Self = Self::NONE;
-        pub const SAMPLE_ZERO_KHR: Self = Self::SAMPLE_ZERO;
-        pub const AVERAGE_KHR: Self = Self::AVERAGE;
-        pub const MIN_KHR: Self = Self::MIN;
-        pub const MAX_KHR: Self = Self::MAX;
     }
 
     impl fmt::Debug for ResolveModeFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (ResolveModeFlags::SAMPLE_ZERO.0, "SAMPLE_ZERO"),
-                (ResolveModeFlags::AVERAGE.0, "AVERAGE"),
-                (ResolveModeFlags::MIN.0, "MIN"),
-                (ResolveModeFlags::MAX.0, "MAX"),
+                (ResolveModeFlagBits::SAMPLE_ZERO.0, "SAMPLE_ZERO"),
+                (ResolveModeFlagBits::AVERAGE.0, "AVERAGE"),
+                (ResolveModeFlagBits::MIN.0, "MIN"),
+                (ResolveModeFlagBits::MAX.0, "MAX"),
                 (
-                    ResolveModeFlags::EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID.0,
+                    ResolveModeFlagBits::EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID.0,
                     "EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID",
                 ),
-                (ResolveModeFlags::CUSTOM_EXT.0, "CUSTOM_EXT"),
+                (ResolveModeFlagBits::CUSTOM_EXT.0, "CUSTOM_EXT"),
             ];
             debug_flags(f, KNOWN, self.0)
         }

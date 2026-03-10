@@ -784,42 +784,33 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ImageConstraintsInfoFlagsFUCHSIA(Flags);
-    vk_bitflags_wrapped!(ImageConstraintsInfoFlagsFUCHSIA, Flags);
-
-    impl ImageConstraintsInfoFlagsFUCHSIA {
-        pub const CPU_READ_RARELY_FUCHSIA: Self =
-            Self(ImageConstraintsInfoFlagBitsFUCHSIA::CPU_READ_RARELY_FUCHSIA.0);
-        pub const CPU_READ_OFTEN_FUCHSIA: Self =
-            Self(ImageConstraintsInfoFlagBitsFUCHSIA::CPU_READ_OFTEN_FUCHSIA.0);
-        pub const CPU_WRITE_RARELY_FUCHSIA: Self =
-            Self(ImageConstraintsInfoFlagBitsFUCHSIA::CPU_WRITE_RARELY_FUCHSIA.0);
-        pub const CPU_WRITE_OFTEN_FUCHSIA: Self =
-            Self(ImageConstraintsInfoFlagBitsFUCHSIA::CPU_WRITE_OFTEN_FUCHSIA.0);
-        pub const PROTECTED_OPTIONAL_FUCHSIA: Self =
-            Self(ImageConstraintsInfoFlagBitsFUCHSIA::PROTECTED_OPTIONAL_FUCHSIA.0);
-    }
+    vk_bitflags_wrapped!(
+        ImageConstraintsInfoFlagsFUCHSIA,
+        Flags,
+        ImageConstraintsInfoFlagBitsFUCHSIA
+    );
 
     impl fmt::Debug for ImageConstraintsInfoFlagsFUCHSIA {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    ImageConstraintsInfoFlagsFUCHSIA::CPU_READ_RARELY_FUCHSIA.0,
+                    ImageConstraintsInfoFlagBitsFUCHSIA::CPU_READ_RARELY_FUCHSIA.0,
                     "CPU_READ_RARELY_FUCHSIA",
                 ),
                 (
-                    ImageConstraintsInfoFlagsFUCHSIA::CPU_READ_OFTEN_FUCHSIA.0,
+                    ImageConstraintsInfoFlagBitsFUCHSIA::CPU_READ_OFTEN_FUCHSIA.0,
                     "CPU_READ_OFTEN_FUCHSIA",
                 ),
                 (
-                    ImageConstraintsInfoFlagsFUCHSIA::CPU_WRITE_RARELY_FUCHSIA.0,
+                    ImageConstraintsInfoFlagBitsFUCHSIA::CPU_WRITE_RARELY_FUCHSIA.0,
                     "CPU_WRITE_RARELY_FUCHSIA",
                 ),
                 (
-                    ImageConstraintsInfoFlagsFUCHSIA::CPU_WRITE_OFTEN_FUCHSIA.0,
+                    ImageConstraintsInfoFlagBitsFUCHSIA::CPU_WRITE_OFTEN_FUCHSIA.0,
                     "CPU_WRITE_OFTEN_FUCHSIA",
                 ),
                 (
-                    ImageConstraintsInfoFlagsFUCHSIA::PROTECTED_OPTIONAL_FUCHSIA.0,
+                    ImageConstraintsInfoFlagBitsFUCHSIA::PROTECTED_OPTIONAL_FUCHSIA.0,
                     "PROTECTED_OPTIONAL_FUCHSIA",
                 ),
             ];

@@ -126,7 +126,7 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct AccessFlags3KHR(Flags64);
-    vk_bitflags_wrapped!(AccessFlags3KHR, Flags64);
+    vk_bitflags_wrapped!(AccessFlags3KHR, Flags64, AccessFlagBits3KHR);
 
     impl AccessFlags3KHR {
         pub const NONE: Self = Self(0);

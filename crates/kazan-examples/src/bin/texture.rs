@@ -55,10 +55,10 @@ fn main() -> Result<(), Box<dyn Error>> {
         };
         let dependencies = [vk::SubpassDependency {
             src_subpass: vk::SUBPASS_EXTERNAL,
-            src_stage_mask: vk::PipelineStageFlags::COLOR_ATTACHMENT_OUTPUT,
-            dst_access_mask: vk::AccessFlags::COLOR_ATTACHMENT_READ
-                | vk::AccessFlags::COLOR_ATTACHMENT_WRITE,
-            dst_stage_mask: vk::PipelineStageFlags::COLOR_ATTACHMENT_OUTPUT,
+            src_stage_mask: vk::PipelineStageFlagBits::COLOR_ATTACHMENT_OUTPUT.into(),
+            dst_access_mask: vk::AccessFlagBits::COLOR_ATTACHMENT_READ
+                | vk::AccessFlagBits::COLOR_ATTACHMENT_WRITE,
+            dst_stage_mask: vk::PipelineStageFlagBits::COLOR_ATTACHMENT_OUTPUT.into(),
             ..Default::default()
         }];
 
@@ -97,7 +97,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         let index_buffer_data = [0u32, 1, 2, 2, 3, 0];
         let index_buffer_info = vk::BufferCreateInfo {
             size: size_of_val(&index_buffer_data) as u64,
-            usage: vk::BufferUsageFlags::INDEX_BUFFER,
+            usage: vk::BufferUsageFlagBits::INDEX_BUFFER.into(),
             sharing_mode: vk::SharingMode::EXCLUSIVE,
             ..Default::default()
         };
@@ -111,7 +111,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         let index_buffer_memory_index = find_memorytype_index(
             &index_buffer_memory_req,
             &base.device_memory_properties,
-            vk::MemoryPropertyFlags::HOST_VISIBLE | vk::MemoryPropertyFlags::HOST_COHERENT,
+            vk::MemoryPropertyFlagBits::HOST_VISIBLE | vk::MemoryPropertyFlagBits::HOST_COHERENT,
         )
         .expect("Unable to find suitable memorytype for the index buffer.");
         let index_allocate_info = vk::MemoryAllocateInfo {
@@ -165,7 +165,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         ];
         let vertex_input_buffer_info = vk::BufferCreateInfo {
             size: size_of_val(&vertices) as u64,
-            usage: vk::BufferUsageFlags::VERTEX_BUFFER,
+            usage: vk::BufferUsageFlagBits::VERTEX_BUFFER.into(),
             sharing_mode: vk::SharingMode::EXCLUSIVE,
             ..Default::default()
         };
@@ -179,7 +179,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         let vertex_input_buffer_memory_index = find_memorytype_index(
             &vertex_input_buffer_memory_req,
             &base.device_memory_properties,
-            vk::MemoryPropertyFlags::HOST_VISIBLE | vk::MemoryPropertyFlags::HOST_COHERENT,
+            vk::MemoryPropertyFlagBits::HOST_VISIBLE | vk::MemoryPropertyFlagBits::HOST_COHERENT,
         )
         .expect("Unable to find suitable memorytype for the vertex buffer.");
 
@@ -228,7 +228,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         };
         let uniform_color_buffer_info = vk::BufferCreateInfo {
             size: size_of_val(&uniform_color_buffer_data) as u64,
-            usage: vk::BufferUsageFlags::UNIFORM_BUFFER,
+            usage: vk::BufferUsageFlagBits::UNIFORM_BUFFER.into(),
             sharing_mode: vk::SharingMode::EXCLUSIVE,
             ..Default::default()
         };
@@ -242,7 +242,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         let uniform_color_buffer_memory_index = find_memorytype_index(
             &uniform_color_buffer_memory_req,
             &base.device_memory_properties,
-            vk::MemoryPropertyFlags::HOST_VISIBLE | vk::MemoryPropertyFlags::HOST_COHERENT,
+            vk::MemoryPropertyFlagBits::HOST_VISIBLE | vk::MemoryPropertyFlagBits::HOST_COHERENT,
         )
         .expect("Unable to find suitable memorytype for the vertex buffer.");
 
@@ -290,7 +290,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         let image_data = image.into_raw();
         let image_buffer_info = vk::BufferCreateInfo {
             size: (size_of::<u8>() * image_data.len()) as u64,
-            usage: vk::BufferUsageFlags::TRANSFER_SRC,
+            usage: vk::BufferUsageFlagBits::TRANSFER_SRC.into(),
             sharing_mode: vk::SharingMode::EXCLUSIVE,
             ..Default::default()
         };
@@ -304,7 +304,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         let image_buffer_memory_index = find_memorytype_index(
             &image_buffer_memory_req,
             &base.device_memory_properties,
-            vk::MemoryPropertyFlags::HOST_VISIBLE | vk::MemoryPropertyFlags::HOST_COHERENT,
+            vk::MemoryPropertyFlagBits::HOST_VISIBLE | vk::MemoryPropertyFlagBits::HOST_COHERENT,
         )
         .expect("Unable to find suitable memorytype for the image buffer.");
 
@@ -347,7 +347,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             array_layers: 1,
             samples: vk::SampleCountFlagBits::_1,
             tiling: vk::ImageTiling::OPTIMAL,
-            usage: vk::ImageUsageFlags::TRANSFER_DST | vk::ImageUsageFlags::SAMPLED,
+            usage: vk::ImageUsageFlagBits::TRANSFER_DST | vk::ImageUsageFlagBits::SAMPLED,
             sharing_mode: vk::SharingMode::EXCLUSIVE,
             ..Default::default()
         };
@@ -361,7 +361,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         let texture_memory_index = find_memorytype_index(
             &texture_memory_req,
             &base.device_memory_properties,
-            vk::MemoryPropertyFlags::DEVICE_LOCAL,
+            vk::MemoryPropertyFlagBits::DEVICE_LOCAL.into(),
         )
         .expect("Unable to find suitable memory index for depth image.");
 
@@ -389,11 +389,11 @@ fn main() -> Result<(), Box<dyn Error>> {
             &[],
             |device_fn, texture_command_buffer| {
                 let texture_barrier = vk::ImageMemoryBarrier {
-                    dst_access_mask: vk::AccessFlags::TRANSFER_WRITE,
+                    dst_access_mask: vk::AccessFlagBits::TRANSFER_WRITE.into(),
                     new_layout: vk::ImageLayout::TRANSFER_DST_OPTIMAL,
                     image: texture_image,
                     subresource_range: vk::ImageSubresourceRange {
-                        aspect_mask: vk::ImageAspectFlags::COLOR,
+                        aspect_mask: vk::ImageAspectFlagBits::COLOR.into(),
                         level_count: 1,
                         layer_count: 1,
                         ..Default::default()
@@ -402,8 +402,8 @@ fn main() -> Result<(), Box<dyn Error>> {
                 };
                 device_fn.cmd_pipeline_barrier(
                     texture_command_buffer,
-                    vk::PipelineStageFlags::BOTTOM_OF_PIPE,
-                    vk::PipelineStageFlags::TRANSFER,
+                    vk::PipelineStageFlagBits::BOTTOM_OF_PIPE.into(),
+                    vk::PipelineStageFlagBits::TRANSFER.into(),
                     vk::DependencyFlags::empty(),
                     &[],
                     &[],
@@ -412,7 +412,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                 let buffer_copy_regions = vk::BufferImageCopy::default()
                     .image_subresource(
                         vk::ImageSubresourceLayers::default()
-                            .aspect_mask(vk::ImageAspectFlags::COLOR)
+                            .aspect_mask(vk::ImageAspectFlagBits::COLOR.into())
                             .layer_count(1),
                     )
                     .image_extent(image_extent.into());
@@ -425,13 +425,13 @@ fn main() -> Result<(), Box<dyn Error>> {
                     &[buffer_copy_regions],
                 );
                 let texture_barrier_end = vk::ImageMemoryBarrier {
-                    src_access_mask: vk::AccessFlags::TRANSFER_WRITE,
-                    dst_access_mask: vk::AccessFlags::SHADER_READ,
+                    src_access_mask: vk::AccessFlagBits::TRANSFER_WRITE.into(),
+                    dst_access_mask: vk::AccessFlagBits::SHADER_READ.into(),
                     old_layout: vk::ImageLayout::TRANSFER_DST_OPTIMAL,
                     new_layout: vk::ImageLayout::SHADER_READ_ONLY_OPTIMAL,
                     image: texture_image,
                     subresource_range: vk::ImageSubresourceRange {
-                        aspect_mask: vk::ImageAspectFlags::COLOR,
+                        aspect_mask: vk::ImageAspectFlagBits::COLOR.into(),
                         level_count: 1,
                         layer_count: 1,
                         ..Default::default()
@@ -440,8 +440,8 @@ fn main() -> Result<(), Box<dyn Error>> {
                 };
                 device_fn.cmd_pipeline_barrier(
                     texture_command_buffer,
-                    vk::PipelineStageFlags::TRANSFER,
-                    vk::PipelineStageFlags::FRAGMENT_SHADER,
+                    vk::PipelineStageFlagBits::TRANSFER.into(),
+                    vk::PipelineStageFlagBits::FRAGMENT_SHADER.into(),
                     vk::DependencyFlags::empty(),
                     &[],
                     &[],
@@ -478,7 +478,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                 a: vk::ComponentSwizzle::A,
             },
             subresource_range: vk::ImageSubresourceRange {
-                aspect_mask: vk::ImageAspectFlags::COLOR,
+                aspect_mask: vk::ImageAspectFlagBits::COLOR.into(),
                 level_count: 1,
                 layer_count: 1,
                 ..Default::default()
@@ -512,14 +512,14 @@ fn main() -> Result<(), Box<dyn Error>> {
             vk::DescriptorSetLayoutBinding {
                 descriptor_type: vk::DescriptorType::UNIFORM_BUFFER,
                 descriptor_count: 1,
-                stage_flags: vk::ShaderStageFlags::FRAGMENT,
+                stage_flags: vk::ShaderStageFlagBits::FRAGMENT.into(),
                 ..Default::default()
             },
             vk::DescriptorSetLayoutBinding {
                 binding: 1,
                 descriptor_type: vk::DescriptorType::COMBINED_IMAGE_SAMPLER,
                 descriptor_count: 1,
-                stage_flags: vk::ShaderStageFlags::FRAGMENT,
+                stage_flags: vk::ShaderStageFlagBits::FRAGMENT.into(),
                 ..Default::default()
             },
         ];
@@ -690,10 +690,10 @@ fn main() -> Result<(), Box<dyn Error>> {
             src_alpha_blend_factor: vk::BlendFactor::ZERO,
             dst_alpha_blend_factor: vk::BlendFactor::ZERO,
             alpha_blend_op: vk::BlendOp::ADD,
-            color_write_mask: vk::ColorComponentFlags::R
-                | vk::ColorComponentFlags::G
-                | vk::ColorComponentFlags::B
-                | vk::ColorComponentFlags::A,
+            color_write_mask: vk::ColorComponentFlagBits::R
+                | vk::ColorComponentFlagBits::G
+                | vk::ColorComponentFlagBits::B
+                | vk::ColorComponentFlagBits::A,
         }];
         let color_blend_state = vk::PipelineColorBlendStateCreateInfo::default()
             .logic_op(vk::LogicOp::CLEAR)
@@ -775,7 +775,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                 draw_command_buffer,
                 draw_commands_reuse_fence,
                 base.present_queue,
-                &[vk::PipelineStageFlags::BOTTOM_OF_PIPE],
+                &[vk::PipelineStageFlagBits::BOTTOM_OF_PIPE.into()],
                 &[present_complete_semaphore],
                 &[rendering_complete_semaphore],
                 |device_fn, draw_command_buffer| {

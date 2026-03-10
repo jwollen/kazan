@@ -193,36 +193,29 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct GraphicsPipelineLibraryFlagsEXT(Flags);
-    vk_bitflags_wrapped!(GraphicsPipelineLibraryFlagsEXT, Flags);
-
-    impl GraphicsPipelineLibraryFlagsEXT {
-        pub const VERTEX_INPUT_INTERFACE_EXT: Self =
-            Self(GraphicsPipelineLibraryFlagBitsEXT::VERTEX_INPUT_INTERFACE_EXT.0);
-        pub const PRE_RASTERIZATION_SHADERS_EXT: Self =
-            Self(GraphicsPipelineLibraryFlagBitsEXT::PRE_RASTERIZATION_SHADERS_EXT.0);
-        pub const FRAGMENT_SHADER_EXT: Self =
-            Self(GraphicsPipelineLibraryFlagBitsEXT::FRAGMENT_SHADER_EXT.0);
-        pub const FRAGMENT_OUTPUT_INTERFACE_EXT: Self =
-            Self(GraphicsPipelineLibraryFlagBitsEXT::FRAGMENT_OUTPUT_INTERFACE_EXT.0);
-    }
+    vk_bitflags_wrapped!(
+        GraphicsPipelineLibraryFlagsEXT,
+        Flags,
+        GraphicsPipelineLibraryFlagBitsEXT
+    );
 
     impl fmt::Debug for GraphicsPipelineLibraryFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    GraphicsPipelineLibraryFlagsEXT::VERTEX_INPUT_INTERFACE_EXT.0,
+                    GraphicsPipelineLibraryFlagBitsEXT::VERTEX_INPUT_INTERFACE_EXT.0,
                     "VERTEX_INPUT_INTERFACE_EXT",
                 ),
                 (
-                    GraphicsPipelineLibraryFlagsEXT::PRE_RASTERIZATION_SHADERS_EXT.0,
+                    GraphicsPipelineLibraryFlagBitsEXT::PRE_RASTERIZATION_SHADERS_EXT.0,
                     "PRE_RASTERIZATION_SHADERS_EXT",
                 ),
                 (
-                    GraphicsPipelineLibraryFlagsEXT::FRAGMENT_SHADER_EXT.0,
+                    GraphicsPipelineLibraryFlagBitsEXT::FRAGMENT_SHADER_EXT.0,
                     "FRAGMENT_SHADER_EXT",
                 ),
                 (
-                    GraphicsPipelineLibraryFlagsEXT::FRAGMENT_OUTPUT_INTERFACE_EXT.0,
+                    GraphicsPipelineLibraryFlagBitsEXT::FRAGMENT_OUTPUT_INTERFACE_EXT.0,
                     "FRAGMENT_OUTPUT_INTERFACE_EXT",
                 ),
             ];

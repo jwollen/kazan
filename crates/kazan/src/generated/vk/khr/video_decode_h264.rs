@@ -388,13 +388,13 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct VideoDecodeH264PictureLayoutFlagsKHR(Flags);
-    vk_bitflags_wrapped!(VideoDecodeH264PictureLayoutFlagsKHR, Flags);
+    vk_bitflags_wrapped!(
+        VideoDecodeH264PictureLayoutFlagsKHR,
+        Flags,
+        VideoDecodeH264PictureLayoutFlagBitsKHR
+    );
 
     impl VideoDecodeH264PictureLayoutFlagsKHR {
-        pub const INTERLACED_INTERLEAVED_LINES_KHR: Self =
-            Self(VideoDecodeH264PictureLayoutFlagBitsKHR::INTERLACED_INTERLEAVED_LINES_KHR.0);
-        pub const INTERLACED_SEPARATE_PLANES_KHR: Self =
-            Self(VideoDecodeH264PictureLayoutFlagBitsKHR::INTERLACED_SEPARATE_PLANES_KHR.0);
         pub const PROGRESSIVE: Self = Self(0);
     }
 
@@ -402,11 +402,11 @@ pub(super) mod defs {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
-                    VideoDecodeH264PictureLayoutFlagsKHR::INTERLACED_INTERLEAVED_LINES_KHR.0,
+                    VideoDecodeH264PictureLayoutFlagBitsKHR::INTERLACED_INTERLEAVED_LINES_KHR.0,
                     "INTERLACED_INTERLEAVED_LINES_KHR",
                 ),
                 (
-                    VideoDecodeH264PictureLayoutFlagsKHR::INTERLACED_SEPARATE_PLANES_KHR.0,
+                    VideoDecodeH264PictureLayoutFlagBitsKHR::INTERLACED_SEPARATE_PLANES_KHR.0,
                     "INTERLACED_SEPARATE_PLANES_KHR",
                 ),
             ];

@@ -295,77 +295,50 @@ pub(super) mod defs {
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct ShaderCreateFlagsEXT(Flags);
-    vk_bitflags_wrapped!(ShaderCreateFlagsEXT, Flags);
-
-    impl ShaderCreateFlagsEXT {
-        pub const LINK_STAGE_EXT: Self = Self(ShaderCreateFlagBitsEXT::LINK_STAGE_EXT.0);
-
-        // VK_ARM_shader_instrumentation
-        pub const INSTRUMENT_SHADER_ARM: Self =
-            Self(ShaderCreateFlagBitsEXT::INSTRUMENT_SHADER_ARM.0);
-
-        // VK_EXT_descriptor_heap
-        pub const DESCRIPTOR_HEAP_EXT: Self = Self(ShaderCreateFlagBitsEXT::DESCRIPTOR_HEAP_EXT.0);
-
-        // VK_EXT_device_generated_commands
-        pub const INDIRECT_BINDABLE_EXT: Self =
-            Self(ShaderCreateFlagBitsEXT::INDIRECT_BINDABLE_EXT.0);
-
-        // VK_EXT_shader_64bit_indexing
-        pub const _64_INDEXING_EXT: Self = Self(ShaderCreateFlagBitsEXT::_64_INDEXING_EXT.0);
-
-        // VK_EXT_shader_object
-        pub const ALLOW_VARYING_SUBGROUP_SIZE_EXT: Self =
-            Self(ShaderCreateFlagBitsEXT::ALLOW_VARYING_SUBGROUP_SIZE_EXT.0);
-        pub const REQUIRE_FULL_SUBGROUPS_EXT: Self =
-            Self(ShaderCreateFlagBitsEXT::REQUIRE_FULL_SUBGROUPS_EXT.0);
-        pub const NO_TASK_SHADER_EXT: Self = Self(ShaderCreateFlagBitsEXT::NO_TASK_SHADER_EXT.0);
-        pub const DISPATCH_BASE_EXT: Self = Self(ShaderCreateFlagBitsEXT::DISPATCH_BASE_EXT.0);
-        pub const FRAGMENT_SHADING_RATE_ATTACHMENT_EXT: Self =
-            Self(ShaderCreateFlagBitsEXT::FRAGMENT_SHADING_RATE_ATTACHMENT_EXT.0);
-        pub const FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT: Self =
-            Self(ShaderCreateFlagBitsEXT::FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT.0);
-    }
+    vk_bitflags_wrapped!(ShaderCreateFlagsEXT, Flags, ShaderCreateFlagBitsEXT);
 
     impl fmt::Debug for ShaderCreateFlagsEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
-                (ShaderCreateFlagsEXT::LINK_STAGE_EXT.0, "LINK_STAGE_EXT"),
+                (ShaderCreateFlagBitsEXT::LINK_STAGE_EXT.0, "LINK_STAGE_EXT"),
                 (
-                    ShaderCreateFlagsEXT::INSTRUMENT_SHADER_ARM.0,
+                    ShaderCreateFlagBitsEXT::INSTRUMENT_SHADER_ARM.0,
                     "INSTRUMENT_SHADER_ARM",
                 ),
                 (
-                    ShaderCreateFlagsEXT::DESCRIPTOR_HEAP_EXT.0,
+                    ShaderCreateFlagBitsEXT::DESCRIPTOR_HEAP_EXT.0,
                     "DESCRIPTOR_HEAP_EXT",
                 ),
                 (
-                    ShaderCreateFlagsEXT::INDIRECT_BINDABLE_EXT.0,
+                    ShaderCreateFlagBitsEXT::INDIRECT_BINDABLE_EXT.0,
                     "INDIRECT_BINDABLE_EXT",
                 ),
-                (ShaderCreateFlagsEXT::_64_INDEXING_EXT.0, "_64_INDEXING_EXT"),
                 (
-                    ShaderCreateFlagsEXT::ALLOW_VARYING_SUBGROUP_SIZE_EXT.0,
+                    ShaderCreateFlagBitsEXT::_64_INDEXING_EXT.0,
+                    "_64_INDEXING_EXT",
+                ),
+                (
+                    ShaderCreateFlagBitsEXT::ALLOW_VARYING_SUBGROUP_SIZE_EXT.0,
                     "ALLOW_VARYING_SUBGROUP_SIZE_EXT",
                 ),
                 (
-                    ShaderCreateFlagsEXT::REQUIRE_FULL_SUBGROUPS_EXT.0,
+                    ShaderCreateFlagBitsEXT::REQUIRE_FULL_SUBGROUPS_EXT.0,
                     "REQUIRE_FULL_SUBGROUPS_EXT",
                 ),
                 (
-                    ShaderCreateFlagsEXT::NO_TASK_SHADER_EXT.0,
+                    ShaderCreateFlagBitsEXT::NO_TASK_SHADER_EXT.0,
                     "NO_TASK_SHADER_EXT",
                 ),
                 (
-                    ShaderCreateFlagsEXT::DISPATCH_BASE_EXT.0,
+                    ShaderCreateFlagBitsEXT::DISPATCH_BASE_EXT.0,
                     "DISPATCH_BASE_EXT",
                 ),
                 (
-                    ShaderCreateFlagsEXT::FRAGMENT_SHADING_RATE_ATTACHMENT_EXT.0,
+                    ShaderCreateFlagBitsEXT::FRAGMENT_SHADING_RATE_ATTACHMENT_EXT.0,
                     "FRAGMENT_SHADING_RATE_ATTACHMENT_EXT",
                 ),
                 (
-                    ShaderCreateFlagsEXT::FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT.0,
+                    ShaderCreateFlagBitsEXT::FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT.0,
                     "FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT",
                 ),
             ];
