@@ -40,7 +40,7 @@ impl ApiVersion {
     }
 
     #[inline]
-    pub const fn as_raw(self) -> u32 {
+    pub const fn to_raw(self) -> u32 {
         self.0
     }
 }

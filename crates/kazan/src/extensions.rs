@@ -3,7 +3,7 @@ use core::fmt;
 
 use crate::generated::extensions::{EXTENSION_COUNT, EXTENSIONS, extension_index};
 
-const WORDS: usize = (EXTENSION_COUNT + 63) / 64;
+const WORDS: usize = EXTENSION_COUNT.div_ceil(64);
 
 /// Error returned when an unknown extension name is passed to [`ExtensionSet`].
 #[derive(Debug, Clone, Copy)]
@@ -47,7 +47,7 @@ impl ExtensionSet {
 
     /// Inserts the extension with the given name. Returns `true` if it was newly inserted.
     pub fn insert(&mut self, name: &CStr) -> Result<bool, UnknownExtensionError> {
-        let i = Self::index(name).ok_or_else(|| UnknownExtensionError)?;
+        let i = Self::index(name).ok_or(UnknownExtensionError)?;
         let word = &mut self.bits[i / 64];
         let bit = 1 << (i % 64);
         let was_absent = *word & bit == 0;
@@ -57,7 +57,7 @@ impl ExtensionSet {
 
     /// Removes the extension with the given name. Returns `true` if it was present.
     pub fn remove(&mut self, name: &CStr) -> Result<bool, UnknownExtensionError> {
-        let i = Self::index(name).ok_or_else(|| UnknownExtensionError)?;
+        let i = Self::index(name).ok_or(UnknownExtensionError)?;
         let word = &mut self.bits[i / 64];
         let bit = 1 << (i % 64);
         let was_present = *word & bit != 0;

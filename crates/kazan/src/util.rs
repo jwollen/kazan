@@ -47,6 +47,10 @@ fn calc_padding(adr: vk::DeviceSize, align: vk::DeviceSize) -> vk::DeviceSize {
 }
 
 impl<T> Align<T> {
+    /// Creates a new `Align` from a mapped pointer.
+    ///
+    /// # Safety
+    /// `ptr` must point to a mapped memory region of at least `size` bytes with the given `alignment`.
     pub unsafe fn new(ptr: *mut c_void, alignment: vk::DeviceSize, size: vk::DeviceSize) -> Self {
         let padding = calc_padding(size_of::<T>() as vk::DeviceSize, alignment);
         let elem_size = size_of::<T>() as vk::DeviceSize + padding;
@@ -108,7 +112,7 @@ pub fn read_spv<R: io::Read + io::Seek>(x: &mut R) -> io::Result<Vec<u32>> {
     // TODO use stream_len() once it is stabilized and remove the subsequent rewind() call
     let size = x.seek(io::SeekFrom::End(0))?;
     x.rewind()?;
-    if size % 4 != 0 {
+    if !size.is_multiple_of(4) {
         return Err(io::Error::new(
             io::ErrorKind::InvalidData,
             "input length not divisible by 4",

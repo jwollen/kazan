@@ -87,16 +87,16 @@ fn generate(analysis: &analysis::Analysis, root: &Path) -> Result<()> {
         if let Some(vendor) = vendor {
             let has_any_defs = entries.iter().any(|e| e.has_defs);
 
-            writeln!(mod_file, "pub mod {};", vendor)?;
+            writeln!(mod_file, "pub mod {vendor};")?;
             if has_any_defs {
-                writeln!(mod_file, "pub use {}::defs::*;", vendor)?;
+                writeln!(mod_file, "pub use {vendor}::defs::*;")?;
             }
 
             fs::create_dir_all(output_dir.join(vendor))?;
             let mut file = File::create(output_dir.join(vendor).join("mod.rs"))?;
 
             for entry in entries {
-                write!(file, "pub mod {};\n", entry.name)?;
+                writeln!(file, "pub mod {};", entry.name)?;
             }
 
             if has_any_defs {
@@ -108,7 +108,7 @@ fn generate(analysis: &analysis::Analysis, root: &Path) -> Result<()> {
                     } else {
                         ""
                     };
-                    write!(file, "{}pub use {}::defs::*;\n", cfg, entry.name)?;
+                    writeln!(file, "{cfg}pub use {}::defs::*;", entry.name)?;
                 }
                 writeln!(file, "}}")?;
 
@@ -122,7 +122,7 @@ fn generate(analysis: &analysis::Analysis, root: &Path) -> Result<()> {
                         } else {
                             ""
                         };
-                        write!(file, "{}pub use super::{}::ffi::*;\n", cfg, entry.name)?;
+                        writeln!(file, "{cfg}pub use super::{}::ffi::*;", entry.name)?;
                     }
                     writeln!(file, "}}")?;
                 }
@@ -146,7 +146,7 @@ fn generate(analysis: &analysis::Analysis, root: &Path) -> Result<()> {
         for (vendor, entries) in &vendor_modules {
             if let Some(vendor) = vendor {
                 if entries.iter().any(|e| e.has_ffi) {
-                    writeln!(mod_file, "pub use super::{}::ffi::*;", vendor)?;
+                    writeln!(mod_file, "pub use super::{vendor}::ffi::*;")?;
                 }
             } else {
                 for entry in entries.iter().filter(|e| e.has_ffi) {
@@ -185,7 +185,7 @@ fn generate_module(
     let has_ffi = has_defs && items.has_ffi_types();
     vendor_modules
         .entry(vendor.clone())
-        .or_insert_with(Vec::new)
+        .or_default()
         .push(ModuleEntry {
             name: module_name.clone(),
             provisional,
@@ -199,7 +199,7 @@ fn generate_module(
     };
 
     fs::create_dir_all(&vendor_path)?;
-    let mut file = File::create(vendor_path.join(format!("{}.rs", module_name)))?;
+    let mut file = File::create(vendor_path.join(format!("{module_name}.rs")))?;
 
     if provisional {
         writeln!(file, "#![cfg(feature = \"provisional\")]")?;
@@ -330,18 +330,18 @@ fn ctype_to_rust_type(analysis: &Analysis, ty: &CType, lifetime: Option<&str>) -
         } => {
             let pointee = ctype_to_rust_type(analysis, pointee.as_ref(), lifetime);
             if *is_const {
-                format!("*const {}", pointee).to_string()
+                format!("*const {pointee}")
             } else {
-                format!("*mut {}", pointee).to_string()
+                format!("*mut {pointee}")
             }
         }
         CType::Array { element, len } => {
             let element_ty = ctype_to_rust_type(analysis, element.as_ref(), lifetime);
             match len {
                 cdecl::CArrayLen::Named(name) => {
-                    format!("[{}; {} as usize]", element_ty, normalize_const_name(name))
+                    format!("[{element_ty}; {} as usize]", normalize_const_name(name))
                 }
-                cdecl::CArrayLen::Literal(len) => format!("[{}; {}]", element_ty, len),
+                cdecl::CArrayLen::Literal(len) => format!("[{element_ty}; {len}]"),
             }
         }
         CType::Func { .. } => todo!(),
@@ -412,10 +412,10 @@ fn get_len_kind<'a>(
         let param = &params[index];
         let param_ty = &param.c_decl().ty;
         let CType::Ptr { pointee, .. } = param_ty else {
-            panic!("expected pointer type, got {:?}", param_ty);
+            panic!("expected pointer type, got {param_ty:?}");
         };
         let CType::Base(base) = pointee.as_ref() else {
-            panic!("expected base type, got {:?}", pointee);
+            panic!("expected base type, got {pointee:?}");
         };
 
         let struct_ty = analysis
@@ -429,7 +429,7 @@ fn get_len_kind<'a>(
             .members
             .iter()
             .find(|field| field.c_decl.name == field_name)
-            .unwrap_or_else(|| panic!("failed to find field {}", field_name));
+            .unwrap_or_else(|| panic!("failed to find field {field_name}"));
 
         LengthKind::ParamField { field }
     } else if let Some(index) = get_param_index(params, len) {
@@ -459,7 +459,7 @@ pub fn normalize_setter_param_name(name: &str) -> String {
     let name = normalize_name(name);
 
     let name = if name.starts_with("pp_") {
-        format!("{}_ptrs", name)
+        format!("{name}_ptrs")
     } else {
         name
     };

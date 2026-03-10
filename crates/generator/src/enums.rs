@@ -157,8 +157,7 @@ fn get_enum_value(ext_number: Option<u32>, variant: &xml::RequireEnumVariant) ->
     // Vulkan enum value formula: base (1e9) + (ext_number - 1) * 1000 + offset
     let ext_number = variant.extnumber.or(ext_number).unwrap() as i32;
     let value = 1_000_000_000i32 + (ext_number - 1) * 1000 + variant.offset as i32;
-    let value = if variant.negative { -value } else { value };
-    value
+    if variant.negative { -value } else { value }
 }
 
 fn strip_vendor_suffix<'a>(name: &'a str, tags: &[&str]) -> &'a str {
@@ -184,7 +183,7 @@ fn normalize_variant_name(name: &str, value_prefix: &str) -> String {
         .unwrap()
         .to_uppercase();
     if name.starts_with(|c: char| c.is_ascii_digit()) {
-        format!("_{}", name)
+        format!("_{name}")
     } else {
         name
     }
@@ -203,7 +202,7 @@ fn normalize_bit_name(name: &str, value_prefix: Option<&str>) -> String {
         .unwrap();
     let name = name.replace("_BIT", "");
     if name.starts_with(|c: char| c.is_ascii_digit()) {
-        format!("_{}", name)
+        format!("_{name}")
     } else {
         name
     }
@@ -249,12 +248,12 @@ fn write_module_group(
     if entries.is_empty() {
         return Ok(());
     }
-    writeln!(file, "// {}", module_name)?;
+    writeln!(file, "// {module_name}")?;
     for entry in entries {
         if provisional {
             writeln!(file, "#[cfg(feature = \"provisional\")]")?;
         }
-        writeln!(file, "{}", entry)?;
+        writeln!(file, "{entry}")?;
     }
     writeln!(file)?;
     Ok(())
@@ -282,15 +281,14 @@ pub fn write_enum(file: &mut impl Write, analysis: &Analysis, ty: &xml::Enum) ->
         file,
         "#[repr(transparent)]
         #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct {}(i32);",
-        name
+        pub struct {name}(i32);"
     )?;
     writeln!(file)?;
 
     let mut debug_variants: Vec<(String, bool)> = Vec::new(); // (variant_name, is_provisional)
     let mut visited = HashSet::new();
 
-    writeln!(file, "impl {} {{", name)?;
+    writeln!(file, "impl {name} {{")?;
 
     for bit in &ty.values {
         let vname = normalize_variant_name(bit.name, &value_prefix);
@@ -334,7 +332,7 @@ pub fn write_enum(file: &mut impl Write, analysis: &Analysis, ty: &xml::Enum) ->
                 let aname = normalize_variant_name(a.name, &value_prefix);
                 if visited.insert(aname.clone()) {
                     let target = normalize_variant_name(a.target, &value_prefix);
-                    entries.push(format!("pub const {}: Self = Self::{};", aname, target));
+                    entries.push(format!("pub const {aname}: Self = Self::{target};"));
                 }
             }
 
@@ -604,7 +602,7 @@ fn write_flagbits_constants(
     )?;
 
     let mut visited = HashSet::new();
-    writeln!(file, "impl {} {{", bitmask_name)?;
+    writeln!(file, "impl {bitmask_name} {{")?;
 
     for b in &data.base_bits {
         if visited.insert(b.name.clone()) {
@@ -621,7 +619,7 @@ fn write_flagbits_constants(
         let aname = normalize_bit_name(alias.name, Some(data.value_prefix.as_str()));
         let target = normalize_bit_name(alias.alias, Some(data.value_prefix.as_str()));
         if data.all_bit_names.contains(target.as_str()) && visited.insert(aname.clone()) {
-            writeln!(file, "pub const {}: Self = Self::{};", aname, target)?;
+            writeln!(file, "pub const {aname}: Self = Self::{target};")?;
         }
     }
 

@@ -137,7 +137,7 @@ pub fn generate_funcpointers(
             writeln!(
                 file,
                 ") -> {};",
-                ctype_to_rust_type(analysis, &return_type, None)
+                ctype_to_rust_type(analysis, return_type, None)
             )?;
         } else {
             writeln!(file, ");")?;
@@ -171,7 +171,7 @@ pub fn generate_functions(
             writeln!(
                 file,
                 ") -> {};",
-                ctype_to_rust_type(analysis, &return_type, None)
+                ctype_to_rust_type(analysis, return_type, None)
             )?;
         } else {
             writeln!(file, ");")?;
@@ -219,7 +219,7 @@ fn classify_command(analysis: &Analysis, cmd: &CommandInfo) -> Option<CommandTyp
         CommandTypeOp::Skip => None,
         CommandTypeOp::Override(ty) => Some(ty),
         CommandTypeOp::Default => {
-            let ty = &cmd.command.params.iter().next().unwrap().c_decl.ty;
+            let ty = &cmd.command.params.first().unwrap().c_decl.ty;
             let category = ctype_rust::CTypeCategory::from_ctype(ty, analysis);
             match category {
                 ctype_rust::CTypeCategory::Base(name) => Some(
@@ -273,17 +273,17 @@ fn write_fn_struct(
     }
 
     // Struct definition.
-    writeln!(file, "pub struct {} {{", fn_type_name)?;
+    writeln!(file, "pub struct {fn_type_name} {{")?;
     for command_group in command_groups {
         for command in &command_group.commands {
             let name = normalize_command_name(command.required_name);
             let ty = format!("PFN_{}", normalize_ty_name(command.command.name));
             let ty = if command.conditionally_required {
-                format!("Option<{}>", ty)
+                format!("Option<{ty}>")
             } else {
                 ty
             };
-            writeln!(file, "{}: {},", name, ty)?;
+            writeln!(file, "{name}: {ty},")?;
         }
     }
     writeln!(file, "}}\n")?;
@@ -295,13 +295,10 @@ fn write_fn_struct(
         CommandType::Entry => None,
     };
     let (load_fn_name, impl_header) = match load_trait {
-        Some(trait_name) => (
-            "load_with",
-            format!("impl {} for {}", trait_name, fn_type_name),
-        ),
-        None => ("load", format!("impl {}", fn_type_name)),
+        Some(trait_name) => ("load_with", format!("impl {trait_name} for {fn_type_name}")),
+        None => ("load", format!("impl {fn_type_name}")),
     };
-    writeln!(file, "{} {{", impl_header)?;
+    writeln!(file, "{impl_header} {{")?;
     writeln!(
         file,
         "{}unsafe fn {}(load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>) -> core::result::Result<Self, MissingEntryPointError> {{",
@@ -330,7 +327,7 @@ fn write_fn_struct(
     writeln!(file, "}}) }} }} }}\n")?;
 
     // Command wrappers.
-    writeln!(file, "impl {} {{", fn_type_name)?;
+    writeln!(file, "impl {fn_type_name} {{")?;
     for command_group in command_groups {
         for command in &command_group.commands {
             write_command_wrapper(file, analysis, command)?;
@@ -363,25 +360,22 @@ fn compute_enumeration_info(
     analysis: &Analysis,
     len_kinds: &[Option<LengthKind<'_>>],
 ) -> Option<EnumerationCommandInfo> {
-    let len_param_index = len_kinds
-        .iter()
-        .enumerate()
-        .find_map(|(_param_index, len_kind)| {
-            let LengthKind::Param {
-                index: len_param_index,
-                c_decl,
-            } = len_kind.as_ref()?
-            else {
-                return None;
-            };
-            let category = ctype_rust::CTypeCategory::from_ctype(&c_decl.ty, analysis);
-            match category {
-                ctype_rust::CTypeCategory::TypedPointer { is_const, .. } if !is_const => {
-                    Some(*len_param_index)
-                }
-                _ => None,
+    let len_param_index = len_kinds.iter().find_map(|len_kind| {
+        let LengthKind::Param {
+            index: len_param_index,
+            c_decl,
+        } = len_kind.as_ref()?
+        else {
+            return None;
+        };
+        let category = ctype_rust::CTypeCategory::from_ctype(&c_decl.ty, analysis);
+        match category {
+            ctype_rust::CTypeCategory::TypedPointer { is_const, .. } if !is_const => {
+                Some(*len_param_index)
             }
-        })?;
+            _ => None,
+        }
+    })?;
 
     let array_param_indices = len_kinds
         .iter()
@@ -493,10 +487,10 @@ fn build_wrapper_return<'a>(
                 let CType::Ptr { pointee, .. } = &param.c_decl.ty else {
                     unreachable!()
                 };
-                let ty = if ctype_rust::is_bool32(&pointee) {
+                let ty = if ctype_rust::is_bool32(pointee) {
                     "bool".to_string()
                 } else {
-                    ctype_to_rust_type(analysis, &pointee, None)
+                    ctype_to_rust_type(analysis, pointee, None)
                 };
                 WrapperParamInfo {
                     name: normalize_param_name(param.c_decl.name),
@@ -562,7 +556,7 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
         let optional: (bool, bool) = (
             param
                 .optional
-                .get(0)
+                .first()
                 .and_then(|s| s.parse().ok())
                 .unwrap_or_default(),
             param
@@ -668,7 +662,7 @@ pub fn convert_param_type(
             CTypeCategory::CharPointer { is_const } => {
                 let s = if is_const { "&CStr" } else { "&mut CStr" };
                 let s = if optional.0 {
-                    format!("Option<{}>", s)
+                    format!("Option<{s}>")
                 } else {
                     s.to_string()
                 };
@@ -686,7 +680,7 @@ pub fn convert_param_type(
                 }
                 let s = if is_const { "&[u8]" } else { "&mut [u8]" };
                 let s = if optional.0 {
-                    format!("Option<{}>", s)
+                    format!("Option<{s}>")
                 } else {
                     s.to_string()
                 };
@@ -702,7 +696,7 @@ pub fn convert_param_type(
                     "&mut [*mut c_char]"
                 };
                 let s = if optional.0 {
-                    format!("Option<{}>", s)
+                    format!("Option<{s}>")
                 } else {
                     s.to_string()
                 };
@@ -715,12 +709,12 @@ pub fn convert_param_type(
                 let inner =
                     ctype_rust::type_name_with_lifetime(analysis, pointee_name, lifetime_param);
                 let s = if is_const {
-                    format!("&[*const {}]", inner)
+                    format!("&[*const {inner}]")
                 } else {
-                    format!("&mut [*mut {}]", inner)
+                    format!("&mut [*mut {inner}]")
                 };
                 let s = if optional.0 {
-                    format!("Option<{}>", s)
+                    format!("Option<{s}>")
                 } else {
                     s
                 };
@@ -734,25 +728,22 @@ pub fn convert_param_type(
                     element_ty
                 };
                 let slice_ty = if is_const {
-                    format!("&[{}]", element_ty)
+                    format!("&[{element_ty}]")
                 } else {
                     // Command-specific: length can be from a pointer (count param) → ExtendUninit
                     if matches!(len.and_then(LengthKind::len_ctype), Some(CType::Ptr { .. })) {
-                        return format!("impl ExtendUninit<{}>", element_ty);
+                        return format!("impl ExtendUninit<{element_ty}>");
                     }
-                    format!("&mut [{}]", element_ty)
+                    format!("&mut [{element_ty}]")
                 };
                 let s = if optional.0 {
-                    format!("Option<{}>", slice_ty)
+                    format!("Option<{slice_ty}>")
                 } else {
                     slice_ty
                 };
                 return s;
             }
-            _ => panic!(
-                "expected pointer type because of length {:?}, got {:?}",
-                len, ty
-            ),
+            _ => panic!("expected pointer type because of length {len:?}, got {ty:?}"),
         }
     }
 
@@ -764,14 +755,14 @@ pub fn convert_param_type(
         } => {
             let inner = ctype_rust::type_name_with_lifetime(analysis, pointee_name, lifetime_param);
             let s = if is_const {
-                format!("*const {}", inner)
+                format!("*const {inner}")
             } else if is_output_param {
-                format!("&mut *mut {}", inner)
+                format!("&mut *mut {inner}")
             } else {
-                format!("*mut {}", inner)
+                format!("*mut {inner}")
             };
             if optional.0 {
-                format!("Option<{}>", s)
+                format!("Option<{s}>")
             } else {
                 s
             }
@@ -785,7 +776,7 @@ pub fn convert_param_type(
                 "*mut c_char".to_string()
             };
             if optional.0 {
-                format!("Option<{}>", s)
+                format!("Option<{s}>")
             } else {
                 s
             }
@@ -795,21 +786,19 @@ pub fn convert_param_type(
             let is_opaque = analysis.is_opaque_type(pointee);
             let s = if is_opaque {
                 if is_const {
-                    format!("*const {}", ty)
+                    format!("*const {ty}")
                 } else if is_output_param {
-                    format!("&mut *mut {}", ty)
+                    format!("&mut *mut {ty}")
                 } else {
-                    format!("*mut {}", ty)
+                    format!("*mut {ty}")
                 }
+            } else if is_const {
+                format!("&{ty}")
             } else {
-                if is_const {
-                    format!("&{}", ty)
-                } else {
-                    format!("&mut {}", ty)
-                }
+                format!("&mut {ty}")
             };
             if optional.0 {
-                format!("Option<{}>", s)
+                format!("Option<{s}>")
             } else {
                 s
             }
@@ -840,7 +829,7 @@ pub fn write_command_wrapper(
 
     let lifetime_param = wrapper
         .lifetime_param
-        .map(|lifetime| format!("<'{}>", lifetime))
+        .map(|lifetime| format!("<'{lifetime}>"))
         .unwrap_or_default();
     crate::write_doc_link(file, info.required_name)?;
     writeln!(
@@ -882,15 +871,15 @@ pub fn write_command_wrapper(
                 crate::overrides::SuccessCodeRepr::Bool => "bool",
             };
             match return_ty.as_deref() {
-                Some(ty) => format!("({}, {})", ty, code_ty),
+                Some(ty) => format!("({ty}, {code_ty})"),
                 None => code_ty.to_string(),
             }
         } else {
             return_ty.as_deref().unwrap_or("()").to_string()
         };
-        writeln!(file, ") -> crate::Result<{}> {{", inner)?;
+        writeln!(file, ") -> crate::Result<{inner}> {{")?;
     } else if let Some(return_ty) = return_ty {
-        writeln!(file, ") -> {} {{", return_ty)?;
+        writeln!(file, ") -> {return_ty} {{")?;
     } else {
         writeln!(file, ") {{")?;
     }
@@ -1067,25 +1056,25 @@ fn arg_emit_kind(
         }
     }
 
-    if let Some(enumeration_info) = &wrapper.enumeration_info {
-        if enumeration_info.array_param_indices.contains(&param_index) {
-            return ArgEmitKind::TransmuteForEnumeration;
-        }
+    if let Some(enumeration_info) = &wrapper.enumeration_info
+        && enumeration_info.array_param_indices.contains(&param_index)
+    {
+        return ArgEmitKind::TransmuteForEnumeration;
     }
 
-    if let Some(len) = &param.len {
-        if !matches!(len, LengthKind::Literal(1)) {
-            let is_const = match category {
-                ctype_rust::CTypeCategory::TypedPointer { is_const, .. }
-                | ctype_rust::CTypeCategory::CharPointer { is_const }
-                | ctype_rust::CTypeCategory::OpaquePointer { is_const, .. } => is_const,
-                _ => false,
-            };
-            return ArgEmitKind::SliceAsPtr {
-                is_const,
-                optional: param.optional.0,
-            };
-        }
+    if let Some(len) = &param.len
+        && !matches!(len, LengthKind::Literal(1))
+    {
+        let is_const = match category {
+            ctype_rust::CTypeCategory::TypedPointer { is_const, .. }
+            | ctype_rust::CTypeCategory::CharPointer { is_const }
+            | ctype_rust::CTypeCategory::OpaquePointer { is_const, .. } => is_const,
+            _ => false,
+        };
+        return ArgEmitKind::SliceAsPtr {
+            is_const,
+            optional: param.optional.0,
+        };
     }
 
     if param.is_return_param {
@@ -1119,41 +1108,39 @@ fn arg_emit_kind(
 fn emit_arg(file: &mut impl std::io::Write, param_name: &str, kind: ArgEmitKind) -> Result<()> {
     match kind {
         ArgEmitKind::Direct => {
-            writeln!(file, "{},", param_name)?;
+            writeln!(file, "{param_name},")?;
         }
         ArgEmitKind::LenFromSlice { slice_param_name } => {
-            writeln!(file, "{}.len().try_into().unwrap(),", slice_param_name)?;
+            writeln!(file, "{slice_param_name}.len().try_into().unwrap(),")?;
         }
         ArgEmitKind::SliceAsPtr { is_const, optional } => {
             if optional {
                 if is_const {
-                    writeln!(file, "{}.to_raw_ptr(),", param_name)?;
+                    writeln!(file, "{param_name}.to_raw_ptr(),")?;
                 } else {
-                    writeln!(file, "{}.to_raw_mut_ptr(),", param_name)?;
+                    writeln!(file, "{param_name}.to_raw_mut_ptr(),")?;
                 }
+            } else if is_const {
+                writeln!(file, "{param_name}.as_ptr() as _,")?;
             } else {
-                if is_const {
-                    writeln!(file, "{}.as_ptr() as _,", param_name)?;
-                } else {
-                    writeln!(file, "{}.as_mut_ptr() as _,", param_name)?;
-                }
+                writeln!(file, "{param_name}.as_mut_ptr() as _,")?;
             }
         }
         ArgEmitKind::ReturnParamAsMutPtr => {
-            writeln!(file, "{}.as_mut_ptr(),", param_name)?;
+            writeln!(file, "{param_name}.as_mut_ptr(),")?;
         }
         ArgEmitKind::OptionalPtrToRaw { is_const, .. } => {
             if is_const {
-                writeln!(file, "{}.to_raw_ptr(),", param_name)?;
+                writeln!(file, "{param_name}.to_raw_ptr(),")?;
             } else {
-                writeln!(file, "{}.to_raw_mut_ptr(),", param_name)?;
+                writeln!(file, "{param_name}.to_raw_mut_ptr(),")?;
             }
         }
         ArgEmitKind::TransmuteForEnumeration => {
-            writeln!(file, "{} as _,", param_name)?;
+            writeln!(file, "{param_name} as _,")?;
         }
         ArgEmitKind::BoolInto => {
-            writeln!(file, "{}.into(),", param_name)?;
+            writeln!(file, "{param_name}.into(),")?;
         }
     }
     Ok(())
@@ -1203,7 +1190,7 @@ fn write_fn_body(
             [param] => {
                 let init = format!("{}.assume_init()", param.name);
                 if param.ty == "bool" {
-                    format!("{} != 0", init)
+                    format!("{init} != 0")
                 } else {
                     init
                 }
@@ -1215,7 +1202,7 @@ fn write_fn_body(
                     .map(|param| {
                         let init = format!("{}.assume_init()", param.name);
                         if param.ty == "bool" {
-                            format!("{} != 0", init)
+                            format!("{init} != 0")
                         } else {
                             init
                         }
@@ -1252,7 +1239,7 @@ fn write_fn_body(
                     }
                 };
                 let ok_value = match return_value.as_deref() {
-                    Some(rv) => format!("({}, {})", rv, code_value),
+                    Some(rv) => format!("({rv}, {code_value})"),
                     None => code_value,
                 };
                 writeln!(
@@ -1278,7 +1265,7 @@ fn write_fn_body(
         writeln!(file, "}}")?;
     } else if let Some(return_value) = return_value {
         writeln!(file, ";")?;
-        writeln!(file, "{}", return_value)?;
+        writeln!(file, "{return_value}")?;
     };
     Ok(())
 }

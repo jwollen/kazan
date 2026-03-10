@@ -3,6 +3,9 @@ use crate::vk::{BaseOutStructure, StructureType};
 /// Structures implementing this trait are layout-compatible with [`BaseInStructure`] and
 /// [`BaseOutStructure`]. Such structures have an `s_type` field indicating its type, which must
 /// always match the value of [`TaggedStructure::STRUCTURE_TYPE`].
+///
+/// # Safety
+/// Implementers must be `#[repr(C)]` and layout-compatible with [`BaseOutStructure`].
 pub unsafe trait TaggedStructure<'a>: Sized {
     const STRUCTURE_TYPE: StructureType;
 
@@ -70,6 +73,9 @@ pub unsafe trait TaggedStructure<'a>: Sized {
 ///
 /// Similar to [`TaggedStructure`], all `unsafe` implementers of this trait must guarantee that
 /// their structure is layout-compatible [`BaseInStructure`] and [`BaseOutStructure`].
+///
+/// # Safety
+/// The implementing type must be a valid `structextends` for `B` per the Vulkan specification.
 ///
 /// [1]: https://registry.khronos.org/vulkan/specs/latest/styleguide.html#extensions-interactions
 pub unsafe trait Extends<B> {}

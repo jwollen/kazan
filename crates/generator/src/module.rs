@@ -33,11 +33,10 @@ impl Module<'_> {
     }
 
     pub fn ext_number(&self) -> Option<u32> {
-        let ext_number = match self {
+        match self {
             Module::Version(_) => None,
             Module::Extension(extension) => extension.number,
-        };
-        ext_number
+        }
     }
 
     pub fn name(&self) -> ModuleName {
@@ -102,7 +101,7 @@ fn get_extension_name(extension: &xml::Extension) -> ModuleName {
     };
 
     let name = if name.chars().next().unwrap().is_ascii_digit() {
-        format!("_{}", name)
+        format!("_{name}")
     } else {
         name.to_string()
     };
@@ -127,7 +126,7 @@ pub(crate) const EXTENSIONS: &[&core::ffi::CStr; EXTENSION_COUNT] = &["
     )?;
 
     for name in &extensions {
-        writeln!(file, "    c\"{}\",", name)?;
+        writeln!(file, "    c\"{name}\",")?;
     }
 
     writeln!(file, "];\n")?;
@@ -138,7 +137,7 @@ pub(crate) const EXTENSIONS: &[&core::ffi::CStr; EXTENSION_COUNT] = &["
     match name.to_bytes() {{"
     )?;
     for (i, name) in extensions.iter().enumerate() {
-        writeln!(file, "        b\"{}\" => Some({i}),", name)?;
+        writeln!(file, "        b\"{name}\" => Some({i}),")?;
     }
     writeln!(file, "        _ => None,\n    }}\n}}")?;
     Ok(())

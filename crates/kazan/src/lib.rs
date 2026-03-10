@@ -3,6 +3,23 @@ pub mod vk;
 #[cfg(feature = "ffi")]
 pub use vk::ffi;
 
+#[allow(
+    clippy::collapsible_else_if,
+    clippy::collapsible_if,
+    clippy::derivable_impls,
+    clippy::get_first,
+    clippy::let_and_return,
+    clippy::let_unit_value,
+    clippy::match_single_binding,
+    clippy::missing_safety_doc,
+    clippy::missing_transmute_annotations,
+    clippy::needless_borrow,
+    clippy::needless_option_as_deref,
+    clippy::too_many_arguments,
+    clippy::uninlined_format_args,
+    clippy::useless_conversion,
+    clippy::write_with_newline
+)]
 mod generated;
 pub use generated::external::*;
 
@@ -35,8 +52,16 @@ use core::{
 };
 
 pub trait ExtendUninit<T> {
+    /// Reserves capacity and returns the spare capacity as uninitialised memory.
+    ///
+    /// # Safety
+    /// Caller must initialise the returned slice elements before calling [`set_len`](Self::set_len).
     unsafe fn reserve(&mut self, capacity: usize) -> &mut [MaybeUninit<T>];
 
+    /// Sets the length of the container after elements have been written.
+    ///
+    /// # Safety
+    /// The first `len` elements beyond the current length must be initialised.
     unsafe fn set_len(&mut self, len: usize);
 }
 
@@ -95,6 +120,10 @@ impl RawPtr<c_char> for Option<&CStr> {
 }
 
 pub trait RawMutPtr<T> {
+    /// Converts to a raw mutable pointer, returning null for `None`.
+    ///
+    /// # Safety
+    /// The caller must ensure the pointer is not used after the referent is dropped.
     unsafe fn to_raw_mut_ptr(self) -> *mut T;
 }
 
@@ -116,9 +145,9 @@ impl<T> RawMutPtr<T> for Option<&mut [T]> {
     }
 }
 
-pub trait Handle: Sized {
+pub trait Handle: Sized + Copy {
     const TYPE: vk::ObjectType;
-    fn as_raw(self) -> u64;
+    fn to_raw(self) -> u64;
     fn from_raw(_: u64) -> Self;
 
     /// Returns whether the handle is a `NULL` value.
@@ -131,7 +160,7 @@ pub trait Handle: Sized {
     /// assert!(instance.is_null());
     /// ```
     fn is_null(self) -> bool {
-        self.as_raw() == 0
+        self.to_raw() == 0
     }
 }
 
@@ -161,7 +190,7 @@ pub fn debug_flags<F: Into<u64> + Copy>(
         if !first {
             f.write_str(" | ")?;
         }
-        write!(f, "{:#x}", remaining)?;
+        write!(f, "{remaining:#x}")?;
     } else if first {
         f.write_str("(empty)")?;
     }

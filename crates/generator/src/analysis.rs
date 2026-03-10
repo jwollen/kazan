@@ -622,7 +622,7 @@ fn get_base_type_info<'a>(
     match &types.get(type_name)? {
         TypeKind::Alias(alias) => get_base_type_info(types, type_infos, alias.alias),
         TypeKind::BaseType(base) => match base.ty {
-            Some(ty) => get_base_type_info(types, type_infos, &ty),
+            Some(ty) => get_base_type_info(types, type_infos, ty),
             None => Some(TypeInfo::OPAQUE),
         },
         TypeKind::Struct(_) | TypeKind::Union(_) => type_infos.get(type_name).copied(),
@@ -700,10 +700,10 @@ fn compute_module_items(registry: &xml::Registry) -> Vec<ModuleItems<'_>> {
             for name in item_names {
                 first_requirer.entry(name).or_insert(index);
 
-                if let Some(item_vendor) = registry.vendor_suffix(name) {
-                    if module_vendor == Some(item_vendor) {
-                        vendor_requirer.entry(name).or_insert(index);
-                    }
+                if let Some(item_vendor) = registry.vendor_suffix(name)
+                    && module_vendor == Some(item_vendor)
+                {
+                    vendor_requirer.entry(name).or_insert(index);
                 }
             }
         }
@@ -747,7 +747,7 @@ fn compute_module_items(registry: &xml::Registry) -> Vec<ModuleItems<'_>> {
                 })
                 .collect();
 
-            let items = ModuleItems {
+            ModuleItems {
                 api_constants,
                 structs: registry
                     .structs
@@ -803,9 +803,7 @@ fn compute_module_items(registry: &xml::Registry) -> Vec<ModuleItems<'_>> {
                     .iter()
                     .filter(|alias| owned.contains(alias.name))
                     .collect(),
-            };
-
-            items
+            }
         })
         .collect()
 }

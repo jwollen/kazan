@@ -162,7 +162,7 @@ macro_rules! handle_nondispatchable {
         pub struct $name(u64);
         impl Handle for $name {
             const TYPE: ObjectType = ObjectType::$ty;
-            fn as_raw(self) -> u64 {
+            fn to_raw(self) -> u64 {
                 self.0
             }
             fn from_raw(x: u64) -> Self {
@@ -203,7 +203,7 @@ macro_rules! define_handle {
         }
         impl Handle for $name {
             const TYPE: ObjectType = ObjectType::$ty;
-            fn as_raw(self) -> u64 {
+            fn to_raw(self) -> u64 {
                 self.0 as u64
             }
             fn from_raw(x: u64) -> Self {

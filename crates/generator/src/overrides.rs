@@ -10,12 +10,10 @@ use crate::handle::CommandType;
 /// general-purpose wrapper generator. This function provides per-command overrides.
 pub fn write_command_override(
     _file: &mut impl Write,
-    command_name: &str,
+    _command_name: &str,
     _optional: bool,
 ) -> Result<bool> {
-    match command_name {
-        _ => Ok(false),
-    }
+    Ok(false)
 }
 
 /// How to represent the success code in the return type when there are multiple ok codes.
@@ -44,7 +42,7 @@ pub fn merged_setter_name(_struct_name: &str, len_member: &str, base: &str) -> S
         "binaryCount" => "binaries".to_string(),
         "geometryCount" => "geometries".to_string(),
         _ if base.ends_with('s') => base.to_string(),
-        _ => format!("{}s", base),
+        _ => format!("{base}s"),
     }
 }
 

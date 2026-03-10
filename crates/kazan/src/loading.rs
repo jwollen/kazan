@@ -82,6 +82,10 @@ impl Entry {
         }
     }
 
+    /// Loads the Vulkan library from the platform default path.
+    ///
+    /// # Safety
+    /// The Vulkan library must provide a conforming `vkGetInstanceProcAddr`.
     #[cfg(feature = "loaded")]
     pub unsafe fn load() -> Result<Self, LoadingError> {
         #[cfg(windows)]
@@ -108,6 +112,10 @@ impl Entry {
         unsafe { Self::load_from(LIB_PATH) }
     }
 
+    /// Loads the Vulkan library from the given path.
+    ///
+    /// # Safety
+    /// The loaded library must provide a conforming `vkGetInstanceProcAddr`.
     #[cfg(feature = "loaded")]
     #[cfg_attr(docsrs, doc(cfg(feature = "loaded")))]
     pub unsafe fn load_from(path: impl AsRef<OsStr>) -> Result<Self, LoadingError> {
@@ -127,6 +135,10 @@ impl Entry {
         })
     }
 
+    /// Creates an `Entry` from an already-resolved `vkGetInstanceProcAddr`.
+    ///
+    /// # Safety
+    /// `static_fn` must contain a valid `vkGetInstanceProcAddr` function pointer.
     pub unsafe fn from_static_fn(static_fn: StaticFn) -> Result<Self, MissingEntryPointError> {
         let load_fn = move |name: &CStr| unsafe {
             mem::transmute((static_fn.get_instance_proc_addr)(
@@ -153,6 +165,10 @@ pub struct StaticFn {
 }
 
 impl StaticFn {
+    /// Loads `vkGetInstanceProcAddr` via the given lookup function.
+    ///
+    /// # Safety
+    /// `f` must return valid function pointers for the requested symbol names.
     pub unsafe fn load<F>(mut f: F) -> Result<Self, MissingEntryPointError>
     where
         F: FnMut(&CStr) -> Option<crate::vk::PFN_vkVoidFunction>,
@@ -160,7 +176,11 @@ impl StaticFn {
         let get_instance_proc_addr = f(c"vkGetInstanceProcAddr").ok_or(MissingEntryPointError)?;
 
         Ok(Self {
-            get_instance_proc_addr: unsafe { mem::transmute(get_instance_proc_addr) },
+            get_instance_proc_addr: unsafe {
+                mem::transmute::<crate::vk::PFN_vkVoidFunction, crate::vk::PFN_vkGetInstanceProcAddr>(
+                    get_instance_proc_addr,
+                )
+            },
         })
     }
 }

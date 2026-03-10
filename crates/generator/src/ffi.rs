@@ -8,12 +8,12 @@ use crate::{analysis::Analysis, analysis::ModuleItems, normalize_ty_name};
 /// recursive type aliases (when the C name equals the Rust name).
 fn ffi_rhs(c_name: &str, rust_name: &str, lifetime: Option<&str>) -> String {
     let qualified = if c_name == rust_name {
-        format!("super::defs::{}", rust_name)
+        format!("super::defs::{rust_name}")
     } else {
         rust_name.to_string()
     };
     match lifetime {
-        Some(lt) => format!("{}<'{}>", qualified, lt),
+        Some(lt) => format!("{qualified}<'{lt}>"),
         None => qualified,
     }
 }
@@ -93,12 +93,12 @@ pub fn generate_ffi_module(
         writeln!(file, "pub type {} = {};", ty.name, rhs)?;
 
         // Also alias the FlagBits type if it exists
-        if let Some(bitmask_name) = ty.bitvalues.or(ty.requires) {
-            if registry.bitmasks.iter().any(|b| b.name == bitmask_name) {
-                let rust_bitmask_name = normalize_ty_name(bitmask_name);
-                let rhs = ffi_rhs(bitmask_name, rust_bitmask_name, None);
-                writeln!(file, "pub type {} = {};", bitmask_name, rhs)?;
-            }
+        if let Some(bitmask_name) = ty.bitvalues.or(ty.requires)
+            && registry.bitmasks.iter().any(|b| b.name == bitmask_name)
+        {
+            let rust_bitmask_name = normalize_ty_name(bitmask_name);
+            let rhs = ffi_rhs(bitmask_name, rust_bitmask_name, None);
+            writeln!(file, "pub type {bitmask_name} = {rhs};")?;
         }
     }
 
@@ -120,7 +120,7 @@ pub fn generate_ffi_module(
             let rust_name = normalize_ty_name(ty_name);
             // When C name == Rust name, qualify to avoid ambiguity with the type alias above.
             let qualified = if ty_name == rust_name {
-                format!("super::defs::{}", rust_name)
+                format!("super::defs::{rust_name}")
             } else {
                 rust_name.to_string()
             };

@@ -81,7 +81,7 @@ fn convert_c_expr<'a>(expr: &'a str) -> Cow<'a, str> {
         .unwrap_or(expr);
 
     if let Some(expr) = expr.strip_prefix("~") {
-        Cow::Owned(format!("!{}", expr))
+        Cow::Owned(format!("!{expr}"))
     } else {
         Cow::Borrowed(expr)
     }
