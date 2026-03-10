@@ -277,8 +277,8 @@ pub struct DeviceFn {
     cmd_draw_cluster_indirect_huawei: PFN_vkCmdDrawClusterIndirectHUAWEI,
 }
 
-impl DeviceFn {
-    pub unsafe fn load(
+impl LoadDeviceFn for DeviceFn {
+    unsafe fn load_with(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {

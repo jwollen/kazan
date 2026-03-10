@@ -334,8 +334,8 @@ pub struct InstanceFn {
     get_display_plane_capabilities2_khr: PFN_vkGetDisplayPlaneCapabilities2KHR,
 }
 
-impl InstanceFn {
-    pub unsafe fn load(
+impl LoadInstanceFn for InstanceFn {
+    unsafe fn load_with(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {

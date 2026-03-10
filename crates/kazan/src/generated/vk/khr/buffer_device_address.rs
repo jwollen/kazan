@@ -55,8 +55,8 @@ pub struct DeviceFn {
     get_device_memory_opaque_capture_address_khr: PFN_vkGetDeviceMemoryOpaqueCaptureAddress,
 }
 
-impl DeviceFn {
-    pub unsafe fn load(
+impl LoadDeviceFn for DeviceFn {
+    unsafe fn load_with(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {

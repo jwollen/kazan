@@ -231,8 +231,8 @@ pub struct InstanceFn {
     get_physical_device_surface_capabilities2_ext: PFN_vkGetPhysicalDeviceSurfaceCapabilities2EXT,
 }
 
-impl InstanceFn {
-    pub unsafe fn load(
+impl LoadInstanceFn for InstanceFn {
+    unsafe fn load_with(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {

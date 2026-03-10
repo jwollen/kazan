@@ -947,8 +947,8 @@ pub struct InstanceFn {
     get_physical_device_present_rectangles_khr: Option<PFN_vkGetPhysicalDevicePresentRectanglesKHR>,
 }
 
-impl InstanceFn {
-    pub unsafe fn load(
+impl LoadInstanceFn for InstanceFn {
+    unsafe fn load_with(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
@@ -1008,8 +1008,8 @@ pub struct DeviceFn {
     acquire_next_image2_khr: Option<PFN_vkAcquireNextImage2KHR>,
 }
 
-impl DeviceFn {
-    pub unsafe fn load(
+impl LoadDeviceFn for DeviceFn {
+    unsafe fn load_with(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {

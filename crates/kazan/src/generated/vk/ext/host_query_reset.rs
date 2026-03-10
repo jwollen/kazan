@@ -33,8 +33,8 @@ pub struct DeviceFn {
     reset_query_pool_ext: PFN_vkResetQueryPool,
 }
 
-impl DeviceFn {
-    pub unsafe fn load(
+impl LoadDeviceFn for DeviceFn {
+    unsafe fn load_with(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {

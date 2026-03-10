@@ -776,8 +776,8 @@ pub struct InstanceFn {
     get_physical_device_fragment_shading_rates_khr: PFN_vkGetPhysicalDeviceFragmentShadingRatesKHR,
 }
 
-impl InstanceFn {
-    pub unsafe fn load(
+impl LoadInstanceFn for InstanceFn {
+    unsafe fn load_with(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
@@ -829,8 +829,8 @@ pub struct DeviceFn {
     cmd_set_fragment_shading_rate_khr: PFN_vkCmdSetFragmentShadingRateKHR,
 }
 
-impl DeviceFn {
-    pub unsafe fn load(
+impl LoadDeviceFn for DeviceFn {
+    unsafe fn load_with(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {

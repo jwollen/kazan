@@ -301,8 +301,8 @@ pub struct InstanceFn {
         PFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesNV,
 }
 
-impl InstanceFn {
-    pub unsafe fn load(
+impl LoadInstanceFn for InstanceFn {
+    unsafe fn load_with(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {

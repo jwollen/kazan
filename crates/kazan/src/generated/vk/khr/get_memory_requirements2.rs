@@ -49,8 +49,8 @@ pub struct DeviceFn {
     get_image_sparse_memory_requirements2_khr: PFN_vkGetImageSparseMemoryRequirements2,
 }
 
-impl DeviceFn {
-    pub unsafe fn load(
+impl LoadDeviceFn for DeviceFn {
+    unsafe fn load_with(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {

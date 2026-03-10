@@ -183,8 +183,8 @@ pub struct DeviceFn {
     get_buffer_device_address_ext: PFN_vkGetBufferDeviceAddress,
 }
 
-impl DeviceFn {
-    pub unsafe fn load(
+impl LoadDeviceFn for DeviceFn {
+    unsafe fn load_with(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {

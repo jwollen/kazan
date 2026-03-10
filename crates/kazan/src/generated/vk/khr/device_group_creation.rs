@@ -35,8 +35,8 @@ pub struct InstanceFn {
     enumerate_physical_device_groups_khr: PFN_vkEnumeratePhysicalDeviceGroups,
 }
 
-impl InstanceFn {
-    pub unsafe fn load(
+impl LoadInstanceFn for InstanceFn {
+    unsafe fn load_with(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {

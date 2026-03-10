@@ -261,8 +261,8 @@ pub struct DeviceFn {
     get_fence_win32_handle_khr: PFN_vkGetFenceWin32HandleKHR,
 }
 
-impl DeviceFn {
-    pub unsafe fn load(
+impl LoadDeviceFn for DeviceFn {
+    unsafe fn load_with(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {

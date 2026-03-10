@@ -135,7 +135,7 @@ pub trait Handle: Sized {
     }
 }
 
-pub use loading::{Entry, MissingEntryPointError, StaticFn};
+pub use loading::{Entry, LoadDeviceFn, LoadInstanceFn, MissingEntryPointError, StaticFn};
 
 /// Helper for Debug-formatting bitflag types. Prints known flags by name,
 /// separated by `|`, and appends any remaining unknown bits as hex.

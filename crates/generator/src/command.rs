@@ -269,10 +269,28 @@ pub fn generate_commands(
         }
         writeln!(file, "}}\n")?;
 
-        writeln!(file, "impl {} {{", fn_type_name)?;
+        // For Instance/Device, implement the load trait; for Entry, use an inherent method.
+        let load_trait = match cmd_type {
+            CommandType::Instance => Some("LoadInstanceFn"),
+            CommandType::Device => Some("LoadDeviceFn"),
+            CommandType::Entry => None,
+        };
+        let (load_fn_name, impl_header) = match load_trait {
+            Some(trait_name) => (
+                "load_with",
+                format!("impl {} for {}", trait_name, fn_type_name),
+            ),
+            None => (
+                "load",
+                format!("impl {}", fn_type_name),
+            ),
+        };
+        writeln!(file, "{} {{", impl_header)?;
         writeln!(
             file,
-            "pub unsafe fn load(load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>) -> core::result::Result<Self, MissingEntryPointError> {{"
+            "{}unsafe fn {}(load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>) -> core::result::Result<Self, MissingEntryPointError> {{",
+            if load_trait.is_some() { "" } else { "pub " },
+            load_fn_name,
         )?;
         writeln!(file, "unsafe {{ Ok(Self {{")?;
         for command_group in &command_groups {

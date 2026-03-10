@@ -302,8 +302,8 @@ pub struct DeviceFn {
     cmd_set_depth_bias2_ext: PFN_vkCmdSetDepthBias2EXT,
 }
 
-impl DeviceFn {
-    pub unsafe fn load(
+impl LoadDeviceFn for DeviceFn {
+    unsafe fn load_with(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {

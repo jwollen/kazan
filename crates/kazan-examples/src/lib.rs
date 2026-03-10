@@ -8,13 +8,12 @@
 )]
 
 use std::{
-    borrow::Cow, cell::RefCell, default::Default, error::Error, ffi, mem, ops::Drop,
-    os::raw::c_char,
+    borrow::Cow, cell::RefCell, default::Default, error::Error, ffi, ops::Drop, os::raw::c_char,
 };
 
 pub use kazan::read_spv;
 use kazan::{
-    Entry,
+    Entry, LoadDeviceFn as _, LoadInstanceFn as _,
     vk::{
         self,
         ext::debug_utils,
@@ -239,13 +238,6 @@ impl ExampleBase {
                 .unwrap();
             let entry = Entry::linked()?;
 
-            let load_instance = |instance: vk::Instance| {
-                let get_proc = entry.static_fn.get_instance_proc_addr;
-                move |name: &ffi::CStr| -> Option<vk::PFN_vkVoidFunction> {
-                    mem::transmute(get_proc(instance, name.as_ptr()))
-                }
-            };
-
             let app_name = c"VulkanTriangle";
 
             let layer_names = [c"VK_LAYER_KHRONOS_validation"];
@@ -291,7 +283,7 @@ impl ExampleBase {
                 .create_instance(&create_info, None)
                 .expect("Instance creation error");
 
-            let instance_fn = vk1_0::InstanceFn::load(load_instance(instance)).unwrap();
+            let instance_fn = vk1_0::InstanceFn::load(&entry, instance).unwrap();
 
             let debug_info = vk::DebugUtilsMessengerCreateInfoEXT::default()
                 .message_severity(
@@ -306,16 +298,16 @@ impl ExampleBase {
                 )
                 .pfn_user_callback(vulkan_debug_callback);
 
-            let debug_utils_fn = debug_utils::InstanceFn::load(load_instance(instance)).unwrap();
+            let debug_utils_fn = debug_utils::InstanceFn::load(&entry, instance).unwrap();
             let debug_call_back = debug_utils_fn
                 .create_debug_utils_messenger_ext(instance, &debug_info, None)
                 .unwrap();
 
             // Create surface
-            let surface_fn = surface::InstanceFn::load(load_instance(instance)).unwrap();
+            let surface_fn = surface::InstanceFn::load(&entry, instance).unwrap();
 
             let surface_factory =
-                kazan::window::SurfaceFactory::new(load_instance(instance), display_handle)?;
+                kazan::window::SurfaceFactory::new(&entry, instance, display_handle)?;
 
             let window_handle = window.window_handle()?.as_raw();
             let surface = surface_factory.create_surface(instance, window_handle, None)?;
@@ -378,7 +370,7 @@ impl ExampleBase {
                 .create_device(pdevice, &device_create_info, None)
                 .unwrap();
 
-            let device_fn = vk1_0::DeviceFn::load(load_instance(instance)).unwrap();
+            let device_fn = vk1_0::DeviceFn::load(&instance_fn, device).unwrap();
 
             let present_queue = device_fn.get_device_queue(device, queue_family_index, 0);
 
@@ -421,7 +413,7 @@ impl ExampleBase {
                 .cloned()
                 .find(|&mode| mode == vk::PresentModeKHR::MAILBOX_KHR)
                 .unwrap_or(vk::PresentModeKHR::FIFO_KHR);
-            let swapchain_fn = swapchain::DeviceFn::load(load_instance(instance)).unwrap();
+            let swapchain_fn = swapchain::DeviceFn::load(&instance_fn, device).unwrap();
 
             let swapchain_create_info = vk::SwapchainCreateInfoKHR::default()
                 .surface(surface)

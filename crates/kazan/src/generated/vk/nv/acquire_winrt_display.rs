@@ -33,8 +33,8 @@ pub struct InstanceFn {
     get_winrt_display_nv: PFN_vkGetWinrtDisplayNV,
 }
 
-impl InstanceFn {
-    pub unsafe fn load(
+impl LoadInstanceFn for InstanceFn {
+    unsafe fn load_with(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {

@@ -1268,8 +1268,8 @@ pub struct DeviceFn {
     destroy_indirect_commands_layout_nv: PFN_vkDestroyIndirectCommandsLayoutNV,
 }
 
-impl DeviceFn {
-    pub unsafe fn load(
+impl LoadDeviceFn for DeviceFn {
+    unsafe fn load_with(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {

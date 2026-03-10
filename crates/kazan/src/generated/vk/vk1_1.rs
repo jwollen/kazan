@@ -5817,8 +5817,8 @@ pub struct InstanceFn {
         PFN_vkGetPhysicalDeviceExternalSemaphoreProperties,
 }
 
-impl InstanceFn {
-    pub unsafe fn load(
+impl LoadInstanceFn for InstanceFn {
+    unsafe fn load_with(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
@@ -6099,8 +6099,8 @@ pub struct DeviceFn {
     destroy_sampler_ycbcr_conversion: PFN_vkDestroySamplerYcbcrConversion,
 }
 
-impl DeviceFn {
-    pub unsafe fn load(
+impl LoadDeviceFn for DeviceFn {
+    unsafe fn load_with(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {

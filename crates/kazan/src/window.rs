@@ -7,7 +7,7 @@
 use core::ffi::{CStr, c_char};
 use raw_window_handle::{RawDisplayHandle, RawWindowHandle};
 
-use crate::vk;
+use crate::{LoadInstanceFn as _, vk};
 
 /// Combines an [`InstanceFn`] with a [`RawDisplayHandle`], so callers only need to pass
 /// a [`RawWindowHandle`] when creating surfaces.
@@ -63,17 +63,35 @@ pub enum InstanceFn {
 }
 
 impl SurfaceFactory {
-    /// Load the platform-specific surface extension for the given display handle.
+    /// Load the platform-specific surface extension for the given display and instance.
+    ///
+    /// # Safety
+    ///
+    /// `instance` must be a valid Vulkan instance with the required surface extensions enabled.
+    /// The display handle must remain valid for the lifetime of this `SurfaceFactory`.
+    pub unsafe fn new(
+        entry: &crate::Entry,
+        instance: vk::Instance,
+        display_handle: RawDisplayHandle,
+    ) -> crate::Result<Self> {
+        let instance_fn = unsafe { InstanceFn::load(entry, instance, display_handle)? };
+        Ok(Self {
+            instance_fn,
+            display_handle,
+        })
+    }
+
+    /// Load using a raw function pointer loader.
     ///
     /// # Safety
     ///
     /// The `load` function must return valid function pointers for the given instance.
     /// The display handle must remain valid for the lifetime of this `SurfaceFactory`.
-    pub unsafe fn new(
+    pub unsafe fn new_with(
         load: impl Fn(&CStr) -> Option<vk::PFN_vkVoidFunction>,
         display_handle: RawDisplayHandle,
     ) -> crate::Result<Self> {
-        let instance_fn = unsafe { InstanceFn::load(load, display_handle)? };
+        let instance_fn = unsafe { InstanceFn::load_with(load, display_handle)? };
         Ok(Self {
             instance_fn,
             display_handle,
@@ -127,15 +145,35 @@ impl SurfaceFactory {
 }
 
 impl InstanceFn {
-    /// Load the platform-specific surface extension for the given display handle.
+    /// Load the platform-specific surface extension for the given display and instance.
     ///
-    /// The `load` function should resolve Vulkan instance-level function pointers
-    /// (typically via `vkGetInstanceProcAddr` for the given instance).
+    /// # Safety
+    ///
+    /// `instance` must be a valid Vulkan instance with the required surface extensions enabled.
+    pub unsafe fn load(
+        entry: &crate::Entry,
+        instance: vk::Instance,
+        display_handle: RawDisplayHandle,
+    ) -> crate::Result<Self> {
+        unsafe {
+            Self::load_with(
+                |name| {
+                    core::mem::transmute((entry.static_fn.get_instance_proc_addr)(
+                        instance,
+                        name.as_ptr(),
+                    ))
+                },
+                display_handle,
+            )
+        }
+    }
+
+    /// Load the platform-specific surface extension using a raw function pointer loader.
     ///
     /// # Safety
     ///
     /// The `load` function must return valid function pointers for the given instance.
-    pub unsafe fn load(
+    pub unsafe fn load_with(
         load: impl Fn(&CStr) -> Option<vk::PFN_vkVoidFunction>,
         display_handle: RawDisplayHandle,
     ) -> crate::Result<Self> {
@@ -143,7 +181,7 @@ impl InstanceFn {
             match display_handle {
                 #[cfg(target_os = "windows")]
                 RawDisplayHandle::Windows(_) => {
-                    let fns = vk::khr::win32_surface::InstanceFn::load(&load)
+                    let fns = vk::khr::win32_surface::InstanceFn::load_with(&load)
                         .map_err(|_| vk::Result::ERROR_EXTENSION_NOT_PRESENT)?;
                     Ok(Self::Win32(fns))
                 }
@@ -156,7 +194,7 @@ impl InstanceFn {
                     target_os = "openbsd",
                 ))]
                 RawDisplayHandle::Wayland(_) => {
-                    let fns = vk::khr::wayland_surface::InstanceFn::load(&load)
+                    let fns = vk::khr::wayland_surface::InstanceFn::load_with(&load)
                         .map_err(|_| vk::Result::ERROR_EXTENSION_NOT_PRESENT)?;
                     Ok(Self::Wayland(fns))
                 }
@@ -169,7 +207,7 @@ impl InstanceFn {
                     target_os = "openbsd",
                 ))]
                 RawDisplayHandle::Xlib(_) => {
-                    let fns = vk::khr::xlib_surface::InstanceFn::load(&load)
+                    let fns = vk::khr::xlib_surface::InstanceFn::load_with(&load)
                         .map_err(|_| vk::Result::ERROR_EXTENSION_NOT_PRESENT)?;
                     Ok(Self::Xlib(fns))
                 }
@@ -182,28 +220,28 @@ impl InstanceFn {
                     target_os = "openbsd",
                 ))]
                 RawDisplayHandle::Xcb(_) => {
-                    let fns = vk::khr::xcb_surface::InstanceFn::load(&load)
+                    let fns = vk::khr::xcb_surface::InstanceFn::load_with(&load)
                         .map_err(|_| vk::Result::ERROR_EXTENSION_NOT_PRESENT)?;
                     Ok(Self::Xcb(fns))
                 }
 
                 #[cfg(target_os = "android")]
                 RawDisplayHandle::Android(_) => {
-                    let fns = vk::khr::android_surface::InstanceFn::load(&load)
+                    let fns = vk::khr::android_surface::InstanceFn::load_with(&load)
                         .map_err(|_| vk::Result::ERROR_EXTENSION_NOT_PRESENT)?;
                     Ok(Self::Android(fns))
                 }
 
                 #[cfg(target_env = "ohos")]
                 RawDisplayHandle::Ohos(_) => {
-                    let fns = vk::ohos::surface::InstanceFn::load(&load)
+                    let fns = vk::ohos::surface::InstanceFn::load_with(&load)
                         .map_err(|_| vk::Result::ERROR_EXTENSION_NOT_PRESENT)?;
                     Ok(Self::Ohos(fns))
                 }
 
                 #[cfg(any(target_os = "macos", target_os = "ios"))]
                 RawDisplayHandle::AppKit(_) | RawDisplayHandle::UiKit(_) => {
-                    let fns = vk::ext::metal_surface::InstanceFn::load(&load)
+                    let fns = vk::ext::metal_surface::InstanceFn::load_with(&load)
                         .map_err(|_| vk::Result::ERROR_EXTENSION_NOT_PRESENT)?;
                     Ok(Self::Metal(fns))
                 }

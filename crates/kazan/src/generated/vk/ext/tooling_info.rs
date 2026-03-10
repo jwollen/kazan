@@ -35,8 +35,8 @@ pub struct InstanceFn {
     get_physical_device_tool_properties_ext: PFN_vkGetPhysicalDeviceToolProperties,
 }
 
-impl InstanceFn {
-    pub unsafe fn load(
+impl LoadInstanceFn for InstanceFn {
+    unsafe fn load_with(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {

@@ -1,6 +1,61 @@
 use core::fmt;
 use core::{ffi::CStr, mem};
 
+use crate::vk::PFN_vkVoidFunction;
+
+/// Trait for dispatch tables loaded via `vkGetInstanceProcAddr`.
+pub trait LoadInstanceFn: Sized {
+    /// Load using a raw function pointer loader.
+    ///
+    /// # Safety
+    /// The loader must return valid function pointers for the requested names.
+    unsafe fn load_with(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, MissingEntryPointError>;
+
+    /// Load from an `Entry` and `Instance`.
+    ///
+    /// # Safety
+    /// `instance` must be a valid Vulkan instance.
+    unsafe fn load(
+        entry: &Entry,
+        instance: crate::vk::Instance,
+    ) -> core::result::Result<Self, MissingEntryPointError> {
+        unsafe {
+            Self::load_with(|name| {
+                mem::transmute((entry.static_fn.get_instance_proc_addr)(
+                    instance,
+                    name.as_ptr(),
+                ))
+            })
+        }
+    }
+}
+
+/// Trait for dispatch tables loaded via `vkGetDeviceProcAddr`.
+pub trait LoadDeviceFn: Sized {
+    /// Load using a raw function pointer loader.
+    ///
+    /// # Safety
+    /// The loader must return valid function pointers for the requested names.
+    unsafe fn load_with(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, MissingEntryPointError>;
+
+    /// Load from a `vk1_0::InstanceFn` and `Device`.
+    ///
+    /// # Safety
+    /// `device` must be a valid Vulkan device.
+    unsafe fn load(
+        instance_fn: &crate::vk::vk1_0::InstanceFn,
+        device: crate::vk::Device,
+    ) -> core::result::Result<Self, MissingEntryPointError> {
+        unsafe {
+            Self::load_with(|name| mem::transmute(instance_fn.get_device_proc_addr(device, name)))
+        }
+    }
+}
+
 #[cfg(feature = "loaded")]
 use std::ffi::OsStr;
 
@@ -198,7 +253,7 @@ mod tests {
     fn test_loaded() -> Result<(), TestError> {
         let entry = unsafe { Entry::load()? };
 
-        let api_version = if let Some(vk1_1) = entry.vk1_1 {
+        let api_version = if let Some(vk1_1) = &entry.vk1_1 {
             crate::ApiVersion::from_raw(unsafe { vk1_1.enumerate_instance_version()? })
         } else {
             vk::vk1_0::API_VERSION
@@ -227,13 +282,8 @@ mod tests {
 
         let instance_fn = InstanceFn {
             vk1_0: unsafe {
-                vk::vk1_0::InstanceFn::load(|name| {
-                    mem::transmute((entry.static_fn.get_instance_proc_addr)(
-                        instance,
-                        name.as_ptr(),
-                    ))
-                })
-                .map_err(|e| TestError::Loading(LoadingError::MissingEntryPoint(e)))?
+                crate::LoadInstanceFn::load(&entry, instance)
+                    .map_err(|e| TestError::Loading(LoadingError::MissingEntryPoint(e)))?
             },
         };
 

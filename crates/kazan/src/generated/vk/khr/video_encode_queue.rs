@@ -1365,8 +1365,8 @@ pub struct InstanceFn {
         PFN_vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR,
 }
 
-impl InstanceFn {
-    pub unsafe fn load(
+impl LoadInstanceFn for InstanceFn {
+    unsafe fn load_with(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
@@ -1409,8 +1409,8 @@ pub struct DeviceFn {
     cmd_encode_video_khr: PFN_vkCmdEncodeVideoKHR,
 }
 
-impl DeviceFn {
-    pub unsafe fn load(
+impl LoadDeviceFn for DeviceFn {
+    unsafe fn load_with(
         load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
