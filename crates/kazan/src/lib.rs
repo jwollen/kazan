@@ -228,3 +228,30 @@ pub(crate) fn write_c_str_slice_with_nul(
 }
 
 pub type Result<T> = core::result::Result<T, vk::Result>;
+
+/// Set a bitfield region within an integer, with a range check on the value.
+///
+/// `OFFSET` is the bit position of the field's least-significant bit.
+/// `WIDTH` is the number of bits in the field.
+///
+/// # Panics
+///
+/// Panics if `value` does not fit in `WIDTH` bits.
+#[inline(always)]
+pub(crate) fn set_bitfield<const OFFSET: u32, const WIDTH: u32>(field: &mut u32, value: u32) {
+    assert!(
+        value >> WIDTH == 0,
+        "bitfield value {value:#x} does not fit in {WIDTH} bits",
+    );
+    const { assert!(OFFSET + WIDTH <= u32::BITS) };
+    let mask = ((1u32 << WIDTH) - 1) << OFFSET;
+    *field = (*field & !mask) | (value << OFFSET);
+}
+
+/// Set a single-bit bitfield from a `bool`.
+#[inline(always)]
+pub(crate) fn set_bitfield_bool<const OFFSET: u32>(field: &mut u32, value: bool) {
+    const { assert!(OFFSET < u32::BITS) };
+    let mask = 1u32 << OFFSET;
+    *field = (*field & !mask) | ((value as u32) << OFFSET);
+}

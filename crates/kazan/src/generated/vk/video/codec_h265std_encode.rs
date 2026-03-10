@@ -284,116 +284,100 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoEncodeH265SliceSegmentHeaderFlags {
-        pub first_slice_segment_in_pic_flag: u32,
-        pub dependent_slice_segment_flag: u32,
-        pub slice_sao_luma_flag: u32,
-        pub slice_sao_chroma_flag: u32,
-        pub num_ref_idx_active_override_flag: u32,
-        pub mvd_l1_zero_flag: u32,
-        pub cabac_init_flag: u32,
-        pub cu_chroma_qp_offset_enabled_flag: u32,
-        pub deblocking_filter_override_flag: u32,
-        pub slice_deblocking_filter_disabled_flag: u32,
-        pub collocated_from_l0_flag: u32,
-        pub slice_loop_filter_across_slices_enabled_flag: u32,
-        pub reserved: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoEncodeH265SliceSegmentHeaderFlags {
         #[inline]
         pub fn first_slice_segment_in_pic_flag(
             mut self,
-            first_slice_segment_in_pic_flag: u32,
+            first_slice_segment_in_pic_flag: bool,
         ) -> Self {
-            self.first_slice_segment_in_pic_flag = first_slice_segment_in_pic_flag;
+            set_bitfield_bool::<0>(&mut self._bitfield_0, first_slice_segment_in_pic_flag);
             self
         }
 
         #[inline]
-        pub fn dependent_slice_segment_flag(mut self, dependent_slice_segment_flag: u32) -> Self {
-            self.dependent_slice_segment_flag = dependent_slice_segment_flag;
+        pub fn dependent_slice_segment_flag(mut self, dependent_slice_segment_flag: bool) -> Self {
+            set_bitfield_bool::<1>(&mut self._bitfield_0, dependent_slice_segment_flag);
             self
         }
 
         #[inline]
-        pub fn slice_sao_luma_flag(mut self, slice_sao_luma_flag: u32) -> Self {
-            self.slice_sao_luma_flag = slice_sao_luma_flag;
+        pub fn slice_sao_luma_flag(mut self, slice_sao_luma_flag: bool) -> Self {
+            set_bitfield_bool::<2>(&mut self._bitfield_0, slice_sao_luma_flag);
             self
         }
 
         #[inline]
-        pub fn slice_sao_chroma_flag(mut self, slice_sao_chroma_flag: u32) -> Self {
-            self.slice_sao_chroma_flag = slice_sao_chroma_flag;
+        pub fn slice_sao_chroma_flag(mut self, slice_sao_chroma_flag: bool) -> Self {
+            set_bitfield_bool::<3>(&mut self._bitfield_0, slice_sao_chroma_flag);
             self
         }
 
         #[inline]
         pub fn num_ref_idx_active_override_flag(
             mut self,
-            num_ref_idx_active_override_flag: u32,
+            num_ref_idx_active_override_flag: bool,
         ) -> Self {
-            self.num_ref_idx_active_override_flag = num_ref_idx_active_override_flag;
+            set_bitfield_bool::<4>(&mut self._bitfield_0, num_ref_idx_active_override_flag);
             self
         }
 
         #[inline]
-        pub fn mvd_l1_zero_flag(mut self, mvd_l1_zero_flag: u32) -> Self {
-            self.mvd_l1_zero_flag = mvd_l1_zero_flag;
+        pub fn mvd_l1_zero_flag(mut self, mvd_l1_zero_flag: bool) -> Self {
+            set_bitfield_bool::<5>(&mut self._bitfield_0, mvd_l1_zero_flag);
             self
         }
 
         #[inline]
-        pub fn cabac_init_flag(mut self, cabac_init_flag: u32) -> Self {
-            self.cabac_init_flag = cabac_init_flag;
+        pub fn cabac_init_flag(mut self, cabac_init_flag: bool) -> Self {
+            set_bitfield_bool::<6>(&mut self._bitfield_0, cabac_init_flag);
             self
         }
 
         #[inline]
         pub fn cu_chroma_qp_offset_enabled_flag(
             mut self,
-            cu_chroma_qp_offset_enabled_flag: u32,
+            cu_chroma_qp_offset_enabled_flag: bool,
         ) -> Self {
-            self.cu_chroma_qp_offset_enabled_flag = cu_chroma_qp_offset_enabled_flag;
+            set_bitfield_bool::<7>(&mut self._bitfield_0, cu_chroma_qp_offset_enabled_flag);
             self
         }
 
         #[inline]
         pub fn deblocking_filter_override_flag(
             mut self,
-            deblocking_filter_override_flag: u32,
+            deblocking_filter_override_flag: bool,
         ) -> Self {
-            self.deblocking_filter_override_flag = deblocking_filter_override_flag;
+            set_bitfield_bool::<8>(&mut self._bitfield_0, deblocking_filter_override_flag);
             self
         }
 
         #[inline]
         pub fn slice_deblocking_filter_disabled_flag(
             mut self,
-            slice_deblocking_filter_disabled_flag: u32,
+            slice_deblocking_filter_disabled_flag: bool,
         ) -> Self {
-            self.slice_deblocking_filter_disabled_flag = slice_deblocking_filter_disabled_flag;
+            set_bitfield_bool::<9>(&mut self._bitfield_0, slice_deblocking_filter_disabled_flag);
             self
         }
 
         #[inline]
-        pub fn collocated_from_l0_flag(mut self, collocated_from_l0_flag: u32) -> Self {
-            self.collocated_from_l0_flag = collocated_from_l0_flag;
+        pub fn collocated_from_l0_flag(mut self, collocated_from_l0_flag: bool) -> Self {
+            set_bitfield_bool::<10>(&mut self._bitfield_0, collocated_from_l0_flag);
             self
         }
 
         #[inline]
         pub fn slice_loop_filter_across_slices_enabled_flag(
             mut self,
-            slice_loop_filter_across_slices_enabled_flag: u32,
+            slice_loop_filter_across_slices_enabled_flag: bool,
         ) -> Self {
-            self.slice_loop_filter_across_slices_enabled_flag =
-                slice_loop_filter_across_slices_enabled_flag;
-            self
-        }
-
-        #[inline]
-        pub fn reserved(mut self, reserved: u32) -> Self {
-            self.reserved = reserved;
+            set_bitfield_bool::<11>(
+                &mut self._bitfield_0,
+                slice_loop_filter_across_slices_enabled_flag,
+            );
             self
         }
     }
@@ -565,33 +549,25 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoEncodeH265ReferenceListsInfoFlags {
-        pub ref_pic_list_modification_flag_l0: u32,
-        pub ref_pic_list_modification_flag_l1: u32,
-        pub reserved: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoEncodeH265ReferenceListsInfoFlags {
         #[inline]
         pub fn ref_pic_list_modification_flag_l0(
             mut self,
-            ref_pic_list_modification_flag_l0: u32,
+            ref_pic_list_modification_flag_l0: bool,
         ) -> Self {
-            self.ref_pic_list_modification_flag_l0 = ref_pic_list_modification_flag_l0;
+            set_bitfield_bool::<0>(&mut self._bitfield_0, ref_pic_list_modification_flag_l0);
             self
         }
 
         #[inline]
         pub fn ref_pic_list_modification_flag_l1(
             mut self,
-            ref_pic_list_modification_flag_l1: u32,
+            ref_pic_list_modification_flag_l1: bool,
         ) -> Self {
-            self.ref_pic_list_modification_flag_l1 = ref_pic_list_modification_flag_l1;
-            self
-        }
-
-        #[inline]
-        pub fn reserved(mut self, reserved: u32) -> Self {
-            self.reserved = reserved;
+            set_bitfield_bool::<1>(&mut self._bitfield_0, ref_pic_list_modification_flag_l1);
             self
         }
     }
@@ -687,82 +663,67 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoEncodeH265PictureInfoFlags {
-        pub is_reference: u32,
-        pub irap_pic_flag: u32,
-        pub used_for_long_term_reference: u32,
-        pub discardable_flag: u32,
-        pub cross_layer_bla_flag: u32,
-        pub pic_output_flag: u32,
-        pub no_output_of_prior_pics_flag: u32,
-        pub short_term_ref_pic_set_sps_flag: u32,
-        pub slice_temporal_mvp_enabled_flag: u32,
-        pub reserved: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoEncodeH265PictureInfoFlags {
         #[inline]
-        pub fn is_reference(mut self, is_reference: u32) -> Self {
-            self.is_reference = is_reference;
+        pub fn is_reference(mut self, is_reference: bool) -> Self {
+            set_bitfield_bool::<0>(&mut self._bitfield_0, is_reference);
             self
         }
 
         #[inline]
-        pub fn irap_pic_flag(mut self, irap_pic_flag: u32) -> Self {
-            self.irap_pic_flag = irap_pic_flag;
+        pub fn irap_pic_flag(mut self, irap_pic_flag: bool) -> Self {
+            set_bitfield_bool::<1>(&mut self._bitfield_0, irap_pic_flag);
             self
         }
 
         #[inline]
-        pub fn used_for_long_term_reference(mut self, used_for_long_term_reference: u32) -> Self {
-            self.used_for_long_term_reference = used_for_long_term_reference;
+        pub fn used_for_long_term_reference(mut self, used_for_long_term_reference: bool) -> Self {
+            set_bitfield_bool::<2>(&mut self._bitfield_0, used_for_long_term_reference);
             self
         }
 
         #[inline]
-        pub fn discardable_flag(mut self, discardable_flag: u32) -> Self {
-            self.discardable_flag = discardable_flag;
+        pub fn discardable_flag(mut self, discardable_flag: bool) -> Self {
+            set_bitfield_bool::<3>(&mut self._bitfield_0, discardable_flag);
             self
         }
 
         #[inline]
-        pub fn cross_layer_bla_flag(mut self, cross_layer_bla_flag: u32) -> Self {
-            self.cross_layer_bla_flag = cross_layer_bla_flag;
+        pub fn cross_layer_bla_flag(mut self, cross_layer_bla_flag: bool) -> Self {
+            set_bitfield_bool::<4>(&mut self._bitfield_0, cross_layer_bla_flag);
             self
         }
 
         #[inline]
-        pub fn pic_output_flag(mut self, pic_output_flag: u32) -> Self {
-            self.pic_output_flag = pic_output_flag;
+        pub fn pic_output_flag(mut self, pic_output_flag: bool) -> Self {
+            set_bitfield_bool::<5>(&mut self._bitfield_0, pic_output_flag);
             self
         }
 
         #[inline]
-        pub fn no_output_of_prior_pics_flag(mut self, no_output_of_prior_pics_flag: u32) -> Self {
-            self.no_output_of_prior_pics_flag = no_output_of_prior_pics_flag;
+        pub fn no_output_of_prior_pics_flag(mut self, no_output_of_prior_pics_flag: bool) -> Self {
+            set_bitfield_bool::<6>(&mut self._bitfield_0, no_output_of_prior_pics_flag);
             self
         }
 
         #[inline]
         pub fn short_term_ref_pic_set_sps_flag(
             mut self,
-            short_term_ref_pic_set_sps_flag: u32,
+            short_term_ref_pic_set_sps_flag: bool,
         ) -> Self {
-            self.short_term_ref_pic_set_sps_flag = short_term_ref_pic_set_sps_flag;
+            set_bitfield_bool::<7>(&mut self._bitfield_0, short_term_ref_pic_set_sps_flag);
             self
         }
 
         #[inline]
         pub fn slice_temporal_mvp_enabled_flag(
             mut self,
-            slice_temporal_mvp_enabled_flag: u32,
+            slice_temporal_mvp_enabled_flag: bool,
         ) -> Self {
-            self.slice_temporal_mvp_enabled_flag = slice_temporal_mvp_enabled_flag;
-            self
-        }
-
-        #[inline]
-        pub fn reserved(mut self, reserved: u32) -> Self {
-            self.reserved = reserved;
+            set_bitfield_bool::<8>(&mut self._bitfield_0, slice_temporal_mvp_enabled_flag);
             self
         }
     }
@@ -919,27 +880,19 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoEncodeH265ReferenceInfoFlags {
-        pub used_for_long_term_reference: u32,
-        pub unused_for_reference: u32,
-        pub reserved: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoEncodeH265ReferenceInfoFlags {
         #[inline]
-        pub fn used_for_long_term_reference(mut self, used_for_long_term_reference: u32) -> Self {
-            self.used_for_long_term_reference = used_for_long_term_reference;
+        pub fn used_for_long_term_reference(mut self, used_for_long_term_reference: bool) -> Self {
+            set_bitfield_bool::<0>(&mut self._bitfield_0, used_for_long_term_reference);
             self
         }
 
         #[inline]
-        pub fn unused_for_reference(mut self, unused_for_reference: u32) -> Self {
-            self.unused_for_reference = unused_for_reference;
-            self
-        }
-
-        #[inline]
-        pub fn reserved(mut self, reserved: u32) -> Self {
-            self.reserved = reserved;
+        pub fn unused_for_reference(mut self, unused_for_reference: bool) -> Self {
+            set_bitfield_bool::<1>(&mut self._bitfield_0, unused_for_reference);
             self
         }
     }

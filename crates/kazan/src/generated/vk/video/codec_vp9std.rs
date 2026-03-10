@@ -30,20 +30,13 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoVP9ColorConfigFlags {
-        pub color_range: u32,
-        pub reserved: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoVP9ColorConfigFlags {
         #[inline]
-        pub fn color_range(mut self, color_range: u32) -> Self {
-            self.color_range = color_range;
-            self
-        }
-
-        #[inline]
-        pub fn reserved(mut self, reserved: u32) -> Self {
-            self.reserved = reserved;
+        pub fn color_range(mut self, color_range: bool) -> Self {
+            set_bitfield_bool::<0>(&mut self._bitfield_0, color_range);
             self
         }
     }
@@ -106,27 +99,19 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoVP9LoopFilterFlags {
-        pub loop_filter_delta_enabled: u32,
-        pub loop_filter_delta_update: u32,
-        pub reserved: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoVP9LoopFilterFlags {
         #[inline]
-        pub fn loop_filter_delta_enabled(mut self, loop_filter_delta_enabled: u32) -> Self {
-            self.loop_filter_delta_enabled = loop_filter_delta_enabled;
+        pub fn loop_filter_delta_enabled(mut self, loop_filter_delta_enabled: bool) -> Self {
+            set_bitfield_bool::<0>(&mut self._bitfield_0, loop_filter_delta_enabled);
             self
         }
 
         #[inline]
-        pub fn loop_filter_delta_update(mut self, loop_filter_delta_update: u32) -> Self {
-            self.loop_filter_delta_update = loop_filter_delta_update;
-            self
-        }
-
-        #[inline]
-        pub fn reserved(mut self, reserved: u32) -> Self {
-            self.reserved = reserved;
+        pub fn loop_filter_delta_update(mut self, loop_filter_delta_update: bool) -> Self {
+            set_bitfield_bool::<1>(&mut self._bitfield_0, loop_filter_delta_update);
             self
         }
     }
@@ -216,44 +201,34 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoVP9SegmentationFlags {
-        pub segmentation_update_map: u32,
-        pub segmentation_temporal_update: u32,
-        pub segmentation_update_data: u32,
-        pub segmentation_abs_or_delta_update: u32,
-        pub reserved: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoVP9SegmentationFlags {
         #[inline]
-        pub fn segmentation_update_map(mut self, segmentation_update_map: u32) -> Self {
-            self.segmentation_update_map = segmentation_update_map;
+        pub fn segmentation_update_map(mut self, segmentation_update_map: bool) -> Self {
+            set_bitfield_bool::<0>(&mut self._bitfield_0, segmentation_update_map);
             self
         }
 
         #[inline]
-        pub fn segmentation_temporal_update(mut self, segmentation_temporal_update: u32) -> Self {
-            self.segmentation_temporal_update = segmentation_temporal_update;
+        pub fn segmentation_temporal_update(mut self, segmentation_temporal_update: bool) -> Self {
+            set_bitfield_bool::<1>(&mut self._bitfield_0, segmentation_temporal_update);
             self
         }
 
         #[inline]
-        pub fn segmentation_update_data(mut self, segmentation_update_data: u32) -> Self {
-            self.segmentation_update_data = segmentation_update_data;
+        pub fn segmentation_update_data(mut self, segmentation_update_data: bool) -> Self {
+            set_bitfield_bool::<2>(&mut self._bitfield_0, segmentation_update_data);
             self
         }
 
         #[inline]
         pub fn segmentation_abs_or_delta_update(
             mut self,
-            segmentation_abs_or_delta_update: u32,
+            segmentation_abs_or_delta_update: bool,
         ) -> Self {
-            self.segmentation_abs_or_delta_update = segmentation_abs_or_delta_update;
-            self
-        }
-
-        #[inline]
-        pub fn reserved(mut self, reserved: u32) -> Self {
-            self.reserved = reserved;
+            set_bitfield_bool::<3>(&mut self._bitfield_0, segmentation_abs_or_delta_update);
             self
         }
     }

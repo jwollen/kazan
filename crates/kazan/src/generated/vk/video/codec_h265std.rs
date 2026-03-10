@@ -45,53 +45,49 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoH265ProfileTierLevelFlags {
-        pub general_tier_flag: u32,
-        pub general_progressive_source_flag: u32,
-        pub general_interlaced_source_flag: u32,
-        pub general_non_packed_constraint_flag: u32,
-        pub general_frame_only_constraint_flag: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoH265ProfileTierLevelFlags {
         #[inline]
-        pub fn general_tier_flag(mut self, general_tier_flag: u32) -> Self {
-            self.general_tier_flag = general_tier_flag;
+        pub fn general_tier_flag(mut self, general_tier_flag: bool) -> Self {
+            set_bitfield_bool::<0>(&mut self._bitfield_0, general_tier_flag);
             self
         }
 
         #[inline]
         pub fn general_progressive_source_flag(
             mut self,
-            general_progressive_source_flag: u32,
+            general_progressive_source_flag: bool,
         ) -> Self {
-            self.general_progressive_source_flag = general_progressive_source_flag;
+            set_bitfield_bool::<1>(&mut self._bitfield_0, general_progressive_source_flag);
             self
         }
 
         #[inline]
         pub fn general_interlaced_source_flag(
             mut self,
-            general_interlaced_source_flag: u32,
+            general_interlaced_source_flag: bool,
         ) -> Self {
-            self.general_interlaced_source_flag = general_interlaced_source_flag;
+            set_bitfield_bool::<2>(&mut self._bitfield_0, general_interlaced_source_flag);
             self
         }
 
         #[inline]
         pub fn general_non_packed_constraint_flag(
             mut self,
-            general_non_packed_constraint_flag: u32,
+            general_non_packed_constraint_flag: bool,
         ) -> Self {
-            self.general_non_packed_constraint_flag = general_non_packed_constraint_flag;
+            set_bitfield_bool::<3>(&mut self._bitfield_0, general_non_packed_constraint_flag);
             self
         }
 
         #[inline]
         pub fn general_frame_only_constraint_flag(
             mut self,
-            general_frame_only_constraint_flag: u32,
+            general_frame_only_constraint_flag: bool,
         ) -> Self {
-            self.general_frame_only_constraint_flag = general_frame_only_constraint_flag;
+            set_bitfield_bool::<4>(&mut self._bitfield_0, general_frame_only_constraint_flag);
             self
         }
     }
@@ -252,56 +248,52 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoH265HrdFlags {
-        pub nal_hrd_parameters_present_flag: u32,
-        pub vcl_hrd_parameters_present_flag: u32,
-        pub sub_pic_hrd_params_present_flag: u32,
-        pub sub_pic_cpb_params_in_pic_timing_sei_flag: u32,
-        pub fixed_pic_rate_general_flag: u32,
-        pub fixed_pic_rate_within_cvs_flag: u32,
-        pub low_delay_hrd_flag: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoH265HrdFlags {
         #[inline]
         pub fn nal_hrd_parameters_present_flag(
             mut self,
-            nal_hrd_parameters_present_flag: u32,
+            nal_hrd_parameters_present_flag: bool,
         ) -> Self {
-            self.nal_hrd_parameters_present_flag = nal_hrd_parameters_present_flag;
+            set_bitfield_bool::<0>(&mut self._bitfield_0, nal_hrd_parameters_present_flag);
             self
         }
 
         #[inline]
         pub fn vcl_hrd_parameters_present_flag(
             mut self,
-            vcl_hrd_parameters_present_flag: u32,
+            vcl_hrd_parameters_present_flag: bool,
         ) -> Self {
-            self.vcl_hrd_parameters_present_flag = vcl_hrd_parameters_present_flag;
+            set_bitfield_bool::<1>(&mut self._bitfield_0, vcl_hrd_parameters_present_flag);
             self
         }
 
         #[inline]
         pub fn sub_pic_hrd_params_present_flag(
             mut self,
-            sub_pic_hrd_params_present_flag: u32,
+            sub_pic_hrd_params_present_flag: bool,
         ) -> Self {
-            self.sub_pic_hrd_params_present_flag = sub_pic_hrd_params_present_flag;
+            set_bitfield_bool::<2>(&mut self._bitfield_0, sub_pic_hrd_params_present_flag);
             self
         }
 
         #[inline]
         pub fn sub_pic_cpb_params_in_pic_timing_sei_flag(
             mut self,
-            sub_pic_cpb_params_in_pic_timing_sei_flag: u32,
+            sub_pic_cpb_params_in_pic_timing_sei_flag: bool,
         ) -> Self {
-            self.sub_pic_cpb_params_in_pic_timing_sei_flag =
-                sub_pic_cpb_params_in_pic_timing_sei_flag;
+            set_bitfield_bool::<3>(
+                &mut self._bitfield_0,
+                sub_pic_cpb_params_in_pic_timing_sei_flag,
+            );
             self
         }
 
         #[inline]
         pub fn fixed_pic_rate_general_flag(mut self, fixed_pic_rate_general_flag: u32) -> Self {
-            self.fixed_pic_rate_general_flag = fixed_pic_rate_general_flag;
+            set_bitfield::<4, 8>(&mut self._bitfield_0, fixed_pic_rate_general_flag);
             self
         }
 
@@ -310,13 +302,13 @@ pub(super) mod defs {
             mut self,
             fixed_pic_rate_within_cvs_flag: u32,
         ) -> Self {
-            self.fixed_pic_rate_within_cvs_flag = fixed_pic_rate_within_cvs_flag;
+            set_bitfield::<12, 8>(&mut self._bitfield_0, fixed_pic_rate_within_cvs_flag);
             self
         }
 
         #[inline]
         pub fn low_delay_hrd_flag(mut self, low_delay_hrd_flag: u32) -> Self {
-            self.low_delay_hrd_flag = low_delay_hrd_flag;
+            set_bitfield::<20, 8>(&mut self._bitfield_0, low_delay_hrd_flag);
             self
         }
     }
@@ -508,12 +500,6 @@ pub(super) mod defs {
             self.elemental_duration_in_tc_minus1 = elemental_duration_in_tc_minus1;
             self
         }
-
-        #[inline]
-        pub fn reserved(mut self, reserved: [u16; 3]) -> Self {
-            self.reserved = reserved;
-            self
-        }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/StdVideoH265VpsFlags.html>
@@ -522,41 +508,40 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoH265VpsFlags {
-        pub vps_temporal_id_nesting_flag: u32,
-        pub vps_sub_layer_ordering_info_present_flag: u32,
-        pub vps_timing_info_present_flag: u32,
-        pub vps_poc_proportional_to_timing_flag: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoH265VpsFlags {
         #[inline]
-        pub fn vps_temporal_id_nesting_flag(mut self, vps_temporal_id_nesting_flag: u32) -> Self {
-            self.vps_temporal_id_nesting_flag = vps_temporal_id_nesting_flag;
+        pub fn vps_temporal_id_nesting_flag(mut self, vps_temporal_id_nesting_flag: bool) -> Self {
+            set_bitfield_bool::<0>(&mut self._bitfield_0, vps_temporal_id_nesting_flag);
             self
         }
 
         #[inline]
         pub fn vps_sub_layer_ordering_info_present_flag(
             mut self,
-            vps_sub_layer_ordering_info_present_flag: u32,
+            vps_sub_layer_ordering_info_present_flag: bool,
         ) -> Self {
-            self.vps_sub_layer_ordering_info_present_flag =
-                vps_sub_layer_ordering_info_present_flag;
+            set_bitfield_bool::<1>(
+                &mut self._bitfield_0,
+                vps_sub_layer_ordering_info_present_flag,
+            );
             self
         }
 
         #[inline]
-        pub fn vps_timing_info_present_flag(mut self, vps_timing_info_present_flag: u32) -> Self {
-            self.vps_timing_info_present_flag = vps_timing_info_present_flag;
+        pub fn vps_timing_info_present_flag(mut self, vps_timing_info_present_flag: bool) -> Self {
+            set_bitfield_bool::<2>(&mut self._bitfield_0, vps_timing_info_present_flag);
             self
         }
 
         #[inline]
         pub fn vps_poc_proportional_to_timing_flag(
             mut self,
-            vps_poc_proportional_to_timing_flag: u32,
+            vps_poc_proportional_to_timing_flag: bool,
         ) -> Self {
-            self.vps_poc_proportional_to_timing_flag = vps_poc_proportional_to_timing_flag;
+            set_bitfield_bool::<3>(&mut self._bitfield_0, vps_poc_proportional_to_timing_flag);
             self
         }
     }
@@ -804,23 +789,22 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoH265ShortTermRefPicSetFlags {
-        pub inter_ref_pic_set_prediction_flag: u32,
-        pub delta_rps_sign: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoH265ShortTermRefPicSetFlags {
         #[inline]
         pub fn inter_ref_pic_set_prediction_flag(
             mut self,
-            inter_ref_pic_set_prediction_flag: u32,
+            inter_ref_pic_set_prediction_flag: bool,
         ) -> Self {
-            self.inter_ref_pic_set_prediction_flag = inter_ref_pic_set_prediction_flag;
+            set_bitfield_bool::<0>(&mut self._bitfield_0, inter_ref_pic_set_prediction_flag);
             self
         }
 
         #[inline]
-        pub fn delta_rps_sign(mut self, delta_rps_sign: u32) -> Self {
-            self.delta_rps_sign = delta_rps_sign;
+        pub fn delta_rps_sign(mut self, delta_rps_sign: bool) -> Self {
+            set_bitfield_bool::<1>(&mut self._bitfield_0, delta_rps_sign);
             self
         }
     }
@@ -1002,153 +986,145 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoH265SpsVuiFlags {
-        pub aspect_ratio_info_present_flag: u32,
-        pub overscan_info_present_flag: u32,
-        pub overscan_appropriate_flag: u32,
-        pub video_signal_type_present_flag: u32,
-        pub video_full_range_flag: u32,
-        pub colour_description_present_flag: u32,
-        pub chroma_loc_info_present_flag: u32,
-        pub neutral_chroma_indication_flag: u32,
-        pub field_seq_flag: u32,
-        pub frame_field_info_present_flag: u32,
-        pub default_display_window_flag: u32,
-        pub vui_timing_info_present_flag: u32,
-        pub vui_poc_proportional_to_timing_flag: u32,
-        pub vui_hrd_parameters_present_flag: u32,
-        pub bitstream_restriction_flag: u32,
-        pub tiles_fixed_structure_flag: u32,
-        pub motion_vectors_over_pic_boundaries_flag: u32,
-        pub restricted_ref_pic_lists_flag: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoH265SpsVuiFlags {
         #[inline]
         pub fn aspect_ratio_info_present_flag(
             mut self,
-            aspect_ratio_info_present_flag: u32,
+            aspect_ratio_info_present_flag: bool,
         ) -> Self {
-            self.aspect_ratio_info_present_flag = aspect_ratio_info_present_flag;
+            set_bitfield_bool::<0>(&mut self._bitfield_0, aspect_ratio_info_present_flag);
             self
         }
 
         #[inline]
-        pub fn overscan_info_present_flag(mut self, overscan_info_present_flag: u32) -> Self {
-            self.overscan_info_present_flag = overscan_info_present_flag;
+        pub fn overscan_info_present_flag(mut self, overscan_info_present_flag: bool) -> Self {
+            set_bitfield_bool::<1>(&mut self._bitfield_0, overscan_info_present_flag);
             self
         }
 
         #[inline]
-        pub fn overscan_appropriate_flag(mut self, overscan_appropriate_flag: u32) -> Self {
-            self.overscan_appropriate_flag = overscan_appropriate_flag;
+        pub fn overscan_appropriate_flag(mut self, overscan_appropriate_flag: bool) -> Self {
+            set_bitfield_bool::<2>(&mut self._bitfield_0, overscan_appropriate_flag);
             self
         }
 
         #[inline]
         pub fn video_signal_type_present_flag(
             mut self,
-            video_signal_type_present_flag: u32,
+            video_signal_type_present_flag: bool,
         ) -> Self {
-            self.video_signal_type_present_flag = video_signal_type_present_flag;
+            set_bitfield_bool::<3>(&mut self._bitfield_0, video_signal_type_present_flag);
             self
         }
 
         #[inline]
-        pub fn video_full_range_flag(mut self, video_full_range_flag: u32) -> Self {
-            self.video_full_range_flag = video_full_range_flag;
+        pub fn video_full_range_flag(mut self, video_full_range_flag: bool) -> Self {
+            set_bitfield_bool::<4>(&mut self._bitfield_0, video_full_range_flag);
             self
         }
 
         #[inline]
         pub fn colour_description_present_flag(
             mut self,
-            colour_description_present_flag: u32,
+            colour_description_present_flag: bool,
         ) -> Self {
-            self.colour_description_present_flag = colour_description_present_flag;
+            set_bitfield_bool::<5>(&mut self._bitfield_0, colour_description_present_flag);
             self
         }
 
         #[inline]
-        pub fn chroma_loc_info_present_flag(mut self, chroma_loc_info_present_flag: u32) -> Self {
-            self.chroma_loc_info_present_flag = chroma_loc_info_present_flag;
+        pub fn chroma_loc_info_present_flag(mut self, chroma_loc_info_present_flag: bool) -> Self {
+            set_bitfield_bool::<6>(&mut self._bitfield_0, chroma_loc_info_present_flag);
             self
         }
 
         #[inline]
         pub fn neutral_chroma_indication_flag(
             mut self,
-            neutral_chroma_indication_flag: u32,
+            neutral_chroma_indication_flag: bool,
         ) -> Self {
-            self.neutral_chroma_indication_flag = neutral_chroma_indication_flag;
+            set_bitfield_bool::<7>(&mut self._bitfield_0, neutral_chroma_indication_flag);
             self
         }
 
         #[inline]
-        pub fn field_seq_flag(mut self, field_seq_flag: u32) -> Self {
-            self.field_seq_flag = field_seq_flag;
+        pub fn field_seq_flag(mut self, field_seq_flag: bool) -> Self {
+            set_bitfield_bool::<8>(&mut self._bitfield_0, field_seq_flag);
             self
         }
 
         #[inline]
-        pub fn frame_field_info_present_flag(mut self, frame_field_info_present_flag: u32) -> Self {
-            self.frame_field_info_present_flag = frame_field_info_present_flag;
+        pub fn frame_field_info_present_flag(
+            mut self,
+            frame_field_info_present_flag: bool,
+        ) -> Self {
+            set_bitfield_bool::<9>(&mut self._bitfield_0, frame_field_info_present_flag);
             self
         }
 
         #[inline]
-        pub fn default_display_window_flag(mut self, default_display_window_flag: u32) -> Self {
-            self.default_display_window_flag = default_display_window_flag;
+        pub fn default_display_window_flag(mut self, default_display_window_flag: bool) -> Self {
+            set_bitfield_bool::<10>(&mut self._bitfield_0, default_display_window_flag);
             self
         }
 
         #[inline]
-        pub fn vui_timing_info_present_flag(mut self, vui_timing_info_present_flag: u32) -> Self {
-            self.vui_timing_info_present_flag = vui_timing_info_present_flag;
+        pub fn vui_timing_info_present_flag(mut self, vui_timing_info_present_flag: bool) -> Self {
+            set_bitfield_bool::<11>(&mut self._bitfield_0, vui_timing_info_present_flag);
             self
         }
 
         #[inline]
         pub fn vui_poc_proportional_to_timing_flag(
             mut self,
-            vui_poc_proportional_to_timing_flag: u32,
+            vui_poc_proportional_to_timing_flag: bool,
         ) -> Self {
-            self.vui_poc_proportional_to_timing_flag = vui_poc_proportional_to_timing_flag;
+            set_bitfield_bool::<12>(&mut self._bitfield_0, vui_poc_proportional_to_timing_flag);
             self
         }
 
         #[inline]
         pub fn vui_hrd_parameters_present_flag(
             mut self,
-            vui_hrd_parameters_present_flag: u32,
+            vui_hrd_parameters_present_flag: bool,
         ) -> Self {
-            self.vui_hrd_parameters_present_flag = vui_hrd_parameters_present_flag;
+            set_bitfield_bool::<13>(&mut self._bitfield_0, vui_hrd_parameters_present_flag);
             self
         }
 
         #[inline]
-        pub fn bitstream_restriction_flag(mut self, bitstream_restriction_flag: u32) -> Self {
-            self.bitstream_restriction_flag = bitstream_restriction_flag;
+        pub fn bitstream_restriction_flag(mut self, bitstream_restriction_flag: bool) -> Self {
+            set_bitfield_bool::<14>(&mut self._bitfield_0, bitstream_restriction_flag);
             self
         }
 
         #[inline]
-        pub fn tiles_fixed_structure_flag(mut self, tiles_fixed_structure_flag: u32) -> Self {
-            self.tiles_fixed_structure_flag = tiles_fixed_structure_flag;
+        pub fn tiles_fixed_structure_flag(mut self, tiles_fixed_structure_flag: bool) -> Self {
+            set_bitfield_bool::<15>(&mut self._bitfield_0, tiles_fixed_structure_flag);
             self
         }
 
         #[inline]
         pub fn motion_vectors_over_pic_boundaries_flag(
             mut self,
-            motion_vectors_over_pic_boundaries_flag: u32,
+            motion_vectors_over_pic_boundaries_flag: bool,
         ) -> Self {
-            self.motion_vectors_over_pic_boundaries_flag = motion_vectors_over_pic_boundaries_flag;
+            set_bitfield_bool::<16>(
+                &mut self._bitfield_0,
+                motion_vectors_over_pic_boundaries_flag,
+            );
             self
         }
 
         #[inline]
-        pub fn restricted_ref_pic_lists_flag(mut self, restricted_ref_pic_lists_flag: u32) -> Self {
-            self.restricted_ref_pic_lists_flag = restricted_ref_pic_lists_flag;
+        pub fn restricted_ref_pic_lists_flag(
+            mut self,
+            restricted_ref_pic_lists_flag: bool,
+        ) -> Self {
+            set_bitfield_bool::<17>(&mut self._bitfield_0, restricted_ref_pic_lists_flag);
             self
         }
     }
@@ -1481,257 +1457,250 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoH265SpsFlags {
-        pub sps_temporal_id_nesting_flag: u32,
-        pub separate_colour_plane_flag: u32,
-        pub conformance_window_flag: u32,
-        pub sps_sub_layer_ordering_info_present_flag: u32,
-        pub scaling_list_enabled_flag: u32,
-        pub sps_scaling_list_data_present_flag: u32,
-        pub amp_enabled_flag: u32,
-        pub sample_adaptive_offset_enabled_flag: u32,
-        pub pcm_enabled_flag: u32,
-        pub pcm_loop_filter_disabled_flag: u32,
-        pub long_term_ref_pics_present_flag: u32,
-        pub sps_temporal_mvp_enabled_flag: u32,
-        pub strong_intra_smoothing_enabled_flag: u32,
-        pub vui_parameters_present_flag: u32,
-        pub sps_extension_present_flag: u32,
-        pub sps_range_extension_flag: u32,
-        pub transform_skip_rotation_enabled_flag: u32,
-        pub transform_skip_context_enabled_flag: u32,
-        pub implicit_rdpcm_enabled_flag: u32,
-        pub explicit_rdpcm_enabled_flag: u32,
-        pub extended_precision_processing_flag: u32,
-        pub intra_smoothing_disabled_flag: u32,
-        pub high_precision_offsets_enabled_flag: u32,
-        pub persistent_rice_adaptation_enabled_flag: u32,
-        pub cabac_bypass_alignment_enabled_flag: u32,
-        pub sps_scc_extension_flag: u32,
-        pub sps_curr_pic_ref_enabled_flag: u32,
-        pub palette_mode_enabled_flag: u32,
-        pub sps_palette_predictor_initializers_present_flag: u32,
-        pub intra_boundary_filtering_disabled_flag: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoH265SpsFlags {
         #[inline]
-        pub fn sps_temporal_id_nesting_flag(mut self, sps_temporal_id_nesting_flag: u32) -> Self {
-            self.sps_temporal_id_nesting_flag = sps_temporal_id_nesting_flag;
+        pub fn sps_temporal_id_nesting_flag(mut self, sps_temporal_id_nesting_flag: bool) -> Self {
+            set_bitfield_bool::<0>(&mut self._bitfield_0, sps_temporal_id_nesting_flag);
             self
         }
 
         #[inline]
-        pub fn separate_colour_plane_flag(mut self, separate_colour_plane_flag: u32) -> Self {
-            self.separate_colour_plane_flag = separate_colour_plane_flag;
+        pub fn separate_colour_plane_flag(mut self, separate_colour_plane_flag: bool) -> Self {
+            set_bitfield_bool::<1>(&mut self._bitfield_0, separate_colour_plane_flag);
             self
         }
 
         #[inline]
-        pub fn conformance_window_flag(mut self, conformance_window_flag: u32) -> Self {
-            self.conformance_window_flag = conformance_window_flag;
+        pub fn conformance_window_flag(mut self, conformance_window_flag: bool) -> Self {
+            set_bitfield_bool::<2>(&mut self._bitfield_0, conformance_window_flag);
             self
         }
 
         #[inline]
         pub fn sps_sub_layer_ordering_info_present_flag(
             mut self,
-            sps_sub_layer_ordering_info_present_flag: u32,
+            sps_sub_layer_ordering_info_present_flag: bool,
         ) -> Self {
-            self.sps_sub_layer_ordering_info_present_flag =
-                sps_sub_layer_ordering_info_present_flag;
+            set_bitfield_bool::<3>(
+                &mut self._bitfield_0,
+                sps_sub_layer_ordering_info_present_flag,
+            );
             self
         }
 
         #[inline]
-        pub fn scaling_list_enabled_flag(mut self, scaling_list_enabled_flag: u32) -> Self {
-            self.scaling_list_enabled_flag = scaling_list_enabled_flag;
+        pub fn scaling_list_enabled_flag(mut self, scaling_list_enabled_flag: bool) -> Self {
+            set_bitfield_bool::<4>(&mut self._bitfield_0, scaling_list_enabled_flag);
             self
         }
 
         #[inline]
         pub fn sps_scaling_list_data_present_flag(
             mut self,
-            sps_scaling_list_data_present_flag: u32,
+            sps_scaling_list_data_present_flag: bool,
         ) -> Self {
-            self.sps_scaling_list_data_present_flag = sps_scaling_list_data_present_flag;
+            set_bitfield_bool::<5>(&mut self._bitfield_0, sps_scaling_list_data_present_flag);
             self
         }
 
         #[inline]
-        pub fn amp_enabled_flag(mut self, amp_enabled_flag: u32) -> Self {
-            self.amp_enabled_flag = amp_enabled_flag;
+        pub fn amp_enabled_flag(mut self, amp_enabled_flag: bool) -> Self {
+            set_bitfield_bool::<6>(&mut self._bitfield_0, amp_enabled_flag);
             self
         }
 
         #[inline]
         pub fn sample_adaptive_offset_enabled_flag(
             mut self,
-            sample_adaptive_offset_enabled_flag: u32,
+            sample_adaptive_offset_enabled_flag: bool,
         ) -> Self {
-            self.sample_adaptive_offset_enabled_flag = sample_adaptive_offset_enabled_flag;
+            set_bitfield_bool::<7>(&mut self._bitfield_0, sample_adaptive_offset_enabled_flag);
             self
         }
 
         #[inline]
-        pub fn pcm_enabled_flag(mut self, pcm_enabled_flag: u32) -> Self {
-            self.pcm_enabled_flag = pcm_enabled_flag;
+        pub fn pcm_enabled_flag(mut self, pcm_enabled_flag: bool) -> Self {
+            set_bitfield_bool::<8>(&mut self._bitfield_0, pcm_enabled_flag);
             self
         }
 
         #[inline]
-        pub fn pcm_loop_filter_disabled_flag(mut self, pcm_loop_filter_disabled_flag: u32) -> Self {
-            self.pcm_loop_filter_disabled_flag = pcm_loop_filter_disabled_flag;
+        pub fn pcm_loop_filter_disabled_flag(
+            mut self,
+            pcm_loop_filter_disabled_flag: bool,
+        ) -> Self {
+            set_bitfield_bool::<9>(&mut self._bitfield_0, pcm_loop_filter_disabled_flag);
             self
         }
 
         #[inline]
         pub fn long_term_ref_pics_present_flag(
             mut self,
-            long_term_ref_pics_present_flag: u32,
+            long_term_ref_pics_present_flag: bool,
         ) -> Self {
-            self.long_term_ref_pics_present_flag = long_term_ref_pics_present_flag;
+            set_bitfield_bool::<10>(&mut self._bitfield_0, long_term_ref_pics_present_flag);
             self
         }
 
         #[inline]
-        pub fn sps_temporal_mvp_enabled_flag(mut self, sps_temporal_mvp_enabled_flag: u32) -> Self {
-            self.sps_temporal_mvp_enabled_flag = sps_temporal_mvp_enabled_flag;
+        pub fn sps_temporal_mvp_enabled_flag(
+            mut self,
+            sps_temporal_mvp_enabled_flag: bool,
+        ) -> Self {
+            set_bitfield_bool::<11>(&mut self._bitfield_0, sps_temporal_mvp_enabled_flag);
             self
         }
 
         #[inline]
         pub fn strong_intra_smoothing_enabled_flag(
             mut self,
-            strong_intra_smoothing_enabled_flag: u32,
+            strong_intra_smoothing_enabled_flag: bool,
         ) -> Self {
-            self.strong_intra_smoothing_enabled_flag = strong_intra_smoothing_enabled_flag;
+            set_bitfield_bool::<12>(&mut self._bitfield_0, strong_intra_smoothing_enabled_flag);
             self
         }
 
         #[inline]
-        pub fn vui_parameters_present_flag(mut self, vui_parameters_present_flag: u32) -> Self {
-            self.vui_parameters_present_flag = vui_parameters_present_flag;
+        pub fn vui_parameters_present_flag(mut self, vui_parameters_present_flag: bool) -> Self {
+            set_bitfield_bool::<13>(&mut self._bitfield_0, vui_parameters_present_flag);
             self
         }
 
         #[inline]
-        pub fn sps_extension_present_flag(mut self, sps_extension_present_flag: u32) -> Self {
-            self.sps_extension_present_flag = sps_extension_present_flag;
+        pub fn sps_extension_present_flag(mut self, sps_extension_present_flag: bool) -> Self {
+            set_bitfield_bool::<14>(&mut self._bitfield_0, sps_extension_present_flag);
             self
         }
 
         #[inline]
-        pub fn sps_range_extension_flag(mut self, sps_range_extension_flag: u32) -> Self {
-            self.sps_range_extension_flag = sps_range_extension_flag;
+        pub fn sps_range_extension_flag(mut self, sps_range_extension_flag: bool) -> Self {
+            set_bitfield_bool::<15>(&mut self._bitfield_0, sps_range_extension_flag);
             self
         }
 
         #[inline]
         pub fn transform_skip_rotation_enabled_flag(
             mut self,
-            transform_skip_rotation_enabled_flag: u32,
+            transform_skip_rotation_enabled_flag: bool,
         ) -> Self {
-            self.transform_skip_rotation_enabled_flag = transform_skip_rotation_enabled_flag;
+            set_bitfield_bool::<16>(&mut self._bitfield_0, transform_skip_rotation_enabled_flag);
             self
         }
 
         #[inline]
         pub fn transform_skip_context_enabled_flag(
             mut self,
-            transform_skip_context_enabled_flag: u32,
+            transform_skip_context_enabled_flag: bool,
         ) -> Self {
-            self.transform_skip_context_enabled_flag = transform_skip_context_enabled_flag;
+            set_bitfield_bool::<17>(&mut self._bitfield_0, transform_skip_context_enabled_flag);
             self
         }
 
         #[inline]
-        pub fn implicit_rdpcm_enabled_flag(mut self, implicit_rdpcm_enabled_flag: u32) -> Self {
-            self.implicit_rdpcm_enabled_flag = implicit_rdpcm_enabled_flag;
+        pub fn implicit_rdpcm_enabled_flag(mut self, implicit_rdpcm_enabled_flag: bool) -> Self {
+            set_bitfield_bool::<18>(&mut self._bitfield_0, implicit_rdpcm_enabled_flag);
             self
         }
 
         #[inline]
-        pub fn explicit_rdpcm_enabled_flag(mut self, explicit_rdpcm_enabled_flag: u32) -> Self {
-            self.explicit_rdpcm_enabled_flag = explicit_rdpcm_enabled_flag;
+        pub fn explicit_rdpcm_enabled_flag(mut self, explicit_rdpcm_enabled_flag: bool) -> Self {
+            set_bitfield_bool::<19>(&mut self._bitfield_0, explicit_rdpcm_enabled_flag);
             self
         }
 
         #[inline]
         pub fn extended_precision_processing_flag(
             mut self,
-            extended_precision_processing_flag: u32,
+            extended_precision_processing_flag: bool,
         ) -> Self {
-            self.extended_precision_processing_flag = extended_precision_processing_flag;
+            set_bitfield_bool::<20>(&mut self._bitfield_0, extended_precision_processing_flag);
             self
         }
 
         #[inline]
-        pub fn intra_smoothing_disabled_flag(mut self, intra_smoothing_disabled_flag: u32) -> Self {
-            self.intra_smoothing_disabled_flag = intra_smoothing_disabled_flag;
+        pub fn intra_smoothing_disabled_flag(
+            mut self,
+            intra_smoothing_disabled_flag: bool,
+        ) -> Self {
+            set_bitfield_bool::<21>(&mut self._bitfield_0, intra_smoothing_disabled_flag);
             self
         }
 
         #[inline]
         pub fn high_precision_offsets_enabled_flag(
             mut self,
-            high_precision_offsets_enabled_flag: u32,
+            high_precision_offsets_enabled_flag: bool,
         ) -> Self {
-            self.high_precision_offsets_enabled_flag = high_precision_offsets_enabled_flag;
+            set_bitfield_bool::<22>(&mut self._bitfield_0, high_precision_offsets_enabled_flag);
             self
         }
 
         #[inline]
         pub fn persistent_rice_adaptation_enabled_flag(
             mut self,
-            persistent_rice_adaptation_enabled_flag: u32,
+            persistent_rice_adaptation_enabled_flag: bool,
         ) -> Self {
-            self.persistent_rice_adaptation_enabled_flag = persistent_rice_adaptation_enabled_flag;
+            set_bitfield_bool::<23>(
+                &mut self._bitfield_0,
+                persistent_rice_adaptation_enabled_flag,
+            );
             self
         }
 
         #[inline]
         pub fn cabac_bypass_alignment_enabled_flag(
             mut self,
-            cabac_bypass_alignment_enabled_flag: u32,
+            cabac_bypass_alignment_enabled_flag: bool,
         ) -> Self {
-            self.cabac_bypass_alignment_enabled_flag = cabac_bypass_alignment_enabled_flag;
+            set_bitfield_bool::<24>(&mut self._bitfield_0, cabac_bypass_alignment_enabled_flag);
             self
         }
 
         #[inline]
-        pub fn sps_scc_extension_flag(mut self, sps_scc_extension_flag: u32) -> Self {
-            self.sps_scc_extension_flag = sps_scc_extension_flag;
+        pub fn sps_scc_extension_flag(mut self, sps_scc_extension_flag: bool) -> Self {
+            set_bitfield_bool::<25>(&mut self._bitfield_0, sps_scc_extension_flag);
             self
         }
 
         #[inline]
-        pub fn sps_curr_pic_ref_enabled_flag(mut self, sps_curr_pic_ref_enabled_flag: u32) -> Self {
-            self.sps_curr_pic_ref_enabled_flag = sps_curr_pic_ref_enabled_flag;
+        pub fn sps_curr_pic_ref_enabled_flag(
+            mut self,
+            sps_curr_pic_ref_enabled_flag: bool,
+        ) -> Self {
+            set_bitfield_bool::<26>(&mut self._bitfield_0, sps_curr_pic_ref_enabled_flag);
             self
         }
 
         #[inline]
-        pub fn palette_mode_enabled_flag(mut self, palette_mode_enabled_flag: u32) -> Self {
-            self.palette_mode_enabled_flag = palette_mode_enabled_flag;
+        pub fn palette_mode_enabled_flag(mut self, palette_mode_enabled_flag: bool) -> Self {
+            set_bitfield_bool::<27>(&mut self._bitfield_0, palette_mode_enabled_flag);
             self
         }
 
         #[inline]
         pub fn sps_palette_predictor_initializers_present_flag(
             mut self,
-            sps_palette_predictor_initializers_present_flag: u32,
+            sps_palette_predictor_initializers_present_flag: bool,
         ) -> Self {
-            self.sps_palette_predictor_initializers_present_flag =
-                sps_palette_predictor_initializers_present_flag;
+            set_bitfield_bool::<28>(
+                &mut self._bitfield_0,
+                sps_palette_predictor_initializers_present_flag,
+            );
             self
         }
 
         #[inline]
         pub fn intra_boundary_filtering_disabled_flag(
             mut self,
-            intra_boundary_filtering_disabled_flag: u32,
+            intra_boundary_filtering_disabled_flag: bool,
         ) -> Self {
-            self.intra_boundary_filtering_disabled_flag = intra_boundary_filtering_disabled_flag;
+            set_bitfield_bool::<29>(
+                &mut self._bitfield_0,
+                intra_boundary_filtering_disabled_flag,
+            );
             self
         }
     }
@@ -2237,279 +2206,274 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoH265PpsFlags {
-        pub dependent_slice_segments_enabled_flag: u32,
-        pub output_flag_present_flag: u32,
-        pub sign_data_hiding_enabled_flag: u32,
-        pub cabac_init_present_flag: u32,
-        pub constrained_intra_pred_flag: u32,
-        pub transform_skip_enabled_flag: u32,
-        pub cu_qp_delta_enabled_flag: u32,
-        pub pps_slice_chroma_qp_offsets_present_flag: u32,
-        pub weighted_pred_flag: u32,
-        pub weighted_bipred_flag: u32,
-        pub transquant_bypass_enabled_flag: u32,
-        pub tiles_enabled_flag: u32,
-        pub entropy_coding_sync_enabled_flag: u32,
-        pub uniform_spacing_flag: u32,
-        pub loop_filter_across_tiles_enabled_flag: u32,
-        pub pps_loop_filter_across_slices_enabled_flag: u32,
-        pub deblocking_filter_control_present_flag: u32,
-        pub deblocking_filter_override_enabled_flag: u32,
-        pub pps_deblocking_filter_disabled_flag: u32,
-        pub pps_scaling_list_data_present_flag: u32,
-        pub lists_modification_present_flag: u32,
-        pub slice_segment_header_extension_present_flag: u32,
-        pub pps_extension_present_flag: u32,
-        pub cross_component_prediction_enabled_flag: u32,
-        pub chroma_qp_offset_list_enabled_flag: u32,
-        pub pps_curr_pic_ref_enabled_flag: u32,
-        pub residual_adaptive_colour_transform_enabled_flag: u32,
-        pub pps_slice_act_qp_offsets_present_flag: u32,
-        pub pps_palette_predictor_initializers_present_flag: u32,
-        pub monochrome_palette_flag: u32,
-        pub pps_range_extension_flag: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoH265PpsFlags {
         #[inline]
         pub fn dependent_slice_segments_enabled_flag(
             mut self,
-            dependent_slice_segments_enabled_flag: u32,
+            dependent_slice_segments_enabled_flag: bool,
         ) -> Self {
-            self.dependent_slice_segments_enabled_flag = dependent_slice_segments_enabled_flag;
+            set_bitfield_bool::<0>(&mut self._bitfield_0, dependent_slice_segments_enabled_flag);
             self
         }
 
         #[inline]
-        pub fn output_flag_present_flag(mut self, output_flag_present_flag: u32) -> Self {
-            self.output_flag_present_flag = output_flag_present_flag;
+        pub fn output_flag_present_flag(mut self, output_flag_present_flag: bool) -> Self {
+            set_bitfield_bool::<1>(&mut self._bitfield_0, output_flag_present_flag);
             self
         }
 
         #[inline]
-        pub fn sign_data_hiding_enabled_flag(mut self, sign_data_hiding_enabled_flag: u32) -> Self {
-            self.sign_data_hiding_enabled_flag = sign_data_hiding_enabled_flag;
+        pub fn sign_data_hiding_enabled_flag(
+            mut self,
+            sign_data_hiding_enabled_flag: bool,
+        ) -> Self {
+            set_bitfield_bool::<2>(&mut self._bitfield_0, sign_data_hiding_enabled_flag);
             self
         }
 
         #[inline]
-        pub fn cabac_init_present_flag(mut self, cabac_init_present_flag: u32) -> Self {
-            self.cabac_init_present_flag = cabac_init_present_flag;
+        pub fn cabac_init_present_flag(mut self, cabac_init_present_flag: bool) -> Self {
+            set_bitfield_bool::<3>(&mut self._bitfield_0, cabac_init_present_flag);
             self
         }
 
         #[inline]
-        pub fn constrained_intra_pred_flag(mut self, constrained_intra_pred_flag: u32) -> Self {
-            self.constrained_intra_pred_flag = constrained_intra_pred_flag;
+        pub fn constrained_intra_pred_flag(mut self, constrained_intra_pred_flag: bool) -> Self {
+            set_bitfield_bool::<4>(&mut self._bitfield_0, constrained_intra_pred_flag);
             self
         }
 
         #[inline]
-        pub fn transform_skip_enabled_flag(mut self, transform_skip_enabled_flag: u32) -> Self {
-            self.transform_skip_enabled_flag = transform_skip_enabled_flag;
+        pub fn transform_skip_enabled_flag(mut self, transform_skip_enabled_flag: bool) -> Self {
+            set_bitfield_bool::<5>(&mut self._bitfield_0, transform_skip_enabled_flag);
             self
         }
 
         #[inline]
-        pub fn cu_qp_delta_enabled_flag(mut self, cu_qp_delta_enabled_flag: u32) -> Self {
-            self.cu_qp_delta_enabled_flag = cu_qp_delta_enabled_flag;
+        pub fn cu_qp_delta_enabled_flag(mut self, cu_qp_delta_enabled_flag: bool) -> Self {
+            set_bitfield_bool::<6>(&mut self._bitfield_0, cu_qp_delta_enabled_flag);
             self
         }
 
         #[inline]
         pub fn pps_slice_chroma_qp_offsets_present_flag(
             mut self,
-            pps_slice_chroma_qp_offsets_present_flag: u32,
+            pps_slice_chroma_qp_offsets_present_flag: bool,
         ) -> Self {
-            self.pps_slice_chroma_qp_offsets_present_flag =
-                pps_slice_chroma_qp_offsets_present_flag;
+            set_bitfield_bool::<7>(
+                &mut self._bitfield_0,
+                pps_slice_chroma_qp_offsets_present_flag,
+            );
             self
         }
 
         #[inline]
-        pub fn weighted_pred_flag(mut self, weighted_pred_flag: u32) -> Self {
-            self.weighted_pred_flag = weighted_pred_flag;
+        pub fn weighted_pred_flag(mut self, weighted_pred_flag: bool) -> Self {
+            set_bitfield_bool::<8>(&mut self._bitfield_0, weighted_pred_flag);
             self
         }
 
         #[inline]
-        pub fn weighted_bipred_flag(mut self, weighted_bipred_flag: u32) -> Self {
-            self.weighted_bipred_flag = weighted_bipred_flag;
+        pub fn weighted_bipred_flag(mut self, weighted_bipred_flag: bool) -> Self {
+            set_bitfield_bool::<9>(&mut self._bitfield_0, weighted_bipred_flag);
             self
         }
 
         #[inline]
         pub fn transquant_bypass_enabled_flag(
             mut self,
-            transquant_bypass_enabled_flag: u32,
+            transquant_bypass_enabled_flag: bool,
         ) -> Self {
-            self.transquant_bypass_enabled_flag = transquant_bypass_enabled_flag;
+            set_bitfield_bool::<10>(&mut self._bitfield_0, transquant_bypass_enabled_flag);
             self
         }
 
         #[inline]
-        pub fn tiles_enabled_flag(mut self, tiles_enabled_flag: u32) -> Self {
-            self.tiles_enabled_flag = tiles_enabled_flag;
+        pub fn tiles_enabled_flag(mut self, tiles_enabled_flag: bool) -> Self {
+            set_bitfield_bool::<11>(&mut self._bitfield_0, tiles_enabled_flag);
             self
         }
 
         #[inline]
         pub fn entropy_coding_sync_enabled_flag(
             mut self,
-            entropy_coding_sync_enabled_flag: u32,
+            entropy_coding_sync_enabled_flag: bool,
         ) -> Self {
-            self.entropy_coding_sync_enabled_flag = entropy_coding_sync_enabled_flag;
+            set_bitfield_bool::<12>(&mut self._bitfield_0, entropy_coding_sync_enabled_flag);
             self
         }
 
         #[inline]
-        pub fn uniform_spacing_flag(mut self, uniform_spacing_flag: u32) -> Self {
-            self.uniform_spacing_flag = uniform_spacing_flag;
+        pub fn uniform_spacing_flag(mut self, uniform_spacing_flag: bool) -> Self {
+            set_bitfield_bool::<13>(&mut self._bitfield_0, uniform_spacing_flag);
             self
         }
 
         #[inline]
         pub fn loop_filter_across_tiles_enabled_flag(
             mut self,
-            loop_filter_across_tiles_enabled_flag: u32,
+            loop_filter_across_tiles_enabled_flag: bool,
         ) -> Self {
-            self.loop_filter_across_tiles_enabled_flag = loop_filter_across_tiles_enabled_flag;
+            set_bitfield_bool::<14>(&mut self._bitfield_0, loop_filter_across_tiles_enabled_flag);
             self
         }
 
         #[inline]
         pub fn pps_loop_filter_across_slices_enabled_flag(
             mut self,
-            pps_loop_filter_across_slices_enabled_flag: u32,
+            pps_loop_filter_across_slices_enabled_flag: bool,
         ) -> Self {
-            self.pps_loop_filter_across_slices_enabled_flag =
-                pps_loop_filter_across_slices_enabled_flag;
+            set_bitfield_bool::<15>(
+                &mut self._bitfield_0,
+                pps_loop_filter_across_slices_enabled_flag,
+            );
             self
         }
 
         #[inline]
         pub fn deblocking_filter_control_present_flag(
             mut self,
-            deblocking_filter_control_present_flag: u32,
+            deblocking_filter_control_present_flag: bool,
         ) -> Self {
-            self.deblocking_filter_control_present_flag = deblocking_filter_control_present_flag;
+            set_bitfield_bool::<16>(
+                &mut self._bitfield_0,
+                deblocking_filter_control_present_flag,
+            );
             self
         }
 
         #[inline]
         pub fn deblocking_filter_override_enabled_flag(
             mut self,
-            deblocking_filter_override_enabled_flag: u32,
+            deblocking_filter_override_enabled_flag: bool,
         ) -> Self {
-            self.deblocking_filter_override_enabled_flag = deblocking_filter_override_enabled_flag;
+            set_bitfield_bool::<17>(
+                &mut self._bitfield_0,
+                deblocking_filter_override_enabled_flag,
+            );
             self
         }
 
         #[inline]
         pub fn pps_deblocking_filter_disabled_flag(
             mut self,
-            pps_deblocking_filter_disabled_flag: u32,
+            pps_deblocking_filter_disabled_flag: bool,
         ) -> Self {
-            self.pps_deblocking_filter_disabled_flag = pps_deblocking_filter_disabled_flag;
+            set_bitfield_bool::<18>(&mut self._bitfield_0, pps_deblocking_filter_disabled_flag);
             self
         }
 
         #[inline]
         pub fn pps_scaling_list_data_present_flag(
             mut self,
-            pps_scaling_list_data_present_flag: u32,
+            pps_scaling_list_data_present_flag: bool,
         ) -> Self {
-            self.pps_scaling_list_data_present_flag = pps_scaling_list_data_present_flag;
+            set_bitfield_bool::<19>(&mut self._bitfield_0, pps_scaling_list_data_present_flag);
             self
         }
 
         #[inline]
         pub fn lists_modification_present_flag(
             mut self,
-            lists_modification_present_flag: u32,
+            lists_modification_present_flag: bool,
         ) -> Self {
-            self.lists_modification_present_flag = lists_modification_present_flag;
+            set_bitfield_bool::<20>(&mut self._bitfield_0, lists_modification_present_flag);
             self
         }
 
         #[inline]
         pub fn slice_segment_header_extension_present_flag(
             mut self,
-            slice_segment_header_extension_present_flag: u32,
+            slice_segment_header_extension_present_flag: bool,
         ) -> Self {
-            self.slice_segment_header_extension_present_flag =
-                slice_segment_header_extension_present_flag;
+            set_bitfield_bool::<21>(
+                &mut self._bitfield_0,
+                slice_segment_header_extension_present_flag,
+            );
             self
         }
 
         #[inline]
-        pub fn pps_extension_present_flag(mut self, pps_extension_present_flag: u32) -> Self {
-            self.pps_extension_present_flag = pps_extension_present_flag;
+        pub fn pps_extension_present_flag(mut self, pps_extension_present_flag: bool) -> Self {
+            set_bitfield_bool::<22>(&mut self._bitfield_0, pps_extension_present_flag);
             self
         }
 
         #[inline]
         pub fn cross_component_prediction_enabled_flag(
             mut self,
-            cross_component_prediction_enabled_flag: u32,
+            cross_component_prediction_enabled_flag: bool,
         ) -> Self {
-            self.cross_component_prediction_enabled_flag = cross_component_prediction_enabled_flag;
+            set_bitfield_bool::<23>(
+                &mut self._bitfield_0,
+                cross_component_prediction_enabled_flag,
+            );
             self
         }
 
         #[inline]
         pub fn chroma_qp_offset_list_enabled_flag(
             mut self,
-            chroma_qp_offset_list_enabled_flag: u32,
+            chroma_qp_offset_list_enabled_flag: bool,
         ) -> Self {
-            self.chroma_qp_offset_list_enabled_flag = chroma_qp_offset_list_enabled_flag;
+            set_bitfield_bool::<24>(&mut self._bitfield_0, chroma_qp_offset_list_enabled_flag);
             self
         }
 
         #[inline]
-        pub fn pps_curr_pic_ref_enabled_flag(mut self, pps_curr_pic_ref_enabled_flag: u32) -> Self {
-            self.pps_curr_pic_ref_enabled_flag = pps_curr_pic_ref_enabled_flag;
+        pub fn pps_curr_pic_ref_enabled_flag(
+            mut self,
+            pps_curr_pic_ref_enabled_flag: bool,
+        ) -> Self {
+            set_bitfield_bool::<25>(&mut self._bitfield_0, pps_curr_pic_ref_enabled_flag);
             self
         }
 
         #[inline]
         pub fn residual_adaptive_colour_transform_enabled_flag(
             mut self,
-            residual_adaptive_colour_transform_enabled_flag: u32,
+            residual_adaptive_colour_transform_enabled_flag: bool,
         ) -> Self {
-            self.residual_adaptive_colour_transform_enabled_flag =
-                residual_adaptive_colour_transform_enabled_flag;
+            set_bitfield_bool::<26>(
+                &mut self._bitfield_0,
+                residual_adaptive_colour_transform_enabled_flag,
+            );
             self
         }
 
         #[inline]
         pub fn pps_slice_act_qp_offsets_present_flag(
             mut self,
-            pps_slice_act_qp_offsets_present_flag: u32,
+            pps_slice_act_qp_offsets_present_flag: bool,
         ) -> Self {
-            self.pps_slice_act_qp_offsets_present_flag = pps_slice_act_qp_offsets_present_flag;
+            set_bitfield_bool::<27>(&mut self._bitfield_0, pps_slice_act_qp_offsets_present_flag);
             self
         }
 
         #[inline]
         pub fn pps_palette_predictor_initializers_present_flag(
             mut self,
-            pps_palette_predictor_initializers_present_flag: u32,
+            pps_palette_predictor_initializers_present_flag: bool,
         ) -> Self {
-            self.pps_palette_predictor_initializers_present_flag =
-                pps_palette_predictor_initializers_present_flag;
+            set_bitfield_bool::<28>(
+                &mut self._bitfield_0,
+                pps_palette_predictor_initializers_present_flag,
+            );
             self
         }
 
         #[inline]
-        pub fn monochrome_palette_flag(mut self, monochrome_palette_flag: u32) -> Self {
-            self.monochrome_palette_flag = monochrome_palette_flag;
+        pub fn monochrome_palette_flag(mut self, monochrome_palette_flag: bool) -> Self {
+            set_bitfield_bool::<29>(&mut self._bitfield_0, monochrome_palette_flag);
             self
         }
 
         #[inline]
-        pub fn pps_range_extension_flag(mut self, pps_range_extension_flag: u32) -> Self {
-            self.pps_range_extension_flag = pps_range_extension_flag;
+        pub fn pps_range_extension_flag(mut self, pps_range_extension_flag: bool) -> Self {
+            set_bitfield_bool::<30>(&mut self._bitfield_0, pps_range_extension_flag);
             self
         }
     }

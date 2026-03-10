@@ -46,6 +46,13 @@ pub fn merged_setter_name(_struct_name: &str, len_member: &str, base: &str) -> S
     }
 }
 
+/// Returns true if a struct member should not get a setter.
+///
+/// Used to suppress setters for reserved/padding fields.
+pub fn skip_setter(_struct_name: &str, field_name: &str) -> bool {
+    field_name == "reserved"
+}
+
 /// Override the Rust type for a struct member or command parameter based on its C name.
 ///
 /// Returns `Some("ApiVersion")` for `apiVersion` fields, replacing the default `u32`.

@@ -196,30 +196,22 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoEncodeH264SliceHeaderFlags {
-        pub direct_spatial_mv_pred_flag: u32,
-        pub num_ref_idx_active_override_flag: u32,
-        pub reserved: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoEncodeH264SliceHeaderFlags {
         #[inline]
-        pub fn direct_spatial_mv_pred_flag(mut self, direct_spatial_mv_pred_flag: u32) -> Self {
-            self.direct_spatial_mv_pred_flag = direct_spatial_mv_pred_flag;
+        pub fn direct_spatial_mv_pred_flag(mut self, direct_spatial_mv_pred_flag: bool) -> Self {
+            set_bitfield_bool::<0>(&mut self._bitfield_0, direct_spatial_mv_pred_flag);
             self
         }
 
         #[inline]
         pub fn num_ref_idx_active_override_flag(
             mut self,
-            num_ref_idx_active_override_flag: u32,
+            num_ref_idx_active_override_flag: bool,
         ) -> Self {
-            self.num_ref_idx_active_override_flag = num_ref_idx_active_override_flag;
-            self
-        }
-
-        #[inline]
-        pub fn reserved(mut self, reserved: u32) -> Self {
-            self.reserved = reserved;
+            set_bitfield_bool::<1>(&mut self._bitfield_0, num_ref_idx_active_override_flag);
             self
         }
     }
@@ -230,51 +222,40 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoEncodeH264PictureInfoFlags {
-        pub idr_pic_flag: u32,
-        pub is_reference: u32,
-        pub no_output_of_prior_pics_flag: u32,
-        pub long_term_reference_flag: u32,
-        pub adaptive_ref_pic_marking_mode_flag: u32,
-        pub reserved: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoEncodeH264PictureInfoFlags {
         #[inline]
-        pub fn idr_pic_flag(mut self, idr_pic_flag: u32) -> Self {
-            self.idr_pic_flag = idr_pic_flag;
+        pub fn idr_pic_flag(mut self, idr_pic_flag: bool) -> Self {
+            set_bitfield_bool::<0>(&mut self._bitfield_0, idr_pic_flag);
             self
         }
 
         #[inline]
-        pub fn is_reference(mut self, is_reference: u32) -> Self {
-            self.is_reference = is_reference;
+        pub fn is_reference(mut self, is_reference: bool) -> Self {
+            set_bitfield_bool::<1>(&mut self._bitfield_0, is_reference);
             self
         }
 
         #[inline]
-        pub fn no_output_of_prior_pics_flag(mut self, no_output_of_prior_pics_flag: u32) -> Self {
-            self.no_output_of_prior_pics_flag = no_output_of_prior_pics_flag;
+        pub fn no_output_of_prior_pics_flag(mut self, no_output_of_prior_pics_flag: bool) -> Self {
+            set_bitfield_bool::<2>(&mut self._bitfield_0, no_output_of_prior_pics_flag);
             self
         }
 
         #[inline]
-        pub fn long_term_reference_flag(mut self, long_term_reference_flag: u32) -> Self {
-            self.long_term_reference_flag = long_term_reference_flag;
+        pub fn long_term_reference_flag(mut self, long_term_reference_flag: bool) -> Self {
+            set_bitfield_bool::<3>(&mut self._bitfield_0, long_term_reference_flag);
             self
         }
 
         #[inline]
         pub fn adaptive_ref_pic_marking_mode_flag(
             mut self,
-            adaptive_ref_pic_marking_mode_flag: u32,
+            adaptive_ref_pic_marking_mode_flag: bool,
         ) -> Self {
-            self.adaptive_ref_pic_marking_mode_flag = adaptive_ref_pic_marking_mode_flag;
-            self
-        }
-
-        #[inline]
-        pub fn reserved(mut self, reserved: u32) -> Self {
-            self.reserved = reserved;
+            set_bitfield_bool::<4>(&mut self._bitfield_0, adaptive_ref_pic_marking_mode_flag);
             self
         }
     }
@@ -285,20 +266,13 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoEncodeH264ReferenceInfoFlags {
-        pub used_for_long_term_reference: u32,
-        pub reserved: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoEncodeH264ReferenceInfoFlags {
         #[inline]
-        pub fn used_for_long_term_reference(mut self, used_for_long_term_reference: u32) -> Self {
-            self.used_for_long_term_reference = used_for_long_term_reference;
-            self
-        }
-
-        #[inline]
-        pub fn reserved(mut self, reserved: u32) -> Self {
-            self.reserved = reserved;
+        pub fn used_for_long_term_reference(mut self, used_for_long_term_reference: bool) -> Self {
+            set_bitfield_bool::<0>(&mut self._bitfield_0, used_for_long_term_reference);
             self
         }
     }
@@ -309,33 +283,25 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoEncodeH264ReferenceListsInfoFlags {
-        pub ref_pic_list_modification_flag_l0: u32,
-        pub ref_pic_list_modification_flag_l1: u32,
-        pub reserved: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoEncodeH264ReferenceListsInfoFlags {
         #[inline]
         pub fn ref_pic_list_modification_flag_l0(
             mut self,
-            ref_pic_list_modification_flag_l0: u32,
+            ref_pic_list_modification_flag_l0: bool,
         ) -> Self {
-            self.ref_pic_list_modification_flag_l0 = ref_pic_list_modification_flag_l0;
+            set_bitfield_bool::<0>(&mut self._bitfield_0, ref_pic_list_modification_flag_l0);
             self
         }
 
         #[inline]
         pub fn ref_pic_list_modification_flag_l1(
             mut self,
-            ref_pic_list_modification_flag_l1: u32,
+            ref_pic_list_modification_flag_l1: bool,
         ) -> Self {
-            self.ref_pic_list_modification_flag_l1 = ref_pic_list_modification_flag_l1;
-            self
-        }
-
-        #[inline]
-        pub fn reserved(mut self, reserved: u32) -> Self {
-            self.reserved = reserved;
+            set_bitfield_bool::<1>(&mut self._bitfield_0, ref_pic_list_modification_flag_l1);
             self
         }
     }

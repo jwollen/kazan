@@ -306,27 +306,19 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct ClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV {
-        pub geometry_index: u32,
-        pub reserved: u32,
-        pub geometry_flags: u32,
+        pub _bitfield_0: u32,
     }
 
     impl ClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV {
         #[inline]
         pub fn geometry_index(mut self, geometry_index: u32) -> Self {
-            self.geometry_index = geometry_index;
-            self
-        }
-
-        #[inline]
-        pub fn reserved(mut self, reserved: u32) -> Self {
-            self.reserved = reserved;
+            set_bitfield::<0, 24>(&mut self._bitfield_0, geometry_index);
             self
         }
 
         #[inline]
         pub fn geometry_flags(mut self, geometry_flags: u32) -> Self {
-            self.geometry_flags = geometry_flags;
+            set_bitfield::<29, 3>(&mut self._bitfield_0, geometry_flags);
             self
         }
     }
@@ -407,11 +399,7 @@ pub(super) mod defs {
     pub struct ClusterAccelerationStructureBuildTriangleClusterInfoNV {
         pub cluster_id: u32,
         pub cluster_flags: ClusterAccelerationStructureClusterFlagsNV,
-        pub triangle_count: u32,
-        pub vertex_count: u32,
-        pub position_truncate_bit_count: u32,
-        pub index_type: u32,
-        pub opacity_micromap_index_type: u32,
+        pub _bitfield_0: u32,
         pub base_geometry_index_and_geometry_flags:
             ClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV,
         pub index_buffer_stride: u16,
@@ -443,31 +431,31 @@ pub(super) mod defs {
 
         #[inline]
         pub fn triangle_count(mut self, triangle_count: u32) -> Self {
-            self.triangle_count = triangle_count;
+            set_bitfield::<0, 9>(&mut self._bitfield_0, triangle_count);
             self
         }
 
         #[inline]
         pub fn vertex_count(mut self, vertex_count: u32) -> Self {
-            self.vertex_count = vertex_count;
+            set_bitfield::<9, 9>(&mut self._bitfield_0, vertex_count);
             self
         }
 
         #[inline]
         pub fn position_truncate_bit_count(mut self, position_truncate_bit_count: u32) -> Self {
-            self.position_truncate_bit_count = position_truncate_bit_count;
+            set_bitfield::<18, 6>(&mut self._bitfield_0, position_truncate_bit_count);
             self
         }
 
         #[inline]
         pub fn index_type(mut self, index_type: u32) -> Self {
-            self.index_type = index_type;
+            set_bitfield::<24, 4>(&mut self._bitfield_0, index_type);
             self
         }
 
         #[inline]
         pub fn opacity_micromap_index_type(mut self, opacity_micromap_index_type: u32) -> Self {
-            self.opacity_micromap_index_type = opacity_micromap_index_type;
+            set_bitfield::<28, 4>(&mut self._bitfield_0, opacity_micromap_index_type);
             self
         }
 
@@ -555,11 +543,7 @@ pub(super) mod defs {
     pub struct ClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV {
         pub cluster_id: u32,
         pub cluster_flags: ClusterAccelerationStructureClusterFlagsNV,
-        pub triangle_count: u32,
-        pub vertex_count: u32,
-        pub position_truncate_bit_count: u32,
-        pub index_type: u32,
-        pub opacity_micromap_index_type: u32,
+        pub _bitfield_0: u32,
         pub base_geometry_index_and_geometry_flags:
             ClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV,
         pub index_buffer_stride: u16,
@@ -592,31 +576,31 @@ pub(super) mod defs {
 
         #[inline]
         pub fn triangle_count(mut self, triangle_count: u32) -> Self {
-            self.triangle_count = triangle_count;
+            set_bitfield::<0, 9>(&mut self._bitfield_0, triangle_count);
             self
         }
 
         #[inline]
         pub fn vertex_count(mut self, vertex_count: u32) -> Self {
-            self.vertex_count = vertex_count;
+            set_bitfield::<9, 9>(&mut self._bitfield_0, vertex_count);
             self
         }
 
         #[inline]
         pub fn position_truncate_bit_count(mut self, position_truncate_bit_count: u32) -> Self {
-            self.position_truncate_bit_count = position_truncate_bit_count;
+            set_bitfield::<18, 6>(&mut self._bitfield_0, position_truncate_bit_count);
             self
         }
 
         #[inline]
         pub fn index_type(mut self, index_type: u32) -> Self {
-            self.index_type = index_type;
+            set_bitfield::<24, 4>(&mut self._bitfield_0, index_type);
             self
         }
 
         #[inline]
         pub fn opacity_micromap_index_type(mut self, opacity_micromap_index_type: u32) -> Self {
-            self.opacity_micromap_index_type = opacity_micromap_index_type;
+            set_bitfield::<28, 4>(&mut self._bitfield_0, opacity_micromap_index_type);
             self
         }
 
@@ -712,8 +696,7 @@ pub(super) mod defs {
     #[must_use]
     pub struct ClusterAccelerationStructureInstantiateClusterInfoNV {
         pub cluster_id_offset: u32,
-        pub geometry_index_offset: u32,
-        pub reserved: u32,
+        pub _bitfield_0: u32,
         pub cluster_template_address: DeviceAddress,
         pub vertex_buffer: StridedDeviceAddressNV,
     }
@@ -727,13 +710,7 @@ pub(super) mod defs {
 
         #[inline]
         pub fn geometry_index_offset(mut self, geometry_index_offset: u32) -> Self {
-            self.geometry_index_offset = geometry_index_offset;
-            self
-        }
-
-        #[inline]
-        pub fn reserved(mut self, reserved: u32) -> Self {
-            self.reserved = reserved;
+            set_bitfield::<0, 24>(&mut self._bitfield_0, geometry_index_offset);
             self
         }
 

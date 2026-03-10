@@ -23,37 +23,34 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoDecodeH265PictureInfoFlags {
-        pub irap_pic_flag: u32,
-        pub idr_pic_flag: u32,
-        pub is_reference: u32,
-        pub short_term_ref_pic_set_sps_flag: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoDecodeH265PictureInfoFlags {
         #[inline]
-        pub fn irap_pic_flag(mut self, irap_pic_flag: u32) -> Self {
-            self.irap_pic_flag = irap_pic_flag;
+        pub fn irap_pic_flag(mut self, irap_pic_flag: bool) -> Self {
+            set_bitfield_bool::<0>(&mut self._bitfield_0, irap_pic_flag);
             self
         }
 
         #[inline]
-        pub fn idr_pic_flag(mut self, idr_pic_flag: u32) -> Self {
-            self.idr_pic_flag = idr_pic_flag;
+        pub fn idr_pic_flag(mut self, idr_pic_flag: bool) -> Self {
+            set_bitfield_bool::<1>(&mut self._bitfield_0, idr_pic_flag);
             self
         }
 
         #[inline]
-        pub fn is_reference(mut self, is_reference: u32) -> Self {
-            self.is_reference = is_reference;
+        pub fn is_reference(mut self, is_reference: bool) -> Self {
+            set_bitfield_bool::<2>(&mut self._bitfield_0, is_reference);
             self
         }
 
         #[inline]
         pub fn short_term_ref_pic_set_sps_flag(
             mut self,
-            short_term_ref_pic_set_sps_flag: u32,
+            short_term_ref_pic_set_sps_flag: bool,
         ) -> Self {
-            self.short_term_ref_pic_set_sps_flag = short_term_ref_pic_set_sps_flag;
+            set_bitfield_bool::<3>(&mut self._bitfield_0, short_term_ref_pic_set_sps_flag);
             self
         }
     }
@@ -142,12 +139,6 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn reserved(mut self, reserved: u16) -> Self {
-            self.reserved = reserved;
-            self
-        }
-
-        #[inline]
         pub fn ref_pic_set_st_curr_before(
             mut self,
             ref_pic_set_st_curr_before: [u8; STD_VIDEO_DECODE_H265_REF_PIC_SET_LIST_SIZE as usize],
@@ -181,20 +172,19 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoDecodeH265ReferenceInfoFlags {
-        pub used_for_long_term_reference: u32,
-        pub unused_for_reference: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoDecodeH265ReferenceInfoFlags {
         #[inline]
-        pub fn used_for_long_term_reference(mut self, used_for_long_term_reference: u32) -> Self {
-            self.used_for_long_term_reference = used_for_long_term_reference;
+        pub fn used_for_long_term_reference(mut self, used_for_long_term_reference: bool) -> Self {
+            set_bitfield_bool::<0>(&mut self._bitfield_0, used_for_long_term_reference);
             self
         }
 
         #[inline]
-        pub fn unused_for_reference(mut self, unused_for_reference: u32) -> Self {
-            self.unused_for_reference = unused_for_reference;
+        pub fn unused_for_reference(mut self, unused_for_reference: bool) -> Self {
+            set_bitfield_bool::<1>(&mut self._bitfield_0, unused_for_reference);
             self
         }
     }

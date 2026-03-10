@@ -172,6 +172,12 @@ impl Analysis {
         self.opaque_types.contains(name)
     }
 
+    /// Returns true if `name` (a C type name) is a bitmask/flags type.
+    pub fn is_bitmask_type(&self, name: &str) -> bool {
+        self.registry.bitmask_types.iter().any(|bt| bt.name == name)
+            || self.registry.bitmask_aliases.iter().any(|a| a.name == name)
+    }
+
     /// Like [`is_opaque_type_name`], but extracts the base name from a `CType`.
     pub fn is_opaque_type(&self, ty: &CType) -> bool {
         ctype_rust::base_name(ty).is_some_and(|name| self.opaque_types.contains(name))

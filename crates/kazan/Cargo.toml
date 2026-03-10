@@ -6,7 +6,7 @@ license.workspace = true
 edition.workspace = true
 
 [features]
-default = ["debug", "loaded", "std"]
+default = ["debug", "loaded", "std", "provisional", "ffi", "window"]
 debug = []
 provisional = []
 linked = []

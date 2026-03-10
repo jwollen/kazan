@@ -43,44 +43,34 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoAV1ColorConfigFlags {
-        pub mono_chrome: u32,
-        pub color_range: u32,
-        pub separate_uv_delta_q: u32,
-        pub color_description_present_flag: u32,
-        pub reserved: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoAV1ColorConfigFlags {
         #[inline]
-        pub fn mono_chrome(mut self, mono_chrome: u32) -> Self {
-            self.mono_chrome = mono_chrome;
+        pub fn mono_chrome(mut self, mono_chrome: bool) -> Self {
+            set_bitfield_bool::<0>(&mut self._bitfield_0, mono_chrome);
             self
         }
 
         #[inline]
-        pub fn color_range(mut self, color_range: u32) -> Self {
-            self.color_range = color_range;
+        pub fn color_range(mut self, color_range: bool) -> Self {
+            set_bitfield_bool::<1>(&mut self._bitfield_0, color_range);
             self
         }
 
         #[inline]
-        pub fn separate_uv_delta_q(mut self, separate_uv_delta_q: u32) -> Self {
-            self.separate_uv_delta_q = separate_uv_delta_q;
+        pub fn separate_uv_delta_q(mut self, separate_uv_delta_q: bool) -> Self {
+            set_bitfield_bool::<2>(&mut self._bitfield_0, separate_uv_delta_q);
             self
         }
 
         #[inline]
         pub fn color_description_present_flag(
             mut self,
-            color_description_present_flag: u32,
+            color_description_present_flag: bool,
         ) -> Self {
-            self.color_description_present_flag = color_description_present_flag;
-            self
-        }
-
-        #[inline]
-        pub fn reserved(mut self, reserved: u32) -> Self {
-            self.reserved = reserved;
+            set_bitfield_bool::<3>(&mut self._bitfield_0, color_description_present_flag);
             self
         }
     }
@@ -173,20 +163,13 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoAV1TimingInfoFlags {
-        pub equal_picture_interval: u32,
-        pub reserved: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoAV1TimingInfoFlags {
         #[inline]
-        pub fn equal_picture_interval(mut self, equal_picture_interval: u32) -> Self {
-            self.equal_picture_interval = equal_picture_interval;
-            self
-        }
-
-        #[inline]
-        pub fn reserved(mut self, reserved: u32) -> Self {
-            self.reserved = reserved;
+        pub fn equal_picture_interval(mut self, equal_picture_interval: bool) -> Self {
+            set_bitfield_bool::<0>(&mut self._bitfield_0, equal_picture_interval);
             self
         }
     }
@@ -235,149 +218,127 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoAV1SequenceHeaderFlags {
-        pub still_picture: u32,
-        pub reduced_still_picture_header: u32,
-        pub use_128x128_superblock: u32,
-        pub enable_filter_intra: u32,
-        pub enable_intra_edge_filter: u32,
-        pub enable_interintra_compound: u32,
-        pub enable_masked_compound: u32,
-        pub enable_warped_motion: u32,
-        pub enable_dual_filter: u32,
-        pub enable_order_hint: u32,
-        pub enable_jnt_comp: u32,
-        pub enable_ref_frame_mvs: u32,
-        pub frame_id_numbers_present_flag: u32,
-        pub enable_superres: u32,
-        pub enable_cdef: u32,
-        pub enable_restoration: u32,
-        pub film_grain_params_present: u32,
-        pub timing_info_present_flag: u32,
-        pub initial_display_delay_present_flag: u32,
-        pub reserved: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoAV1SequenceHeaderFlags {
         #[inline]
-        pub fn still_picture(mut self, still_picture: u32) -> Self {
-            self.still_picture = still_picture;
+        pub fn still_picture(mut self, still_picture: bool) -> Self {
+            set_bitfield_bool::<0>(&mut self._bitfield_0, still_picture);
             self
         }
 
         #[inline]
-        pub fn reduced_still_picture_header(mut self, reduced_still_picture_header: u32) -> Self {
-            self.reduced_still_picture_header = reduced_still_picture_header;
+        pub fn reduced_still_picture_header(mut self, reduced_still_picture_header: bool) -> Self {
+            set_bitfield_bool::<1>(&mut self._bitfield_0, reduced_still_picture_header);
             self
         }
 
         #[inline]
-        pub fn use_128x128_superblock(mut self, use_128x128_superblock: u32) -> Self {
-            self.use_128x128_superblock = use_128x128_superblock;
+        pub fn use_128x128_superblock(mut self, use_128x128_superblock: bool) -> Self {
+            set_bitfield_bool::<2>(&mut self._bitfield_0, use_128x128_superblock);
             self
         }
 
         #[inline]
-        pub fn enable_filter_intra(mut self, enable_filter_intra: u32) -> Self {
-            self.enable_filter_intra = enable_filter_intra;
+        pub fn enable_filter_intra(mut self, enable_filter_intra: bool) -> Self {
+            set_bitfield_bool::<3>(&mut self._bitfield_0, enable_filter_intra);
             self
         }
 
         #[inline]
-        pub fn enable_intra_edge_filter(mut self, enable_intra_edge_filter: u32) -> Self {
-            self.enable_intra_edge_filter = enable_intra_edge_filter;
+        pub fn enable_intra_edge_filter(mut self, enable_intra_edge_filter: bool) -> Self {
+            set_bitfield_bool::<4>(&mut self._bitfield_0, enable_intra_edge_filter);
             self
         }
 
         #[inline]
-        pub fn enable_interintra_compound(mut self, enable_interintra_compound: u32) -> Self {
-            self.enable_interintra_compound = enable_interintra_compound;
+        pub fn enable_interintra_compound(mut self, enable_interintra_compound: bool) -> Self {
+            set_bitfield_bool::<5>(&mut self._bitfield_0, enable_interintra_compound);
             self
         }
 
         #[inline]
-        pub fn enable_masked_compound(mut self, enable_masked_compound: u32) -> Self {
-            self.enable_masked_compound = enable_masked_compound;
+        pub fn enable_masked_compound(mut self, enable_masked_compound: bool) -> Self {
+            set_bitfield_bool::<6>(&mut self._bitfield_0, enable_masked_compound);
             self
         }
 
         #[inline]
-        pub fn enable_warped_motion(mut self, enable_warped_motion: u32) -> Self {
-            self.enable_warped_motion = enable_warped_motion;
+        pub fn enable_warped_motion(mut self, enable_warped_motion: bool) -> Self {
+            set_bitfield_bool::<7>(&mut self._bitfield_0, enable_warped_motion);
             self
         }
 
         #[inline]
-        pub fn enable_dual_filter(mut self, enable_dual_filter: u32) -> Self {
-            self.enable_dual_filter = enable_dual_filter;
+        pub fn enable_dual_filter(mut self, enable_dual_filter: bool) -> Self {
+            set_bitfield_bool::<8>(&mut self._bitfield_0, enable_dual_filter);
             self
         }
 
         #[inline]
-        pub fn enable_order_hint(mut self, enable_order_hint: u32) -> Self {
-            self.enable_order_hint = enable_order_hint;
+        pub fn enable_order_hint(mut self, enable_order_hint: bool) -> Self {
+            set_bitfield_bool::<9>(&mut self._bitfield_0, enable_order_hint);
             self
         }
 
         #[inline]
-        pub fn enable_jnt_comp(mut self, enable_jnt_comp: u32) -> Self {
-            self.enable_jnt_comp = enable_jnt_comp;
+        pub fn enable_jnt_comp(mut self, enable_jnt_comp: bool) -> Self {
+            set_bitfield_bool::<10>(&mut self._bitfield_0, enable_jnt_comp);
             self
         }
 
         #[inline]
-        pub fn enable_ref_frame_mvs(mut self, enable_ref_frame_mvs: u32) -> Self {
-            self.enable_ref_frame_mvs = enable_ref_frame_mvs;
+        pub fn enable_ref_frame_mvs(mut self, enable_ref_frame_mvs: bool) -> Self {
+            set_bitfield_bool::<11>(&mut self._bitfield_0, enable_ref_frame_mvs);
             self
         }
 
         #[inline]
-        pub fn frame_id_numbers_present_flag(mut self, frame_id_numbers_present_flag: u32) -> Self {
-            self.frame_id_numbers_present_flag = frame_id_numbers_present_flag;
+        pub fn frame_id_numbers_present_flag(
+            mut self,
+            frame_id_numbers_present_flag: bool,
+        ) -> Self {
+            set_bitfield_bool::<12>(&mut self._bitfield_0, frame_id_numbers_present_flag);
             self
         }
 
         #[inline]
-        pub fn enable_superres(mut self, enable_superres: u32) -> Self {
-            self.enable_superres = enable_superres;
+        pub fn enable_superres(mut self, enable_superres: bool) -> Self {
+            set_bitfield_bool::<13>(&mut self._bitfield_0, enable_superres);
             self
         }
 
         #[inline]
-        pub fn enable_cdef(mut self, enable_cdef: u32) -> Self {
-            self.enable_cdef = enable_cdef;
+        pub fn enable_cdef(mut self, enable_cdef: bool) -> Self {
+            set_bitfield_bool::<14>(&mut self._bitfield_0, enable_cdef);
             self
         }
 
         #[inline]
-        pub fn enable_restoration(mut self, enable_restoration: u32) -> Self {
-            self.enable_restoration = enable_restoration;
+        pub fn enable_restoration(mut self, enable_restoration: bool) -> Self {
+            set_bitfield_bool::<15>(&mut self._bitfield_0, enable_restoration);
             self
         }
 
         #[inline]
-        pub fn film_grain_params_present(mut self, film_grain_params_present: u32) -> Self {
-            self.film_grain_params_present = film_grain_params_present;
+        pub fn film_grain_params_present(mut self, film_grain_params_present: bool) -> Self {
+            set_bitfield_bool::<16>(&mut self._bitfield_0, film_grain_params_present);
             self
         }
 
         #[inline]
-        pub fn timing_info_present_flag(mut self, timing_info_present_flag: u32) -> Self {
-            self.timing_info_present_flag = timing_info_present_flag;
+        pub fn timing_info_present_flag(mut self, timing_info_present_flag: bool) -> Self {
+            set_bitfield_bool::<17>(&mut self._bitfield_0, timing_info_present_flag);
             self
         }
 
         #[inline]
         pub fn initial_display_delay_present_flag(
             mut self,
-            initial_display_delay_present_flag: u32,
+            initial_display_delay_present_flag: bool,
         ) -> Self {
-            self.initial_display_delay_present_flag = initial_display_delay_present_flag;
-            self
-        }
-
-        #[inline]
-        pub fn reserved(mut self, reserved: u32) -> Self {
-            self.reserved = reserved;
+            set_bitfield_bool::<18>(&mut self._bitfield_0, initial_display_delay_present_flag);
             self
         }
     }
@@ -555,27 +516,19 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoAV1LoopFilterFlags {
-        pub loop_filter_delta_enabled: u32,
-        pub loop_filter_delta_update: u32,
-        pub reserved: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoAV1LoopFilterFlags {
         #[inline]
-        pub fn loop_filter_delta_enabled(mut self, loop_filter_delta_enabled: u32) -> Self {
-            self.loop_filter_delta_enabled = loop_filter_delta_enabled;
+        pub fn loop_filter_delta_enabled(mut self, loop_filter_delta_enabled: bool) -> Self {
+            set_bitfield_bool::<0>(&mut self._bitfield_0, loop_filter_delta_enabled);
             self
         }
 
         #[inline]
-        pub fn loop_filter_delta_update(mut self, loop_filter_delta_update: u32) -> Self {
-            self.loop_filter_delta_update = loop_filter_delta_update;
-            self
-        }
-
-        #[inline]
-        pub fn reserved(mut self, reserved: u32) -> Self {
-            self.reserved = reserved;
+        pub fn loop_filter_delta_update(mut self, loop_filter_delta_update: bool) -> Self {
+            set_bitfield_bool::<1>(&mut self._bitfield_0, loop_filter_delta_update);
             self
         }
     }
@@ -668,27 +621,19 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoAV1QuantizationFlags {
-        pub using_qmatrix: u32,
-        pub diff_uv_delta: u32,
-        pub reserved: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoAV1QuantizationFlags {
         #[inline]
-        pub fn using_qmatrix(mut self, using_qmatrix: u32) -> Self {
-            self.using_qmatrix = using_qmatrix;
+        pub fn using_qmatrix(mut self, using_qmatrix: bool) -> Self {
+            set_bitfield_bool::<0>(&mut self._bitfield_0, using_qmatrix);
             self
         }
 
         #[inline]
-        pub fn diff_uv_delta(mut self, diff_uv_delta: u32) -> Self {
-            self.diff_uv_delta = diff_uv_delta;
-            self
-        }
-
-        #[inline]
-        pub fn reserved(mut self, reserved: u32) -> Self {
-            self.reserved = reserved;
+        pub fn diff_uv_delta(mut self, diff_uv_delta: bool) -> Self {
+            set_bitfield_bool::<1>(&mut self._bitfield_0, diff_uv_delta);
             self
         }
     }
@@ -820,20 +765,13 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoAV1TileInfoFlags {
-        pub uniform_tile_spacing_flag: u32,
-        pub reserved: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoAV1TileInfoFlags {
         #[inline]
-        pub fn uniform_tile_spacing_flag(mut self, uniform_tile_spacing_flag: u32) -> Self {
-            self.uniform_tile_spacing_flag = uniform_tile_spacing_flag;
-            self
-        }
-
-        #[inline]
-        pub fn reserved(mut self, reserved: u32) -> Self {
-            self.reserved = reserved;
+        pub fn uniform_tile_spacing_flag(mut self, uniform_tile_spacing_flag: bool) -> Self {
+            set_bitfield_bool::<0>(&mut self._bitfield_0, uniform_tile_spacing_flag);
             self
         }
     }
@@ -1106,41 +1044,31 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoAV1FilmGrainFlags {
-        pub chroma_scaling_from_luma: u32,
-        pub overlap_flag: u32,
-        pub clip_to_restricted_range: u32,
-        pub update_grain: u32,
-        pub reserved: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoAV1FilmGrainFlags {
         #[inline]
-        pub fn chroma_scaling_from_luma(mut self, chroma_scaling_from_luma: u32) -> Self {
-            self.chroma_scaling_from_luma = chroma_scaling_from_luma;
+        pub fn chroma_scaling_from_luma(mut self, chroma_scaling_from_luma: bool) -> Self {
+            set_bitfield_bool::<0>(&mut self._bitfield_0, chroma_scaling_from_luma);
             self
         }
 
         #[inline]
-        pub fn overlap_flag(mut self, overlap_flag: u32) -> Self {
-            self.overlap_flag = overlap_flag;
+        pub fn overlap_flag(mut self, overlap_flag: bool) -> Self {
+            set_bitfield_bool::<1>(&mut self._bitfield_0, overlap_flag);
             self
         }
 
         #[inline]
-        pub fn clip_to_restricted_range(mut self, clip_to_restricted_range: u32) -> Self {
-            self.clip_to_restricted_range = clip_to_restricted_range;
+        pub fn clip_to_restricted_range(mut self, clip_to_restricted_range: bool) -> Self {
+            set_bitfield_bool::<2>(&mut self._bitfield_0, clip_to_restricted_range);
             self
         }
 
         #[inline]
-        pub fn update_grain(mut self, update_grain: u32) -> Self {
-            self.update_grain = update_grain;
-            self
-        }
-
-        #[inline]
-        pub fn reserved(mut self, reserved: u32) -> Self {
-            self.reserved = reserved;
+        pub fn update_grain(mut self, update_grain: bool) -> Self {
+            set_bitfield_bool::<3>(&mut self._bitfield_0, update_grain);
             self
         }
     }

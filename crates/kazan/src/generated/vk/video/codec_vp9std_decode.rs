@@ -21,69 +21,55 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoDecodeVP9PictureInfoFlags {
-        pub error_resilient_mode: u32,
-        pub intra_only: u32,
-        pub allow_high_precision_mv: u32,
-        pub refresh_frame_context: u32,
-        pub frame_parallel_decoding_mode: u32,
-        pub segmentation_enabled: u32,
-        pub show_frame: u32,
-        pub use_prev_frame_mvs: u32,
-        pub reserved: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoDecodeVP9PictureInfoFlags {
         #[inline]
-        pub fn error_resilient_mode(mut self, error_resilient_mode: u32) -> Self {
-            self.error_resilient_mode = error_resilient_mode;
+        pub fn error_resilient_mode(mut self, error_resilient_mode: bool) -> Self {
+            set_bitfield_bool::<0>(&mut self._bitfield_0, error_resilient_mode);
             self
         }
 
         #[inline]
-        pub fn intra_only(mut self, intra_only: u32) -> Self {
-            self.intra_only = intra_only;
+        pub fn intra_only(mut self, intra_only: bool) -> Self {
+            set_bitfield_bool::<1>(&mut self._bitfield_0, intra_only);
             self
         }
 
         #[inline]
-        pub fn allow_high_precision_mv(mut self, allow_high_precision_mv: u32) -> Self {
-            self.allow_high_precision_mv = allow_high_precision_mv;
+        pub fn allow_high_precision_mv(mut self, allow_high_precision_mv: bool) -> Self {
+            set_bitfield_bool::<2>(&mut self._bitfield_0, allow_high_precision_mv);
             self
         }
 
         #[inline]
-        pub fn refresh_frame_context(mut self, refresh_frame_context: u32) -> Self {
-            self.refresh_frame_context = refresh_frame_context;
+        pub fn refresh_frame_context(mut self, refresh_frame_context: bool) -> Self {
+            set_bitfield_bool::<3>(&mut self._bitfield_0, refresh_frame_context);
             self
         }
 
         #[inline]
-        pub fn frame_parallel_decoding_mode(mut self, frame_parallel_decoding_mode: u32) -> Self {
-            self.frame_parallel_decoding_mode = frame_parallel_decoding_mode;
+        pub fn frame_parallel_decoding_mode(mut self, frame_parallel_decoding_mode: bool) -> Self {
+            set_bitfield_bool::<4>(&mut self._bitfield_0, frame_parallel_decoding_mode);
             self
         }
 
         #[inline]
-        pub fn segmentation_enabled(mut self, segmentation_enabled: u32) -> Self {
-            self.segmentation_enabled = segmentation_enabled;
+        pub fn segmentation_enabled(mut self, segmentation_enabled: bool) -> Self {
+            set_bitfield_bool::<5>(&mut self._bitfield_0, segmentation_enabled);
             self
         }
 
         #[inline]
-        pub fn show_frame(mut self, show_frame: u32) -> Self {
-            self.show_frame = show_frame;
+        pub fn show_frame(mut self, show_frame: bool) -> Self {
+            set_bitfield_bool::<6>(&mut self._bitfield_0, show_frame);
             self
         }
 
         #[inline]
-        pub fn use_prev_frame_mvs(mut self, use_prev_frame_mvs: u32) -> Self {
-            self.use_prev_frame_mvs = use_prev_frame_mvs;
-            self
-        }
-
-        #[inline]
-        pub fn reserved(mut self, reserved: u32) -> Self {
-            self.reserved = reserved;
+        pub fn use_prev_frame_mvs(mut self, use_prev_frame_mvs: bool) -> Self {
+            set_bitfield_bool::<7>(&mut self._bitfield_0, use_prev_frame_mvs);
             self
         }
     }

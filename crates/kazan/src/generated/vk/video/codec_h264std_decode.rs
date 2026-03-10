@@ -23,48 +23,43 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoDecodeH264PictureInfoFlags {
-        pub field_pic_flag: u32,
-        pub is_intra: u32,
-        pub idr_pic_flag: u32,
-        pub bottom_field_flag: u32,
-        pub is_reference: u32,
-        pub complementary_field_pair: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoDecodeH264PictureInfoFlags {
         #[inline]
-        pub fn field_pic_flag(mut self, field_pic_flag: u32) -> Self {
-            self.field_pic_flag = field_pic_flag;
+        pub fn field_pic_flag(mut self, field_pic_flag: bool) -> Self {
+            set_bitfield_bool::<0>(&mut self._bitfield_0, field_pic_flag);
             self
         }
 
         #[inline]
-        pub fn is_intra(mut self, is_intra: u32) -> Self {
-            self.is_intra = is_intra;
+        pub fn is_intra(mut self, is_intra: bool) -> Self {
+            set_bitfield_bool::<1>(&mut self._bitfield_0, is_intra);
             self
         }
 
         #[inline]
-        pub fn idr_pic_flag(mut self, idr_pic_flag: u32) -> Self {
-            self.idr_pic_flag = idr_pic_flag;
+        pub fn idr_pic_flag(mut self, idr_pic_flag: bool) -> Self {
+            set_bitfield_bool::<2>(&mut self._bitfield_0, idr_pic_flag);
             self
         }
 
         #[inline]
-        pub fn bottom_field_flag(mut self, bottom_field_flag: u32) -> Self {
-            self.bottom_field_flag = bottom_field_flag;
+        pub fn bottom_field_flag(mut self, bottom_field_flag: bool) -> Self {
+            set_bitfield_bool::<3>(&mut self._bitfield_0, bottom_field_flag);
             self
         }
 
         #[inline]
-        pub fn is_reference(mut self, is_reference: u32) -> Self {
-            self.is_reference = is_reference;
+        pub fn is_reference(mut self, is_reference: bool) -> Self {
+            set_bitfield_bool::<4>(&mut self._bitfield_0, is_reference);
             self
         }
 
         #[inline]
-        pub fn complementary_field_pair(mut self, complementary_field_pair: u32) -> Self {
-            self.complementary_field_pair = complementary_field_pair;
+        pub fn complementary_field_pair(mut self, complementary_field_pair: bool) -> Self {
+            set_bitfield_bool::<5>(&mut self._bitfield_0, complementary_field_pair);
             self
         }
     }
@@ -159,34 +154,31 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoDecodeH264ReferenceInfoFlags {
-        pub top_field_flag: u32,
-        pub bottom_field_flag: u32,
-        pub used_for_long_term_reference: u32,
-        pub is_non_existing: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoDecodeH264ReferenceInfoFlags {
         #[inline]
-        pub fn top_field_flag(mut self, top_field_flag: u32) -> Self {
-            self.top_field_flag = top_field_flag;
+        pub fn top_field_flag(mut self, top_field_flag: bool) -> Self {
+            set_bitfield_bool::<0>(&mut self._bitfield_0, top_field_flag);
             self
         }
 
         #[inline]
-        pub fn bottom_field_flag(mut self, bottom_field_flag: u32) -> Self {
-            self.bottom_field_flag = bottom_field_flag;
+        pub fn bottom_field_flag(mut self, bottom_field_flag: bool) -> Self {
+            set_bitfield_bool::<1>(&mut self._bitfield_0, bottom_field_flag);
             self
         }
 
         #[inline]
-        pub fn used_for_long_term_reference(mut self, used_for_long_term_reference: u32) -> Self {
-            self.used_for_long_term_reference = used_for_long_term_reference;
+        pub fn used_for_long_term_reference(mut self, used_for_long_term_reference: bool) -> Self {
+            set_bitfield_bool::<2>(&mut self._bitfield_0, used_for_long_term_reference);
             self
         }
 
         #[inline]
-        pub fn is_non_existing(mut self, is_non_existing: u32) -> Self {
-            self.is_non_existing = is_non_existing;
+        pub fn is_non_existing(mut self, is_non_existing: bool) -> Self {
+            set_bitfield_bool::<3>(&mut self._bitfield_0, is_non_existing);
             self
         }
     }
@@ -224,12 +216,6 @@ pub(super) mod defs {
         #[inline]
         pub fn frame_num(mut self, frame_num: u16) -> Self {
             self.frame_num = frame_num;
-            self
-        }
-
-        #[inline]
-        pub fn reserved(mut self, reserved: u16) -> Self {
-            self.reserved = reserved;
             self
         }
 

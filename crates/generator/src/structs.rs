@@ -6,7 +6,7 @@ use crate::{
     LengthKind,
     analysis::Analysis,
     cdecl::CType,
-    ctype_rust::{CTypeCategory, base_ctype_to_rust_str, is_bool32, type_name_with_lifetime},
+    ctype_rust::{self, CTypeCategory, base_ctype_to_rust_str, is_bool32, type_name_with_lifetime},
     ctype_to_rust_type, get_len_kind, normalize_name, normalize_setter_param_name,
     normalize_ty_name, overrides, write_doc_link, xml,
 };
@@ -83,6 +83,36 @@ struct StructInfo<'a> {
     has_stype_default: bool,
     members: Vec<MemberInfo<'a>>,
     setters: Vec<MemberSetterInfo>,
+    bitfield_groups: Vec<BitfieldGroup<'a>>,
+}
+
+/// A group of consecutive C bitfield members packed into a single Rust backing field.
+#[derive(Debug)]
+struct BitfieldGroup<'a> {
+    /// Index of the first member in this group within the original XML members list.
+    first_xml_index: usize,
+    /// Name of the generated backing field (e.g., `_bitfield_0`).
+    backing_name: String,
+    /// Rust type of the backing field (e.g., `u32`).
+    backing_ty: String,
+    /// The individual bitfield members in this group.
+    fields: Vec<BitfieldField<'a>>,
+}
+
+/// A single member within a bitfield group.
+#[derive(Debug)]
+struct BitfieldField<'a> {
+    member: &'a xml::StructureMember,
+    /// Normalized Rust name (e.g., `instance_custom_index`).
+    name: String,
+    /// Bit offset within the backing field.
+    offset: u8,
+    /// Number of bits.
+    width: u8,
+    /// Rust type for the setter parameter.
+    setter_ty: String,
+    /// Whether the type is a bitmask/flags type (needs `.as_raw()` to extract raw value).
+    is_flags_type: bool,
 }
 
 #[derive(Debug)]
@@ -98,6 +128,18 @@ enum SetterKind {
         /// Index into `StructInfo::members` for the member that holds the array length.
         len_member_index: usize,
         params: Vec<SetterParamInfo>,
+    },
+    Bitfield {
+        /// Index into `StructInfo::members` for the backing field.
+        backing_member_index: usize,
+        /// Bit offset within the backing field.
+        offset: u8,
+        /// Number of bits.
+        width: u8,
+        /// Rust type for the setter parameter.
+        param_ty: String,
+        /// Whether to use `.as_raw()` to extract the raw value from a flags type.
+        is_flags_type: bool,
     },
 }
 
@@ -292,6 +334,122 @@ fn build_setters_for_length_member(
     setters
 }
 
+/// Determine the bit width of a C integer type name.
+fn c_type_bit_width(name: &str) -> u8 {
+    match name {
+        "uint8_t" | "int8_t" => 8,
+        "uint16_t" | "int16_t" => 16,
+        "uint32_t" | "int32_t" => 32,
+        "uint64_t" | "int64_t" => 64,
+        _ => panic!("unhandled underlying type for bit field: {}", name),
+    }
+}
+
+/// Scan struct members for consecutive bitfield members and group them.
+/// Groups are split when the accumulated bit width reaches the backing type's total width.
+fn collect_bitfield_groups<'a>(
+    analysis: &Analysis,
+    members: &'a [xml::StructureMember],
+) -> Vec<BitfieldGroup<'a>> {
+    let mut groups = Vec::new();
+    let mut i = 0;
+    while i < members.len() {
+        if members[i].c_decl.bitfield_width.is_some() {
+            let mut start = i;
+            let mut fields = Vec::new();
+            let mut offset: u8 = 0;
+
+            // Determine the backing type width from the first primitive integer member.
+            let type_width = {
+                let mut width = 32u8;
+                let mut j = i;
+                while j < members.len() && members[j].c_decl.bitfield_width.is_some() {
+                    let base = ctype_rust::base_name(&members[j].c_decl.ty).unwrap_or("uint32_t");
+                    if !analysis.is_bitmask_type(base) {
+                        width = c_type_bit_width(base);
+                        break;
+                    }
+                    j += 1;
+                }
+                width
+            };
+
+            while i < members.len() {
+                if let Some(width) = members[i].c_decl.bitfield_width {
+                    let w = width.get();
+
+                    // If adding this field would exceed the backing type width, close the
+                    // current group and start a new one.
+                    if offset > 0 && offset + w > type_width {
+                        let backing_ty = backing_type_for_fields(analysis, &fields);
+                        groups.push(BitfieldGroup {
+                            first_xml_index: start,
+                            backing_name: format!("_bitfield_{}", groups.len()),
+                            backing_ty,
+                            fields,
+                        });
+                        fields = Vec::new();
+                        start = i;
+                        offset = 0;
+                    }
+
+                    let name = normalize_name(members[i].c_decl.name);
+                    let base_name =
+                        ctype_rust::base_name(&members[i].c_decl.ty).unwrap_or("uint32_t");
+                    let is_flags = analysis.is_bitmask_type(base_name);
+                    let setter_ty = if w == 1 {
+                        "bool".to_string()
+                    } else if is_flags {
+                        ctype_to_rust_type(analysis, &members[i].c_decl.ty, Some("a"))
+                    } else {
+                        ctype_rust::base_ctype_to_rust_str(base_name).to_string()
+                    };
+                    fields.push(BitfieldField {
+                        member: &members[i],
+                        name,
+                        offset,
+                        width: w,
+                        setter_ty,
+                        is_flags_type: is_flags,
+                    });
+                    offset += w;
+                    i += 1;
+                } else {
+                    break;
+                }
+            }
+
+            if !fields.is_empty() {
+                let backing_ty = backing_type_for_fields(analysis, &fields);
+                groups.push(BitfieldGroup {
+                    first_xml_index: start,
+                    backing_name: format!("_bitfield_{}", groups.len()),
+                    backing_ty,
+                    fields,
+                });
+            }
+        } else {
+            i += 1;
+        }
+    }
+    groups
+}
+
+/// Determine the Rust backing type for a group of bitfield fields.
+fn backing_type_for_fields(analysis: &Analysis, fields: &[BitfieldField<'_>]) -> String {
+    fields
+        .iter()
+        .find_map(|f| {
+            let name = ctype_rust::base_name(&f.member.c_decl.ty)?;
+            if analysis.is_bitmask_type(name) {
+                None
+            } else {
+                Some(ctype_rust::base_ctype_to_rust_str(name).to_string())
+            }
+        })
+        .unwrap_or_else(|| "u32".to_string())
+}
+
 fn analyze_struct<'a>(analysis: &'a Analysis, struct_ty: &'a xml::Structure) -> StructInfo<'a> {
     let len_kinds: Vec<Vec<_>> = struct_ty
         .members
@@ -312,7 +470,56 @@ fn analyze_struct<'a>(analysis: &'a Analysis, struct_ty: &'a xml::Structure) -> 
     let mut members = Vec::new();
     let mut setters = Vec::new();
 
+    // Pre-compute bitfield groups.
+    let bitfield_groups = collect_bitfield_groups(analysis, &struct_ty.members);
+
+    // Build a lookup: xml_member_index -> (group_index, is_first_in_group).
+    let mut bitfield_membership = std::collections::HashMap::new();
+    for (group_idx, group) in bitfield_groups.iter().enumerate() {
+        for (field_idx, _field) in group.fields.iter().enumerate() {
+            let xml_idx = group.first_xml_index + field_idx;
+            bitfield_membership.insert(xml_idx, (group_idx, field_idx == 0));
+        }
+    }
+
+    // Mapping from XML member index to analyzed members Vec index.
+    let mut xml_to_analyzed: Vec<Option<usize>> = vec![None; struct_ty.members.len()];
+
     for (member_index, member) in struct_ty.members.iter().enumerate() {
+        // Handle bitfield group members.
+        if let Some(&(group_idx, is_first)) = bitfield_membership.get(&member_index) {
+            if is_first {
+                let group = &bitfield_groups[group_idx];
+                let backing_member_index = members.len();
+                // Map all XML indices in this group to the backing field index.
+                for field_idx in 0..group.fields.len() {
+                    xml_to_analyzed[group.first_xml_index + field_idx] = Some(backing_member_index);
+                }
+                members.push(MemberInfo {
+                    member,
+                    name: group.backing_name.clone(),
+                    ty: group.backing_ty.clone(),
+                });
+
+                for field in &group.fields {
+                    setters.push(MemberSetterInfo {
+                        name: field.name.clone(),
+                        kind: SetterKind::Bitfield {
+                            backing_member_index,
+                            offset: field.offset,
+                            width: field.width,
+                            param_ty: field.setter_ty.clone(),
+                            is_flags_type: field.is_flags_type,
+                        },
+                    });
+                }
+            }
+            continue;
+        }
+
+        let analyzed_index = members.len();
+        xml_to_analyzed[member_index] = Some(analyzed_index);
+
         let name = normalize_name(member.c_decl.name);
         let len = len_kinds[member_index].clone();
 
@@ -351,7 +558,7 @@ fn analyze_struct<'a>(analysis: &'a Analysis, struct_ty: &'a xml::Structure) -> 
                     name: param_name.clone(),
                     kind: SetterKind::Value(SetterParamInfo {
                         name: param_name,
-                        member_index,
+                        member_index: analyzed_index,
                         ty: "&'a CStr".to_string(),
                         assignment: SetterAssignmentKind::CStrToPtr,
                         optional: false,
@@ -363,7 +570,7 @@ fn analyze_struct<'a>(analysis: &'a Analysis, struct_ty: &'a xml::Structure) -> 
                     name: param_name.clone(),
                     kind: SetterKind::Value(SetterParamInfo {
                         name: param_name,
-                        member_index,
+                        member_index: analyzed_index,
                         ty: "&CStr".to_string(),
                         assignment: SetterAssignmentKind::CStrToArray,
                         optional: false,
@@ -404,6 +611,36 @@ fn analyze_struct<'a>(analysis: &'a Analysis, struct_ty: &'a xml::Structure) -> 
         members.push(MemberInfo { member, name, ty });
     }
 
+    // Remap XML member indices in setters to analyzed member indices.
+    for setter in &mut setters {
+        match &mut setter.kind {
+            SetterKind::Value(param) => {
+                if let Some(analyzed) = xml_to_analyzed.get(param.member_index).copied().flatten() {
+                    param.member_index = analyzed;
+                }
+            }
+            SetterKind::Array {
+                len_member_index,
+                params,
+            } => {
+                if let Some(analyzed) = xml_to_analyzed.get(*len_member_index).copied().flatten() {
+                    *len_member_index = analyzed;
+                }
+                for param in params {
+                    if let Some(analyzed) =
+                        xml_to_analyzed.get(param.member_index).copied().flatten()
+                    {
+                        param.member_index = analyzed;
+                    }
+                }
+            }
+            SetterKind::Bitfield { .. } => {} // Already uses analyzed index.
+        }
+    }
+
+    // Remove setters that overrides want suppressed (e.g. reserved fields).
+    setters.retain(|s| !overrides::skip_setter(struct_ty.name, &s.name));
+
     let name = normalize_ty_name(struct_ty.name).to_string();
     StructInfo {
         name,
@@ -411,6 +648,7 @@ fn analyze_struct<'a>(analysis: &'a Analysis, struct_ty: &'a xml::Structure) -> 
         stype_suffix,
         has_stype_default,
         setters,
+        bitfield_groups,
     }
 }
 
@@ -421,6 +659,7 @@ fn write_struct_definition(
     type_info: crate::analysis::TypeInfo,
     has_derived_default: bool,
     lifetime_spec: &str,
+    bitfield_groups: &[BitfieldGroup<'_>],
 ) -> Result<()> {
     let mut derives = vec!["Copy", "Clone"];
     if has_derived_default {
@@ -441,7 +680,34 @@ fn write_struct_definition(
         normalize_ty_name(ty.name),
         lifetime_spec
     )?;
-    for member in &ty.members {
+
+    // Build a set of XML member indices that belong to bitfield groups,
+    // and track which indices start a group.
+    let mut bitfield_skip: std::collections::HashSet<usize> = std::collections::HashSet::new();
+    let mut bitfield_start: std::collections::HashMap<usize, usize> =
+        std::collections::HashMap::new();
+    for (group_idx, group) in bitfield_groups.iter().enumerate() {
+        for field_idx in 0..group.fields.len() {
+            let xml_idx = group.first_xml_index + field_idx;
+            if field_idx == 0 {
+                bitfield_start.insert(xml_idx, group_idx);
+            } else {
+                bitfield_skip.insert(xml_idx);
+            }
+        }
+    }
+
+    for (i, member) in ty.members.iter().enumerate() {
+        if bitfield_skip.contains(&i) {
+            continue;
+        }
+
+        if let Some(&group_idx) = bitfield_start.get(&i) {
+            let group = &bitfield_groups[group_idx];
+            writeln!(file, "pub {}: {},", group.backing_name, group.backing_ty)?;
+            continue;
+        }
+
         let name = normalize_name(member.c_decl.name);
 
         let field_ty =
@@ -561,6 +827,40 @@ fn write_value_setter_body(
     Ok(())
 }
 
+fn write_bitfield_setter_body(
+    file: &mut impl Write,
+    backing_field_name: &str,
+    backing_ty: &str,
+    param_name: &str,
+    offset: u8,
+    width: u8,
+    is_flags_type: bool,
+) -> Result<()> {
+    assert!(
+        backing_ty == "u32",
+        "TODO: handle bitfield backing type `{backing_ty}` (only u32 is supported)",
+    );
+    if width == 1 {
+        writeln!(
+            file,
+            "set_bitfield_bool::<{}>(&mut self.{}, {});",
+            offset, backing_field_name, param_name,
+        )?;
+    } else {
+        let raw_val = if is_flags_type {
+            format!("{}.as_raw()", param_name)
+        } else {
+            param_name.to_string()
+        };
+        writeln!(
+            file,
+            "set_bitfield::<{}, {}>(&mut self.{}, {});",
+            offset, width, backing_field_name, raw_val,
+        )?;
+    }
+    Ok(())
+}
+
 fn write_array_setter_body(
     file: &mut impl std::io::Write,
     info: &StructInfo<'_>,
@@ -656,6 +956,9 @@ fn write_setters(
                     }
                 }
             }
+            SetterKind::Bitfield { param_ty, .. } => {
+                writeln!(file, "{}: {},", setter.name, param_ty)?;
+            }
         }
 
         let is_cstr_array = matches!(&setter.kind, SetterKind::Value(p) if p.assignment == SetterAssignmentKind::CStrToArray);
@@ -677,6 +980,23 @@ fn write_setters(
                 params,
             } => {
                 write_array_setter_body(file, info, *len_member_index, params)?;
+            }
+            SetterKind::Bitfield {
+                backing_member_index,
+                offset,
+                width,
+                is_flags_type,
+                ..
+            } => {
+                write_bitfield_setter_body(
+                    file,
+                    &info.members[*backing_member_index].name,
+                    &info.members[*backing_member_index].ty,
+                    &setter.name,
+                    *offset,
+                    *width,
+                    *is_flags_type,
+                )?;
             }
         }
 
@@ -711,6 +1031,7 @@ pub fn write_struct(
         type_info,
         has_derived_default,
         lifetime_spec,
+        &info.bitfield_groups,
     )?;
 
     if !type_info.trivial_debug {
@@ -790,7 +1111,49 @@ fn write_debug_impl(
             f.debug_struct(\"{name}\")"
     )?;
 
-    for member in &ty.members {
+    // Build bitfield lookup (same as write_struct_definition).
+    let mut bitfield_skip: std::collections::HashSet<usize> = std::collections::HashSet::new();
+    let mut bitfield_start: std::collections::HashMap<usize, usize> =
+        std::collections::HashMap::new();
+    for (group_idx, group) in info.bitfield_groups.iter().enumerate() {
+        for field_idx in 0..group.fields.len() {
+            let xml_idx = group.first_xml_index + field_idx;
+            if field_idx == 0 {
+                bitfield_start.insert(xml_idx, group_idx);
+            } else {
+                bitfield_skip.insert(xml_idx);
+            }
+        }
+    }
+
+    for (i, member) in ty.members.iter().enumerate() {
+        if bitfield_skip.contains(&i) {
+            continue;
+        }
+
+        if let Some(&group_idx) = bitfield_start.get(&i) {
+            let group = &info.bitfield_groups[group_idx];
+            // Show each logical bitfield member by extracting bits.
+            for field in &group.fields {
+                let mask = (1u64 << field.width) - 1;
+                let backing = &group.backing_name;
+                if field.offset == 0 {
+                    writeln!(
+                        file,
+                        ".field(\"{}\", &(self.{} & {:#x}))",
+                        field.name, backing, mask
+                    )?;
+                } else {
+                    writeln!(
+                        file,
+                        ".field(\"{}\", &((self.{} >> {}) & {:#x}))",
+                        field.name, backing, field.offset, mask
+                    )?;
+                }
+            }
+            continue;
+        }
+
         let field_name = normalize_name(member.c_decl.name);
         let kind = debug_field_kind(analysis, member);
 

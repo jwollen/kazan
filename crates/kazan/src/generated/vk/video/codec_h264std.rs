@@ -30,105 +30,94 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoH264SpsVuiFlags {
-        pub aspect_ratio_info_present_flag: u32,
-        pub overscan_info_present_flag: u32,
-        pub overscan_appropriate_flag: u32,
-        pub video_signal_type_present_flag: u32,
-        pub video_full_range_flag: u32,
-        pub color_description_present_flag: u32,
-        pub chroma_loc_info_present_flag: u32,
-        pub timing_info_present_flag: u32,
-        pub fixed_frame_rate_flag: u32,
-        pub bitstream_restriction_flag: u32,
-        pub nal_hrd_parameters_present_flag: u32,
-        pub vcl_hrd_parameters_present_flag: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoH264SpsVuiFlags {
         #[inline]
         pub fn aspect_ratio_info_present_flag(
             mut self,
-            aspect_ratio_info_present_flag: u32,
+            aspect_ratio_info_present_flag: bool,
         ) -> Self {
-            self.aspect_ratio_info_present_flag = aspect_ratio_info_present_flag;
+            set_bitfield_bool::<0>(&mut self._bitfield_0, aspect_ratio_info_present_flag);
             self
         }
 
         #[inline]
-        pub fn overscan_info_present_flag(mut self, overscan_info_present_flag: u32) -> Self {
-            self.overscan_info_present_flag = overscan_info_present_flag;
+        pub fn overscan_info_present_flag(mut self, overscan_info_present_flag: bool) -> Self {
+            set_bitfield_bool::<1>(&mut self._bitfield_0, overscan_info_present_flag);
             self
         }
 
         #[inline]
-        pub fn overscan_appropriate_flag(mut self, overscan_appropriate_flag: u32) -> Self {
-            self.overscan_appropriate_flag = overscan_appropriate_flag;
+        pub fn overscan_appropriate_flag(mut self, overscan_appropriate_flag: bool) -> Self {
+            set_bitfield_bool::<2>(&mut self._bitfield_0, overscan_appropriate_flag);
             self
         }
 
         #[inline]
         pub fn video_signal_type_present_flag(
             mut self,
-            video_signal_type_present_flag: u32,
+            video_signal_type_present_flag: bool,
         ) -> Self {
-            self.video_signal_type_present_flag = video_signal_type_present_flag;
+            set_bitfield_bool::<3>(&mut self._bitfield_0, video_signal_type_present_flag);
             self
         }
 
         #[inline]
-        pub fn video_full_range_flag(mut self, video_full_range_flag: u32) -> Self {
-            self.video_full_range_flag = video_full_range_flag;
+        pub fn video_full_range_flag(mut self, video_full_range_flag: bool) -> Self {
+            set_bitfield_bool::<4>(&mut self._bitfield_0, video_full_range_flag);
             self
         }
 
         #[inline]
         pub fn color_description_present_flag(
             mut self,
-            color_description_present_flag: u32,
+            color_description_present_flag: bool,
         ) -> Self {
-            self.color_description_present_flag = color_description_present_flag;
+            set_bitfield_bool::<5>(&mut self._bitfield_0, color_description_present_flag);
             self
         }
 
         #[inline]
-        pub fn chroma_loc_info_present_flag(mut self, chroma_loc_info_present_flag: u32) -> Self {
-            self.chroma_loc_info_present_flag = chroma_loc_info_present_flag;
+        pub fn chroma_loc_info_present_flag(mut self, chroma_loc_info_present_flag: bool) -> Self {
+            set_bitfield_bool::<6>(&mut self._bitfield_0, chroma_loc_info_present_flag);
             self
         }
 
         #[inline]
-        pub fn timing_info_present_flag(mut self, timing_info_present_flag: u32) -> Self {
-            self.timing_info_present_flag = timing_info_present_flag;
+        pub fn timing_info_present_flag(mut self, timing_info_present_flag: bool) -> Self {
+            set_bitfield_bool::<7>(&mut self._bitfield_0, timing_info_present_flag);
             self
         }
 
         #[inline]
-        pub fn fixed_frame_rate_flag(mut self, fixed_frame_rate_flag: u32) -> Self {
-            self.fixed_frame_rate_flag = fixed_frame_rate_flag;
+        pub fn fixed_frame_rate_flag(mut self, fixed_frame_rate_flag: bool) -> Self {
+            set_bitfield_bool::<8>(&mut self._bitfield_0, fixed_frame_rate_flag);
             self
         }
 
         #[inline]
-        pub fn bitstream_restriction_flag(mut self, bitstream_restriction_flag: u32) -> Self {
-            self.bitstream_restriction_flag = bitstream_restriction_flag;
+        pub fn bitstream_restriction_flag(mut self, bitstream_restriction_flag: bool) -> Self {
+            set_bitfield_bool::<9>(&mut self._bitfield_0, bitstream_restriction_flag);
             self
         }
 
         #[inline]
         pub fn nal_hrd_parameters_present_flag(
             mut self,
-            nal_hrd_parameters_present_flag: u32,
+            nal_hrd_parameters_present_flag: bool,
         ) -> Self {
-            self.nal_hrd_parameters_present_flag = nal_hrd_parameters_present_flag;
+            set_bitfield_bool::<10>(&mut self._bitfield_0, nal_hrd_parameters_present_flag);
             self
         }
 
         #[inline]
         pub fn vcl_hrd_parameters_present_flag(
             mut self,
-            vcl_hrd_parameters_present_flag: u32,
+            vcl_hrd_parameters_present_flag: bool,
         ) -> Self {
-            self.vcl_hrd_parameters_present_flag = vcl_hrd_parameters_present_flag;
+            set_bitfield_bool::<11>(&mut self._bitfield_0, vcl_hrd_parameters_present_flag);
             self
         }
     }
@@ -444,130 +433,115 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoH264SpsFlags {
-        pub constraint_set0_flag: u32,
-        pub constraint_set1_flag: u32,
-        pub constraint_set2_flag: u32,
-        pub constraint_set3_flag: u32,
-        pub constraint_set4_flag: u32,
-        pub constraint_set5_flag: u32,
-        pub direct_8x8_inference_flag: u32,
-        pub mb_adaptive_frame_field_flag: u32,
-        pub frame_mbs_only_flag: u32,
-        pub delta_pic_order_always_zero_flag: u32,
-        pub separate_colour_plane_flag: u32,
-        pub gaps_in_frame_num_value_allowed_flag: u32,
-        pub qpprime_y_zero_transform_bypass_flag: u32,
-        pub frame_cropping_flag: u32,
-        pub seq_scaling_matrix_present_flag: u32,
-        pub vui_parameters_present_flag: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoH264SpsFlags {
         #[inline]
-        pub fn constraint_set0_flag(mut self, constraint_set0_flag: u32) -> Self {
-            self.constraint_set0_flag = constraint_set0_flag;
+        pub fn constraint_set0_flag(mut self, constraint_set0_flag: bool) -> Self {
+            set_bitfield_bool::<0>(&mut self._bitfield_0, constraint_set0_flag);
             self
         }
 
         #[inline]
-        pub fn constraint_set1_flag(mut self, constraint_set1_flag: u32) -> Self {
-            self.constraint_set1_flag = constraint_set1_flag;
+        pub fn constraint_set1_flag(mut self, constraint_set1_flag: bool) -> Self {
+            set_bitfield_bool::<1>(&mut self._bitfield_0, constraint_set1_flag);
             self
         }
 
         #[inline]
-        pub fn constraint_set2_flag(mut self, constraint_set2_flag: u32) -> Self {
-            self.constraint_set2_flag = constraint_set2_flag;
+        pub fn constraint_set2_flag(mut self, constraint_set2_flag: bool) -> Self {
+            set_bitfield_bool::<2>(&mut self._bitfield_0, constraint_set2_flag);
             self
         }
 
         #[inline]
-        pub fn constraint_set3_flag(mut self, constraint_set3_flag: u32) -> Self {
-            self.constraint_set3_flag = constraint_set3_flag;
+        pub fn constraint_set3_flag(mut self, constraint_set3_flag: bool) -> Self {
+            set_bitfield_bool::<3>(&mut self._bitfield_0, constraint_set3_flag);
             self
         }
 
         #[inline]
-        pub fn constraint_set4_flag(mut self, constraint_set4_flag: u32) -> Self {
-            self.constraint_set4_flag = constraint_set4_flag;
+        pub fn constraint_set4_flag(mut self, constraint_set4_flag: bool) -> Self {
+            set_bitfield_bool::<4>(&mut self._bitfield_0, constraint_set4_flag);
             self
         }
 
         #[inline]
-        pub fn constraint_set5_flag(mut self, constraint_set5_flag: u32) -> Self {
-            self.constraint_set5_flag = constraint_set5_flag;
+        pub fn constraint_set5_flag(mut self, constraint_set5_flag: bool) -> Self {
+            set_bitfield_bool::<5>(&mut self._bitfield_0, constraint_set5_flag);
             self
         }
 
         #[inline]
-        pub fn direct_8x8_inference_flag(mut self, direct_8x8_inference_flag: u32) -> Self {
-            self.direct_8x8_inference_flag = direct_8x8_inference_flag;
+        pub fn direct_8x8_inference_flag(mut self, direct_8x8_inference_flag: bool) -> Self {
+            set_bitfield_bool::<6>(&mut self._bitfield_0, direct_8x8_inference_flag);
             self
         }
 
         #[inline]
-        pub fn mb_adaptive_frame_field_flag(mut self, mb_adaptive_frame_field_flag: u32) -> Self {
-            self.mb_adaptive_frame_field_flag = mb_adaptive_frame_field_flag;
+        pub fn mb_adaptive_frame_field_flag(mut self, mb_adaptive_frame_field_flag: bool) -> Self {
+            set_bitfield_bool::<7>(&mut self._bitfield_0, mb_adaptive_frame_field_flag);
             self
         }
 
         #[inline]
-        pub fn frame_mbs_only_flag(mut self, frame_mbs_only_flag: u32) -> Self {
-            self.frame_mbs_only_flag = frame_mbs_only_flag;
+        pub fn frame_mbs_only_flag(mut self, frame_mbs_only_flag: bool) -> Self {
+            set_bitfield_bool::<8>(&mut self._bitfield_0, frame_mbs_only_flag);
             self
         }
 
         #[inline]
         pub fn delta_pic_order_always_zero_flag(
             mut self,
-            delta_pic_order_always_zero_flag: u32,
+            delta_pic_order_always_zero_flag: bool,
         ) -> Self {
-            self.delta_pic_order_always_zero_flag = delta_pic_order_always_zero_flag;
+            set_bitfield_bool::<9>(&mut self._bitfield_0, delta_pic_order_always_zero_flag);
             self
         }
 
         #[inline]
-        pub fn separate_colour_plane_flag(mut self, separate_colour_plane_flag: u32) -> Self {
-            self.separate_colour_plane_flag = separate_colour_plane_flag;
+        pub fn separate_colour_plane_flag(mut self, separate_colour_plane_flag: bool) -> Self {
+            set_bitfield_bool::<10>(&mut self._bitfield_0, separate_colour_plane_flag);
             self
         }
 
         #[inline]
         pub fn gaps_in_frame_num_value_allowed_flag(
             mut self,
-            gaps_in_frame_num_value_allowed_flag: u32,
+            gaps_in_frame_num_value_allowed_flag: bool,
         ) -> Self {
-            self.gaps_in_frame_num_value_allowed_flag = gaps_in_frame_num_value_allowed_flag;
+            set_bitfield_bool::<11>(&mut self._bitfield_0, gaps_in_frame_num_value_allowed_flag);
             self
         }
 
         #[inline]
         pub fn qpprime_y_zero_transform_bypass_flag(
             mut self,
-            qpprime_y_zero_transform_bypass_flag: u32,
+            qpprime_y_zero_transform_bypass_flag: bool,
         ) -> Self {
-            self.qpprime_y_zero_transform_bypass_flag = qpprime_y_zero_transform_bypass_flag;
+            set_bitfield_bool::<12>(&mut self._bitfield_0, qpprime_y_zero_transform_bypass_flag);
             self
         }
 
         #[inline]
-        pub fn frame_cropping_flag(mut self, frame_cropping_flag: u32) -> Self {
-            self.frame_cropping_flag = frame_cropping_flag;
+        pub fn frame_cropping_flag(mut self, frame_cropping_flag: bool) -> Self {
+            set_bitfield_bool::<13>(&mut self._bitfield_0, frame_cropping_flag);
             self
         }
 
         #[inline]
         pub fn seq_scaling_matrix_present_flag(
             mut self,
-            seq_scaling_matrix_present_flag: u32,
+            seq_scaling_matrix_present_flag: bool,
         ) -> Self {
-            self.seq_scaling_matrix_present_flag = seq_scaling_matrix_present_flag;
+            set_bitfield_bool::<14>(&mut self._bitfield_0, seq_scaling_matrix_present_flag);
             self
         }
 
         #[inline]
-        pub fn vui_parameters_present_flag(mut self, vui_parameters_present_flag: u32) -> Self {
-            self.vui_parameters_present_flag = vui_parameters_present_flag;
+        pub fn vui_parameters_present_flag(mut self, vui_parameters_present_flag: bool) -> Self {
+            set_bitfield_bool::<15>(&mut self._bitfield_0, vui_parameters_present_flag);
             self
         }
     }
@@ -914,75 +888,73 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoH264PpsFlags {
-        pub transform_8x8_mode_flag: u32,
-        pub redundant_pic_cnt_present_flag: u32,
-        pub constrained_intra_pred_flag: u32,
-        pub deblocking_filter_control_present_flag: u32,
-        pub weighted_pred_flag: u32,
-        pub bottom_field_pic_order_in_frame_present_flag: u32,
-        pub entropy_coding_mode_flag: u32,
-        pub pic_scaling_matrix_present_flag: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoH264PpsFlags {
         #[inline]
-        pub fn transform_8x8_mode_flag(mut self, transform_8x8_mode_flag: u32) -> Self {
-            self.transform_8x8_mode_flag = transform_8x8_mode_flag;
+        pub fn transform_8x8_mode_flag(mut self, transform_8x8_mode_flag: bool) -> Self {
+            set_bitfield_bool::<0>(&mut self._bitfield_0, transform_8x8_mode_flag);
             self
         }
 
         #[inline]
         pub fn redundant_pic_cnt_present_flag(
             mut self,
-            redundant_pic_cnt_present_flag: u32,
+            redundant_pic_cnt_present_flag: bool,
         ) -> Self {
-            self.redundant_pic_cnt_present_flag = redundant_pic_cnt_present_flag;
+            set_bitfield_bool::<1>(&mut self._bitfield_0, redundant_pic_cnt_present_flag);
             self
         }
 
         #[inline]
-        pub fn constrained_intra_pred_flag(mut self, constrained_intra_pred_flag: u32) -> Self {
-            self.constrained_intra_pred_flag = constrained_intra_pred_flag;
+        pub fn constrained_intra_pred_flag(mut self, constrained_intra_pred_flag: bool) -> Self {
+            set_bitfield_bool::<2>(&mut self._bitfield_0, constrained_intra_pred_flag);
             self
         }
 
         #[inline]
         pub fn deblocking_filter_control_present_flag(
             mut self,
-            deblocking_filter_control_present_flag: u32,
+            deblocking_filter_control_present_flag: bool,
         ) -> Self {
-            self.deblocking_filter_control_present_flag = deblocking_filter_control_present_flag;
+            set_bitfield_bool::<3>(
+                &mut self._bitfield_0,
+                deblocking_filter_control_present_flag,
+            );
             self
         }
 
         #[inline]
-        pub fn weighted_pred_flag(mut self, weighted_pred_flag: u32) -> Self {
-            self.weighted_pred_flag = weighted_pred_flag;
+        pub fn weighted_pred_flag(mut self, weighted_pred_flag: bool) -> Self {
+            set_bitfield_bool::<4>(&mut self._bitfield_0, weighted_pred_flag);
             self
         }
 
         #[inline]
         pub fn bottom_field_pic_order_in_frame_present_flag(
             mut self,
-            bottom_field_pic_order_in_frame_present_flag: u32,
+            bottom_field_pic_order_in_frame_present_flag: bool,
         ) -> Self {
-            self.bottom_field_pic_order_in_frame_present_flag =
-                bottom_field_pic_order_in_frame_present_flag;
+            set_bitfield_bool::<5>(
+                &mut self._bitfield_0,
+                bottom_field_pic_order_in_frame_present_flag,
+            );
             self
         }
 
         #[inline]
-        pub fn entropy_coding_mode_flag(mut self, entropy_coding_mode_flag: u32) -> Self {
-            self.entropy_coding_mode_flag = entropy_coding_mode_flag;
+        pub fn entropy_coding_mode_flag(mut self, entropy_coding_mode_flag: bool) -> Self {
+            set_bitfield_bool::<6>(&mut self._bitfield_0, entropy_coding_mode_flag);
             self
         }
 
         #[inline]
         pub fn pic_scaling_matrix_present_flag(
             mut self,
-            pic_scaling_matrix_present_flag: u32,
+            pic_scaling_matrix_present_flag: bool,
         ) -> Self {
-            self.pic_scaling_matrix_present_flag = pic_scaling_matrix_present_flag;
+            set_bitfield_bool::<7>(&mut self._bitfield_0, pic_scaling_matrix_present_flag);
             self
         }
     }

@@ -21,222 +21,187 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoDecodeAV1PictureInfoFlags {
-        pub error_resilient_mode: u32,
-        pub disable_cdf_update: u32,
-        pub use_superres: u32,
-        pub render_and_frame_size_different: u32,
-        pub allow_screen_content_tools: u32,
-        pub is_filter_switchable: u32,
-        pub force_integer_mv: u32,
-        pub frame_size_override_flag: u32,
-        pub buffer_removal_time_present_flag: u32,
-        pub allow_intrabc: u32,
-        pub frame_refs_short_signaling: u32,
-        pub allow_high_precision_mv: u32,
-        pub is_motion_mode_switchable: u32,
-        pub use_ref_frame_mvs: u32,
-        pub disable_frame_end_update_cdf: u32,
-        pub allow_warped_motion: u32,
-        pub reduced_tx_set: u32,
-        pub reference_select: u32,
-        pub skip_mode_present: u32,
-        pub delta_q_present: u32,
-        pub delta_lf_present: u32,
-        pub delta_lf_multi: u32,
-        pub segmentation_enabled: u32,
-        pub segmentation_update_map: u32,
-        pub segmentation_temporal_update: u32,
-        pub segmentation_update_data: u32,
-        pub uses_lr: u32,
-        pub uses_chroma_lr: u32,
-        pub apply_grain: u32,
-        pub reserved: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoDecodeAV1PictureInfoFlags {
         #[inline]
-        pub fn error_resilient_mode(mut self, error_resilient_mode: u32) -> Self {
-            self.error_resilient_mode = error_resilient_mode;
+        pub fn error_resilient_mode(mut self, error_resilient_mode: bool) -> Self {
+            set_bitfield_bool::<0>(&mut self._bitfield_0, error_resilient_mode);
             self
         }
 
         #[inline]
-        pub fn disable_cdf_update(mut self, disable_cdf_update: u32) -> Self {
-            self.disable_cdf_update = disable_cdf_update;
+        pub fn disable_cdf_update(mut self, disable_cdf_update: bool) -> Self {
+            set_bitfield_bool::<1>(&mut self._bitfield_0, disable_cdf_update);
             self
         }
 
         #[inline]
-        pub fn use_superres(mut self, use_superres: u32) -> Self {
-            self.use_superres = use_superres;
+        pub fn use_superres(mut self, use_superres: bool) -> Self {
+            set_bitfield_bool::<2>(&mut self._bitfield_0, use_superres);
             self
         }
 
         #[inline]
         pub fn render_and_frame_size_different(
             mut self,
-            render_and_frame_size_different: u32,
+            render_and_frame_size_different: bool,
         ) -> Self {
-            self.render_and_frame_size_different = render_and_frame_size_different;
+            set_bitfield_bool::<3>(&mut self._bitfield_0, render_and_frame_size_different);
             self
         }
 
         #[inline]
-        pub fn allow_screen_content_tools(mut self, allow_screen_content_tools: u32) -> Self {
-            self.allow_screen_content_tools = allow_screen_content_tools;
+        pub fn allow_screen_content_tools(mut self, allow_screen_content_tools: bool) -> Self {
+            set_bitfield_bool::<4>(&mut self._bitfield_0, allow_screen_content_tools);
             self
         }
 
         #[inline]
-        pub fn is_filter_switchable(mut self, is_filter_switchable: u32) -> Self {
-            self.is_filter_switchable = is_filter_switchable;
+        pub fn is_filter_switchable(mut self, is_filter_switchable: bool) -> Self {
+            set_bitfield_bool::<5>(&mut self._bitfield_0, is_filter_switchable);
             self
         }
 
         #[inline]
-        pub fn force_integer_mv(mut self, force_integer_mv: u32) -> Self {
-            self.force_integer_mv = force_integer_mv;
+        pub fn force_integer_mv(mut self, force_integer_mv: bool) -> Self {
+            set_bitfield_bool::<6>(&mut self._bitfield_0, force_integer_mv);
             self
         }
 
         #[inline]
-        pub fn frame_size_override_flag(mut self, frame_size_override_flag: u32) -> Self {
-            self.frame_size_override_flag = frame_size_override_flag;
+        pub fn frame_size_override_flag(mut self, frame_size_override_flag: bool) -> Self {
+            set_bitfield_bool::<7>(&mut self._bitfield_0, frame_size_override_flag);
             self
         }
 
         #[inline]
         pub fn buffer_removal_time_present_flag(
             mut self,
-            buffer_removal_time_present_flag: u32,
+            buffer_removal_time_present_flag: bool,
         ) -> Self {
-            self.buffer_removal_time_present_flag = buffer_removal_time_present_flag;
+            set_bitfield_bool::<8>(&mut self._bitfield_0, buffer_removal_time_present_flag);
             self
         }
 
         #[inline]
-        pub fn allow_intrabc(mut self, allow_intrabc: u32) -> Self {
-            self.allow_intrabc = allow_intrabc;
+        pub fn allow_intrabc(mut self, allow_intrabc: bool) -> Self {
+            set_bitfield_bool::<9>(&mut self._bitfield_0, allow_intrabc);
             self
         }
 
         #[inline]
-        pub fn frame_refs_short_signaling(mut self, frame_refs_short_signaling: u32) -> Self {
-            self.frame_refs_short_signaling = frame_refs_short_signaling;
+        pub fn frame_refs_short_signaling(mut self, frame_refs_short_signaling: bool) -> Self {
+            set_bitfield_bool::<10>(&mut self._bitfield_0, frame_refs_short_signaling);
             self
         }
 
         #[inline]
-        pub fn allow_high_precision_mv(mut self, allow_high_precision_mv: u32) -> Self {
-            self.allow_high_precision_mv = allow_high_precision_mv;
+        pub fn allow_high_precision_mv(mut self, allow_high_precision_mv: bool) -> Self {
+            set_bitfield_bool::<11>(&mut self._bitfield_0, allow_high_precision_mv);
             self
         }
 
         #[inline]
-        pub fn is_motion_mode_switchable(mut self, is_motion_mode_switchable: u32) -> Self {
-            self.is_motion_mode_switchable = is_motion_mode_switchable;
+        pub fn is_motion_mode_switchable(mut self, is_motion_mode_switchable: bool) -> Self {
+            set_bitfield_bool::<12>(&mut self._bitfield_0, is_motion_mode_switchable);
             self
         }
 
         #[inline]
-        pub fn use_ref_frame_mvs(mut self, use_ref_frame_mvs: u32) -> Self {
-            self.use_ref_frame_mvs = use_ref_frame_mvs;
+        pub fn use_ref_frame_mvs(mut self, use_ref_frame_mvs: bool) -> Self {
+            set_bitfield_bool::<13>(&mut self._bitfield_0, use_ref_frame_mvs);
             self
         }
 
         #[inline]
-        pub fn disable_frame_end_update_cdf(mut self, disable_frame_end_update_cdf: u32) -> Self {
-            self.disable_frame_end_update_cdf = disable_frame_end_update_cdf;
+        pub fn disable_frame_end_update_cdf(mut self, disable_frame_end_update_cdf: bool) -> Self {
+            set_bitfield_bool::<14>(&mut self._bitfield_0, disable_frame_end_update_cdf);
             self
         }
 
         #[inline]
-        pub fn allow_warped_motion(mut self, allow_warped_motion: u32) -> Self {
-            self.allow_warped_motion = allow_warped_motion;
+        pub fn allow_warped_motion(mut self, allow_warped_motion: bool) -> Self {
+            set_bitfield_bool::<15>(&mut self._bitfield_0, allow_warped_motion);
             self
         }
 
         #[inline]
-        pub fn reduced_tx_set(mut self, reduced_tx_set: u32) -> Self {
-            self.reduced_tx_set = reduced_tx_set;
+        pub fn reduced_tx_set(mut self, reduced_tx_set: bool) -> Self {
+            set_bitfield_bool::<16>(&mut self._bitfield_0, reduced_tx_set);
             self
         }
 
         #[inline]
-        pub fn reference_select(mut self, reference_select: u32) -> Self {
-            self.reference_select = reference_select;
+        pub fn reference_select(mut self, reference_select: bool) -> Self {
+            set_bitfield_bool::<17>(&mut self._bitfield_0, reference_select);
             self
         }
 
         #[inline]
-        pub fn skip_mode_present(mut self, skip_mode_present: u32) -> Self {
-            self.skip_mode_present = skip_mode_present;
+        pub fn skip_mode_present(mut self, skip_mode_present: bool) -> Self {
+            set_bitfield_bool::<18>(&mut self._bitfield_0, skip_mode_present);
             self
         }
 
         #[inline]
-        pub fn delta_q_present(mut self, delta_q_present: u32) -> Self {
-            self.delta_q_present = delta_q_present;
+        pub fn delta_q_present(mut self, delta_q_present: bool) -> Self {
+            set_bitfield_bool::<19>(&mut self._bitfield_0, delta_q_present);
             self
         }
 
         #[inline]
-        pub fn delta_lf_present(mut self, delta_lf_present: u32) -> Self {
-            self.delta_lf_present = delta_lf_present;
+        pub fn delta_lf_present(mut self, delta_lf_present: bool) -> Self {
+            set_bitfield_bool::<20>(&mut self._bitfield_0, delta_lf_present);
             self
         }
 
         #[inline]
-        pub fn delta_lf_multi(mut self, delta_lf_multi: u32) -> Self {
-            self.delta_lf_multi = delta_lf_multi;
+        pub fn delta_lf_multi(mut self, delta_lf_multi: bool) -> Self {
+            set_bitfield_bool::<21>(&mut self._bitfield_0, delta_lf_multi);
             self
         }
 
         #[inline]
-        pub fn segmentation_enabled(mut self, segmentation_enabled: u32) -> Self {
-            self.segmentation_enabled = segmentation_enabled;
+        pub fn segmentation_enabled(mut self, segmentation_enabled: bool) -> Self {
+            set_bitfield_bool::<22>(&mut self._bitfield_0, segmentation_enabled);
             self
         }
 
         #[inline]
-        pub fn segmentation_update_map(mut self, segmentation_update_map: u32) -> Self {
-            self.segmentation_update_map = segmentation_update_map;
+        pub fn segmentation_update_map(mut self, segmentation_update_map: bool) -> Self {
+            set_bitfield_bool::<23>(&mut self._bitfield_0, segmentation_update_map);
             self
         }
 
         #[inline]
-        pub fn segmentation_temporal_update(mut self, segmentation_temporal_update: u32) -> Self {
-            self.segmentation_temporal_update = segmentation_temporal_update;
+        pub fn segmentation_temporal_update(mut self, segmentation_temporal_update: bool) -> Self {
+            set_bitfield_bool::<24>(&mut self._bitfield_0, segmentation_temporal_update);
             self
         }
 
         #[inline]
-        pub fn segmentation_update_data(mut self, segmentation_update_data: u32) -> Self {
-            self.segmentation_update_data = segmentation_update_data;
+        pub fn segmentation_update_data(mut self, segmentation_update_data: bool) -> Self {
+            set_bitfield_bool::<25>(&mut self._bitfield_0, segmentation_update_data);
             self
         }
 
         #[inline]
-        pub fn uses_lr(mut self, uses_lr: u32) -> Self {
-            self.uses_lr = uses_lr;
+        pub fn uses_lr(mut self, uses_lr: bool) -> Self {
+            set_bitfield_bool::<26>(&mut self._bitfield_0, uses_lr);
             self
         }
 
         #[inline]
-        pub fn uses_chroma_lr(mut self, uses_chroma_lr: u32) -> Self {
-            self.uses_chroma_lr = uses_chroma_lr;
+        pub fn uses_chroma_lr(mut self, uses_chroma_lr: bool) -> Self {
+            set_bitfield_bool::<27>(&mut self._bitfield_0, uses_chroma_lr);
             self
         }
 
         #[inline]
-        pub fn apply_grain(mut self, apply_grain: u32) -> Self {
-            self.apply_grain = apply_grain;
-            self
-        }
-
-        #[inline]
-        pub fn reserved(mut self, reserved: u32) -> Self {
-            self.reserved = reserved;
+        pub fn apply_grain(mut self, apply_grain: bool) -> Self {
+            set_bitfield_bool::<28>(&mut self._bitfield_0, apply_grain);
             self
         }
     }
@@ -504,27 +469,19 @@ pub(super) mod defs {
     #[derive(Copy, Clone, Default)]
     #[must_use]
     pub struct StdVideoDecodeAV1ReferenceInfoFlags {
-        pub disable_frame_end_update_cdf: u32,
-        pub segmentation_enabled: u32,
-        pub reserved: u32,
+        pub _bitfield_0: u32,
     }
 
     impl StdVideoDecodeAV1ReferenceInfoFlags {
         #[inline]
-        pub fn disable_frame_end_update_cdf(mut self, disable_frame_end_update_cdf: u32) -> Self {
-            self.disable_frame_end_update_cdf = disable_frame_end_update_cdf;
+        pub fn disable_frame_end_update_cdf(mut self, disable_frame_end_update_cdf: bool) -> Self {
+            set_bitfield_bool::<0>(&mut self._bitfield_0, disable_frame_end_update_cdf);
             self
         }
 
         #[inline]
-        pub fn segmentation_enabled(mut self, segmentation_enabled: u32) -> Self {
-            self.segmentation_enabled = segmentation_enabled;
-            self
-        }
-
-        #[inline]
-        pub fn reserved(mut self, reserved: u32) -> Self {
-            self.reserved = reserved;
+        pub fn segmentation_enabled(mut self, segmentation_enabled: bool) -> Self {
+            set_bitfield_bool::<1>(&mut self._bitfield_0, segmentation_enabled);
             self
         }
     }

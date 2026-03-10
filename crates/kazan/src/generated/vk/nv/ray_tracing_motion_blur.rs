@@ -323,10 +323,8 @@ pub(super) mod defs {
     pub struct AccelerationStructureSRTMotionInstanceNV {
         pub transform_t0: SRTDataNV,
         pub transform_t1: SRTDataNV,
-        pub instance_custom_index: u32,
-        pub mask: u32,
-        pub instance_shader_binding_table_record_offset: u32,
-        pub flags: GeometryInstanceFlagsKHR,
+        pub _bitfield_0: u32,
+        pub _bitfield_1: u32,
         pub acceleration_structure_reference: u64,
     }
 
@@ -345,13 +343,13 @@ pub(super) mod defs {
 
         #[inline]
         pub fn instance_custom_index(mut self, instance_custom_index: u32) -> Self {
-            self.instance_custom_index = instance_custom_index;
+            set_bitfield::<0, 24>(&mut self._bitfield_0, instance_custom_index);
             self
         }
 
         #[inline]
         pub fn mask(mut self, mask: u32) -> Self {
-            self.mask = mask;
+            set_bitfield::<24, 8>(&mut self._bitfield_0, mask);
             self
         }
 
@@ -360,14 +358,16 @@ pub(super) mod defs {
             mut self,
             instance_shader_binding_table_record_offset: u32,
         ) -> Self {
-            self.instance_shader_binding_table_record_offset =
-                instance_shader_binding_table_record_offset;
+            set_bitfield::<0, 24>(
+                &mut self._bitfield_1,
+                instance_shader_binding_table_record_offset,
+            );
             self
         }
 
         #[inline]
         pub fn flags(mut self, flags: GeometryInstanceFlagsKHR) -> Self {
-            self.flags = flags;
+            set_bitfield::<24, 8>(&mut self._bitfield_1, flags.as_raw());
             self
         }
 
@@ -389,10 +389,8 @@ pub(super) mod defs {
     pub struct AccelerationStructureMatrixMotionInstanceNV {
         pub transform_t0: TransformMatrixKHR,
         pub transform_t1: TransformMatrixKHR,
-        pub instance_custom_index: u32,
-        pub mask: u32,
-        pub instance_shader_binding_table_record_offset: u32,
-        pub flags: GeometryInstanceFlagsKHR,
+        pub _bitfield_0: u32,
+        pub _bitfield_1: u32,
         pub acceleration_structure_reference: u64,
     }
 
@@ -401,10 +399,8 @@ pub(super) mod defs {
             Self {
                 transform_t0: Default::default(),
                 transform_t1: Default::default(),
-                instance_custom_index: Default::default(),
-                mask: Default::default(),
-                instance_shader_binding_table_record_offset: Default::default(),
-                flags: Default::default(),
+                _bitfield_0: Default::default(),
+                _bitfield_1: Default::default(),
                 acceleration_structure_reference: Default::default(),
             }
         }
@@ -425,13 +421,13 @@ pub(super) mod defs {
 
         #[inline]
         pub fn instance_custom_index(mut self, instance_custom_index: u32) -> Self {
-            self.instance_custom_index = instance_custom_index;
+            set_bitfield::<0, 24>(&mut self._bitfield_0, instance_custom_index);
             self
         }
 
         #[inline]
         pub fn mask(mut self, mask: u32) -> Self {
-            self.mask = mask;
+            set_bitfield::<24, 8>(&mut self._bitfield_0, mask);
             self
         }
 
@@ -440,14 +436,16 @@ pub(super) mod defs {
             mut self,
             instance_shader_binding_table_record_offset: u32,
         ) -> Self {
-            self.instance_shader_binding_table_record_offset =
-                instance_shader_binding_table_record_offset;
+            set_bitfield::<0, 24>(
+                &mut self._bitfield_1,
+                instance_shader_binding_table_record_offset,
+            );
             self
         }
 
         #[inline]
         pub fn flags(mut self, flags: GeometryInstanceFlagsKHR) -> Self {
-            self.flags = flags;
+            set_bitfield::<24, 8>(&mut self._bitfield_1, flags.as_raw());
             self
         }
 
