@@ -2,6 +2,8 @@ use std::io::Write;
 
 use anyhow::Result;
 
+use crate::handle::CommandType;
+
 /// Write a hand-crafted command wrapper override, returning `true` if one exists.
 ///
 /// Some Vulkan commands have semantics that can't be expressed correctly by the
@@ -60,6 +62,29 @@ pub fn member_type_override(c_name: &str) -> Option<&'static str> {
     match c_name {
         "apiVersion" => Some("ApiVersion"),
         _ => None,
+    }
+}
+
+/// How to classify a command into a dispatch table.
+pub enum CommandTypeOp {
+    /// Exclude from generated `*Fn` structs entirely (provided by hand-written code).
+    Skip,
+    /// Use the default classification based on the first parameter's handle type.
+    Default,
+    /// Place on a specific dispatch table, overriding the default.
+    Override(CommandType),
+}
+
+/// Override the dispatch table a command belongs to.
+///
+/// By default, commands are classified by their first parameter's handle type.
+pub fn command_type_override(command_name: &str) -> CommandTypeOp {
+    match command_name {
+        // Provided by the hand-written `StaticFn` struct, loaded directly from the DLL.
+        "vkGetInstanceProcAddr" => CommandTypeOp::Skip,
+        // vkGetDeviceProcAddr must live on InstanceFn because DeviceFn is loaded *using* it.
+        "vkGetDeviceProcAddr" => CommandTypeOp::Override(CommandType::Instance),
+        _ => CommandTypeOp::Default,
     }
 }
 

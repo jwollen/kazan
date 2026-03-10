@@ -6,7 +6,7 @@ use itertools::Itertools;
 use crate::{
     LengthKind, analysis::Analysis, cdecl::CType, ctype_rust, ctype_to_rust_type, get_len_kind,
     handle::CommandType, normalize_command_name, normalize_name, normalize_param_name,
-    normalize_ty_name, write_doc_link, xml,
+    normalize_ty_name, overrides, write_doc_link, xml,
 };
 
 pub struct CommandGroup<'a> {
@@ -219,18 +219,25 @@ pub fn generate_commands(
                         }
                     })
                     .filter(|cmd| {
-                        let ty = &cmd.command.params.iter().next().unwrap().c_decl.ty;
-                        let category = ctype_rust::CTypeCategory::from_ctype(ty, analysis);
-                        match category {
-                            ctype_rust::CTypeCategory::Base(name) => {
-                                analysis
-                                    .handle_command_types()
-                                    .get(name)
-                                    .copied()
-                                    .unwrap_or(CommandType::Entry)
-                                    == cmd_type
+                        use overrides::CommandTypeOp;
+                        match overrides::command_type_override(cmd.command.name) {
+                            CommandTypeOp::Skip => false,
+                            CommandTypeOp::Override(ty) => ty == cmd_type,
+                            CommandTypeOp::Default => {
+                                let ty = &cmd.command.params.iter().next().unwrap().c_decl.ty;
+                                let category = ctype_rust::CTypeCategory::from_ctype(ty, analysis);
+                                match category {
+                                    ctype_rust::CTypeCategory::Base(name) => {
+                                        analysis
+                                            .handle_command_types()
+                                            .get(name)
+                                            .copied()
+                                            .unwrap_or(CommandType::Entry)
+                                            == cmd_type
+                                    }
+                                    _ => cmd_type == CommandType::Entry,
+                                }
                             }
-                            _ => cmd_type == CommandType::Entry,
                         }
                     })
                     .collect();

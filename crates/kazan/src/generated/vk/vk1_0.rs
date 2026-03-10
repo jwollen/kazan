@@ -23311,7 +23311,7 @@ pub struct InstanceFn {
     get_physical_device_properties: PFN_vkGetPhysicalDeviceProperties,
     get_physical_device_queue_family_properties: PFN_vkGetPhysicalDeviceQueueFamilyProperties,
     get_physical_device_memory_properties: PFN_vkGetPhysicalDeviceMemoryProperties,
-    get_instance_proc_addr: PFN_vkGetInstanceProcAddr,
+    get_device_proc_addr: PFN_vkGetDeviceProcAddr,
     create_device: PFN_vkCreateDevice,
     enumerate_device_extension_properties: PFN_vkEnumerateDeviceExtensionProperties,
     enumerate_device_layer_properties: PFN_vkEnumerateDeviceLayerProperties,
@@ -23351,8 +23351,8 @@ impl InstanceFn {
                 get_physical_device_memory_properties: transmute(
                     load(c"vkGetPhysicalDeviceMemoryProperties").ok_or(MissingEntryPointError)?,
                 ),
-                get_instance_proc_addr: transmute(
-                    load(c"vkGetInstanceProcAddr").ok_or(MissingEntryPointError)?,
+                get_device_proc_addr: transmute(
+                    load(c"vkGetDeviceProcAddr").ok_or(MissingEntryPointError)?,
                 ),
                 create_device: transmute(load(c"vkCreateDevice").ok_or(MissingEntryPointError)?),
                 enumerate_device_extension_properties: transmute(
@@ -23528,14 +23528,10 @@ impl InstanceFn {
         }
     }
 
-    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetInstanceProcAddr.html>
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceProcAddr.html>
     #[inline]
-    pub unsafe fn get_instance_proc_addr(
-        &self,
-        instance: Instance,
-        name: &CStr,
-    ) -> PFN_vkVoidFunction {
-        unsafe { (self.get_instance_proc_addr)(instance, name.as_ptr() as _) }
+    pub unsafe fn get_device_proc_addr(&self, device: Device, name: &CStr) -> PFN_vkVoidFunction {
+        unsafe { (self.get_device_proc_addr)(device, name.as_ptr() as _) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDevice.html>
@@ -23665,7 +23661,6 @@ impl InstanceFn {
 }
 
 pub struct DeviceFn {
-    get_device_proc_addr: PFN_vkGetDeviceProcAddr,
     destroy_device: PFN_vkDestroyDevice,
     get_device_queue: PFN_vkGetDeviceQueue,
     queue_submit: PFN_vkQueueSubmit,
@@ -23794,9 +23789,6 @@ impl DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_device_proc_addr: transmute(
-                    load(c"vkGetDeviceProcAddr").ok_or(MissingEntryPointError)?,
-                ),
                 destroy_device: transmute(load(c"vkDestroyDevice").ok_or(MissingEntryPointError)?),
                 get_device_queue: transmute(
                     load(c"vkGetDeviceQueue").ok_or(MissingEntryPointError)?,
@@ -24101,12 +24093,6 @@ impl DeviceFn {
 }
 
 impl DeviceFn {
-    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceProcAddr.html>
-    #[inline]
-    pub unsafe fn get_device_proc_addr(&self, device: Device, name: &CStr) -> PFN_vkVoidFunction {
-        unsafe { (self.get_device_proc_addr)(device, name.as_ptr() as _) }
-    }
-
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDevice.html>
     #[inline]
     pub unsafe fn destroy_device(
