@@ -25,10 +25,7 @@ fn assert_struct_field_is_array() {
 #[allow(dead_code)]
 fn assert_ffi_array_param_is_pointer() {
     // don't run it, just make sure it compiles
-    unsafe fn dummy(
-        device: &kazan::vk::vk1_0::DeviceFn,
-        cmd_buffer: kazan::vk::CommandBuffer,
-    ) {
+    unsafe fn dummy(device: &kazan::vk::vk1_0::DeviceFn, cmd_buffer: kazan::vk::CommandBuffer) {
         let blend_constants: [f32; 4] = [0.0, 0.0, 0.0, 0.0];
 
         unsafe { device.cmd_set_blend_constants(cmd_buffer, &blend_constants) };
