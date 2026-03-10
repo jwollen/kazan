@@ -18,7 +18,7 @@ pub struct SurfaceFactory {
 
 /// Loaded platform-specific surface creation function pointers.
 ///
-/// Constructed via [`InstanceFn::new()`], which loads the appropriate function pointers
+/// Constructed via [`InstanceFn::load()`], which loads the appropriate function pointers
 /// based on the [`RawDisplayHandle`]. Call [`create_surface()`](InstanceFn::create_surface)
 /// to create a [`vk::SurfaceKHR`].
 pub enum InstanceFn {

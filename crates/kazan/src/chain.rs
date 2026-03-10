@@ -1,6 +1,6 @@
 use crate::vk::{BaseOutStructure, StructureType};
 
-/// Structures implementing this trait are layout-compatible with [`BaseInStructure`] and
+/// Structures implementing this trait are layout-compatible with `BaseInStructure` and
 /// [`BaseOutStructure`]. Such structures have an `s_type` field indicating its type, which must
 /// always match the value of [`TaggedStructure::STRUCTURE_TYPE`].
 ///
@@ -72,7 +72,7 @@ pub unsafe trait TaggedStructure<'a>: Sized {
 /// `B` is listed in its array of [`structextends` in the Vulkan registry][1].
 ///
 /// Similar to [`TaggedStructure`], all `unsafe` implementers of this trait must guarantee that
-/// their structure is layout-compatible [`BaseInStructure`] and [`BaseOutStructure`].
+/// their structure is layout-compatible with `BaseInStructure` and [`BaseOutStructure`].
 ///
 /// # Safety
 /// The implementing type must be a valid `structextends` for `B` per the Vulkan specification.
@@ -97,7 +97,7 @@ pub(crate) unsafe fn ptr_chain_iter<'a, T: TaggedStructure<'a>>(
     })
 }
 
-/// Given a mutable raw pointer to a type with an `s_type` member such as [`vk::BaseOutStructure`],
+/// Given a mutable raw pointer to a type with an `s_type` member such as [`BaseOutStructure`],
 /// match on a set of Vulkan structures. The struct will be rebound to the given variable of the
 /// type of the given Vulkan structure.
 ///
@@ -159,7 +159,7 @@ macro_rules! match_out_struct {
     };
 }
 
-/// Given an immutable raw pointer to a type with an `s_type` member such as [`vk::BaseInStructure`],
+/// Given an immutable raw pointer to a type with an `s_type` member such as `BaseInStructure`,
 /// match on a set of Vulkan structures. The struct will be rebound to the given variable of the
 /// type of the given Vulkan structure.
 ///

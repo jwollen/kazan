@@ -178,7 +178,7 @@ impl Analysis {
             || self.registry.bitmask_aliases.iter().any(|a| a.name == name)
     }
 
-    /// Like [`is_opaque_type_name`], but extracts the base name from a `CType`.
+    /// Like [`Self::is_opaque_type_name`], but extracts the base name from a `CType`.
     pub fn is_opaque_type(&self, ty: &CType) -> bool {
         ctype_rust::base_name(ty).is_some_and(|name| self.opaque_types.contains(name))
     }

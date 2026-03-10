@@ -18,7 +18,8 @@ pub use vk::ffi;
     clippy::too_many_arguments,
     clippy::uninlined_format_args,
     clippy::useless_conversion,
-    clippy::write_with_newline
+    clippy::write_with_newline,
+    rustdoc::invalid_html_tags
 )]
 mod generated;
 pub use generated::external::*;

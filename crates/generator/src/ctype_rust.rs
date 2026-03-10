@@ -16,7 +16,7 @@ pub enum CTypeCategory<'a> {
     },
     /// Pointer to char — becomes CStr / &CStr in Rust.
     CharPointer { is_const: bool },
-    /// Pointer to known non-opaque pointee — can become &T / &[T] in Rust.
+    /// Pointer to known non-opaque pointee — can become `&T` / `&[T]` in Rust.
     TypedPointer {
         is_const: bool,
         pointee: &'a CType<'a>,
