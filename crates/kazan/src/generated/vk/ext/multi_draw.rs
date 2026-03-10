@@ -97,10 +97,7 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_MULTI_DRAW_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceMultiDrawPropertiesEXT<'a>
-    {
-    }
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>> for PhysicalDeviceMultiDrawPropertiesEXT<'_> {}
 
     impl Default for PhysicalDeviceMultiDrawPropertiesEXT<'_> {
         fn default() -> Self {
@@ -148,8 +145,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_MULTI_DRAW_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceMultiDrawFeaturesEXT<'a> {}
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceMultiDrawFeaturesEXT<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceMultiDrawFeaturesEXT<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceMultiDrawFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceMultiDrawFeaturesEXT<'_> {
         fn default() -> Self {

@@ -44,10 +44,7 @@ pub(super) mod defs {
             StructureType::SAMPLER_BORDER_COLOR_COMPONENT_MAPPING_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<SamplerCreateInfo<'a>>
-        for SamplerBorderColorComponentMappingCreateInfoEXT<'a>
-    {
-    }
+    unsafe impl Extends<SamplerCreateInfo<'_>> for SamplerBorderColorComponentMappingCreateInfoEXT<'_> {}
 
     impl Default for SamplerBorderColorComponentMappingCreateInfoEXT<'_> {
         fn default() -> Self {
@@ -107,11 +104,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_BORDER_COLOR_SWIZZLE_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceBorderColorSwizzleFeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceBorderColorSwizzleFeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceBorderColorSwizzleFeaturesEXT<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceBorderColorSwizzleFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceBorderColorSwizzleFeaturesEXT<'_> {
         fn default() -> Self {

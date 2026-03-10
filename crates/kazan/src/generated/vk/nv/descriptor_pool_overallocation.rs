@@ -45,12 +45,12 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_DESCRIPTOR_POOL_OVERALLOCATION_FEATURES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceDescriptorPoolOverallocationFeaturesNV<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceDescriptorPoolOverallocationFeaturesNV<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceDescriptorPoolOverallocationFeaturesNV<'a>
+    unsafe impl Extends<DeviceCreateInfo<'_>>
+        for PhysicalDeviceDescriptorPoolOverallocationFeaturesNV<'_>
     {
     }
 

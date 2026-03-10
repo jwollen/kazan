@@ -47,12 +47,12 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SHADER_EARLY_AND_LATE_FRAGMENT_TESTS_FEATURES_AMD;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD<'a>
+    unsafe impl Extends<DeviceCreateInfo<'_>>
+        for PhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD<'_>
     {
     }
 

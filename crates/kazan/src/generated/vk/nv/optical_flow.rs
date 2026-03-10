@@ -48,8 +48,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_OPTICAL_FLOW_FEATURES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceOpticalFlowFeaturesNV<'a> {}
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceOpticalFlowFeaturesNV<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceOpticalFlowFeaturesNV<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceOpticalFlowFeaturesNV<'_> {}
 
     impl Default for PhysicalDeviceOpticalFlowFeaturesNV<'_> {
         fn default() -> Self {
@@ -126,10 +126,7 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_OPTICAL_FLOW_PROPERTIES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceOpticalFlowPropertiesNV<'a>
-    {
-    }
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>> for PhysicalDeviceOpticalFlowPropertiesNV<'_> {}
 
     impl Default for PhysicalDeviceOpticalFlowPropertiesNV<'_> {
         fn default() -> Self {
@@ -252,8 +249,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::OPTICAL_FLOW_IMAGE_FORMAT_INFO_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceImageFormatInfo2<'a>> for OpticalFlowImageFormatInfoNV<'a> {}
-    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for OpticalFlowImageFormatInfoNV<'a> {}
+    unsafe impl Extends<PhysicalDeviceImageFormatInfo2<'_>> for OpticalFlowImageFormatInfoNV<'_> {}
+    unsafe impl Extends<ImageCreateInfo<'_>> for OpticalFlowImageFormatInfoNV<'_> {}
 
     impl Default for OpticalFlowImageFormatInfoNV<'_> {
         fn default() -> Self {
@@ -471,8 +468,8 @@ pub(super) mod defs {
             StructureType::OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV;
     }
 
-    unsafe impl<'a> Extends<OpticalFlowSessionCreateInfoNV<'a>>
-        for OpticalFlowSessionCreatePrivateDataInfoNV<'a>
+    unsafe impl Extends<OpticalFlowSessionCreateInfoNV<'_>>
+        for OpticalFlowSessionCreatePrivateDataInfoNV<'_>
     {
     }
 
@@ -562,7 +559,7 @@ pub(super) mod defs {
         #[inline]
         pub fn regions(mut self, regions: &'a [Rect2D]) -> Self {
             self.region_count = regions.len().try_into().unwrap();
-            self.p_regions = regions.as_ptr();
+            self.p_regions = regions.as_ptr() as _;
             self
         }
     }

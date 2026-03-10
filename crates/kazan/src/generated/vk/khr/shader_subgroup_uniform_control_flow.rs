@@ -47,12 +47,12 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SHADER_SUBGROUP_UNIFORM_CONTROL_FLOW_FEATURES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR<'a>
+    unsafe impl Extends<DeviceCreateInfo<'_>>
+        for PhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR<'_>
     {
     }
 

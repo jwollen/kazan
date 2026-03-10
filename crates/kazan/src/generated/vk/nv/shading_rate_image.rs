@@ -59,7 +59,7 @@ pub(super) mod defs {
         ) -> Self {
             self.shading_rate_palette_entry_count =
                 shading_rate_palette_entries.len().try_into().unwrap();
-            self.p_shading_rate_palette_entries = shading_rate_palette_entries.as_ptr();
+            self.p_shading_rate_palette_entries = shading_rate_palette_entries.as_ptr() as _;
             self
         }
     }
@@ -95,8 +95,8 @@ pub(super) mod defs {
             StructureType::PIPELINE_VIEWPORT_SHADING_RATE_IMAGE_STATE_CREATE_INFO_NV;
     }
 
-    unsafe impl<'a> Extends<PipelineViewportStateCreateInfo<'a>>
-        for PipelineViewportShadingRateImageStateCreateInfoNV<'a>
+    unsafe impl Extends<PipelineViewportStateCreateInfo<'_>>
+        for PipelineViewportShadingRateImageStateCreateInfoNV<'_>
     {
     }
 
@@ -123,10 +123,10 @@ pub(super) mod defs {
         #[inline]
         pub fn shading_rate_palettes(
             mut self,
-            shading_rate_palettes: &'a [ShadingRatePaletteNV<'a>],
+            shading_rate_palettes: &'a [ShadingRatePaletteNV<'_>],
         ) -> Self {
             self.viewport_count = shading_rate_palettes.len().try_into().unwrap();
-            self.p_shading_rate_palettes = shading_rate_palettes.as_ptr();
+            self.p_shading_rate_palettes = shading_rate_palettes.as_ptr() as _;
             self
         }
     }
@@ -163,11 +163,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SHADING_RATE_IMAGE_FEATURES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceShadingRateImageFeaturesNV<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceShadingRateImageFeaturesNV<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceShadingRateImageFeaturesNV<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceShadingRateImageFeaturesNV<'_> {}
 
     impl Default for PhysicalDeviceShadingRateImageFeaturesNV<'_> {
         fn default() -> Self {
@@ -232,8 +229,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceShadingRateImagePropertiesNV<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceShadingRateImagePropertiesNV<'_>
     {
     }
 
@@ -356,7 +353,7 @@ pub(super) mod defs {
         #[inline]
         pub fn sample_locations(mut self, sample_locations: &'a [CoarseSampleLocationNV]) -> Self {
             self.sample_location_count = sample_locations.len().try_into().unwrap();
-            self.p_sample_locations = sample_locations.as_ptr();
+            self.p_sample_locations = sample_locations.as_ptr() as _;
             self
         }
     }
@@ -392,8 +389,8 @@ pub(super) mod defs {
             StructureType::PIPELINE_VIEWPORT_COARSE_SAMPLE_ORDER_STATE_CREATE_INFO_NV;
     }
 
-    unsafe impl<'a> Extends<PipelineViewportStateCreateInfo<'a>>
-        for PipelineViewportCoarseSampleOrderStateCreateInfoNV<'a>
+    unsafe impl Extends<PipelineViewportStateCreateInfo<'_>>
+        for PipelineViewportCoarseSampleOrderStateCreateInfoNV<'_>
     {
     }
 
@@ -420,10 +417,10 @@ pub(super) mod defs {
         #[inline]
         pub fn custom_sample_orders(
             mut self,
-            custom_sample_orders: &'a [CoarseSampleOrderCustomNV<'a>],
+            custom_sample_orders: &'a [CoarseSampleOrderCustomNV<'_>],
         ) -> Self {
             self.custom_sample_order_count = custom_sample_orders.len().try_into().unwrap();
-            self.p_custom_sample_orders = custom_sample_orders.as_ptr();
+            self.p_custom_sample_orders = custom_sample_orders.as_ptr() as _;
             self
         }
     }

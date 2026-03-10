@@ -48,13 +48,13 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_METAL_OBJECT_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<InstanceCreateInfo<'a>> for ExportMetalObjectCreateInfoEXT<'a> {}
-    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ExportMetalObjectCreateInfoEXT<'a> {}
-    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ExportMetalObjectCreateInfoEXT<'a> {}
-    unsafe impl<'a> Extends<ImageViewCreateInfo<'a>> for ExportMetalObjectCreateInfoEXT<'a> {}
-    unsafe impl<'a> Extends<BufferViewCreateInfo<'a>> for ExportMetalObjectCreateInfoEXT<'a> {}
-    unsafe impl<'a> Extends<SemaphoreCreateInfo<'a>> for ExportMetalObjectCreateInfoEXT<'a> {}
-    unsafe impl<'a> Extends<EventCreateInfo<'a>> for ExportMetalObjectCreateInfoEXT<'a> {}
+    unsafe impl Extends<InstanceCreateInfo<'_>> for ExportMetalObjectCreateInfoEXT<'_> {}
+    unsafe impl Extends<MemoryAllocateInfo<'_>> for ExportMetalObjectCreateInfoEXT<'_> {}
+    unsafe impl Extends<ImageCreateInfo<'_>> for ExportMetalObjectCreateInfoEXT<'_> {}
+    unsafe impl Extends<ImageViewCreateInfo<'_>> for ExportMetalObjectCreateInfoEXT<'_> {}
+    unsafe impl Extends<BufferViewCreateInfo<'_>> for ExportMetalObjectCreateInfoEXT<'_> {}
+    unsafe impl Extends<SemaphoreCreateInfo<'_>> for ExportMetalObjectCreateInfoEXT<'_> {}
+    unsafe impl Extends<EventCreateInfo<'_>> for ExportMetalObjectCreateInfoEXT<'_> {}
 
     impl Default for ExportMetalObjectCreateInfoEXT<'_> {
         fn default() -> Self {
@@ -140,7 +140,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_METAL_DEVICE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<ExportMetalObjectsInfoEXT<'a>> for ExportMetalDeviceInfoEXT<'a> {}
+    unsafe impl Extends<ExportMetalObjectsInfoEXT<'_>> for ExportMetalDeviceInfoEXT<'_> {}
 
     impl Default for ExportMetalDeviceInfoEXT<'_> {
         fn default() -> Self {
@@ -189,7 +189,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_METAL_COMMAND_QUEUE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<ExportMetalObjectsInfoEXT<'a>> for ExportMetalCommandQueueInfoEXT<'a> {}
+    unsafe impl Extends<ExportMetalObjectsInfoEXT<'_>> for ExportMetalCommandQueueInfoEXT<'_> {}
 
     impl Default for ExportMetalCommandQueueInfoEXT<'_> {
         fn default() -> Self {
@@ -245,7 +245,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_METAL_BUFFER_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<ExportMetalObjectsInfoEXT<'a>> for ExportMetalBufferInfoEXT<'a> {}
+    unsafe impl Extends<ExportMetalObjectsInfoEXT<'_>> for ExportMetalBufferInfoEXT<'_> {}
 
     impl Default for ExportMetalBufferInfoEXT<'_> {
         fn default() -> Self {
@@ -299,7 +299,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_METAL_BUFFER_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ImportMetalBufferInfoEXT<'a> {}
+    unsafe impl Extends<MemoryAllocateInfo<'_>> for ImportMetalBufferInfoEXT<'_> {}
 
     impl Default for ImportMetalBufferInfoEXT<'_> {
         fn default() -> Self {
@@ -354,7 +354,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_METAL_TEXTURE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<ExportMetalObjectsInfoEXT<'a>> for ExportMetalTextureInfoEXT<'a> {}
+    unsafe impl Extends<ExportMetalObjectsInfoEXT<'_>> for ExportMetalTextureInfoEXT<'_> {}
 
     impl Default for ExportMetalTextureInfoEXT<'_> {
         fn default() -> Self {
@@ -431,7 +431,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_METAL_TEXTURE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ImportMetalTextureInfoEXT<'a> {}
+    unsafe impl Extends<ImageCreateInfo<'_>> for ImportMetalTextureInfoEXT<'_> {}
 
     impl Default for ImportMetalTextureInfoEXT<'_> {
         fn default() -> Self {
@@ -487,7 +487,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_METAL_IO_SURFACE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<ExportMetalObjectsInfoEXT<'a>> for ExportMetalIOSurfaceInfoEXT<'a> {}
+    unsafe impl Extends<ExportMetalObjectsInfoEXT<'_>> for ExportMetalIOSurfaceInfoEXT<'_> {}
 
     impl Default for ExportMetalIOSurfaceInfoEXT<'_> {
         fn default() -> Self {
@@ -541,7 +541,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_METAL_IO_SURFACE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ImportMetalIOSurfaceInfoEXT<'a> {}
+    unsafe impl Extends<ImageCreateInfo<'_>> for ImportMetalIOSurfaceInfoEXT<'_> {}
 
     impl Default for ImportMetalIOSurfaceInfoEXT<'_> {
         fn default() -> Self {
@@ -592,7 +592,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_METAL_SHARED_EVENT_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<ExportMetalObjectsInfoEXT<'a>> for ExportMetalSharedEventInfoEXT<'a> {}
+    unsafe impl Extends<ExportMetalObjectsInfoEXT<'_>> for ExportMetalSharedEventInfoEXT<'_> {}
 
     impl Default for ExportMetalSharedEventInfoEXT<'_> {
         fn default() -> Self {
@@ -653,8 +653,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_METAL_SHARED_EVENT_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<SemaphoreCreateInfo<'a>> for ImportMetalSharedEventInfoEXT<'a> {}
-    unsafe impl<'a> Extends<EventCreateInfo<'a>> for ImportMetalSharedEventInfoEXT<'a> {}
+    unsafe impl Extends<SemaphoreCreateInfo<'_>> for ImportMetalSharedEventInfoEXT<'_> {}
+    unsafe impl Extends<EventCreateInfo<'_>> for ImportMetalSharedEventInfoEXT<'_> {}
 
     impl Default for ImportMetalSharedEventInfoEXT<'_> {
         fn default() -> Self {

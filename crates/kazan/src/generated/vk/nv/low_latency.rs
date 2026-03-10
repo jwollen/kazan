@@ -44,7 +44,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::QUERY_LOW_LATENCY_SUPPORT_NV;
     }
 
-    unsafe impl<'a> Extends<SemaphoreCreateInfo<'a>> for QueryLowLatencySupportNV<'a> {}
+    unsafe impl Extends<SemaphoreCreateInfo<'_>> for QueryLowLatencySupportNV<'_> {}
 
     impl Default for QueryLowLatencySupportNV<'_> {
         fn default() -> Self {

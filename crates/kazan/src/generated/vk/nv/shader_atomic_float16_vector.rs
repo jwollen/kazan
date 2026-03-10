@@ -45,12 +45,12 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT16_VECTOR_FEATURES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceShaderAtomicFloat16VectorFeaturesNV<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceShaderAtomicFloat16VectorFeaturesNV<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceShaderAtomicFloat16VectorFeaturesNV<'a>
+    unsafe impl Extends<DeviceCreateInfo<'_>>
+        for PhysicalDeviceShaderAtomicFloat16VectorFeaturesNV<'_>
     {
     }
 

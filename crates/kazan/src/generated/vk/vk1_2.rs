@@ -93,7 +93,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_DRIVER_PROPERTIES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>> for PhysicalDeviceDriverProperties<'a> {}
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>> for PhysicalDeviceDriverProperties<'_> {}
 
     impl Default for PhysicalDeviceDriverProperties<'_> {
         fn default() -> Self {
@@ -171,12 +171,12 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SHADER_SUBGROUP_EXTENDED_TYPES_FEATURES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceShaderSubgroupExtendedTypesFeatures<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceShaderSubgroupExtendedTypesFeatures<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceShaderSubgroupExtendedTypesFeatures<'a>
+    unsafe impl Extends<DeviceCreateInfo<'_>>
+        for PhysicalDeviceShaderSubgroupExtendedTypesFeatures<'_>
     {
     }
 
@@ -237,8 +237,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SAMPLER_FILTER_MINMAX_PROPERTIES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceSamplerFilterMinmaxProperties<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceSamplerFilterMinmaxProperties<'_>
     {
     }
 
@@ -302,7 +302,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::SAMPLER_REDUCTION_MODE_CREATE_INFO;
     }
 
-    unsafe impl<'a> Extends<SamplerCreateInfo<'a>> for SamplerReductionModeCreateInfo<'a> {}
+    unsafe impl Extends<SamplerCreateInfo<'_>> for SamplerReductionModeCreateInfo<'_> {}
 
     impl Default for SamplerReductionModeCreateInfo<'_> {
         fn default() -> Self {
@@ -351,9 +351,9 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_FORMAT_LIST_CREATE_INFO;
     }
 
-    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ImageFormatListCreateInfo<'a> {}
-    unsafe impl<'a> Extends<SwapchainCreateInfoKHR<'a>> for ImageFormatListCreateInfo<'a> {}
-    unsafe impl<'a> Extends<PhysicalDeviceImageFormatInfo2<'a>> for ImageFormatListCreateInfo<'a> {}
+    unsafe impl Extends<ImageCreateInfo<'_>> for ImageFormatListCreateInfo<'_> {}
+    unsafe impl Extends<SwapchainCreateInfoKHR<'_>> for ImageFormatListCreateInfo<'_> {}
+    unsafe impl Extends<PhysicalDeviceImageFormatInfo2<'_>> for ImageFormatListCreateInfo<'_> {}
 
     impl Default for ImageFormatListCreateInfo<'_> {
         fn default() -> Self {
@@ -371,7 +371,7 @@ pub(super) mod defs {
         #[inline]
         pub fn view_formats(mut self, view_formats: &'a [Format]) -> Self {
             self.view_format_count = view_formats.len().try_into().unwrap();
-            self.p_view_formats = view_formats.as_ptr();
+            self.p_view_formats = view_formats.as_ptr() as _;
             self
         }
     }
@@ -405,11 +405,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SHADER_FLOAT16_INT8_FEATURES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceShaderFloat16Int8Features<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceShaderFloat16Int8Features<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceShaderFloat16Int8Features<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceShaderFloat16Int8Features<'_> {}
 
     impl Default for PhysicalDeviceShaderFloat16Int8Features<'_> {
         fn default() -> Self {
@@ -547,10 +544,7 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceFloatControlsProperties<'a>
-    {
-    }
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>> for PhysicalDeviceFloatControlsProperties<'_> {}
 
     impl Default for PhysicalDeviceFloatControlsProperties<'_> {
         fn default() -> Self {
@@ -764,8 +758,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_HOST_QUERY_RESET_FEATURES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceHostQueryResetFeatures<'a> {}
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceHostQueryResetFeatures<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceHostQueryResetFeatures<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceHostQueryResetFeatures<'_> {}
 
     impl Default for PhysicalDeviceHostQueryResetFeatures<'_> {
         fn default() -> Self {
@@ -908,11 +902,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceDescriptorIndexingFeatures<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceDescriptorIndexingFeatures<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceDescriptorIndexingFeatures<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceDescriptorIndexingFeatures<'_> {}
 
     impl Default for PhysicalDeviceDescriptorIndexingFeatures<'_> {
         fn default() -> Self {
@@ -1281,8 +1272,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceDescriptorIndexingProperties<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceDescriptorIndexingProperties<'_>
     {
     }
 
@@ -1576,8 +1567,8 @@ pub(super) mod defs {
             StructureType::DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO;
     }
 
-    unsafe impl<'a> Extends<DescriptorSetLayoutCreateInfo<'a>>
-        for DescriptorSetLayoutBindingFlagsCreateInfo<'a>
+    unsafe impl Extends<DescriptorSetLayoutCreateInfo<'_>>
+        for DescriptorSetLayoutBindingFlagsCreateInfo<'_>
     {
     }
 
@@ -1597,7 +1588,7 @@ pub(super) mod defs {
         #[inline]
         pub fn binding_flags(mut self, binding_flags: &'a [DescriptorBindingFlags]) -> Self {
             self.binding_count = binding_flags.len().try_into().unwrap();
-            self.p_binding_flags = binding_flags.as_ptr();
+            self.p_binding_flags = binding_flags.as_ptr() as _;
             self
         }
     }
@@ -1631,8 +1622,8 @@ pub(super) mod defs {
             StructureType::DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO;
     }
 
-    unsafe impl<'a> Extends<DescriptorSetAllocateInfo<'a>>
-        for DescriptorSetVariableDescriptorCountAllocateInfo<'a>
+    unsafe impl Extends<DescriptorSetAllocateInfo<'_>>
+        for DescriptorSetVariableDescriptorCountAllocateInfo<'_>
     {
     }
 
@@ -1652,7 +1643,7 @@ pub(super) mod defs {
         #[inline]
         pub fn descriptor_counts(mut self, descriptor_counts: &'a [u32]) -> Self {
             self.descriptor_set_count = descriptor_counts.len().try_into().unwrap();
-            self.p_descriptor_counts = descriptor_counts.as_ptr();
+            self.p_descriptor_counts = descriptor_counts.as_ptr() as _;
             self
         }
     }
@@ -1687,8 +1678,8 @@ pub(super) mod defs {
             StructureType::DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT;
     }
 
-    unsafe impl<'a> Extends<DescriptorSetLayoutSupport<'a>>
-        for DescriptorSetVariableDescriptorCountLayoutSupport<'a>
+    unsafe impl Extends<DescriptorSetLayoutSupport<'_>>
+        for DescriptorSetVariableDescriptorCountLayoutSupport<'_>
     {
     }
 
@@ -1983,25 +1974,26 @@ pub(super) mod defs {
         #[inline]
         pub fn input_attachments(
             mut self,
-            input_attachments: &'a [AttachmentReference2<'a>],
+            input_attachments: &'a [AttachmentReference2<'_>],
         ) -> Self {
             self.input_attachment_count = input_attachments.len().try_into().unwrap();
-            self.p_input_attachments = input_attachments.as_ptr();
+            self.p_input_attachments = input_attachments.as_ptr() as _;
             self
         }
 
         #[inline]
         pub fn color_attachments(
             mut self,
-            color_attachments: &'a [AttachmentReference2<'a>],
-            resolve_attachments: Option<&'a [AttachmentReference2<'a>]>,
+            color_attachments: &'a [AttachmentReference2<'_>],
+            resolve_attachments: Option<&'a [AttachmentReference2<'_>]>,
         ) -> Self {
             self.color_attachment_count = color_attachments.len().try_into().unwrap();
             if let Some(s) = &resolve_attachments {
                 assert_eq!(s.len(), self.color_attachment_count as usize);
             }
-            self.p_color_attachments = color_attachments.as_ptr();
-            self.p_resolve_attachments = resolve_attachments.map_or(ptr::null(), |s| s.as_ptr());
+            self.p_color_attachments = color_attachments.as_ptr() as _;
+            self.p_resolve_attachments =
+                resolve_attachments.map_or(ptr::null(), |s| s.as_ptr() as _);
             self
         }
 
@@ -2017,7 +2009,7 @@ pub(super) mod defs {
         #[inline]
         pub fn preserve_attachments(mut self, preserve_attachments: &'a [u32]) -> Self {
             self.preserve_attachment_count = preserve_attachments.len().try_into().unwrap();
-            self.p_preserve_attachments = preserve_attachments.as_ptr();
+            self.p_preserve_attachments = preserve_attachments.as_ptr() as _;
             self
         }
     }
@@ -2202,30 +2194,30 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn attachments(mut self, attachments: &'a [AttachmentDescription2<'a>]) -> Self {
+        pub fn attachments(mut self, attachments: &'a [AttachmentDescription2<'_>]) -> Self {
             self.attachment_count = attachments.len().try_into().unwrap();
-            self.p_attachments = attachments.as_ptr();
+            self.p_attachments = attachments.as_ptr() as _;
             self
         }
 
         #[inline]
-        pub fn subpasses(mut self, subpasses: &'a [SubpassDescription2<'a>]) -> Self {
+        pub fn subpasses(mut self, subpasses: &'a [SubpassDescription2<'_>]) -> Self {
             self.subpass_count = subpasses.len().try_into().unwrap();
-            self.p_subpasses = subpasses.as_ptr();
+            self.p_subpasses = subpasses.as_ptr() as _;
             self
         }
 
         #[inline]
-        pub fn dependencies(mut self, dependencies: &'a [SubpassDependency2<'a>]) -> Self {
+        pub fn dependencies(mut self, dependencies: &'a [SubpassDependency2<'_>]) -> Self {
             self.dependency_count = dependencies.len().try_into().unwrap();
-            self.p_dependencies = dependencies.as_ptr();
+            self.p_dependencies = dependencies.as_ptr() as _;
             self
         }
 
         #[inline]
         pub fn correlated_view_masks(mut self, correlated_view_masks: &'a [u32]) -> Self {
             self.correlated_view_mask_count = correlated_view_masks.len().try_into().unwrap();
-            self.p_correlated_view_masks = correlated_view_masks.as_ptr();
+            self.p_correlated_view_masks = correlated_view_masks.as_ptr() as _;
             self
         }
     }
@@ -2338,11 +2330,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceTimelineSemaphoreFeatures<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceTimelineSemaphoreFeatures<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceTimelineSemaphoreFeatures<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceTimelineSemaphoreFeatures<'_> {}
 
     impl Default for PhysicalDeviceTimelineSemaphoreFeatures<'_> {
         fn default() -> Self {
@@ -2393,8 +2382,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_PROPERTIES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceTimelineSemaphoreProperties<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceTimelineSemaphoreProperties<'_>
     {
     }
 
@@ -2448,8 +2437,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::SEMAPHORE_TYPE_CREATE_INFO;
     }
 
-    unsafe impl<'a> Extends<SemaphoreCreateInfo<'a>> for SemaphoreTypeCreateInfo<'a> {}
-    unsafe impl<'a> Extends<PhysicalDeviceExternalSemaphoreInfo<'a>> for SemaphoreTypeCreateInfo<'a> {}
+    unsafe impl Extends<SemaphoreCreateInfo<'_>> for SemaphoreTypeCreateInfo<'_> {}
+    unsafe impl Extends<PhysicalDeviceExternalSemaphoreInfo<'_>> for SemaphoreTypeCreateInfo<'_> {}
 
     impl Default for SemaphoreTypeCreateInfo<'_> {
         fn default() -> Self {
@@ -2515,8 +2504,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::TIMELINE_SEMAPHORE_SUBMIT_INFO;
     }
 
-    unsafe impl<'a> Extends<SubmitInfo<'a>> for TimelineSemaphoreSubmitInfo<'a> {}
-    unsafe impl<'a> Extends<BindSparseInfo<'a>> for TimelineSemaphoreSubmitInfo<'a> {}
+    unsafe impl Extends<SubmitInfo<'_>> for TimelineSemaphoreSubmitInfo<'_> {}
+    unsafe impl Extends<BindSparseInfo<'_>> for TimelineSemaphoreSubmitInfo<'_> {}
 
     impl Default for TimelineSemaphoreSubmitInfo<'_> {
         fn default() -> Self {
@@ -2536,14 +2525,14 @@ pub(super) mod defs {
         #[inline]
         pub fn wait_semaphore_values(mut self, wait_semaphore_values: &'a [u64]) -> Self {
             self.wait_semaphore_value_count = wait_semaphore_values.len().try_into().unwrap();
-            self.p_wait_semaphore_values = wait_semaphore_values.as_ptr();
+            self.p_wait_semaphore_values = wait_semaphore_values.as_ptr() as _;
             self
         }
 
         #[inline]
         pub fn signal_semaphore_values(mut self, signal_semaphore_values: &'a [u64]) -> Self {
             self.signal_semaphore_value_count = signal_semaphore_values.len().try_into().unwrap();
-            self.p_signal_semaphore_values = signal_semaphore_values.as_ptr();
+            self.p_signal_semaphore_values = signal_semaphore_values.as_ptr() as _;
             self
         }
     }
@@ -2605,8 +2594,8 @@ pub(super) mod defs {
         pub fn semaphores(mut self, semaphores: &'a [Semaphore], values: &'a [u64]) -> Self {
             self.semaphore_count = semaphores.len().try_into().unwrap();
             assert_eq!(values.len(), self.semaphore_count as usize);
-            self.p_semaphores = semaphores.as_ptr();
-            self.p_values = values.as_ptr();
+            self.p_semaphores = semaphores.as_ptr() as _;
+            self.p_values = values.as_ptr() as _;
             self
         }
     }
@@ -2701,8 +2690,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDevice8BitStorageFeatures<'a> {}
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevice8BitStorageFeatures<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDevice8BitStorageFeatures<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDevice8BitStorageFeatures<'_> {}
 
     impl Default for PhysicalDevice8BitStorageFeatures<'_> {
         fn default() -> Self {
@@ -2778,11 +2767,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceVulkanMemoryModelFeatures<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceVulkanMemoryModelFeatures<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceVulkanMemoryModelFeatures<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceVulkanMemoryModelFeatures<'_> {}
 
     impl Default for PhysicalDeviceVulkanMemoryModelFeatures<'_> {
         fn default() -> Self {
@@ -2859,11 +2845,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceShaderAtomicInt64Features<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceShaderAtomicInt64Features<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceShaderAtomicInt64Features<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceShaderAtomicInt64Features<'_> {}
 
     impl Default for PhysicalDeviceShaderAtomicInt64Features<'_> {
         fn default() -> Self {
@@ -2930,8 +2913,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceDepthStencilResolveProperties<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceDepthStencilResolveProperties<'_>
     {
     }
 
@@ -3015,7 +2998,7 @@ pub(super) mod defs {
             StructureType::SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE;
     }
 
-    unsafe impl<'a> Extends<SubpassDescription2<'a>> for SubpassDescriptionDepthStencilResolve<'a> {}
+    unsafe impl Extends<SubpassDescription2<'_>> for SubpassDescriptionDepthStencilResolve<'_> {}
 
     impl Default for SubpassDescriptionDepthStencilResolve<'_> {
         fn default() -> Self {
@@ -3079,8 +3062,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_STENCIL_USAGE_CREATE_INFO;
     }
 
-    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ImageStencilUsageCreateInfo<'a> {}
-    unsafe impl<'a> Extends<PhysicalDeviceImageFormatInfo2<'a>> for ImageStencilUsageCreateInfo<'a> {}
+    unsafe impl Extends<ImageCreateInfo<'_>> for ImageStencilUsageCreateInfo<'_> {}
+    unsafe impl Extends<PhysicalDeviceImageFormatInfo2<'_>> for ImageStencilUsageCreateInfo<'_> {}
 
     impl Default for ImageStencilUsageCreateInfo<'_> {
         fn default() -> Self {
@@ -3128,11 +3111,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceScalarBlockLayoutFeatures<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceScalarBlockLayoutFeatures<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceScalarBlockLayoutFeatures<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceScalarBlockLayoutFeatures<'_> {}
 
     impl Default for PhysicalDeviceScalarBlockLayoutFeatures<'_> {
         fn default() -> Self {
@@ -3183,12 +3163,12 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_UNIFORM_BUFFER_STANDARD_LAYOUT_FEATURES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceUniformBufferStandardLayoutFeatures<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceUniformBufferStandardLayoutFeatures<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceUniformBufferStandardLayoutFeatures<'a>
+    unsafe impl Extends<DeviceCreateInfo<'_>>
+        for PhysicalDeviceUniformBufferStandardLayoutFeatures<'_>
     {
     }
 
@@ -3251,11 +3231,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceBufferDeviceAddressFeatures<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceBufferDeviceAddressFeatures<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceBufferDeviceAddressFeatures<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceBufferDeviceAddressFeatures<'_> {}
 
     impl Default for PhysicalDeviceBufferDeviceAddressFeatures<'_> {
         fn default() -> Self {
@@ -3368,7 +3345,7 @@ pub(super) mod defs {
             StructureType::BUFFER_OPAQUE_CAPTURE_ADDRESS_CREATE_INFO;
     }
 
-    unsafe impl<'a> Extends<BufferCreateInfo<'a>> for BufferOpaqueCaptureAddressCreateInfo<'a> {}
+    unsafe impl Extends<BufferCreateInfo<'_>> for BufferOpaqueCaptureAddressCreateInfo<'_> {}
 
     impl Default for BufferOpaqueCaptureAddressCreateInfo<'_> {
         fn default() -> Self {
@@ -3416,11 +3393,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceImagelessFramebufferFeatures<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceImagelessFramebufferFeatures<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceImagelessFramebufferFeatures<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceImagelessFramebufferFeatures<'_> {}
 
     impl Default for PhysicalDeviceImagelessFramebufferFeatures<'_> {
         fn default() -> Self {
@@ -3472,7 +3449,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::FRAMEBUFFER_ATTACHMENTS_CREATE_INFO;
     }
 
-    unsafe impl<'a> Extends<FramebufferCreateInfo<'a>> for FramebufferAttachmentsCreateInfo<'a> {}
+    unsafe impl Extends<FramebufferCreateInfo<'_>> for FramebufferAttachmentsCreateInfo<'_> {}
 
     impl Default for FramebufferAttachmentsCreateInfo<'_> {
         fn default() -> Self {
@@ -3490,10 +3467,10 @@ pub(super) mod defs {
         #[inline]
         pub fn attachment_image_infos(
             mut self,
-            attachment_image_infos: &'a [FramebufferAttachmentImageInfo<'a>],
+            attachment_image_infos: &'a [FramebufferAttachmentImageInfo<'_>],
         ) -> Self {
             self.attachment_image_info_count = attachment_image_infos.len().try_into().unwrap();
-            self.p_attachment_image_infos = attachment_image_infos.as_ptr();
+            self.p_attachment_image_infos = attachment_image_infos.as_ptr() as _;
             self
         }
     }
@@ -3587,7 +3564,7 @@ pub(super) mod defs {
         #[inline]
         pub fn view_formats(mut self, view_formats: &'a [Format]) -> Self {
             self.view_format_count = view_formats.len().try_into().unwrap();
-            self.p_view_formats = view_formats.as_ptr();
+            self.p_view_formats = view_formats.as_ptr() as _;
             self
         }
     }
@@ -3620,7 +3597,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::RENDER_PASS_ATTACHMENT_BEGIN_INFO;
     }
 
-    unsafe impl<'a> Extends<RenderPassBeginInfo<'a>> for RenderPassAttachmentBeginInfo<'a> {}
+    unsafe impl Extends<RenderPassBeginInfo<'_>> for RenderPassAttachmentBeginInfo<'_> {}
 
     impl Default for RenderPassAttachmentBeginInfo<'_> {
         fn default() -> Self {
@@ -3638,7 +3615,7 @@ pub(super) mod defs {
         #[inline]
         pub fn attachments(mut self, attachments: &'a [ImageView]) -> Self {
             self.attachment_count = attachments.len().try_into().unwrap();
-            self.p_attachments = attachments.as_ptr();
+            self.p_attachments = attachments.as_ptr() as _;
             self
         }
     }
@@ -3673,12 +3650,12 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SEPARATE_DEPTH_STENCIL_LAYOUTS_FEATURES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceSeparateDepthStencilLayoutsFeatures<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceSeparateDepthStencilLayoutsFeatures<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceSeparateDepthStencilLayoutsFeatures<'a>
+    unsafe impl Extends<DeviceCreateInfo<'_>>
+        for PhysicalDeviceSeparateDepthStencilLayoutsFeatures<'_>
     {
     }
 
@@ -3730,7 +3707,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::ATTACHMENT_REFERENCE_STENCIL_LAYOUT;
     }
 
-    unsafe impl<'a> Extends<AttachmentReference2<'a>> for AttachmentReferenceStencilLayout<'a> {}
+    unsafe impl Extends<AttachmentReference2<'_>> for AttachmentReferenceStencilLayout<'_> {}
 
     impl Default for AttachmentReferenceStencilLayout<'_> {
         fn default() -> Self {
@@ -3779,7 +3756,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT;
     }
 
-    unsafe impl<'a> Extends<AttachmentDescription2<'a>> for AttachmentDescriptionStencilLayout<'a> {}
+    unsafe impl Extends<AttachmentDescription2<'_>> for AttachmentDescriptionStencilLayout<'_> {}
 
     impl Default for AttachmentDescriptionStencilLayout<'_> {
         fn default() -> Self {
@@ -3834,7 +3811,7 @@ pub(super) mod defs {
             StructureType::MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO;
     }
 
-    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for MemoryOpaqueCaptureAddressAllocateInfo<'a> {}
+    unsafe impl Extends<MemoryAllocateInfo<'_>> for MemoryOpaqueCaptureAddressAllocateInfo<'_> {}
 
     impl Default for MemoryOpaqueCaptureAddressAllocateInfo<'_> {
         fn default() -> Self {
@@ -3961,8 +3938,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_VULKAN_1_1_FEATURES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceVulkan11Features<'a> {}
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceVulkan11Features<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceVulkan11Features<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceVulkan11Features<'_> {}
 
     impl Default for PhysicalDeviceVulkan11Features<'_> {
         fn default() -> Self {
@@ -4136,7 +4113,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_VULKAN_1_1_PROPERTIES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>> for PhysicalDeviceVulkan11Properties<'a> {}
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>> for PhysicalDeviceVulkan11Properties<'_> {}
 
     impl Default for PhysicalDeviceVulkan11Properties<'_> {
         fn default() -> Self {
@@ -4488,8 +4465,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_VULKAN_1_2_FEATURES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceVulkan12Features<'a> {}
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceVulkan12Features<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceVulkan12Features<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceVulkan12Features<'_> {}
 
     impl Default for PhysicalDeviceVulkan12Features<'_> {
         fn default() -> Self {
@@ -5208,7 +5185,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_VULKAN_1_2_PROPERTIES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>> for PhysicalDeviceVulkan12Properties<'a> {}
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>> for PhysicalDeviceVulkan12Properties<'_> {}
 
     impl Default for PhysicalDeviceVulkan12Properties<'_> {
         fn default() -> Self {

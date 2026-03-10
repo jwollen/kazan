@@ -51,9 +51,9 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::DEBUG_UTILS_OBJECT_NAME_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<PipelineShaderStageCreateInfo<'a>> for DebugUtilsObjectNameInfoEXT<'a> {}
-    unsafe impl<'a> Extends<ResourceDescriptorInfoEXT<'a>> for DebugUtilsObjectNameInfoEXT<'a> {}
-    unsafe impl<'a> Extends<SamplerCreateInfo<'a>> for DebugUtilsObjectNameInfoEXT<'a> {}
+    unsafe impl Extends<PipelineShaderStageCreateInfo<'_>> for DebugUtilsObjectNameInfoEXT<'_> {}
+    unsafe impl Extends<ResourceDescriptorInfoEXT<'_>> for DebugUtilsObjectNameInfoEXT<'_> {}
+    unsafe impl Extends<SamplerCreateInfo<'_>> for DebugUtilsObjectNameInfoEXT<'_> {}
 
     impl Default for DebugUtilsObjectNameInfoEXT<'_> {
         fn default() -> Self {
@@ -255,7 +255,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<InstanceCreateInfo<'a>> for DebugUtilsMessengerCreateInfoEXT<'a> {}
+    unsafe impl Extends<InstanceCreateInfo<'_>> for DebugUtilsMessengerCreateInfoEXT<'_> {}
 
     impl Default for DebugUtilsMessengerCreateInfoEXT<'_> {
         fn default() -> Self {
@@ -403,23 +403,23 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn queue_labels(mut self, queue_labels: &'a [DebugUtilsLabelEXT<'a>]) -> Self {
+        pub fn queue_labels(mut self, queue_labels: &'a [DebugUtilsLabelEXT<'_>]) -> Self {
             self.queue_label_count = queue_labels.len().try_into().unwrap();
-            self.p_queue_labels = queue_labels.as_ptr();
+            self.p_queue_labels = queue_labels.as_ptr() as _;
             self
         }
 
         #[inline]
-        pub fn cmd_buf_labels(mut self, cmd_buf_labels: &'a [DebugUtilsLabelEXT<'a>]) -> Self {
+        pub fn cmd_buf_labels(mut self, cmd_buf_labels: &'a [DebugUtilsLabelEXT<'_>]) -> Self {
             self.cmd_buf_label_count = cmd_buf_labels.len().try_into().unwrap();
-            self.p_cmd_buf_labels = cmd_buf_labels.as_ptr();
+            self.p_cmd_buf_labels = cmd_buf_labels.as_ptr() as _;
             self
         }
 
         #[inline]
-        pub fn objects(mut self, objects: &'a [DebugUtilsObjectNameInfoEXT<'a>]) -> Self {
+        pub fn objects(mut self, objects: &'a [DebugUtilsObjectNameInfoEXT<'_>]) -> Self {
             self.object_count = objects.len().try_into().unwrap();
-            self.p_objects = objects.as_ptr();
+            self.p_objects = objects.as_ptr() as _;
             self
         }
     }

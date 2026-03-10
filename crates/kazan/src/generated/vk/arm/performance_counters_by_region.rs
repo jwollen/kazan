@@ -45,12 +45,12 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_FEATURES_ARM;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDevicePerformanceCountersByRegionFeaturesARM<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDevicePerformanceCountersByRegionFeaturesARM<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDevicePerformanceCountersByRegionFeaturesARM<'a>
+    unsafe impl Extends<DeviceCreateInfo<'_>>
+        for PhysicalDevicePerformanceCountersByRegionFeaturesARM<'_>
     {
     }
 
@@ -117,8 +117,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_PROPERTIES_ARM;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDevicePerformanceCountersByRegionPropertiesARM<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDevicePerformanceCountersByRegionPropertiesARM<'_>
     {
     }
 
@@ -312,14 +312,11 @@ pub(super) mod defs {
             StructureType::RENDER_PASS_PERFORMANCE_COUNTERS_BY_REGION_BEGIN_INFO_ARM;
     }
 
-    unsafe impl<'a> Extends<RenderPassBeginInfo<'a>>
-        for RenderPassPerformanceCountersByRegionBeginInfoARM<'a>
+    unsafe impl Extends<RenderPassBeginInfo<'_>>
+        for RenderPassPerformanceCountersByRegionBeginInfoARM<'_>
     {
     }
-    unsafe impl<'a> Extends<RenderingInfo<'a>>
-        for RenderPassPerformanceCountersByRegionBeginInfoARM<'a>
-    {
-    }
+    unsafe impl Extends<RenderingInfo<'_>> for RenderPassPerformanceCountersByRegionBeginInfoARM<'_> {}
 
     impl Default for RenderPassPerformanceCountersByRegionBeginInfoARM<'_> {
         fn default() -> Self {
@@ -340,7 +337,7 @@ pub(super) mod defs {
         #[inline]
         pub fn counter_addresses(mut self, counter_addresses: &'a [DeviceAddress]) -> Self {
             self.counter_address_count = counter_addresses.len().try_into().unwrap();
-            self.p_counter_addresses = counter_addresses.as_ptr();
+            self.p_counter_addresses = counter_addresses.as_ptr() as _;
             self
         }
 
@@ -353,7 +350,7 @@ pub(super) mod defs {
         #[inline]
         pub fn counter_indices(mut self, counter_indices: &'a mut [u32]) -> Self {
             self.counter_index_count = counter_indices.len().try_into().unwrap();
-            self.p_counter_indices = counter_indices.as_mut_ptr();
+            self.p_counter_indices = counter_indices.as_mut_ptr() as _;
             self
         }
     }

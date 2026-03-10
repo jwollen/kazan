@@ -41,10 +41,10 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::PUSH_CONSTANT_BANK_INFO_NV;
     }
 
-    unsafe impl<'a> Extends<DescriptorSetAndBindingMappingEXT<'a>> for PushConstantBankInfoNV<'a> {}
-    unsafe impl<'a> Extends<PushDataInfoEXT<'a>> for PushConstantBankInfoNV<'a> {}
-    unsafe impl<'a> Extends<PushConstantsInfo<'a>> for PushConstantBankInfoNV<'a> {}
-    unsafe impl<'a> Extends<IndirectCommandsLayoutTokenEXT<'a>> for PushConstantBankInfoNV<'a> {}
+    unsafe impl Extends<DescriptorSetAndBindingMappingEXT<'_>> for PushConstantBankInfoNV<'_> {}
+    unsafe impl Extends<PushDataInfoEXT<'_>> for PushConstantBankInfoNV<'_> {}
+    unsafe impl Extends<PushConstantsInfo<'_>> for PushConstantBankInfoNV<'_> {}
+    unsafe impl Extends<IndirectCommandsLayoutTokenEXT<'_>> for PushConstantBankInfoNV<'_> {}
 
     impl Default for PushConstantBankInfoNV<'_> {
         fn default() -> Self {
@@ -92,11 +92,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_FEATURES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDevicePushConstantBankFeaturesNV<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePushConstantBankFeaturesNV<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDevicePushConstantBankFeaturesNV<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDevicePushConstantBankFeaturesNV<'_> {}
 
     impl Default for PhysicalDevicePushConstantBankFeaturesNV<'_> {
         fn default() -> Self {
@@ -162,8 +159,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_PROPERTIES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDevicePushConstantBankPropertiesNV<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDevicePushConstantBankPropertiesNV<'_>
     {
     }
 

@@ -62,8 +62,8 @@ pub(super) mod defs {
             StructureType::ACCELERATION_STRUCTURE_GEOMETRY_LINEAR_SWEPT_SPHERES_DATA_NV;
     }
 
-    unsafe impl<'a> Extends<AccelerationStructureGeometryKHR<'a>>
-        for AccelerationStructureGeometryLinearSweptSpheresDataNV<'a>
+    unsafe impl Extends<AccelerationStructureGeometryKHR<'_>>
+        for AccelerationStructureGeometryLinearSweptSpheresDataNV<'_>
     {
     }
 
@@ -199,8 +199,8 @@ pub(super) mod defs {
             StructureType::ACCELERATION_STRUCTURE_GEOMETRY_SPHERES_DATA_NV;
     }
 
-    unsafe impl<'a> Extends<AccelerationStructureGeometryKHR<'a>>
-        for AccelerationStructureGeometrySpheresDataNV<'a>
+    unsafe impl Extends<AccelerationStructureGeometryKHR<'_>>
+        for AccelerationStructureGeometrySpheresDataNV<'_>
     {
     }
 
@@ -308,12 +308,12 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_RAY_TRACING_LINEAR_SWEPT_SPHERES_FEATURES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV<'a>
+    unsafe impl Extends<DeviceCreateInfo<'_>>
+        for PhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV<'_>
     {
     }
 

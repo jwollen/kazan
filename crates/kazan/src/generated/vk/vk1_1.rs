@@ -61,7 +61,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_FEATURES_2;
     }
 
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceFeatures2<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceFeatures2<'_> {}
 
     impl Default for PhysicalDeviceFeatures2<'_> {
         fn default() -> Self {
@@ -556,11 +556,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceVariablePointersFeatures<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceVariablePointersFeatures<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceVariablePointersFeatures<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceVariablePointersFeatures<'_> {}
 
     impl Default for PhysicalDeviceVariablePointersFeatures<'_> {
         fn default() -> Self {
@@ -658,8 +655,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceImageFormatInfo2<'a>>
-        for PhysicalDeviceExternalImageFormatInfo<'a>
+    unsafe impl Extends<PhysicalDeviceImageFormatInfo2<'_>>
+        for PhysicalDeviceExternalImageFormatInfo<'_>
     {
     }
 
@@ -711,7 +708,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_IMAGE_FORMAT_PROPERTIES;
     }
 
-    unsafe impl<'a> Extends<ImageFormatProperties2<'a>> for ExternalImageFormatProperties<'a> {}
+    unsafe impl Extends<ImageFormatProperties2<'_>> for ExternalImageFormatProperties<'_> {}
 
     impl Default for ExternalImageFormatProperties<'_> {
         fn default() -> Self {
@@ -883,7 +880,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_ID_PROPERTIES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>> for PhysicalDeviceIDProperties<'a> {}
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>> for PhysicalDeviceIDProperties<'_> {}
 
     impl Default for PhysicalDeviceIDProperties<'_> {
         fn default() -> Self {
@@ -958,7 +955,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_MEMORY_IMAGE_CREATE_INFO;
     }
 
-    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ExternalMemoryImageCreateInfo<'a> {}
+    unsafe impl Extends<ImageCreateInfo<'_>> for ExternalMemoryImageCreateInfo<'_> {}
 
     impl Default for ExternalMemoryImageCreateInfo<'_> {
         fn default() -> Self {
@@ -1005,7 +1002,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_MEMORY_BUFFER_CREATE_INFO;
     }
 
-    unsafe impl<'a> Extends<BufferCreateInfo<'a>> for ExternalMemoryBufferCreateInfo<'a> {}
+    unsafe impl Extends<BufferCreateInfo<'_>> for ExternalMemoryBufferCreateInfo<'_> {}
 
     impl Default for ExternalMemoryBufferCreateInfo<'_> {
         fn default() -> Self {
@@ -1052,7 +1049,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_MEMORY_ALLOCATE_INFO;
     }
 
-    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ExportMemoryAllocateInfo<'a> {}
+    unsafe impl Extends<MemoryAllocateInfo<'_>> for ExportMemoryAllocateInfo<'_> {}
 
     impl Default for ExportMemoryAllocateInfo<'_> {
         fn default() -> Self {
@@ -1223,7 +1220,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_SEMAPHORE_CREATE_INFO;
     }
 
-    unsafe impl<'a> Extends<SemaphoreCreateInfo<'a>> for ExportSemaphoreCreateInfo<'a> {}
+    unsafe impl Extends<SemaphoreCreateInfo<'_>> for ExportSemaphoreCreateInfo<'_> {}
 
     impl Default for ExportSemaphoreCreateInfo<'_> {
         fn default() -> Self {
@@ -1390,7 +1387,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_FENCE_CREATE_INFO;
     }
 
-    unsafe impl<'a> Extends<FenceCreateInfo<'a>> for ExportFenceCreateInfo<'a> {}
+    unsafe impl Extends<FenceCreateInfo<'_>> for ExportFenceCreateInfo<'_> {}
 
     impl Default for ExportFenceCreateInfo<'_> {
         fn default() -> Self {
@@ -1444,8 +1441,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_MULTIVIEW_FEATURES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceMultiviewFeatures<'a> {}
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceMultiviewFeatures<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceMultiviewFeatures<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceMultiviewFeatures<'_> {}
 
     impl Default for PhysicalDeviceMultiviewFeatures<'_> {
         fn default() -> Self {
@@ -1514,7 +1511,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>> for PhysicalDeviceMultiviewProperties<'a> {}
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>> for PhysicalDeviceMultiviewProperties<'_> {}
 
     impl Default for PhysicalDeviceMultiviewProperties<'_> {
         fn default() -> Self {
@@ -1578,7 +1575,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::RENDER_PASS_MULTIVIEW_CREATE_INFO;
     }
 
-    unsafe impl<'a> Extends<RenderPassCreateInfo<'a>> for RenderPassMultiviewCreateInfo<'a> {}
+    unsafe impl Extends<RenderPassCreateInfo<'_>> for RenderPassMultiviewCreateInfo<'_> {}
 
     impl Default for RenderPassMultiviewCreateInfo<'_> {
         fn default() -> Self {
@@ -1600,21 +1597,21 @@ pub(super) mod defs {
         #[inline]
         pub fn view_masks(mut self, view_masks: &'a [u32]) -> Self {
             self.subpass_count = view_masks.len().try_into().unwrap();
-            self.p_view_masks = view_masks.as_ptr();
+            self.p_view_masks = view_masks.as_ptr() as _;
             self
         }
 
         #[inline]
         pub fn view_offsets(mut self, view_offsets: &'a [i32]) -> Self {
             self.dependency_count = view_offsets.len().try_into().unwrap();
-            self.p_view_offsets = view_offsets.as_ptr();
+            self.p_view_offsets = view_offsets.as_ptr() as _;
             self
         }
 
         #[inline]
         pub fn correlation_masks(mut self, correlation_masks: &'a [u32]) -> Self {
             self.correlation_mask_count = correlation_masks.len().try_into().unwrap();
-            self.p_correlation_masks = correlation_masks.as_ptr();
+            self.p_correlation_masks = correlation_masks.as_ptr() as _;
             self
         }
     }
@@ -1705,7 +1702,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_ALLOCATE_FLAGS_INFO;
     }
 
-    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for MemoryAllocateFlagsInfo<'a> {}
+    unsafe impl Extends<MemoryAllocateInfo<'_>> for MemoryAllocateFlagsInfo<'_> {}
 
     impl Default for MemoryAllocateFlagsInfo<'_> {
         fn default() -> Self {
@@ -1824,7 +1821,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::BIND_BUFFER_MEMORY_DEVICE_GROUP_INFO;
     }
 
-    unsafe impl<'a> Extends<BindBufferMemoryInfo<'a>> for BindBufferMemoryDeviceGroupInfo<'a> {}
+    unsafe impl Extends<BindBufferMemoryInfo<'_>> for BindBufferMemoryDeviceGroupInfo<'_> {}
 
     impl Default for BindBufferMemoryDeviceGroupInfo<'_> {
         fn default() -> Self {
@@ -1842,7 +1839,7 @@ pub(super) mod defs {
         #[inline]
         pub fn device_indices(mut self, device_indices: &'a [u32]) -> Self {
             self.device_index_count = device_indices.len().try_into().unwrap();
-            self.p_device_indices = device_indices.as_ptr();
+            self.p_device_indices = device_indices.as_ptr() as _;
             self
         }
     }
@@ -1948,7 +1945,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::BIND_IMAGE_MEMORY_DEVICE_GROUP_INFO;
     }
 
-    unsafe impl<'a> Extends<BindImageMemoryInfo<'a>> for BindImageMemoryDeviceGroupInfo<'a> {}
+    unsafe impl Extends<BindImageMemoryInfo<'_>> for BindImageMemoryDeviceGroupInfo<'_> {}
 
     impl Default for BindImageMemoryDeviceGroupInfo<'_> {
         fn default() -> Self {
@@ -1968,7 +1965,7 @@ pub(super) mod defs {
         #[inline]
         pub fn device_indices(mut self, device_indices: &'a [u32]) -> Self {
             self.device_index_count = device_indices.len().try_into().unwrap();
-            self.p_device_indices = device_indices.as_ptr();
+            self.p_device_indices = device_indices.as_ptr() as _;
             self
         }
 
@@ -1979,7 +1976,7 @@ pub(super) mod defs {
         ) -> Self {
             self.split_instance_bind_region_count =
                 split_instance_bind_regions.len().try_into().unwrap();
-            self.p_split_instance_bind_regions = split_instance_bind_regions.as_ptr();
+            self.p_split_instance_bind_regions = split_instance_bind_regions.as_ptr() as _;
             self
         }
     }
@@ -2014,8 +2011,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_GROUP_RENDER_PASS_BEGIN_INFO;
     }
 
-    unsafe impl<'a> Extends<RenderPassBeginInfo<'a>> for DeviceGroupRenderPassBeginInfo<'a> {}
-    unsafe impl<'a> Extends<RenderingInfo<'a>> for DeviceGroupRenderPassBeginInfo<'a> {}
+    unsafe impl Extends<RenderPassBeginInfo<'_>> for DeviceGroupRenderPassBeginInfo<'_> {}
+    unsafe impl Extends<RenderingInfo<'_>> for DeviceGroupRenderPassBeginInfo<'_> {}
 
     impl Default for DeviceGroupRenderPassBeginInfo<'_> {
         fn default() -> Self {
@@ -2040,7 +2037,7 @@ pub(super) mod defs {
         #[inline]
         pub fn device_render_areas(mut self, device_render_areas: &'a [Rect2D]) -> Self {
             self.device_render_area_count = device_render_areas.len().try_into().unwrap();
-            self.p_device_render_areas = device_render_areas.as_ptr();
+            self.p_device_render_areas = device_render_areas.as_ptr() as _;
             self
         }
     }
@@ -2071,7 +2068,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_GROUP_COMMAND_BUFFER_BEGIN_INFO;
     }
 
-    unsafe impl<'a> Extends<CommandBufferBeginInfo<'a>> for DeviceGroupCommandBufferBeginInfo<'a> {}
+    unsafe impl Extends<CommandBufferBeginInfo<'_>> for DeviceGroupCommandBufferBeginInfo<'_> {}
 
     impl Default for DeviceGroupCommandBufferBeginInfo<'_> {
         fn default() -> Self {
@@ -2137,7 +2134,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_GROUP_SUBMIT_INFO;
     }
 
-    unsafe impl<'a> Extends<SubmitInfo<'a>> for DeviceGroupSubmitInfo<'a> {}
+    unsafe impl Extends<SubmitInfo<'_>> for DeviceGroupSubmitInfo<'_> {}
 
     impl Default for DeviceGroupSubmitInfo<'_> {
         fn default() -> Self {
@@ -2162,7 +2159,7 @@ pub(super) mod defs {
             wait_semaphore_device_indices: &'a [u32],
         ) -> Self {
             self.wait_semaphore_count = wait_semaphore_device_indices.len().try_into().unwrap();
-            self.p_wait_semaphore_device_indices = wait_semaphore_device_indices.as_ptr();
+            self.p_wait_semaphore_device_indices = wait_semaphore_device_indices.as_ptr() as _;
             self
         }
 
@@ -2172,7 +2169,7 @@ pub(super) mod defs {
             command_buffer_device_masks: &'a [u32],
         ) -> Self {
             self.command_buffer_count = command_buffer_device_masks.len().try_into().unwrap();
-            self.p_command_buffer_device_masks = command_buffer_device_masks.as_ptr();
+            self.p_command_buffer_device_masks = command_buffer_device_masks.as_ptr() as _;
             self
         }
 
@@ -2182,7 +2179,7 @@ pub(super) mod defs {
             signal_semaphore_device_indices: &'a [u32],
         ) -> Self {
             self.signal_semaphore_count = signal_semaphore_device_indices.len().try_into().unwrap();
-            self.p_signal_semaphore_device_indices = signal_semaphore_device_indices.as_ptr();
+            self.p_signal_semaphore_device_indices = signal_semaphore_device_indices.as_ptr() as _;
             self
         }
     }
@@ -2215,7 +2212,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_GROUP_BIND_SPARSE_INFO;
     }
 
-    unsafe impl<'a> Extends<BindSparseInfo<'a>> for DeviceGroupBindSparseInfo<'a> {}
+    unsafe impl Extends<BindSparseInfo<'_>> for DeviceGroupBindSparseInfo<'_> {}
 
     impl Default for DeviceGroupBindSparseInfo<'_> {
         fn default() -> Self {
@@ -2271,7 +2268,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_GROUP_DEVICE_CREATE_INFO;
     }
 
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for DeviceGroupDeviceCreateInfo<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for DeviceGroupDeviceCreateInfo<'_> {}
 
     impl Default for DeviceGroupDeviceCreateInfo<'_> {
         fn default() -> Self {
@@ -2289,7 +2286,7 @@ pub(super) mod defs {
         #[inline]
         pub fn physical_devices(mut self, physical_devices: &'a [PhysicalDevice]) -> Self {
             self.physical_device_count = physical_devices.len().try_into().unwrap();
-            self.p_physical_devices = physical_devices.as_ptr();
+            self.p_physical_devices = physical_devices.as_ptr() as _;
             self
         }
     }
@@ -2424,7 +2421,7 @@ pub(super) mod defs {
         ) -> Self {
             self.descriptor_update_entry_count =
                 descriptor_update_entries.len().try_into().unwrap();
-            self.p_descriptor_update_entries = descriptor_update_entries.as_ptr();
+            self.p_descriptor_update_entries = descriptor_update_entries.as_ptr() as _;
             self
         }
 
@@ -2519,10 +2516,7 @@ pub(super) mod defs {
             StructureType::RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO;
     }
 
-    unsafe impl<'a> Extends<RenderPassCreateInfo<'a>>
-        for RenderPassInputAttachmentAspectCreateInfo<'a>
-    {
-    }
+    unsafe impl Extends<RenderPassCreateInfo<'_>> for RenderPassInputAttachmentAspectCreateInfo<'_> {}
 
     impl Default for RenderPassInputAttachmentAspectCreateInfo<'_> {
         fn default() -> Self {
@@ -2543,7 +2537,7 @@ pub(super) mod defs {
             aspect_references: &'a [InputAttachmentAspectReference],
         ) -> Self {
             self.aspect_reference_count = aspect_references.len().try_into().unwrap();
-            self.p_aspect_references = aspect_references.as_ptr();
+            self.p_aspect_references = aspect_references.as_ptr() as _;
             self
         }
     }
@@ -2586,8 +2580,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDevice16BitStorageFeatures<'a> {}
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevice16BitStorageFeatures<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDevice16BitStorageFeatures<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDevice16BitStorageFeatures<'_> {}
 
     impl Default for PhysicalDevice16BitStorageFeatures<'_> {
         fn default() -> Self {
@@ -2668,7 +2662,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_SUBGROUP_PROPERTIES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>> for PhysicalDeviceSubgroupProperties<'a> {}
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>> for PhysicalDeviceSubgroupProperties<'_> {}
 
     impl Default for PhysicalDeviceSubgroupProperties<'_> {
         fn default() -> Self {
@@ -2969,10 +2963,7 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDevicePointClippingProperties<'a>
-    {
-    }
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>> for PhysicalDevicePointClippingProperties<'_> {}
 
     impl Default for PhysicalDevicePointClippingProperties<'_> {
         fn default() -> Self {
@@ -3030,7 +3021,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_DEDICATED_REQUIREMENTS;
     }
 
-    unsafe impl<'a> Extends<MemoryRequirements2<'a>> for MemoryDedicatedRequirements<'a> {}
+    unsafe impl Extends<MemoryRequirements2<'_>> for MemoryDedicatedRequirements<'_> {}
 
     impl Default for MemoryDedicatedRequirements<'_> {
         fn default() -> Self {
@@ -3089,7 +3080,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_DEDICATED_ALLOCATE_INFO;
     }
 
-    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for MemoryDedicatedAllocateInfo<'a> {}
+    unsafe impl Extends<MemoryAllocateInfo<'_>> for MemoryDedicatedAllocateInfo<'_> {}
 
     impl Default for MemoryDedicatedAllocateInfo<'_> {
         fn default() -> Self {
@@ -3143,7 +3134,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_VIEW_USAGE_CREATE_INFO;
     }
 
-    unsafe impl<'a> Extends<ImageViewCreateInfo<'a>> for ImageViewUsageCreateInfo<'a> {}
+    unsafe impl Extends<ImageViewCreateInfo<'_>> for ImageViewUsageCreateInfo<'_> {}
 
     impl Default for ImageViewUsageCreateInfo<'_> {
         fn default() -> Self {
@@ -3191,8 +3182,8 @@ pub(super) mod defs {
             StructureType::PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO;
     }
 
-    unsafe impl<'a> Extends<PipelineTessellationStateCreateInfo<'a>>
-        for PipelineTessellationDomainOriginStateCreateInfo<'a>
+    unsafe impl Extends<PipelineTessellationStateCreateInfo<'_>>
+        for PipelineTessellationDomainOriginStateCreateInfo<'_>
     {
     }
 
@@ -3241,8 +3232,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::SAMPLER_YCBCR_CONVERSION_INFO;
     }
 
-    unsafe impl<'a> Extends<SamplerCreateInfo<'a>> for SamplerYcbcrConversionInfo<'a> {}
-    unsafe impl<'a> Extends<ImageViewCreateInfo<'a>> for SamplerYcbcrConversionInfo<'a> {}
+    unsafe impl Extends<SamplerCreateInfo<'_>> for SamplerYcbcrConversionInfo<'_> {}
+    unsafe impl Extends<ImageViewCreateInfo<'_>> for SamplerYcbcrConversionInfo<'_> {}
 
     impl Default for SamplerYcbcrConversionInfo<'_> {
         fn default() -> Self {
@@ -3403,7 +3394,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::BIND_IMAGE_PLANE_MEMORY_INFO;
     }
 
-    unsafe impl<'a> Extends<BindImageMemoryInfo<'a>> for BindImagePlaneMemoryInfo<'a> {}
+    unsafe impl Extends<BindImageMemoryInfo<'_>> for BindImagePlaneMemoryInfo<'_> {}
 
     impl Default for BindImagePlaneMemoryInfo<'_> {
         fn default() -> Self {
@@ -3450,7 +3441,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_PLANE_MEMORY_REQUIREMENTS_INFO;
     }
 
-    unsafe impl<'a> Extends<ImageMemoryRequirementsInfo2<'a>> for ImagePlaneMemoryRequirementsInfo<'a> {}
+    unsafe impl Extends<ImageMemoryRequirementsInfo2<'_>> for ImagePlaneMemoryRequirementsInfo<'_> {}
 
     impl Default for ImagePlaneMemoryRequirementsInfo<'_> {
         fn default() -> Self {
@@ -3498,11 +3489,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceSamplerYcbcrConversionFeatures<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceSamplerYcbcrConversionFeatures<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceSamplerYcbcrConversionFeatures<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceSamplerYcbcrConversionFeatures<'_> {}
 
     impl Default for PhysicalDeviceSamplerYcbcrConversionFeatures<'_> {
         fn default() -> Self {
@@ -3553,8 +3544,8 @@ pub(super) mod defs {
             StructureType::SAMPLER_YCBCR_CONVERSION_IMAGE_FORMAT_PROPERTIES;
     }
 
-    unsafe impl<'a> Extends<ImageFormatProperties2<'a>>
-        for SamplerYcbcrConversionImageFormatProperties<'a>
+    unsafe impl Extends<ImageFormatProperties2<'_>>
+        for SamplerYcbcrConversionImageFormatProperties<'_>
     {
     }
 
@@ -3606,7 +3597,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::PROTECTED_SUBMIT_INFO;
     }
 
-    unsafe impl<'a> Extends<SubmitInfo<'a>> for ProtectedSubmitInfo<'a> {}
+    unsafe impl Extends<SubmitInfo<'_>> for ProtectedSubmitInfo<'_> {}
 
     impl Default for ProtectedSubmitInfo<'_> {
         fn default() -> Self {
@@ -3654,8 +3645,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_PROTECTED_MEMORY_FEATURES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceProtectedMemoryFeatures<'a> {}
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceProtectedMemoryFeatures<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceProtectedMemoryFeatures<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceProtectedMemoryFeatures<'_> {}
 
     impl Default for PhysicalDeviceProtectedMemoryFeatures<'_> {
         fn default() -> Self {
@@ -3703,10 +3694,7 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_PROTECTED_MEMORY_PROPERTIES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceProtectedMemoryProperties<'a>
-    {
-    }
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>> for PhysicalDeviceProtectedMemoryProperties<'_> {}
 
     impl Default for PhysicalDeviceProtectedMemoryProperties<'_> {
         fn default() -> Self {
@@ -3822,10 +3810,7 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceMaintenance3Properties<'a>
-    {
-    }
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>> for PhysicalDeviceMaintenance3Properties<'_> {}
 
     impl Default for PhysicalDeviceMaintenance3Properties<'_> {
         fn default() -> Self {
@@ -3928,11 +3913,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SHADER_DRAW_PARAMETERS_FEATURES;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceShaderDrawParametersFeatures<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceShaderDrawParametersFeatures<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceShaderDrawParametersFeatures<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceShaderDrawParametersFeatures<'_> {}
 
     impl Default for PhysicalDeviceShaderDrawParametersFeatures<'_> {
         fn default() -> Self {

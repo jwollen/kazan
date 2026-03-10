@@ -143,7 +143,7 @@ pub(super) mod defs {
             StructureType::QUERY_POOL_PERFORMANCE_QUERY_CREATE_INFO_INTEL;
     }
 
-    unsafe impl<'a> Extends<QueryPoolCreateInfo<'a>> for QueryPoolPerformanceQueryCreateInfoINTEL<'a> {}
+    unsafe impl Extends<QueryPoolCreateInfo<'_>> for QueryPoolPerformanceQueryCreateInfoINTEL<'_> {}
 
     impl Default for QueryPoolPerformanceQueryCreateInfoINTEL<'_> {
         fn default() -> Self {

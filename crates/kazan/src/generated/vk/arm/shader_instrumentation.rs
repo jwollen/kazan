@@ -48,14 +48,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SHADER_INSTRUMENTATION_FEATURES_ARM;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceShaderInstrumentationFeaturesARM<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceShaderInstrumentationFeaturesARM<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceShaderInstrumentationFeaturesARM<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceShaderInstrumentationFeaturesARM<'_> {}
 
     impl Default for PhysicalDeviceShaderInstrumentationFeaturesARM<'_> {
         fn default() -> Self {
@@ -108,8 +105,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SHADER_INSTRUMENTATION_PROPERTIES_ARM;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceShaderInstrumentationPropertiesARM<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceShaderInstrumentationPropertiesARM<'_>
     {
     }
 

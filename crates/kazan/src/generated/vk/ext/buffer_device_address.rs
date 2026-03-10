@@ -59,11 +59,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceBufferDeviceAddressFeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceBufferDeviceAddressFeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceBufferDeviceAddressFeaturesEXT<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceBufferDeviceAddressFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceBufferDeviceAddressFeaturesEXT<'_> {
         fn default() -> Self {
@@ -130,7 +130,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::BUFFER_DEVICE_ADDRESS_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<BufferCreateInfo<'a>> for BufferDeviceAddressCreateInfoEXT<'a> {}
+    unsafe impl Extends<BufferCreateInfo<'_>> for BufferDeviceAddressCreateInfoEXT<'_> {}
 
     impl Default for BufferDeviceAddressCreateInfoEXT<'_> {
         fn default() -> Self {

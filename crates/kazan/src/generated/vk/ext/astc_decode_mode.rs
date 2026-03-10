@@ -41,7 +41,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_VIEW_ASTC_DECODE_MODE_EXT;
     }
 
-    unsafe impl<'a> Extends<ImageViewCreateInfo<'a>> for ImageViewASTCDecodeModeEXT<'a> {}
+    unsafe impl Extends<ImageViewCreateInfo<'_>> for ImageViewASTCDecodeModeEXT<'_> {}
 
     impl Default for ImageViewASTCDecodeModeEXT<'_> {
         fn default() -> Self {
@@ -92,8 +92,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_ASTC_DECODE_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceASTCDecodeFeaturesEXT<'a> {}
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceASTCDecodeFeaturesEXT<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceASTCDecodeFeaturesEXT<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceASTCDecodeFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceASTCDecodeFeaturesEXT<'_> {
         fn default() -> Self {

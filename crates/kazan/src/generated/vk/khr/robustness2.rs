@@ -46,8 +46,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceRobustness2FeaturesKHR<'a> {}
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceRobustness2FeaturesKHR<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceRobustness2FeaturesKHR<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceRobustness2FeaturesKHR<'_> {}
 
     impl Default for PhysicalDeviceRobustness2FeaturesKHR<'_> {
         fn default() -> Self {
@@ -117,10 +117,7 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_ROBUSTNESS_2_PROPERTIES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceRobustness2PropertiesKHR<'a>
-    {
-    }
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>> for PhysicalDeviceRobustness2PropertiesKHR<'_> {}
 
     impl Default for PhysicalDeviceRobustness2PropertiesKHR<'_> {
         fn default() -> Self {

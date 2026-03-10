@@ -42,11 +42,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_VIDEO_MAINTENANCE_1_FEATURES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceVideoMaintenance1FeaturesKHR<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceVideoMaintenance1FeaturesKHR<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceVideoMaintenance1FeaturesKHR<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceVideoMaintenance1FeaturesKHR<'_> {}
 
     impl Default for PhysicalDeviceVideoMaintenance1FeaturesKHR<'_> {
         fn default() -> Self {
@@ -97,8 +97,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_INLINE_QUERY_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoDecodeInfoKHR<'a>> for VideoInlineQueryInfoKHR<'a> {}
-    unsafe impl<'a> Extends<VideoEncodeInfoKHR<'a>> for VideoInlineQueryInfoKHR<'a> {}
+    unsafe impl Extends<VideoDecodeInfoKHR<'_>> for VideoInlineQueryInfoKHR<'_> {}
+    unsafe impl Extends<VideoEncodeInfoKHR<'_>> for VideoInlineQueryInfoKHR<'_> {}
 
     impl Default for VideoInlineQueryInfoKHR<'_> {
         fn default() -> Self {

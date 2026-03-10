@@ -48,10 +48,7 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_PCI_BUS_INFO_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDevicePCIBusInfoPropertiesEXT<'a>
-    {
-    }
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>> for PhysicalDevicePCIBusInfoPropertiesEXT<'_> {}
 
     impl Default for PhysicalDevicePCIBusInfoPropertiesEXT<'_> {
         fn default() -> Self {

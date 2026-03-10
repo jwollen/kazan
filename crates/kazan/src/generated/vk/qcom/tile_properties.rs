@@ -42,11 +42,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_TILE_PROPERTIES_FEATURES_QCOM;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceTilePropertiesFeaturesQCOM<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceTilePropertiesFeaturesQCOM<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceTilePropertiesFeaturesQCOM<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceTilePropertiesFeaturesQCOM<'_> {}
 
     impl Default for PhysicalDeviceTilePropertiesFeaturesQCOM<'_> {
         fn default() -> Self {

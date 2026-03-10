@@ -185,14 +185,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_RAY_TRACING_MAINTENANCE_1_FEATURES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceRayTracingMaintenance1FeaturesKHR<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceRayTracingMaintenance1FeaturesKHR<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceRayTracingMaintenance1FeaturesKHR<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceRayTracingMaintenance1FeaturesKHR<'_> {}
 
     impl Default for PhysicalDeviceRayTracingMaintenance1FeaturesKHR<'_> {
         fn default() -> Self {

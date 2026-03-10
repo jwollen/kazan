@@ -42,14 +42,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceMutableDescriptorTypeFeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceMutableDescriptorTypeFeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceMutableDescriptorTypeFeaturesEXT<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceMutableDescriptorTypeFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceMutableDescriptorTypeFeaturesEXT<'_> {
         fn default() -> Self {
@@ -104,7 +101,7 @@ pub(super) mod defs {
         #[inline]
         pub fn descriptor_types(mut self, descriptor_types: &'a [DescriptorType]) -> Self {
             self.descriptor_type_count = descriptor_types.len().try_into().unwrap();
-            self.p_descriptor_types = descriptor_types.as_ptr();
+            self.p_descriptor_types = descriptor_types.as_ptr() as _;
             self
         }
     }
@@ -144,11 +141,8 @@ pub(super) mod defs {
             StructureType::MUTABLE_DESCRIPTOR_TYPE_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<DescriptorSetLayoutCreateInfo<'a>>
-        for MutableDescriptorTypeCreateInfoEXT<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DescriptorPoolCreateInfo<'a>> for MutableDescriptorTypeCreateInfoEXT<'a> {}
+    unsafe impl Extends<DescriptorSetLayoutCreateInfo<'_>> for MutableDescriptorTypeCreateInfoEXT<'_> {}
+    unsafe impl Extends<DescriptorPoolCreateInfo<'_>> for MutableDescriptorTypeCreateInfoEXT<'_> {}
 
     impl Default for MutableDescriptorTypeCreateInfoEXT<'_> {
         fn default() -> Self {
@@ -166,11 +160,11 @@ pub(super) mod defs {
         #[inline]
         pub fn mutable_descriptor_type_lists(
             mut self,
-            mutable_descriptor_type_lists: &'a [MutableDescriptorTypeListEXT<'a>],
+            mutable_descriptor_type_lists: &'a [MutableDescriptorTypeListEXT<'_>],
         ) -> Self {
             self.mutable_descriptor_type_list_count =
                 mutable_descriptor_type_lists.len().try_into().unwrap();
-            self.p_mutable_descriptor_type_lists = mutable_descriptor_type_lists.as_ptr();
+            self.p_mutable_descriptor_type_lists = mutable_descriptor_type_lists.as_ptr() as _;
             self
         }
     }

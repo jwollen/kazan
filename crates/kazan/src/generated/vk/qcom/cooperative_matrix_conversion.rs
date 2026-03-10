@@ -45,12 +45,12 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_CONVERSION_FEATURES_QCOM;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceCooperativeMatrixConversionFeaturesQCOM<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceCooperativeMatrixConversionFeaturesQCOM<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceCooperativeMatrixConversionFeaturesQCOM<'a>
+    unsafe impl Extends<DeviceCreateInfo<'_>>
+        for PhysicalDeviceCooperativeMatrixConversionFeaturesQCOM<'_>
     {
     }
 

@@ -43,11 +43,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_FEATURES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceDisplacementMicromapFeaturesNV<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceDisplacementMicromapFeaturesNV<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceDisplacementMicromapFeaturesNV<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceDisplacementMicromapFeaturesNV<'_> {}
 
     impl Default for PhysicalDeviceDisplacementMicromapFeaturesNV<'_> {
         fn default() -> Self {
@@ -98,8 +98,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_PROPERTIES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceDisplacementMicromapPropertiesNV<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceDisplacementMicromapPropertiesNV<'_>
     {
     }
 
@@ -207,8 +207,8 @@ pub(super) mod defs {
             StructureType::ACCELERATION_STRUCTURE_TRIANGLES_DISPLACEMENT_MICROMAP_NV;
     }
 
-    unsafe impl<'a> Extends<AccelerationStructureGeometryTrianglesDataKHR<'a>>
-        for AccelerationStructureTrianglesDisplacementMicromapNV<'a>
+    unsafe impl Extends<AccelerationStructureGeometryTrianglesDataKHR<'_>>
+        for AccelerationStructureTrianglesDisplacementMicromapNV<'_>
     {
     }
 
@@ -348,7 +348,7 @@ pub(super) mod defs {
             if let Some(s) = &usage_counts_ptrs {
                 assert_eq!(s.len(), self.usage_counts_count as usize);
             }
-            self.p_usage_counts = usage_counts.map_or(ptr::null(), |s| s.as_ptr());
+            self.p_usage_counts = usage_counts.map_or(ptr::null(), |s| s.as_ptr() as _);
             self.pp_usage_counts = usage_counts_ptrs.map_or(ptr::null(), |s| s.as_ptr() as _);
             self
         }

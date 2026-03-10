@@ -44,14 +44,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceShaderModuleIdentifierFeaturesEXT<'_> {
         fn default() -> Self {
@@ -102,8 +99,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceShaderModuleIdentifierPropertiesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceShaderModuleIdentifierPropertiesEXT<'_>
     {
     }
 
@@ -158,8 +155,8 @@ pub(super) mod defs {
             StructureType::PIPELINE_SHADER_STAGE_MODULE_IDENTIFIER_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<PipelineShaderStageCreateInfo<'a>>
-        for PipelineShaderStageModuleIdentifierCreateInfoEXT<'a>
+    unsafe impl Extends<PipelineShaderStageCreateInfo<'_>>
+        for PipelineShaderStageModuleIdentifierCreateInfoEXT<'_>
     {
     }
 
@@ -179,7 +176,7 @@ pub(super) mod defs {
         #[inline]
         pub fn identifier(mut self, identifier: &'a [u8]) -> Self {
             self.identifier_size = identifier.len().try_into().unwrap();
-            self.p_identifier = identifier.as_ptr();
+            self.p_identifier = identifier.as_ptr() as _;
             self
         }
     }

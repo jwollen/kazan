@@ -42,8 +42,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_PRESENT_ID_FEATURES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDevicePresentIdFeaturesKHR<'a> {}
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePresentIdFeaturesKHR<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDevicePresentIdFeaturesKHR<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDevicePresentIdFeaturesKHR<'_> {}
 
     impl Default for PhysicalDevicePresentIdFeaturesKHR<'_> {
         fn default() -> Self {
@@ -92,7 +92,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::PRESENT_ID_KHR;
     }
 
-    unsafe impl<'a> Extends<PresentInfoKHR<'a>> for PresentIdKHR<'a> {}
+    unsafe impl Extends<PresentInfoKHR<'_>> for PresentIdKHR<'_> {}
 
     impl Default for PresentIdKHR<'_> {
         fn default() -> Self {
@@ -110,7 +110,7 @@ pub(super) mod defs {
         #[inline]
         pub fn present_ids(mut self, present_ids: &'a [u64]) -> Self {
             self.swapchain_count = present_ids.len().try_into().unwrap();
-            self.p_present_ids = present_ids.as_ptr();
+            self.p_present_ids = present_ids.as_ptr() as _;
             self
         }
     }

@@ -43,7 +43,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_MEMORY_FD_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ImportMemoryFdInfoKHR<'a> {}
+    unsafe impl Extends<MemoryAllocateInfo<'_>> for ImportMemoryFdInfoKHR<'_> {}
 
     impl Default for ImportMemoryFdInfoKHR<'_> {
         fn default() -> Self {

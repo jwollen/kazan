@@ -42,11 +42,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_PRESENT_BARRIER_FEATURES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDevicePresentBarrierFeaturesNV<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePresentBarrierFeaturesNV<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDevicePresentBarrierFeaturesNV<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDevicePresentBarrierFeaturesNV<'_> {}
 
     impl Default for PhysicalDevicePresentBarrierFeaturesNV<'_> {
         fn default() -> Self {
@@ -94,7 +91,7 @@ pub(super) mod defs {
             StructureType::SURFACE_CAPABILITIES_PRESENT_BARRIER_NV;
     }
 
-    unsafe impl<'a> Extends<SurfaceCapabilities2KHR<'a>> for SurfaceCapabilitiesPresentBarrierNV<'a> {}
+    unsafe impl Extends<SurfaceCapabilities2KHR<'_>> for SurfaceCapabilitiesPresentBarrierNV<'_> {}
 
     impl Default for SurfaceCapabilitiesPresentBarrierNV<'_> {
         fn default() -> Self {
@@ -142,7 +139,7 @@ pub(super) mod defs {
             StructureType::SWAPCHAIN_PRESENT_BARRIER_CREATE_INFO_NV;
     }
 
-    unsafe impl<'a> Extends<SwapchainCreateInfoKHR<'a>> for SwapchainPresentBarrierCreateInfoNV<'a> {}
+    unsafe impl Extends<SwapchainCreateInfoKHR<'_>> for SwapchainPresentBarrierCreateInfoNV<'_> {}
 
     impl Default for SwapchainPresentBarrierCreateInfoNV<'_> {
         fn default() -> Self {

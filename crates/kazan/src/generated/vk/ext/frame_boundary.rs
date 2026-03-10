@@ -57,10 +57,10 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::FRAME_BOUNDARY_EXT;
     }
 
-    unsafe impl<'a> Extends<SubmitInfo<'a>> for FrameBoundaryEXT<'a> {}
-    unsafe impl<'a> Extends<SubmitInfo2<'a>> for FrameBoundaryEXT<'a> {}
-    unsafe impl<'a> Extends<PresentInfoKHR<'a>> for FrameBoundaryEXT<'a> {}
-    unsafe impl<'a> Extends<BindSparseInfo<'a>> for FrameBoundaryEXT<'a> {}
+    unsafe impl Extends<SubmitInfo<'_>> for FrameBoundaryEXT<'_> {}
+    unsafe impl Extends<SubmitInfo2<'_>> for FrameBoundaryEXT<'_> {}
+    unsafe impl Extends<PresentInfoKHR<'_>> for FrameBoundaryEXT<'_> {}
+    unsafe impl Extends<BindSparseInfo<'_>> for FrameBoundaryEXT<'_> {}
 
     impl Default for FrameBoundaryEXT<'_> {
         fn default() -> Self {
@@ -97,14 +97,14 @@ pub(super) mod defs {
         #[inline]
         pub fn images(mut self, images: &'a [Image]) -> Self {
             self.image_count = images.len().try_into().unwrap();
-            self.p_images = images.as_ptr();
+            self.p_images = images.as_ptr() as _;
             self
         }
 
         #[inline]
         pub fn buffers(mut self, buffers: &'a [Buffer]) -> Self {
             self.buffer_count = buffers.len().try_into().unwrap();
-            self.p_buffers = buffers.as_ptr();
+            self.p_buffers = buffers.as_ptr() as _;
             self
         }
 
@@ -149,11 +149,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_FRAME_BOUNDARY_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceFrameBoundaryFeaturesEXT<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceFrameBoundaryFeaturesEXT<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceFrameBoundaryFeaturesEXT<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceFrameBoundaryFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceFrameBoundaryFeaturesEXT<'_> {
         fn default() -> Self {

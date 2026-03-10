@@ -45,14 +45,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceBlendOperationAdvancedFeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceBlendOperationAdvancedFeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceBlendOperationAdvancedFeaturesEXT<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceBlendOperationAdvancedFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceBlendOperationAdvancedFeaturesEXT<'_> {
         fn default() -> Self {
@@ -131,8 +128,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceBlendOperationAdvancedPropertiesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceBlendOperationAdvancedPropertiesEXT<'_>
     {
     }
 
@@ -241,8 +238,8 @@ pub(super) mod defs {
             StructureType::PIPELINE_COLOR_BLEND_ADVANCED_STATE_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<PipelineColorBlendStateCreateInfo<'a>>
-        for PipelineColorBlendAdvancedStateCreateInfoEXT<'a>
+    unsafe impl Extends<PipelineColorBlendStateCreateInfo<'_>>
+        for PipelineColorBlendAdvancedStateCreateInfoEXT<'_>
     {
     }
 

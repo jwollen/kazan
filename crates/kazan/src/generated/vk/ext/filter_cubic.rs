@@ -42,8 +42,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceImageFormatInfo2<'a>>
-        for PhysicalDeviceImageViewImageFormatInfoEXT<'a>
+    unsafe impl Extends<PhysicalDeviceImageFormatInfo2<'_>>
+        for PhysicalDeviceImageViewImageFormatInfoEXT<'_>
     {
     }
 
@@ -95,8 +95,8 @@ pub(super) mod defs {
             StructureType::FILTER_CUBIC_IMAGE_VIEW_IMAGE_FORMAT_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<ImageFormatProperties2<'a>>
-        for FilterCubicImageViewImageFormatPropertiesEXT<'a>
+    unsafe impl Extends<ImageFormatProperties2<'_>>
+        for FilterCubicImageViewImageFormatPropertiesEXT<'_>
     {
     }
 

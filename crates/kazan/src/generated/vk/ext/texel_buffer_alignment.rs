@@ -46,14 +46,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceTexelBufferAlignmentFeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceTexelBufferAlignmentFeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceTexelBufferAlignmentFeaturesEXT<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceTexelBufferAlignmentFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceTexelBufferAlignmentFeaturesEXT<'_> {
         fn default() -> Self {

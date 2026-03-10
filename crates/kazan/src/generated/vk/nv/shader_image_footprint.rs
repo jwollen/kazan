@@ -42,11 +42,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SHADER_IMAGE_FOOTPRINT_FEATURES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceShaderImageFootprintFeaturesNV<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceShaderImageFootprintFeaturesNV<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceShaderImageFootprintFeaturesNV<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceShaderImageFootprintFeaturesNV<'_> {}
 
     impl Default for PhysicalDeviceShaderImageFootprintFeaturesNV<'_> {
         fn default() -> Self {

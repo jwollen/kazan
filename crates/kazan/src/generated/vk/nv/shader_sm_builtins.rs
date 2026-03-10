@@ -44,8 +44,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SHADER_SM_BUILTINS_PROPERTIES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceShaderSMBuiltinsPropertiesNV<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceShaderSMBuiltinsPropertiesNV<'_>
     {
     }
 
@@ -102,11 +102,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SHADER_SM_BUILTINS_FEATURES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceShaderSMBuiltinsFeaturesNV<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceShaderSMBuiltinsFeaturesNV<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceShaderSMBuiltinsFeaturesNV<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceShaderSMBuiltinsFeaturesNV<'_> {}
 
     impl Default for PhysicalDeviceShaderSMBuiltinsFeaturesNV<'_> {
         fn default() -> Self {

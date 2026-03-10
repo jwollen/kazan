@@ -41,7 +41,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::RENDER_PASS_TRANSFORM_BEGIN_INFO_QCOM;
     }
 
-    unsafe impl<'a> Extends<RenderPassBeginInfo<'a>> for RenderPassTransformBeginInfoQCOM<'a> {}
+    unsafe impl Extends<RenderPassBeginInfo<'_>> for RenderPassTransformBeginInfoQCOM<'_> {}
 
     impl Default for RenderPassTransformBeginInfoQCOM<'_> {
         fn default() -> Self {
@@ -91,8 +91,8 @@ pub(super) mod defs {
             StructureType::COMMAND_BUFFER_INHERITANCE_RENDER_PASS_TRANSFORM_INFO_QCOM;
     }
 
-    unsafe impl<'a> Extends<CommandBufferInheritanceInfo<'a>>
-        for CommandBufferInheritanceRenderPassTransformInfoQCOM<'a>
+    unsafe impl Extends<CommandBufferInheritanceInfo<'_>>
+        for CommandBufferInheritanceRenderPassTransformInfoQCOM<'_>
     {
     }
 

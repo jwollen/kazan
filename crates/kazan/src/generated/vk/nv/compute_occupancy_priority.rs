@@ -104,14 +104,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_COMPUTE_OCCUPANCY_PRIORITY_FEATURES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceComputeOccupancyPriorityFeaturesNV<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceComputeOccupancyPriorityFeaturesNV<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceComputeOccupancyPriorityFeaturesNV<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceComputeOccupancyPriorityFeaturesNV<'_> {}
 
     impl Default for PhysicalDeviceComputeOccupancyPriorityFeaturesNV<'_> {
         fn default() -> Self {

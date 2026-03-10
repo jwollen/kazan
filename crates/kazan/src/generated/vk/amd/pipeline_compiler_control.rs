@@ -42,17 +42,11 @@ pub(super) mod defs {
             StructureType::PIPELINE_COMPILER_CONTROL_CREATE_INFO_AMD;
     }
 
-    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>>
-        for PipelineCompilerControlCreateInfoAMD<'a>
-    {
-    }
-    unsafe impl<'a> Extends<ComputePipelineCreateInfo<'a>>
-        for PipelineCompilerControlCreateInfoAMD<'a>
-    {
-    }
+    unsafe impl Extends<GraphicsPipelineCreateInfo<'_>> for PipelineCompilerControlCreateInfoAMD<'_> {}
+    unsafe impl Extends<ComputePipelineCreateInfo<'_>> for PipelineCompilerControlCreateInfoAMD<'_> {}
     #[cfg(feature = "provisional")]
-    unsafe impl<'a> Extends<ExecutionGraphPipelineCreateInfoAMDX<'a>>
-        for PipelineCompilerControlCreateInfoAMD<'a>
+    unsafe impl Extends<ExecutionGraphPipelineCreateInfoAMDX<'_>>
+        for PipelineCompilerControlCreateInfoAMD<'_>
     {
     }
 

@@ -45,8 +45,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_AV1_PROFILE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoProfileInfoKHR<'a>> for VideoDecodeAV1ProfileInfoKHR<'a> {}
-    unsafe impl<'a> Extends<QueryPoolCreateInfo<'a>> for VideoDecodeAV1ProfileInfoKHR<'a> {}
+    unsafe impl Extends<VideoProfileInfoKHR<'_>> for VideoDecodeAV1ProfileInfoKHR<'_> {}
+    unsafe impl Extends<QueryPoolCreateInfo<'_>> for VideoDecodeAV1ProfileInfoKHR<'_> {}
 
     impl Default for VideoDecodeAV1ProfileInfoKHR<'_> {
         fn default() -> Self {
@@ -100,7 +100,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_AV1_CAPABILITIES_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoCapabilitiesKHR<'a>> for VideoDecodeAV1CapabilitiesKHR<'a> {}
+    unsafe impl Extends<VideoCapabilitiesKHR<'_>> for VideoDecodeAV1CapabilitiesKHR<'_> {}
 
     impl Default for VideoDecodeAV1CapabilitiesKHR<'_> {
         fn default() -> Self {
@@ -148,8 +148,8 @@ pub(super) mod defs {
             StructureType::VIDEO_DECODE_AV1_SESSION_PARAMETERS_CREATE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoSessionParametersCreateInfoKHR<'a>>
-        for VideoDecodeAV1SessionParametersCreateInfoKHR<'a>
+    unsafe impl Extends<VideoSessionParametersCreateInfoKHR<'_>>
+        for VideoDecodeAV1SessionParametersCreateInfoKHR<'_>
     {
     }
 
@@ -214,7 +214,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_AV1_PICTURE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoDecodeInfoKHR<'a>> for VideoDecodeAV1PictureInfoKHR<'a> {}
+    unsafe impl Extends<VideoDecodeInfoKHR<'_>> for VideoDecodeAV1PictureInfoKHR<'_> {}
 
     impl Default for VideoDecodeAV1PictureInfoKHR<'_> {
         fn default() -> Self {
@@ -261,8 +261,8 @@ pub(super) mod defs {
         pub fn tiles(mut self, tile_offsets: &'a [u32], tile_sizes: &'a [u32]) -> Self {
             self.tile_count = tile_offsets.len().try_into().unwrap();
             assert_eq!(tile_sizes.len(), self.tile_count as usize);
-            self.p_tile_offsets = tile_offsets.as_ptr();
-            self.p_tile_sizes = tile_sizes.as_ptr();
+            self.p_tile_offsets = tile_offsets.as_ptr() as _;
+            self.p_tile_sizes = tile_sizes.as_ptr() as _;
             self
         }
     }
@@ -293,7 +293,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_AV1_DPB_SLOT_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoReferenceSlotInfoKHR<'a>> for VideoDecodeAV1DpbSlotInfoKHR<'a> {}
+    unsafe impl Extends<VideoReferenceSlotInfoKHR<'_>> for VideoDecodeAV1DpbSlotInfoKHR<'_> {}
 
     impl Default for VideoDecodeAV1DpbSlotInfoKHR<'_> {
         fn default() -> Self {

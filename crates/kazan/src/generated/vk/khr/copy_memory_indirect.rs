@@ -269,7 +269,7 @@ pub(super) mod defs {
             image_subresources: &'a [ImageSubresourceLayers],
         ) -> Self {
             self.copy_count = image_subresources.len().try_into().unwrap();
-            self.p_image_subresources = image_subresources.as_ptr();
+            self.p_image_subresources = image_subresources.as_ptr() as _;
             self
         }
 
@@ -327,11 +327,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceCopyMemoryIndirectFeaturesKHR<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceCopyMemoryIndirectFeaturesKHR<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceCopyMemoryIndirectFeaturesKHR<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceCopyMemoryIndirectFeaturesKHR<'_> {}
 
     impl Default for PhysicalDeviceCopyMemoryIndirectFeaturesKHR<'_> {
         fn default() -> Self {
@@ -389,8 +389,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceCopyMemoryIndirectPropertiesKHR<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceCopyMemoryIndirectPropertiesKHR<'_>
     {
     }
 

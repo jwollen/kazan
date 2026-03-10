@@ -845,8 +845,8 @@ pub(super) mod defs {
         ) -> Self {
             self.tile_cols = mi_col_starts.len().try_into().unwrap();
             assert_eq!(width_in_sbs_minus1.len(), self.tile_cols as usize);
-            self.p_mi_col_starts = mi_col_starts.as_ptr();
-            self.p_width_in_sbs_minus1 = width_in_sbs_minus1.as_ptr();
+            self.p_mi_col_starts = mi_col_starts.as_ptr() as _;
+            self.p_width_in_sbs_minus1 = width_in_sbs_minus1.as_ptr() as _;
             self
         }
 
@@ -858,8 +858,8 @@ pub(super) mod defs {
         ) -> Self {
             self.tile_rows = mi_row_starts.len().try_into().unwrap();
             assert_eq!(height_in_sbs_minus1.len(), self.tile_rows as usize);
-            self.p_mi_row_starts = mi_row_starts.as_ptr();
-            self.p_height_in_sbs_minus1 = height_in_sbs_minus1.as_ptr();
+            self.p_mi_row_starts = mi_row_starts.as_ptr() as _;
+            self.p_height_in_sbs_minus1 = height_in_sbs_minus1.as_ptr() as _;
             self
         }
 

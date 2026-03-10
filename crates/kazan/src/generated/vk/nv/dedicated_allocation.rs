@@ -42,7 +42,7 @@ pub(super) mod defs {
             StructureType::DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV;
     }
 
-    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for DedicatedAllocationImageCreateInfoNV<'a> {}
+    unsafe impl Extends<ImageCreateInfo<'_>> for DedicatedAllocationImageCreateInfoNV<'_> {}
 
     impl Default for DedicatedAllocationImageCreateInfoNV<'_> {
         fn default() -> Self {
@@ -90,7 +90,7 @@ pub(super) mod defs {
             StructureType::DEDICATED_ALLOCATION_BUFFER_CREATE_INFO_NV;
     }
 
-    unsafe impl<'a> Extends<BufferCreateInfo<'a>> for DedicatedAllocationBufferCreateInfoNV<'a> {}
+    unsafe impl Extends<BufferCreateInfo<'_>> for DedicatedAllocationBufferCreateInfoNV<'_> {}
 
     impl Default for DedicatedAllocationBufferCreateInfoNV<'_> {
         fn default() -> Self {
@@ -140,7 +140,7 @@ pub(super) mod defs {
             StructureType::DEDICATED_ALLOCATION_MEMORY_ALLOCATE_INFO_NV;
     }
 
-    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for DedicatedAllocationMemoryAllocateInfoNV<'a> {}
+    unsafe impl Extends<MemoryAllocateInfo<'_>> for DedicatedAllocationMemoryAllocateInfoNV<'_> {}
 
     impl Default for DedicatedAllocationMemoryAllocateInfoNV<'_> {
         fn default() -> Self {

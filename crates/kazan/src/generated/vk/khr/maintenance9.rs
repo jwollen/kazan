@@ -42,8 +42,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_MAINTENANCE_9_FEATURES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceMaintenance9FeaturesKHR<'a> {}
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceMaintenance9FeaturesKHR<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceMaintenance9FeaturesKHR<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceMaintenance9FeaturesKHR<'_> {}
 
     impl Default for PhysicalDeviceMaintenance9FeaturesKHR<'_> {
         fn default() -> Self {
@@ -99,10 +99,7 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_MAINTENANCE_9_PROPERTIES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceMaintenance9PropertiesKHR<'a>
-    {
-    }
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>> for PhysicalDeviceMaintenance9PropertiesKHR<'_> {}
 
     impl Default for PhysicalDeviceMaintenance9PropertiesKHR<'_> {
         fn default() -> Self {
@@ -163,10 +160,7 @@ pub(super) mod defs {
             StructureType::QUEUE_FAMILY_OWNERSHIP_TRANSFER_PROPERTIES_KHR;
     }
 
-    unsafe impl<'a> Extends<QueueFamilyProperties2<'a>>
-        for QueueFamilyOwnershipTransferPropertiesKHR<'a>
-    {
-    }
+    unsafe impl Extends<QueueFamilyProperties2<'_>> for QueueFamilyOwnershipTransferPropertiesKHR<'_> {}
 
     impl Default for QueueFamilyOwnershipTransferPropertiesKHR<'_> {
         fn default() -> Self {

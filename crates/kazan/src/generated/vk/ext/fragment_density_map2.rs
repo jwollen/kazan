@@ -45,11 +45,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_2_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceFragmentDensityMap2FeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceFragmentDensityMap2FeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceFragmentDensityMap2FeaturesEXT<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceFragmentDensityMap2FeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceFragmentDensityMap2FeaturesEXT<'_> {
         fn default() -> Self {
@@ -115,8 +115,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_2_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceFragmentDensityMap2PropertiesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceFragmentDensityMap2PropertiesEXT<'_>
     {
     }
 

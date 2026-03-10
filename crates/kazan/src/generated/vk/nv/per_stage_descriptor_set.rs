@@ -44,14 +44,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_PER_STAGE_DESCRIPTOR_SET_FEATURES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDevicePerStageDescriptorSetFeaturesNV<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDevicePerStageDescriptorSetFeaturesNV<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDevicePerStageDescriptorSetFeaturesNV<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDevicePerStageDescriptorSetFeaturesNV<'_> {}
 
     impl Default for PhysicalDevicePerStageDescriptorSetFeaturesNV<'_> {
         fn default() -> Self {

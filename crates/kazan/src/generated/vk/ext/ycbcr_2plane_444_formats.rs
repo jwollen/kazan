@@ -42,14 +42,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_YCBCR_2_PLANE_444_FORMATS_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT<'_> {
         fn default() -> Self {

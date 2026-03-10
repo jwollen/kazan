@@ -86,11 +86,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_PORTABILITY_SUBSET_FEATURES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDevicePortabilitySubsetFeaturesKHR<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDevicePortabilitySubsetFeaturesKHR<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePortabilitySubsetFeaturesKHR<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDevicePortabilitySubsetFeaturesKHR<'_> {}
 
     impl Default for PhysicalDevicePortabilitySubsetFeaturesKHR<'_> {
         fn default() -> Self {
@@ -253,8 +253,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_PORTABILITY_SUBSET_PROPERTIES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDevicePortabilitySubsetPropertiesKHR<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDevicePortabilitySubsetPropertiesKHR<'_>
     {
     }
 

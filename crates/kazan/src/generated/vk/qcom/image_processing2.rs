@@ -42,11 +42,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_IMAGE_PROCESSING_2_FEATURES_QCOM;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceImageProcessing2FeaturesQCOM<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceImageProcessing2FeaturesQCOM<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceImageProcessing2FeaturesQCOM<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceImageProcessing2FeaturesQCOM<'_> {}
 
     impl Default for PhysicalDeviceImageProcessing2FeaturesQCOM<'_> {
         fn default() -> Self {
@@ -94,8 +94,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_IMAGE_PROCESSING_2_PROPERTIES_QCOM;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceImageProcessing2PropertiesQCOM<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceImageProcessing2PropertiesQCOM<'_>
     {
     }
 
@@ -147,7 +147,7 @@ pub(super) mod defs {
             StructureType::SAMPLER_BLOCK_MATCH_WINDOW_CREATE_INFO_QCOM;
     }
 
-    unsafe impl<'a> Extends<SamplerCreateInfo<'a>> for SamplerBlockMatchWindowCreateInfoQCOM<'a> {}
+    unsafe impl Extends<SamplerCreateInfo<'_>> for SamplerBlockMatchWindowCreateInfoQCOM<'_> {}
 
     impl Default for SamplerBlockMatchWindowCreateInfoQCOM<'_> {
         fn default() -> Self {

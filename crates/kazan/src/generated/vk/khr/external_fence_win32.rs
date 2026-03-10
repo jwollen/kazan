@@ -126,7 +126,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_FENCE_WIN32_HANDLE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<FenceCreateInfo<'a>> for ExportFenceWin32HandleInfoKHR<'a> {}
+    unsafe impl Extends<FenceCreateInfo<'_>> for ExportFenceWin32HandleInfoKHR<'_> {}
 
     impl Default for ExportFenceWin32HandleInfoKHR<'_> {
         fn default() -> Self {

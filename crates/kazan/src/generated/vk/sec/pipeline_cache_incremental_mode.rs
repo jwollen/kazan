@@ -45,12 +45,12 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDevicePipelineCacheIncrementalModeFeaturesSEC<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDevicePipelineCacheIncrementalModeFeaturesSEC<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDevicePipelineCacheIncrementalModeFeaturesSEC<'a>
+    unsafe impl Extends<DeviceCreateInfo<'_>>
+        for PhysicalDevicePipelineCacheIncrementalModeFeaturesSEC<'_>
     {
     }
 

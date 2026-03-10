@@ -42,14 +42,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_LINEAR_COLOR_ATTACHMENT_FEATURES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceLinearColorAttachmentFeaturesNV<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceLinearColorAttachmentFeaturesNV<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceLinearColorAttachmentFeaturesNV<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceLinearColorAttachmentFeaturesNV<'_> {}
 
     impl Default for PhysicalDeviceLinearColorAttachmentFeaturesNV<'_> {
         fn default() -> Self {

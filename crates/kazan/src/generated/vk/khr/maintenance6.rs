@@ -109,8 +109,8 @@ pub(super) mod defs {
         pub fn sets(mut self, buffer_indices: &'a [u32], offsets: &'a [DeviceSize]) -> Self {
             self.set_count = buffer_indices.len().try_into().unwrap();
             assert_eq!(offsets.len(), self.set_count as usize);
-            self.p_buffer_indices = buffer_indices.as_ptr();
-            self.p_offsets = offsets.as_ptr();
+            self.p_buffer_indices = buffer_indices.as_ptr() as _;
+            self.p_offsets = offsets.as_ptr() as _;
             self
         }
     }

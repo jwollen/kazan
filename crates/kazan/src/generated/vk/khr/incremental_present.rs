@@ -43,7 +43,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::PRESENT_REGIONS_KHR;
     }
 
-    unsafe impl<'a> Extends<PresentInfoKHR<'a>> for PresentRegionsKHR<'a> {}
+    unsafe impl Extends<PresentInfoKHR<'_>> for PresentRegionsKHR<'_> {}
 
     impl Default for PresentRegionsKHR<'_> {
         fn default() -> Self {
@@ -59,9 +59,9 @@ pub(super) mod defs {
 
     impl<'a> PresentRegionsKHR<'a> {
         #[inline]
-        pub fn regions(mut self, regions: &'a [PresentRegionKHR<'a>]) -> Self {
+        pub fn regions(mut self, regions: &'a [PresentRegionKHR<'_>]) -> Self {
             self.swapchain_count = regions.len().try_into().unwrap();
-            self.p_regions = regions.as_ptr();
+            self.p_regions = regions.as_ptr() as _;
             self
         }
     }
@@ -100,7 +100,7 @@ pub(super) mod defs {
         #[inline]
         pub fn rectangles(mut self, rectangles: &'a [RectLayerKHR]) -> Self {
             self.rectangle_count = rectangles.len().try_into().unwrap();
-            self.p_rectangles = rectangles.as_ptr();
+            self.p_rectangles = rectangles.as_ptr() as _;
             self
         }
     }

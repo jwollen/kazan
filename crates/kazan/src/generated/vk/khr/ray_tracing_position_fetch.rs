@@ -45,14 +45,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_RAY_TRACING_POSITION_FETCH_FEATURES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceRayTracingPositionFetchFeaturesKHR<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceRayTracingPositionFetchFeaturesKHR<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceRayTracingPositionFetchFeaturesKHR<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceRayTracingPositionFetchFeaturesKHR<'_> {}
 
     impl Default for PhysicalDeviceRayTracingPositionFetchFeaturesKHR<'_> {
         fn default() -> Self {

@@ -108,8 +108,8 @@ pub(super) mod defs {
             StructureType::COMMAND_BUFFER_INHERITANCE_CONDITIONAL_RENDERING_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<CommandBufferInheritanceInfo<'a>>
-        for CommandBufferInheritanceConditionalRenderingInfoEXT<'a>
+    unsafe impl Extends<CommandBufferInheritanceInfo<'_>>
+        for CommandBufferInheritanceConditionalRenderingInfoEXT<'_>
     {
     }
 
@@ -164,14 +164,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_CONDITIONAL_RENDERING_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceConditionalRenderingFeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceConditionalRenderingFeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceConditionalRenderingFeaturesEXT<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceConditionalRenderingFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceConditionalRenderingFeaturesEXT<'_> {
         fn default() -> Self {

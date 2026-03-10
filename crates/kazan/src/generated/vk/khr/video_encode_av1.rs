@@ -120,7 +120,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_ENCODE_AV1_CAPABILITIES_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoCapabilitiesKHR<'a>> for VideoEncodeAV1CapabilitiesKHR<'a> {}
+    unsafe impl Extends<VideoCapabilitiesKHR<'_>> for VideoEncodeAV1CapabilitiesKHR<'_> {}
 
     impl Default for VideoEncodeAV1CapabilitiesKHR<'_> {
         fn default() -> Self {
@@ -433,8 +433,8 @@ pub(super) mod defs {
             StructureType::VIDEO_ENCODE_AV1_QUALITY_LEVEL_PROPERTIES_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoEncodeQualityLevelPropertiesKHR<'a>>
-        for VideoEncodeAV1QualityLevelPropertiesKHR<'a>
+    unsafe impl Extends<VideoEncodeQualityLevelPropertiesKHR<'_>>
+        for VideoEncodeAV1QualityLevelPropertiesKHR<'_>
     {
     }
 
@@ -629,11 +629,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_VIDEO_ENCODE_AV1_FEATURES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceVideoEncodeAV1FeaturesKHR<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceVideoEncodeAV1FeaturesKHR<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceVideoEncodeAV1FeaturesKHR<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceVideoEncodeAV1FeaturesKHR<'_> {}
 
     impl Default for PhysicalDeviceVideoEncodeAV1FeaturesKHR<'_> {
         fn default() -> Self {
@@ -683,7 +680,7 @@ pub(super) mod defs {
             StructureType::VIDEO_ENCODE_AV1_SESSION_CREATE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoSessionCreateInfoKHR<'a>> for VideoEncodeAV1SessionCreateInfoKHR<'a> {}
+    unsafe impl Extends<VideoSessionCreateInfoKHR<'_>> for VideoEncodeAV1SessionCreateInfoKHR<'_> {}
 
     impl Default for VideoEncodeAV1SessionCreateInfoKHR<'_> {
         fn default() -> Self {
@@ -744,8 +741,8 @@ pub(super) mod defs {
             StructureType::VIDEO_ENCODE_AV1_SESSION_PARAMETERS_CREATE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoSessionParametersCreateInfoKHR<'a>>
-        for VideoEncodeAV1SessionParametersCreateInfoKHR<'a>
+    unsafe impl Extends<VideoSessionParametersCreateInfoKHR<'_>>
+        for VideoEncodeAV1SessionParametersCreateInfoKHR<'_>
     {
     }
 
@@ -788,7 +785,7 @@ pub(super) mod defs {
             std_operating_points: &'a [StdVideoEncodeAV1OperatingPointInfo],
         ) -> Self {
             self.std_operating_point_count = std_operating_points.len().try_into().unwrap();
-            self.p_std_operating_points = std_operating_points.as_ptr();
+            self.p_std_operating_points = std_operating_points.as_ptr() as _;
             self
         }
     }
@@ -819,7 +816,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_ENCODE_AV1_DPB_SLOT_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoReferenceSlotInfoKHR<'a>> for VideoEncodeAV1DpbSlotInfoKHR<'a> {}
+    unsafe impl Extends<VideoReferenceSlotInfoKHR<'_>> for VideoEncodeAV1DpbSlotInfoKHR<'_> {}
 
     impl Default for VideoEncodeAV1DpbSlotInfoKHR<'_> {
         fn default() -> Self {
@@ -890,7 +887,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_ENCODE_AV1_PICTURE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoEncodeInfoKHR<'a>> for VideoEncodeAV1PictureInfoKHR<'a> {}
+    unsafe impl Extends<VideoEncodeInfoKHR<'_>> for VideoEncodeAV1PictureInfoKHR<'_> {}
 
     impl Default for VideoEncodeAV1PictureInfoKHR<'_> {
         fn default() -> Self {
@@ -991,8 +988,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_ENCODE_AV1_PROFILE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoProfileInfoKHR<'a>> for VideoEncodeAV1ProfileInfoKHR<'a> {}
-    unsafe impl<'a> Extends<QueryPoolCreateInfo<'a>> for VideoEncodeAV1ProfileInfoKHR<'a> {}
+    unsafe impl Extends<VideoProfileInfoKHR<'_>> for VideoEncodeAV1ProfileInfoKHR<'_> {}
+    unsafe impl Extends<QueryPoolCreateInfo<'_>> for VideoEncodeAV1ProfileInfoKHR<'_> {}
 
     impl Default for VideoEncodeAV1ProfileInfoKHR<'_> {
         fn default() -> Self {
@@ -1050,8 +1047,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_ENCODE_AV1_RATE_CONTROL_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoCodingControlInfoKHR<'a>> for VideoEncodeAV1RateControlInfoKHR<'a> {}
-    unsafe impl<'a> Extends<VideoBeginCodingInfoKHR<'a>> for VideoEncodeAV1RateControlInfoKHR<'a> {}
+    unsafe impl Extends<VideoCodingControlInfoKHR<'_>> for VideoEncodeAV1RateControlInfoKHR<'_> {}
+    unsafe impl Extends<VideoBeginCodingInfoKHR<'_>> for VideoEncodeAV1RateControlInfoKHR<'_> {}
 
     impl Default for VideoEncodeAV1RateControlInfoKHR<'_> {
         fn default() -> Self {
@@ -1201,10 +1198,7 @@ pub(super) mod defs {
             StructureType::VIDEO_ENCODE_AV1_GOP_REMAINING_FRAME_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoBeginCodingInfoKHR<'a>>
-        for VideoEncodeAV1GopRemainingFrameInfoKHR<'a>
-    {
-    }
+    unsafe impl Extends<VideoBeginCodingInfoKHR<'_>> for VideoEncodeAV1GopRemainingFrameInfoKHR<'_> {}
 
     impl Default for VideoEncodeAV1GopRemainingFrameInfoKHR<'_> {
         fn default() -> Self {
@@ -1283,8 +1277,8 @@ pub(super) mod defs {
             StructureType::VIDEO_ENCODE_AV1_RATE_CONTROL_LAYER_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoEncodeRateControlLayerInfoKHR<'a>>
-        for VideoEncodeAV1RateControlLayerInfoKHR<'a>
+    unsafe impl Extends<VideoEncodeRateControlLayerInfoKHR<'_>>
+        for VideoEncodeAV1RateControlLayerInfoKHR<'_>
     {
     }
 

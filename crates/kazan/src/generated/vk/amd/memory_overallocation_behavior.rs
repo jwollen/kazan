@@ -42,7 +42,7 @@ pub(super) mod defs {
             StructureType::DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD;
     }
 
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for DeviceMemoryOverallocationCreateInfoAMD<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for DeviceMemoryOverallocationCreateInfoAMD<'_> {}
 
     impl Default for DeviceMemoryOverallocationCreateInfoAMD<'_> {
         fn default() -> Self {

@@ -42,8 +42,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_PRESENT_WAIT_FEATURES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDevicePresentWaitFeaturesKHR<'a> {}
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePresentWaitFeaturesKHR<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDevicePresentWaitFeaturesKHR<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDevicePresentWaitFeaturesKHR<'_> {}
 
     impl Default for PhysicalDevicePresentWaitFeaturesKHR<'_> {
         fn default() -> Self {

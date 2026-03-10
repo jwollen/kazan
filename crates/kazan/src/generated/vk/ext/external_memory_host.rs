@@ -43,7 +43,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_MEMORY_HOST_POINTER_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ImportMemoryHostPointerInfoEXT<'a> {}
+    unsafe impl Extends<MemoryAllocateInfo<'_>> for ImportMemoryHostPointerInfoEXT<'_> {}
 
     impl Default for ImportMemoryHostPointerInfoEXT<'_> {
         fn default() -> Self {
@@ -146,8 +146,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_EXTERNAL_MEMORY_HOST_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceExternalMemoryHostPropertiesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceExternalMemoryHostPropertiesEXT<'_>
     {
     }
 

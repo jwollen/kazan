@@ -43,7 +43,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_MEMORY_WIN32_HANDLE_INFO_NV;
     }
 
-    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ImportMemoryWin32HandleInfoNV<'a> {}
+    unsafe impl Extends<MemoryAllocateInfo<'_>> for ImportMemoryWin32HandleInfoNV<'_> {}
 
     impl Default for ImportMemoryWin32HandleInfoNV<'_> {
         fn default() -> Self {
@@ -99,7 +99,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_MEMORY_WIN32_HANDLE_INFO_NV;
     }
 
-    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ExportMemoryWin32HandleInfoNV<'a> {}
+    unsafe impl Extends<MemoryAllocateInfo<'_>> for ExportMemoryWin32HandleInfoNV<'_> {}
 
     impl Default for ExportMemoryWin32HandleInfoNV<'_> {
         fn default() -> Self {

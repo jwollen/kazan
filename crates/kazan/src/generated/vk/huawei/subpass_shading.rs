@@ -44,10 +44,7 @@ pub(super) mod defs {
             StructureType::SUBPASS_SHADING_PIPELINE_CREATE_INFO_HUAWEI;
     }
 
-    unsafe impl<'a> Extends<ComputePipelineCreateInfo<'a>>
-        for SubpassShadingPipelineCreateInfoHUAWEI<'a>
-    {
-    }
+    unsafe impl Extends<ComputePipelineCreateInfo<'_>> for SubpassShadingPipelineCreateInfoHUAWEI<'_> {}
 
     impl Default for SubpassShadingPipelineCreateInfoHUAWEI<'_> {
         fn default() -> Self {
@@ -105,8 +102,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SUBPASS_SHADING_PROPERTIES_HUAWEI;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceSubpassShadingPropertiesHUAWEI<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceSubpassShadingPropertiesHUAWEI<'_>
     {
     }
 
@@ -160,11 +157,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SUBPASS_SHADING_FEATURES_HUAWEI;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceSubpassShadingFeaturesHUAWEI<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceSubpassShadingFeaturesHUAWEI<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceSubpassShadingFeaturesHUAWEI<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceSubpassShadingFeaturesHUAWEI<'_> {}
 
     impl Default for PhysicalDeviceSubpassShadingFeaturesHUAWEI<'_> {
         fn default() -> Self {

@@ -55,8 +55,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_MAINTENANCE_10_PROPERTIES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceMaintenance10PropertiesKHR<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceMaintenance10PropertiesKHR<'_>
     {
     }
 
@@ -128,11 +128,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_MAINTENANCE_10_FEATURES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceMaintenance10FeaturesKHR<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceMaintenance10FeaturesKHR<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceMaintenance10FeaturesKHR<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceMaintenance10FeaturesKHR<'_> {}
 
     impl Default for PhysicalDeviceMaintenance10FeaturesKHR<'_> {
         fn default() -> Self {
@@ -215,7 +212,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::RENDERING_ATTACHMENT_FLAGS_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<RenderingAttachmentInfo<'a>> for RenderingAttachmentFlagsInfoKHR<'a> {}
+    unsafe impl Extends<RenderingAttachmentInfo<'_>> for RenderingAttachmentFlagsInfoKHR<'_> {}
 
     impl Default for RenderingAttachmentFlagsInfoKHR<'_> {
         fn default() -> Self {
@@ -266,7 +263,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::RESOLVE_IMAGE_MODE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<ResolveImageInfo2<'a>> for ResolveImageModeInfoKHR<'a> {}
+    unsafe impl Extends<ResolveImageInfo2<'_>> for ResolveImageModeInfoKHR<'_> {}
 
     impl Default for ResolveImageModeInfoKHR<'_> {
         fn default() -> Self {

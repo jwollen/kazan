@@ -47,11 +47,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_UNIFIED_IMAGE_LAYOUTS_FEATURES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceUnifiedImageLayoutsFeaturesKHR<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceUnifiedImageLayoutsFeaturesKHR<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceUnifiedImageLayoutsFeaturesKHR<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceUnifiedImageLayoutsFeaturesKHR<'_> {}
 
     impl Default for PhysicalDeviceUnifiedImageLayoutsFeaturesKHR<'_> {
         fn default() -> Self {
@@ -105,7 +105,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::ATTACHMENT_FEEDBACK_LOOP_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<RenderingAttachmentInfo<'a>> for AttachmentFeedbackLoopInfoEXT<'a> {}
+    unsafe impl Extends<RenderingAttachmentInfo<'_>> for AttachmentFeedbackLoopInfoEXT<'_> {}
 
     impl Default for AttachmentFeedbackLoopInfoEXT<'_> {
         fn default() -> Self {

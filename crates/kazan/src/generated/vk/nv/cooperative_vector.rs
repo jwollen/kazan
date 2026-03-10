@@ -47,11 +47,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_COOPERATIVE_VECTOR_FEATURES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceCooperativeVectorFeaturesNV<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceCooperativeVectorFeaturesNV<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceCooperativeVectorFeaturesNV<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceCooperativeVectorFeaturesNV<'_> {}
 
     impl Default for PhysicalDeviceCooperativeVectorFeaturesNV<'_> {
         fn default() -> Self {
@@ -214,8 +211,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_COOPERATIVE_VECTOR_PROPERTIES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceCooperativeVectorPropertiesNV<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceCooperativeVectorPropertiesNV<'_>
     {
     }
 

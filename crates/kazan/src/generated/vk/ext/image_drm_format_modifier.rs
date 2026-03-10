@@ -47,7 +47,7 @@ pub(super) mod defs {
             StructureType::DRM_FORMAT_MODIFIER_PROPERTIES_LIST_EXT;
     }
 
-    unsafe impl<'a> Extends<FormatProperties2<'a>> for DrmFormatModifierPropertiesListEXT<'a> {}
+    unsafe impl Extends<FormatProperties2<'_>> for DrmFormatModifierPropertiesListEXT<'_> {}
 
     impl Default for DrmFormatModifierPropertiesListEXT<'_> {
         fn default() -> Self {
@@ -69,7 +69,8 @@ pub(super) mod defs {
         ) -> Self {
             self.drm_format_modifier_count =
                 drm_format_modifier_properties.len().try_into().unwrap();
-            self.p_drm_format_modifier_properties = drm_format_modifier_properties.as_mut_ptr();
+            self.p_drm_format_modifier_properties =
+                drm_format_modifier_properties.as_mut_ptr() as _;
             self
         }
     }
@@ -144,8 +145,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_IMAGE_DRM_FORMAT_MODIFIER_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceImageFormatInfo2<'a>>
-        for PhysicalDeviceImageDrmFormatModifierInfoEXT<'a>
+    unsafe impl Extends<PhysicalDeviceImageFormatInfo2<'_>>
+        for PhysicalDeviceImageDrmFormatModifierInfoEXT<'_>
     {
     }
 
@@ -179,7 +180,7 @@ pub(super) mod defs {
         #[inline]
         pub fn queue_family_indices(mut self, queue_family_indices: &'a [u32]) -> Self {
             self.queue_family_index_count = queue_family_indices.len().try_into().unwrap();
-            self.p_queue_family_indices = queue_family_indices.as_ptr();
+            self.p_queue_family_indices = queue_family_indices.as_ptr() as _;
             self
         }
     }
@@ -213,7 +214,7 @@ pub(super) mod defs {
             StructureType::IMAGE_DRM_FORMAT_MODIFIER_LIST_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ImageDrmFormatModifierListCreateInfoEXT<'a> {}
+    unsafe impl Extends<ImageCreateInfo<'_>> for ImageDrmFormatModifierListCreateInfoEXT<'_> {}
 
     impl Default for ImageDrmFormatModifierListCreateInfoEXT<'_> {
         fn default() -> Self {
@@ -231,7 +232,7 @@ pub(super) mod defs {
         #[inline]
         pub fn drm_format_modifiers(mut self, drm_format_modifiers: &'a [u64]) -> Self {
             self.drm_format_modifier_count = drm_format_modifiers.len().try_into().unwrap();
-            self.p_drm_format_modifiers = drm_format_modifiers.as_ptr();
+            self.p_drm_format_modifiers = drm_format_modifiers.as_ptr() as _;
             self
         }
     }
@@ -270,7 +271,7 @@ pub(super) mod defs {
             StructureType::IMAGE_DRM_FORMAT_MODIFIER_EXPLICIT_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ImageDrmFormatModifierExplicitCreateInfoEXT<'a> {}
+    unsafe impl Extends<ImageCreateInfo<'_>> for ImageDrmFormatModifierExplicitCreateInfoEXT<'_> {}
 
     impl Default for ImageDrmFormatModifierExplicitCreateInfoEXT<'_> {
         fn default() -> Self {
@@ -295,7 +296,7 @@ pub(super) mod defs {
         #[inline]
         pub fn plane_layouts(mut self, plane_layouts: &'a [SubresourceLayout]) -> Self {
             self.drm_format_modifier_plane_count = plane_layouts.len().try_into().unwrap();
-            self.p_plane_layouts = plane_layouts.as_ptr();
+            self.p_plane_layouts = plane_layouts.as_ptr() as _;
             self
         }
     }
@@ -378,7 +379,7 @@ pub(super) mod defs {
             StructureType::DRM_FORMAT_MODIFIER_PROPERTIES_LIST_2_EXT;
     }
 
-    unsafe impl<'a> Extends<FormatProperties2<'a>> for DrmFormatModifierPropertiesList2EXT<'a> {}
+    unsafe impl Extends<FormatProperties2<'_>> for DrmFormatModifierPropertiesList2EXT<'_> {}
 
     impl Default for DrmFormatModifierPropertiesList2EXT<'_> {
         fn default() -> Self {
@@ -400,7 +401,8 @@ pub(super) mod defs {
         ) -> Self {
             self.drm_format_modifier_count =
                 drm_format_modifier_properties.len().try_into().unwrap();
-            self.p_drm_format_modifier_properties = drm_format_modifier_properties.as_mut_ptr();
+            self.p_drm_format_modifier_properties =
+                drm_format_modifier_properties.as_mut_ptr() as _;
             self
         }
     }

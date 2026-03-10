@@ -46,7 +46,7 @@ pub(super) mod defs {
             StructureType::IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM;
     }
 
-    unsafe impl<'a> Extends<ImageViewCreateInfo<'a>> for ImageViewSampleWeightCreateInfoQCOM<'a> {}
+    unsafe impl Extends<ImageViewCreateInfo<'_>> for ImageViewSampleWeightCreateInfoQCOM<'_> {}
 
     impl Default for ImageViewSampleWeightCreateInfoQCOM<'_> {
         fn default() -> Self {
@@ -112,11 +112,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_IMAGE_PROCESSING_FEATURES_QCOM;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceImageProcessingFeaturesQCOM<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceImageProcessingFeaturesQCOM<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceImageProcessingFeaturesQCOM<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceImageProcessingFeaturesQCOM<'_> {}
 
     impl Default for PhysicalDeviceImageProcessingFeaturesQCOM<'_> {
         fn default() -> Self {
@@ -187,8 +184,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_IMAGE_PROCESSING_PROPERTIES_QCOM;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceImageProcessingPropertiesQCOM<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceImageProcessingPropertiesQCOM<'_>
     {
     }
 

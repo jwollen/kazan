@@ -43,7 +43,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::NATIVE_BUFFER_USAGE_OHOS;
     }
 
-    unsafe impl<'a> Extends<ImageFormatProperties2<'a>> for NativeBufferUsageOHOS<'a> {}
+    unsafe impl Extends<ImageFormatProperties2<'_>> for NativeBufferUsageOHOS<'_> {}
 
     impl Default for NativeBufferUsageOHOS<'_> {
         fn default() -> Self {
@@ -161,7 +161,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::NATIVE_BUFFER_FORMAT_PROPERTIES_OHOS;
     }
 
-    unsafe impl<'a> Extends<NativeBufferPropertiesOHOS<'a>> for NativeBufferFormatPropertiesOHOS<'a> {}
+    unsafe impl Extends<NativeBufferPropertiesOHOS<'_>> for NativeBufferFormatPropertiesOHOS<'_> {}
 
     impl Default for NativeBufferFormatPropertiesOHOS<'_> {
         fn default() -> Self {
@@ -269,7 +269,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_NATIVE_BUFFER_INFO_OHOS;
     }
 
-    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ImportNativeBufferInfoOHOS<'a> {}
+    unsafe impl Extends<MemoryAllocateInfo<'_>> for ImportNativeBufferInfoOHOS<'_> {}
 
     impl Default for ImportNativeBufferInfoOHOS<'_> {
         fn default() -> Self {
@@ -361,11 +361,11 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_FORMAT_OHOS;
     }
 
-    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ExternalFormatOHOS<'a> {}
-    unsafe impl<'a> Extends<SamplerYcbcrConversionCreateInfo<'a>> for ExternalFormatOHOS<'a> {}
-    unsafe impl<'a> Extends<AttachmentDescription2<'a>> for ExternalFormatOHOS<'a> {}
-    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>> for ExternalFormatOHOS<'a> {}
-    unsafe impl<'a> Extends<CommandBufferInheritanceInfo<'a>> for ExternalFormatOHOS<'a> {}
+    unsafe impl Extends<ImageCreateInfo<'_>> for ExternalFormatOHOS<'_> {}
+    unsafe impl Extends<SamplerYcbcrConversionCreateInfo<'_>> for ExternalFormatOHOS<'_> {}
+    unsafe impl Extends<AttachmentDescription2<'_>> for ExternalFormatOHOS<'_> {}
+    unsafe impl Extends<GraphicsPipelineCreateInfo<'_>> for ExternalFormatOHOS<'_> {}
+    unsafe impl Extends<CommandBufferInheritanceInfo<'_>> for ExternalFormatOHOS<'_> {}
 
     impl Default for ExternalFormatOHOS<'_> {
         fn default() -> Self {

@@ -42,12 +42,12 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_FEATURES_ANDROID;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceExternalFormatResolveFeaturesANDROID<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceExternalFormatResolveFeaturesANDROID<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceExternalFormatResolveFeaturesANDROID<'a>
+    unsafe impl Extends<DeviceCreateInfo<'_>>
+        for PhysicalDeviceExternalFormatResolveFeaturesANDROID<'_>
     {
     }
 
@@ -110,8 +110,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_PROPERTIES_ANDROID;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceExternalFormatResolvePropertiesANDROID<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceExternalFormatResolvePropertiesANDROID<'_>
     {
     }
 
@@ -185,8 +185,8 @@ pub(super) mod defs {
             StructureType::ANDROID_HARDWARE_BUFFER_FORMAT_RESOLVE_PROPERTIES_ANDROID;
     }
 
-    unsafe impl<'a> Extends<AndroidHardwareBufferPropertiesANDROID<'a>>
-        for AndroidHardwareBufferFormatResolvePropertiesANDROID<'a>
+    unsafe impl Extends<AndroidHardwareBufferPropertiesANDROID<'_>>
+        for AndroidHardwareBufferFormatResolvePropertiesANDROID<'_>
     {
     }
 

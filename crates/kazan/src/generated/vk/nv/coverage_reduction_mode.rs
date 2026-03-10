@@ -42,14 +42,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_COVERAGE_REDUCTION_MODE_FEATURES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceCoverageReductionModeFeaturesNV<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceCoverageReductionModeFeaturesNV<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceCoverageReductionModeFeaturesNV<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceCoverageReductionModeFeaturesNV<'_> {}
 
     impl Default for PhysicalDeviceCoverageReductionModeFeaturesNV<'_> {
         fn default() -> Self {
@@ -99,8 +96,8 @@ pub(super) mod defs {
             StructureType::PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV;
     }
 
-    unsafe impl<'a> Extends<PipelineMultisampleStateCreateInfo<'a>>
-        for PipelineCoverageReductionStateCreateInfoNV<'a>
+    unsafe impl Extends<PipelineMultisampleStateCreateInfo<'_>>
+        for PipelineCoverageReductionStateCreateInfoNV<'_>
     {
     }
 

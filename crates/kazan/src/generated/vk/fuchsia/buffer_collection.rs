@@ -50,7 +50,7 @@ pub(super) mod defs {
             StructureType::IMPORT_MEMORY_BUFFER_COLLECTION_FUCHSIA;
     }
 
-    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ImportMemoryBufferCollectionFUCHSIA<'a> {}
+    unsafe impl Extends<MemoryAllocateInfo<'_>> for ImportMemoryBufferCollectionFUCHSIA<'_> {}
 
     impl Default for ImportMemoryBufferCollectionFUCHSIA<'_> {
         fn default() -> Self {
@@ -107,7 +107,7 @@ pub(super) mod defs {
             StructureType::BUFFER_COLLECTION_IMAGE_CREATE_INFO_FUCHSIA;
     }
 
-    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for BufferCollectionImageCreateInfoFUCHSIA<'a> {}
+    unsafe impl Extends<ImageCreateInfo<'_>> for BufferCollectionImageCreateInfoFUCHSIA<'_> {}
 
     impl Default for BufferCollectionImageCreateInfoFUCHSIA<'_> {
         fn default() -> Self {
@@ -164,7 +164,7 @@ pub(super) mod defs {
             StructureType::BUFFER_COLLECTION_BUFFER_CREATE_INFO_FUCHSIA;
     }
 
-    unsafe impl<'a> Extends<BufferCreateInfo<'a>> for BufferCollectionBufferCreateInfoFUCHSIA<'a> {}
+    unsafe impl Extends<BufferCreateInfo<'_>> for BufferCollectionBufferCreateInfoFUCHSIA<'_> {}
 
     impl Default for BufferCollectionBufferCreateInfoFUCHSIA<'_> {
         fn default() -> Self {
@@ -588,9 +588,9 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn color_spaces(mut self, color_spaces: &'a [SysmemColorSpaceFUCHSIA<'a>]) -> Self {
+        pub fn color_spaces(mut self, color_spaces: &'a [SysmemColorSpaceFUCHSIA<'_>]) -> Self {
             self.color_space_count = color_spaces.len().try_into().unwrap();
-            self.p_color_spaces = color_spaces.as_ptr();
+            self.p_color_spaces = color_spaces.as_ptr() as _;
             self
         }
     }
@@ -648,10 +648,10 @@ pub(super) mod defs {
         #[inline]
         pub fn format_constraints(
             mut self,
-            format_constraints: &'a [ImageFormatConstraintsInfoFUCHSIA<'a>],
+            format_constraints: &'a [ImageFormatConstraintsInfoFUCHSIA<'_>],
         ) -> Self {
             self.format_constraints_count = format_constraints.len().try_into().unwrap();
-            self.p_format_constraints = format_constraints.as_ptr();
+            self.p_format_constraints = format_constraints.as_ptr() as _;
             self
         }
 

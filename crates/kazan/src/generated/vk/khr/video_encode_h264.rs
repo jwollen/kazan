@@ -80,7 +80,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_ENCODE_H264_CAPABILITIES_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoCapabilitiesKHR<'a>> for VideoEncodeH264CapabilitiesKHR<'a> {}
+    unsafe impl Extends<VideoCapabilitiesKHR<'_>> for VideoEncodeH264CapabilitiesKHR<'_> {}
 
     impl Default for VideoEncodeH264CapabilitiesKHR<'_> {
         fn default() -> Self {
@@ -258,8 +258,8 @@ pub(super) mod defs {
             StructureType::VIDEO_ENCODE_H264_QUALITY_LEVEL_PROPERTIES_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoEncodeQualityLevelPropertiesKHR<'a>>
-        for VideoEncodeH264QualityLevelPropertiesKHR<'a>
+    unsafe impl Extends<VideoEncodeQualityLevelPropertiesKHR<'_>>
+        for VideoEncodeH264QualityLevelPropertiesKHR<'_>
     {
     }
 
@@ -389,7 +389,7 @@ pub(super) mod defs {
             StructureType::VIDEO_ENCODE_H264_SESSION_CREATE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoSessionCreateInfoKHR<'a>> for VideoEncodeH264SessionCreateInfoKHR<'a> {}
+    unsafe impl Extends<VideoSessionCreateInfoKHR<'_>> for VideoEncodeH264SessionCreateInfoKHR<'_> {}
 
     impl Default for VideoEncodeH264SessionCreateInfoKHR<'_> {
         fn default() -> Self {
@@ -450,8 +450,8 @@ pub(super) mod defs {
             StructureType::VIDEO_ENCODE_H264_SESSION_PARAMETERS_ADD_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoSessionParametersUpdateInfoKHR<'a>>
-        for VideoEncodeH264SessionParametersAddInfoKHR<'a>
+    unsafe impl Extends<VideoSessionParametersUpdateInfoKHR<'_>>
+        for VideoEncodeH264SessionParametersAddInfoKHR<'_>
     {
     }
 
@@ -471,16 +471,16 @@ pub(super) mod defs {
 
     impl<'a> VideoEncodeH264SessionParametersAddInfoKHR<'a> {
         #[inline]
-        pub fn std_sp_ss(mut self, std_sp_ss: &'a [StdVideoH264SequenceParameterSet<'a>]) -> Self {
+        pub fn std_sp_ss(mut self, std_sp_ss: &'a [StdVideoH264SequenceParameterSet<'_>]) -> Self {
             self.std_sps_count = std_sp_ss.len().try_into().unwrap();
-            self.p_std_sp_ss = std_sp_ss.as_ptr();
+            self.p_std_sp_ss = std_sp_ss.as_ptr() as _;
             self
         }
 
         #[inline]
-        pub fn std_pp_ss(mut self, std_pp_ss: &'a [StdVideoH264PictureParameterSet<'a>]) -> Self {
+        pub fn std_pp_ss(mut self, std_pp_ss: &'a [StdVideoH264PictureParameterSet<'_>]) -> Self {
             self.std_pps_count = std_pp_ss.len().try_into().unwrap();
-            self.p_std_pp_ss = std_pp_ss.as_ptr();
+            self.p_std_pp_ss = std_pp_ss.as_ptr() as _;
             self
         }
     }
@@ -516,8 +516,8 @@ pub(super) mod defs {
             StructureType::VIDEO_ENCODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoSessionParametersCreateInfoKHR<'a>>
-        for VideoEncodeH264SessionParametersCreateInfoKHR<'a>
+    unsafe impl Extends<VideoSessionParametersCreateInfoKHR<'_>>
+        for VideoEncodeH264SessionParametersCreateInfoKHR<'_>
     {
     }
 
@@ -590,8 +590,8 @@ pub(super) mod defs {
             StructureType::VIDEO_ENCODE_H264_SESSION_PARAMETERS_GET_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoEncodeSessionParametersGetInfoKHR<'a>>
-        for VideoEncodeH264SessionParametersGetInfoKHR<'a>
+    unsafe impl Extends<VideoEncodeSessionParametersGetInfoKHR<'_>>
+        for VideoEncodeH264SessionParametersGetInfoKHR<'_>
     {
     }
 
@@ -664,8 +664,8 @@ pub(super) mod defs {
             StructureType::VIDEO_ENCODE_H264_SESSION_PARAMETERS_FEEDBACK_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoEncodeSessionParametersFeedbackInfoKHR<'a>>
-        for VideoEncodeH264SessionParametersFeedbackInfoKHR<'a>
+    unsafe impl Extends<VideoEncodeSessionParametersFeedbackInfoKHR<'_>>
+        for VideoEncodeH264SessionParametersFeedbackInfoKHR<'_>
     {
     }
 
@@ -721,7 +721,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_ENCODE_H264_DPB_SLOT_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoReferenceSlotInfoKHR<'a>> for VideoEncodeH264DpbSlotInfoKHR<'a> {}
+    unsafe impl Extends<VideoReferenceSlotInfoKHR<'_>> for VideoEncodeH264DpbSlotInfoKHR<'_> {}
 
     impl Default for VideoEncodeH264DpbSlotInfoKHR<'_> {
         fn default() -> Self {
@@ -777,7 +777,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_ENCODE_H264_PICTURE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoEncodeInfoKHR<'a>> for VideoEncodeH264PictureInfoKHR<'a> {}
+    unsafe impl Extends<VideoEncodeInfoKHR<'_>> for VideoEncodeH264PictureInfoKHR<'_> {}
 
     impl Default for VideoEncodeH264PictureInfoKHR<'_> {
         fn default() -> Self {
@@ -797,10 +797,10 @@ pub(super) mod defs {
         #[inline]
         pub fn nalu_slice_entries(
             mut self,
-            nalu_slice_entries: &'a [VideoEncodeH264NaluSliceInfoKHR<'a>],
+            nalu_slice_entries: &'a [VideoEncodeH264NaluSliceInfoKHR<'_>],
         ) -> Self {
             self.nalu_slice_entry_count = nalu_slice_entries.len().try_into().unwrap();
-            self.p_nalu_slice_entries = nalu_slice_entries.as_ptr();
+            self.p_nalu_slice_entries = nalu_slice_entries.as_ptr() as _;
             self
         }
 
@@ -846,8 +846,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_ENCODE_H264_PROFILE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoProfileInfoKHR<'a>> for VideoEncodeH264ProfileInfoKHR<'a> {}
-    unsafe impl<'a> Extends<QueryPoolCreateInfo<'a>> for VideoEncodeH264ProfileInfoKHR<'a> {}
+    unsafe impl Extends<VideoProfileInfoKHR<'_>> for VideoEncodeH264ProfileInfoKHR<'_> {}
+    unsafe impl Extends<QueryPoolCreateInfo<'_>> for VideoEncodeH264ProfileInfoKHR<'_> {}
 
     impl Default for VideoEncodeH264ProfileInfoKHR<'_> {
         fn default() -> Self {
@@ -960,8 +960,8 @@ pub(super) mod defs {
             StructureType::VIDEO_ENCODE_H264_RATE_CONTROL_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoCodingControlInfoKHR<'a>> for VideoEncodeH264RateControlInfoKHR<'a> {}
-    unsafe impl<'a> Extends<VideoBeginCodingInfoKHR<'a>> for VideoEncodeH264RateControlInfoKHR<'a> {}
+    unsafe impl Extends<VideoCodingControlInfoKHR<'_>> for VideoEncodeH264RateControlInfoKHR<'_> {}
+    unsafe impl Extends<VideoBeginCodingInfoKHR<'_>> for VideoEncodeH264RateControlInfoKHR<'_> {}
 
     impl Default for VideoEncodeH264RateControlInfoKHR<'_> {
         fn default() -> Self {
@@ -1105,10 +1105,7 @@ pub(super) mod defs {
             StructureType::VIDEO_ENCODE_H264_GOP_REMAINING_FRAME_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoBeginCodingInfoKHR<'a>>
-        for VideoEncodeH264GopRemainingFrameInfoKHR<'a>
-    {
-    }
+    unsafe impl Extends<VideoBeginCodingInfoKHR<'_>> for VideoEncodeH264GopRemainingFrameInfoKHR<'_> {}
 
     impl Default for VideoEncodeH264GopRemainingFrameInfoKHR<'_> {
         fn default() -> Self {
@@ -1187,8 +1184,8 @@ pub(super) mod defs {
             StructureType::VIDEO_ENCODE_H264_RATE_CONTROL_LAYER_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoEncodeRateControlLayerInfoKHR<'a>>
-        for VideoEncodeH264RateControlLayerInfoKHR<'a>
+    unsafe impl Extends<VideoEncodeRateControlLayerInfoKHR<'_>>
+        for VideoEncodeH264RateControlLayerInfoKHR<'_>
     {
     }
 

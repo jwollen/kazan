@@ -43,7 +43,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::HDR_VIVID_DYNAMIC_METADATA_HUAWEI;
     }
 
-    unsafe impl<'a> Extends<HdrMetadataEXT<'a>> for HdrVividDynamicMetadataHUAWEI<'a> {}
+    unsafe impl Extends<HdrMetadataEXT<'_>> for HdrVividDynamicMetadataHUAWEI<'_> {}
 
     impl Default for HdrVividDynamicMetadataHUAWEI<'_> {
         fn default() -> Self {
@@ -93,8 +93,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_HDR_VIVID_FEATURES_HUAWEI;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceHdrVividFeaturesHUAWEI<'a> {}
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceHdrVividFeaturesHUAWEI<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceHdrVividFeaturesHUAWEI<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceHdrVividFeaturesHUAWEI<'_> {}
 
     impl Default for PhysicalDeviceHdrVividFeaturesHUAWEI<'_> {
         fn default() -> Self {

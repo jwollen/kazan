@@ -55,12 +55,12 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_PRIMITIVES_GENERATED_QUERY_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDevicePrimitivesGeneratedQueryFeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDevicePrimitivesGeneratedQueryFeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDevicePrimitivesGeneratedQueryFeaturesEXT<'a>
+    unsafe impl Extends<DeviceCreateInfo<'_>>
+        for PhysicalDevicePrimitivesGeneratedQueryFeaturesEXT<'_>
     {
     }
 

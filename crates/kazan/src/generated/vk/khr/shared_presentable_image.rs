@@ -45,7 +45,7 @@ pub(super) mod defs {
             StructureType::SHARED_PRESENT_SURFACE_CAPABILITIES_KHR;
     }
 
-    unsafe impl<'a> Extends<SurfaceCapabilities2KHR<'a>> for SharedPresentSurfaceCapabilitiesKHR<'a> {}
+    unsafe impl Extends<SurfaceCapabilities2KHR<'_>> for SharedPresentSurfaceCapabilitiesKHR<'_> {}
 
     impl Default for SharedPresentSurfaceCapabilitiesKHR<'_> {
         fn default() -> Self {

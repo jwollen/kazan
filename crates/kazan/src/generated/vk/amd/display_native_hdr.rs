@@ -42,10 +42,7 @@ pub(super) mod defs {
             StructureType::DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD;
     }
 
-    unsafe impl<'a> Extends<SurfaceCapabilities2KHR<'a>>
-        for DisplayNativeHdrSurfaceCapabilitiesAMD<'a>
-    {
-    }
+    unsafe impl Extends<SurfaceCapabilities2KHR<'_>> for DisplayNativeHdrSurfaceCapabilitiesAMD<'_> {}
 
     impl Default for DisplayNativeHdrSurfaceCapabilitiesAMD<'_> {
         fn default() -> Self {
@@ -93,7 +90,7 @@ pub(super) mod defs {
             StructureType::SWAPCHAIN_DISPLAY_NATIVE_HDR_CREATE_INFO_AMD;
     }
 
-    unsafe impl<'a> Extends<SwapchainCreateInfoKHR<'a>> for SwapchainDisplayNativeHdrCreateInfoAMD<'a> {}
+    unsafe impl Extends<SwapchainCreateInfoKHR<'_>> for SwapchainDisplayNativeHdrCreateInfoAMD<'_> {}
 
     impl Default for SwapchainDisplayNativeHdrCreateInfoAMD<'_> {
         fn default() -> Self {

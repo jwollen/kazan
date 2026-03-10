@@ -47,8 +47,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SHADER_FLOAT8_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceShaderFloat8FeaturesEXT<'a> {}
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceShaderFloat8FeaturesEXT<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceShaderFloat8FeaturesEXT<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceShaderFloat8FeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceShaderFloat8FeaturesEXT<'_> {
         fn default() -> Self {

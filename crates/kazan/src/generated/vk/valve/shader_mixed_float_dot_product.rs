@@ -60,12 +60,12 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SHADER_MIXED_FLOAT_DOT_PRODUCT_FEATURES_VALVE;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE<'a>
+    unsafe impl Extends<DeviceCreateInfo<'_>>
+        for PhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE<'_>
     {
     }
 

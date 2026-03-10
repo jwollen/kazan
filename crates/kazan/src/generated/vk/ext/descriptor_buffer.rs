@@ -57,11 +57,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceDescriptorBufferFeaturesEXT<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceDescriptorBufferFeaturesEXT<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceDescriptorBufferFeaturesEXT<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceDescriptorBufferFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceDescriptorBufferFeaturesEXT<'_> {
         fn default() -> Self {
@@ -300,8 +297,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceDescriptorBufferPropertiesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceDescriptorBufferPropertiesEXT<'_>
     {
     }
 
@@ -682,8 +679,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_DENSITY_MAP_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceDescriptorBufferDensityMapPropertiesEXT<'_>
     {
     }
 
@@ -854,8 +851,8 @@ pub(super) mod defs {
             StructureType::DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT;
     }
 
-    unsafe impl<'a> Extends<DescriptorBufferBindingInfoEXT<'a>>
-        for DescriptorBufferBindingPushDescriptorBufferHandleEXT<'a>
+    unsafe impl Extends<DescriptorBufferBindingInfoEXT<'_>>
+        for DescriptorBufferBindingPushDescriptorBufferHandleEXT<'_>
     {
     }
 
@@ -1206,23 +1203,20 @@ pub(super) mod defs {
             StructureType::OPAQUE_CAPTURE_DESCRIPTOR_DATA_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<BufferCreateInfo<'a>> for OpaqueCaptureDescriptorDataCreateInfoEXT<'a> {}
-    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for OpaqueCaptureDescriptorDataCreateInfoEXT<'a> {}
-    unsafe impl<'a> Extends<ImageViewCreateInfo<'a>> for OpaqueCaptureDescriptorDataCreateInfoEXT<'a> {}
-    unsafe impl<'a> Extends<SamplerCreateInfo<'a>> for OpaqueCaptureDescriptorDataCreateInfoEXT<'a> {}
-    unsafe impl<'a> Extends<AccelerationStructureCreateInfoKHR<'a>>
-        for OpaqueCaptureDescriptorDataCreateInfoEXT<'a>
+    unsafe impl Extends<BufferCreateInfo<'_>> for OpaqueCaptureDescriptorDataCreateInfoEXT<'_> {}
+    unsafe impl Extends<ImageCreateInfo<'_>> for OpaqueCaptureDescriptorDataCreateInfoEXT<'_> {}
+    unsafe impl Extends<ImageViewCreateInfo<'_>> for OpaqueCaptureDescriptorDataCreateInfoEXT<'_> {}
+    unsafe impl Extends<SamplerCreateInfo<'_>> for OpaqueCaptureDescriptorDataCreateInfoEXT<'_> {}
+    unsafe impl Extends<AccelerationStructureCreateInfoKHR<'_>>
+        for OpaqueCaptureDescriptorDataCreateInfoEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<AccelerationStructureCreateInfoNV<'a>>
-        for OpaqueCaptureDescriptorDataCreateInfoEXT<'a>
+    unsafe impl Extends<AccelerationStructureCreateInfoNV<'_>>
+        for OpaqueCaptureDescriptorDataCreateInfoEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<TensorCreateInfoARM<'a>> for OpaqueCaptureDescriptorDataCreateInfoEXT<'a> {}
-    unsafe impl<'a> Extends<TensorViewCreateInfoARM<'a>>
-        for OpaqueCaptureDescriptorDataCreateInfoEXT<'a>
-    {
-    }
+    unsafe impl Extends<TensorCreateInfoARM<'_>> for OpaqueCaptureDescriptorDataCreateInfoEXT<'_> {}
+    unsafe impl Extends<TensorViewCreateInfoARM<'_>> for OpaqueCaptureDescriptorDataCreateInfoEXT<'_> {}
 
     impl Default for OpaqueCaptureDescriptorDataCreateInfoEXT<'_> {
         fn default() -> Self {

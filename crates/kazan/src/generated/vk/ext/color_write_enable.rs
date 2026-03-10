@@ -42,11 +42,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_COLOR_WRITE_ENABLE_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceColorWriteEnableFeaturesEXT<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceColorWriteEnableFeaturesEXT<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceColorWriteEnableFeaturesEXT<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceColorWriteEnableFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceColorWriteEnableFeaturesEXT<'_> {
         fn default() -> Self {
@@ -95,10 +92,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_COLOR_WRITE_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<PipelineColorBlendStateCreateInfo<'a>>
-        for PipelineColorWriteCreateInfoEXT<'a>
-    {
-    }
+    unsafe impl Extends<PipelineColorBlendStateCreateInfo<'_>> for PipelineColorWriteCreateInfoEXT<'_> {}
 
     impl Default for PipelineColorWriteCreateInfoEXT<'_> {
         fn default() -> Self {
@@ -116,7 +110,7 @@ pub(super) mod defs {
         #[inline]
         pub fn color_write_enables(mut self, color_write_enables: &'a [Bool32]) -> Self {
             self.attachment_count = color_write_enables.len().try_into().unwrap();
-            self.p_color_write_enables = color_write_enables.as_ptr();
+            self.p_color_write_enables = color_write_enables.as_ptr() as _;
             self
         }
     }

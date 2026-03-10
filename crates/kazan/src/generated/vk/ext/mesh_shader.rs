@@ -53,8 +53,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_MESH_SHADER_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceMeshShaderFeaturesEXT<'a> {}
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceMeshShaderFeaturesEXT<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceMeshShaderFeaturesEXT<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceMeshShaderFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceMeshShaderFeaturesEXT<'_> {
         fn default() -> Self {
@@ -251,10 +251,7 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceMeshShaderPropertiesEXT<'a>
-    {
-    }
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>> for PhysicalDeviceMeshShaderPropertiesEXT<'_> {}
 
     impl Default for PhysicalDeviceMeshShaderPropertiesEXT<'_> {
         fn default() -> Self {

@@ -78,11 +78,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_CUSTOM_RESOLVE_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceCustomResolveFeaturesEXT<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceCustomResolveFeaturesEXT<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceCustomResolveFeaturesEXT<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceCustomResolveFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceCustomResolveFeaturesEXT<'_> {
         fn default() -> Self {
@@ -140,9 +137,9 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::CUSTOM_RESOLVE_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>> for CustomResolveCreateInfoEXT<'a> {}
-    unsafe impl<'a> Extends<CommandBufferInheritanceInfo<'a>> for CustomResolveCreateInfoEXT<'a> {}
-    unsafe impl<'a> Extends<ShaderCreateInfoEXT<'a>> for CustomResolveCreateInfoEXT<'a> {}
+    unsafe impl Extends<GraphicsPipelineCreateInfo<'_>> for CustomResolveCreateInfoEXT<'_> {}
+    unsafe impl Extends<CommandBufferInheritanceInfo<'_>> for CustomResolveCreateInfoEXT<'_> {}
+    unsafe impl Extends<ShaderCreateInfoEXT<'_>> for CustomResolveCreateInfoEXT<'_> {}
 
     impl Default for CustomResolveCreateInfoEXT<'_> {
         fn default() -> Self {
@@ -169,7 +166,7 @@ pub(super) mod defs {
         #[inline]
         pub fn color_attachment_formats(mut self, color_attachment_formats: &'a [Format]) -> Self {
             self.color_attachment_count = color_attachment_formats.len().try_into().unwrap();
-            self.p_color_attachment_formats = color_attachment_formats.as_ptr();
+            self.p_color_attachment_formats = color_attachment_formats.as_ptr() as _;
             self
         }
 

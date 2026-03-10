@@ -52,11 +52,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceFragmentDensityMapFeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceFragmentDensityMapFeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceFragmentDensityMapFeaturesEXT<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceFragmentDensityMapFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceFragmentDensityMapFeaturesEXT<'_> {
         fn default() -> Self {
@@ -135,8 +135,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceFragmentDensityMapPropertiesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceFragmentDensityMapPropertiesEXT<'_>
     {
     }
 
@@ -209,14 +209,8 @@ pub(super) mod defs {
             StructureType::RENDER_PASS_FRAGMENT_DENSITY_MAP_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<RenderPassCreateInfo<'a>>
-        for RenderPassFragmentDensityMapCreateInfoEXT<'a>
-    {
-    }
-    unsafe impl<'a> Extends<RenderPassCreateInfo2<'a>>
-        for RenderPassFragmentDensityMapCreateInfoEXT<'a>
-    {
-    }
+    unsafe impl Extends<RenderPassCreateInfo<'_>> for RenderPassFragmentDensityMapCreateInfoEXT<'_> {}
+    unsafe impl Extends<RenderPassCreateInfo2<'_>> for RenderPassFragmentDensityMapCreateInfoEXT<'_> {}
 
     impl Default for RenderPassFragmentDensityMapCreateInfoEXT<'_> {
         fn default() -> Self {
@@ -269,7 +263,7 @@ pub(super) mod defs {
             StructureType::RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<RenderingInfo<'a>> for RenderingFragmentDensityMapAttachmentInfoEXT<'a> {}
+    unsafe impl Extends<RenderingInfo<'_>> for RenderingFragmentDensityMapAttachmentInfoEXT<'_> {}
 
     impl Default for RenderingFragmentDensityMapAttachmentInfoEXT<'_> {
         fn default() -> Self {

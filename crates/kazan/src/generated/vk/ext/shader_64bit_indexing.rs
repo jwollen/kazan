@@ -42,11 +42,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SHADER_64_BIT_INDEXING_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceShader64BitIndexingFeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceShader64BitIndexingFeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceShader64BitIndexingFeaturesEXT<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceShader64BitIndexingFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceShader64BitIndexingFeaturesEXT<'_> {
         fn default() -> Self {

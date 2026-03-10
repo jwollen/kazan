@@ -84,8 +84,8 @@ pub(super) mod defs {
             StructureType::PIPELINE_VIEWPORT_SWIZZLE_STATE_CREATE_INFO_NV;
     }
 
-    unsafe impl<'a> Extends<PipelineViewportStateCreateInfo<'a>>
-        for PipelineViewportSwizzleStateCreateInfoNV<'a>
+    unsafe impl Extends<PipelineViewportStateCreateInfo<'_>>
+        for PipelineViewportSwizzleStateCreateInfoNV<'_>
     {
     }
 
@@ -112,7 +112,7 @@ pub(super) mod defs {
         #[inline]
         pub fn viewport_swizzles(mut self, viewport_swizzles: &'a [ViewportSwizzleNV]) -> Self {
             self.viewport_count = viewport_swizzles.len().try_into().unwrap();
-            self.p_viewport_swizzles = viewport_swizzles.as_ptr();
+            self.p_viewport_swizzles = viewport_swizzles.as_ptr() as _;
             self
         }
     }

@@ -42,11 +42,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_VIDEO_MAINTENANCE_2_FEATURES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceVideoMaintenance2FeaturesKHR<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceVideoMaintenance2FeaturesKHR<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceVideoMaintenance2FeaturesKHR<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceVideoMaintenance2FeaturesKHR<'_> {}
 
     impl Default for PhysicalDeviceVideoMaintenance2FeaturesKHR<'_> {
         fn default() -> Self {
@@ -96,10 +96,7 @@ pub(super) mod defs {
             StructureType::VIDEO_DECODE_H264_INLINE_SESSION_PARAMETERS_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoDecodeInfoKHR<'a>>
-        for VideoDecodeH264InlineSessionParametersInfoKHR<'a>
-    {
-    }
+    unsafe impl Extends<VideoDecodeInfoKHR<'_>> for VideoDecodeH264InlineSessionParametersInfoKHR<'_> {}
 
     impl Default for VideoDecodeH264InlineSessionParametersInfoKHR<'_> {
         fn default() -> Self {
@@ -158,10 +155,7 @@ pub(super) mod defs {
             StructureType::VIDEO_DECODE_H265_INLINE_SESSION_PARAMETERS_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoDecodeInfoKHR<'a>>
-        for VideoDecodeH265InlineSessionParametersInfoKHR<'a>
-    {
-    }
+    unsafe impl Extends<VideoDecodeInfoKHR<'_>> for VideoDecodeH265InlineSessionParametersInfoKHR<'_> {}
 
     impl Default for VideoDecodeH265InlineSessionParametersInfoKHR<'_> {
         fn default() -> Self {
@@ -223,10 +217,7 @@ pub(super) mod defs {
             StructureType::VIDEO_DECODE_AV1_INLINE_SESSION_PARAMETERS_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoDecodeInfoKHR<'a>>
-        for VideoDecodeAV1InlineSessionParametersInfoKHR<'a>
-    {
-    }
+    unsafe impl Extends<VideoDecodeInfoKHR<'_>> for VideoDecodeAV1InlineSessionParametersInfoKHR<'_> {}
 
     impl Default for VideoDecodeAV1InlineSessionParametersInfoKHR<'_> {
         fn default() -> Self {

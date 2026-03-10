@@ -42,8 +42,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_CUBIC_CLAMP_FEATURES_QCOM;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceCubicClampFeaturesQCOM<'a> {}
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceCubicClampFeaturesQCOM<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceCubicClampFeaturesQCOM<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceCubicClampFeaturesQCOM<'_> {}
 
     impl Default for PhysicalDeviceCubicClampFeaturesQCOM<'_> {
         fn default() -> Self {

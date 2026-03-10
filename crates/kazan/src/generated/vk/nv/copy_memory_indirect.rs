@@ -50,11 +50,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceCopyMemoryIndirectFeaturesNV<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceCopyMemoryIndirectFeaturesNV<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceCopyMemoryIndirectFeaturesNV<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceCopyMemoryIndirectFeaturesNV<'_> {}
 
     impl Default for PhysicalDeviceCopyMemoryIndirectFeaturesNV<'_> {
         fn default() -> Self {

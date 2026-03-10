@@ -41,8 +41,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::COPY_COMMAND_TRANSFORM_INFO_QCOM;
     }
 
-    unsafe impl<'a> Extends<BufferImageCopy2<'a>> for CopyCommandTransformInfoQCOM<'a> {}
-    unsafe impl<'a> Extends<ImageBlit2<'a>> for CopyCommandTransformInfoQCOM<'a> {}
+    unsafe impl Extends<BufferImageCopy2<'_>> for CopyCommandTransformInfoQCOM<'_> {}
+    unsafe impl Extends<ImageBlit2<'_>> for CopyCommandTransformInfoQCOM<'_> {}
 
     impl Default for CopyCommandTransformInfoQCOM<'_> {
         fn default() -> Self {

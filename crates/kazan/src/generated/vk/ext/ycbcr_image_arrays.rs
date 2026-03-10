@@ -42,11 +42,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_YCBCR_IMAGE_ARRAYS_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceYcbcrImageArraysFeaturesEXT<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceYcbcrImageArraysFeaturesEXT<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceYcbcrImageArraysFeaturesEXT<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceYcbcrImageArraysFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceYcbcrImageArraysFeaturesEXT<'_> {
         fn default() -> Self {

@@ -45,7 +45,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_VIEW_SLICED_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<ImageViewCreateInfo<'a>> for ImageViewSlicedCreateInfoEXT<'a> {}
+    unsafe impl Extends<ImageViewCreateInfo<'_>> for ImageViewSlicedCreateInfoEXT<'_> {}
 
     impl Default for ImageViewSlicedCreateInfoEXT<'_> {
         fn default() -> Self {
@@ -100,11 +100,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_IMAGE_SLICED_VIEW_OF_3D_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceImageSlicedViewOf3DFeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceImageSlicedViewOf3DFeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceImageSlicedViewOf3DFeaturesEXT<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceImageSlicedViewOf3DFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceImageSlicedViewOf3DFeaturesEXT<'_> {
         fn default() -> Self {

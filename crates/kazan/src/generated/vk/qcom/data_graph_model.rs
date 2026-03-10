@@ -104,8 +104,8 @@ pub(super) mod defs {
             StructureType::DATA_GRAPH_PIPELINE_BUILTIN_MODEL_CREATE_INFO_QCOM;
     }
 
-    unsafe impl<'a> Extends<DataGraphPipelineCreateInfoARM<'a>>
-        for DataGraphPipelineBuiltinModelCreateInfoQCOM<'a>
+    unsafe impl Extends<DataGraphPipelineCreateInfoARM<'_>>
+        for DataGraphPipelineBuiltinModelCreateInfoQCOM<'_>
     {
     }
 
@@ -158,11 +158,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_DATA_GRAPH_MODEL_FEATURES_QCOM;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceDataGraphModelFeaturesQCOM<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceDataGraphModelFeaturesQCOM<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceDataGraphModelFeaturesQCOM<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceDataGraphModelFeaturesQCOM<'_> {}
 
     impl Default for PhysicalDeviceDataGraphModelFeaturesQCOM<'_> {
         fn default() -> Self {

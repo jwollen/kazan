@@ -74,8 +74,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::SAMPLE_LOCATIONS_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<ImageMemoryBarrier<'a>> for SampleLocationsInfoEXT<'a> {}
-    unsafe impl<'a> Extends<ImageMemoryBarrier2<'a>> for SampleLocationsInfoEXT<'a> {}
+    unsafe impl Extends<ImageMemoryBarrier<'_>> for SampleLocationsInfoEXT<'_> {}
+    unsafe impl Extends<ImageMemoryBarrier2<'_>> for SampleLocationsInfoEXT<'_> {}
 
     impl Default for SampleLocationsInfoEXT<'_> {
         fn default() -> Self {
@@ -110,7 +110,7 @@ pub(super) mod defs {
         #[inline]
         pub fn sample_locations(mut self, sample_locations: &'a [SampleLocationEXT]) -> Self {
             self.sample_locations_count = sample_locations.len().try_into().unwrap();
-            self.p_sample_locations = sample_locations.as_ptr();
+            self.p_sample_locations = sample_locations.as_ptr() as _;
             self
         }
     }
@@ -254,7 +254,7 @@ pub(super) mod defs {
             StructureType::RENDER_PASS_SAMPLE_LOCATIONS_BEGIN_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<RenderPassBeginInfo<'a>> for RenderPassSampleLocationsBeginInfoEXT<'a> {}
+    unsafe impl Extends<RenderPassBeginInfo<'_>> for RenderPassSampleLocationsBeginInfoEXT<'_> {}
 
     impl Default for RenderPassSampleLocationsBeginInfoEXT<'_> {
         fn default() -> Self {
@@ -274,25 +274,25 @@ pub(super) mod defs {
         #[inline]
         pub fn attachment_initial_sample_locations(
             mut self,
-            attachment_initial_sample_locations: &'a [AttachmentSampleLocationsEXT<'a>],
+            attachment_initial_sample_locations: &'a [AttachmentSampleLocationsEXT<'_>],
         ) -> Self {
             self.attachment_initial_sample_locations_count = attachment_initial_sample_locations
                 .len()
                 .try_into()
                 .unwrap();
             self.p_attachment_initial_sample_locations =
-                attachment_initial_sample_locations.as_ptr();
+                attachment_initial_sample_locations.as_ptr() as _;
             self
         }
 
         #[inline]
         pub fn post_subpass_sample_locations(
             mut self,
-            post_subpass_sample_locations: &'a [SubpassSampleLocationsEXT<'a>],
+            post_subpass_sample_locations: &'a [SubpassSampleLocationsEXT<'_>],
         ) -> Self {
             self.post_subpass_sample_locations_count =
                 post_subpass_sample_locations.len().try_into().unwrap();
-            self.p_post_subpass_sample_locations = post_subpass_sample_locations.as_ptr();
+            self.p_post_subpass_sample_locations = post_subpass_sample_locations.as_ptr() as _;
             self
         }
     }
@@ -326,8 +326,8 @@ pub(super) mod defs {
             StructureType::PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<PipelineMultisampleStateCreateInfo<'a>>
-        for PipelineSampleLocationsStateCreateInfoEXT<'a>
+    unsafe impl Extends<PipelineMultisampleStateCreateInfo<'_>>
+        for PipelineSampleLocationsStateCreateInfoEXT<'_>
     {
     }
 
@@ -407,8 +407,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SAMPLE_LOCATIONS_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceSampleLocationsPropertiesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceSampleLocationsPropertiesEXT<'_>
     {
     }
 

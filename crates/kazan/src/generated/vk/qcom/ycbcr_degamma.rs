@@ -42,11 +42,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_YCBCR_DEGAMMA_FEATURES_QCOM;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceYcbcrDegammaFeaturesQCOM<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceYcbcrDegammaFeaturesQCOM<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceYcbcrDegammaFeaturesQCOM<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceYcbcrDegammaFeaturesQCOM<'_> {}
 
     impl Default for PhysicalDeviceYcbcrDegammaFeaturesQCOM<'_> {
         fn default() -> Self {
@@ -96,8 +93,8 @@ pub(super) mod defs {
             StructureType::SAMPLER_YCBCR_CONVERSION_YCBCR_DEGAMMA_CREATE_INFO_QCOM;
     }
 
-    unsafe impl<'a> Extends<SamplerYcbcrConversionCreateInfo<'a>>
-        for SamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM<'a>
+    unsafe impl Extends<SamplerYcbcrConversionCreateInfo<'_>>
+        for SamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM<'_>
     {
     }
 

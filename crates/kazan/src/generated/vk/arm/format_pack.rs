@@ -42,8 +42,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_FORMAT_PACK_FEATURES_ARM;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceFormatPackFeaturesARM<'a> {}
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceFormatPackFeaturesARM<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceFormatPackFeaturesARM<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceFormatPackFeaturesARM<'_> {}
 
     impl Default for PhysicalDeviceFormatPackFeaturesARM<'_> {
         fn default() -> Self {

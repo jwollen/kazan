@@ -42,11 +42,8 @@ pub(super) mod defs {
             StructureType::DEVICE_QUEUE_SHADER_CORE_CONTROL_CREATE_INFO_ARM;
     }
 
-    unsafe impl<'a> Extends<DeviceQueueCreateInfo<'a>>
-        for DeviceQueueShaderCoreControlCreateInfoARM<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for DeviceQueueShaderCoreControlCreateInfoARM<'a> {}
+    unsafe impl Extends<DeviceQueueCreateInfo<'_>> for DeviceQueueShaderCoreControlCreateInfoARM<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for DeviceQueueShaderCoreControlCreateInfoARM<'_> {}
 
     impl Default for DeviceQueueShaderCoreControlCreateInfoARM<'_> {
         fn default() -> Self {
@@ -94,11 +91,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SCHEDULING_CONTROLS_FEATURES_ARM;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceSchedulingControlsFeaturesARM<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceSchedulingControlsFeaturesARM<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceSchedulingControlsFeaturesARM<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceSchedulingControlsFeaturesARM<'_> {}
 
     impl Default for PhysicalDeviceSchedulingControlsFeaturesARM<'_> {
         fn default() -> Self {
@@ -146,8 +143,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SCHEDULING_CONTROLS_PROPERTIES_ARM;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceSchedulingControlsPropertiesARM<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceSchedulingControlsPropertiesARM<'_>
     {
     }
 

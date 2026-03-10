@@ -44,7 +44,7 @@ pub(super) mod defs {
             StructureType::SAMPLER_CUSTOM_BORDER_COLOR_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<SamplerCreateInfo<'a>> for SamplerCustomBorderColorCreateInfoEXT<'a> {}
+    unsafe impl Extends<SamplerCreateInfo<'_>> for SamplerCustomBorderColorCreateInfoEXT<'_> {}
 
     impl Default for SamplerCustomBorderColorCreateInfoEXT<'_> {
         fn default() -> Self {
@@ -102,8 +102,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceCustomBorderColorPropertiesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceCustomBorderColorPropertiesEXT<'_>
     {
     }
 
@@ -161,11 +161,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceCustomBorderColorFeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceCustomBorderColorFeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceCustomBorderColorFeaturesEXT<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceCustomBorderColorFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceCustomBorderColorFeaturesEXT<'_> {
         fn default() -> Self {

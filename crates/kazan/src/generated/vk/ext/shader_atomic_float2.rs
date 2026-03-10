@@ -100,11 +100,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_2_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceShaderAtomicFloat2FeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceShaderAtomicFloat2FeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceShaderAtomicFloat2FeaturesEXT<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceShaderAtomicFloat2FeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceShaderAtomicFloat2FeaturesEXT<'_> {
         fn default() -> Self {

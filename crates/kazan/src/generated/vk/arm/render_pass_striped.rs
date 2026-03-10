@@ -42,11 +42,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_RENDER_PASS_STRIPED_FEATURES_ARM;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceRenderPassStripedFeaturesARM<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceRenderPassStripedFeaturesARM<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceRenderPassStripedFeaturesARM<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceRenderPassStripedFeaturesARM<'_> {}
 
     impl Default for PhysicalDeviceRenderPassStripedFeaturesARM<'_> {
         fn default() -> Self {
@@ -99,8 +99,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_RENDER_PASS_STRIPED_PROPERTIES_ARM;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceRenderPassStripedPropertiesARM<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceRenderPassStripedPropertiesARM<'_>
     {
     }
 
@@ -206,8 +206,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::RENDER_PASS_STRIPE_BEGIN_INFO_ARM;
     }
 
-    unsafe impl<'a> Extends<RenderingInfo<'a>> for RenderPassStripeBeginInfoARM<'a> {}
-    unsafe impl<'a> Extends<RenderPassBeginInfo<'a>> for RenderPassStripeBeginInfoARM<'a> {}
+    unsafe impl Extends<RenderingInfo<'_>> for RenderPassStripeBeginInfoARM<'_> {}
+    unsafe impl Extends<RenderPassBeginInfo<'_>> for RenderPassStripeBeginInfoARM<'_> {}
 
     impl Default for RenderPassStripeBeginInfoARM<'_> {
         fn default() -> Self {
@@ -223,9 +223,9 @@ pub(super) mod defs {
 
     impl<'a> RenderPassStripeBeginInfoARM<'a> {
         #[inline]
-        pub fn stripe_infos(mut self, stripe_infos: &'a [RenderPassStripeInfoARM<'a>]) -> Self {
+        pub fn stripe_infos(mut self, stripe_infos: &'a [RenderPassStripeInfoARM<'_>]) -> Self {
             self.stripe_info_count = stripe_infos.len().try_into().unwrap();
-            self.p_stripe_infos = stripe_infos.as_ptr();
+            self.p_stripe_infos = stripe_infos.as_ptr() as _;
             self
         }
     }
@@ -261,7 +261,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::RENDER_PASS_STRIPE_SUBMIT_INFO_ARM;
     }
 
-    unsafe impl<'a> Extends<CommandBufferSubmitInfo<'a>> for RenderPassStripeSubmitInfoARM<'a> {}
+    unsafe impl Extends<CommandBufferSubmitInfo<'_>> for RenderPassStripeSubmitInfoARM<'_> {}
 
     impl Default for RenderPassStripeSubmitInfoARM<'_> {
         fn default() -> Self {
@@ -279,10 +279,10 @@ pub(super) mod defs {
         #[inline]
         pub fn stripe_semaphore_infos(
             mut self,
-            stripe_semaphore_infos: &'a [SemaphoreSubmitInfo<'a>],
+            stripe_semaphore_infos: &'a [SemaphoreSubmitInfo<'_>],
         ) -> Self {
             self.stripe_semaphore_info_count = stripe_semaphore_infos.len().try_into().unwrap();
-            self.p_stripe_semaphore_infos = stripe_semaphore_infos.as_ptr();
+            self.p_stripe_semaphore_infos = stripe_semaphore_infos.as_ptr() as _;
             self
         }
     }

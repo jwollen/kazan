@@ -49,7 +49,7 @@ pub(super) mod defs {
             StructureType::COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV;
     }
 
-    unsafe impl<'a> Extends<ComputePipelineCreateInfo<'a>> for ComputePipelineIndirectBufferInfoNV<'a> {}
+    unsafe impl Extends<ComputePipelineCreateInfo<'_>> for ComputePipelineIndirectBufferInfoNV<'_> {}
 
     impl Default for ComputePipelineIndirectBufferInfoNV<'_> {
         fn default() -> Self {
@@ -124,12 +124,12 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV<'a>
+    unsafe impl Extends<DeviceCreateInfo<'_>>
+        for PhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV<'_>
     {
     }
 

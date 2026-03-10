@@ -42,11 +42,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_DEVICE_MEMORY_REPORT_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceDeviceMemoryReportFeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceDeviceMemoryReportFeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceDeviceMemoryReportFeaturesEXT<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceDeviceMemoryReportFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceDeviceMemoryReportFeaturesEXT<'_> {
         fn default() -> Self {
@@ -101,7 +101,7 @@ pub(super) mod defs {
             StructureType::DEVICE_DEVICE_MEMORY_REPORT_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for DeviceDeviceMemoryReportCreateInfoEXT<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for DeviceDeviceMemoryReportCreateInfoEXT<'_> {}
 
     impl Default for DeviceDeviceMemoryReportCreateInfoEXT<'_> {
         fn default() -> Self {

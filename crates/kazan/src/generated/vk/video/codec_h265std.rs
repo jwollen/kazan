@@ -2033,7 +2033,7 @@ pub(super) mod defs {
             short_term_ref_pic_set: &'a [StdVideoH265ShortTermRefPicSet],
         ) -> Self {
             self.num_short_term_ref_pic_sets = short_term_ref_pic_set.len().try_into().unwrap();
-            self.p_short_term_ref_pic_set = short_term_ref_pic_set.as_ptr();
+            self.p_short_term_ref_pic_set = short_term_ref_pic_set.as_ptr() as _;
             self
         }
 

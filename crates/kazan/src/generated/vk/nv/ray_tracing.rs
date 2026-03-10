@@ -194,16 +194,16 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn stages(mut self, stages: &'a [PipelineShaderStageCreateInfo<'a>]) -> Self {
+        pub fn stages(mut self, stages: &'a [PipelineShaderStageCreateInfo<'_>]) -> Self {
             self.stage_count = stages.len().try_into().unwrap();
-            self.p_stages = stages.as_ptr();
+            self.p_stages = stages.as_ptr() as _;
             self
         }
 
         #[inline]
-        pub fn groups(mut self, groups: &'a [RayTracingShaderGroupCreateInfoNV<'a>]) -> Self {
+        pub fn groups(mut self, groups: &'a [RayTracingShaderGroupCreateInfoNV<'_>]) -> Self {
             self.group_count = groups.len().try_into().unwrap();
-            self.p_groups = groups.as_ptr();
+            self.p_groups = groups.as_ptr() as _;
             self
         }
 
@@ -615,9 +615,9 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn geometries(mut self, geometries: &'a [GeometryNV<'a>]) -> Self {
+        pub fn geometries(mut self, geometries: &'a [GeometryNV<'_>]) -> Self {
             self.geometry_count = geometries.len().try_into().unwrap();
-            self.p_geometries = geometries.as_ptr();
+            self.p_geometries = geometries.as_ptr() as _;
             self
         }
     }
@@ -751,7 +751,7 @@ pub(super) mod defs {
         #[inline]
         pub fn device_indices(mut self, device_indices: &'a [u32]) -> Self {
             self.device_index_count = device_indices.len().try_into().unwrap();
-            self.p_device_indices = device_indices.as_ptr();
+            self.p_device_indices = device_indices.as_ptr() as _;
             self
         }
     }
@@ -788,7 +788,7 @@ pub(super) mod defs {
             StructureType::WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_NV;
     }
 
-    unsafe impl<'a> Extends<WriteDescriptorSet<'a>> for WriteDescriptorSetAccelerationStructureNV<'a> {}
+    unsafe impl Extends<WriteDescriptorSet<'_>> for WriteDescriptorSetAccelerationStructureNV<'_> {}
 
     impl Default for WriteDescriptorSetAccelerationStructureNV<'_> {
         fn default() -> Self {
@@ -809,7 +809,7 @@ pub(super) mod defs {
             acceleration_structures: &'a [AccelerationStructureNV],
         ) -> Self {
             self.acceleration_structure_count = acceleration_structures.len().try_into().unwrap();
-            self.p_acceleration_structures = acceleration_structures.as_ptr();
+            self.p_acceleration_structures = acceleration_structures.as_ptr() as _;
             self
         }
     }
@@ -919,10 +919,7 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_RAY_TRACING_PROPERTIES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceRayTracingPropertiesNV<'a>
-    {
-    }
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>> for PhysicalDeviceRayTracingPropertiesNV<'_> {}
 
     impl Default for PhysicalDeviceRayTracingPropertiesNV<'_> {
         fn default() -> Self {

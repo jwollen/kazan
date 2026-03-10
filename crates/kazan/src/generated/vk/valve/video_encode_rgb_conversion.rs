@@ -45,12 +45,12 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_VIDEO_ENCODE_RGB_CONVERSION_FEATURES_VALVE;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE<'a>
+    unsafe impl Extends<DeviceCreateInfo<'_>>
+        for PhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE<'_>
     {
     }
 
@@ -106,10 +106,7 @@ pub(super) mod defs {
             StructureType::VIDEO_ENCODE_RGB_CONVERSION_CAPABILITIES_VALVE;
     }
 
-    unsafe impl<'a> Extends<VideoCapabilitiesKHR<'a>>
-        for VideoEncodeRgbConversionCapabilitiesVALVE<'a>
-    {
-    }
+    unsafe impl Extends<VideoCapabilitiesKHR<'_>> for VideoEncodeRgbConversionCapabilitiesVALVE<'_> {}
 
     impl Default for VideoEncodeRgbConversionCapabilitiesVALVE<'_> {
         fn default() -> Self {
@@ -187,7 +184,7 @@ pub(super) mod defs {
             StructureType::VIDEO_ENCODE_PROFILE_RGB_CONVERSION_INFO_VALVE;
     }
 
-    unsafe impl<'a> Extends<VideoProfileInfoKHR<'a>> for VideoEncodeProfileRgbConversionInfoVALVE<'a> {}
+    unsafe impl Extends<VideoProfileInfoKHR<'_>> for VideoEncodeProfileRgbConversionInfoVALVE<'_> {}
 
     impl Default for VideoEncodeProfileRgbConversionInfoVALVE<'_> {
         fn default() -> Self {
@@ -244,8 +241,8 @@ pub(super) mod defs {
             StructureType::VIDEO_ENCODE_SESSION_RGB_CONVERSION_CREATE_INFO_VALVE;
     }
 
-    unsafe impl<'a> Extends<VideoSessionCreateInfoKHR<'a>>
-        for VideoEncodeSessionRgbConversionCreateInfoVALVE<'a>
+    unsafe impl Extends<VideoSessionCreateInfoKHR<'_>>
+        for VideoEncodeSessionRgbConversionCreateInfoVALVE<'_>
     {
     }
 

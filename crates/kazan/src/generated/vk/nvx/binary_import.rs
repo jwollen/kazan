@@ -102,7 +102,7 @@ pub(super) mod defs {
             StructureType::CU_MODULE_TEXTURING_MODE_CREATE_INFO_NVX;
     }
 
-    unsafe impl<'a> Extends<CuModuleCreateInfoNVX<'a>> for CuModuleTexturingModeCreateInfoNVX<'a> {}
+    unsafe impl Extends<CuModuleCreateInfoNVX<'_>> for CuModuleTexturingModeCreateInfoNVX<'_> {}
 
     impl Default for CuModuleTexturingModeCreateInfoNVX<'_> {
         fn default() -> Self {

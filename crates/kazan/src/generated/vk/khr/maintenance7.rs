@@ -42,8 +42,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_MAINTENANCE_7_FEATURES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceMaintenance7FeaturesKHR<'a> {}
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceMaintenance7FeaturesKHR<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceMaintenance7FeaturesKHR<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceMaintenance7FeaturesKHR<'_> {}
 
     impl Default for PhysicalDeviceMaintenance7FeaturesKHR<'_> {
         fn default() -> Self {
@@ -129,10 +129,7 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_MAINTENANCE_7_PROPERTIES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceMaintenance7PropertiesKHR<'a>
-    {
-    }
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>> for PhysicalDeviceMaintenance7PropertiesKHR<'_> {}
 
     impl Default for PhysicalDeviceMaintenance7PropertiesKHR<'_> {
         fn default() -> Self {
@@ -265,8 +262,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_LIST_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceLayeredApiPropertiesListKHR<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceLayeredApiPropertiesListKHR<'_>
     {
     }
 
@@ -286,10 +283,10 @@ pub(super) mod defs {
         #[inline]
         pub fn layered_apis(
             mut self,
-            layered_apis: &'a mut [PhysicalDeviceLayeredApiPropertiesKHR<'a>],
+            layered_apis: &'a mut [PhysicalDeviceLayeredApiPropertiesKHR<'_>],
         ) -> Self {
             self.layered_api_count = layered_apis.len().try_into().unwrap();
-            self.p_layered_apis = layered_apis.as_mut_ptr();
+            self.p_layered_apis = layered_apis.as_mut_ptr() as _;
             self
         }
     }
@@ -400,8 +397,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_LAYERED_API_VULKAN_PROPERTIES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceLayeredApiPropertiesKHR<'a>>
-        for PhysicalDeviceLayeredApiVulkanPropertiesKHR<'a>
+    unsafe impl Extends<PhysicalDeviceLayeredApiPropertiesKHR<'_>>
+        for PhysicalDeviceLayeredApiVulkanPropertiesKHR<'_>
     {
     }
 

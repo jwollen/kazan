@@ -195,16 +195,16 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn stages(mut self, stages: &'a [PipelineShaderStageCreateInfo<'a>]) -> Self {
+        pub fn stages(mut self, stages: &'a [PipelineShaderStageCreateInfo<'_>]) -> Self {
             self.stage_count = stages.len().try_into().unwrap();
-            self.p_stages = stages.as_ptr();
+            self.p_stages = stages.as_ptr() as _;
             self
         }
 
         #[inline]
-        pub fn groups(mut self, groups: &'a [RayTracingShaderGroupCreateInfoKHR<'a>]) -> Self {
+        pub fn groups(mut self, groups: &'a [RayTracingShaderGroupCreateInfoKHR<'_>]) -> Self {
             self.group_count = groups.len().try_into().unwrap();
-            self.p_groups = groups.as_ptr();
+            self.p_groups = groups.as_ptr() as _;
             self
         }
 
@@ -307,11 +307,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_FEATURES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceRayTracingPipelineFeaturesKHR<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceRayTracingPipelineFeaturesKHR<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceRayTracingPipelineFeaturesKHR<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceRayTracingPipelineFeaturesKHR<'_> {}
 
     impl Default for PhysicalDeviceRayTracingPipelineFeaturesKHR<'_> {
         fn default() -> Self {
@@ -431,8 +431,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceRayTracingPipelinePropertiesKHR<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceRayTracingPipelinePropertiesKHR<'_>
     {
     }
 

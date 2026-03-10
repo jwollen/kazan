@@ -41,7 +41,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::SURFACE_PRESENT_MODE_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceSurfaceInfo2KHR<'a>> for SurfacePresentModeKHR<'a> {}
+    unsafe impl Extends<PhysicalDeviceSurfaceInfo2KHR<'_>> for SurfacePresentModeKHR<'_> {}
 
     impl Default for SurfacePresentModeKHR<'_> {
         fn default() -> Self {
@@ -103,7 +103,7 @@ pub(super) mod defs {
             StructureType::SURFACE_PRESENT_SCALING_CAPABILITIES_KHR;
     }
 
-    unsafe impl<'a> Extends<SurfaceCapabilities2KHR<'a>> for SurfacePresentScalingCapabilitiesKHR<'a> {}
+    unsafe impl Extends<SurfaceCapabilities2KHR<'_>> for SurfacePresentScalingCapabilitiesKHR<'_> {}
 
     impl Default for SurfacePresentScalingCapabilitiesKHR<'_> {
         fn default() -> Self {
@@ -189,7 +189,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::SURFACE_PRESENT_MODE_COMPATIBILITY_KHR;
     }
 
-    unsafe impl<'a> Extends<SurfaceCapabilities2KHR<'a>> for SurfacePresentModeCompatibilityKHR<'a> {}
+    unsafe impl Extends<SurfaceCapabilities2KHR<'_>> for SurfacePresentModeCompatibilityKHR<'_> {}
 
     impl Default for SurfacePresentModeCompatibilityKHR<'_> {
         fn default() -> Self {
@@ -207,7 +207,7 @@ pub(super) mod defs {
         #[inline]
         pub fn present_modes(mut self, present_modes: &'a mut [PresentModeKHR]) -> Self {
             self.present_mode_count = present_modes.len().try_into().unwrap();
-            self.p_present_modes = present_modes.as_mut_ptr();
+            self.p_present_modes = present_modes.as_mut_ptr() as _;
             self
         }
     }

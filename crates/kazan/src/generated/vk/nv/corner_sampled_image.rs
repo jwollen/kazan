@@ -42,11 +42,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_CORNER_SAMPLED_IMAGE_FEATURES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceCornerSampledImageFeaturesNV<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceCornerSampledImageFeaturesNV<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceCornerSampledImageFeaturesNV<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceCornerSampledImageFeaturesNV<'_> {}
 
     impl Default for PhysicalDeviceCornerSampledImageFeaturesNV<'_> {
         fn default() -> Self {

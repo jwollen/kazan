@@ -45,12 +45,12 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDevicePresentModeFifoLatestReadyFeaturesKHR<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDevicePresentModeFifoLatestReadyFeaturesKHR<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDevicePresentModeFifoLatestReadyFeaturesKHR<'a>
+    unsafe impl Extends<DeviceCreateInfo<'_>>
+        for PhysicalDevicePresentModeFifoLatestReadyFeaturesKHR<'_>
     {
     }
 

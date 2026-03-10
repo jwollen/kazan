@@ -42,8 +42,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_MAINTENANCE_8_FEATURES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceMaintenance8FeaturesKHR<'a> {}
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceMaintenance8FeaturesKHR<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceMaintenance8FeaturesKHR<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceMaintenance8FeaturesKHR<'_> {}
 
     impl Default for PhysicalDeviceMaintenance8FeaturesKHR<'_> {
         fn default() -> Self {
@@ -92,9 +92,9 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_BARRIER_ACCESS_FLAGS_3_KHR;
     }
 
-    unsafe impl<'a> Extends<SubpassDependency2<'a>> for MemoryBarrierAccessFlags3KHR<'a> {}
-    unsafe impl<'a> Extends<BufferMemoryBarrier2<'a>> for MemoryBarrierAccessFlags3KHR<'a> {}
-    unsafe impl<'a> Extends<ImageMemoryBarrier2<'a>> for MemoryBarrierAccessFlags3KHR<'a> {}
+    unsafe impl Extends<SubpassDependency2<'_>> for MemoryBarrierAccessFlags3KHR<'_> {}
+    unsafe impl Extends<BufferMemoryBarrier2<'_>> for MemoryBarrierAccessFlags3KHR<'_> {}
+    unsafe impl Extends<ImageMemoryBarrier2<'_>> for MemoryBarrierAccessFlags3KHR<'_> {}
 
     impl Default for MemoryBarrierAccessFlags3KHR<'_> {
         fn default() -> Self {

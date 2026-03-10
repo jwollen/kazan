@@ -45,14 +45,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_VERTEX_INPUT_DYNAMIC_STATE_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceVertexInputDynamicStateFeaturesEXT<'_> {
         fn default() -> Self {

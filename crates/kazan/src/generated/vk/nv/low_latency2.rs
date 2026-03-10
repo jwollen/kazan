@@ -228,9 +228,9 @@ pub(super) mod defs {
 
     impl<'a> GetLatencyMarkerInfoNV<'a> {
         #[inline]
-        pub fn timings(mut self, timings: &'a mut [LatencyTimingsFrameReportNV<'a>]) -> Self {
+        pub fn timings(mut self, timings: &'a mut [LatencyTimingsFrameReportNV<'_>]) -> Self {
             self.timing_count = timings.len().try_into().unwrap();
-            self.p_timings = timings.as_mut_ptr();
+            self.p_timings = timings.as_mut_ptr() as _;
             self
         }
     }
@@ -477,8 +477,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::LATENCY_SUBMISSION_PRESENT_ID_NV;
     }
 
-    unsafe impl<'a> Extends<SubmitInfo<'a>> for LatencySubmissionPresentIdNV<'a> {}
-    unsafe impl<'a> Extends<SubmitInfo2<'a>> for LatencySubmissionPresentIdNV<'a> {}
+    unsafe impl Extends<SubmitInfo<'_>> for LatencySubmissionPresentIdNV<'_> {}
+    unsafe impl Extends<SubmitInfo2<'_>> for LatencySubmissionPresentIdNV<'_> {}
 
     impl Default for LatencySubmissionPresentIdNV<'_> {
         fn default() -> Self {
@@ -525,7 +525,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::SWAPCHAIN_LATENCY_CREATE_INFO_NV;
     }
 
-    unsafe impl<'a> Extends<SwapchainCreateInfoKHR<'a>> for SwapchainLatencyCreateInfoNV<'a> {}
+    unsafe impl Extends<SwapchainCreateInfoKHR<'_>> for SwapchainLatencyCreateInfoNV<'_> {}
 
     impl Default for SwapchainLatencyCreateInfoNV<'_> {
         fn default() -> Self {
@@ -574,7 +574,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::LATENCY_SURFACE_CAPABILITIES_NV;
     }
 
-    unsafe impl<'a> Extends<SurfaceCapabilities2KHR<'a>> for LatencySurfaceCapabilitiesNV<'a> {}
+    unsafe impl Extends<SurfaceCapabilities2KHR<'_>> for LatencySurfaceCapabilitiesNV<'_> {}
 
     impl Default for LatencySurfaceCapabilitiesNV<'_> {
         fn default() -> Self {
@@ -592,7 +592,7 @@ pub(super) mod defs {
         #[inline]
         pub fn present_modes(mut self, present_modes: &'a mut [PresentModeKHR]) -> Self {
             self.present_mode_count = present_modes.len().try_into().unwrap();
-            self.p_present_modes = present_modes.as_mut_ptr();
+            self.p_present_modes = present_modes.as_mut_ptr() as _;
             self
         }
     }

@@ -62,8 +62,8 @@ pub(super) mod defs {
             StructureType::PIPELINE_COVERAGE_MODULATION_STATE_CREATE_INFO_NV;
     }
 
-    unsafe impl<'a> Extends<PipelineMultisampleStateCreateInfo<'a>>
-        for PipelineCoverageModulationStateCreateInfoNV<'a>
+    unsafe impl Extends<PipelineMultisampleStateCreateInfo<'_>>
+        for PipelineCoverageModulationStateCreateInfoNV<'_>
     {
     }
 
@@ -111,7 +111,7 @@ pub(super) mod defs {
         pub fn coverage_modulation_table(mut self, coverage_modulation_table: &'a [f32]) -> Self {
             self.coverage_modulation_table_count =
                 coverage_modulation_table.len().try_into().unwrap();
-            self.p_coverage_modulation_table = coverage_modulation_table.as_ptr();
+            self.p_coverage_modulation_table = coverage_modulation_table.as_ptr() as _;
             self
         }
     }

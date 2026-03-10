@@ -45,8 +45,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_PROPERTIES_VALVE;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE<'_>
     {
     }
 
@@ -102,12 +102,12 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_FEATURES_VALVE;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE<'a>
+    unsafe impl Extends<DeviceCreateInfo<'_>>
+        for PhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE<'_>
     {
     }
 
@@ -160,8 +160,8 @@ pub(super) mod defs {
             StructureType::PIPELINE_FRAGMENT_DENSITY_MAP_LAYERED_CREATE_INFO_VALVE;
     }
 
-    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>>
-        for PipelineFragmentDensityMapLayeredCreateInfoVALVE<'a>
+    unsafe impl Extends<GraphicsPipelineCreateInfo<'_>>
+        for PipelineFragmentDensityMapLayeredCreateInfoVALVE<'_>
     {
     }
 

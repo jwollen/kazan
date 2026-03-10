@@ -51,8 +51,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::ATTACHMENT_SAMPLE_COUNT_INFO_AMD;
     }
 
-    unsafe impl<'a> Extends<CommandBufferInheritanceInfo<'a>> for AttachmentSampleCountInfoAMD<'a> {}
-    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>> for AttachmentSampleCountInfoAMD<'a> {}
+    unsafe impl Extends<CommandBufferInheritanceInfo<'_>> for AttachmentSampleCountInfoAMD<'_> {}
+    unsafe impl Extends<GraphicsPipelineCreateInfo<'_>> for AttachmentSampleCountInfoAMD<'_> {}
 
     impl Default for AttachmentSampleCountInfoAMD<'_> {
         fn default() -> Self {
@@ -74,7 +74,7 @@ pub(super) mod defs {
             color_attachment_samples: &'a [SampleCountFlagBits],
         ) -> Self {
             self.color_attachment_count = color_attachment_samples.len().try_into().unwrap();
-            self.p_color_attachment_samples = color_attachment_samples.as_ptr();
+            self.p_color_attachment_samples = color_attachment_samples.as_ptr() as _;
             self
         }
 

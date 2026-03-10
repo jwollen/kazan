@@ -50,11 +50,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDevicePerformanceQueryFeaturesKHR<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePerformanceQueryFeaturesKHR<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDevicePerformanceQueryFeaturesKHR<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDevicePerformanceQueryFeaturesKHR<'_> {}
 
     impl Default for PhysicalDevicePerformanceQueryFeaturesKHR<'_> {
         fn default() -> Self {
@@ -119,8 +116,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_PERFORMANCE_QUERY_PROPERTIES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDevicePerformanceQueryPropertiesKHR<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDevicePerformanceQueryPropertiesKHR<'_>
     {
     }
 
@@ -332,7 +329,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::QUERY_POOL_PERFORMANCE_CREATE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<QueryPoolCreateInfo<'a>> for QueryPoolPerformanceCreateInfoKHR<'a> {}
+    unsafe impl Extends<QueryPoolCreateInfo<'_>> for QueryPoolPerformanceCreateInfoKHR<'_> {}
 
     impl Default for QueryPoolPerformanceCreateInfoKHR<'_> {
         fn default() -> Self {
@@ -357,7 +354,7 @@ pub(super) mod defs {
         #[inline]
         pub fn counter_indices(mut self, counter_indices: &'a [u32]) -> Self {
             self.counter_index_count = counter_indices.len().try_into().unwrap();
-            self.p_counter_indices = counter_indices.as_ptr();
+            self.p_counter_indices = counter_indices.as_ptr() as _;
             self
         }
     }
@@ -442,8 +439,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::PERFORMANCE_QUERY_SUBMIT_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<SubmitInfo<'a>> for PerformanceQuerySubmitInfoKHR<'a> {}
-    unsafe impl<'a> Extends<SubmitInfo2<'a>> for PerformanceQuerySubmitInfoKHR<'a> {}
+    unsafe impl Extends<SubmitInfo<'_>> for PerformanceQuerySubmitInfoKHR<'_> {}
+    unsafe impl Extends<SubmitInfo2<'_>> for PerformanceQuerySubmitInfoKHR<'_> {}
 
     impl Default for PerformanceQuerySubmitInfoKHR<'_> {
         fn default() -> Self {

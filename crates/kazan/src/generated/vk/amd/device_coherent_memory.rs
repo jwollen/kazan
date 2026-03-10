@@ -42,11 +42,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_COHERENT_MEMORY_FEATURES_AMD;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceCoherentMemoryFeaturesAMD<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceCoherentMemoryFeaturesAMD<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceCoherentMemoryFeaturesAMD<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceCoherentMemoryFeaturesAMD<'_> {}
 
     impl Default for PhysicalDeviceCoherentMemoryFeaturesAMD<'_> {
         fn default() -> Self {

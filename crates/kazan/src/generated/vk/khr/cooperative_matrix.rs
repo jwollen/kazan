@@ -47,11 +47,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceCooperativeMatrixFeaturesKHR<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceCooperativeMatrixFeaturesKHR<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceCooperativeMatrixFeaturesKHR<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceCooperativeMatrixFeaturesKHR<'_> {}
 
     impl Default for PhysicalDeviceCooperativeMatrixFeaturesKHR<'_> {
         fn default() -> Self {
@@ -230,8 +230,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceCooperativeMatrixPropertiesKHR<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceCooperativeMatrixPropertiesKHR<'_>
     {
     }
 

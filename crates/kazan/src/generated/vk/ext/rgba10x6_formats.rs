@@ -45,11 +45,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_RGBA10X6_FORMATS_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceRGBA10X6FormatsFeaturesEXT<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceRGBA10X6FormatsFeaturesEXT<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceRGBA10X6FormatsFeaturesEXT<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceRGBA10X6FormatsFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceRGBA10X6FormatsFeaturesEXT<'_> {
         fn default() -> Self {

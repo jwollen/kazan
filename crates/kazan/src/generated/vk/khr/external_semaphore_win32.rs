@@ -126,7 +126,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<SemaphoreCreateInfo<'a>> for ExportSemaphoreWin32HandleInfoKHR<'a> {}
+    unsafe impl Extends<SemaphoreCreateInfo<'_>> for ExportSemaphoreWin32HandleInfoKHR<'_> {}
 
     impl Default for ExportSemaphoreWin32HandleInfoKHR<'_> {
         fn default() -> Self {
@@ -199,7 +199,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::D3D12_FENCE_SUBMIT_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<SubmitInfo<'a>> for D3D12FenceSubmitInfoKHR<'a> {}
+    unsafe impl Extends<SubmitInfo<'_>> for D3D12FenceSubmitInfoKHR<'_> {}
 
     impl Default for D3D12FenceSubmitInfoKHR<'_> {
         fn default() -> Self {
@@ -219,14 +219,14 @@ pub(super) mod defs {
         #[inline]
         pub fn wait_semaphore_values(mut self, wait_semaphore_values: &'a [u64]) -> Self {
             self.wait_semaphore_values_count = wait_semaphore_values.len().try_into().unwrap();
-            self.p_wait_semaphore_values = wait_semaphore_values.as_ptr();
+            self.p_wait_semaphore_values = wait_semaphore_values.as_ptr() as _;
             self
         }
 
         #[inline]
         pub fn signal_semaphore_values(mut self, signal_semaphore_values: &'a [u64]) -> Self {
             self.signal_semaphore_values_count = signal_semaphore_values.len().try_into().unwrap();
-            self.p_signal_semaphore_values = signal_semaphore_values.as_ptr();
+            self.p_signal_semaphore_values = signal_semaphore_values.as_ptr() as _;
             self
         }
     }

@@ -754,7 +754,7 @@ fn write_trait_impls(
         }
         writeln!(
             file,
-            "unsafe impl<'a> Extends<{}<'a>> for {}<'a> {{}}",
+            "unsafe impl Extends<{}<'_>> for {}<'_> {{}}",
             rust_ty, info.name
         )?;
     }
@@ -1262,9 +1262,13 @@ fn emit_setter_assignment(
         }
         SetterAssignmentKind::PtrFromRef { is_const } => {
             if is_const {
-                writeln!(file, "self.{} = {}.as_ptr();", member_name, param_name)?;
+                writeln!(file, "self.{} = {}.as_ptr() as _;", member_name, param_name)?;
             } else {
-                writeln!(file, "self.{} = {}.as_mut_ptr();", member_name, param_name)?;
+                writeln!(
+                    file,
+                    "self.{} = {}.as_mut_ptr() as _;",
+                    member_name, param_name
+                )?;
             }
         }
         SetterAssignmentKind::CStrToPtr | SetterAssignmentKind::CStrToArray => {
@@ -1302,9 +1306,9 @@ fn emit_optional_setter_assignment(
         }
         SetterAssignmentKind::PtrFromRef { is_const } => {
             if is_const {
-                ("|s| s.as_ptr()", "ptr::null()")
+                ("|s| s.as_ptr() as _", "ptr::null()")
             } else {
-                ("|s| s.as_mut_ptr()", "ptr::null_mut()")
+                ("|s| s.as_mut_ptr() as _", "ptr::null_mut()")
             }
         }
         SetterAssignmentKind::CStrToPtr | SetterAssignmentKind::CStrToArray => {
@@ -1381,14 +1385,14 @@ pub fn convert_setter_param_type(
                             )
                     );
                     if use_slice_of_refs {
-                        let inner = type_name_with_lifetime(analysis, pointee_name, lifetime_param);
+                        let inner = type_name_with_lifetime(analysis, pointee_name, None);
                         if is_const {
                             format!("&'a [&'a {}]", inner)
                         } else {
                             format!("&'a mut [&'a mut {}]", inner)
                         }
                     } else {
-                        let inner = type_name_with_lifetime(analysis, pointee_name, lifetime_param);
+                        let inner = type_name_with_lifetime(analysis, pointee_name, None);
                         if is_const {
                             format!("&'a [*const {}]", inner)
                         } else {
@@ -1412,7 +1416,7 @@ pub fn convert_setter_param_type(
                         pointee,
                         rest_lengths,
                         rest_optional,
-                        lifetime_param,
+                        None,
                     );
                     // Bool conversion must not apply to array elements since
                     // bool and Bool32 (u32) differ in memory layout.
@@ -1430,7 +1434,7 @@ pub fn convert_setter_param_type(
                     }
                 }
                 CTypeCategory::Array { element, .. } => {
-                    let element_ty = ctype_to_rust_type(analysis, element, lifetime_param);
+                    let element_ty = ctype_to_rust_type(analysis, element, None);
                     format!("&[{}]", element_ty)
                 }
                 _ => panic!(

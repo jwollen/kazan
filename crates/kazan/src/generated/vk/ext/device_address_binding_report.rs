@@ -42,14 +42,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_ADDRESS_BINDING_REPORT_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceAddressBindingReportFeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceAddressBindingReportFeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceAddressBindingReportFeaturesEXT<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceAddressBindingReportFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceAddressBindingReportFeaturesEXT<'_> {
         fn default() -> Self {
@@ -103,8 +100,8 @@ pub(super) mod defs {
             StructureType::DEVICE_ADDRESS_BINDING_CALLBACK_DATA_EXT;
     }
 
-    unsafe impl<'a> Extends<DebugUtilsMessengerCallbackDataEXT<'a>>
-        for DeviceAddressBindingCallbackDataEXT<'a>
+    unsafe impl Extends<DebugUtilsMessengerCallbackDataEXT<'_>>
+        for DeviceAddressBindingCallbackDataEXT<'_>
     {
     }
 

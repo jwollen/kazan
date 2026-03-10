@@ -43,7 +43,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_LIBRARY_CREATE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>> for PipelineLibraryCreateInfoKHR<'a> {}
+    unsafe impl Extends<GraphicsPipelineCreateInfo<'_>> for PipelineLibraryCreateInfoKHR<'_> {}
 
     impl Default for PipelineLibraryCreateInfoKHR<'_> {
         fn default() -> Self {
@@ -61,7 +61,7 @@ pub(super) mod defs {
         #[inline]
         pub fn libraries(mut self, libraries: &'a [Pipeline]) -> Self {
             self.library_count = libraries.len().try_into().unwrap();
-            self.p_libraries = libraries.as_ptr();
+            self.p_libraries = libraries.as_ptr() as _;
             self
         }
     }

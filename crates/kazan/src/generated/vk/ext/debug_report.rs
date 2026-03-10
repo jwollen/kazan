@@ -51,7 +51,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<InstanceCreateInfo<'a>> for DebugReportCallbackCreateInfoEXT<'a> {}
+    unsafe impl Extends<InstanceCreateInfo<'_>> for DebugReportCallbackCreateInfoEXT<'_> {}
 
     impl Default for DebugReportCallbackCreateInfoEXT<'_> {
         fn default() -> Self {

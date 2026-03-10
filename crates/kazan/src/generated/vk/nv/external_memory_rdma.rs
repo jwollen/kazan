@@ -44,11 +44,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_EXTERNAL_MEMORY_RDMA_FEATURES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceExternalMemoryRDMAFeaturesNV<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceExternalMemoryRDMAFeaturesNV<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceExternalMemoryRDMAFeaturesNV<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceExternalMemoryRDMAFeaturesNV<'_> {}
 
     impl Default for PhysicalDeviceExternalMemoryRDMAFeaturesNV<'_> {
         fn default() -> Self {

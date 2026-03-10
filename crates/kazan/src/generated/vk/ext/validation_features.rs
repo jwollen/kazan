@@ -59,9 +59,9 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VALIDATION_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<InstanceCreateInfo<'a>> for ValidationFeaturesEXT<'a> {}
-    unsafe impl<'a> Extends<ShaderModuleCreateInfo<'a>> for ValidationFeaturesEXT<'a> {}
-    unsafe impl<'a> Extends<ShaderCreateInfoEXT<'a>> for ValidationFeaturesEXT<'a> {}
+    unsafe impl Extends<InstanceCreateInfo<'_>> for ValidationFeaturesEXT<'_> {}
+    unsafe impl Extends<ShaderModuleCreateInfo<'_>> for ValidationFeaturesEXT<'_> {}
+    unsafe impl Extends<ShaderCreateInfoEXT<'_>> for ValidationFeaturesEXT<'_> {}
 
     impl Default for ValidationFeaturesEXT<'_> {
         fn default() -> Self {
@@ -85,7 +85,7 @@ pub(super) mod defs {
         ) -> Self {
             self.enabled_validation_feature_count =
                 enabled_validation_features.len().try_into().unwrap();
-            self.p_enabled_validation_features = enabled_validation_features.as_ptr();
+            self.p_enabled_validation_features = enabled_validation_features.as_ptr() as _;
             self
         }
 
@@ -96,7 +96,7 @@ pub(super) mod defs {
         ) -> Self {
             self.disabled_validation_feature_count =
                 disabled_validation_features.len().try_into().unwrap();
-            self.p_disabled_validation_features = disabled_validation_features.as_ptr();
+            self.p_disabled_validation_features = disabled_validation_features.as_ptr() as _;
             self
         }
     }

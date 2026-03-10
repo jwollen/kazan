@@ -47,12 +47,12 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_DYNAMIC_RENDERING_UNUSED_ATTACHMENTS_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT<'a>
+    unsafe impl Extends<DeviceCreateInfo<'_>>
+        for PhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT<'_>
     {
     }
 

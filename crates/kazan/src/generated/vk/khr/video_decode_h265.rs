@@ -41,8 +41,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_H265_PROFILE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoProfileInfoKHR<'a>> for VideoDecodeH265ProfileInfoKHR<'a> {}
-    unsafe impl<'a> Extends<QueryPoolCreateInfo<'a>> for VideoDecodeH265ProfileInfoKHR<'a> {}
+    unsafe impl Extends<VideoProfileInfoKHR<'_>> for VideoDecodeH265ProfileInfoKHR<'_> {}
+    unsafe impl Extends<QueryPoolCreateInfo<'_>> for VideoDecodeH265ProfileInfoKHR<'_> {}
 
     impl Default for VideoDecodeH265ProfileInfoKHR<'_> {
         fn default() -> Self {
@@ -89,7 +89,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_H265_CAPABILITIES_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoCapabilitiesKHR<'a>> for VideoDecodeH265CapabilitiesKHR<'a> {}
+    unsafe impl Extends<VideoCapabilitiesKHR<'_>> for VideoDecodeH265CapabilitiesKHR<'_> {}
 
     impl Default for VideoDecodeH265CapabilitiesKHR<'_> {
         fn default() -> Self {
@@ -147,8 +147,8 @@ pub(super) mod defs {
             StructureType::VIDEO_DECODE_H265_SESSION_PARAMETERS_ADD_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoSessionParametersUpdateInfoKHR<'a>>
-        for VideoDecodeH265SessionParametersAddInfoKHR<'a>
+    unsafe impl Extends<VideoSessionParametersUpdateInfoKHR<'_>>
+        for VideoDecodeH265SessionParametersAddInfoKHR<'_>
     {
     }
 
@@ -170,23 +170,23 @@ pub(super) mod defs {
 
     impl<'a> VideoDecodeH265SessionParametersAddInfoKHR<'a> {
         #[inline]
-        pub fn std_vp_ss(mut self, std_vp_ss: &'a [StdVideoH265VideoParameterSet<'a>]) -> Self {
+        pub fn std_vp_ss(mut self, std_vp_ss: &'a [StdVideoH265VideoParameterSet<'_>]) -> Self {
             self.std_vps_count = std_vp_ss.len().try_into().unwrap();
-            self.p_std_vp_ss = std_vp_ss.as_ptr();
+            self.p_std_vp_ss = std_vp_ss.as_ptr() as _;
             self
         }
 
         #[inline]
-        pub fn std_sp_ss(mut self, std_sp_ss: &'a [StdVideoH265SequenceParameterSet<'a>]) -> Self {
+        pub fn std_sp_ss(mut self, std_sp_ss: &'a [StdVideoH265SequenceParameterSet<'_>]) -> Self {
             self.std_sps_count = std_sp_ss.len().try_into().unwrap();
-            self.p_std_sp_ss = std_sp_ss.as_ptr();
+            self.p_std_sp_ss = std_sp_ss.as_ptr() as _;
             self
         }
 
         #[inline]
-        pub fn std_pp_ss(mut self, std_pp_ss: &'a [StdVideoH265PictureParameterSet<'a>]) -> Self {
+        pub fn std_pp_ss(mut self, std_pp_ss: &'a [StdVideoH265PictureParameterSet<'_>]) -> Self {
             self.std_pps_count = std_pp_ss.len().try_into().unwrap();
-            self.p_std_pp_ss = std_pp_ss.as_ptr();
+            self.p_std_pp_ss = std_pp_ss.as_ptr() as _;
             self
         }
     }
@@ -224,8 +224,8 @@ pub(super) mod defs {
             StructureType::VIDEO_DECODE_H265_SESSION_PARAMETERS_CREATE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoSessionParametersCreateInfoKHR<'a>>
-        for VideoDecodeH265SessionParametersCreateInfoKHR<'a>
+    unsafe impl Extends<VideoSessionParametersCreateInfoKHR<'_>>
+        for VideoDecodeH265SessionParametersCreateInfoKHR<'_>
     {
     }
 
@@ -302,7 +302,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_H265_PICTURE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoDecodeInfoKHR<'a>> for VideoDecodeH265PictureInfoKHR<'a> {}
+    unsafe impl Extends<VideoDecodeInfoKHR<'_>> for VideoDecodeH265PictureInfoKHR<'_> {}
 
     impl Default for VideoDecodeH265PictureInfoKHR<'_> {
         fn default() -> Self {
@@ -330,7 +330,7 @@ pub(super) mod defs {
         #[inline]
         pub fn slice_segment_offsets(mut self, slice_segment_offsets: &'a [u32]) -> Self {
             self.slice_segment_count = slice_segment_offsets.len().try_into().unwrap();
-            self.p_slice_segment_offsets = slice_segment_offsets.as_ptr();
+            self.p_slice_segment_offsets = slice_segment_offsets.as_ptr() as _;
             self
         }
     }
@@ -361,7 +361,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_H265_DPB_SLOT_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoReferenceSlotInfoKHR<'a>> for VideoDecodeH265DpbSlotInfoKHR<'a> {}
+    unsafe impl Extends<VideoReferenceSlotInfoKHR<'_>> for VideoDecodeH265DpbSlotInfoKHR<'_> {}
 
     impl Default for VideoDecodeH265DpbSlotInfoKHR<'_> {
         fn default() -> Self {

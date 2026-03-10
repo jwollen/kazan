@@ -42,14 +42,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_FEATURES_MESA;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceImageAlignmentControlFeaturesMESA<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceImageAlignmentControlFeaturesMESA<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceImageAlignmentControlFeaturesMESA<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceImageAlignmentControlFeaturesMESA<'_> {}
 
     impl Default for PhysicalDeviceImageAlignmentControlFeaturesMESA<'_> {
         fn default() -> Self {
@@ -100,8 +97,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_PROPERTIES_MESA;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceImageAlignmentControlPropertiesMESA<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceImageAlignmentControlPropertiesMESA<'_>
     {
     }
 
@@ -157,7 +154,7 @@ pub(super) mod defs {
             StructureType::IMAGE_ALIGNMENT_CONTROL_CREATE_INFO_MESA;
     }
 
-    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ImageAlignmentControlCreateInfoMESA<'a> {}
+    unsafe impl Extends<ImageCreateInfo<'_>> for ImageAlignmentControlCreateInfoMESA<'_> {}
 
     impl Default for ImageAlignmentControlCreateInfoMESA<'_> {
         fn default() -> Self {

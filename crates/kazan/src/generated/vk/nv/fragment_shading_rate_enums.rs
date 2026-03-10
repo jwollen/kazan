@@ -55,14 +55,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_FEATURES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceFragmentShadingRateEnumsFeaturesNV<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceFragmentShadingRateEnumsFeaturesNV<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceFragmentShadingRateEnumsFeaturesNV<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceFragmentShadingRateEnumsFeaturesNV<'_> {}
 
     impl Default for PhysicalDeviceFragmentShadingRateEnumsFeaturesNV<'_> {
         fn default() -> Self {
@@ -133,8 +130,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_PROPERTIES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceFragmentShadingRateEnumsPropertiesNV<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceFragmentShadingRateEnumsPropertiesNV<'_>
     {
     }
 
@@ -192,8 +189,8 @@ pub(super) mod defs {
             StructureType::PIPELINE_FRAGMENT_SHADING_RATE_ENUM_STATE_CREATE_INFO_NV;
     }
 
-    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>>
-        for PipelineFragmentShadingRateEnumStateCreateInfoNV<'a>
+    unsafe impl Extends<GraphicsPipelineCreateInfo<'_>>
+        for PipelineFragmentShadingRateEnumStateCreateInfoNV<'_>
     {
     }
 

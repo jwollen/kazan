@@ -41,7 +41,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_CAPABILITIES_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoCapabilitiesKHR<'a>> for VideoDecodeCapabilitiesKHR<'a> {}
+    unsafe impl Extends<VideoCapabilitiesKHR<'_>> for VideoDecodeCapabilitiesKHR<'_> {}
 
     impl Default for VideoDecodeCapabilitiesKHR<'_> {
         fn default() -> Self {
@@ -88,8 +88,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_USAGE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoProfileInfoKHR<'a>> for VideoDecodeUsageInfoKHR<'a> {}
-    unsafe impl<'a> Extends<QueryPoolCreateInfo<'a>> for VideoDecodeUsageInfoKHR<'a> {}
+    unsafe impl Extends<VideoProfileInfoKHR<'_>> for VideoDecodeUsageInfoKHR<'_> {}
+    unsafe impl Extends<QueryPoolCreateInfo<'_>> for VideoDecodeUsageInfoKHR<'_> {}
 
     impl Default for VideoDecodeUsageInfoKHR<'_> {
         fn default() -> Self {
@@ -214,10 +214,10 @@ pub(super) mod defs {
         #[inline]
         pub fn reference_slots(
             mut self,
-            reference_slots: &'a [VideoReferenceSlotInfoKHR<'a>],
+            reference_slots: &'a [VideoReferenceSlotInfoKHR<'_>],
         ) -> Self {
             self.reference_slot_count = reference_slots.len().try_into().unwrap();
-            self.p_reference_slots = reference_slots.as_ptr();
+            self.p_reference_slots = reference_slots.as_ptr() as _;
             self
         }
     }

@@ -80,10 +80,7 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_AMD;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceShaderCorePropertiesAMD<'a>
-    {
-    }
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>> for PhysicalDeviceShaderCorePropertiesAMD<'_> {}
 
     impl Default for PhysicalDeviceShaderCorePropertiesAMD<'_> {
         fn default() -> Self {

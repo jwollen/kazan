@@ -45,7 +45,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::DISPLAY_PRESENT_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<PresentInfoKHR<'a>> for DisplayPresentInfoKHR<'a> {}
+    unsafe impl Extends<PresentInfoKHR<'_>> for DisplayPresentInfoKHR<'_> {}
 
     impl Default for DisplayPresentInfoKHR<'_> {
         fn default() -> Self {

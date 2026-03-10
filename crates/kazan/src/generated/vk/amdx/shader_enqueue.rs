@@ -75,8 +75,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SHADER_ENQUEUE_PROPERTIES_AMDX;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceShaderEnqueuePropertiesAMDX<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceShaderEnqueuePropertiesAMDX<'_>
     {
     }
 
@@ -190,11 +190,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SHADER_ENQUEUE_FEATURES_AMDX;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceShaderEnqueueFeaturesAMDX<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceShaderEnqueueFeaturesAMDX<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceShaderEnqueueFeaturesAMDX<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceShaderEnqueueFeaturesAMDX<'_> {}
 
     impl Default for PhysicalDeviceShaderEnqueueFeaturesAMDX<'_> {
         fn default() -> Self {
@@ -286,9 +283,9 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn stages(mut self, stages: &'a [PipelineShaderStageCreateInfo<'a>]) -> Self {
+        pub fn stages(mut self, stages: &'a [PipelineShaderStageCreateInfo<'_>]) -> Self {
             self.stage_count = stages.len().try_into().unwrap();
-            self.p_stages = stages.as_ptr();
+            self.p_stages = stages.as_ptr() as _;
             self
         }
 
@@ -346,8 +343,8 @@ pub(super) mod defs {
             StructureType::PIPELINE_SHADER_STAGE_NODE_CREATE_INFO_AMDX;
     }
 
-    unsafe impl<'a> Extends<PipelineShaderStageCreateInfo<'a>>
-        for PipelineShaderStageNodeCreateInfoAMDX<'a>
+    unsafe impl Extends<PipelineShaderStageCreateInfo<'_>>
+        for PipelineShaderStageNodeCreateInfoAMDX<'_>
     {
     }
 

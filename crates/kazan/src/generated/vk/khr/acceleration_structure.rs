@@ -53,7 +53,7 @@ pub(super) mod defs {
             StructureType::WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_KHR;
     }
 
-    unsafe impl<'a> Extends<WriteDescriptorSet<'a>> for WriteDescriptorSetAccelerationStructureKHR<'a> {}
+    unsafe impl Extends<WriteDescriptorSet<'_>> for WriteDescriptorSetAccelerationStructureKHR<'_> {}
 
     impl Default for WriteDescriptorSetAccelerationStructureKHR<'_> {
         fn default() -> Self {
@@ -74,7 +74,7 @@ pub(super) mod defs {
             acceleration_structures: &'a [AccelerationStructureKHR],
         ) -> Self {
             self.acceleration_structure_count = acceleration_structures.len().try_into().unwrap();
-            self.p_acceleration_structures = acceleration_structures.as_ptr();
+            self.p_acceleration_structures = acceleration_structures.as_ptr() as _;
             self
         }
     }
@@ -126,14 +126,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_FEATURES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceAccelerationStructureFeaturesKHR<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceAccelerationStructureFeaturesKHR<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceAccelerationStructureFeaturesKHR<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceAccelerationStructureFeaturesKHR<'_> {}
 
     impl Default for PhysicalDeviceAccelerationStructureFeaturesKHR<'_> {
         fn default() -> Self {
@@ -253,8 +250,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_PROPERTIES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceAccelerationStructurePropertiesKHR<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceAccelerationStructurePropertiesKHR<'_>
     {
     }
 
@@ -728,8 +725,8 @@ pub(super) mod defs {
         #[inline]
         pub fn geometries(
             mut self,
-            geometries: Option<&'a [AccelerationStructureGeometryKHR<'a>]>,
-            geometries_ptrs: Option<&'a [&'a AccelerationStructureGeometryKHR<'a>]>,
+            geometries: Option<&'a [AccelerationStructureGeometryKHR<'_>]>,
+            geometries_ptrs: Option<&'a [&'a AccelerationStructureGeometryKHR<'_>]>,
         ) -> Self {
             self.geometry_count = None
                 .or_else(|| geometries.as_deref().map(|s| s.len()))
@@ -740,7 +737,7 @@ pub(super) mod defs {
             if let Some(s) = &geometries_ptrs {
                 assert_eq!(s.len(), self.geometry_count as usize);
             }
-            self.p_geometries = geometries.map_or(ptr::null(), |s| s.as_ptr());
+            self.p_geometries = geometries.map_or(ptr::null(), |s| s.as_ptr() as _);
             self.pp_geometries = geometries_ptrs.map_or(ptr::null(), |s| s.as_ptr() as _);
             self
         }

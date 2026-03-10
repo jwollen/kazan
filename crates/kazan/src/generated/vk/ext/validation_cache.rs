@@ -107,12 +107,9 @@ pub(super) mod defs {
             StructureType::SHADER_MODULE_VALIDATION_CACHE_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<ShaderModuleCreateInfo<'a>>
-        for ShaderModuleValidationCacheCreateInfoEXT<'a>
-    {
-    }
-    unsafe impl<'a> Extends<PipelineShaderStageCreateInfo<'a>>
-        for ShaderModuleValidationCacheCreateInfoEXT<'a>
+    unsafe impl Extends<ShaderModuleCreateInfo<'_>> for ShaderModuleValidationCacheCreateInfoEXT<'_> {}
+    unsafe impl Extends<PipelineShaderStageCreateInfo<'_>>
+        for ShaderModuleValidationCacheCreateInfoEXT<'_>
     {
     }
 

@@ -48,7 +48,7 @@ pub(super) mod defs {
             StructureType::EXTERNAL_COMPUTE_QUEUE_DEVICE_CREATE_INFO_NV;
     }
 
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for ExternalComputeQueueDeviceCreateInfoNV<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for ExternalComputeQueueDeviceCreateInfoNV<'_> {}
 
     impl Default for ExternalComputeQueueDeviceCreateInfoNV<'_> {
         fn default() -> Self {
@@ -188,8 +188,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_EXTERNAL_COMPUTE_QUEUE_PROPERTIES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceExternalComputeQueuePropertiesNV<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceExternalComputeQueuePropertiesNV<'_>
     {
     }
 

@@ -161,7 +161,7 @@ pub(super) mod defs {
         #[inline]
         pub fn queue_family_indices(mut self, queue_family_indices: &'a [u32]) -> Self {
             self.queue_family_index_count = queue_family_indices.len().try_into().unwrap();
-            self.p_queue_family_indices = queue_family_indices.as_ptr();
+            self.p_queue_family_indices = queue_family_indices.as_ptr() as _;
             self
         }
 
@@ -252,7 +252,7 @@ pub(super) mod defs {
         #[inline]
         pub fn wait_semaphores(mut self, wait_semaphores: &'a [Semaphore]) -> Self {
             self.wait_semaphore_count = wait_semaphores.len().try_into().unwrap();
-            self.p_wait_semaphores = wait_semaphores.as_ptr();
+            self.p_wait_semaphores = wait_semaphores.as_ptr() as _;
             self
         }
 
@@ -268,9 +268,9 @@ pub(super) mod defs {
             if let Some(s) = &results {
                 assert_eq!(s.len(), self.swapchain_count as usize);
             }
-            self.p_swapchains = swapchains.as_ptr();
-            self.p_image_indices = image_indices.as_ptr();
-            self.p_results = results.map_or(ptr::null_mut(), |s| s.as_mut_ptr());
+            self.p_swapchains = swapchains.as_ptr() as _;
+            self.p_image_indices = image_indices.as_ptr() as _;
+            self.p_results = results.map_or(ptr::null_mut(), |s| s.as_mut_ptr() as _);
             self
         }
     }
@@ -355,7 +355,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_SWAPCHAIN_CREATE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ImageSwapchainCreateInfoKHR<'a> {}
+    unsafe impl Extends<ImageCreateInfo<'_>> for ImageSwapchainCreateInfoKHR<'_> {}
 
     impl Default for ImageSwapchainCreateInfoKHR<'_> {
         fn default() -> Self {
@@ -404,7 +404,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<BindImageMemoryInfo<'a>> for BindImageMemorySwapchainInfoKHR<'a> {}
+    unsafe impl Extends<BindImageMemoryInfo<'_>> for BindImageMemorySwapchainInfoKHR<'_> {}
 
     impl Default for BindImageMemorySwapchainInfoKHR<'_> {
         fn default() -> Self {
@@ -543,7 +543,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_GROUP_PRESENT_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<PresentInfoKHR<'a>> for DeviceGroupPresentInfoKHR<'a> {}
+    unsafe impl Extends<PresentInfoKHR<'_>> for DeviceGroupPresentInfoKHR<'_> {}
 
     impl Default for DeviceGroupPresentInfoKHR<'_> {
         fn default() -> Self {
@@ -562,7 +562,7 @@ pub(super) mod defs {
         #[inline]
         pub fn device_masks(mut self, device_masks: &'a [u32]) -> Self {
             self.swapchain_count = device_masks.len().try_into().unwrap();
-            self.p_device_masks = device_masks.as_ptr();
+            self.p_device_masks = device_masks.as_ptr() as _;
             self
         }
 
@@ -599,7 +599,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<SwapchainCreateInfoKHR<'a>> for DeviceGroupSwapchainCreateInfoKHR<'a> {}
+    unsafe impl Extends<SwapchainCreateInfoKHR<'_>> for DeviceGroupSwapchainCreateInfoKHR<'_> {}
 
     impl Default for DeviceGroupSwapchainCreateInfoKHR<'_> {
         fn default() -> Self {

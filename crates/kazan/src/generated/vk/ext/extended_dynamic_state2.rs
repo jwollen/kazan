@@ -56,14 +56,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_2_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceExtendedDynamicState2FeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceExtendedDynamicState2FeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceExtendedDynamicState2FeaturesEXT<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceExtendedDynamicState2FeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceExtendedDynamicState2FeaturesEXT<'_> {
         fn default() -> Self {

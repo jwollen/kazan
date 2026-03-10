@@ -45,12 +45,12 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_RENDER_AREAS_FEATURES_QCOM;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM<'a>
+    unsafe impl Extends<DeviceCreateInfo<'_>>
+        for PhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM<'_>
     {
     }
 
@@ -108,14 +108,11 @@ pub(super) mod defs {
             StructureType::MULTIVIEW_PER_VIEW_RENDER_AREAS_RENDER_PASS_BEGIN_INFO_QCOM;
     }
 
-    unsafe impl<'a> Extends<RenderPassBeginInfo<'a>>
-        for MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM<'a>
+    unsafe impl Extends<RenderPassBeginInfo<'_>>
+        for MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM<'_>
     {
     }
-    unsafe impl<'a> Extends<RenderingInfo<'a>>
-        for MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM<'a>
-    {
-    }
+    unsafe impl Extends<RenderingInfo<'_>> for MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM<'_> {}
 
     impl Default for MultiviewPerViewRenderAreasRenderPassBeginInfoQCOM<'_> {
         fn default() -> Self {
@@ -133,7 +130,7 @@ pub(super) mod defs {
         #[inline]
         pub fn per_view_render_areas(mut self, per_view_render_areas: &'a [Rect2D]) -> Self {
             self.per_view_render_area_count = per_view_render_areas.len().try_into().unwrap();
-            self.p_per_view_render_areas = per_view_render_areas.as_ptr();
+            self.p_per_view_render_areas = per_view_render_areas.as_ptr() as _;
             self
         }
     }

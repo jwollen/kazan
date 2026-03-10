@@ -51,8 +51,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceVertexAttributeDivisorPropertiesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceVertexAttributeDivisorPropertiesEXT<'_>
     {
     }
 

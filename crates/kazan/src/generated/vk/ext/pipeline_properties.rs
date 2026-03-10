@@ -96,11 +96,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_PIPELINE_PROPERTIES_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDevicePipelinePropertiesFeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDevicePipelinePropertiesFeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePipelinePropertiesFeaturesEXT<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDevicePipelinePropertiesFeaturesEXT<'_> {}
 
     impl Default for PhysicalDevicePipelinePropertiesFeaturesEXT<'_> {
         fn default() -> Self {

@@ -47,11 +47,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_RAY_TRACING_MOTION_BLUR_FEATURES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceRayTracingMotionBlurFeaturesNV<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceRayTracingMotionBlurFeaturesNV<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceRayTracingMotionBlurFeaturesNV<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceRayTracingMotionBlurFeaturesNV<'_> {}
 
     impl Default for PhysicalDeviceRayTracingMotionBlurFeaturesNV<'_> {
         fn default() -> Self {
@@ -110,8 +110,8 @@ pub(super) mod defs {
             StructureType::ACCELERATION_STRUCTURE_GEOMETRY_MOTION_TRIANGLES_DATA_NV;
     }
 
-    unsafe impl<'a> Extends<AccelerationStructureGeometryTrianglesDataKHR<'a>>
-        for AccelerationStructureGeometryMotionTrianglesDataNV<'a>
+    unsafe impl Extends<AccelerationStructureGeometryTrianglesDataKHR<'_>>
+        for AccelerationStructureGeometryMotionTrianglesDataNV<'_>
     {
     }
 
@@ -162,8 +162,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::ACCELERATION_STRUCTURE_MOTION_INFO_NV;
     }
 
-    unsafe impl<'a> Extends<AccelerationStructureCreateInfoKHR<'a>>
-        for AccelerationStructureMotionInfoNV<'a>
+    unsafe impl Extends<AccelerationStructureCreateInfoKHR<'_>>
+        for AccelerationStructureMotionInfoNV<'_>
     {
     }
 

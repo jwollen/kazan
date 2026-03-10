@@ -49,7 +49,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VALIDATION_FLAGS_EXT;
     }
 
-    unsafe impl<'a> Extends<InstanceCreateInfo<'a>> for ValidationFlagsEXT<'a> {}
+    unsafe impl Extends<InstanceCreateInfo<'_>> for ValidationFlagsEXT<'_> {}
 
     impl Default for ValidationFlagsEXT<'_> {
         fn default() -> Self {
@@ -71,7 +71,7 @@ pub(super) mod defs {
         ) -> Self {
             self.disabled_validation_check_count =
                 disabled_validation_checks.len().try_into().unwrap();
-            self.p_disabled_validation_checks = disabled_validation_checks.as_ptr();
+            self.p_disabled_validation_checks = disabled_validation_checks.as_ptr() as _;
             self
         }
     }

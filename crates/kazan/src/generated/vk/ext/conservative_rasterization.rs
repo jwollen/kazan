@@ -82,8 +82,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_CONSERVATIVE_RASTERIZATION_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceConservativeRasterizationPropertiesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceConservativeRasterizationPropertiesEXT<'_>
     {
     }
 
@@ -221,8 +221,8 @@ pub(super) mod defs {
             StructureType::PIPELINE_RASTERIZATION_CONSERVATIVE_STATE_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<PipelineRasterizationStateCreateInfo<'a>>
-        for PipelineRasterizationConservativeStateCreateInfoEXT<'a>
+    unsafe impl Extends<PipelineRasterizationStateCreateInfo<'_>>
+        for PipelineRasterizationConservativeStateCreateInfoEXT<'_>
     {
     }
 

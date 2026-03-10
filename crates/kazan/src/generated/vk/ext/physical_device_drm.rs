@@ -51,7 +51,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_DRM_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>> for PhysicalDeviceDrmPropertiesEXT<'a> {}
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>> for PhysicalDeviceDrmPropertiesEXT<'_> {}
 
     impl Default for PhysicalDeviceDrmPropertiesEXT<'_> {
         fn default() -> Self {

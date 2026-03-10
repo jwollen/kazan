@@ -45,8 +45,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_ATTRIBUTES_PROPERTIES_NVX;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceMultiviewPerViewAttributesPropertiesNVX<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceMultiviewPerViewAttributesPropertiesNVX<'_>
     {
     }
 
@@ -103,12 +103,9 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX;
     }
 
-    unsafe impl<'a> Extends<CommandBufferInheritanceInfo<'a>>
-        for MultiviewPerViewAttributesInfoNVX<'a>
-    {
-    }
-    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>> for MultiviewPerViewAttributesInfoNVX<'a> {}
-    unsafe impl<'a> Extends<RenderingInfo<'a>> for MultiviewPerViewAttributesInfoNVX<'a> {}
+    unsafe impl Extends<CommandBufferInheritanceInfo<'_>> for MultiviewPerViewAttributesInfoNVX<'_> {}
+    unsafe impl Extends<GraphicsPipelineCreateInfo<'_>> for MultiviewPerViewAttributesInfoNVX<'_> {}
+    unsafe impl Extends<RenderingInfo<'_>> for MultiviewPerViewAttributesInfoNVX<'_> {}
 
     impl Default for MultiviewPerViewAttributesInfoNVX<'_> {
         fn default() -> Self {

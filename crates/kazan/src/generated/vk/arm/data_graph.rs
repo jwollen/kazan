@@ -67,8 +67,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_DATA_GRAPH_FEATURES_ARM;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceDataGraphFeaturesARM<'a> {}
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceDataGraphFeaturesARM<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceDataGraphFeaturesARM<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceDataGraphFeaturesARM<'_> {}
 
     impl Default for PhysicalDeviceDataGraphFeaturesARM<'_> {
         fn default() -> Self {
@@ -153,8 +153,8 @@ pub(super) mod defs {
             StructureType::DATA_GRAPH_PIPELINE_CONSTANT_TENSOR_SEMI_STRUCTURED_SPARSITY_INFO_ARM;
     }
 
-    unsafe impl<'a> Extends<DataGraphPipelineConstantARM<'a>>
-        for DataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM<'a>
+    unsafe impl Extends<DataGraphPipelineConstantARM<'_>>
+        for DataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM<'_>
     {
     }
 
@@ -337,8 +337,8 @@ pub(super) mod defs {
             StructureType::DATA_GRAPH_PIPELINE_COMPILER_CONTROL_CREATE_INFO_ARM;
     }
 
-    unsafe impl<'a> Extends<DataGraphPipelineCreateInfoARM<'a>>
-        for DataGraphPipelineCompilerControlCreateInfoARM<'a>
+    unsafe impl Extends<DataGraphPipelineCreateInfoARM<'_>>
+        for DataGraphPipelineCompilerControlCreateInfoARM<'_>
     {
     }
 
@@ -423,10 +423,10 @@ pub(super) mod defs {
         #[inline]
         pub fn resource_infos(
             mut self,
-            resource_infos: &'a [DataGraphPipelineResourceInfoARM<'a>],
+            resource_infos: &'a [DataGraphPipelineResourceInfoARM<'_>],
         ) -> Self {
             self.resource_info_count = resource_infos.len().try_into().unwrap();
-            self.p_resource_infos = resource_infos.as_ptr();
+            self.p_resource_infos = resource_infos.as_ptr() as _;
             self
         }
     }
@@ -466,8 +466,8 @@ pub(super) mod defs {
             StructureType::DATA_GRAPH_PIPELINE_SHADER_MODULE_CREATE_INFO_ARM;
     }
 
-    unsafe impl<'a> Extends<DataGraphPipelineCreateInfoARM<'a>>
-        for DataGraphPipelineShaderModuleCreateInfoARM<'a>
+    unsafe impl Extends<DataGraphPipelineCreateInfoARM<'_>>
+        for DataGraphPipelineShaderModuleCreateInfoARM<'_>
     {
     }
 
@@ -509,9 +509,9 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn constants(mut self, constants: &'a [DataGraphPipelineConstantARM<'a>]) -> Self {
+        pub fn constants(mut self, constants: &'a [DataGraphPipelineConstantARM<'_>]) -> Self {
             self.constant_count = constants.len().try_into().unwrap();
-            self.p_constants = constants.as_ptr();
+            self.p_constants = constants.as_ptr() as _;
             self
         }
     }
@@ -972,8 +972,8 @@ pub(super) mod defs {
             StructureType::DATA_GRAPH_PIPELINE_IDENTIFIER_CREATE_INFO_ARM;
     }
 
-    unsafe impl<'a> Extends<DataGraphPipelineCreateInfoARM<'a>>
-        for DataGraphPipelineIdentifierCreateInfoARM<'a>
+    unsafe impl Extends<DataGraphPipelineCreateInfoARM<'_>>
+        for DataGraphPipelineIdentifierCreateInfoARM<'_>
     {
     }
 
@@ -993,7 +993,7 @@ pub(super) mod defs {
         #[inline]
         pub fn identifier(mut self, identifier: &'a [u8]) -> Self {
             self.identifier_size = identifier.len().try_into().unwrap();
-            self.p_identifier = identifier.as_ptr();
+            self.p_identifier = identifier.as_ptr() as _;
             self
         }
     }
@@ -1334,15 +1334,12 @@ pub(super) mod defs {
             StructureType::DATA_GRAPH_PROCESSING_ENGINE_CREATE_INFO_ARM;
     }
 
-    unsafe impl<'a> Extends<DataGraphPipelineCreateInfoARM<'a>>
-        for DataGraphProcessingEngineCreateInfoARM<'a>
+    unsafe impl Extends<DataGraphPipelineCreateInfoARM<'_>>
+        for DataGraphProcessingEngineCreateInfoARM<'_>
     {
     }
-    unsafe impl<'a> Extends<DescriptorPoolCreateInfo<'a>>
-        for DataGraphProcessingEngineCreateInfoARM<'a>
-    {
-    }
-    unsafe impl<'a> Extends<CommandPoolCreateInfo<'a>> for DataGraphProcessingEngineCreateInfoARM<'a> {}
+    unsafe impl Extends<DescriptorPoolCreateInfo<'_>> for DataGraphProcessingEngineCreateInfoARM<'_> {}
+    unsafe impl Extends<CommandPoolCreateInfo<'_>> for DataGraphProcessingEngineCreateInfoARM<'_> {}
 
     impl Default for DataGraphProcessingEngineCreateInfoARM<'_> {
         fn default() -> Self {
@@ -1363,7 +1360,7 @@ pub(super) mod defs {
             processing_engines: &'a mut [PhysicalDeviceDataGraphProcessingEngineARM],
         ) -> Self {
             self.processing_engine_count = processing_engines.len().try_into().unwrap();
-            self.p_processing_engines = processing_engines.as_mut_ptr();
+            self.p_processing_engines = processing_engines.as_mut_ptr() as _;
             self
         }
     }

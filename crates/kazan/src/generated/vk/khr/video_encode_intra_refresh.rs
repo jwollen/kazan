@@ -62,7 +62,7 @@ pub(super) mod defs {
             StructureType::VIDEO_ENCODE_INTRA_REFRESH_CAPABILITIES_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoCapabilitiesKHR<'a>> for VideoEncodeIntraRefreshCapabilitiesKHR<'a> {}
+    unsafe impl Extends<VideoCapabilitiesKHR<'_>> for VideoEncodeIntraRefreshCapabilitiesKHR<'_> {}
 
     impl Default for VideoEncodeIntraRefreshCapabilitiesKHR<'_> {
         fn default() -> Self {
@@ -156,8 +156,8 @@ pub(super) mod defs {
             StructureType::VIDEO_ENCODE_SESSION_INTRA_REFRESH_CREATE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoSessionCreateInfoKHR<'a>>
-        for VideoEncodeSessionIntraRefreshCreateInfoKHR<'a>
+    unsafe impl Extends<VideoSessionCreateInfoKHR<'_>>
+        for VideoEncodeSessionIntraRefreshCreateInfoKHR<'_>
     {
     }
 
@@ -214,7 +214,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_ENCODE_INTRA_REFRESH_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoEncodeInfoKHR<'a>> for VideoEncodeIntraRefreshInfoKHR<'a> {}
+    unsafe impl Extends<VideoEncodeInfoKHR<'_>> for VideoEncodeIntraRefreshInfoKHR<'_> {}
 
     impl Default for VideoEncodeIntraRefreshInfoKHR<'_> {
         fn default() -> Self {
@@ -271,7 +271,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_REFERENCE_INTRA_REFRESH_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoReferenceSlotInfoKHR<'a>> for VideoReferenceIntraRefreshInfoKHR<'a> {}
+    unsafe impl Extends<VideoReferenceSlotInfoKHR<'_>> for VideoReferenceIntraRefreshInfoKHR<'_> {}
 
     impl Default for VideoReferenceIntraRefreshInfoKHR<'_> {
         fn default() -> Self {
@@ -322,14 +322,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_VIDEO_ENCODE_INTRA_REFRESH_FEATURES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR<'_> {}
 
     impl Default for PhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR<'_> {
         fn default() -> Self {

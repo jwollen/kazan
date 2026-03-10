@@ -41,8 +41,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::RENDER_PASS_CREATION_CONTROL_EXT;
     }
 
-    unsafe impl<'a> Extends<RenderPassCreateInfo2<'a>> for RenderPassCreationControlEXT<'a> {}
-    unsafe impl<'a> Extends<SubpassDescription2<'a>> for RenderPassCreationControlEXT<'a> {}
+    unsafe impl Extends<RenderPassCreateInfo2<'_>> for RenderPassCreationControlEXT<'_> {}
+    unsafe impl Extends<SubpassDescription2<'_>> for RenderPassCreationControlEXT<'_> {}
 
     impl Default for RenderPassCreationControlEXT<'_> {
         fn default() -> Self {
@@ -107,7 +107,7 @@ pub(super) mod defs {
             StructureType::RENDER_PASS_CREATION_FEEDBACK_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<RenderPassCreateInfo2<'a>> for RenderPassCreationFeedbackCreateInfoEXT<'a> {}
+    unsafe impl Extends<RenderPassCreateInfo2<'_>> for RenderPassCreationFeedbackCreateInfoEXT<'_> {}
 
     impl Default for RenderPassCreationFeedbackCreateInfoEXT<'_> {
         fn default() -> Self {
@@ -215,7 +215,7 @@ pub(super) mod defs {
             StructureType::RENDER_PASS_SUBPASS_FEEDBACK_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<SubpassDescription2<'a>> for RenderPassSubpassFeedbackCreateInfoEXT<'a> {}
+    unsafe impl Extends<SubpassDescription2<'_>> for RenderPassSubpassFeedbackCreateInfoEXT<'_> {}
 
     impl Default for RenderPassSubpassFeedbackCreateInfoEXT<'_> {
         fn default() -> Self {
@@ -266,14 +266,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SUBPASS_MERGE_FEEDBACK_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceSubpassMergeFeedbackFeaturesEXT<'_> {
         fn default() -> Self {

@@ -41,7 +41,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::DISPLAY_SURFACE_STEREO_CREATE_INFO_NV;
     }
 
-    unsafe impl<'a> Extends<DisplaySurfaceCreateInfoKHR<'a>> for DisplaySurfaceStereoCreateInfoNV<'a> {}
+    unsafe impl Extends<DisplaySurfaceCreateInfoKHR<'_>> for DisplaySurfaceStereoCreateInfoNV<'_> {}
 
     impl Default for DisplaySurfaceStereoCreateInfoNV<'_> {
         fn default() -> Self {
@@ -88,7 +88,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::DISPLAY_MODE_STEREO_PROPERTIES_NV;
     }
 
-    unsafe impl<'a> Extends<DisplayModeProperties2KHR<'a>> for DisplayModeStereoPropertiesNV<'a> {}
+    unsafe impl Extends<DisplayModeProperties2KHR<'_>> for DisplayModeStereoPropertiesNV<'_> {}
 
     impl Default for DisplayModeStereoPropertiesNV<'_> {
         fn default() -> Self {

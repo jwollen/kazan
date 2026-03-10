@@ -45,10 +45,7 @@ pub(super) mod defs {
             StructureType::VIDEO_ENCODE_QUANTIZATION_MAP_CAPABILITIES_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoCapabilitiesKHR<'a>>
-        for VideoEncodeQuantizationMapCapabilitiesKHR<'a>
-    {
-    }
+    unsafe impl Extends<VideoCapabilitiesKHR<'_>> for VideoEncodeQuantizationMapCapabilitiesKHR<'_> {}
 
     impl Default for VideoEncodeQuantizationMapCapabilitiesKHR<'_> {
         fn default() -> Self {
@@ -101,8 +98,8 @@ pub(super) mod defs {
             StructureType::VIDEO_ENCODE_H264_QUANTIZATION_MAP_CAPABILITIES_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoCapabilitiesKHR<'a>>
-        for VideoEncodeH264QuantizationMapCapabilitiesKHR<'a>
+    unsafe impl Extends<VideoCapabilitiesKHR<'_>>
+        for VideoEncodeH264QuantizationMapCapabilitiesKHR<'_>
     {
     }
 
@@ -161,8 +158,8 @@ pub(super) mod defs {
             StructureType::VIDEO_ENCODE_H265_QUANTIZATION_MAP_CAPABILITIES_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoCapabilitiesKHR<'a>>
-        for VideoEncodeH265QuantizationMapCapabilitiesKHR<'a>
+    unsafe impl Extends<VideoCapabilitiesKHR<'_>>
+        for VideoEncodeH265QuantizationMapCapabilitiesKHR<'_>
     {
     }
 
@@ -221,10 +218,7 @@ pub(super) mod defs {
             StructureType::VIDEO_ENCODE_AV1_QUANTIZATION_MAP_CAPABILITIES_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoCapabilitiesKHR<'a>>
-        for VideoEncodeAV1QuantizationMapCapabilitiesKHR<'a>
-    {
-    }
+    unsafe impl Extends<VideoCapabilitiesKHR<'_>> for VideoEncodeAV1QuantizationMapCapabilitiesKHR<'_> {}
 
     impl Default for VideoEncodeAV1QuantizationMapCapabilitiesKHR<'_> {
         fn default() -> Self {
@@ -282,10 +276,7 @@ pub(super) mod defs {
             StructureType::VIDEO_FORMAT_QUANTIZATION_MAP_PROPERTIES_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoFormatPropertiesKHR<'a>>
-        for VideoFormatQuantizationMapPropertiesKHR<'a>
-    {
-    }
+    unsafe impl Extends<VideoFormatPropertiesKHR<'_>> for VideoFormatQuantizationMapPropertiesKHR<'_> {}
 
     impl Default for VideoFormatQuantizationMapPropertiesKHR<'_> {
         fn default() -> Self {
@@ -336,8 +327,8 @@ pub(super) mod defs {
             StructureType::VIDEO_FORMAT_H265_QUANTIZATION_MAP_PROPERTIES_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoFormatPropertiesKHR<'a>>
-        for VideoFormatH265QuantizationMapPropertiesKHR<'a>
+    unsafe impl Extends<VideoFormatPropertiesKHR<'_>>
+        for VideoFormatH265QuantizationMapPropertiesKHR<'_>
     {
     }
 
@@ -393,8 +384,8 @@ pub(super) mod defs {
             StructureType::VIDEO_FORMAT_AV1_QUANTIZATION_MAP_PROPERTIES_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoFormatPropertiesKHR<'a>>
-        for VideoFormatAV1QuantizationMapPropertiesKHR<'a>
+    unsafe impl Extends<VideoFormatPropertiesKHR<'_>>
+        for VideoFormatAV1QuantizationMapPropertiesKHR<'_>
     {
     }
 
@@ -448,7 +439,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_ENCODE_QUANTIZATION_MAP_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoEncodeInfoKHR<'a>> for VideoEncodeQuantizationMapInfoKHR<'a> {}
+    unsafe impl Extends<VideoEncodeInfoKHR<'_>> for VideoEncodeQuantizationMapInfoKHR<'_> {}
 
     impl Default for VideoEncodeQuantizationMapInfoKHR<'_> {
         fn default() -> Self {
@@ -508,8 +499,8 @@ pub(super) mod defs {
             StructureType::VIDEO_ENCODE_QUANTIZATION_MAP_SESSION_PARAMETERS_CREATE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoSessionParametersCreateInfoKHR<'a>>
-        for VideoEncodeQuantizationMapSessionParametersCreateInfoKHR<'a>
+    unsafe impl Extends<VideoSessionParametersCreateInfoKHR<'_>>
+        for VideoEncodeQuantizationMapSessionParametersCreateInfoKHR<'_>
     {
     }
 
@@ -565,12 +556,12 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_VIDEO_ENCODE_QUANTIZATION_MAP_FEATURES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR<'a>
+    unsafe impl Extends<DeviceCreateInfo<'_>>
+        for PhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR<'_>
     {
     }
 

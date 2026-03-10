@@ -41,11 +41,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::SURFACE_FULL_SCREEN_EXCLUSIVE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceSurfaceInfo2KHR<'a>>
-        for SurfaceFullScreenExclusiveInfoEXT<'a>
-    {
-    }
-    unsafe impl<'a> Extends<SwapchainCreateInfoKHR<'a>> for SurfaceFullScreenExclusiveInfoEXT<'a> {}
+    unsafe impl Extends<PhysicalDeviceSurfaceInfo2KHR<'_>> for SurfaceFullScreenExclusiveInfoEXT<'_> {}
+    unsafe impl Extends<SwapchainCreateInfoKHR<'_>> for SurfaceFullScreenExclusiveInfoEXT<'_> {}
 
     impl Default for SurfaceFullScreenExclusiveInfoEXT<'_> {
         fn default() -> Self {
@@ -96,11 +93,11 @@ pub(super) mod defs {
             StructureType::SURFACE_FULL_SCREEN_EXCLUSIVE_WIN32_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceSurfaceInfo2KHR<'a>>
-        for SurfaceFullScreenExclusiveWin32InfoEXT<'a>
+    unsafe impl Extends<PhysicalDeviceSurfaceInfo2KHR<'_>>
+        for SurfaceFullScreenExclusiveWin32InfoEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<SwapchainCreateInfoKHR<'a>> for SurfaceFullScreenExclusiveWin32InfoEXT<'a> {}
+    unsafe impl Extends<SwapchainCreateInfoKHR<'_>> for SurfaceFullScreenExclusiveWin32InfoEXT<'_> {}
 
     impl Default for SurfaceFullScreenExclusiveWin32InfoEXT<'_> {
         fn default() -> Self {
@@ -151,10 +148,7 @@ pub(super) mod defs {
             StructureType::SURFACE_CAPABILITIES_FULL_SCREEN_EXCLUSIVE_EXT;
     }
 
-    unsafe impl<'a> Extends<SurfaceCapabilities2KHR<'a>>
-        for SurfaceCapabilitiesFullScreenExclusiveEXT<'a>
-    {
-    }
+    unsafe impl Extends<SurfaceCapabilities2KHR<'_>> for SurfaceCapabilitiesFullScreenExclusiveEXT<'_> {}
 
     impl Default for SurfaceCapabilitiesFullScreenExclusiveEXT<'_> {
         fn default() -> Self {

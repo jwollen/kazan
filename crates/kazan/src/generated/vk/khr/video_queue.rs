@@ -52,7 +52,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::QUEUE_FAMILY_VIDEO_PROPERTIES_KHR;
     }
 
-    unsafe impl<'a> Extends<QueueFamilyProperties2<'a>> for QueueFamilyVideoPropertiesKHR<'a> {}
+    unsafe impl Extends<QueueFamilyProperties2<'_>> for QueueFamilyVideoPropertiesKHR<'_> {}
 
     impl Default for QueueFamilyVideoPropertiesKHR<'_> {
         fn default() -> Self {
@@ -106,10 +106,7 @@ pub(super) mod defs {
             StructureType::QUEUE_FAMILY_QUERY_RESULT_STATUS_PROPERTIES_KHR;
     }
 
-    unsafe impl<'a> Extends<QueueFamilyProperties2<'a>>
-        for QueueFamilyQueryResultStatusPropertiesKHR<'a>
-    {
-    }
+    unsafe impl Extends<QueueFamilyProperties2<'_>> for QueueFamilyQueryResultStatusPropertiesKHR<'_> {}
 
     impl Default for QueueFamilyQueryResultStatusPropertiesKHR<'_> {
         fn default() -> Self {
@@ -158,10 +155,10 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_PROFILE_LIST_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceImageFormatInfo2<'a>> for VideoProfileListInfoKHR<'a> {}
-    unsafe impl<'a> Extends<PhysicalDeviceVideoFormatInfoKHR<'a>> for VideoProfileListInfoKHR<'a> {}
-    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for VideoProfileListInfoKHR<'a> {}
-    unsafe impl<'a> Extends<BufferCreateInfo<'a>> for VideoProfileListInfoKHR<'a> {}
+    unsafe impl Extends<PhysicalDeviceImageFormatInfo2<'_>> for VideoProfileListInfoKHR<'_> {}
+    unsafe impl Extends<PhysicalDeviceVideoFormatInfoKHR<'_>> for VideoProfileListInfoKHR<'_> {}
+    unsafe impl Extends<ImageCreateInfo<'_>> for VideoProfileListInfoKHR<'_> {}
+    unsafe impl Extends<BufferCreateInfo<'_>> for VideoProfileListInfoKHR<'_> {}
 
     impl Default for VideoProfileListInfoKHR<'_> {
         fn default() -> Self {
@@ -177,9 +174,9 @@ pub(super) mod defs {
 
     impl<'a> VideoProfileListInfoKHR<'a> {
         #[inline]
-        pub fn profiles(mut self, profiles: &'a [VideoProfileInfoKHR<'a>]) -> Self {
+        pub fn profiles(mut self, profiles: &'a [VideoProfileInfoKHR<'_>]) -> Self {
             self.profile_count = profiles.len().try_into().unwrap();
-            self.p_profiles = profiles.as_ptr();
+            self.p_profiles = profiles.as_ptr() as _;
             self
         }
     }
@@ -351,7 +348,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_PROFILE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<QueryPoolCreateInfo<'a>> for VideoProfileInfoKHR<'a> {}
+    unsafe impl Extends<QueryPoolCreateInfo<'_>> for VideoProfileInfoKHR<'_> {}
 
     impl Default for VideoProfileInfoKHR<'_> {
         fn default() -> Self {
@@ -1102,10 +1099,10 @@ pub(super) mod defs {
         #[inline]
         pub fn reference_slots(
             mut self,
-            reference_slots: &'a [VideoReferenceSlotInfoKHR<'a>],
+            reference_slots: &'a [VideoReferenceSlotInfoKHR<'_>],
         ) -> Self {
             self.reference_slot_count = reference_slots.len().try_into().unwrap();
-            self.p_reference_slots = reference_slots.as_ptr();
+            self.p_reference_slots = reference_slots.as_ptr() as _;
             self
         }
     }

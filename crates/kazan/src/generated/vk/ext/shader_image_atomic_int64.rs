@@ -50,14 +50,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SHADER_IMAGE_ATOMIC_INT64_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceShaderImageAtomicInt64FeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceShaderImageAtomicInt64FeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceShaderImageAtomicInt64FeaturesEXT<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceShaderImageAtomicInt64FeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceShaderImageAtomicInt64FeaturesEXT<'_> {
         fn default() -> Self {

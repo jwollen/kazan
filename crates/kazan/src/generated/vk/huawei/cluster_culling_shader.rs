@@ -51,8 +51,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_PROPERTIES_HUAWEI;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceClusterCullingShaderPropertiesHUAWEI<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceClusterCullingShaderPropertiesHUAWEI<'_>
     {
     }
 
@@ -131,14 +131,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_FEATURES_HUAWEI;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceClusterCullingShaderFeaturesHUAWEI<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceClusterCullingShaderFeaturesHUAWEI<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceClusterCullingShaderFeaturesHUAWEI<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceClusterCullingShaderFeaturesHUAWEI<'_> {}
 
     impl Default for PhysicalDeviceClusterCullingShaderFeaturesHUAWEI<'_> {
         fn default() -> Self {
@@ -196,8 +193,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_VRS_FEATURES_HUAWEI;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceClusterCullingShaderFeaturesHUAWEI<'a>>
-        for PhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI<'a>
+    unsafe impl Extends<PhysicalDeviceClusterCullingShaderFeaturesHUAWEI<'_>>
+        for PhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI<'_>
     {
     }
 

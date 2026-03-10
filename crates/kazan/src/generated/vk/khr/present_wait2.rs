@@ -96,8 +96,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_PRESENT_WAIT_2_FEATURES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDevicePresentWait2FeaturesKHR<'a> {}
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePresentWait2FeaturesKHR<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDevicePresentWait2FeaturesKHR<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDevicePresentWait2FeaturesKHR<'_> {}
 
     impl Default for PhysicalDevicePresentWait2FeaturesKHR<'_> {
         fn default() -> Self {
@@ -145,7 +145,7 @@ pub(super) mod defs {
             StructureType::SURFACE_CAPABILITIES_PRESENT_WAIT_2_KHR;
     }
 
-    unsafe impl<'a> Extends<SurfaceCapabilities2KHR<'a>> for SurfaceCapabilitiesPresentWait2KHR<'a> {}
+    unsafe impl Extends<SurfaceCapabilities2KHR<'_>> for SurfaceCapabilitiesPresentWait2KHR<'_> {}
 
     impl Default for SurfaceCapabilitiesPresentWait2KHR<'_> {
         fn default() -> Self {

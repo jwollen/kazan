@@ -44,11 +44,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_VIDEO_DECODE_VP9_FEATURES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceVideoDecodeVP9FeaturesKHR<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceVideoDecodeVP9FeaturesKHR<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceVideoDecodeVP9FeaturesKHR<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceVideoDecodeVP9FeaturesKHR<'_> {}
 
     impl Default for PhysicalDeviceVideoDecodeVP9FeaturesKHR<'_> {
         fn default() -> Self {
@@ -95,8 +92,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_VP9_PROFILE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoProfileInfoKHR<'a>> for VideoDecodeVP9ProfileInfoKHR<'a> {}
-    unsafe impl<'a> Extends<QueryPoolCreateInfo<'a>> for VideoDecodeVP9ProfileInfoKHR<'a> {}
+    unsafe impl Extends<VideoProfileInfoKHR<'_>> for VideoDecodeVP9ProfileInfoKHR<'_> {}
+    unsafe impl Extends<QueryPoolCreateInfo<'_>> for VideoDecodeVP9ProfileInfoKHR<'_> {}
 
     impl Default for VideoDecodeVP9ProfileInfoKHR<'_> {
         fn default() -> Self {
@@ -143,7 +140,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_VP9_CAPABILITIES_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoCapabilitiesKHR<'a>> for VideoDecodeVP9CapabilitiesKHR<'a> {}
+    unsafe impl Extends<VideoCapabilitiesKHR<'_>> for VideoDecodeVP9CapabilitiesKHR<'_> {}
 
     impl Default for VideoDecodeVP9CapabilitiesKHR<'_> {
         fn default() -> Self {
@@ -204,7 +201,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_DECODE_VP9_PICTURE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoDecodeInfoKHR<'a>> for VideoDecodeVP9PictureInfoKHR<'a> {}
+    unsafe impl Extends<VideoDecodeInfoKHR<'_>> for VideoDecodeVP9PictureInfoKHR<'_> {}
 
     impl Default for VideoDecodeVP9PictureInfoKHR<'_> {
         fn default() -> Self {

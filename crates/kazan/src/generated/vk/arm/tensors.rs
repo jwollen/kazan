@@ -62,8 +62,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::TENSOR_DESCRIPTION_ARM;
     }
 
-    unsafe impl<'a> Extends<DataGraphPipelineResourceInfoARM<'a>> for TensorDescriptionARM<'a> {}
-    unsafe impl<'a> Extends<DataGraphPipelineConstantARM<'a>> for TensorDescriptionARM<'a> {}
+    unsafe impl Extends<DataGraphPipelineResourceInfoARM<'_>> for TensorDescriptionARM<'_> {}
+    unsafe impl Extends<DataGraphPipelineConstantARM<'_>> for TensorDescriptionARM<'_> {}
 
     impl Default for TensorDescriptionARM<'_> {
         fn default() -> Self {
@@ -100,8 +100,8 @@ pub(super) mod defs {
             if let Some(s) = &strides {
                 assert_eq!(s.len(), self.dimension_count as usize);
             }
-            self.p_dimensions = dimensions.as_ptr();
-            self.p_strides = strides.map_or(ptr::null(), |s| s.as_ptr());
+            self.p_dimensions = dimensions.as_ptr() as _;
+            self.p_strides = strides.map_or(ptr::null(), |s| s.as_ptr() as _);
             self
         }
 
@@ -183,7 +183,7 @@ pub(super) mod defs {
         #[inline]
         pub fn queue_family_indices(mut self, queue_family_indices: &'a [u32]) -> Self {
             self.queue_family_index_count = queue_family_indices.len().try_into().unwrap();
-            self.p_queue_family_indices = queue_family_indices.as_ptr();
+            self.p_queue_family_indices = queue_family_indices.as_ptr() as _;
             self
         }
     }
@@ -387,7 +387,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::WRITE_DESCRIPTOR_SET_TENSOR_ARM;
     }
 
-    unsafe impl<'a> Extends<WriteDescriptorSet<'a>> for WriteDescriptorSetTensorARM<'a> {}
+    unsafe impl Extends<WriteDescriptorSet<'_>> for WriteDescriptorSetTensorARM<'_> {}
 
     impl Default for WriteDescriptorSetTensorARM<'_> {
         fn default() -> Self {
@@ -405,7 +405,7 @@ pub(super) mod defs {
         #[inline]
         pub fn tensor_views(mut self, tensor_views: &'a [TensorViewARM]) -> Self {
             self.tensor_view_count = tensor_views.len().try_into().unwrap();
-            self.p_tensor_views = tensor_views.as_ptr();
+            self.p_tensor_views = tensor_views.as_ptr() as _;
             self
         }
     }
@@ -444,7 +444,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::TENSOR_FORMAT_PROPERTIES_ARM;
     }
 
-    unsafe impl<'a> Extends<FormatProperties2<'a>> for TensorFormatPropertiesARM<'a> {}
+    unsafe impl Extends<FormatProperties2<'_>> for TensorFormatPropertiesARM<'_> {}
 
     impl Default for TensorFormatPropertiesARM<'_> {
         fn default() -> Self {
@@ -558,7 +558,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_TENSOR_PROPERTIES_ARM;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>> for PhysicalDeviceTensorPropertiesARM<'a> {}
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>> for PhysicalDeviceTensorPropertiesARM<'_> {}
 
     impl Default for PhysicalDeviceTensorPropertiesARM<'_> {
         fn default() -> Self {
@@ -729,7 +729,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::TENSOR_MEMORY_BARRIER_ARM;
     }
 
-    unsafe impl<'a> Extends<DependencyInfo<'a>> for TensorMemoryBarrierARM<'a> {}
+    unsafe impl Extends<DependencyInfo<'_>> for TensorMemoryBarrierARM<'_> {}
 
     impl Default for TensorMemoryBarrierARM<'_> {
         fn default() -> Self {
@@ -823,7 +823,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::TENSOR_DEPENDENCY_INFO_ARM;
     }
 
-    unsafe impl<'a> Extends<DependencyInfo<'a>> for TensorDependencyInfoARM<'a> {}
+    unsafe impl Extends<DependencyInfo<'_>> for TensorDependencyInfoARM<'_> {}
 
     impl Default for TensorDependencyInfoARM<'_> {
         fn default() -> Self {
@@ -899,8 +899,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_TENSOR_FEATURES_ARM;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceTensorFeaturesARM<'a> {}
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceTensorFeaturesARM<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceTensorFeaturesARM<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceTensorFeaturesARM<'_> {}
 
     impl Default for PhysicalDeviceTensorFeaturesARM<'_> {
         fn default() -> Self {
@@ -1073,9 +1073,9 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn regions(mut self, regions: &'a [TensorCopyARM<'a>]) -> Self {
+        pub fn regions(mut self, regions: &'a [TensorCopyARM<'_>]) -> Self {
             self.region_count = regions.len().try_into().unwrap();
-            self.p_regions = regions.as_ptr();
+            self.p_regions = regions.as_ptr() as _;
             self
         }
     }
@@ -1147,9 +1147,9 @@ pub(super) mod defs {
             if let Some(s) = &extent {
                 assert_eq!(s.len(), self.dimension_count as usize);
             }
-            self.p_src_offset = src_offset.map_or(ptr::null(), |s| s.as_ptr());
-            self.p_dst_offset = dst_offset.map_or(ptr::null(), |s| s.as_ptr());
-            self.p_extent = extent.map_or(ptr::null(), |s| s.as_ptr());
+            self.p_src_offset = src_offset.map_or(ptr::null(), |s| s.as_ptr() as _);
+            self.p_dst_offset = dst_offset.map_or(ptr::null(), |s| s.as_ptr() as _);
+            self.p_extent = extent.map_or(ptr::null(), |s| s.as_ptr() as _);
             self
         }
     }
@@ -1181,7 +1181,7 @@ pub(super) mod defs {
             StructureType::MEMORY_DEDICATED_ALLOCATE_INFO_TENSOR_ARM;
     }
 
-    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for MemoryDedicatedAllocateInfoTensorARM<'a> {}
+    unsafe impl Extends<MemoryAllocateInfo<'_>> for MemoryDedicatedAllocateInfoTensorARM<'_> {}
 
     impl Default for MemoryDedicatedAllocateInfoTensorARM<'_> {
         fn default() -> Self {
@@ -1239,8 +1239,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_PROPERTIES_ARM;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceDescriptorBufferTensorPropertiesARM<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceDescriptorBufferTensorPropertiesARM<'_>
     {
     }
 
@@ -1315,14 +1315,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_FEATURES_ARM;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceDescriptorBufferTensorFeaturesARM<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceDescriptorBufferTensorFeaturesARM<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceDescriptorBufferTensorFeaturesARM<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceDescriptorBufferTensorFeaturesARM<'_> {}
 
     impl Default for PhysicalDeviceDescriptorBufferTensorFeaturesARM<'_> {
         fn default() -> Self {
@@ -1464,7 +1461,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::DESCRIPTOR_GET_TENSOR_INFO_ARM;
     }
 
-    unsafe impl<'a> Extends<DescriptorGetInfoEXT<'a>> for DescriptorGetTensorInfoARM<'a> {}
+    unsafe impl Extends<DescriptorGetInfoEXT<'_>> for DescriptorGetTensorInfoARM<'_> {}
 
     impl Default for DescriptorGetTensorInfoARM<'_> {
         fn default() -> Self {
@@ -1513,10 +1510,10 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::FRAME_BOUNDARY_TENSORS_ARM;
     }
 
-    unsafe impl<'a> Extends<SubmitInfo<'a>> for FrameBoundaryTensorsARM<'a> {}
-    unsafe impl<'a> Extends<SubmitInfo2<'a>> for FrameBoundaryTensorsARM<'a> {}
-    unsafe impl<'a> Extends<PresentInfoKHR<'a>> for FrameBoundaryTensorsARM<'a> {}
-    unsafe impl<'a> Extends<BindSparseInfo<'a>> for FrameBoundaryTensorsARM<'a> {}
+    unsafe impl Extends<SubmitInfo<'_>> for FrameBoundaryTensorsARM<'_> {}
+    unsafe impl Extends<SubmitInfo2<'_>> for FrameBoundaryTensorsARM<'_> {}
+    unsafe impl Extends<PresentInfoKHR<'_>> for FrameBoundaryTensorsARM<'_> {}
+    unsafe impl Extends<BindSparseInfo<'_>> for FrameBoundaryTensorsARM<'_> {}
 
     impl Default for FrameBoundaryTensorsARM<'_> {
         fn default() -> Self {
@@ -1534,7 +1531,7 @@ pub(super) mod defs {
         #[inline]
         pub fn tensors(mut self, tensors: &'a [TensorARM]) -> Self {
             self.tensor_count = tensors.len().try_into().unwrap();
-            self.p_tensors = tensors.as_ptr();
+            self.p_tensors = tensors.as_ptr() as _;
             self
         }
     }
@@ -1680,7 +1677,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_MEMORY_TENSOR_CREATE_INFO_ARM;
     }
 
-    unsafe impl<'a> Extends<TensorCreateInfoARM<'a>> for ExternalMemoryTensorCreateInfoARM<'a> {}
+    unsafe impl Extends<TensorCreateInfoARM<'_>> for ExternalMemoryTensorCreateInfoARM<'_> {}
 
     impl Default for ExternalMemoryTensorCreateInfoARM<'_> {
         fn default() -> Self {

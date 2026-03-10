@@ -44,7 +44,7 @@ pub(super) mod defs {
             StructureType::IMPORT_ANDROID_HARDWARE_BUFFER_INFO_ANDROID;
     }
 
-    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ImportAndroidHardwareBufferInfoANDROID<'a> {}
+    unsafe impl Extends<MemoryAllocateInfo<'_>> for ImportAndroidHardwareBufferInfoANDROID<'_> {}
 
     impl Default for ImportAndroidHardwareBufferInfoANDROID<'_> {
         fn default() -> Self {
@@ -94,7 +94,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::ANDROID_HARDWARE_BUFFER_USAGE_ANDROID;
     }
 
-    unsafe impl<'a> Extends<ImageFormatProperties2<'a>> for AndroidHardwareBufferUsageANDROID<'a> {}
+    unsafe impl Extends<ImageFormatProperties2<'_>> for AndroidHardwareBufferUsageANDROID<'_> {}
 
     impl Default for AndroidHardwareBufferUsageANDROID<'_> {
         fn default() -> Self {
@@ -260,8 +260,8 @@ pub(super) mod defs {
             StructureType::ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_ANDROID;
     }
 
-    unsafe impl<'a> Extends<AndroidHardwareBufferPropertiesANDROID<'a>>
-        for AndroidHardwareBufferFormatPropertiesANDROID<'a>
+    unsafe impl Extends<AndroidHardwareBufferPropertiesANDROID<'_>>
+        for AndroidHardwareBufferFormatPropertiesANDROID<'_>
     {
     }
 
@@ -371,11 +371,11 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_FORMAT_ANDROID;
     }
 
-    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ExternalFormatANDROID<'a> {}
-    unsafe impl<'a> Extends<SamplerYcbcrConversionCreateInfo<'a>> for ExternalFormatANDROID<'a> {}
-    unsafe impl<'a> Extends<AttachmentDescription2<'a>> for ExternalFormatANDROID<'a> {}
-    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>> for ExternalFormatANDROID<'a> {}
-    unsafe impl<'a> Extends<CommandBufferInheritanceInfo<'a>> for ExternalFormatANDROID<'a> {}
+    unsafe impl Extends<ImageCreateInfo<'_>> for ExternalFormatANDROID<'_> {}
+    unsafe impl Extends<SamplerYcbcrConversionCreateInfo<'_>> for ExternalFormatANDROID<'_> {}
+    unsafe impl Extends<AttachmentDescription2<'_>> for ExternalFormatANDROID<'_> {}
+    unsafe impl Extends<GraphicsPipelineCreateInfo<'_>> for ExternalFormatANDROID<'_> {}
+    unsafe impl Extends<CommandBufferInheritanceInfo<'_>> for ExternalFormatANDROID<'_> {}
 
     impl Default for ExternalFormatANDROID<'_> {
         fn default() -> Self {
@@ -440,8 +440,8 @@ pub(super) mod defs {
             StructureType::ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_2_ANDROID;
     }
 
-    unsafe impl<'a> Extends<AndroidHardwareBufferPropertiesANDROID<'a>>
-        for AndroidHardwareBufferFormatProperties2ANDROID<'a>
+    unsafe impl Extends<AndroidHardwareBufferPropertiesANDROID<'_>>
+        for AndroidHardwareBufferFormatProperties2ANDROID<'_>
     {
     }
 

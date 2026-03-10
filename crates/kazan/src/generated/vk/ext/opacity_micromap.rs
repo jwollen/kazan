@@ -128,7 +128,7 @@ pub(super) mod defs {
             if let Some(s) = &usage_counts_ptrs {
                 assert_eq!(s.len(), self.usage_counts_count as usize);
             }
-            self.p_usage_counts = usage_counts.map_or(ptr::null(), |s| s.as_ptr());
+            self.p_usage_counts = usage_counts.map_or(ptr::null(), |s| s.as_ptr() as _);
             self.pp_usage_counts = usage_counts_ptrs.map_or(ptr::null(), |s| s.as_ptr() as _);
             self
         }
@@ -632,11 +632,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceOpacityMicromapFeaturesEXT<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceOpacityMicromapFeaturesEXT<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceOpacityMicromapFeaturesEXT<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceOpacityMicromapFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceOpacityMicromapFeaturesEXT<'_> {
         fn default() -> Self {
@@ -706,8 +703,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_OPACITY_MICROMAP_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceOpacityMicromapPropertiesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceOpacityMicromapPropertiesEXT<'_>
     {
     }
 
@@ -784,13 +781,13 @@ pub(super) mod defs {
             StructureType::ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_EXT;
     }
 
-    unsafe impl<'a> Extends<AccelerationStructureGeometryTrianglesDataKHR<'a>>
-        for AccelerationStructureTrianglesOpacityMicromapEXT<'a>
+    unsafe impl Extends<AccelerationStructureGeometryTrianglesDataKHR<'_>>
+        for AccelerationStructureTrianglesOpacityMicromapEXT<'_>
     {
     }
     #[cfg(feature = "provisional")]
-    unsafe impl<'a> Extends<AccelerationStructureDenseGeometryFormatTrianglesDataAMDX<'a>>
-        for AccelerationStructureTrianglesOpacityMicromapEXT<'a>
+    unsafe impl Extends<AccelerationStructureDenseGeometryFormatTrianglesDataAMDX<'_>>
+        for AccelerationStructureTrianglesOpacityMicromapEXT<'_>
     {
     }
 
@@ -852,7 +849,7 @@ pub(super) mod defs {
             if let Some(s) = &usage_counts_ptrs {
                 assert_eq!(s.len(), self.usage_counts_count as usize);
             }
-            self.p_usage_counts = usage_counts.map_or(ptr::null(), |s| s.as_ptr());
+            self.p_usage_counts = usage_counts.map_or(ptr::null(), |s| s.as_ptr() as _);
             self.pp_usage_counts = usage_counts_ptrs.map_or(ptr::null(), |s| s.as_ptr() as _);
             self
         }

@@ -42,11 +42,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_CUBIC_WEIGHTS_FEATURES_QCOM;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceCubicWeightsFeaturesQCOM<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceCubicWeightsFeaturesQCOM<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceCubicWeightsFeaturesQCOM<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceCubicWeightsFeaturesQCOM<'_> {}
 
     impl Default for PhysicalDeviceCubicWeightsFeaturesQCOM<'_> {
         fn default() -> Self {
@@ -93,7 +90,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::SAMPLER_CUBIC_WEIGHTS_CREATE_INFO_QCOM;
     }
 
-    unsafe impl<'a> Extends<SamplerCreateInfo<'a>> for SamplerCubicWeightsCreateInfoQCOM<'a> {}
+    unsafe impl Extends<SamplerCreateInfo<'_>> for SamplerCubicWeightsCreateInfoQCOM<'_> {}
 
     impl Default for SamplerCubicWeightsCreateInfoQCOM<'_> {
         fn default() -> Self {
@@ -140,7 +137,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM;
     }
 
-    unsafe impl<'a> Extends<BlitImageInfo2<'a>> for BlitImageCubicWeightsInfoQCOM<'a> {}
+    unsafe impl Extends<BlitImageInfo2<'_>> for BlitImageCubicWeightsInfoQCOM<'_> {}
 
     impl Default for BlitImageCubicWeightsInfoQCOM<'_> {
         fn default() -> Self {

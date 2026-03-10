@@ -52,11 +52,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceNestedCommandBufferFeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceNestedCommandBufferFeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceNestedCommandBufferFeaturesEXT<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceNestedCommandBufferFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceNestedCommandBufferFeaturesEXT<'_> {
         fn default() -> Self {
@@ -128,8 +128,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceNestedCommandBufferPropertiesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceNestedCommandBufferPropertiesEXT<'_>
     {
     }
 

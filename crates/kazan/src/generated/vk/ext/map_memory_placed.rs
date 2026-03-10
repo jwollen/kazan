@@ -46,11 +46,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_MAP_MEMORY_PLACED_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceMapMemoryPlacedFeaturesEXT<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceMapMemoryPlacedFeaturesEXT<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceMapMemoryPlacedFeaturesEXT<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceMapMemoryPlacedFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceMapMemoryPlacedFeaturesEXT<'_> {
         fn default() -> Self {
@@ -115,8 +112,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_MAP_MEMORY_PLACED_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceMapMemoryPlacedPropertiesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceMapMemoryPlacedPropertiesEXT<'_>
     {
     }
 
@@ -168,7 +165,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_MAP_PLACED_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<MemoryMapInfo<'a>> for MemoryMapPlacedInfoEXT<'a> {}
+    unsafe impl Extends<MemoryMapInfo<'_>> for MemoryMapPlacedInfoEXT<'_> {}
 
     impl Default for MemoryMapPlacedInfoEXT<'_> {
         fn default() -> Self {

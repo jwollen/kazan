@@ -45,14 +45,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_COMMAND_BUFFER_INHERITANCE_FEATURES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceCommandBufferInheritanceFeaturesNV<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceCommandBufferInheritanceFeaturesNV<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceCommandBufferInheritanceFeaturesNV<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceCommandBufferInheritanceFeaturesNV<'_> {}
 
     impl Default for PhysicalDeviceCommandBufferInheritanceFeaturesNV<'_> {
         fn default() -> Self {

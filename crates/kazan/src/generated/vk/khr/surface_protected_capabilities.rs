@@ -41,7 +41,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::SURFACE_PROTECTED_CAPABILITIES_KHR;
     }
 
-    unsafe impl<'a> Extends<SurfaceCapabilities2KHR<'a>> for SurfaceProtectedCapabilitiesKHR<'a> {}
+    unsafe impl Extends<SurfaceCapabilities2KHR<'_>> for SurfaceProtectedCapabilitiesKHR<'_> {}
 
     impl Default for SurfaceProtectedCapabilitiesKHR<'_> {
         fn default() -> Self {

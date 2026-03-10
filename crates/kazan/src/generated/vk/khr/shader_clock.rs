@@ -44,8 +44,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SHADER_CLOCK_FEATURES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceShaderClockFeaturesKHR<'a> {}
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceShaderClockFeaturesKHR<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceShaderClockFeaturesKHR<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceShaderClockFeaturesKHR<'_> {}
 
     impl Default for PhysicalDeviceShaderClockFeaturesKHR<'_> {
         fn default() -> Self {

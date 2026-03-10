@@ -42,14 +42,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceSwapchainMaintenance1FeaturesKHR<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceSwapchainMaintenance1FeaturesKHR<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceSwapchainMaintenance1FeaturesKHR<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceSwapchainMaintenance1FeaturesKHR<'_> {}
 
     impl Default for PhysicalDeviceSwapchainMaintenance1FeaturesKHR<'_> {
         fn default() -> Self {
@@ -98,7 +95,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::SWAPCHAIN_PRESENT_FENCE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<PresentInfoKHR<'a>> for SwapchainPresentFenceInfoKHR<'a> {}
+    unsafe impl Extends<PresentInfoKHR<'_>> for SwapchainPresentFenceInfoKHR<'_> {}
 
     impl Default for SwapchainPresentFenceInfoKHR<'_> {
         fn default() -> Self {
@@ -116,7 +113,7 @@ pub(super) mod defs {
         #[inline]
         pub fn fences(mut self, fences: &'a [Fence]) -> Self {
             self.swapchain_count = fences.len().try_into().unwrap();
-            self.p_fences = fences.as_ptr();
+            self.p_fences = fences.as_ptr() as _;
             self
         }
     }
@@ -150,7 +147,7 @@ pub(super) mod defs {
             StructureType::SWAPCHAIN_PRESENT_MODES_CREATE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<SwapchainCreateInfoKHR<'a>> for SwapchainPresentModesCreateInfoKHR<'a> {}
+    unsafe impl Extends<SwapchainCreateInfoKHR<'_>> for SwapchainPresentModesCreateInfoKHR<'_> {}
 
     impl Default for SwapchainPresentModesCreateInfoKHR<'_> {
         fn default() -> Self {
@@ -168,7 +165,7 @@ pub(super) mod defs {
         #[inline]
         pub fn present_modes(mut self, present_modes: &'a [PresentModeKHR]) -> Self {
             self.present_mode_count = present_modes.len().try_into().unwrap();
-            self.p_present_modes = present_modes.as_ptr();
+            self.p_present_modes = present_modes.as_ptr() as _;
             self
         }
     }
@@ -201,7 +198,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::SWAPCHAIN_PRESENT_MODE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<PresentInfoKHR<'a>> for SwapchainPresentModeInfoKHR<'a> {}
+    unsafe impl Extends<PresentInfoKHR<'_>> for SwapchainPresentModeInfoKHR<'_> {}
 
     impl Default for SwapchainPresentModeInfoKHR<'_> {
         fn default() -> Self {
@@ -219,7 +216,7 @@ pub(super) mod defs {
         #[inline]
         pub fn present_modes(mut self, present_modes: &'a [PresentModeKHR]) -> Self {
             self.swapchain_count = present_modes.len().try_into().unwrap();
-            self.p_present_modes = present_modes.as_ptr();
+            self.p_present_modes = present_modes.as_ptr() as _;
             self
         }
     }
@@ -255,7 +252,7 @@ pub(super) mod defs {
             StructureType::SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<SwapchainCreateInfoKHR<'a>> for SwapchainPresentScalingCreateInfoKHR<'a> {}
+    unsafe impl Extends<SwapchainCreateInfoKHR<'_>> for SwapchainPresentScalingCreateInfoKHR<'_> {}
 
     impl Default for SwapchainPresentScalingCreateInfoKHR<'_> {
         fn default() -> Self {
@@ -343,7 +340,7 @@ pub(super) mod defs {
         #[inline]
         pub fn image_indices(mut self, image_indices: &'a [u32]) -> Self {
             self.image_index_count = image_indices.len().try_into().unwrap();
-            self.p_image_indices = image_indices.as_ptr();
+            self.p_image_indices = image_indices.as_ptr() as _;
             self
         }
     }

@@ -109,9 +109,9 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::DEPTH_BIAS_REPRESENTATION_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<DepthBiasInfoEXT<'a>> for DepthBiasRepresentationInfoEXT<'a> {}
-    unsafe impl<'a> Extends<PipelineRasterizationStateCreateInfo<'a>>
-        for DepthBiasRepresentationInfoEXT<'a>
+    unsafe impl Extends<DepthBiasInfoEXT<'_>> for DepthBiasRepresentationInfoEXT<'_> {}
+    unsafe impl Extends<PipelineRasterizationStateCreateInfo<'_>>
+        for DepthBiasRepresentationInfoEXT<'_>
     {
     }
 
@@ -180,11 +180,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_DEPTH_BIAS_CONTROL_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceDepthBiasControlFeaturesEXT<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceDepthBiasControlFeaturesEXT<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceDepthBiasControlFeaturesEXT<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceDepthBiasControlFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceDepthBiasControlFeaturesEXT<'_> {
         fn default() -> Self {

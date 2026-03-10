@@ -938,7 +938,7 @@ pub(super) mod defs {
         #[inline]
         pub fn queue_priorities(mut self, queue_priorities: &'a [f32]) -> Self {
             self.queue_count = queue_priorities.len().try_into().unwrap();
-            self.p_queue_priorities = queue_priorities.as_ptr();
+            self.p_queue_priorities = queue_priorities.as_ptr() as _;
             self
         }
     }
@@ -1014,10 +1014,10 @@ pub(super) mod defs {
         #[inline]
         pub fn queue_create_infos(
             mut self,
-            queue_create_infos: &'a [DeviceQueueCreateInfo<'a>],
+            queue_create_infos: &'a [DeviceQueueCreateInfo<'_>],
         ) -> Self {
             self.queue_create_info_count = queue_create_infos.len().try_into().unwrap();
-            self.p_queue_create_infos = queue_create_infos.as_ptr();
+            self.p_queue_create_infos = queue_create_infos.as_ptr() as _;
             self
         }
 
@@ -1724,9 +1724,9 @@ pub(super) mod defs {
             if let Some(s) = &texel_buffer_view {
                 assert_eq!(s.len(), self.descriptor_count as usize);
             }
-            self.p_image_info = image_info.map_or(ptr::null(), |s| s.as_ptr());
-            self.p_buffer_info = buffer_info.map_or(ptr::null(), |s| s.as_ptr());
-            self.p_texel_buffer_view = texel_buffer_view.map_or(ptr::null(), |s| s.as_ptr());
+            self.p_image_info = image_info.map_or(ptr::null(), |s| s.as_ptr() as _);
+            self.p_buffer_info = buffer_info.map_or(ptr::null(), |s| s.as_ptr() as _);
+            self.p_texel_buffer_view = texel_buffer_view.map_or(ptr::null(), |s| s.as_ptr() as _);
             self
         }
 
@@ -1916,7 +1916,7 @@ pub(super) mod defs {
         #[inline]
         pub fn queue_family_indices(mut self, queue_family_indices: &'a [u32]) -> Self {
             self.queue_family_index_count = queue_family_indices.len().try_into().unwrap();
-            self.p_queue_family_indices = queue_family_indices.as_ptr();
+            self.p_queue_family_indices = queue_family_indices.as_ptr() as _;
             self
         }
     }
@@ -2514,7 +2514,7 @@ pub(super) mod defs {
         #[inline]
         pub fn queue_family_indices(mut self, queue_family_indices: &'a [u32]) -> Self {
             self.queue_family_index_count = queue_family_indices.len().try_into().unwrap();
-            self.p_queue_family_indices = queue_family_indices.as_ptr();
+            self.p_queue_family_indices = queue_family_indices.as_ptr() as _;
             self
         }
 
@@ -2831,7 +2831,7 @@ pub(super) mod defs {
         #[inline]
         pub fn binds(mut self, binds: &'a [SparseMemoryBind]) -> Self {
             self.bind_count = binds.len().try_into().unwrap();
-            self.p_binds = binds.as_ptr();
+            self.p_binds = binds.as_ptr() as _;
             self
         }
     }
@@ -2879,7 +2879,7 @@ pub(super) mod defs {
         #[inline]
         pub fn binds(mut self, binds: &'a [SparseMemoryBind]) -> Self {
             self.bind_count = binds.len().try_into().unwrap();
-            self.p_binds = binds.as_ptr();
+            self.p_binds = binds.as_ptr() as _;
             self
         }
     }
@@ -2927,7 +2927,7 @@ pub(super) mod defs {
         #[inline]
         pub fn binds(mut self, binds: &'a [SparseImageMemoryBind]) -> Self {
             self.bind_count = binds.len().try_into().unwrap();
-            self.p_binds = binds.as_ptr();
+            self.p_binds = binds.as_ptr() as _;
             self
         }
     }
@@ -3000,38 +3000,38 @@ pub(super) mod defs {
         #[inline]
         pub fn wait_semaphores(mut self, wait_semaphores: &'a [Semaphore]) -> Self {
             self.wait_semaphore_count = wait_semaphores.len().try_into().unwrap();
-            self.p_wait_semaphores = wait_semaphores.as_ptr();
+            self.p_wait_semaphores = wait_semaphores.as_ptr() as _;
             self
         }
 
         #[inline]
-        pub fn buffer_binds(mut self, buffer_binds: &'a [SparseBufferMemoryBindInfo<'a>]) -> Self {
+        pub fn buffer_binds(mut self, buffer_binds: &'a [SparseBufferMemoryBindInfo<'_>]) -> Self {
             self.buffer_bind_count = buffer_binds.len().try_into().unwrap();
-            self.p_buffer_binds = buffer_binds.as_ptr();
+            self.p_buffer_binds = buffer_binds.as_ptr() as _;
             self
         }
 
         #[inline]
         pub fn image_opaque_binds(
             mut self,
-            image_opaque_binds: &'a [SparseImageOpaqueMemoryBindInfo<'a>],
+            image_opaque_binds: &'a [SparseImageOpaqueMemoryBindInfo<'_>],
         ) -> Self {
             self.image_opaque_bind_count = image_opaque_binds.len().try_into().unwrap();
-            self.p_image_opaque_binds = image_opaque_binds.as_ptr();
+            self.p_image_opaque_binds = image_opaque_binds.as_ptr() as _;
             self
         }
 
         #[inline]
-        pub fn image_binds(mut self, image_binds: &'a [SparseImageMemoryBindInfo<'a>]) -> Self {
+        pub fn image_binds(mut self, image_binds: &'a [SparseImageMemoryBindInfo<'_>]) -> Self {
             self.image_bind_count = image_binds.len().try_into().unwrap();
-            self.p_image_binds = image_binds.as_ptr();
+            self.p_image_binds = image_binds.as_ptr() as _;
             self
         }
 
         #[inline]
         pub fn signal_semaphores(mut self, signal_semaphores: &'a [Semaphore]) -> Self {
             self.signal_semaphore_count = signal_semaphores.len().try_into().unwrap();
-            self.p_signal_semaphores = signal_semaphores.as_ptr();
+            self.p_signal_semaphores = signal_semaphores.as_ptr() as _;
             self
         }
     }
@@ -3257,8 +3257,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::SHADER_MODULE_CREATE_INFO;
     }
 
-    unsafe impl<'a> Extends<PipelineShaderStageCreateInfo<'a>> for ShaderModuleCreateInfo<'a> {}
-    unsafe impl<'a> Extends<DataGraphPipelineCreateInfoARM<'a>> for ShaderModuleCreateInfo<'a> {}
+    unsafe impl Extends<PipelineShaderStageCreateInfo<'_>> for ShaderModuleCreateInfo<'_> {}
+    unsafe impl Extends<DataGraphPipelineCreateInfoARM<'_>> for ShaderModuleCreateInfo<'_> {}
 
     impl Default for ShaderModuleCreateInfo<'_> {
         fn default() -> Self {
@@ -3342,7 +3342,7 @@ pub(super) mod defs {
         #[inline]
         pub fn immutable_samplers(mut self, immutable_samplers: &'a [Sampler]) -> Self {
             self.descriptor_count = immutable_samplers.len().try_into().unwrap();
-            self.p_immutable_samplers = immutable_samplers.as_ptr();
+            self.p_immutable_samplers = immutable_samplers.as_ptr() as _;
             self
         }
 
@@ -3404,9 +3404,9 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn bindings(mut self, bindings: &'a [DescriptorSetLayoutBinding<'a>]) -> Self {
+        pub fn bindings(mut self, bindings: &'a [DescriptorSetLayoutBinding<'_>]) -> Self {
             self.binding_count = bindings.len().try_into().unwrap();
-            self.p_bindings = bindings.as_ptr();
+            self.p_bindings = bindings.as_ptr() as _;
             self
         }
     }
@@ -3497,7 +3497,7 @@ pub(super) mod defs {
         #[inline]
         pub fn pool_sizes(mut self, pool_sizes: &'a [DescriptorPoolSize]) -> Self {
             self.pool_size_count = pool_sizes.len().try_into().unwrap();
-            self.p_pool_sizes = pool_sizes.as_ptr();
+            self.p_pool_sizes = pool_sizes.as_ptr() as _;
             self
         }
     }
@@ -3555,7 +3555,7 @@ pub(super) mod defs {
         #[inline]
         pub fn set_layouts(mut self, set_layouts: &'a [DescriptorSetLayout]) -> Self {
             self.descriptor_set_count = set_layouts.len().try_into().unwrap();
-            self.p_set_layouts = set_layouts.as_ptr();
+            self.p_set_layouts = set_layouts.as_ptr() as _;
             self
         }
     }
@@ -3631,7 +3631,7 @@ pub(super) mod defs {
         #[inline]
         pub fn map_entries(mut self, map_entries: &'a [SpecializationMapEntry]) -> Self {
             self.map_entry_count = map_entries.len().try_into().unwrap();
-            self.p_map_entries = map_entries.as_ptr();
+            self.p_map_entries = map_entries.as_ptr() as _;
             self
         }
 
@@ -3953,7 +3953,7 @@ pub(super) mod defs {
         ) -> Self {
             self.vertex_binding_description_count =
                 vertex_binding_descriptions.len().try_into().unwrap();
-            self.p_vertex_binding_descriptions = vertex_binding_descriptions.as_ptr();
+            self.p_vertex_binding_descriptions = vertex_binding_descriptions.as_ptr() as _;
             self
         }
 
@@ -3964,7 +3964,7 @@ pub(super) mod defs {
         ) -> Self {
             self.vertex_attribute_description_count =
                 vertex_attribute_descriptions.len().try_into().unwrap();
-            self.p_vertex_attribute_descriptions = vertex_attribute_descriptions.as_ptr();
+            self.p_vertex_attribute_descriptions = vertex_attribute_descriptions.as_ptr() as _;
             self
         }
     }
@@ -4147,14 +4147,14 @@ pub(super) mod defs {
         #[inline]
         pub fn viewports(mut self, viewports: &'a [Viewport]) -> Self {
             self.viewport_count = viewports.len().try_into().unwrap();
-            self.p_viewports = viewports.as_ptr();
+            self.p_viewports = viewports.as_ptr() as _;
             self
         }
 
         #[inline]
         pub fn scissors(mut self, scissors: &'a [Rect2D]) -> Self {
             self.scissor_count = scissors.len().try_into().unwrap();
-            self.p_scissors = scissors.as_ptr();
+            self.p_scissors = scissors.as_ptr() as _;
             self
         }
     }
@@ -4531,7 +4531,7 @@ pub(super) mod defs {
         #[inline]
         pub fn attachments(mut self, attachments: &'a [PipelineColorBlendAttachmentState]) -> Self {
             self.attachment_count = attachments.len().try_into().unwrap();
-            self.p_attachments = attachments.as_ptr();
+            self.p_attachments = attachments.as_ptr() as _;
             self
         }
 
@@ -4595,7 +4595,7 @@ pub(super) mod defs {
         #[inline]
         pub fn dynamic_states(mut self, dynamic_states: &'a [DynamicState]) -> Self {
             self.dynamic_state_count = dynamic_states.len().try_into().unwrap();
-            self.p_dynamic_states = dynamic_states.as_ptr();
+            self.p_dynamic_states = dynamic_states.as_ptr() as _;
             self
         }
     }
@@ -4879,9 +4879,9 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn stages(mut self, stages: &'a [PipelineShaderStageCreateInfo<'a>]) -> Self {
+        pub fn stages(mut self, stages: &'a [PipelineShaderStageCreateInfo<'_>]) -> Self {
             self.stage_count = stages.len().try_into().unwrap();
-            self.p_stages = stages.as_ptr();
+            self.p_stages = stages.as_ptr() as _;
             self
         }
 
@@ -5180,16 +5180,16 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_LAYOUT_CREATE_INFO;
     }
 
-    unsafe impl<'a> Extends<BindDescriptorSetsInfo<'a>> for PipelineLayoutCreateInfo<'a> {}
-    unsafe impl<'a> Extends<PushConstantsInfo<'a>> for PipelineLayoutCreateInfo<'a> {}
-    unsafe impl<'a> Extends<PushDescriptorSetInfo<'a>> for PipelineLayoutCreateInfo<'a> {}
-    unsafe impl<'a> Extends<PushDescriptorSetWithTemplateInfo<'a>> for PipelineLayoutCreateInfo<'a> {}
-    unsafe impl<'a> Extends<SetDescriptorBufferOffsetsInfoEXT<'a>> for PipelineLayoutCreateInfo<'a> {}
-    unsafe impl<'a> Extends<BindDescriptorBufferEmbeddedSamplersInfoEXT<'a>>
-        for PipelineLayoutCreateInfo<'a>
+    unsafe impl Extends<BindDescriptorSetsInfo<'_>> for PipelineLayoutCreateInfo<'_> {}
+    unsafe impl Extends<PushConstantsInfo<'_>> for PipelineLayoutCreateInfo<'_> {}
+    unsafe impl Extends<PushDescriptorSetInfo<'_>> for PipelineLayoutCreateInfo<'_> {}
+    unsafe impl Extends<PushDescriptorSetWithTemplateInfo<'_>> for PipelineLayoutCreateInfo<'_> {}
+    unsafe impl Extends<SetDescriptorBufferOffsetsInfoEXT<'_>> for PipelineLayoutCreateInfo<'_> {}
+    unsafe impl Extends<BindDescriptorBufferEmbeddedSamplersInfoEXT<'_>>
+        for PipelineLayoutCreateInfo<'_>
     {
     }
-    unsafe impl<'a> Extends<IndirectCommandsLayoutCreateInfoEXT<'a>> for PipelineLayoutCreateInfo<'a> {}
+    unsafe impl Extends<IndirectCommandsLayoutCreateInfoEXT<'_>> for PipelineLayoutCreateInfo<'_> {}
 
     impl Default for PipelineLayoutCreateInfo<'_> {
         fn default() -> Self {
@@ -5216,7 +5216,7 @@ pub(super) mod defs {
         #[inline]
         pub fn set_layouts(mut self, set_layouts: &'a [DescriptorSetLayout]) -> Self {
             self.set_layout_count = set_layouts.len().try_into().unwrap();
-            self.p_set_layouts = set_layouts.as_ptr();
+            self.p_set_layouts = set_layouts.as_ptr() as _;
             self
         }
 
@@ -5226,7 +5226,7 @@ pub(super) mod defs {
             push_constant_ranges: &'a [PushConstantRange],
         ) -> Self {
             self.push_constant_range_count = push_constant_ranges.len().try_into().unwrap();
-            self.p_push_constant_ranges = push_constant_ranges.as_ptr();
+            self.p_push_constant_ranges = push_constant_ranges.as_ptr() as _;
             self
         }
     }
@@ -5749,7 +5749,7 @@ pub(super) mod defs {
         #[inline]
         pub fn clear_values(mut self, clear_values: &'a [ClearValue]) -> Self {
             self.clear_value_count = clear_values.len().try_into().unwrap();
-            self.p_clear_values = clear_values.as_ptr();
+            self.p_clear_values = clear_values.as_ptr() as _;
             self
         }
     }
@@ -5989,7 +5989,7 @@ pub(super) mod defs {
         #[inline]
         pub fn input_attachments(mut self, input_attachments: &'a [AttachmentReference]) -> Self {
             self.input_attachment_count = input_attachments.len().try_into().unwrap();
-            self.p_input_attachments = input_attachments.as_ptr();
+            self.p_input_attachments = input_attachments.as_ptr() as _;
             self
         }
 
@@ -6003,8 +6003,9 @@ pub(super) mod defs {
             if let Some(s) = &resolve_attachments {
                 assert_eq!(s.len(), self.color_attachment_count as usize);
             }
-            self.p_color_attachments = color_attachments.as_ptr();
-            self.p_resolve_attachments = resolve_attachments.map_or(ptr::null(), |s| s.as_ptr());
+            self.p_color_attachments = color_attachments.as_ptr() as _;
+            self.p_resolve_attachments =
+                resolve_attachments.map_or(ptr::null(), |s| s.as_ptr() as _);
             self
         }
 
@@ -6020,7 +6021,7 @@ pub(super) mod defs {
         #[inline]
         pub fn preserve_attachments(mut self, preserve_attachments: &'a [u32]) -> Self {
             self.preserve_attachment_count = preserve_attachments.len().try_into().unwrap();
-            self.p_preserve_attachments = preserve_attachments.as_ptr();
+            self.p_preserve_attachments = preserve_attachments.as_ptr() as _;
             self
         }
     }
@@ -6149,21 +6150,21 @@ pub(super) mod defs {
         #[inline]
         pub fn attachments(mut self, attachments: &'a [AttachmentDescription]) -> Self {
             self.attachment_count = attachments.len().try_into().unwrap();
-            self.p_attachments = attachments.as_ptr();
+            self.p_attachments = attachments.as_ptr() as _;
             self
         }
 
         #[inline]
-        pub fn subpasses(mut self, subpasses: &'a [SubpassDescription<'a>]) -> Self {
+        pub fn subpasses(mut self, subpasses: &'a [SubpassDescription<'_>]) -> Self {
             self.subpass_count = subpasses.len().try_into().unwrap();
-            self.p_subpasses = subpasses.as_ptr();
+            self.p_subpasses = subpasses.as_ptr() as _;
             self
         }
 
         #[inline]
         pub fn dependencies(mut self, dependencies: &'a [SubpassDependency]) -> Self {
             self.dependency_count = dependencies.len().try_into().unwrap();
-            self.p_dependencies = dependencies.as_ptr();
+            self.p_dependencies = dependencies.as_ptr() as _;
             self
         }
     }
@@ -7964,7 +7965,7 @@ pub(super) mod defs {
         #[inline]
         pub fn attachments(mut self, attachments: &'a [ImageView]) -> Self {
             self.attachment_count = attachments.len().try_into().unwrap();
-            self.p_attachments = attachments.as_ptr();
+            self.p_attachments = attachments.as_ptr() as _;
             self
         }
 
@@ -8168,22 +8169,22 @@ pub(super) mod defs {
                 wait_dst_stage_mask.len(),
                 self.wait_semaphore_count as usize
             );
-            self.p_wait_semaphores = wait_semaphores.as_ptr();
-            self.p_wait_dst_stage_mask = wait_dst_stage_mask.as_ptr();
+            self.p_wait_semaphores = wait_semaphores.as_ptr() as _;
+            self.p_wait_dst_stage_mask = wait_dst_stage_mask.as_ptr() as _;
             self
         }
 
         #[inline]
         pub fn command_buffers(mut self, command_buffers: &'a [CommandBuffer]) -> Self {
             self.command_buffer_count = command_buffers.len().try_into().unwrap();
-            self.p_command_buffers = command_buffers.as_ptr();
+            self.p_command_buffers = command_buffers.as_ptr() as _;
             self
         }
 
         #[inline]
         pub fn signal_semaphores(mut self, signal_semaphores: &'a [Semaphore]) -> Self {
             self.signal_semaphore_count = signal_semaphores.len().try_into().unwrap();
-            self.p_signal_semaphores = signal_semaphores.as_ptr();
+            self.p_signal_semaphores = signal_semaphores.as_ptr() as _;
             self
         }
     }

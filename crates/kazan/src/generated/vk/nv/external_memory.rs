@@ -41,7 +41,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_MEMORY_IMAGE_CREATE_INFO_NV;
     }
 
-    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ExternalMemoryImageCreateInfoNV<'a> {}
+    unsafe impl Extends<ImageCreateInfo<'_>> for ExternalMemoryImageCreateInfoNV<'_> {}
 
     impl Default for ExternalMemoryImageCreateInfoNV<'_> {
         fn default() -> Self {
@@ -88,7 +88,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_MEMORY_ALLOCATE_INFO_NV;
     }
 
-    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ExportMemoryAllocateInfoNV<'a> {}
+    unsafe impl Extends<MemoryAllocateInfo<'_>> for ExportMemoryAllocateInfoNV<'_> {}
 
     impl Default for ExportMemoryAllocateInfoNV<'_> {
         fn default() -> Self {

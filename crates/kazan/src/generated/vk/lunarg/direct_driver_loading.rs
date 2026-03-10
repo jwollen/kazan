@@ -105,7 +105,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::DIRECT_DRIVER_LOADING_LIST_LUNARG;
     }
 
-    unsafe impl<'a> Extends<InstanceCreateInfo<'a>> for DirectDriverLoadingListLUNARG<'a> {}
+    unsafe impl Extends<InstanceCreateInfo<'_>> for DirectDriverLoadingListLUNARG<'_> {}
 
     impl Default for DirectDriverLoadingListLUNARG<'_> {
         fn default() -> Self {
@@ -128,9 +128,9 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn drivers(mut self, drivers: &'a [DirectDriverLoadingInfoLUNARG<'a>]) -> Self {
+        pub fn drivers(mut self, drivers: &'a [DirectDriverLoadingInfoLUNARG<'_>]) -> Self {
             self.driver_count = drivers.len().try_into().unwrap();
-            self.p_drivers = drivers.as_ptr();
+            self.p_drivers = drivers.as_ptr() as _;
             self
         }
     }

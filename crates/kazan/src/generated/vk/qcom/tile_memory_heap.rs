@@ -41,7 +41,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::TILE_MEMORY_BIND_INFO_QCOM;
     }
 
-    unsafe impl<'a> Extends<CommandBufferInheritanceInfo<'a>> for TileMemoryBindInfoQCOM<'a> {}
+    unsafe impl Extends<CommandBufferInheritanceInfo<'_>> for TileMemoryBindInfoQCOM<'_> {}
 
     impl Default for TileMemoryBindInfoQCOM<'_> {
         fn default() -> Self {
@@ -89,11 +89,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_TILE_MEMORY_HEAP_FEATURES_QCOM;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceTileMemoryHeapFeaturesQCOM<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceTileMemoryHeapFeaturesQCOM<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceTileMemoryHeapFeaturesQCOM<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceTileMemoryHeapFeaturesQCOM<'_> {}
 
     impl Default for PhysicalDeviceTileMemoryHeapFeaturesQCOM<'_> {
         fn default() -> Self {
@@ -143,8 +140,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_TILE_MEMORY_HEAP_PROPERTIES_QCOM;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceTileMemoryHeapPropertiesQCOM<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceTileMemoryHeapPropertiesQCOM<'_>
     {
     }
 
@@ -200,9 +197,9 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::TILE_MEMORY_SIZE_INFO_QCOM;
     }
 
-    unsafe impl<'a> Extends<RenderPassCreateInfo<'a>> for TileMemorySizeInfoQCOM<'a> {}
-    unsafe impl<'a> Extends<RenderPassCreateInfo2<'a>> for TileMemorySizeInfoQCOM<'a> {}
-    unsafe impl<'a> Extends<RenderingInfo<'a>> for TileMemorySizeInfoQCOM<'a> {}
+    unsafe impl Extends<RenderPassCreateInfo<'_>> for TileMemorySizeInfoQCOM<'_> {}
+    unsafe impl Extends<RenderPassCreateInfo2<'_>> for TileMemorySizeInfoQCOM<'_> {}
+    unsafe impl Extends<RenderingInfo<'_>> for TileMemorySizeInfoQCOM<'_> {}
 
     impl Default for TileMemorySizeInfoQCOM<'_> {
         fn default() -> Self {
@@ -251,7 +248,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::TILE_MEMORY_REQUIREMENTS_QCOM;
     }
 
-    unsafe impl<'a> Extends<MemoryRequirements2<'a>> for TileMemoryRequirementsQCOM<'a> {}
+    unsafe impl Extends<MemoryRequirements2<'_>> for TileMemoryRequirementsQCOM<'_> {}
 
     impl Default for TileMemoryRequirementsQCOM<'_> {
         fn default() -> Self {

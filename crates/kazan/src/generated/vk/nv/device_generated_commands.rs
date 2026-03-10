@@ -48,14 +48,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'_> {}
 
     impl Default for PhysicalDeviceDeviceGeneratedCommandsFeaturesNV<'_> {
         fn default() -> Self {
@@ -146,8 +143,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceDeviceGeneratedCommandsPropertiesNV<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceDeviceGeneratedCommandsPropertiesNV<'_>
     {
     }
 
@@ -301,9 +298,9 @@ pub(super) mod defs {
 
     impl<'a> GraphicsShaderGroupCreateInfoNV<'a> {
         #[inline]
-        pub fn stages(mut self, stages: &'a [PipelineShaderStageCreateInfo<'a>]) -> Self {
+        pub fn stages(mut self, stages: &'a [PipelineShaderStageCreateInfo<'_>]) -> Self {
             self.stage_count = stages.len().try_into().unwrap();
-            self.p_stages = stages.as_ptr();
+            self.p_stages = stages.as_ptr() as _;
             self
         }
 
@@ -359,8 +356,8 @@ pub(super) mod defs {
             StructureType::GRAPHICS_PIPELINE_SHADER_GROUPS_CREATE_INFO_NV;
     }
 
-    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>>
-        for GraphicsPipelineShaderGroupsCreateInfoNV<'a>
+    unsafe impl Extends<GraphicsPipelineCreateInfo<'_>>
+        for GraphicsPipelineShaderGroupsCreateInfoNV<'_>
     {
     }
 
@@ -380,16 +377,16 @@ pub(super) mod defs {
 
     impl<'a> GraphicsPipelineShaderGroupsCreateInfoNV<'a> {
         #[inline]
-        pub fn groups(mut self, groups: &'a [GraphicsShaderGroupCreateInfoNV<'a>]) -> Self {
+        pub fn groups(mut self, groups: &'a [GraphicsShaderGroupCreateInfoNV<'_>]) -> Self {
             self.group_count = groups.len().try_into().unwrap();
-            self.p_groups = groups.as_ptr();
+            self.p_groups = groups.as_ptr() as _;
             self
         }
 
         #[inline]
         pub fn pipelines(mut self, pipelines: &'a [Pipeline]) -> Self {
             self.pipeline_count = pipelines.len().try_into().unwrap();
-            self.p_pipelines = pipelines.as_ptr();
+            self.p_pipelines = pipelines.as_ptr() as _;
             self
         }
     }
@@ -668,8 +665,8 @@ pub(super) mod defs {
         ) -> Self {
             self.index_type_count = index_types.len().try_into().unwrap();
             assert_eq!(index_type_values.len(), self.index_type_count as usize);
-            self.p_index_types = index_types.as_ptr();
-            self.p_index_type_values = index_type_values.as_ptr();
+            self.p_index_types = index_types.as_ptr() as _;
+            self.p_index_type_values = index_type_values.as_ptr() as _;
             self
         }
     }
@@ -741,16 +738,16 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn tokens(mut self, tokens: &'a [IndirectCommandsLayoutTokenNV<'a>]) -> Self {
+        pub fn tokens(mut self, tokens: &'a [IndirectCommandsLayoutTokenNV<'_>]) -> Self {
             self.token_count = tokens.len().try_into().unwrap();
-            self.p_tokens = tokens.as_ptr();
+            self.p_tokens = tokens.as_ptr() as _;
             self
         }
 
         #[inline]
         pub fn stream_strides(mut self, stream_strides: &'a [u32]) -> Self {
             self.stream_count = stream_strides.len().try_into().unwrap();
-            self.p_stream_strides = stream_strides.as_ptr();
+            self.p_stream_strides = stream_strides.as_ptr() as _;
             self
         }
     }
@@ -853,7 +850,7 @@ pub(super) mod defs {
         #[inline]
         pub fn streams(mut self, streams: &'a [IndirectCommandsStreamNV]) -> Self {
             self.stream_count = streams.len().try_into().unwrap();
-            self.p_streams = streams.as_ptr();
+            self.p_streams = streams.as_ptr() as _;
             self
         }
 

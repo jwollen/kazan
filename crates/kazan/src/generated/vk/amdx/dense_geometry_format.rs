@@ -46,14 +46,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_DENSE_GEOMETRY_FORMAT_FEATURES_AMDX;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceDenseGeometryFormatFeaturesAMDX<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceDenseGeometryFormatFeaturesAMDX<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceDenseGeometryFormatFeaturesAMDX<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceDenseGeometryFormatFeaturesAMDX<'_> {}
 
     impl Default for PhysicalDeviceDenseGeometryFormatFeaturesAMDX<'_> {
         fn default() -> Self {
@@ -115,8 +112,8 @@ pub(super) mod defs {
             StructureType::ACCELERATION_STRUCTURE_DENSE_GEOMETRY_FORMAT_TRIANGLES_DATA_AMDX;
     }
 
-    unsafe impl<'a> Extends<AccelerationStructureGeometryKHR<'a>>
-        for AccelerationStructureDenseGeometryFormatTrianglesDataAMDX<'a>
+    unsafe impl Extends<AccelerationStructureGeometryKHR<'_>>
+        for AccelerationStructureDenseGeometryFormatTrianglesDataAMDX<'_>
     {
     }
 

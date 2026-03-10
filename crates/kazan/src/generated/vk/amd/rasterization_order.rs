@@ -42,8 +42,8 @@ pub(super) mod defs {
             StructureType::PIPELINE_RASTERIZATION_STATE_RASTERIZATION_ORDER_AMD;
     }
 
-    unsafe impl<'a> Extends<PipelineRasterizationStateCreateInfo<'a>>
-        for PipelineRasterizationStateRasterizationOrderAMD<'a>
+    unsafe impl Extends<PipelineRasterizationStateCreateInfo<'_>>
+        for PipelineRasterizationStateRasterizationOrderAMD<'_>
     {
     }
 

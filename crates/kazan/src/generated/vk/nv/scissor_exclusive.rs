@@ -42,11 +42,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_EXCLUSIVE_SCISSOR_FEATURES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceExclusiveScissorFeaturesNV<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceExclusiveScissorFeaturesNV<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceExclusiveScissorFeaturesNV<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceExclusiveScissorFeaturesNV<'_> {}
 
     impl Default for PhysicalDeviceExclusiveScissorFeaturesNV<'_> {
         fn default() -> Self {
@@ -96,8 +93,8 @@ pub(super) mod defs {
             StructureType::PIPELINE_VIEWPORT_EXCLUSIVE_SCISSOR_STATE_CREATE_INFO_NV;
     }
 
-    unsafe impl<'a> Extends<PipelineViewportStateCreateInfo<'a>>
-        for PipelineViewportExclusiveScissorStateCreateInfoNV<'a>
+    unsafe impl Extends<PipelineViewportStateCreateInfo<'_>>
+        for PipelineViewportExclusiveScissorStateCreateInfoNV<'_>
     {
     }
 
@@ -117,7 +114,7 @@ pub(super) mod defs {
         #[inline]
         pub fn exclusive_scissors(mut self, exclusive_scissors: &'a [Rect2D]) -> Self {
             self.exclusive_scissor_count = exclusive_scissors.len().try_into().unwrap();
-            self.p_exclusive_scissors = exclusive_scissors.as_ptr();
+            self.p_exclusive_scissors = exclusive_scissors.as_ptr() as _;
             self
         }
     }

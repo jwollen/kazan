@@ -43,7 +43,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::LAYER_SETTINGS_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<InstanceCreateInfo<'a>> for LayerSettingsCreateInfoEXT<'a> {}
+    unsafe impl Extends<InstanceCreateInfo<'_>> for LayerSettingsCreateInfoEXT<'_> {}
 
     impl Default for LayerSettingsCreateInfoEXT<'_> {
         fn default() -> Self {
@@ -59,9 +59,9 @@ pub(super) mod defs {
 
     impl<'a> LayerSettingsCreateInfoEXT<'a> {
         #[inline]
-        pub fn settings(mut self, settings: &'a [LayerSettingEXT<'a>]) -> Self {
+        pub fn settings(mut self, settings: &'a [LayerSettingEXT<'_>]) -> Self {
             self.setting_count = settings.len().try_into().unwrap();
-            self.p_settings = settings.as_ptr();
+            self.p_settings = settings.as_ptr() as _;
             self
         }
     }

@@ -42,11 +42,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_AMIGO_PROFILING_FEATURES_SEC;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceAmigoProfilingFeaturesSEC<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceAmigoProfilingFeaturesSEC<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceAmigoProfilingFeaturesSEC<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceAmigoProfilingFeaturesSEC<'_> {}
 
     impl Default for PhysicalDeviceAmigoProfilingFeaturesSEC<'_> {
         fn default() -> Self {
@@ -95,7 +92,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::AMIGO_PROFILING_SUBMIT_INFO_SEC;
     }
 
-    unsafe impl<'a> Extends<SubmitInfo<'a>> for AmigoProfilingSubmitInfoSEC<'a> {}
+    unsafe impl Extends<SubmitInfo<'_>> for AmigoProfilingSubmitInfoSEC<'_> {}
 
     impl Default for AmigoProfilingSubmitInfoSEC<'_> {
         fn default() -> Self {

@@ -140,8 +140,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_ENCODE_USAGE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoProfileInfoKHR<'a>> for VideoEncodeUsageInfoKHR<'a> {}
-    unsafe impl<'a> Extends<QueryPoolCreateInfo<'a>> for VideoEncodeUsageInfoKHR<'a> {}
+    unsafe impl Extends<VideoProfileInfoKHR<'_>> for VideoEncodeUsageInfoKHR<'_> {}
+    unsafe impl Extends<QueryPoolCreateInfo<'_>> for VideoEncodeUsageInfoKHR<'_> {}
 
     impl Default for VideoEncodeUsageInfoKHR<'_> {
         fn default() -> Self {
@@ -289,10 +289,10 @@ pub(super) mod defs {
         #[inline]
         pub fn reference_slots(
             mut self,
-            reference_slots: &'a [VideoReferenceSlotInfoKHR<'a>],
+            reference_slots: &'a [VideoReferenceSlotInfoKHR<'_>],
         ) -> Self {
             self.reference_slot_count = reference_slots.len().try_into().unwrap();
-            self.p_reference_slots = reference_slots.as_ptr();
+            self.p_reference_slots = reference_slots.as_ptr() as _;
             self
         }
 
@@ -333,7 +333,7 @@ pub(super) mod defs {
             StructureType::QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<QueryPoolCreateInfo<'a>> for QueryPoolVideoEncodeFeedbackCreateInfoKHR<'a> {}
+    unsafe impl Extends<QueryPoolCreateInfo<'_>> for QueryPoolVideoEncodeFeedbackCreateInfoKHR<'_> {}
 
     impl Default for QueryPoolVideoEncodeFeedbackCreateInfoKHR<'_> {
         fn default() -> Self {
@@ -383,9 +383,9 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoCodingControlInfoKHR<'a>> for VideoEncodeQualityLevelInfoKHR<'a> {}
-    unsafe impl<'a> Extends<VideoSessionParametersCreateInfoKHR<'a>>
-        for VideoEncodeQualityLevelInfoKHR<'a>
+    unsafe impl Extends<VideoCodingControlInfoKHR<'_>> for VideoEncodeQualityLevelInfoKHR<'_> {}
+    unsafe impl Extends<VideoSessionParametersCreateInfoKHR<'_>>
+        for VideoEncodeQualityLevelInfoKHR<'_>
     {
     }
 
@@ -569,8 +569,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_ENCODE_RATE_CONTROL_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoCodingControlInfoKHR<'a>> for VideoEncodeRateControlInfoKHR<'a> {}
-    unsafe impl<'a> Extends<VideoBeginCodingInfoKHR<'a>> for VideoEncodeRateControlInfoKHR<'a> {}
+    unsafe impl Extends<VideoCodingControlInfoKHR<'_>> for VideoEncodeRateControlInfoKHR<'_> {}
+    unsafe impl Extends<VideoBeginCodingInfoKHR<'_>> for VideoEncodeRateControlInfoKHR<'_> {}
 
     impl Default for VideoEncodeRateControlInfoKHR<'_> {
         fn default() -> Self {
@@ -605,9 +605,9 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn layers(mut self, layers: &'a [VideoEncodeRateControlLayerInfoKHR<'a>]) -> Self {
+        pub fn layers(mut self, layers: &'a [VideoEncodeRateControlLayerInfoKHR<'_>]) -> Self {
             self.layer_count = layers.len().try_into().unwrap();
-            self.p_layers = layers.as_ptr();
+            self.p_layers = layers.as_ptr() as _;
             self
         }
 
@@ -744,7 +744,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::VIDEO_ENCODE_CAPABILITIES_KHR;
     }
 
-    unsafe impl<'a> Extends<VideoCapabilitiesKHR<'a>> for VideoEncodeCapabilitiesKHR<'a> {}
+    unsafe impl Extends<VideoCapabilitiesKHR<'_>> for VideoEncodeCapabilitiesKHR<'_> {}
 
     impl Default for VideoEncodeCapabilitiesKHR<'_> {
         fn default() -> Self {

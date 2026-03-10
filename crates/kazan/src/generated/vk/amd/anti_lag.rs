@@ -41,8 +41,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::PHYSICAL_DEVICE_ANTI_LAG_FEATURES_AMD;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceAntiLagFeaturesAMD<'a> {}
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceAntiLagFeaturesAMD<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceAntiLagFeaturesAMD<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceAntiLagFeaturesAMD<'_> {}
 
     impl Default for PhysicalDeviceAntiLagFeaturesAMD<'_> {
         fn default() -> Self {

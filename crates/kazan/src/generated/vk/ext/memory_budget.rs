@@ -44,8 +44,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_MEMORY_BUDGET_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceMemoryProperties2<'a>>
-        for PhysicalDeviceMemoryBudgetPropertiesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceMemoryProperties2<'_>>
+        for PhysicalDeviceMemoryBudgetPropertiesEXT<'_>
     {
     }
 

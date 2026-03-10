@@ -42,8 +42,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_DISCARD_RECTANGLE_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceDiscardRectanglePropertiesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceDiscardRectanglePropertiesEXT<'_>
     {
     }
 
@@ -99,8 +99,8 @@ pub(super) mod defs {
             StructureType::PIPELINE_DISCARD_RECTANGLE_STATE_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>>
-        for PipelineDiscardRectangleStateCreateInfoEXT<'a>
+    unsafe impl Extends<GraphicsPipelineCreateInfo<'_>>
+        for PipelineDiscardRectangleStateCreateInfoEXT<'_>
     {
     }
 
@@ -137,7 +137,7 @@ pub(super) mod defs {
         #[inline]
         pub fn discard_rectangles(mut self, discard_rectangles: &'a [Rect2D]) -> Self {
             self.discard_rectangle_count = discard_rectangles.len().try_into().unwrap();
-            self.p_discard_rectangles = discard_rectangles.as_ptr();
+            self.p_discard_rectangles = discard_rectangles.as_ptr() as _;
             self
         }
     }

@@ -43,7 +43,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_MEMORY_METAL_HANDLE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ImportMemoryMetalHandleInfoEXT<'a> {}
+    unsafe impl Extends<MemoryAllocateInfo<'_>> for ImportMemoryMetalHandleInfoEXT<'_> {}
 
     impl Default for ImportMemoryMetalHandleInfoEXT<'_> {
         fn default() -> Self {

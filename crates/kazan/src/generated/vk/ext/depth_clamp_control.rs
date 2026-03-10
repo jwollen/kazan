@@ -42,11 +42,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_DEPTH_CLAMP_CONTROL_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceDepthClampControlFeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceDepthClampControlFeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceDepthClampControlFeaturesEXT<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceDepthClampControlFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceDepthClampControlFeaturesEXT<'_> {
         fn default() -> Self {
@@ -96,8 +96,8 @@ pub(super) mod defs {
             StructureType::PIPELINE_VIEWPORT_DEPTH_CLAMP_CONTROL_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<PipelineViewportStateCreateInfo<'a>>
-        for PipelineViewportDepthClampControlCreateInfoEXT<'a>
+    unsafe impl Extends<PipelineViewportStateCreateInfo<'_>>
+        for PipelineViewportDepthClampControlCreateInfoEXT<'_>
     {
     }
 

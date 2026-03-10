@@ -49,12 +49,12 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT<'a>
+    unsafe impl Extends<DeviceCreateInfo<'_>>
+        for PhysicalDeviceFragmentDensityMapOffsetFeaturesEXT<'_>
     {
     }
 
@@ -107,8 +107,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceFragmentDensityMapOffsetPropertiesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceFragmentDensityMapOffsetPropertiesEXT<'_>
     {
     }
 
@@ -169,11 +169,8 @@ pub(super) mod defs {
             StructureType::RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<SubpassEndInfo<'a>> for RenderPassFragmentDensityMapOffsetEndInfoEXT<'a> {}
-    unsafe impl<'a> Extends<RenderingEndInfoKHR<'a>>
-        for RenderPassFragmentDensityMapOffsetEndInfoEXT<'a>
-    {
-    }
+    unsafe impl Extends<SubpassEndInfo<'_>> for RenderPassFragmentDensityMapOffsetEndInfoEXT<'_> {}
+    unsafe impl Extends<RenderingEndInfoKHR<'_>> for RenderPassFragmentDensityMapOffsetEndInfoEXT<'_> {}
 
     impl Default for RenderPassFragmentDensityMapOffsetEndInfoEXT<'_> {
         fn default() -> Self {
@@ -194,7 +191,7 @@ pub(super) mod defs {
             fragment_density_offsets: &'a [Offset2D],
         ) -> Self {
             self.fragment_density_offset_count = fragment_density_offsets.len().try_into().unwrap();
-            self.p_fragment_density_offsets = fragment_density_offsets.as_ptr();
+            self.p_fragment_density_offsets = fragment_density_offsets.as_ptr() as _;
             self
         }
     }

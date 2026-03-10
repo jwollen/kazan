@@ -50,7 +50,7 @@ pub(super) mod defs {
             StructureType::FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<SubpassDescription2<'a>> for FragmentShadingRateAttachmentInfoKHR<'a> {}
+    unsafe impl Extends<SubpassDescription2<'_>> for FragmentShadingRateAttachmentInfoKHR<'_> {}
 
     impl Default for FragmentShadingRateAttachmentInfoKHR<'_> {
         fn default() -> Self {
@@ -113,8 +113,8 @@ pub(super) mod defs {
             StructureType::PIPELINE_FRAGMENT_SHADING_RATE_STATE_CREATE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>>
-        for PipelineFragmentShadingRateStateCreateInfoKHR<'a>
+    unsafe impl Extends<GraphicsPipelineCreateInfo<'_>>
+        for PipelineFragmentShadingRateStateCreateInfoKHR<'_>
     {
     }
 
@@ -184,11 +184,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_FEATURES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceFragmentShadingRateFeaturesKHR<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceFragmentShadingRateFeaturesKHR<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceFragmentShadingRateFeaturesKHR<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceFragmentShadingRateFeaturesKHR<'_> {}
 
     impl Default for PhysicalDeviceFragmentShadingRateFeaturesKHR<'_> {
         fn default() -> Self {
@@ -339,8 +339,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_PROPERTIES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceFragmentShadingRatePropertiesKHR<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceFragmentShadingRatePropertiesKHR<'_>
     {
     }
 
@@ -626,7 +626,7 @@ pub(super) mod defs {
             StructureType::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<RenderingInfo<'a>> for RenderingFragmentShadingRateAttachmentInfoKHR<'a> {}
+    unsafe impl Extends<RenderingInfo<'_>> for RenderingFragmentShadingRateAttachmentInfoKHR<'_> {}
 
     impl Default for RenderingFragmentShadingRateAttachmentInfoKHR<'_> {
         fn default() -> Self {

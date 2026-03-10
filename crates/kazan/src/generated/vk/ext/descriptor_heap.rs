@@ -1143,14 +1143,11 @@ pub(super) mod defs {
             StructureType::SHADER_DESCRIPTOR_SET_AND_BINDING_MAPPING_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<PipelineShaderStageCreateInfo<'a>>
-        for ShaderDescriptorSetAndBindingMappingInfoEXT<'a>
+    unsafe impl Extends<PipelineShaderStageCreateInfo<'_>>
+        for ShaderDescriptorSetAndBindingMappingInfoEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<ShaderCreateInfoEXT<'a>>
-        for ShaderDescriptorSetAndBindingMappingInfoEXT<'a>
-    {
-    }
+    unsafe impl Extends<ShaderCreateInfoEXT<'_>> for ShaderDescriptorSetAndBindingMappingInfoEXT<'_> {}
 
     impl Default for ShaderDescriptorSetAndBindingMappingInfoEXT<'_> {
         fn default() -> Self {
@@ -1166,9 +1163,9 @@ pub(super) mod defs {
 
     impl<'a> ShaderDescriptorSetAndBindingMappingInfoEXT<'a> {
         #[inline]
-        pub fn mappings(mut self, mappings: &'a [DescriptorSetAndBindingMappingEXT<'a>]) -> Self {
+        pub fn mappings(mut self, mappings: &'a [DescriptorSetAndBindingMappingEXT<'_>]) -> Self {
             self.mapping_count = mappings.len().try_into().unwrap();
-            self.p_mappings = mappings.as_ptr();
+            self.p_mappings = mappings.as_ptr() as _;
             self
         }
     }
@@ -1200,7 +1197,7 @@ pub(super) mod defs {
             StructureType::SAMPLER_CUSTOM_BORDER_COLOR_INDEX_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<SamplerCreateInfo<'a>> for SamplerCustomBorderColorIndexCreateInfoEXT<'a> {}
+    unsafe impl Extends<SamplerCreateInfo<'_>> for SamplerCustomBorderColorIndexCreateInfoEXT<'_> {}
 
     impl Default for SamplerCustomBorderColorIndexCreateInfoEXT<'_> {
         fn default() -> Self {
@@ -1247,8 +1244,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::OPAQUE_CAPTURE_DATA_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for OpaqueCaptureDataCreateInfoEXT<'a> {}
-    unsafe impl<'a> Extends<TensorCreateInfoARM<'a>> for OpaqueCaptureDataCreateInfoEXT<'a> {}
+    unsafe impl Extends<ImageCreateInfo<'_>> for OpaqueCaptureDataCreateInfoEXT<'_> {}
+    unsafe impl Extends<TensorCreateInfoARM<'_>> for OpaqueCaptureDataCreateInfoEXT<'_> {}
 
     impl Default for OpaqueCaptureDataCreateInfoEXT<'_> {
         fn default() -> Self {
@@ -1298,8 +1295,8 @@ pub(super) mod defs {
             StructureType::INDIRECT_COMMANDS_LAYOUT_PUSH_DATA_TOKEN_NV;
     }
 
-    unsafe impl<'a> Extends<IndirectCommandsLayoutTokenNV<'a>>
-        for IndirectCommandsLayoutPushDataTokenNV<'a>
+    unsafe impl Extends<IndirectCommandsLayoutTokenNV<'_>>
+        for IndirectCommandsLayoutPushDataTokenNV<'_>
     {
     }
 
@@ -1358,7 +1355,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::SUBSAMPLED_IMAGE_FORMAT_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<ImageFormatProperties2<'a>> for SubsampledImageFormatPropertiesEXT<'a> {}
+    unsafe impl Extends<ImageFormatProperties2<'_>> for SubsampledImageFormatPropertiesEXT<'_> {}
 
     impl Default for SubsampledImageFormatPropertiesEXT<'_> {
         fn default() -> Self {
@@ -1414,11 +1411,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_DESCRIPTOR_HEAP_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceDescriptorHeapFeaturesEXT<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceDescriptorHeapFeaturesEXT<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceDescriptorHeapFeaturesEXT<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceDescriptorHeapFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceDescriptorHeapFeaturesEXT<'_> {
         fn default() -> Self {
@@ -1542,8 +1536,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_DESCRIPTOR_HEAP_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceDescriptorHeapPropertiesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceDescriptorHeapPropertiesEXT<'_>
     {
     }
 
@@ -1749,8 +1743,8 @@ pub(super) mod defs {
             StructureType::COMMAND_BUFFER_INHERITANCE_DESCRIPTOR_HEAP_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<CommandBufferInheritanceInfo<'a>>
-        for CommandBufferInheritanceDescriptorHeapInfoEXT<'a>
+    unsafe impl Extends<CommandBufferInheritanceInfo<'_>>
+        for CommandBufferInheritanceDescriptorHeapInfoEXT<'_>
     {
     }
 
@@ -1823,8 +1817,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_DESCRIPTOR_HEAP_TENSOR_PROPERTIES_ARM;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceDescriptorHeapTensorPropertiesARM<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceDescriptorHeapTensorPropertiesARM<'_>
     {
     }
 

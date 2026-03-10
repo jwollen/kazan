@@ -44,7 +44,7 @@ pub(super) mod defs {
             StructureType::IMPORT_MEMORY_ZIRCON_HANDLE_INFO_FUCHSIA;
     }
 
-    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ImportMemoryZirconHandleInfoFUCHSIA<'a> {}
+    unsafe impl Extends<MemoryAllocateInfo<'_>> for ImportMemoryZirconHandleInfoFUCHSIA<'_> {}
 
     impl Default for ImportMemoryZirconHandleInfoFUCHSIA<'_> {
         fn default() -> Self {

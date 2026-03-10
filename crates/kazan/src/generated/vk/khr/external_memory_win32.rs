@@ -45,7 +45,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_MEMORY_WIN32_HANDLE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ImportMemoryWin32HandleInfoKHR<'a> {}
+    unsafe impl Extends<MemoryAllocateInfo<'_>> for ImportMemoryWin32HandleInfoKHR<'_> {}
 
     impl Default for ImportMemoryWin32HandleInfoKHR<'_> {
         fn default() -> Self {
@@ -110,7 +110,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::EXPORT_MEMORY_WIN32_HANDLE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ExportMemoryWin32HandleInfoKHR<'a> {}
+    unsafe impl Extends<MemoryAllocateInfo<'_>> for ExportMemoryWin32HandleInfoKHR<'_> {}
 
     impl Default for ExportMemoryWin32HandleInfoKHR<'_> {
         fn default() -> Self {

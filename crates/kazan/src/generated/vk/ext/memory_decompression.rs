@@ -42,11 +42,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceMemoryDecompressionFeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceMemoryDecompressionFeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceMemoryDecompressionFeaturesEXT<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceMemoryDecompressionFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceMemoryDecompressionFeaturesEXT<'_> {
         fn default() -> Self {
@@ -99,8 +99,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceMemoryDecompressionPropertiesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceMemoryDecompressionPropertiesEXT<'_>
     {
     }
 
@@ -230,7 +230,7 @@ pub(super) mod defs {
         #[inline]
         pub fn regions(mut self, regions: &'a [DecompressMemoryRegionEXT]) -> Self {
             self.region_count = regions.len().try_into().unwrap();
-            self.p_regions = regions.as_ptr();
+            self.p_regions = regions.as_ptr() as _;
             self
         }
     }

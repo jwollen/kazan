@@ -42,11 +42,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceInvocationMaskFeaturesHUAWEI<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceInvocationMaskFeaturesHUAWEI<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceInvocationMaskFeaturesHUAWEI<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceInvocationMaskFeaturesHUAWEI<'_> {}
 
     impl Default for PhysicalDeviceInvocationMaskFeaturesHUAWEI<'_> {
         fn default() -> Self {

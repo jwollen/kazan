@@ -45,12 +45,12 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_FEATURES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceClusterAccelerationStructureFeaturesNV<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceClusterAccelerationStructureFeaturesNV<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceClusterAccelerationStructureFeaturesNV<'a>
+    unsafe impl Extends<DeviceCreateInfo<'_>>
+        for PhysicalDeviceClusterAccelerationStructureFeaturesNV<'_>
     {
     }
 
@@ -132,8 +132,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_PROPERTIES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceClusterAccelerationStructurePropertiesNV<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceClusterAccelerationStructurePropertiesNV<'_>
     {
     }
 
@@ -273,8 +273,8 @@ pub(super) mod defs {
             StructureType::RAY_TRACING_PIPELINE_CLUSTER_ACCELERATION_STRUCTURE_CREATE_INFO_NV;
     }
 
-    unsafe impl<'a> Extends<RayTracingPipelineCreateInfoKHR<'a>>
-        for RayTracingPipelineClusterAccelerationStructureCreateInfoNV<'a>
+    unsafe impl Extends<RayTracingPipelineCreateInfoKHR<'_>>
+        for RayTracingPipelineClusterAccelerationStructureCreateInfoNV<'_>
     {
     }
 

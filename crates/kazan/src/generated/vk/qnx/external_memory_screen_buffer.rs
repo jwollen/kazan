@@ -41,7 +41,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::IMPORT_SCREEN_BUFFER_INFO_QNX;
     }
 
-    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for ImportScreenBufferInfoQNX<'a> {}
+    unsafe impl Extends<MemoryAllocateInfo<'_>> for ImportScreenBufferInfoQNX<'_> {}
 
     impl Default for ImportScreenBufferInfoQNX<'_> {
         fn default() -> Self {
@@ -161,7 +161,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::SCREEN_BUFFER_FORMAT_PROPERTIES_QNX;
     }
 
-    unsafe impl<'a> Extends<ScreenBufferPropertiesQNX<'a>> for ScreenBufferFormatPropertiesQNX<'a> {}
+    unsafe impl Extends<ScreenBufferPropertiesQNX<'_>> for ScreenBufferFormatPropertiesQNX<'_> {}
 
     impl Default for ScreenBufferFormatPropertiesQNX<'_> {
         fn default() -> Self {
@@ -276,8 +276,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_FORMAT_QNX;
     }
 
-    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ExternalFormatQNX<'a> {}
-    unsafe impl<'a> Extends<SamplerYcbcrConversionCreateInfo<'a>> for ExternalFormatQNX<'a> {}
+    unsafe impl Extends<ImageCreateInfo<'_>> for ExternalFormatQNX<'_> {}
+    unsafe impl Extends<SamplerYcbcrConversionCreateInfo<'_>> for ExternalFormatQNX<'_> {}
 
     impl Default for ExternalFormatQNX<'_> {
         fn default() -> Self {
@@ -325,12 +325,12 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_EXTERNAL_MEMORY_SCREEN_BUFFER_FEATURES_QNX;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceExternalMemoryScreenBufferFeaturesQNX<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceExternalMemoryScreenBufferFeaturesQNX<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceExternalMemoryScreenBufferFeaturesQNX<'a>
+    unsafe impl Extends<DeviceCreateInfo<'_>>
+        for PhysicalDeviceExternalMemoryScreenBufferFeaturesQNX<'_>
     {
     }
 

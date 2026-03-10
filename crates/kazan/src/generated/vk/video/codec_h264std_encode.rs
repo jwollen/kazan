@@ -506,7 +506,7 @@ pub(super) mod defs {
             ref_list0_mod_operations: &'a [StdVideoEncodeH264RefListModEntry],
         ) -> Self {
             self.ref_list0_mod_op_count = ref_list0_mod_operations.len().try_into().unwrap();
-            self.p_ref_list0_mod_operations = ref_list0_mod_operations.as_ptr();
+            self.p_ref_list0_mod_operations = ref_list0_mod_operations.as_ptr() as _;
             self
         }
 
@@ -516,7 +516,7 @@ pub(super) mod defs {
             ref_list1_mod_operations: &'a [StdVideoEncodeH264RefListModEntry],
         ) -> Self {
             self.ref_list1_mod_op_count = ref_list1_mod_operations.len().try_into().unwrap();
-            self.p_ref_list1_mod_operations = ref_list1_mod_operations.as_ptr();
+            self.p_ref_list1_mod_operations = ref_list1_mod_operations.as_ptr() as _;
             self
         }
 
@@ -526,7 +526,7 @@ pub(super) mod defs {
             ref_pic_marking_operations: &'a [StdVideoEncodeH264RefPicMarkingEntry],
         ) -> Self {
             self.ref_pic_marking_op_count = ref_pic_marking_operations.len().try_into().unwrap();
-            self.p_ref_pic_marking_operations = ref_pic_marking_operations.as_ptr();
+            self.p_ref_pic_marking_operations = ref_pic_marking_operations.as_ptr() as _;
             self
         }
 

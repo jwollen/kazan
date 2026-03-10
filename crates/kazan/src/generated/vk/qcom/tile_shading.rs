@@ -101,8 +101,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_TILE_SHADING_FEATURES_QCOM;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceTileShadingFeaturesQCOM<'a> {}
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceTileShadingFeaturesQCOM<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceTileShadingFeaturesQCOM<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceTileShadingFeaturesQCOM<'_> {}
 
     impl Default for PhysicalDeviceTileShadingFeaturesQCOM<'_> {
         fn default() -> Self {
@@ -271,10 +271,7 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_TILE_SHADING_PROPERTIES_QCOM;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceTileShadingPropertiesQCOM<'a>
-    {
-    }
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>> for PhysicalDeviceTileShadingPropertiesQCOM<'_> {}
 
     impl Default for PhysicalDeviceTileShadingPropertiesQCOM<'_> {
         fn default() -> Self {
@@ -345,13 +342,10 @@ pub(super) mod defs {
             StructureType::RENDER_PASS_TILE_SHADING_CREATE_INFO_QCOM;
     }
 
-    unsafe impl<'a> Extends<RenderPassCreateInfo<'a>> for RenderPassTileShadingCreateInfoQCOM<'a> {}
-    unsafe impl<'a> Extends<RenderPassCreateInfo2<'a>> for RenderPassTileShadingCreateInfoQCOM<'a> {}
-    unsafe impl<'a> Extends<RenderingInfo<'a>> for RenderPassTileShadingCreateInfoQCOM<'a> {}
-    unsafe impl<'a> Extends<CommandBufferInheritanceInfo<'a>>
-        for RenderPassTileShadingCreateInfoQCOM<'a>
-    {
-    }
+    unsafe impl Extends<RenderPassCreateInfo<'_>> for RenderPassTileShadingCreateInfoQCOM<'_> {}
+    unsafe impl Extends<RenderPassCreateInfo2<'_>> for RenderPassTileShadingCreateInfoQCOM<'_> {}
+    unsafe impl Extends<RenderingInfo<'_>> for RenderPassTileShadingCreateInfoQCOM<'_> {}
+    unsafe impl Extends<CommandBufferInheritanceInfo<'_>> for RenderPassTileShadingCreateInfoQCOM<'_> {}
 
     impl Default for RenderPassTileShadingCreateInfoQCOM<'_> {
         fn default() -> Self {

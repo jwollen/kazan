@@ -42,11 +42,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_IMAGE_VIEW_MIN_LOD_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceImageViewMinLodFeaturesEXT<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceImageViewMinLodFeaturesEXT<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceImageViewMinLodFeaturesEXT<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceImageViewMinLodFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceImageViewMinLodFeaturesEXT<'_> {
         fn default() -> Self {
@@ -93,7 +90,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_VIEW_MIN_LOD_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<ImageViewCreateInfo<'a>> for ImageViewMinLodCreateInfoEXT<'a> {}
+    unsafe impl Extends<ImageViewCreateInfo<'_>> for ImageViewMinLodCreateInfoEXT<'_> {}
 
     impl Default for ImageViewMinLodCreateInfoEXT<'_> {
         fn default() -> Self {

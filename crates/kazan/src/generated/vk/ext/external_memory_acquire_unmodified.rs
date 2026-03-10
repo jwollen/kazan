@@ -41,10 +41,10 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT;
     }
 
-    unsafe impl<'a> Extends<BufferMemoryBarrier<'a>> for ExternalMemoryAcquireUnmodifiedEXT<'a> {}
-    unsafe impl<'a> Extends<BufferMemoryBarrier2<'a>> for ExternalMemoryAcquireUnmodifiedEXT<'a> {}
-    unsafe impl<'a> Extends<ImageMemoryBarrier<'a>> for ExternalMemoryAcquireUnmodifiedEXT<'a> {}
-    unsafe impl<'a> Extends<ImageMemoryBarrier2<'a>> for ExternalMemoryAcquireUnmodifiedEXT<'a> {}
+    unsafe impl Extends<BufferMemoryBarrier<'_>> for ExternalMemoryAcquireUnmodifiedEXT<'_> {}
+    unsafe impl Extends<BufferMemoryBarrier2<'_>> for ExternalMemoryAcquireUnmodifiedEXT<'_> {}
+    unsafe impl Extends<ImageMemoryBarrier<'_>> for ExternalMemoryAcquireUnmodifiedEXT<'_> {}
+    unsafe impl Extends<ImageMemoryBarrier2<'_>> for ExternalMemoryAcquireUnmodifiedEXT<'_> {}
 
     impl Default for ExternalMemoryAcquireUnmodifiedEXT<'_> {
         fn default() -> Self {

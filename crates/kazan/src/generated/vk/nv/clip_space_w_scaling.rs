@@ -70,8 +70,8 @@ pub(super) mod defs {
             StructureType::PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV;
     }
 
-    unsafe impl<'a> Extends<PipelineViewportStateCreateInfo<'a>>
-        for PipelineViewportWScalingStateCreateInfoNV<'a>
+    unsafe impl Extends<PipelineViewportStateCreateInfo<'_>>
+        for PipelineViewportWScalingStateCreateInfoNV<'_>
     {
     }
 
@@ -101,7 +101,7 @@ pub(super) mod defs {
             viewport_w_scalings: &'a [ViewportWScalingNV],
         ) -> Self {
             self.viewport_count = viewport_w_scalings.len().try_into().unwrap();
-            self.p_viewport_w_scalings = viewport_w_scalings.as_ptr();
+            self.p_viewport_w_scalings = viewport_w_scalings.as_ptr() as _;
             self
         }
     }

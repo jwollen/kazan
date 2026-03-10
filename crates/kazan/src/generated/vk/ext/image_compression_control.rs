@@ -48,9 +48,9 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_COMPRESSION_CONTROL_EXT;
     }
 
-    unsafe impl<'a> Extends<ImageCreateInfo<'a>> for ImageCompressionControlEXT<'a> {}
-    unsafe impl<'a> Extends<SwapchainCreateInfoKHR<'a>> for ImageCompressionControlEXT<'a> {}
-    unsafe impl<'a> Extends<PhysicalDeviceImageFormatInfo2<'a>> for ImageCompressionControlEXT<'a> {}
+    unsafe impl Extends<ImageCreateInfo<'_>> for ImageCompressionControlEXT<'_> {}
+    unsafe impl Extends<SwapchainCreateInfoKHR<'_>> for ImageCompressionControlEXT<'_> {}
+    unsafe impl Extends<PhysicalDeviceImageFormatInfo2<'_>> for ImageCompressionControlEXT<'_> {}
 
     impl Default for ImageCompressionControlEXT<'_> {
         fn default() -> Self {
@@ -78,7 +78,7 @@ pub(super) mod defs {
             fixed_rate_flags: &'a mut [ImageCompressionFixedRateFlagsEXT],
         ) -> Self {
             self.compression_control_plane_count = fixed_rate_flags.len().try_into().unwrap();
-            self.p_fixed_rate_flags = fixed_rate_flags.as_mut_ptr();
+            self.p_fixed_rate_flags = fixed_rate_flags.as_mut_ptr() as _;
             self
         }
     }
@@ -110,14 +110,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceImageCompressionControlFeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceImageCompressionControlFeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceImageCompressionControlFeaturesEXT<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceImageCompressionControlFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceImageCompressionControlFeaturesEXT<'_> {
         fn default() -> Self {
@@ -169,9 +166,9 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::IMAGE_COMPRESSION_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<ImageFormatProperties2<'a>> for ImageCompressionPropertiesEXT<'a> {}
-    unsafe impl<'a> Extends<SurfaceFormat2KHR<'a>> for ImageCompressionPropertiesEXT<'a> {}
-    unsafe impl<'a> Extends<SubresourceLayout2<'a>> for ImageCompressionPropertiesEXT<'a> {}
+    unsafe impl Extends<ImageFormatProperties2<'_>> for ImageCompressionPropertiesEXT<'_> {}
+    unsafe impl Extends<SurfaceFormat2KHR<'_>> for ImageCompressionPropertiesEXT<'_> {}
+    unsafe impl Extends<SubresourceLayout2<'_>> for ImageCompressionPropertiesEXT<'_> {}
 
     impl Default for ImageCompressionPropertiesEXT<'_> {
         fn default() -> Self {

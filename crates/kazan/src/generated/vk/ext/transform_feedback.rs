@@ -44,11 +44,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_TRANSFORM_FEEDBACK_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceTransformFeedbackFeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceTransformFeedbackFeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceTransformFeedbackFeaturesEXT<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceTransformFeedbackFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceTransformFeedbackFeaturesEXT<'_> {
         fn default() -> Self {
@@ -148,8 +148,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_TRANSFORM_FEEDBACK_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceTransformFeedbackPropertiesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceTransformFeedbackPropertiesEXT<'_>
     {
     }
 
@@ -291,8 +291,8 @@ pub(super) mod defs {
             StructureType::PIPELINE_RASTERIZATION_STATE_STREAM_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<PipelineRasterizationStateCreateInfo<'a>>
-        for PipelineRasterizationStateStreamCreateInfoEXT<'a>
+    unsafe impl Extends<PipelineRasterizationStateCreateInfo<'_>>
+        for PipelineRasterizationStateStreamCreateInfoEXT<'_>
     {
     }
 

@@ -45,12 +45,12 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_REPRESENTATIVE_FRAGMENT_TEST_FEATURES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceRepresentativeFragmentTestFeaturesNV<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceRepresentativeFragmentTestFeaturesNV<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceRepresentativeFragmentTestFeaturesNV<'a>
+    unsafe impl Extends<DeviceCreateInfo<'_>>
+        for PhysicalDeviceRepresentativeFragmentTestFeaturesNV<'_>
     {
     }
 
@@ -103,8 +103,8 @@ pub(super) mod defs {
             StructureType::PIPELINE_REPRESENTATIVE_FRAGMENT_TEST_STATE_CREATE_INFO_NV;
     }
 
-    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>>
-        for PipelineRepresentativeFragmentTestStateCreateInfoNV<'a>
+    unsafe impl Extends<GraphicsPipelineCreateInfo<'_>>
+        for PipelineRepresentativeFragmentTestStateCreateInfoNV<'_>
     {
     }
 

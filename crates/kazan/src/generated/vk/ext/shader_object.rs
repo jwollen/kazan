@@ -52,8 +52,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SHADER_OBJECT_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceShaderObjectFeaturesEXT<'a> {}
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceShaderObjectFeaturesEXT<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceShaderObjectFeaturesEXT<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceShaderObjectFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceShaderObjectFeaturesEXT<'_> {
         fn default() -> Self {
@@ -103,10 +103,7 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SHADER_OBJECT_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceShaderObjectPropertiesEXT<'a>
-    {
-    }
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>> for PhysicalDeviceShaderObjectPropertiesEXT<'_> {}
 
     impl Default for PhysicalDeviceShaderObjectPropertiesEXT<'_> {
         fn default() -> Self {
@@ -245,7 +242,7 @@ pub(super) mod defs {
         #[inline]
         pub fn set_layouts(mut self, set_layouts: &'a [DescriptorSetLayout]) -> Self {
             self.set_layout_count = set_layouts.len().try_into().unwrap();
-            self.p_set_layouts = set_layouts.as_ptr();
+            self.p_set_layouts = set_layouts.as_ptr() as _;
             self
         }
 
@@ -255,7 +252,7 @@ pub(super) mod defs {
             push_constant_ranges: &'a [PushConstantRange],
         ) -> Self {
             self.push_constant_range_count = push_constant_ranges.len().try_into().unwrap();
-            self.p_push_constant_ranges = push_constant_ranges.as_ptr();
+            self.p_push_constant_ranges = push_constant_ranges.as_ptr() as _;
             self
         }
 

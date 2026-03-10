@@ -41,7 +41,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::PRESENT_FRAME_TOKEN_GGP;
     }
 
-    unsafe impl<'a> Extends<PresentInfoKHR<'a>> for PresentFrameTokenGGP<'a> {}
+    unsafe impl Extends<PresentInfoKHR<'_>> for PresentFrameTokenGGP<'_> {}
 
     impl Default for PresentFrameTokenGGP<'_> {
         fn default() -> Self {

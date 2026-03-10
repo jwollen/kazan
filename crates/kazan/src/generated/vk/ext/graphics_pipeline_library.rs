@@ -42,14 +42,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceGraphicsPipelineLibraryFeaturesEXT<'_> {
         fn default() -> Self {
@@ -105,8 +102,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceGraphicsPipelineLibraryPropertiesEXT<'_>
     {
     }
 
@@ -171,10 +168,7 @@ pub(super) mod defs {
             StructureType::GRAPHICS_PIPELINE_LIBRARY_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>>
-        for GraphicsPipelineLibraryCreateInfoEXT<'a>
-    {
-    }
+    unsafe impl Extends<GraphicsPipelineCreateInfo<'_>> for GraphicsPipelineLibraryCreateInfoEXT<'_> {}
 
     impl Default for GraphicsPipelineLibraryCreateInfoEXT<'_> {
         fn default() -> Self {

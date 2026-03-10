@@ -137,7 +137,7 @@ pub(super) mod defs {
         #[inline]
         pub fn pipeline_binaries(mut self, pipeline_binaries: &'a mut [PipelineBinaryKHR]) -> Self {
             self.pipeline_binary_count = pipeline_binaries.len().try_into().unwrap();
-            self.p_pipeline_binaries = pipeline_binaries.as_mut_ptr();
+            self.p_pipeline_binaries = pipeline_binaries.as_mut_ptr() as _;
             self
         }
     }
@@ -218,13 +218,13 @@ pub(super) mod defs {
         #[inline]
         pub fn binaries(
             mut self,
-            pipeline_binary_keys: &'a [PipelineBinaryKeyKHR<'a>],
-            pipeline_binary_data: &'a [PipelineBinaryDataKHR<'a>],
+            pipeline_binary_keys: &'a [PipelineBinaryKeyKHR<'_>],
+            pipeline_binary_data: &'a [PipelineBinaryDataKHR<'_>],
         ) -> Self {
             self.binary_count = pipeline_binary_keys.len().try_into().unwrap();
             assert_eq!(pipeline_binary_data.len(), self.binary_count as usize);
-            self.p_pipeline_binary_keys = pipeline_binary_keys.as_ptr();
-            self.p_pipeline_binary_data = pipeline_binary_data.as_ptr();
+            self.p_pipeline_binary_keys = pipeline_binary_keys.as_ptr() as _;
+            self.p_pipeline_binary_data = pipeline_binary_data.as_ptr() as _;
             self
         }
     }
@@ -311,9 +311,9 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::PIPELINE_BINARY_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<GraphicsPipelineCreateInfo<'a>> for PipelineBinaryInfoKHR<'a> {}
-    unsafe impl<'a> Extends<ComputePipelineCreateInfo<'a>> for PipelineBinaryInfoKHR<'a> {}
-    unsafe impl<'a> Extends<RayTracingPipelineCreateInfoKHR<'a>> for PipelineBinaryInfoKHR<'a> {}
+    unsafe impl Extends<GraphicsPipelineCreateInfo<'_>> for PipelineBinaryInfoKHR<'_> {}
+    unsafe impl Extends<ComputePipelineCreateInfo<'_>> for PipelineBinaryInfoKHR<'_> {}
+    unsafe impl Extends<RayTracingPipelineCreateInfoKHR<'_>> for PipelineBinaryInfoKHR<'_> {}
 
     impl Default for PipelineBinaryInfoKHR<'_> {
         fn default() -> Self {
@@ -331,7 +331,7 @@ pub(super) mod defs {
         #[inline]
         pub fn pipeline_binaries(mut self, pipeline_binaries: &'a [PipelineBinaryKHR]) -> Self {
             self.binary_count = pipeline_binaries.len().try_into().unwrap();
-            self.p_pipeline_binaries = pipeline_binaries.as_ptr();
+            self.p_pipeline_binaries = pipeline_binaries.as_ptr() as _;
             self
         }
     }
@@ -490,11 +490,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_PIPELINE_BINARY_FEATURES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDevicePipelineBinaryFeaturesKHR<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePipelineBinaryFeaturesKHR<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDevicePipelineBinaryFeaturesKHR<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDevicePipelineBinaryFeaturesKHR<'_> {}
 
     impl Default for PhysicalDevicePipelineBinaryFeaturesKHR<'_> {
         fn default() -> Self {
@@ -542,7 +539,7 @@ pub(super) mod defs {
             StructureType::DEVICE_PIPELINE_BINARY_INTERNAL_CACHE_CONTROL_KHR;
     }
 
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for DevicePipelineBinaryInternalCacheControlKHR<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for DevicePipelineBinaryInternalCacheControlKHR<'_> {}
 
     impl Default for DevicePipelineBinaryInternalCacheControlKHR<'_> {
         fn default() -> Self {
@@ -613,8 +610,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_PIPELINE_BINARY_PROPERTIES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDevicePipelineBinaryPropertiesKHR<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDevicePipelineBinaryPropertiesKHR<'_>
     {
     }
 

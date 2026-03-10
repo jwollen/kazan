@@ -44,7 +44,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::QUEUE_FAMILY_CHECKPOINT_PROPERTIES_NV;
     }
 
-    unsafe impl<'a> Extends<QueueFamilyProperties2<'a>> for QueueFamilyCheckpointPropertiesNV<'a> {}
+    unsafe impl Extends<QueueFamilyProperties2<'_>> for QueueFamilyCheckpointPropertiesNV<'_> {}
 
     impl Default for QueueFamilyCheckpointPropertiesNV<'_> {
         fn default() -> Self {
@@ -152,7 +152,7 @@ pub(super) mod defs {
             StructureType::QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV;
     }
 
-    unsafe impl<'a> Extends<QueueFamilyProperties2<'a>> for QueueFamilyCheckpointProperties2NV<'a> {}
+    unsafe impl Extends<QueueFamilyProperties2<'_>> for QueueFamilyCheckpointProperties2NV<'_> {}
 
     impl Default for QueueFamilyCheckpointProperties2NV<'_> {
         fn default() -> Self {

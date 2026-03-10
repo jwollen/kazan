@@ -42,11 +42,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_DIAGNOSTICS_CONFIG_FEATURES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceDiagnosticsConfigFeaturesNV<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceDiagnosticsConfigFeaturesNV<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceDiagnosticsConfigFeaturesNV<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceDiagnosticsConfigFeaturesNV<'_> {}
 
     impl Default for PhysicalDeviceDiagnosticsConfigFeaturesNV<'_> {
         fn default() -> Self {
@@ -94,7 +91,7 @@ pub(super) mod defs {
             StructureType::DEVICE_DIAGNOSTICS_CONFIG_CREATE_INFO_NV;
     }
 
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for DeviceDiagnosticsConfigCreateInfoNV<'a> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for DeviceDiagnosticsConfigCreateInfoNV<'_> {}
 
     impl Default for DeviceDiagnosticsConfigCreateInfoNV<'_> {
         fn default() -> Self {

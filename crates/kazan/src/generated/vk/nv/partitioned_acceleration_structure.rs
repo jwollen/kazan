@@ -49,12 +49,12 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_FEATURES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDevicePartitionedAccelerationStructureFeaturesNV<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDevicePartitionedAccelerationStructureFeaturesNV<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDevicePartitionedAccelerationStructureFeaturesNV<'a>
+    unsafe impl Extends<DeviceCreateInfo<'_>>
+        for PhysicalDevicePartitionedAccelerationStructureFeaturesNV<'_>
     {
     }
 
@@ -109,8 +109,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_PROPERTIES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDevicePartitionedAccelerationStructurePropertiesNV<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDevicePartitionedAccelerationStructurePropertiesNV<'_>
     {
     }
 
@@ -194,8 +194,8 @@ pub(super) mod defs {
             StructureType::PARTITIONED_ACCELERATION_STRUCTURE_FLAGS_NV;
     }
 
-    unsafe impl<'a> Extends<PartitionedAccelerationStructureInstancesInputNV<'a>>
-        for PartitionedAccelerationStructureFlagsNV<'a>
+    unsafe impl Extends<PartitionedAccelerationStructureInstancesInputNV<'_>>
+        for PartitionedAccelerationStructureFlagsNV<'_>
     {
     }
 
@@ -414,8 +414,8 @@ pub(super) mod defs {
             StructureType::WRITE_DESCRIPTOR_SET_PARTITIONED_ACCELERATION_STRUCTURE_NV;
     }
 
-    unsafe impl<'a> Extends<WriteDescriptorSet<'a>>
-        for WriteDescriptorSetPartitionedAccelerationStructureNV<'a>
+    unsafe impl Extends<WriteDescriptorSet<'_>>
+        for WriteDescriptorSetPartitionedAccelerationStructureNV<'_>
     {
     }
 
@@ -438,7 +438,7 @@ pub(super) mod defs {
             acceleration_structures: &'a [DeviceAddress],
         ) -> Self {
             self.acceleration_structure_count = acceleration_structures.len().try_into().unwrap();
-            self.p_acceleration_structures = acceleration_structures.as_ptr();
+            self.p_acceleration_structures = acceleration_structures.as_ptr() as _;
             self
         }
     }

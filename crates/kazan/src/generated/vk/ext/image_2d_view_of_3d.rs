@@ -44,11 +44,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_IMAGE_2D_VIEW_OF_3D_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceImage2DViewOf3DFeaturesEXT<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceImage2DViewOf3DFeaturesEXT<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceImage2DViewOf3DFeaturesEXT<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceImage2DViewOf3DFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceImage2DViewOf3DFeaturesEXT<'_> {
         fn default() -> Self {

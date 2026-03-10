@@ -46,8 +46,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_SHADER_FMA_FEATURES_KHR;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>> for PhysicalDeviceShaderFmaFeaturesKHR<'a> {}
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceShaderFmaFeaturesKHR<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceShaderFmaFeaturesKHR<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceShaderFmaFeaturesKHR<'_> {}
 
     impl Default for PhysicalDeviceShaderFmaFeaturesKHR<'_> {
         fn default() -> Self {

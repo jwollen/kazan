@@ -47,12 +47,12 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT<'a>
+    unsafe impl Extends<DeviceCreateInfo<'_>>
+        for PhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT<'_>
     {
     }
 
@@ -105,7 +105,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::SUBPASS_RESOLVE_PERFORMANCE_QUERY_EXT;
     }
 
-    unsafe impl<'a> Extends<FormatProperties2<'a>> for SubpassResolvePerformanceQueryEXT<'a> {}
+    unsafe impl Extends<FormatProperties2<'_>> for SubpassResolvePerformanceQueryEXT<'_> {}
 
     impl Default for SubpassResolvePerformanceQueryEXT<'_> {
         fn default() -> Self {
@@ -158,8 +158,8 @@ pub(super) mod defs {
             StructureType::MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<SubpassDescription2<'a>> for MultisampledRenderToSingleSampledInfoEXT<'a> {}
-    unsafe impl<'a> Extends<RenderingInfo<'a>> for MultisampledRenderToSingleSampledInfoEXT<'a> {}
+    unsafe impl Extends<SubpassDescription2<'_>> for MultisampledRenderToSingleSampledInfoEXT<'_> {}
+    unsafe impl Extends<RenderingInfo<'_>> for MultisampledRenderToSingleSampledInfoEXT<'_> {}
 
     impl Default for MultisampledRenderToSingleSampledInfoEXT<'_> {
         fn default() -> Self {

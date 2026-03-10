@@ -176,7 +176,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::SWAPCHAIN_COUNTER_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<SwapchainCreateInfoKHR<'a>> for SwapchainCounterCreateInfoEXT<'a> {}
+    unsafe impl Extends<SwapchainCreateInfoKHR<'_>> for SwapchainCounterCreateInfoEXT<'_> {}
 
     impl Default for SwapchainCounterCreateInfoEXT<'_> {
         fn default() -> Self {

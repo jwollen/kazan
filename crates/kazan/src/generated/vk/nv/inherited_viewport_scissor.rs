@@ -45,14 +45,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_INHERITED_VIEWPORT_SCISSOR_FEATURES_NV;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceInheritedViewportScissorFeaturesNV<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceInheritedViewportScissorFeaturesNV<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceInheritedViewportScissorFeaturesNV<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceInheritedViewportScissorFeaturesNV<'_> {}
 
     impl Default for PhysicalDeviceInheritedViewportScissorFeaturesNV<'_> {
         fn default() -> Self {
@@ -107,8 +104,8 @@ pub(super) mod defs {
             StructureType::COMMAND_BUFFER_INHERITANCE_VIEWPORT_SCISSOR_INFO_NV;
     }
 
-    unsafe impl<'a> Extends<CommandBufferInheritanceInfo<'a>>
-        for CommandBufferInheritanceViewportScissorInfoNV<'a>
+    unsafe impl Extends<CommandBufferInheritanceInfo<'_>>
+        for CommandBufferInheritanceViewportScissorInfoNV<'_>
     {
     }
 

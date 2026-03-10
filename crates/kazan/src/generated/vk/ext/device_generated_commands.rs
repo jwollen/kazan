@@ -58,14 +58,11 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>>
+        for PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT<'_>
     {
     }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>>
-        for PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT<'a>
-    {
-    }
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT<'_> {
         fn default() -> Self {
@@ -181,8 +178,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceDeviceGeneratedCommandsPropertiesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceDeviceGeneratedCommandsPropertiesEXT<'_>
     {
     }
 
@@ -343,9 +340,9 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::GENERATED_COMMANDS_PIPELINE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<GeneratedCommandsInfoEXT<'a>> for GeneratedCommandsPipelineInfoEXT<'a> {}
-    unsafe impl<'a> Extends<GeneratedCommandsMemoryRequirementsInfoEXT<'a>>
-        for GeneratedCommandsPipelineInfoEXT<'a>
+    unsafe impl Extends<GeneratedCommandsInfoEXT<'_>> for GeneratedCommandsPipelineInfoEXT<'_> {}
+    unsafe impl Extends<GeneratedCommandsMemoryRequirementsInfoEXT<'_>>
+        for GeneratedCommandsPipelineInfoEXT<'_>
     {
     }
 
@@ -396,9 +393,9 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::GENERATED_COMMANDS_SHADER_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<GeneratedCommandsInfoEXT<'a>> for GeneratedCommandsShaderInfoEXT<'a> {}
-    unsafe impl<'a> Extends<GeneratedCommandsMemoryRequirementsInfoEXT<'a>>
-        for GeneratedCommandsShaderInfoEXT<'a>
+    unsafe impl Extends<GeneratedCommandsInfoEXT<'_>> for GeneratedCommandsShaderInfoEXT<'_> {}
+    unsafe impl Extends<GeneratedCommandsMemoryRequirementsInfoEXT<'_>>
+        for GeneratedCommandsShaderInfoEXT<'_>
     {
     }
 
@@ -418,7 +415,7 @@ pub(super) mod defs {
         #[inline]
         pub fn shaders(mut self, shaders: &'a [ShaderEXT]) -> Self {
             self.shader_count = shaders.len().try_into().unwrap();
-            self.p_shaders = shaders.as_ptr();
+            self.p_shaders = shaders.as_ptr() as _;
             self
         }
     }
@@ -602,7 +599,7 @@ pub(super) mod defs {
         #[inline]
         pub fn set_layouts(mut self, set_layouts: &'a [DescriptorSetLayout]) -> Self {
             self.set_layout_count = set_layouts.len().try_into().unwrap();
-            self.p_set_layouts = set_layouts.as_ptr();
+            self.p_set_layouts = set_layouts.as_ptr() as _;
             self
         }
     }
@@ -664,14 +661,14 @@ pub(super) mod defs {
         pub fn shaders(
             mut self,
             initial_shaders: &'a [ShaderEXT],
-            set_layout_infos: Option<&'a [IndirectExecutionSetShaderLayoutInfoEXT<'a>]>,
+            set_layout_infos: Option<&'a [IndirectExecutionSetShaderLayoutInfoEXT<'_>]>,
         ) -> Self {
             self.shader_count = initial_shaders.len().try_into().unwrap();
             if let Some(s) = &set_layout_infos {
                 assert_eq!(s.len(), self.shader_count as usize);
             }
-            self.p_initial_shaders = initial_shaders.as_ptr();
-            self.p_set_layout_infos = set_layout_infos.map_or(ptr::null(), |s| s.as_ptr());
+            self.p_initial_shaders = initial_shaders.as_ptr() as _;
+            self.p_set_layout_infos = set_layout_infos.map_or(ptr::null(), |s| s.as_ptr() as _);
             self
         }
 
@@ -687,7 +684,7 @@ pub(super) mod defs {
             push_constant_ranges: &'a [PushConstantRange],
         ) -> Self {
             self.push_constant_range_count = push_constant_ranges.len().try_into().unwrap();
-            self.p_push_constant_ranges = push_constant_ranges.as_ptr();
+            self.p_push_constant_ranges = push_constant_ranges.as_ptr() as _;
             self
         }
     }
@@ -1067,9 +1064,9 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn tokens(mut self, tokens: &'a [IndirectCommandsLayoutTokenEXT<'a>]) -> Self {
+        pub fn tokens(mut self, tokens: &'a [IndirectCommandsLayoutTokenEXT<'_>]) -> Self {
             self.token_count = tokens.len().try_into().unwrap();
-            self.p_tokens = tokens.as_ptr();
+            self.p_tokens = tokens.as_ptr() as _;
             self
         }
     }

@@ -49,8 +49,8 @@ pub(super) mod defs {
             StructureType::PIPELINE_COVERAGE_TO_COLOR_STATE_CREATE_INFO_NV;
     }
 
-    unsafe impl<'a> Extends<PipelineMultisampleStateCreateInfo<'a>>
-        for PipelineCoverageToColorStateCreateInfoNV<'a>
+    unsafe impl Extends<PipelineMultisampleStateCreateInfo<'_>>
+        for PipelineCoverageToColorStateCreateInfoNV<'_>
     {
     }
 

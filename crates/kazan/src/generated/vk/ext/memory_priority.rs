@@ -42,11 +42,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_MEMORY_PRIORITY_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceMemoryPriorityFeaturesEXT<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceMemoryPriorityFeaturesEXT<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceMemoryPriorityFeaturesEXT<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceMemoryPriorityFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceMemoryPriorityFeaturesEXT<'_> {
         fn default() -> Self {
@@ -93,7 +90,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::MEMORY_PRIORITY_ALLOCATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<MemoryAllocateInfo<'a>> for MemoryPriorityAllocateInfoEXT<'a> {}
+    unsafe impl Extends<MemoryAllocateInfo<'_>> for MemoryPriorityAllocateInfoEXT<'_> {}
 
     impl Default for MemoryPriorityAllocateInfoEXT<'_> {
         fn default() -> Self {

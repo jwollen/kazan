@@ -54,8 +54,8 @@ pub(super) mod defs {
             StructureType::WIN32_KEYED_MUTEX_ACQUIRE_RELEASE_INFO_KHR;
     }
 
-    unsafe impl<'a> Extends<SubmitInfo<'a>> for Win32KeyedMutexAcquireReleaseInfoKHR<'a> {}
-    unsafe impl<'a> Extends<SubmitInfo2<'a>> for Win32KeyedMutexAcquireReleaseInfoKHR<'a> {}
+    unsafe impl Extends<SubmitInfo<'_>> for Win32KeyedMutexAcquireReleaseInfoKHR<'_> {}
+    unsafe impl Extends<SubmitInfo2<'_>> for Win32KeyedMutexAcquireReleaseInfoKHR<'_> {}
 
     impl Default for Win32KeyedMutexAcquireReleaseInfoKHR<'_> {
         fn default() -> Self {
@@ -85,9 +85,9 @@ pub(super) mod defs {
             self.acquire_count = acquire_syncs.len().try_into().unwrap();
             assert_eq!(acquire_keys.len(), self.acquire_count as usize);
             assert_eq!(acquire_timeouts.len(), self.acquire_count as usize);
-            self.p_acquire_syncs = acquire_syncs.as_ptr();
-            self.p_acquire_keys = acquire_keys.as_ptr();
-            self.p_acquire_timeouts = acquire_timeouts.as_ptr();
+            self.p_acquire_syncs = acquire_syncs.as_ptr() as _;
+            self.p_acquire_keys = acquire_keys.as_ptr() as _;
+            self.p_acquire_timeouts = acquire_timeouts.as_ptr() as _;
             self
         }
 
@@ -99,8 +99,8 @@ pub(super) mod defs {
         ) -> Self {
             self.release_count = release_syncs.len().try_into().unwrap();
             assert_eq!(release_keys.len(), self.release_count as usize);
-            self.p_release_syncs = release_syncs.as_ptr();
-            self.p_release_keys = release_keys.as_ptr();
+            self.p_release_syncs = release_syncs.as_ptr() as _;
+            self.p_release_keys = release_keys.as_ptr() as _;
             self
         }
     }

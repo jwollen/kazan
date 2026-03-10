@@ -805,7 +805,7 @@ pub(super) mod defs {
         pub fn offset_for_ref_frame(mut self, offset_for_ref_frame: &'a [i32]) -> Self {
             self.num_ref_frames_in_pic_order_cnt_cycle =
                 offset_for_ref_frame.len().try_into().unwrap();
-            self.p_offset_for_ref_frame = offset_for_ref_frame.as_ptr();
+            self.p_offset_for_ref_frame = offset_for_ref_frame.as_ptr() as _;
             self
         }
 

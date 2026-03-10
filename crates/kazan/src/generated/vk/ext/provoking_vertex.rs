@@ -47,11 +47,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_PROVOKING_VERTEX_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDeviceProvokingVertexFeaturesEXT<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDeviceProvokingVertexFeaturesEXT<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDeviceProvokingVertexFeaturesEXT<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDeviceProvokingVertexFeaturesEXT<'_> {}
 
     impl Default for PhysicalDeviceProvokingVertexFeaturesEXT<'_> {
         fn default() -> Self {
@@ -118,8 +115,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_PROVOKING_VERTEX_PROPERTIES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceProperties2<'a>>
-        for PhysicalDeviceProvokingVertexPropertiesEXT<'a>
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceProvokingVertexPropertiesEXT<'_>
     {
     }
 
@@ -183,8 +180,8 @@ pub(super) mod defs {
             StructureType::PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<PipelineRasterizationStateCreateInfo<'a>>
-        for PipelineRasterizationProvokingVertexStateCreateInfoEXT<'a>
+    unsafe impl Extends<PipelineRasterizationStateCreateInfo<'_>>
+        for PipelineRasterizationProvokingVertexStateCreateInfoEXT<'_>
     {
     }
 

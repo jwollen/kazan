@@ -105,7 +105,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::PRESENT_TIMES_INFO_GOOGLE;
     }
 
-    unsafe impl<'a> Extends<PresentInfoKHR<'a>> for PresentTimesInfoGOOGLE<'a> {}
+    unsafe impl Extends<PresentInfoKHR<'_>> for PresentTimesInfoGOOGLE<'_> {}
 
     impl Default for PresentTimesInfoGOOGLE<'_> {
         fn default() -> Self {
@@ -123,7 +123,7 @@ pub(super) mod defs {
         #[inline]
         pub fn times(mut self, times: &'a [PresentTimeGOOGLE]) -> Self {
             self.swapchain_count = times.len().try_into().unwrap();
-            self.p_times = times.as_ptr();
+            self.p_times = times.as_ptr() as _;
             self
         }
     }

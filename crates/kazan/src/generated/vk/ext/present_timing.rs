@@ -46,11 +46,8 @@ pub(super) mod defs {
             StructureType::PHYSICAL_DEVICE_PRESENT_TIMING_FEATURES_EXT;
     }
 
-    unsafe impl<'a> Extends<PhysicalDeviceFeatures2<'a>>
-        for PhysicalDevicePresentTimingFeaturesEXT<'a>
-    {
-    }
-    unsafe impl<'a> Extends<DeviceCreateInfo<'a>> for PhysicalDevicePresentTimingFeaturesEXT<'a> {}
+    unsafe impl Extends<PhysicalDeviceFeatures2<'_>> for PhysicalDevicePresentTimingFeaturesEXT<'_> {}
+    unsafe impl Extends<DeviceCreateInfo<'_>> for PhysicalDevicePresentTimingFeaturesEXT<'_> {}
 
     impl Default for PhysicalDevicePresentTimingFeaturesEXT<'_> {
         fn default() -> Self {
@@ -124,7 +121,7 @@ pub(super) mod defs {
             StructureType::PRESENT_TIMING_SURFACE_CAPABILITIES_EXT;
     }
 
-    unsafe impl<'a> Extends<SurfaceCapabilities2KHR<'a>> for PresentTimingSurfaceCapabilitiesEXT<'a> {}
+    unsafe impl Extends<SurfaceCapabilities2KHR<'_>> for PresentTimingSurfaceCapabilitiesEXT<'_> {}
 
     impl Default for PresentTimingSurfaceCapabilitiesEXT<'_> {
         fn default() -> Self {
@@ -288,8 +285,9 @@ pub(super) mod defs {
             if let Some(s) = &time_domain_ids {
                 assert_eq!(s.len(), self.time_domain_count as usize);
             }
-            self.p_time_domains = time_domains.map_or(ptr::null_mut(), |s| s.as_mut_ptr());
-            self.p_time_domain_ids = time_domain_ids.map_or(ptr::null_mut(), |s| s.as_mut_ptr());
+            self.p_time_domains = time_domains.map_or(ptr::null_mut(), |s| s.as_mut_ptr() as _);
+            self.p_time_domain_ids =
+                time_domain_ids.map_or(ptr::null_mut(), |s| s.as_mut_ptr() as _);
             self
         }
     }
@@ -435,10 +433,10 @@ pub(super) mod defs {
         #[inline]
         pub fn presentation_timings(
             mut self,
-            presentation_timings: &'a mut [PastPresentationTimingEXT<'a>],
+            presentation_timings: &'a mut [PastPresentationTimingEXT<'_>],
         ) -> Self {
             self.presentation_timing_count = presentation_timings.len().try_into().unwrap();
-            self.p_presentation_timings = presentation_timings.as_mut_ptr();
+            self.p_presentation_timings = presentation_timings.as_mut_ptr() as _;
             self
         }
     }
@@ -514,7 +512,7 @@ pub(super) mod defs {
         #[inline]
         pub fn present_stages(mut self, present_stages: &'a mut [PresentStageTimeEXT]) -> Self {
             self.present_stage_count = present_stages.len().try_into().unwrap();
-            self.p_present_stages = present_stages.as_mut_ptr();
+            self.p_present_stages = present_stages.as_mut_ptr() as _;
             self
         }
 
@@ -565,7 +563,7 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::PRESENT_TIMINGS_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<PresentInfoKHR<'a>> for PresentTimingsInfoEXT<'a> {}
+    unsafe impl Extends<PresentInfoKHR<'_>> for PresentTimingsInfoEXT<'_> {}
 
     impl Default for PresentTimingsInfoEXT<'_> {
         fn default() -> Self {
@@ -581,9 +579,9 @@ pub(super) mod defs {
 
     impl<'a> PresentTimingsInfoEXT<'a> {
         #[inline]
-        pub fn timing_infos(mut self, timing_infos: &'a [PresentTimingInfoEXT<'a>]) -> Self {
+        pub fn timing_infos(mut self, timing_infos: &'a [PresentTimingInfoEXT<'_>]) -> Self {
             self.swapchain_count = timing_infos.len().try_into().unwrap();
-            self.p_timing_infos = timing_infos.as_ptr();
+            self.p_timing_infos = timing_infos.as_ptr() as _;
             self
         }
     }
@@ -709,10 +707,7 @@ pub(super) mod defs {
             StructureType::SWAPCHAIN_CALIBRATED_TIMESTAMP_INFO_EXT;
     }
 
-    unsafe impl<'a> Extends<CalibratedTimestampInfoKHR<'a>>
-        for SwapchainCalibratedTimestampInfoEXT<'a>
-    {
-    }
+    unsafe impl Extends<CalibratedTimestampInfoKHR<'_>> for SwapchainCalibratedTimestampInfoEXT<'_> {}
 
     impl Default for SwapchainCalibratedTimestampInfoEXT<'_> {
         fn default() -> Self {

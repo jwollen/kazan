@@ -45,7 +45,7 @@ pub(super) mod defs {
             StructureType::TEXTURE_LOD_GATHER_FORMAT_PROPERTIES_AMD;
     }
 
-    unsafe impl<'a> Extends<ImageFormatProperties2<'a>> for TextureLODGatherFormatPropertiesAMD<'a> {}
+    unsafe impl Extends<ImageFormatProperties2<'_>> for TextureLODGatherFormatPropertiesAMD<'_> {}
 
     impl Default for TextureLODGatherFormatPropertiesAMD<'_> {
         fn default() -> Self {
