@@ -191,3 +191,104 @@ macro_rules! match_in_struct {
         }
     };
 }
+
+#[cfg(test)]
+mod tests {
+    use crate::TaggedStructure as _;
+    use crate::vk;
+
+    #[test]
+    fn test_ptr_chains() {
+        let mut variable_pointers = vk::PhysicalDeviceVariablePointerFeatures::default();
+        let mut corner = vk::PhysicalDeviceCornerSampledImageFeaturesNV::default();
+        let chain = vec![
+            <*mut _>::cast(&mut variable_pointers),
+            <*mut _>::cast(&mut corner),
+        ];
+        let mut device_create_info = vk::DeviceCreateInfo::default()
+            .push(&mut corner)
+            .push(&mut variable_pointers);
+        let chain2: Vec<*mut vk::BaseOutStructure<'_>> = unsafe {
+            super::ptr_chain_iter(&mut device_create_info)
+                .skip(1)
+                .collect()
+        };
+        assert_eq!(chain, chain2);
+    }
+
+    #[test]
+    #[should_panic]
+    fn disallow_nested_ptr_chains() {
+        let mut generated_commands =
+            vk::PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT::default();
+        let mut private_data = vk::PhysicalDevicePrivateDataFeatures {
+            p_next: <*mut _>::cast(&mut generated_commands),
+            ..Default::default()
+        };
+        let _device_create_info = vk::DeviceCreateInfo::default().push(&mut private_data);
+    }
+
+    #[test]
+    fn test_nested_ptr_chains() {
+        let mut generated_commands =
+            vk::PhysicalDeviceDeviceGeneratedCommandsFeaturesEXT::default();
+        let mut private_data = vk::PhysicalDevicePrivateDataFeatures {
+            p_next: <*mut _>::cast(&mut generated_commands),
+            ..Default::default()
+        };
+        let mut variable_pointers = vk::PhysicalDeviceVariablePointerFeatures::default();
+        let mut corner = vk::PhysicalDeviceCornerSampledImageFeaturesNV::default();
+        let chain = vec![
+            <*mut _>::cast(&mut private_data),
+            <*mut _>::cast(&mut generated_commands),
+            <*mut _>::cast(&mut variable_pointers),
+            <*mut _>::cast(&mut corner),
+        ];
+        let mut device_create_info = vk::DeviceCreateInfo::default()
+            .push(&mut corner)
+            .push(&mut variable_pointers);
+        // Insert private_data->generated_commands into the chain, such that generate_commands->variable_pointers->corner:
+        device_create_info = unsafe { device_create_info.extend(&mut private_data) };
+        let chain2: Vec<*mut vk::BaseOutStructure<'_>> = unsafe {
+            super::ptr_chain_iter(&mut device_create_info)
+                .skip(1)
+                .collect()
+        };
+        assert_eq!(chain, chain2);
+    }
+
+    #[test]
+    fn test_use_struct_after_pointer_chain() {
+        // The negative case of this test, where `pdev_props` stays alive by being
+        // used at the end of this function while `api` is invalidly accessed first
+        // (resulting in an immutable borrow while mutably borrowed error), exists in
+        // `tests/fail/long_lived_root_struct_borrow.rs`.  This test demonstrates the expected usage
+        // pattern of dropping `pdev_props` so that `api` no longer becomes mutably borrowed and the
+        // properties read from Vulkan can now be accessed by the caller.
+
+        let mut layers = vec![];
+        let mut api =
+            vk::PhysicalDeviceLayeredApiPropertiesListKHR::default().layered_apis(&mut layers);
+        let _pdev_props = vk::PhysicalDeviceProperties2::default().push(&mut api);
+
+        // Access to either variable is allowed because `pdev_props` is no longer used
+        dbg!(&api);
+        dbg!(&layers);
+    }
+
+    #[test]
+    fn test_debug_flags() {
+        assert_eq!(
+            format!(
+                "{:?}",
+                vk::AccessFlags::INDIRECT_COMMAND_READ | vk::AccessFlags::VERTEX_ATTRIBUTE_READ
+            ),
+            "INDIRECT_COMMAND_READ | VERTEX_ATTRIBUTE_READ"
+        );
+    }
+
+    #[test]
+    fn test_debug_enum() {
+        assert_eq!(format!("{:?}", vk::ChromaLocation::MIDPOINT), "MIDPOINT");
+    }
+}

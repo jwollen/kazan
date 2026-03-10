@@ -126,7 +126,7 @@ pub trait Handle: Sized {
     /// # Example
     ///
     /// ```
-    /// # use kazan::vk::{Handle, Instance};
+    /// # use kazan::{Handle, vk::Instance};
     /// let instance = Instance::null();
     /// assert!(instance.is_null());
     /// ```
@@ -254,4 +254,10 @@ pub(crate) fn set_bitfield_bool<const OFFSET: u32>(field: &mut u32, value: bool)
     const { assert!(OFFSET < u32::BITS) };
     let mask = 1u32 << OFFSET;
     *field = (*field & !mask) | ((value as u32) << OFFSET);
+}
+
+#[test]
+fn trybuild() {
+    let t = trybuild::TestCases::new();
+    t.compile_fail("tests/fail/long_lived_root_struct_borrow.rs");
 }
