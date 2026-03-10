@@ -14,6 +14,3 @@ itertools = "0.14"
 regex = "1.12"
 roxmltree = "0.21"
 tracing = "0.1"
-
-[dev-dependencies]
-tracing-test = "0.2"

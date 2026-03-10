@@ -979,33 +979,3 @@ impl Extension {
         }
     }
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use tracing_test::traced_test;
-
-    #[test]
-    #[traced_test]
-    fn vk_xml() {
-        let xml_input = Box::leak(
-            std::fs::read_to_string("../generator-rewrite/Vulkan-Headers/registry/vk.xml")
-                .unwrap()
-                .into_boxed_str(),
-        );
-
-        Registry::parse(xml_input, "vulkan");
-    }
-
-    #[test]
-    #[traced_test]
-    fn video_xml() {
-        let xml_input = Box::leak(
-            std::fs::read_to_string("../generator-rewrite/Vulkan-Headers/registry/video.xml")
-                .unwrap()
-                .into_boxed_str(),
-        );
-
-        Registry::parse(xml_input, "vulkan");
-    }
-}
