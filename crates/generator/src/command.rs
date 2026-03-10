@@ -181,151 +181,179 @@ pub fn generate_functions(
     Ok(())
 }
 
+/// Resolve a required command name to a `CommandInfo`, following aliases.
+fn resolve_command<'a>(
+    analysis: &'a Analysis,
+    req_cmd: &'a xml::RequireCommand,
+    conditionally_required: bool,
+) -> CommandInfo<'a> {
+    let alias = analysis
+        .registry()
+        .command_aliases
+        .iter()
+        .find_map(|alias| {
+            if alias.name == req_cmd.name {
+                Some(alias.alias)
+            } else {
+                None
+            }
+        });
+    let name = alias.unwrap_or(req_cmd.name);
+    let command = analysis
+        .registry()
+        .commands
+        .iter()
+        .find(|cmd| cmd.name == name)
+        .unwrap();
+    CommandInfo {
+        required_name: req_cmd.name,
+        command,
+        conditionally_required,
+    }
+}
+
+/// Classify which dispatch table (`CommandType`) a command belongs to.
+fn classify_command(analysis: &Analysis, cmd: &CommandInfo) -> Option<CommandType> {
+    use overrides::CommandTypeOp;
+    match overrides::command_type_override(cmd.command.name) {
+        CommandTypeOp::Skip => None,
+        CommandTypeOp::Override(ty) => Some(ty),
+        CommandTypeOp::Default => {
+            let ty = &cmd.command.params.iter().next().unwrap().c_decl.ty;
+            let category = ctype_rust::CTypeCategory::from_ctype(ty, analysis);
+            match category {
+                ctype_rust::CTypeCategory::Base(name) => Some(
+                    analysis
+                        .handle_command_types()
+                        .get(name)
+                        .copied()
+                        .unwrap_or(CommandType::Entry),
+                ),
+                _ => Some(CommandType::Entry),
+            }
+        }
+    }
+}
+
+/// Collect commands from `requires` blocks that belong to `cmd_type`.
+fn collect_command_groups<'a>(
+    analysis: &'a Analysis,
+    requires: &[&'a xml::Require],
+    cmd_type: CommandType,
+) -> Vec<CommandGroup<'a>> {
+    requires
+        .iter()
+        .filter_map(|require| {
+            let commands: Vec<_> = require
+                .commands
+                .iter()
+                .map(|req_cmd| resolve_command(analysis, req_cmd, !require.depends.is_empty()))
+                .filter(|cmd| classify_command(analysis, cmd) == Some(cmd_type))
+                .collect();
+
+            if commands.is_empty() {
+                None
+            } else {
+                Some(CommandGroup { commands })
+            }
+        })
+        .collect()
+}
+
+/// Write a `*Fn` struct definition, its load function, and command wrappers.
+fn write_fn_struct(
+    file: &mut impl Write,
+    analysis: &Analysis,
+    cmd_type: CommandType,
+    fn_type_name: &str,
+    command_groups: &[CommandGroup],
+) -> Result<()> {
+    if command_groups.is_empty() {
+        return Ok(());
+    }
+
+    // Struct definition.
+    writeln!(file, "pub struct {} {{", fn_type_name)?;
+    for command_group in command_groups {
+        for command in &command_group.commands {
+            let name = normalize_command_name(command.required_name);
+            let ty = format!("PFN_{}", normalize_ty_name(command.command.name));
+            let ty = if command.conditionally_required {
+                format!("Option<{}>", ty)
+            } else {
+                ty
+            };
+            writeln!(file, "{}: {},", name, ty)?;
+        }
+    }
+    writeln!(file, "}}\n")?;
+
+    // Load function: trait impl for Instance/Device, inherent for Entry.
+    let load_trait = match cmd_type {
+        CommandType::Instance => Some("LoadInstanceFn"),
+        CommandType::Device => Some("LoadDeviceFn"),
+        CommandType::Entry => None,
+    };
+    let (load_fn_name, impl_header) = match load_trait {
+        Some(trait_name) => (
+            "load_with",
+            format!("impl {} for {}", trait_name, fn_type_name),
+        ),
+        None => ("load", format!("impl {}", fn_type_name)),
+    };
+    writeln!(file, "{} {{", impl_header)?;
+    writeln!(
+        file,
+        "{}unsafe fn {}(load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>) -> core::result::Result<Self, MissingEntryPointError> {{",
+        if load_trait.is_some() { "" } else { "pub " },
+        load_fn_name,
+    )?;
+    writeln!(file, "unsafe {{ Ok(Self {{")?;
+    for command_group in command_groups {
+        for command in &command_group.commands {
+            let name = normalize_command_name(command.required_name);
+            if command.conditionally_required {
+                writeln!(
+                    file,
+                    "{}: transmute(load(c\"{}\")),",
+                    name, command.required_name
+                )?;
+            } else {
+                writeln!(
+                    file,
+                    "{}: transmute(load(c\"{}\").ok_or(MissingEntryPointError)?),",
+                    name, command.required_name
+                )?;
+            }
+        }
+    }
+    writeln!(file, "}}) }} }} }}\n")?;
+
+    // Command wrappers.
+    writeln!(file, "impl {} {{", fn_type_name)?;
+    for command_group in command_groups {
+        for command in &command_group.commands {
+            write_command_wrapper(file, analysis, command)?;
+        }
+    }
+    writeln!(file, "}}\n")?;
+    Ok(())
+}
+
 pub fn generate_commands(
-    file: &mut impl std::io::Write,
+    file: &mut impl Write,
     analysis: &Analysis,
     requires: &[&xml::Require],
 ) -> Result<()> {
-    let mut generate_commands = |cmd_type: CommandType, fn_type_name: &str| -> Result<()> {
-        let command_groups: Vec<_> = requires
-            .iter()
-            .flat_map(|require| {
-                let commands: Vec<_> = require
-                    .commands
-                    .iter()
-                    .map(|req_cmd| {
-                        let alias = analysis
-                            .registry()
-                            .command_aliases
-                            .iter()
-                            .find_map(|alias| {
-                                if alias.name == req_cmd.name {
-                                    Some(alias.alias)
-                                } else {
-                                    None
-                                }
-                            });
-                        let name = alias.unwrap_or(req_cmd.name);
-                        let command = analysis
-                            .registry()
-                            .commands
-                            .iter()
-                            .find(|cmd| cmd.name == name)
-                            .unwrap();
-                        CommandInfo {
-                            required_name: req_cmd.name,
-                            command,
-                            conditionally_required: !require.depends.is_empty(),
-                        }
-                    })
-                    .filter(|cmd| {
-                        use overrides::CommandTypeOp;
-                        match overrides::command_type_override(cmd.command.name) {
-                            CommandTypeOp::Skip => false,
-                            CommandTypeOp::Override(ty) => ty == cmd_type,
-                            CommandTypeOp::Default => {
-                                let ty = &cmd.command.params.iter().next().unwrap().c_decl.ty;
-                                let category = ctype_rust::CTypeCategory::from_ctype(ty, analysis);
-                                match category {
-                                    ctype_rust::CTypeCategory::Base(name) => {
-                                        analysis
-                                            .handle_command_types()
-                                            .get(name)
-                                            .copied()
-                                            .unwrap_or(CommandType::Entry)
-                                            == cmd_type
-                                    }
-                                    _ => cmd_type == CommandType::Entry,
-                                }
-                            }
-                        }
-                    })
-                    .collect();
-
-                if commands.is_empty() {
-                    None
-                } else {
-                    Some(CommandGroup { commands })
-                }
-            })
-            .collect::<Vec<_>>();
-
-        if command_groups.is_empty() {
-            return Ok(());
-        }
-
-        writeln!(file, "pub struct {} {{", fn_type_name)?;
-        for command_group in &command_groups {
-            for command in &command_group.commands {
-                let name = normalize_command_name(command.required_name);
-                let ty = format!("PFN_{}", normalize_ty_name(command.command.name));
-                let ty = if command.conditionally_required {
-                    format!("Option<{}>", ty)
-                } else {
-                    ty
-                };
-                writeln!(file, "{}: {},", name, ty)?;
-            }
-        }
-        writeln!(file, "}}\n")?;
-
-        // For Instance/Device, implement the load trait; for Entry, use an inherent method.
-        let load_trait = match cmd_type {
-            CommandType::Instance => Some("LoadInstanceFn"),
-            CommandType::Device => Some("LoadDeviceFn"),
-            CommandType::Entry => None,
-        };
-        let (load_fn_name, impl_header) = match load_trait {
-            Some(trait_name) => (
-                "load_with",
-                format!("impl {} for {}", trait_name, fn_type_name),
-            ),
-            None => (
-                "load",
-                format!("impl {}", fn_type_name),
-            ),
-        };
-        writeln!(file, "{} {{", impl_header)?;
-        writeln!(
-            file,
-            "{}unsafe fn {}(load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>) -> core::result::Result<Self, MissingEntryPointError> {{",
-            if load_trait.is_some() { "" } else { "pub " },
-            load_fn_name,
-        )?;
-        writeln!(file, "unsafe {{ Ok(Self {{")?;
-        for command_group in &command_groups {
-            for command in &command_group.commands {
-                let name = normalize_command_name(command.required_name);
-                if command.conditionally_required {
-                    writeln!(
-                        file,
-                        "{}: transmute(load(c\"{}\")),",
-                        name, command.required_name
-                    )?;
-                } else {
-                    writeln!(
-                        file,
-                        "{}: transmute(load(c\"{}\").ok_or(MissingEntryPointError)?),",
-                        name, command.required_name
-                    )?;
-                }
-            }
-        }
-        writeln!(file, "}}) }} }} }}\n")?;
-
-        writeln!(file, "impl {} {{", fn_type_name)?;
-        for command_group in &command_groups {
-            for command in &command_group.commands {
-                write_command_wrapper(file, analysis, command)?;
-            }
-        }
-        writeln!(file, "}}\n")?;
-        Ok(())
-    };
-
-    generate_commands(CommandType::Entry, "EntryFn")?;
-    generate_commands(CommandType::Instance, "InstanceFn")?;
-    generate_commands(CommandType::Device, "DeviceFn")?;
+    let command_types = [
+        (CommandType::Entry, "EntryFn"),
+        (CommandType::Instance, "InstanceFn"),
+        (CommandType::Device, "DeviceFn"),
+    ];
+    for (cmd_type, fn_type_name) in command_types {
+        let command_groups = collect_command_groups(analysis, requires, cmd_type);
+        write_fn_struct(file, analysis, cmd_type, fn_type_name, &command_groups)?;
+    }
     Ok(())
 }
 
