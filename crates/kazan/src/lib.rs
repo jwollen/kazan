@@ -19,6 +19,8 @@ pub use vk::ffi;
     clippy::uninlined_format_args,
     clippy::useless_conversion,
     clippy::write_with_newline,
+    dead_code,
+    unused_imports,
     rustdoc::invalid_html_tags
 )]
 mod generated;
@@ -202,6 +204,7 @@ pub fn debug_flags<F: Into<u64> + Copy>(
 ///
 /// # Safety
 /// If non-null, the pointer must point to a valid nul-terminated C string.
+#[cfg(feature = "debug")]
 #[inline]
 pub(crate) unsafe fn as_c_str<'a>(ptr: *const c_char) -> Option<&'a CStr> {
     if ptr.is_null() {
@@ -211,6 +214,7 @@ pub(crate) unsafe fn as_c_str<'a>(ptr: *const c_char) -> Option<&'a CStr> {
     }
 }
 
+#[cfg(feature = "debug")]
 #[inline]
 pub(crate) fn wrap_c_str_slice_until_nul(
     str: &[core::ffi::c_char],
