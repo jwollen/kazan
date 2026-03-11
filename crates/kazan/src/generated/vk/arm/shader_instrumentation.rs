@@ -179,8 +179,8 @@ pub(super) mod defs {
     pub struct ShaderInstrumentationMetricDescriptionARM<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
-        pub name: [c_char; MAX_DESCRIPTION_SIZE as usize],
-        pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
+        pub name: ArrayCStr<{ MAX_DESCRIPTION_SIZE as usize }>,
+        pub description: ArrayCStr<{ MAX_DESCRIPTION_SIZE as usize }>,
         pub _marker: PhantomData<&'a ()>,
     }
 
@@ -190,11 +190,8 @@ pub(super) mod defs {
             f.debug_struct("ShaderInstrumentationMetricDescriptionARM")
                 .field("s_type", &self.s_type)
                 .field("p_next", &self.p_next)
-                .field("name", &wrap_c_str_slice_until_nul(&self.name))
-                .field(
-                    "description",
-                    &wrap_c_str_slice_until_nul(&self.description),
-                )
+                .field("name", &self.name)
+                .field("description", &self.description)
                 .finish()
         }
     }
@@ -209,8 +206,8 @@ pub(super) mod defs {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
                 p_next: ptr::null_mut(),
-                name: [Default::default(); _],
-                description: [Default::default(); _],
+                name: Default::default(),
+                description: Default::default(),
                 _marker: PhantomData,
             }
         }
@@ -222,7 +219,7 @@ pub(super) mod defs {
             mut self,
             name: &CStr,
         ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
-            write_c_str_slice_with_nul(&mut self.name, name)?;
+            self.name.write_c_str(name)?;
             Ok(self)
         }
 
@@ -231,7 +228,7 @@ pub(super) mod defs {
             mut self,
             description: &CStr,
         ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
-            write_c_str_slice_with_nul(&mut self.description, description)?;
+            self.description.write_c_str(description)?;
             Ok(self)
         }
     }

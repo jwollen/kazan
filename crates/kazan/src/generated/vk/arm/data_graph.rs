@@ -1073,7 +1073,8 @@ pub(super) mod defs {
     #[must_use]
     pub struct PhysicalDeviceDataGraphOperationSupportARM {
         pub operation_type: PhysicalDeviceDataGraphOperationTypeARM,
-        pub name: [c_char; MAX_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_SET_NAME_SIZE_ARM as usize],
+        pub name:
+            ArrayCStr<{ MAX_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_SET_NAME_SIZE_ARM as usize }>,
         pub version: u32,
     }
 
@@ -1082,7 +1083,7 @@ pub(super) mod defs {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("PhysicalDeviceDataGraphOperationSupportARM")
                 .field("operation_type", &self.operation_type)
-                .field("name", &wrap_c_str_slice_until_nul(&self.name))
+                .field("name", &self.name)
                 .field("version", &self.version)
                 .finish()
         }
@@ -1092,7 +1093,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 operation_type: Default::default(),
-                name: [Default::default(); _],
+                name: Default::default(),
                 version: Default::default(),
             }
         }
@@ -1113,7 +1114,7 @@ pub(super) mod defs {
             mut self,
             name: &CStr,
         ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
-            write_c_str_slice_with_nul(&mut self.name, name)?;
+            self.name.write_c_str(name)?;
             Ok(self)
         }
 

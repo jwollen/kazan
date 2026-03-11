@@ -807,11 +807,7 @@ fn write_value_setter_body(
             writeln!(file, "self.{} = {}.as_ptr();", member.name, param.name)?;
         }
         SetterAssignmentKind::CStrToArray => {
-            writeln!(
-                file,
-                "write_c_str_slice_with_nul(&mut self.{}, {})?;",
-                member.name, param.name
-            )?;
+            writeln!(file, "self.{}.write_c_str({})?;", member.name, param.name)?;
         }
         _ => {
             if member.ty.starts_with("PFN_") {
@@ -1053,8 +1049,6 @@ enum DebugFieldKind {
     Normal,
     /// `*const c_char` with null-terminated semantics → display via `as_c_str`.
     CStrPtr,
-    /// `[c_char; N]` → display via `wrap_c_str_slice_until_nul`.
-    CStrArray,
     /// `Option<PFN_*>` function pointer → display with `.map(|f| f as *const ())`.
     FuncPointer,
 }
@@ -1072,14 +1066,8 @@ fn debug_field_kind(analysis: &Analysis, member: &xml::StructureMember) -> Debug
                 DebugFieldKind::Normal
             }
         }
-        // [c_char; N] → CStr display
-        CTypeCategory::Array { element, .. } => {
-            if matches!(element, CType::Base(b) if b.name == "char") {
-                DebugFieldKind::CStrArray
-            } else {
-                DebugFieldKind::Normal
-            }
-        }
+        // All arrays (including ArrayCStr) use normal Debug
+        CTypeCategory::Array { .. } => DebugFieldKind::Normal,
         // Any pointer → normal Debug (prints address)
         CTypeCategory::OpaquePointer { .. } | CTypeCategory::TypedPointer { .. } => {
             DebugFieldKind::Normal
@@ -1164,12 +1152,6 @@ fn write_debug_impl(
                     ".field(\"{field_name}\", &unsafe {{ as_c_str(self.{field_name}) }})"
                 )?;
             }
-            DebugFieldKind::CStrArray => {
-                writeln!(
-                    file,
-                    ".field(\"{field_name}\", &wrap_c_str_slice_until_nul(&self.{field_name}))"
-                )?;
-            }
             DebugFieldKind::FuncPointer => {
                 writeln!(
                     file,
@@ -1187,7 +1169,11 @@ fn default_value(analysis: &Analysis, ty: &CType) -> std::borrow::Cow<'static, s
     let category = CTypeCategory::from_ctype(ty, analysis);
     match category {
         CTypeCategory::Array { element, .. } => {
-            format!("[{}; _]", default_value(analysis, element)).into()
+            if matches!(element, CType::Base(b) if b.name == "char") {
+                "Default::default()".into()
+            } else {
+                format!("[{}; _]", default_value(analysis, element)).into()
+            }
         }
         CTypeCategory::OpaquePointer { is_const, .. }
         | CTypeCategory::CharPointer { is_const }

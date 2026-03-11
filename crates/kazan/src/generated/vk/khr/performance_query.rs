@@ -223,9 +223,9 @@ pub(super) mod defs {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
         pub flags: PerformanceCounterDescriptionFlagsKHR,
-        pub name: [c_char; MAX_DESCRIPTION_SIZE as usize],
-        pub category: [c_char; MAX_DESCRIPTION_SIZE as usize],
-        pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
+        pub name: ArrayCStr<{ MAX_DESCRIPTION_SIZE as usize }>,
+        pub category: ArrayCStr<{ MAX_DESCRIPTION_SIZE as usize }>,
+        pub description: ArrayCStr<{ MAX_DESCRIPTION_SIZE as usize }>,
         pub _marker: PhantomData<&'a ()>,
     }
 
@@ -236,12 +236,9 @@ pub(super) mod defs {
                 .field("s_type", &self.s_type)
                 .field("p_next", &self.p_next)
                 .field("flags", &self.flags)
-                .field("name", &wrap_c_str_slice_until_nul(&self.name))
-                .field("category", &wrap_c_str_slice_until_nul(&self.category))
-                .field(
-                    "description",
-                    &wrap_c_str_slice_until_nul(&self.description),
-                )
+                .field("name", &self.name)
+                .field("category", &self.category)
+                .field("description", &self.description)
                 .finish()
         }
     }
@@ -256,9 +253,9 @@ pub(super) mod defs {
                 s_type: Self::STRUCTURE_TYPE,
                 p_next: ptr::null_mut(),
                 flags: Default::default(),
-                name: [Default::default(); _],
-                category: [Default::default(); _],
-                description: [Default::default(); _],
+                name: Default::default(),
+                category: Default::default(),
+                description: Default::default(),
                 _marker: PhantomData,
             }
         }
@@ -276,7 +273,7 @@ pub(super) mod defs {
             mut self,
             name: &CStr,
         ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
-            write_c_str_slice_with_nul(&mut self.name, name)?;
+            self.name.write_c_str(name)?;
             Ok(self)
         }
 
@@ -285,7 +282,7 @@ pub(super) mod defs {
             mut self,
             category: &CStr,
         ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
-            write_c_str_slice_with_nul(&mut self.category, category)?;
+            self.category.write_c_str(category)?;
             Ok(self)
         }
 
@@ -294,7 +291,7 @@ pub(super) mod defs {
             mut self,
             description: &CStr,
         ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
-            write_c_str_slice_with_nul(&mut self.description, description)?;
+            self.description.write_c_str(description)?;
             Ok(self)
         }
     }

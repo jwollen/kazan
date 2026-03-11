@@ -228,7 +228,7 @@ pub(super) mod defs {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
         pub flags: PerformanceCounterDescriptionFlagsARM,
-        pub name: [c_char; MAX_DESCRIPTION_SIZE as usize],
+        pub name: ArrayCStr<{ MAX_DESCRIPTION_SIZE as usize }>,
         pub _marker: PhantomData<&'a ()>,
     }
 
@@ -239,7 +239,7 @@ pub(super) mod defs {
                 .field("s_type", &self.s_type)
                 .field("p_next", &self.p_next)
                 .field("flags", &self.flags)
-                .field("name", &wrap_c_str_slice_until_nul(&self.name))
+                .field("name", &self.name)
                 .finish()
         }
     }
@@ -254,7 +254,7 @@ pub(super) mod defs {
                 s_type: Self::STRUCTURE_TYPE,
                 p_next: ptr::null_mut(),
                 flags: Default::default(),
-                name: [Default::default(); _],
+                name: Default::default(),
                 _marker: PhantomData,
             }
         }
@@ -272,7 +272,7 @@ pub(super) mod defs {
             mut self,
             name: &CStr,
         ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
-            write_c_str_slice_with_nul(&mut self.name, name)?;
+            self.name.write_c_str(name)?;
             Ok(self)
         }
     }

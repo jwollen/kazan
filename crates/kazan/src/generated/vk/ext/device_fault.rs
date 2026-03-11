@@ -111,7 +111,7 @@ pub(super) mod defs {
     #[derive(Copy, Clone)]
     #[must_use]
     pub struct DeviceFaultVendorInfoEXT {
-        pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
+        pub description: ArrayCStr<{ MAX_DESCRIPTION_SIZE as usize }>,
         pub vendor_fault_code: u64,
         pub vendor_fault_data: u64,
     }
@@ -120,10 +120,7 @@ pub(super) mod defs {
     impl fmt::Debug for DeviceFaultVendorInfoEXT {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("DeviceFaultVendorInfoEXT")
-                .field(
-                    "description",
-                    &wrap_c_str_slice_until_nul(&self.description),
-                )
+                .field("description", &self.description)
                 .field("vendor_fault_code", &self.vendor_fault_code)
                 .field("vendor_fault_data", &self.vendor_fault_data)
                 .finish()
@@ -133,7 +130,7 @@ pub(super) mod defs {
     impl Default for DeviceFaultVendorInfoEXT {
         fn default() -> Self {
             Self {
-                description: [Default::default(); _],
+                description: Default::default(),
                 vendor_fault_code: Default::default(),
                 vendor_fault_data: Default::default(),
             }
@@ -146,7 +143,7 @@ pub(super) mod defs {
             mut self,
             description: &CStr,
         ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
-            write_c_str_slice_with_nul(&mut self.description, description)?;
+            self.description.write_c_str(description)?;
             Ok(self)
         }
 
@@ -233,7 +230,7 @@ pub(super) mod defs {
     pub struct DeviceFaultInfoEXT<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
-        pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
+        pub description: ArrayCStr<{ MAX_DESCRIPTION_SIZE as usize }>,
         pub p_address_infos: *mut DeviceFaultAddressInfoEXT,
         pub p_vendor_infos: *mut DeviceFaultVendorInfoEXT,
         pub p_vendor_binary_data: *mut c_void,
@@ -246,10 +243,7 @@ pub(super) mod defs {
             f.debug_struct("DeviceFaultInfoEXT")
                 .field("s_type", &self.s_type)
                 .field("p_next", &self.p_next)
-                .field(
-                    "description",
-                    &wrap_c_str_slice_until_nul(&self.description),
-                )
+                .field("description", &self.description)
                 .field("p_address_infos", &self.p_address_infos)
                 .field("p_vendor_infos", &self.p_vendor_infos)
                 .field("p_vendor_binary_data", &self.p_vendor_binary_data)
@@ -266,7 +260,7 @@ pub(super) mod defs {
             Self {
                 s_type: Self::STRUCTURE_TYPE,
                 p_next: ptr::null_mut(),
-                description: [Default::default(); _],
+                description: Default::default(),
                 p_address_infos: ptr::null_mut(),
                 p_vendor_infos: ptr::null_mut(),
                 p_vendor_binary_data: ptr::null_mut(),
@@ -281,7 +275,7 @@ pub(super) mod defs {
             mut self,
             description: &CStr,
         ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
-            write_c_str_slice_with_nul(&mut self.description, description)?;
+            self.description.write_c_str(description)?;
             Ok(self)
         }
 

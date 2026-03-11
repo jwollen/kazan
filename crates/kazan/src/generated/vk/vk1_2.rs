@@ -63,8 +63,8 @@ pub(super) mod defs {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
         pub driver_id: DriverId,
-        pub driver_name: [c_char; MAX_DRIVER_NAME_SIZE as usize],
-        pub driver_info: [c_char; MAX_DRIVER_INFO_SIZE as usize],
+        pub driver_name: ArrayCStr<{ MAX_DRIVER_NAME_SIZE as usize }>,
+        pub driver_info: ArrayCStr<{ MAX_DRIVER_INFO_SIZE as usize }>,
         pub conformance_version: ConformanceVersion,
         pub _marker: PhantomData<&'a ()>,
     }
@@ -76,14 +76,8 @@ pub(super) mod defs {
                 .field("s_type", &self.s_type)
                 .field("p_next", &self.p_next)
                 .field("driver_id", &self.driver_id)
-                .field(
-                    "driver_name",
-                    &wrap_c_str_slice_until_nul(&self.driver_name),
-                )
-                .field(
-                    "driver_info",
-                    &wrap_c_str_slice_until_nul(&self.driver_info),
-                )
+                .field("driver_name", &self.driver_name)
+                .field("driver_info", &self.driver_info)
                 .field("conformance_version", &self.conformance_version)
                 .finish()
         }
@@ -101,8 +95,8 @@ pub(super) mod defs {
                 s_type: Self::STRUCTURE_TYPE,
                 p_next: ptr::null_mut(),
                 driver_id: Default::default(),
-                driver_name: [Default::default(); _],
-                driver_info: [Default::default(); _],
+                driver_name: Default::default(),
+                driver_info: Default::default(),
                 conformance_version: Default::default(),
                 _marker: PhantomData,
             }
@@ -121,7 +115,7 @@ pub(super) mod defs {
             mut self,
             driver_name: &CStr,
         ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
-            write_c_str_slice_with_nul(&mut self.driver_name, driver_name)?;
+            self.driver_name.write_c_str(driver_name)?;
             Ok(self)
         }
 
@@ -130,7 +124,7 @@ pub(super) mod defs {
             mut self,
             driver_info: &CStr,
         ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
-            write_c_str_slice_with_nul(&mut self.driver_info, driver_info)?;
+            self.driver_info.write_c_str(driver_info)?;
             Ok(self)
         }
 
@@ -4921,8 +4915,8 @@ pub(super) mod defs {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
         pub driver_id: DriverId,
-        pub driver_name: [c_char; MAX_DRIVER_NAME_SIZE as usize],
-        pub driver_info: [c_char; MAX_DRIVER_INFO_SIZE as usize],
+        pub driver_name: ArrayCStr<{ MAX_DRIVER_NAME_SIZE as usize }>,
+        pub driver_info: ArrayCStr<{ MAX_DRIVER_INFO_SIZE as usize }>,
         pub conformance_version: ConformanceVersion,
         pub denorm_behavior_independence: ShaderFloatControlsIndependence,
         pub rounding_mode_independence: ShaderFloatControlsIndependence,
@@ -4982,14 +4976,8 @@ pub(super) mod defs {
                 .field("s_type", &self.s_type)
                 .field("p_next", &self.p_next)
                 .field("driver_id", &self.driver_id)
-                .field(
-                    "driver_name",
-                    &wrap_c_str_slice_until_nul(&self.driver_name),
-                )
-                .field(
-                    "driver_info",
-                    &wrap_c_str_slice_until_nul(&self.driver_info),
-                )
+                .field("driver_name", &self.driver_name)
+                .field("driver_info", &self.driver_info)
                 .field("conformance_version", &self.conformance_version)
                 .field(
                     "denorm_behavior_independence",
@@ -5193,8 +5181,8 @@ pub(super) mod defs {
                 s_type: Self::STRUCTURE_TYPE,
                 p_next: ptr::null_mut(),
                 driver_id: Default::default(),
-                driver_name: [Default::default(); _],
-                driver_info: [Default::default(); _],
+                driver_name: Default::default(),
+                driver_info: Default::default(),
                 conformance_version: Default::default(),
                 denorm_behavior_independence: Default::default(),
                 rounding_mode_independence: Default::default(),
@@ -5261,7 +5249,7 @@ pub(super) mod defs {
             mut self,
             driver_name: &CStr,
         ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
-            write_c_str_slice_with_nul(&mut self.driver_name, driver_name)?;
+            self.driver_name.write_c_str(driver_name)?;
             Ok(self)
         }
 
@@ -5270,7 +5258,7 @@ pub(super) mod defs {
             mut self,
             driver_info: &CStr,
         ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
-            write_c_str_slice_with_nul(&mut self.driver_info, driver_info)?;
+            self.driver_info.write_c_str(driver_info)?;
             Ok(self)
         }
 

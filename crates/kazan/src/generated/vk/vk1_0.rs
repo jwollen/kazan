@@ -471,7 +471,7 @@ pub(super) mod defs {
         pub vendor_id: u32,
         pub device_id: u32,
         pub device_type: PhysicalDeviceType,
-        pub device_name: [c_char; MAX_PHYSICAL_DEVICE_NAME_SIZE as usize],
+        pub device_name: ArrayCStr<{ MAX_PHYSICAL_DEVICE_NAME_SIZE as usize }>,
         pub pipeline_cache_uuid: [u8; UUID_SIZE as usize],
         pub limits: PhysicalDeviceLimits,
         pub sparse_properties: PhysicalDeviceSparseProperties,
@@ -486,10 +486,7 @@ pub(super) mod defs {
                 .field("vendor_id", &self.vendor_id)
                 .field("device_id", &self.device_id)
                 .field("device_type", &self.device_type)
-                .field(
-                    "device_name",
-                    &wrap_c_str_slice_until_nul(&self.device_name),
-                )
+                .field("device_name", &self.device_name)
                 .field("pipeline_cache_uuid", &self.pipeline_cache_uuid)
                 .field("limits", &self.limits)
                 .field("sparse_properties", &self.sparse_properties)
@@ -505,7 +502,7 @@ pub(super) mod defs {
                 vendor_id: Default::default(),
                 device_id: Default::default(),
                 device_type: Default::default(),
-                device_name: [Default::default(); _],
+                device_name: Default::default(),
                 pipeline_cache_uuid: [Default::default(); _],
                 limits: Default::default(),
                 sparse_properties: Default::default(),
@@ -549,7 +546,7 @@ pub(super) mod defs {
             mut self,
             device_name: &CStr,
         ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
-            write_c_str_slice_with_nul(&mut self.device_name, device_name)?;
+            self.device_name.write_c_str(device_name)?;
             Ok(self)
         }
 
@@ -583,7 +580,7 @@ pub(super) mod defs {
     #[derive(Copy, Clone)]
     #[must_use]
     pub struct ExtensionProperties {
-        pub extension_name: [c_char; MAX_EXTENSION_NAME_SIZE as usize],
+        pub extension_name: ArrayCStr<{ MAX_EXTENSION_NAME_SIZE as usize }>,
         pub spec_version: u32,
     }
 
@@ -591,10 +588,7 @@ pub(super) mod defs {
     impl fmt::Debug for ExtensionProperties {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("ExtensionProperties")
-                .field(
-                    "extension_name",
-                    &wrap_c_str_slice_until_nul(&self.extension_name),
-                )
+                .field("extension_name", &self.extension_name)
                 .field("spec_version", &self.spec_version)
                 .finish()
         }
@@ -603,7 +597,7 @@ pub(super) mod defs {
     impl Default for ExtensionProperties {
         fn default() -> Self {
             Self {
-                extension_name: [Default::default(); _],
+                extension_name: Default::default(),
                 spec_version: Default::default(),
             }
         }
@@ -615,7 +609,7 @@ pub(super) mod defs {
             mut self,
             extension_name: &CStr,
         ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
-            write_c_str_slice_with_nul(&mut self.extension_name, extension_name)?;
+            self.extension_name.write_c_str(extension_name)?;
             Ok(self)
         }
 
@@ -631,23 +625,20 @@ pub(super) mod defs {
     #[derive(Copy, Clone)]
     #[must_use]
     pub struct LayerProperties {
-        pub layer_name: [c_char; MAX_EXTENSION_NAME_SIZE as usize],
+        pub layer_name: ArrayCStr<{ MAX_EXTENSION_NAME_SIZE as usize }>,
         pub spec_version: u32,
         pub implementation_version: u32,
-        pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
+        pub description: ArrayCStr<{ MAX_DESCRIPTION_SIZE as usize }>,
     }
 
     #[cfg(feature = "debug")]
     impl fmt::Debug for LayerProperties {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("LayerProperties")
-                .field("layer_name", &wrap_c_str_slice_until_nul(&self.layer_name))
+                .field("layer_name", &self.layer_name)
                 .field("spec_version", &self.spec_version)
                 .field("implementation_version", &self.implementation_version)
-                .field(
-                    "description",
-                    &wrap_c_str_slice_until_nul(&self.description),
-                )
+                .field("description", &self.description)
                 .finish()
         }
     }
@@ -655,10 +646,10 @@ pub(super) mod defs {
     impl Default for LayerProperties {
         fn default() -> Self {
             Self {
-                layer_name: [Default::default(); _],
+                layer_name: Default::default(),
                 spec_version: Default::default(),
                 implementation_version: Default::default(),
-                description: [Default::default(); _],
+                description: Default::default(),
             }
         }
     }
@@ -669,7 +660,7 @@ pub(super) mod defs {
             mut self,
             layer_name: &CStr,
         ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
-            write_c_str_slice_with_nul(&mut self.layer_name, layer_name)?;
+            self.layer_name.write_c_str(layer_name)?;
             Ok(self)
         }
 
@@ -690,7 +681,7 @@ pub(super) mod defs {
             mut self,
             description: &CStr,
         ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
-            write_c_str_slice_with_nul(&mut self.description, description)?;
+            self.description.write_c_str(description)?;
             Ok(self)
         }
     }

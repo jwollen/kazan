@@ -301,7 +301,7 @@ pub(super) mod defs {
         pub vendor_id: u32,
         pub device_id: u32,
         pub layered_api: PhysicalDeviceLayeredApiKHR,
-        pub device_name: [c_char; MAX_PHYSICAL_DEVICE_NAME_SIZE as usize],
+        pub device_name: ArrayCStr<{ MAX_PHYSICAL_DEVICE_NAME_SIZE as usize }>,
         pub _marker: PhantomData<&'a ()>,
     }
 
@@ -314,10 +314,7 @@ pub(super) mod defs {
                 .field("vendor_id", &self.vendor_id)
                 .field("device_id", &self.device_id)
                 .field("layered_api", &self.layered_api)
-                .field(
-                    "device_name",
-                    &wrap_c_str_slice_until_nul(&self.device_name),
-                )
+                .field("device_name", &self.device_name)
                 .finish()
         }
     }
@@ -335,7 +332,7 @@ pub(super) mod defs {
                 vendor_id: Default::default(),
                 device_id: Default::default(),
                 layered_api: Default::default(),
-                device_name: [Default::default(); _],
+                device_name: Default::default(),
                 _marker: PhantomData,
             }
         }
@@ -363,7 +360,7 @@ pub(super) mod defs {
         #[inline]
         pub fn device_name(
             mut self,
-            device_name: [c_char; MAX_PHYSICAL_DEVICE_NAME_SIZE as usize],
+            device_name: ArrayCStr<{ MAX_PHYSICAL_DEVICE_NAME_SIZE as usize }>,
         ) -> Self {
             self.device_name = device_name;
             self

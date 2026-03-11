@@ -2078,11 +2078,11 @@ _marker: PhantomData
     pub struct PhysicalDeviceToolProperties<'a> {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
-        pub name: [c_char; MAX_EXTENSION_NAME_SIZE as usize],
-        pub version: [c_char; MAX_EXTENSION_NAME_SIZE as usize],
+        pub name: ArrayCStr<{ MAX_EXTENSION_NAME_SIZE as usize }>,
+        pub version: ArrayCStr<{ MAX_EXTENSION_NAME_SIZE as usize }>,
         pub purposes: ToolPurposeFlags,
-        pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
-        pub layer: [c_char; MAX_EXTENSION_NAME_SIZE as usize],
+        pub description: ArrayCStr<{ MAX_DESCRIPTION_SIZE as usize }>,
+        pub layer: ArrayCStr<{ MAX_EXTENSION_NAME_SIZE as usize }>,
         pub _marker: PhantomData<&'a ()>,
     }
 
@@ -2092,14 +2092,11 @@ _marker: PhantomData
             f.debug_struct("PhysicalDeviceToolProperties")
                 .field("s_type", &self.s_type)
                 .field("p_next", &self.p_next)
-                .field("name", &wrap_c_str_slice_until_nul(&self.name))
-                .field("version", &wrap_c_str_slice_until_nul(&self.version))
+                .field("name", &self.name)
+                .field("version", &self.version)
                 .field("purposes", &self.purposes)
-                .field(
-                    "description",
-                    &wrap_c_str_slice_until_nul(&self.description),
-                )
-                .field("layer", &wrap_c_str_slice_until_nul(&self.layer))
+                .field("description", &self.description)
+                .field("layer", &self.layer)
                 .finish()
         }
     }
@@ -2113,11 +2110,11 @@ _marker: PhantomData
             Self {
                 s_type: Self::STRUCTURE_TYPE,
                 p_next: ptr::null_mut(),
-                name: [Default::default(); _],
-                version: [Default::default(); _],
+                name: Default::default(),
+                version: Default::default(),
                 purposes: Default::default(),
-                description: [Default::default(); _],
-                layer: [Default::default(); _],
+                description: Default::default(),
+                layer: Default::default(),
                 _marker: PhantomData,
             }
         }
@@ -2129,7 +2126,7 @@ _marker: PhantomData
             mut self,
             name: &CStr,
         ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
-            write_c_str_slice_with_nul(&mut self.name, name)?;
+            self.name.write_c_str(name)?;
             Ok(self)
         }
 
@@ -2138,7 +2135,7 @@ _marker: PhantomData
             mut self,
             version: &CStr,
         ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
-            write_c_str_slice_with_nul(&mut self.version, version)?;
+            self.version.write_c_str(version)?;
             Ok(self)
         }
 
@@ -2153,7 +2150,7 @@ _marker: PhantomData
             mut self,
             description: &CStr,
         ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
-            write_c_str_slice_with_nul(&mut self.description, description)?;
+            self.description.write_c_str(description)?;
             Ok(self)
         }
 
@@ -2162,7 +2159,7 @@ _marker: PhantomData
             mut self,
             layer: &CStr,
         ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
-            write_c_str_slice_with_nul(&mut self.layer, layer)?;
+            self.layer.write_c_str(layer)?;
             Ok(self)
         }
     }

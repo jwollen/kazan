@@ -336,12 +336,22 @@ fn ctype_to_rust_type(analysis: &Analysis, ty: &CType, lifetime: Option<&str>) -
             }
         }
         CType::Array { element, len } => {
-            let element_ty = ctype_to_rust_type(analysis, element.as_ref(), lifetime);
-            match len {
-                cdecl::CArrayLen::Named(name) => {
-                    format!("[{element_ty}; {} as usize]", normalize_const_name(name))
+            let is_char = matches!(element.as_ref(), CType::Base(b) if b.name == "char");
+            if is_char {
+                match len {
+                    cdecl::CArrayLen::Named(name) => {
+                        format!("ArrayCStr<{{ {} as usize }}>", normalize_const_name(name))
+                    }
+                    cdecl::CArrayLen::Literal(len) => format!("ArrayCStr<{{ {len} }}>"),
                 }
-                cdecl::CArrayLen::Literal(len) => format!("[{element_ty}; {len}]"),
+            } else {
+                let element_ty = ctype_to_rust_type(analysis, element.as_ref(), lifetime);
+                match len {
+                    cdecl::CArrayLen::Named(name) => {
+                        format!("[{element_ty}; {} as usize]", normalize_const_name(name))
+                    }
+                    cdecl::CArrayLen::Literal(len) => format!("[{element_ty}; {len}]"),
+                }
             }
         }
         CType::Func { .. } => todo!(),

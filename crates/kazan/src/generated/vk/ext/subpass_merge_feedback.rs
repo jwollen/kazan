@@ -137,7 +137,7 @@ pub(super) mod defs {
     #[must_use]
     pub struct RenderPassSubpassFeedbackInfoEXT {
         pub subpass_merge_status: SubpassMergeStatusEXT,
-        pub description: [c_char; MAX_DESCRIPTION_SIZE as usize],
+        pub description: ArrayCStr<{ MAX_DESCRIPTION_SIZE as usize }>,
         pub post_merge_index: u32,
     }
 
@@ -146,10 +146,7 @@ pub(super) mod defs {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.debug_struct("RenderPassSubpassFeedbackInfoEXT")
                 .field("subpass_merge_status", &self.subpass_merge_status)
-                .field(
-                    "description",
-                    &wrap_c_str_slice_until_nul(&self.description),
-                )
+                .field("description", &self.description)
                 .field("post_merge_index", &self.post_merge_index)
                 .finish()
         }
@@ -159,7 +156,7 @@ pub(super) mod defs {
         fn default() -> Self {
             Self {
                 subpass_merge_status: Default::default(),
-                description: [Default::default(); _],
+                description: Default::default(),
                 post_merge_index: Default::default(),
             }
         }
@@ -177,7 +174,7 @@ pub(super) mod defs {
             mut self,
             description: &CStr,
         ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
-            write_c_str_slice_with_nul(&mut self.description, description)?;
+            self.description.write_c_str(description)?;
             Ok(self)
         }
 
