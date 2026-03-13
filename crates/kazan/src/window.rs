@@ -9,258 +9,151 @@ use raw_window_handle::{RawDisplayHandle, RawWindowHandle};
 
 use crate::{LoadInstanceFn as _, vk};
 
-/// Combines an [`InstanceFn`] with a [`RawDisplayHandle`], so callers only need to pass
-/// a [`RawWindowHandle`] when creating surfaces.
-pub struct SurfaceFactory {
-    instance_fn: InstanceFn,
-    display_handle: RawDisplayHandle,
-}
-
 /// Loaded platform-specific surface creation function pointers.
 ///
-/// Constructed via [`InstanceFn::load()`], which loads the appropriate function pointers
-/// based on the [`RawDisplayHandle`]. Call [`create_surface()`](InstanceFn::create_surface)
-/// to create a [`vk::SurfaceKHR`].
-pub enum InstanceFn {
+/// Constructed via [`InstanceFn::load()`], which eagerly loads all surface extensions
+/// valid on the current platform. Individual extensions that are not enabled will be
+/// `None`.
+pub struct InstanceFn {
     #[cfg(target_os = "windows")]
-    Win32(vk::khr::win32_surface::InstanceFn),
+    win32: Option<vk::khr::win32_surface::InstanceFn>,
 
-    #[cfg(any(
-        target_os = "linux",
-        target_os = "dragonfly",
-        target_os = "freebsd",
-        target_os = "netbsd",
-        target_os = "openbsd",
+    #[cfg(all(
+        not(target_env = "ohos"),
+        any(
+            target_os = "linux",
+            target_os = "dragonfly",
+            target_os = "freebsd",
+            target_os = "netbsd",
+            target_os = "openbsd",
+        ),
     ))]
-    Wayland(vk::khr::wayland_surface::InstanceFn),
+    wayland: Option<vk::khr::wayland_surface::InstanceFn>,
 
-    #[cfg(any(
-        target_os = "linux",
-        target_os = "dragonfly",
-        target_os = "freebsd",
-        target_os = "netbsd",
-        target_os = "openbsd",
+    #[cfg(all(
+        not(target_env = "ohos"),
+        any(
+            target_os = "linux",
+            target_os = "dragonfly",
+            target_os = "freebsd",
+            target_os = "netbsd",
+            target_os = "openbsd",
+        ),
     ))]
-    Xlib(vk::khr::xlib_surface::InstanceFn),
+    xlib: Option<vk::khr::xlib_surface::InstanceFn>,
 
-    #[cfg(any(
-        target_os = "linux",
-        target_os = "dragonfly",
-        target_os = "freebsd",
-        target_os = "netbsd",
-        target_os = "openbsd",
+    #[cfg(all(
+        not(target_env = "ohos"),
+        any(
+            target_os = "linux",
+            target_os = "dragonfly",
+            target_os = "freebsd",
+            target_os = "netbsd",
+            target_os = "openbsd",
+        ),
     ))]
-    Xcb(vk::khr::xcb_surface::InstanceFn),
+    xcb: Option<vk::khr::xcb_surface::InstanceFn>,
 
     #[cfg(target_os = "android")]
-    Android(vk::khr::android_surface::InstanceFn),
+    android: Option<vk::khr::android_surface::InstanceFn>,
 
     #[cfg(target_env = "ohos")]
-    Ohos(vk::ohos::surface::InstanceFn),
+    ohos: Option<vk::ohos::surface::InstanceFn>,
 
     #[cfg(any(target_os = "macos", target_os = "ios"))]
-    Metal(vk::ext::metal_surface::InstanceFn),
-}
-
-impl SurfaceFactory {
-    /// Load the platform-specific surface extension for the given display and instance.
-    ///
-    /// # Safety
-    ///
-    /// `instance` must be a valid Vulkan instance with the required surface extensions enabled.
-    /// The display handle must remain valid for the lifetime of this `SurfaceFactory`.
-    pub unsafe fn new(
-        entry: &crate::Entry,
-        instance: vk::Instance,
-        display_handle: RawDisplayHandle,
-    ) -> crate::Result<Self> {
-        let instance_fn = unsafe { InstanceFn::load(entry, instance, display_handle)? };
-        Ok(Self {
-            instance_fn,
-            display_handle,
-        })
-    }
-
-    /// Load using a raw function pointer loader.
-    ///
-    /// # Safety
-    ///
-    /// The `load` function must return valid function pointers for the given instance.
-    /// The display handle must remain valid for the lifetime of this `SurfaceFactory`.
-    pub unsafe fn new_with(
-        load: impl Fn(&CStr) -> Option<vk::PFN_vkVoidFunction>,
-        display_handle: RawDisplayHandle,
-    ) -> crate::Result<Self> {
-        let instance_fn = unsafe { InstanceFn::load_with(load, display_handle)? };
-        Ok(Self {
-            instance_fn,
-            display_handle,
-        })
-    }
-
-    /// Query whether the given queue family on a physical device supports presentation
-    /// to this factory's display system.
-    ///
-    /// See [`InstanceFn::get_physical_device_presentation_support()`] for details on
-    /// platform-specific behavior.
-    ///
-    /// # Safety
-    ///
-    /// - `physical_device` must be a valid physical device.
-    /// - `window_handle` must be valid.
-    pub unsafe fn get_physical_device_presentation_support(
-        &self,
-        physical_device: vk::PhysicalDevice,
-        queue_family_index: u32,
-        window_handle: RawWindowHandle,
-    ) -> bool {
-        unsafe {
-            self.instance_fn.get_physical_device_presentation_support(
-                physical_device,
-                queue_family_index,
-                self.display_handle,
-                window_handle,
-            )
-        }
-    }
-
-    /// Create a [`vk::SurfaceKHR`] from a raw window handle.
-    ///
-    /// # Safety
-    ///
-    /// - `instance` must be a valid Vulkan instance.
-    /// - The window handle must be valid and must outlive the returned surface.
-    /// - The returned surface must be destroyed before the instance.
-    pub unsafe fn create_surface(
-        &self,
-        instance: vk::Instance,
-        window_handle: RawWindowHandle,
-        allocator: Option<&vk::AllocationCallbacks<'_>>,
-    ) -> crate::Result<vk::SurfaceKHR> {
-        unsafe {
-            self.instance_fn
-                .create_surface(instance, self.display_handle, window_handle, allocator)
-        }
-    }
+    metal: Option<vk::ext::metal_surface::InstanceFn>,
 }
 
 impl InstanceFn {
-    /// Load the platform-specific surface extension for the given display and instance.
+    /// Load all platform-valid surface extensions for the given instance.
+    ///
+    /// Extensions that are not enabled on the instance will be stored as `None`;
+    /// this is not an error. The appropriate extension is selected later based
+    /// on the display/window handles passed to [`create_surface()`](Self::create_surface).
     ///
     /// # Safety
     ///
-    /// `instance` must be a valid Vulkan instance with the required surface extensions enabled.
-    pub unsafe fn load(
-        entry: &crate::Entry,
-        instance: vk::Instance,
-        display_handle: RawDisplayHandle,
-    ) -> crate::Result<Self> {
+    /// `instance` must be a valid Vulkan instance.
+    pub unsafe fn load(entry: &crate::Entry, instance: vk::Instance) -> Self {
         unsafe {
-            Self::load_with(
-                |name| {
-                    core::mem::transmute((entry.static_fn.get_instance_proc_addr)(
-                        instance,
-                        name.as_ptr(),
-                    ))
-                },
-                display_handle,
-            )
+            Self::load_with(|name| {
+                core::mem::transmute((entry.static_fn.get_instance_proc_addr)(
+                    instance,
+                    name.as_ptr(),
+                ))
+            })
         }
     }
 
-    /// Load the platform-specific surface extension using a raw function pointer loader.
+    /// Load all platform-valid surface extensions using a raw function pointer loader.
     ///
     /// # Safety
     ///
     /// The `load` function must return valid function pointers for the given instance.
-    pub unsafe fn load_with(
-        load: impl Fn(&CStr) -> Option<vk::PFN_vkVoidFunction>,
-        display_handle: RawDisplayHandle,
-    ) -> crate::Result<Self> {
-        unsafe {
-            match display_handle {
-                #[cfg(target_os = "windows")]
-                RawDisplayHandle::Windows(_) => {
-                    let fns = vk::khr::win32_surface::InstanceFn::load_with(&load)
-                        .map_err(|_| vk::Result::ERROR_EXTENSION_NOT_PRESENT)?;
-                    Ok(Self::Win32(fns))
-                }
+    pub unsafe fn load_with(load: impl Fn(&CStr) -> Option<vk::PFN_vkVoidFunction>) -> Self {
+        Self {
+            #[cfg(target_os = "windows")]
+            win32: unsafe { vk::khr::win32_surface::InstanceFn::load_with(&load).ok() },
 
-                #[cfg(any(
+            #[cfg(all(
+                not(target_env = "ohos"),
+                any(
                     target_os = "linux",
                     target_os = "dragonfly",
                     target_os = "freebsd",
                     target_os = "netbsd",
                     target_os = "openbsd",
-                ))]
-                RawDisplayHandle::Wayland(_) => {
-                    let fns = vk::khr::wayland_surface::InstanceFn::load_with(&load)
-                        .map_err(|_| vk::Result::ERROR_EXTENSION_NOT_PRESENT)?;
-                    Ok(Self::Wayland(fns))
-                }
+                ),
+            ))]
+            wayland: unsafe { vk::khr::wayland_surface::InstanceFn::load_with(&load).ok() },
 
-                #[cfg(any(
+            #[cfg(all(
+                not(target_env = "ohos"),
+                any(
                     target_os = "linux",
                     target_os = "dragonfly",
                     target_os = "freebsd",
                     target_os = "netbsd",
                     target_os = "openbsd",
-                ))]
-                RawDisplayHandle::Xlib(_) => {
-                    let fns = vk::khr::xlib_surface::InstanceFn::load_with(&load)
-                        .map_err(|_| vk::Result::ERROR_EXTENSION_NOT_PRESENT)?;
-                    Ok(Self::Xlib(fns))
-                }
+                ),
+            ))]
+            xlib: unsafe { vk::khr::xlib_surface::InstanceFn::load_with(&load).ok() },
 
-                #[cfg(any(
+            #[cfg(all(
+                not(target_env = "ohos"),
+                any(
                     target_os = "linux",
                     target_os = "dragonfly",
                     target_os = "freebsd",
                     target_os = "netbsd",
                     target_os = "openbsd",
-                ))]
-                RawDisplayHandle::Xcb(_) => {
-                    let fns = vk::khr::xcb_surface::InstanceFn::load_with(&load)
-                        .map_err(|_| vk::Result::ERROR_EXTENSION_NOT_PRESENT)?;
-                    Ok(Self::Xcb(fns))
-                }
+                ),
+            ))]
+            xcb: unsafe { vk::khr::xcb_surface::InstanceFn::load_with(&load).ok() },
 
-                #[cfg(target_os = "android")]
-                RawDisplayHandle::Android(_) => {
-                    let fns = vk::khr::android_surface::InstanceFn::load_with(&load)
-                        .map_err(|_| vk::Result::ERROR_EXTENSION_NOT_PRESENT)?;
-                    Ok(Self::Android(fns))
-                }
+            #[cfg(target_os = "android")]
+            android: unsafe { vk::khr::android_surface::InstanceFn::load_with(&load).ok() },
 
-                #[cfg(target_env = "ohos")]
-                RawDisplayHandle::Ohos(_) => {
-                    let fns = vk::ohos::surface::InstanceFn::load_with(&load)
-                        .map_err(|_| vk::Result::ERROR_EXTENSION_NOT_PRESENT)?;
-                    Ok(Self::Ohos(fns))
-                }
+            #[cfg(target_env = "ohos")]
+            ohos: unsafe { vk::ohos::surface::InstanceFn::load_with(&load).ok() },
 
-                #[cfg(any(target_os = "macos", target_os = "ios"))]
-                RawDisplayHandle::AppKit(_) | RawDisplayHandle::UiKit(_) => {
-                    let fns = vk::ext::metal_surface::InstanceFn::load_with(&load)
-                        .map_err(|_| vk::Result::ERROR_EXTENSION_NOT_PRESENT)?;
-                    Ok(Self::Metal(fns))
-                }
-
-                _ => Err(vk::Result::ERROR_EXTENSION_NOT_PRESENT),
-            }
+            #[cfg(any(target_os = "macos", target_os = "ios"))]
+            metal: unsafe { vk::ext::metal_surface::InstanceFn::load_with(&load).ok() },
         }
     }
 
     /// Query whether the given queue family on a physical device supports presentation
-    /// to the display system associated with this `InstanceFn`.
+    /// to the display system associated with the given handles.
     ///
-    /// Returns `true` on platforms that have no dedicated presentation support query
-    /// (Android, OHOS, Metal), or when the Xlib/Xcb window handle has no `visual_id`.
+    /// Returns `false` if the appropriate surface extension is not loaded or the
+    /// display/window handle is not recognized. Returns `true` on platforms that have
+    /// no dedicated presentation support query (Android, OHOS, Metal), or when the
+    /// Xlib/Xcb window handle has no `visual_id`.
     ///
     /// # Safety
     ///
     /// - `physical_device` must be a valid physical device.
-    /// - `display_handle` and `window_handle` must be valid and match this `InstanceFn` variant.
+    /// - `display_handle` and `window_handle` must be valid.
     pub unsafe fn get_physical_device_presentation_support(
         &self,
         physical_device: vk::PhysicalDevice,
@@ -269,78 +162,108 @@ impl InstanceFn {
         window_handle: RawWindowHandle,
     ) -> bool {
         unsafe {
-            match (self, display_handle, window_handle) {
+            match (display_handle, window_handle) {
                 #[cfg(target_os = "windows")]
-                (Self::Win32(fns), RawDisplayHandle::Windows(_), _) => fns
+                (RawDisplayHandle::Windows(_), _) if self.win32.is_some() => self
+                    .win32
+                    .as_ref()
+                    .unwrap()
                     .get_physical_device_win32_presentation_support(
                         physical_device,
                         queue_family_index,
                     ),
 
-                #[cfg(any(
-                    target_os = "linux",
-                    target_os = "dragonfly",
-                    target_os = "freebsd",
-                    target_os = "netbsd",
-                    target_os = "openbsd",
+                #[cfg(all(
+                    not(target_env = "ohos"),
+                    any(
+                        target_os = "linux",
+                        target_os = "dragonfly",
+                        target_os = "freebsd",
+                        target_os = "netbsd",
+                        target_os = "openbsd",
+                    ),
                 ))]
-                (Self::Wayland(fns), RawDisplayHandle::Wayland(display), _) => fns
+                (RawDisplayHandle::Wayland(display), _) if self.wayland.is_some() => self
+                    .wayland
+                    .as_ref()
+                    .unwrap()
                     .get_physical_device_wayland_presentation_support(
                         physical_device,
                         queue_family_index,
                         display.display.as_ptr().cast(),
                     ),
 
-                #[cfg(any(
-                    target_os = "linux",
-                    target_os = "dragonfly",
-                    target_os = "freebsd",
-                    target_os = "netbsd",
-                    target_os = "openbsd",
+                #[cfg(all(
+                    not(target_env = "ohos"),
+                    any(
+                        target_os = "linux",
+                        target_os = "dragonfly",
+                        target_os = "freebsd",
+                        target_os = "netbsd",
+                        target_os = "openbsd",
+                    ),
                 ))]
-                (
-                    Self::Xlib(fns),
-                    RawDisplayHandle::Xlib(display),
-                    RawWindowHandle::Xlib(window),
-                ) => {
+                (RawDisplayHandle::Xlib(display), RawWindowHandle::Xlib(window))
+                    if self.xlib.is_some() =>
+                {
                     let Some(dpy) = display.display else {
                         return true;
                     };
                     if window.visual_id == 0 {
                         return true;
                     }
-                    fns.get_physical_device_xlib_presentation_support(
-                        physical_device,
-                        queue_family_index,
-                        dpy.as_ptr().cast(),
-                        window.visual_id as crate::VisualID,
-                    )
+                    self.xlib
+                        .as_ref()
+                        .unwrap()
+                        .get_physical_device_xlib_presentation_support(
+                            physical_device,
+                            queue_family_index,
+                            dpy.as_ptr().cast(),
+                            window.visual_id as crate::VisualID,
+                        )
                 }
 
-                #[cfg(any(
-                    target_os = "linux",
-                    target_os = "dragonfly",
-                    target_os = "freebsd",
-                    target_os = "netbsd",
-                    target_os = "openbsd",
+                #[cfg(all(
+                    not(target_env = "ohos"),
+                    any(
+                        target_os = "linux",
+                        target_os = "dragonfly",
+                        target_os = "freebsd",
+                        target_os = "netbsd",
+                        target_os = "openbsd",
+                    ),
                 ))]
-                (Self::Xcb(fns), RawDisplayHandle::Xcb(display), RawWindowHandle::Xcb(window)) => {
+                (RawDisplayHandle::Xcb(display), RawWindowHandle::Xcb(window))
+                    if self.xcb.is_some() =>
+                {
                     let Some(connection) = display.connection else {
                         return true;
                     };
                     let Some(visual_id) = window.visual_id else {
                         return true;
                     };
-                    fns.get_physical_device_xcb_presentation_support(
-                        physical_device,
-                        queue_family_index,
-                        connection.as_ptr().cast(),
-                        visual_id.get(),
-                    )
+                    self.xcb
+                        .as_ref()
+                        .unwrap()
+                        .get_physical_device_xcb_presentation_support(
+                            physical_device,
+                            queue_family_index,
+                            connection.as_ptr().cast(),
+                            visual_id.get(),
+                        )
                 }
 
                 // Android, OHOS, and Metal have no presentation support query.
-                _ => true,
+                #[cfg(target_os = "android")]
+                (RawDisplayHandle::Android(_), _) => true,
+
+                #[cfg(target_env = "ohos")]
+                (RawDisplayHandle::Ohos(_), _) => true,
+
+                #[cfg(any(target_os = "macos", target_os = "ios"))]
+                (RawDisplayHandle::AppKit(_) | RawDisplayHandle::UiKit(_), _) => true,
+
+                _ => false,
             }
         }
     }
@@ -360,13 +283,13 @@ impl InstanceFn {
         allocator: Option<&vk::AllocationCallbacks<'_>>,
     ) -> crate::Result<vk::SurfaceKHR> {
         unsafe {
-            match (self, display_handle, window_handle) {
+            match (display_handle, window_handle) {
                 #[cfg(target_os = "windows")]
-                (
-                    Self::Win32(fns),
-                    RawDisplayHandle::Windows(_),
-                    RawWindowHandle::Win32(window),
-                ) => {
+                (RawDisplayHandle::Windows(_), RawWindowHandle::Win32(window)) => {
+                    let fns = self
+                        .win32
+                        .as_ref()
+                        .ok_or(vk::Result::ERROR_EXTENSION_NOT_PRESENT)?;
                     let create_info = vk::Win32SurfaceCreateInfoKHR::default()
                         .hwnd(window.hwnd.get() as crate::HWND)
                         .hinstance(
@@ -378,36 +301,42 @@ impl InstanceFn {
                     fns.create_win32_surface(instance, &create_info, allocator)
                 }
 
-                #[cfg(any(
-                    target_os = "linux",
-                    target_os = "dragonfly",
-                    target_os = "freebsd",
-                    target_os = "netbsd",
-                    target_os = "openbsd",
+                #[cfg(all(
+                    not(target_env = "ohos"),
+                    any(
+                        target_os = "linux",
+                        target_os = "dragonfly",
+                        target_os = "freebsd",
+                        target_os = "netbsd",
+                        target_os = "openbsd",
+                    ),
                 ))]
-                (
-                    Self::Wayland(fns),
-                    RawDisplayHandle::Wayland(display),
-                    RawWindowHandle::Wayland(window),
-                ) => {
+                (RawDisplayHandle::Wayland(display), RawWindowHandle::Wayland(window)) => {
+                    let fns = self
+                        .wayland
+                        .as_ref()
+                        .ok_or(vk::Result::ERROR_EXTENSION_NOT_PRESENT)?;
                     let create_info = vk::WaylandSurfaceCreateInfoKHR::default()
                         .display(display.display.as_ptr().cast())
                         .surface(window.surface.as_ptr().cast());
                     fns.create_wayland_surface(instance, &create_info, allocator)
                 }
 
-                #[cfg(any(
-                    target_os = "linux",
-                    target_os = "dragonfly",
-                    target_os = "freebsd",
-                    target_os = "netbsd",
-                    target_os = "openbsd",
+                #[cfg(all(
+                    not(target_env = "ohos"),
+                    any(
+                        target_os = "linux",
+                        target_os = "dragonfly",
+                        target_os = "freebsd",
+                        target_os = "netbsd",
+                        target_os = "openbsd",
+                    ),
                 ))]
-                (
-                    Self::Xlib(fns),
-                    RawDisplayHandle::Xlib(display),
-                    RawWindowHandle::Xlib(window),
-                ) => {
+                (RawDisplayHandle::Xlib(display), RawWindowHandle::Xlib(window)) => {
+                    let fns = self
+                        .xlib
+                        .as_ref()
+                        .ok_or(vk::Result::ERROR_EXTENSION_NOT_PRESENT)?;
                     let create_info = vk::XlibSurfaceCreateInfoKHR::default()
                         .dpy(
                             display
@@ -420,14 +349,21 @@ impl InstanceFn {
                     fns.create_xlib_surface(instance, &create_info, allocator)
                 }
 
-                #[cfg(any(
-                    target_os = "linux",
-                    target_os = "dragonfly",
-                    target_os = "freebsd",
-                    target_os = "netbsd",
-                    target_os = "openbsd",
+                #[cfg(all(
+                    not(target_env = "ohos"),
+                    any(
+                        target_os = "linux",
+                        target_os = "dragonfly",
+                        target_os = "freebsd",
+                        target_os = "netbsd",
+                        target_os = "openbsd",
+                    ),
                 ))]
-                (Self::Xcb(fns), RawDisplayHandle::Xcb(display), RawWindowHandle::Xcb(window)) => {
+                (RawDisplayHandle::Xcb(display), RawWindowHandle::Xcb(window)) => {
+                    let fns = self
+                        .xcb
+                        .as_ref()
+                        .ok_or(vk::Result::ERROR_EXTENSION_NOT_PRESENT)?;
                     let create_info = vk::XcbSurfaceCreateInfoKHR::default()
                         .connection(
                             display
@@ -441,29 +377,33 @@ impl InstanceFn {
                 }
 
                 #[cfg(target_os = "android")]
-                (
-                    Self::Android(fns),
-                    RawDisplayHandle::Android(_),
-                    RawWindowHandle::AndroidNdk(window),
-                ) => {
+                (RawDisplayHandle::Android(_), RawWindowHandle::AndroidNdk(window)) => {
+                    let fns = self
+                        .android
+                        .as_ref()
+                        .ok_or(vk::Result::ERROR_EXTENSION_NOT_PRESENT)?;
                     let create_info = vk::AndroidSurfaceCreateInfoKHR::default()
                         .window(window.a_native_window.as_ptr().cast());
                     fns.create_android_surface(instance, &create_info, allocator)
                 }
 
                 #[cfg(target_env = "ohos")]
-                (Self::Ohos(fns), RawDisplayHandle::Ohos(_), RawWindowHandle::OhosNdk(window)) => {
+                (RawDisplayHandle::Ohos(_), RawWindowHandle::OhosNdk(window)) => {
+                    let fns = self
+                        .ohos
+                        .as_ref()
+                        .ok_or(vk::Result::ERROR_EXTENSION_NOT_PRESENT)?;
                     let create_info = vk::SurfaceCreateInfoOHOS::default()
                         .window(window.native_window.as_ptr().cast());
                     fns.create_surface_ohos(instance, &create_info, allocator)
                 }
 
                 #[cfg(target_os = "macos")]
-                (
-                    Self::Metal(fns),
-                    RawDisplayHandle::AppKit(_),
-                    RawWindowHandle::AppKit(window),
-                ) => {
+                (RawDisplayHandle::AppKit(_), RawWindowHandle::AppKit(window)) => {
+                    let fns = self
+                        .metal
+                        .as_ref()
+                        .ok_or(vk::Result::ERROR_EXTENSION_NOT_PRESENT)?;
                     use raw_window_metal::{Layer, appkit};
 
                     let layer = match appkit::metal_layer_from_handle(window) {
@@ -475,7 +415,11 @@ impl InstanceFn {
                 }
 
                 #[cfg(target_os = "ios")]
-                (Self::Metal(fns), RawDisplayHandle::UiKit(_), RawWindowHandle::UiKit(window)) => {
+                (RawDisplayHandle::UiKit(_), RawWindowHandle::UiKit(window)) => {
+                    let fns = self
+                        .metal
+                        .as_ref()
+                        .ok_or(vk::Result::ERROR_EXTENSION_NOT_PRESENT)?;
                     use raw_window_metal::{Layer, uikit};
 
                     let layer = match uikit::metal_layer_from_handle(window) {
@@ -489,6 +433,71 @@ impl InstanceFn {
                 _ => Err(vk::Result::ERROR_EXTENSION_NOT_PRESENT),
             }
         }
+    }
+}
+
+/// Returns all surface-related instance extensions valid on this platform.
+///
+/// Unlike [`enumerate_required_extensions()`], this does not require a display handle —
+/// it returns the union of all platform-possible surface extensions so that callers can
+/// enable them all up front.
+///
+/// The returned extensions always include `VK_KHR_surface`.
+pub fn enumerate_desired_extensions() -> &'static [*const c_char] {
+    #[cfg(target_os = "windows")]
+    {
+        const EXTS: [*const c_char; 2] = [
+            vk::khr::surface::EXTENSION_NAME.as_ptr(),
+            vk::khr::win32_surface::EXTENSION_NAME.as_ptr(),
+        ];
+        &EXTS
+    }
+
+    #[cfg(all(
+        not(target_env = "ohos"),
+        any(
+            target_os = "linux",
+            target_os = "dragonfly",
+            target_os = "freebsd",
+            target_os = "netbsd",
+            target_os = "openbsd",
+        ),
+    ))]
+    {
+        const EXTS: [*const c_char; 4] = [
+            vk::khr::surface::EXTENSION_NAME.as_ptr(),
+            vk::khr::wayland_surface::EXTENSION_NAME.as_ptr(),
+            vk::khr::xlib_surface::EXTENSION_NAME.as_ptr(),
+            vk::khr::xcb_surface::EXTENSION_NAME.as_ptr(),
+        ];
+        &EXTS
+    }
+
+    #[cfg(target_os = "android")]
+    {
+        const EXTS: [*const c_char; 2] = [
+            vk::khr::surface::EXTENSION_NAME.as_ptr(),
+            vk::khr::android_surface::EXTENSION_NAME.as_ptr(),
+        ];
+        &EXTS
+    }
+
+    #[cfg(target_env = "ohos")]
+    {
+        const EXTS: [*const c_char; 2] = [
+            vk::khr::surface::EXTENSION_NAME.as_ptr(),
+            vk::ohos::surface::EXTENSION_NAME.as_ptr(),
+        ];
+        &EXTS
+    }
+
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
+    {
+        const EXTS: [*const c_char; 2] = [
+            vk::khr::surface::EXTENSION_NAME.as_ptr(),
+            vk::ext::metal_surface::EXTENSION_NAME.as_ptr(),
+        ];
+        &EXTS
     }
 }
 
@@ -509,12 +518,15 @@ pub fn enumerate_required_extensions(
             &EXTS[..]
         }
 
-        #[cfg(any(
-            target_os = "linux",
-            target_os = "dragonfly",
-            target_os = "freebsd",
-            target_os = "netbsd",
-            target_os = "openbsd",
+        #[cfg(all(
+            not(target_env = "ohos"),
+            any(
+                target_os = "linux",
+                target_os = "dragonfly",
+                target_os = "freebsd",
+                target_os = "netbsd",
+                target_os = "openbsd",
+            ),
         ))]
         RawDisplayHandle::Wayland(_) => {
             const EXTS: [*const c_char; 2] = [
@@ -524,12 +536,15 @@ pub fn enumerate_required_extensions(
             &EXTS[..]
         }
 
-        #[cfg(any(
-            target_os = "linux",
-            target_os = "dragonfly",
-            target_os = "freebsd",
-            target_os = "netbsd",
-            target_os = "openbsd",
+        #[cfg(all(
+            not(target_env = "ohos"),
+            any(
+                target_os = "linux",
+                target_os = "dragonfly",
+                target_os = "freebsd",
+                target_os = "netbsd",
+                target_os = "openbsd",
+            ),
         ))]
         RawDisplayHandle::Xlib(_) => {
             const EXTS: [*const c_char; 2] = [
@@ -539,12 +554,15 @@ pub fn enumerate_required_extensions(
             &EXTS[..]
         }
 
-        #[cfg(any(
-            target_os = "linux",
-            target_os = "dragonfly",
-            target_os = "freebsd",
-            target_os = "netbsd",
-            target_os = "openbsd",
+        #[cfg(all(
+            not(target_env = "ohos"),
+            any(
+                target_os = "linux",
+                target_os = "dragonfly",
+                target_os = "freebsd",
+                target_os = "netbsd",
+                target_os = "openbsd",
+            ),
         ))]
         RawDisplayHandle::Xcb(_) => {
             const EXTS: [*const c_char; 2] = [
