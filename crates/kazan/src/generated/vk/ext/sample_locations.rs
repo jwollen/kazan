@@ -598,7 +598,7 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    get_physical_device_multisample_properties_ext: PFN_vkGetPhysicalDeviceMultisamplePropertiesEXT,
+    get_physical_device_multisample_properties: PFN_vkGetPhysicalDeviceMultisamplePropertiesEXT,
 }
 
 impl LoadInstanceFn for InstanceFn {
@@ -607,7 +607,7 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_physical_device_multisample_properties_ext: transmute(
+                get_physical_device_multisample_properties: transmute(
                     load(c"vkGetPhysicalDeviceMultisamplePropertiesEXT")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -619,14 +619,14 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceMultisamplePropertiesEXT.html>
     #[inline]
-    pub unsafe fn get_physical_device_multisample_properties_ext(
+    pub unsafe fn get_physical_device_multisample_properties(
         &self,
         physical_device: PhysicalDevice,
         samples: SampleCountFlagBits,
         multisample_properties: &mut MultisamplePropertiesEXT<'_>,
     ) {
         unsafe {
-            (self.get_physical_device_multisample_properties_ext)(
+            (self.get_physical_device_multisample_properties)(
                 physical_device,
                 samples,
                 multisample_properties,
@@ -636,7 +636,7 @@ impl InstanceFn {
 }
 
 pub struct DeviceFn {
-    cmd_set_sample_locations_ext: PFN_vkCmdSetSampleLocationsEXT,
+    cmd_set_sample_locations: PFN_vkCmdSetSampleLocationsEXT,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -645,7 +645,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_set_sample_locations_ext: transmute(
+                cmd_set_sample_locations: transmute(
                     load(c"vkCmdSetSampleLocationsEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -656,11 +656,11 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetSampleLocationsEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_sample_locations_ext(
+    pub unsafe fn cmd_set_sample_locations(
         &self,
         command_buffer: CommandBuffer,
         sample_locations_info: &SampleLocationsInfoEXT<'_>,
     ) {
-        unsafe { (self.cmd_set_sample_locations_ext)(command_buffer, sample_locations_info) }
+        unsafe { (self.cmd_set_sample_locations)(command_buffer, sample_locations_info) }
     }
 }

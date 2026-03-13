@@ -380,7 +380,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_decode_video_khr: PFN_vkCmdDecodeVideoKHR,
+    cmd_decode_video: PFN_vkCmdDecodeVideoKHR,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -389,7 +389,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_decode_video_khr: transmute(
+                cmd_decode_video: transmute(
                     load(c"vkCmdDecodeVideoKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -400,11 +400,11 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDecodeVideoKHR.html>
     #[inline]
-    pub unsafe fn cmd_decode_video_khr(
+    pub unsafe fn cmd_decode_video(
         &self,
         command_buffer: CommandBuffer,
         decode_info: &VideoDecodeInfoKHR<'_>,
     ) {
-        unsafe { (self.cmd_decode_video_khr)(command_buffer, decode_info) }
+        unsafe { (self.cmd_decode_video)(command_buffer, decode_info) }
     }
 }

@@ -290,7 +290,7 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    get_physical_device_supported_framebuffer_mixed_samples_combinations_nv:
+    get_physical_device_supported_framebuffer_mixed_samples_combinations:
         PFN_vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV,
 }
 
@@ -300,7 +300,7 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_physical_device_supported_framebuffer_mixed_samples_combinations_nv: transmute(
+                get_physical_device_supported_framebuffer_mixed_samples_combinations: transmute(
                     load(c"vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -312,7 +312,7 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV.html>
     #[inline]
-    pub unsafe fn get_physical_device_supported_framebuffer_mixed_samples_combinations_nv<'a>(
+    pub unsafe fn get_physical_device_supported_framebuffer_mixed_samples_combinations<'a>(
         &self,
         physical_device: PhysicalDevice,
         mut combinations: impl ExtendUninit<FramebufferMixedSamplesCombinationNV<'a>>,
@@ -320,7 +320,7 @@ impl InstanceFn {
         unsafe {
             let call = |combination_count, combinations| {
                 let result = (self
-                    .get_physical_device_supported_framebuffer_mixed_samples_combinations_nv)(
+                    .get_physical_device_supported_framebuffer_mixed_samples_combinations)(
                     physical_device,
                     combination_count,
                     combinations as _,

@@ -157,7 +157,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_memory_remote_address_nv: PFN_vkGetMemoryRemoteAddressNV,
+    get_memory_remote_address: PFN_vkGetMemoryRemoteAddressNV,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -166,7 +166,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_memory_remote_address_nv: transmute(
+                get_memory_remote_address: transmute(
                     load(c"vkGetMemoryRemoteAddressNV").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -177,14 +177,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryRemoteAddressNV.html>
     #[inline]
-    pub unsafe fn get_memory_remote_address_nv(
+    pub unsafe fn get_memory_remote_address(
         &self,
         device: Device,
         memory_get_remote_address_info: &MemoryGetRemoteAddressInfoNV<'_>,
     ) -> crate::Result<RemoteAddressNV> {
         unsafe {
             let mut address = core::mem::MaybeUninit::uninit();
-            let result = (self.get_memory_remote_address_nv)(
+            let result = (self.get_memory_remote_address)(
                 device,
                 memory_get_remote_address_info,
                 address.as_mut_ptr(),

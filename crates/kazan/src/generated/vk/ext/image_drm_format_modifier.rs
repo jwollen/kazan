@@ -512,7 +512,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_image_drm_format_modifier_properties_ext: PFN_vkGetImageDrmFormatModifierPropertiesEXT,
+    get_image_drm_format_modifier_properties: PFN_vkGetImageDrmFormatModifierPropertiesEXT,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -521,7 +521,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_image_drm_format_modifier_properties_ext: transmute(
+                get_image_drm_format_modifier_properties: transmute(
                     load(c"vkGetImageDrmFormatModifierPropertiesEXT")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -533,15 +533,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageDrmFormatModifierPropertiesEXT.html>
     #[inline]
-    pub unsafe fn get_image_drm_format_modifier_properties_ext(
+    pub unsafe fn get_image_drm_format_modifier_properties(
         &self,
         device: Device,
         image: Image,
         properties: &mut ImageDrmFormatModifierPropertiesEXT<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result =
-                (self.get_image_drm_format_modifier_properties_ext)(device, image, properties);
+            let result = (self.get_image_drm_format_modifier_properties)(device, image, properties);
 
             match result {
                 VkResult::SUCCESS => Ok(()),

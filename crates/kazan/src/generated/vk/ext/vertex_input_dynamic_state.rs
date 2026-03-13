@@ -257,7 +257,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_set_vertex_input_ext: PFN_vkCmdSetVertexInputEXT,
+    cmd_set_vertex_input: PFN_vkCmdSetVertexInputEXT,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -266,7 +266,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_set_vertex_input_ext: transmute(
+                cmd_set_vertex_input: transmute(
                     load(c"vkCmdSetVertexInputEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -277,14 +277,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetVertexInputEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_vertex_input_ext(
+    pub unsafe fn cmd_set_vertex_input(
         &self,
         command_buffer: CommandBuffer,
         vertex_binding_descriptions: &[VertexInputBindingDescription2EXT<'_>],
         vertex_attribute_descriptions: &[VertexInputAttributeDescription2EXT<'_>],
     ) {
         unsafe {
-            (self.cmd_set_vertex_input_ext)(
+            (self.cmd_set_vertex_input)(
                 command_buffer,
                 vertex_binding_descriptions.len().try_into().unwrap(),
                 vertex_binding_descriptions.as_ptr() as _,

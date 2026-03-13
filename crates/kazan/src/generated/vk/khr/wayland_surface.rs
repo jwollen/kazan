@@ -122,8 +122,8 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    create_wayland_surface_khr: PFN_vkCreateWaylandSurfaceKHR,
-    get_physical_device_wayland_presentation_support_khr:
+    create_wayland_surface: PFN_vkCreateWaylandSurfaceKHR,
+    get_physical_device_wayland_presentation_support:
         PFN_vkGetPhysicalDeviceWaylandPresentationSupportKHR,
 }
 
@@ -133,10 +133,10 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_wayland_surface_khr: transmute(
+                create_wayland_surface: transmute(
                     load(c"vkCreateWaylandSurfaceKHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_physical_device_wayland_presentation_support_khr: transmute(
+                get_physical_device_wayland_presentation_support: transmute(
                     load(c"vkGetPhysicalDeviceWaylandPresentationSupportKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -148,7 +148,7 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateWaylandSurfaceKHR.html>
     #[inline]
-    pub unsafe fn create_wayland_surface_khr(
+    pub unsafe fn create_wayland_surface(
         &self,
         instance: Instance,
         create_info: &WaylandSurfaceCreateInfoKHR<'_>,
@@ -156,7 +156,7 @@ impl InstanceFn {
     ) -> crate::Result<SurfaceKHR> {
         unsafe {
             let mut surface = core::mem::MaybeUninit::uninit();
-            let result = (self.create_wayland_surface_khr)(
+            let result = (self.create_wayland_surface)(
                 instance,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -172,14 +172,14 @@ impl InstanceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceWaylandPresentationSupportKHR.html>
     #[inline]
-    pub unsafe fn get_physical_device_wayland_presentation_support_khr(
+    pub unsafe fn get_physical_device_wayland_presentation_support(
         &self,
         physical_device: PhysicalDevice,
         queue_family_index: u32,
         display: *mut wl_display,
     ) -> bool {
         unsafe {
-            (self.get_physical_device_wayland_presentation_support_khr)(
+            (self.get_physical_device_wayland_presentation_support)(
                 physical_device,
                 queue_family_index,
                 display,

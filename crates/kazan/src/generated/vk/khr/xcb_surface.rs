@@ -123,9 +123,8 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    create_xcb_surface_khr: PFN_vkCreateXcbSurfaceKHR,
-    get_physical_device_xcb_presentation_support_khr:
-        PFN_vkGetPhysicalDeviceXcbPresentationSupportKHR,
+    create_xcb_surface: PFN_vkCreateXcbSurfaceKHR,
+    get_physical_device_xcb_presentation_support: PFN_vkGetPhysicalDeviceXcbPresentationSupportKHR,
 }
 
 impl LoadInstanceFn for InstanceFn {
@@ -134,10 +133,10 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_xcb_surface_khr: transmute(
+                create_xcb_surface: transmute(
                     load(c"vkCreateXcbSurfaceKHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_physical_device_xcb_presentation_support_khr: transmute(
+                get_physical_device_xcb_presentation_support: transmute(
                     load(c"vkGetPhysicalDeviceXcbPresentationSupportKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -149,7 +148,7 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateXcbSurfaceKHR.html>
     #[inline]
-    pub unsafe fn create_xcb_surface_khr(
+    pub unsafe fn create_xcb_surface(
         &self,
         instance: Instance,
         create_info: &XcbSurfaceCreateInfoKHR<'_>,
@@ -157,7 +156,7 @@ impl InstanceFn {
     ) -> crate::Result<SurfaceKHR> {
         unsafe {
             let mut surface = core::mem::MaybeUninit::uninit();
-            let result = (self.create_xcb_surface_khr)(
+            let result = (self.create_xcb_surface)(
                 instance,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -173,7 +172,7 @@ impl InstanceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceXcbPresentationSupportKHR.html>
     #[inline]
-    pub unsafe fn get_physical_device_xcb_presentation_support_khr(
+    pub unsafe fn get_physical_device_xcb_presentation_support(
         &self,
         physical_device: PhysicalDevice,
         queue_family_index: u32,
@@ -181,7 +180,7 @@ impl InstanceFn {
         visual_id: xcb_visualid_t,
     ) -> bool {
         unsafe {
-            (self.get_physical_device_xcb_presentation_support_khr)(
+            (self.get_physical_device_xcb_presentation_support)(
                 physical_device,
                 queue_family_index,
                 connection,

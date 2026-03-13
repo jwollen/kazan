@@ -450,8 +450,8 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_native_buffer_properties_ohos: PFN_vkGetNativeBufferPropertiesOHOS,
-    get_memory_native_buffer_ohos: PFN_vkGetMemoryNativeBufferOHOS,
+    get_native_buffer_properties: PFN_vkGetNativeBufferPropertiesOHOS,
+    get_memory_native_buffer: PFN_vkGetMemoryNativeBufferOHOS,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -460,10 +460,10 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_native_buffer_properties_ohos: transmute(
+                get_native_buffer_properties: transmute(
                     load(c"vkGetNativeBufferPropertiesOHOS").ok_or(MissingEntryPointError)?,
                 ),
-                get_memory_native_buffer_ohos: transmute(
+                get_memory_native_buffer: transmute(
                     load(c"vkGetMemoryNativeBufferOHOS").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -474,14 +474,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetNativeBufferPropertiesOHOS.html>
     #[inline]
-    pub unsafe fn get_native_buffer_properties_ohos(
+    pub unsafe fn get_native_buffer_properties(
         &self,
         device: Device,
         buffer: *const OH_NativeBuffer,
         properties: &mut NativeBufferPropertiesOHOS<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_native_buffer_properties_ohos)(device, buffer, properties);
+            let result = (self.get_native_buffer_properties)(device, buffer, properties);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -492,14 +492,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryNativeBufferOHOS.html>
     #[inline]
-    pub unsafe fn get_memory_native_buffer_ohos(
+    pub unsafe fn get_memory_native_buffer(
         &self,
         device: Device,
         info: &MemoryGetNativeBufferInfoOHOS<'_>,
     ) -> crate::Result<*mut OH_NativeBuffer> {
         unsafe {
             let mut buffer = core::mem::MaybeUninit::uninit();
-            let result = (self.get_memory_native_buffer_ohos)(device, info, buffer.as_mut_ptr());
+            let result = (self.get_memory_native_buffer)(device, info, buffer.as_mut_ptr());
 
             match result {
                 VkResult::SUCCESS => Ok(buffer.assume_init()),

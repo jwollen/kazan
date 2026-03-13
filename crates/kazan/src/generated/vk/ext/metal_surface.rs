@@ -108,7 +108,7 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    create_metal_surface_ext: PFN_vkCreateMetalSurfaceEXT,
+    create_metal_surface: PFN_vkCreateMetalSurfaceEXT,
 }
 
 impl LoadInstanceFn for InstanceFn {
@@ -117,7 +117,7 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_metal_surface_ext: transmute(
+                create_metal_surface: transmute(
                     load(c"vkCreateMetalSurfaceEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -128,7 +128,7 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateMetalSurfaceEXT.html>
     #[inline]
-    pub unsafe fn create_metal_surface_ext(
+    pub unsafe fn create_metal_surface(
         &self,
         instance: Instance,
         create_info: &MetalSurfaceCreateInfoEXT<'_>,
@@ -136,7 +136,7 @@ impl InstanceFn {
     ) -> crate::Result<SurfaceKHR> {
         unsafe {
             let mut surface = core::mem::MaybeUninit::uninit();
-            let result = (self.create_metal_surface_ext)(
+            let result = (self.create_metal_surface)(
                 instance,
                 create_info,
                 allocator.to_raw_ptr(),

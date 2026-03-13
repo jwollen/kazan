@@ -199,8 +199,8 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    get_physical_device_surface_capabilities2_khr: PFN_vkGetPhysicalDeviceSurfaceCapabilities2KHR,
-    get_physical_device_surface_formats2_khr: PFN_vkGetPhysicalDeviceSurfaceFormats2KHR,
+    get_physical_device_surface_capabilities2: PFN_vkGetPhysicalDeviceSurfaceCapabilities2KHR,
+    get_physical_device_surface_formats2: PFN_vkGetPhysicalDeviceSurfaceFormats2KHR,
 }
 
 impl LoadInstanceFn for InstanceFn {
@@ -209,11 +209,11 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_physical_device_surface_capabilities2_khr: transmute(
+                get_physical_device_surface_capabilities2: transmute(
                     load(c"vkGetPhysicalDeviceSurfaceCapabilities2KHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                get_physical_device_surface_formats2_khr: transmute(
+                get_physical_device_surface_formats2: transmute(
                     load(c"vkGetPhysicalDeviceSurfaceFormats2KHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -224,14 +224,14 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceCapabilities2KHR.html>
     #[inline]
-    pub unsafe fn get_physical_device_surface_capabilities2_khr(
+    pub unsafe fn get_physical_device_surface_capabilities2(
         &self,
         physical_device: PhysicalDevice,
         surface_info: &PhysicalDeviceSurfaceInfo2KHR<'_>,
         surface_capabilities: &mut SurfaceCapabilities2KHR<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_physical_device_surface_capabilities2_khr)(
+            let result = (self.get_physical_device_surface_capabilities2)(
                 physical_device,
                 surface_info,
                 surface_capabilities,
@@ -246,7 +246,7 @@ impl InstanceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceFormats2KHR.html>
     #[inline]
-    pub unsafe fn get_physical_device_surface_formats2_khr<'a>(
+    pub unsafe fn get_physical_device_surface_formats2<'a>(
         &self,
         physical_device: PhysicalDevice,
         surface_info: &PhysicalDeviceSurfaceInfo2KHR<'a>,
@@ -254,7 +254,7 @@ impl InstanceFn {
     ) -> crate::Result<()> {
         unsafe {
             let call = |surface_format_count, surface_formats| {
-                let result = (self.get_physical_device_surface_formats2_khr)(
+                let result = (self.get_physical_device_surface_formats2)(
                     physical_device,
                     surface_info,
                     surface_format_count,

@@ -132,7 +132,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_set_viewport_w_scaling_nv: PFN_vkCmdSetViewportWScalingNV,
+    cmd_set_viewport_w_scaling: PFN_vkCmdSetViewportWScalingNV,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -141,7 +141,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_set_viewport_w_scaling_nv: transmute(
+                cmd_set_viewport_w_scaling: transmute(
                     load(c"vkCmdSetViewportWScalingNV").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -152,14 +152,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetViewportWScalingNV.html>
     #[inline]
-    pub unsafe fn cmd_set_viewport_w_scaling_nv(
+    pub unsafe fn cmd_set_viewport_w_scaling(
         &self,
         command_buffer: CommandBuffer,
         first_viewport: u32,
         viewport_w_scalings: &[ViewportWScalingNV],
     ) {
         unsafe {
-            (self.cmd_set_viewport_w_scaling_nv)(
+            (self.cmd_set_viewport_w_scaling)(
                 command_buffer,
                 first_viewport,
                 viewport_w_scalings.len().try_into().unwrap(),

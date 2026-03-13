@@ -465,12 +465,12 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    create_cuda_module_nv: PFN_vkCreateCudaModuleNV,
-    get_cuda_module_cache_nv: PFN_vkGetCudaModuleCacheNV,
-    create_cuda_function_nv: PFN_vkCreateCudaFunctionNV,
-    destroy_cuda_module_nv: PFN_vkDestroyCudaModuleNV,
-    destroy_cuda_function_nv: PFN_vkDestroyCudaFunctionNV,
-    cmd_cuda_launch_kernel_nv: PFN_vkCmdCudaLaunchKernelNV,
+    create_cuda_module: PFN_vkCreateCudaModuleNV,
+    get_cuda_module_cache: PFN_vkGetCudaModuleCacheNV,
+    create_cuda_function: PFN_vkCreateCudaFunctionNV,
+    destroy_cuda_module: PFN_vkDestroyCudaModuleNV,
+    destroy_cuda_function: PFN_vkDestroyCudaFunctionNV,
+    cmd_cuda_launch_kernel: PFN_vkCmdCudaLaunchKernelNV,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -479,22 +479,22 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_cuda_module_nv: transmute(
+                create_cuda_module: transmute(
                     load(c"vkCreateCudaModuleNV").ok_or(MissingEntryPointError)?,
                 ),
-                get_cuda_module_cache_nv: transmute(
+                get_cuda_module_cache: transmute(
                     load(c"vkGetCudaModuleCacheNV").ok_or(MissingEntryPointError)?,
                 ),
-                create_cuda_function_nv: transmute(
+                create_cuda_function: transmute(
                     load(c"vkCreateCudaFunctionNV").ok_or(MissingEntryPointError)?,
                 ),
-                destroy_cuda_module_nv: transmute(
+                destroy_cuda_module: transmute(
                     load(c"vkDestroyCudaModuleNV").ok_or(MissingEntryPointError)?,
                 ),
-                destroy_cuda_function_nv: transmute(
+                destroy_cuda_function: transmute(
                     load(c"vkDestroyCudaFunctionNV").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_cuda_launch_kernel_nv: transmute(
+                cmd_cuda_launch_kernel: transmute(
                     load(c"vkCmdCudaLaunchKernelNV").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -505,7 +505,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateCudaModuleNV.html>
     #[inline]
-    pub unsafe fn create_cuda_module_nv(
+    pub unsafe fn create_cuda_module(
         &self,
         device: Device,
         create_info: &CudaModuleCreateInfoNV<'_>,
@@ -513,7 +513,7 @@ impl DeviceFn {
     ) -> crate::Result<CudaModuleNV> {
         unsafe {
             let mut module = core::mem::MaybeUninit::uninit();
-            let result = (self.create_cuda_module_nv)(
+            let result = (self.create_cuda_module)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -529,7 +529,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetCudaModuleCacheNV.html>
     #[inline]
-    pub unsafe fn get_cuda_module_cache_nv(
+    pub unsafe fn get_cuda_module_cache(
         &self,
         device: Device,
         module: CudaModuleNV,
@@ -538,7 +538,7 @@ impl DeviceFn {
         unsafe {
             let call = |cache_size, cache_data| {
                 let result =
-                    (self.get_cuda_module_cache_nv)(device, module, cache_size, cache_data as _);
+                    (self.get_cuda_module_cache)(device, module, cache_size, cache_data as _);
 
                 match result {
                     VkResult::SUCCESS => Ok(()),
@@ -559,7 +559,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateCudaFunctionNV.html>
     #[inline]
-    pub unsafe fn create_cuda_function_nv(
+    pub unsafe fn create_cuda_function(
         &self,
         device: Device,
         create_info: &CudaFunctionCreateInfoNV<'_>,
@@ -567,7 +567,7 @@ impl DeviceFn {
     ) -> crate::Result<CudaFunctionNV> {
         unsafe {
             let mut function = core::mem::MaybeUninit::uninit();
-            let result = (self.create_cuda_function_nv)(
+            let result = (self.create_cuda_function)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -583,33 +583,33 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyCudaModuleNV.html>
     #[inline]
-    pub unsafe fn destroy_cuda_module_nv(
+    pub unsafe fn destroy_cuda_module(
         &self,
         device: Device,
         module: CudaModuleNV,
         allocator: Option<&AllocationCallbacks<'_>>,
     ) {
-        unsafe { (self.destroy_cuda_module_nv)(device, module, allocator.to_raw_ptr()) }
+        unsafe { (self.destroy_cuda_module)(device, module, allocator.to_raw_ptr()) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyCudaFunctionNV.html>
     #[inline]
-    pub unsafe fn destroy_cuda_function_nv(
+    pub unsafe fn destroy_cuda_function(
         &self,
         device: Device,
         function: CudaFunctionNV,
         allocator: Option<&AllocationCallbacks<'_>>,
     ) {
-        unsafe { (self.destroy_cuda_function_nv)(device, function, allocator.to_raw_ptr()) }
+        unsafe { (self.destroy_cuda_function)(device, function, allocator.to_raw_ptr()) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCudaLaunchKernelNV.html>
     #[inline]
-    pub unsafe fn cmd_cuda_launch_kernel_nv(
+    pub unsafe fn cmd_cuda_launch_kernel(
         &self,
         command_buffer: CommandBuffer,
         launch_info: &CudaLaunchInfoNV<'_>,
     ) {
-        unsafe { (self.cmd_cuda_launch_kernel_nv)(command_buffer, launch_info) }
+        unsafe { (self.cmd_cuda_launch_kernel)(command_buffer, launch_info) }
     }
 }

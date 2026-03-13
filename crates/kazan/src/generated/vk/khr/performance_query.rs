@@ -768,9 +768,9 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    enumerate_physical_device_queue_family_performance_query_counters_khr:
+    enumerate_physical_device_queue_family_performance_query_counters:
         PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR,
-    get_physical_device_queue_family_performance_query_passes_khr:
+    get_physical_device_queue_family_performance_query_passes:
         PFN_vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR,
 }
 
@@ -780,11 +780,11 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                enumerate_physical_device_queue_family_performance_query_counters_khr: transmute(
+                enumerate_physical_device_queue_family_performance_query_counters: transmute(
                     load(c"vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                get_physical_device_queue_family_performance_query_passes_khr: transmute(
+                get_physical_device_queue_family_performance_query_passes: transmute(
                     load(c"vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -796,7 +796,7 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR.html>
     #[inline]
-    pub unsafe fn enumerate_physical_device_queue_family_performance_query_counters_khr<'a>(
+    pub unsafe fn enumerate_physical_device_queue_family_performance_query_counters<'a>(
         &self,
         physical_device: PhysicalDevice,
         queue_family_index: u32,
@@ -806,7 +806,7 @@ impl InstanceFn {
         unsafe {
             let call = |counter_count, counters, counter_descriptions| {
                 let result = (self
-                    .enumerate_physical_device_queue_family_performance_query_counters_khr)(
+                    .enumerate_physical_device_queue_family_performance_query_counters)(
                     physical_device,
                     queue_family_index,
                     counter_count,
@@ -840,14 +840,14 @@ impl InstanceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR.html>
     #[inline]
-    pub unsafe fn get_physical_device_queue_family_performance_query_passes_khr(
+    pub unsafe fn get_physical_device_queue_family_performance_query_passes(
         &self,
         physical_device: PhysicalDevice,
         performance_query_create_info: &QueryPoolPerformanceCreateInfoKHR<'_>,
     ) -> u32 {
         unsafe {
             let mut num_passes = core::mem::MaybeUninit::uninit();
-            (self.get_physical_device_queue_family_performance_query_passes_khr)(
+            (self.get_physical_device_queue_family_performance_query_passes)(
                 physical_device,
                 performance_query_create_info,
                 num_passes.as_mut_ptr(),
@@ -858,8 +858,8 @@ impl InstanceFn {
 }
 
 pub struct DeviceFn {
-    acquire_profiling_lock_khr: PFN_vkAcquireProfilingLockKHR,
-    release_profiling_lock_khr: PFN_vkReleaseProfilingLockKHR,
+    acquire_profiling_lock: PFN_vkAcquireProfilingLockKHR,
+    release_profiling_lock: PFN_vkReleaseProfilingLockKHR,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -868,10 +868,10 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                acquire_profiling_lock_khr: transmute(
+                acquire_profiling_lock: transmute(
                     load(c"vkAcquireProfilingLockKHR").ok_or(MissingEntryPointError)?,
                 ),
-                release_profiling_lock_khr: transmute(
+                release_profiling_lock: transmute(
                     load(c"vkReleaseProfilingLockKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -882,13 +882,13 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireProfilingLockKHR.html>
     #[inline]
-    pub unsafe fn acquire_profiling_lock_khr(
+    pub unsafe fn acquire_profiling_lock(
         &self,
         device: Device,
         info: &AcquireProfilingLockInfoKHR<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.acquire_profiling_lock_khr)(device, info);
+            let result = (self.acquire_profiling_lock)(device, info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -899,7 +899,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkReleaseProfilingLockKHR.html>
     #[inline]
-    pub unsafe fn release_profiling_lock_khr(&self, device: Device) {
-        unsafe { (self.release_profiling_lock_khr)(device) }
+    pub unsafe fn release_profiling_lock(&self, device: Device) {
+        unsafe { (self.release_profiling_lock)(device) }
     }
 }

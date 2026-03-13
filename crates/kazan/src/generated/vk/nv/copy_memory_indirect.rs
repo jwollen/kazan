@@ -116,8 +116,8 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_copy_memory_indirect_nv: PFN_vkCmdCopyMemoryIndirectNV,
-    cmd_copy_memory_to_image_indirect_nv: PFN_vkCmdCopyMemoryToImageIndirectNV,
+    cmd_copy_memory_indirect: PFN_vkCmdCopyMemoryIndirectNV,
+    cmd_copy_memory_to_image_indirect: PFN_vkCmdCopyMemoryToImageIndirectNV,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -126,10 +126,10 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_copy_memory_indirect_nv: transmute(
+                cmd_copy_memory_indirect: transmute(
                     load(c"vkCmdCopyMemoryIndirectNV").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_copy_memory_to_image_indirect_nv: transmute(
+                cmd_copy_memory_to_image_indirect: transmute(
                     load(c"vkCmdCopyMemoryToImageIndirectNV").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -140,7 +140,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryIndirectNV.html>
     #[inline]
-    pub unsafe fn cmd_copy_memory_indirect_nv(
+    pub unsafe fn cmd_copy_memory_indirect(
         &self,
         command_buffer: CommandBuffer,
         copy_buffer_address: DeviceAddress,
@@ -148,18 +148,13 @@ impl DeviceFn {
         stride: u32,
     ) {
         unsafe {
-            (self.cmd_copy_memory_indirect_nv)(
-                command_buffer,
-                copy_buffer_address,
-                copy_count,
-                stride,
-            )
+            (self.cmd_copy_memory_indirect)(command_buffer, copy_buffer_address, copy_count, stride)
         }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryToImageIndirectNV.html>
     #[inline]
-    pub unsafe fn cmd_copy_memory_to_image_indirect_nv(
+    pub unsafe fn cmd_copy_memory_to_image_indirect(
         &self,
         command_buffer: CommandBuffer,
         copy_buffer_address: DeviceAddress,
@@ -169,7 +164,7 @@ impl DeviceFn {
         image_subresources: &[ImageSubresourceLayers],
     ) {
         unsafe {
-            (self.cmd_copy_memory_to_image_indirect_nv)(
+            (self.cmd_copy_memory_to_image_indirect)(
                 command_buffer,
                 copy_buffer_address,
                 image_subresources.len().try_into().unwrap(),

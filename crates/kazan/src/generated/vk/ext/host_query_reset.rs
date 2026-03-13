@@ -30,7 +30,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    reset_query_pool_ext: PFN_vkResetQueryPool,
+    reset_query_pool: PFN_vkResetQueryPool,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -39,7 +39,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                reset_query_pool_ext: transmute(
+                reset_query_pool: transmute(
                     load(c"vkResetQueryPoolEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -50,13 +50,13 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkResetQueryPoolEXT.html>
     #[inline]
-    pub unsafe fn reset_query_pool_ext(
+    pub unsafe fn reset_query_pool(
         &self,
         device: Device,
         query_pool: QueryPool,
         first_query: u32,
         query_count: u32,
     ) {
-        unsafe { (self.reset_query_pool_ext)(device, query_pool, first_query, query_count) }
+        unsafe { (self.reset_query_pool)(device, query_pool, first_query, query_count) }
     }
 }

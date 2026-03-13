@@ -108,7 +108,7 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    create_android_surface_khr: PFN_vkCreateAndroidSurfaceKHR,
+    create_android_surface: PFN_vkCreateAndroidSurfaceKHR,
 }
 
 impl LoadInstanceFn for InstanceFn {
@@ -117,7 +117,7 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_android_surface_khr: transmute(
+                create_android_surface: transmute(
                     load(c"vkCreateAndroidSurfaceKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -128,7 +128,7 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateAndroidSurfaceKHR.html>
     #[inline]
-    pub unsafe fn create_android_surface_khr(
+    pub unsafe fn create_android_surface(
         &self,
         instance: Instance,
         create_info: &AndroidSurfaceCreateInfoKHR<'_>,
@@ -136,7 +136,7 @@ impl InstanceFn {
     ) -> crate::Result<SurfaceKHR> {
         unsafe {
             let mut surface = core::mem::MaybeUninit::uninit();
-            let result = (self.create_android_surface_khr)(
+            let result = (self.create_android_surface)(
                 instance,
                 create_info,
                 allocator.to_raw_ptr(),

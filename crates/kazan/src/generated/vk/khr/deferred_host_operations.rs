@@ -53,11 +53,11 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    create_deferred_operation_khr: PFN_vkCreateDeferredOperationKHR,
-    destroy_deferred_operation_khr: PFN_vkDestroyDeferredOperationKHR,
-    get_deferred_operation_max_concurrency_khr: PFN_vkGetDeferredOperationMaxConcurrencyKHR,
-    get_deferred_operation_result_khr: PFN_vkGetDeferredOperationResultKHR,
-    deferred_operation_join_khr: PFN_vkDeferredOperationJoinKHR,
+    create_deferred_operation: PFN_vkCreateDeferredOperationKHR,
+    destroy_deferred_operation: PFN_vkDestroyDeferredOperationKHR,
+    get_deferred_operation_max_concurrency: PFN_vkGetDeferredOperationMaxConcurrencyKHR,
+    get_deferred_operation_result: PFN_vkGetDeferredOperationResultKHR,
+    deferred_operation_join: PFN_vkDeferredOperationJoinKHR,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -66,20 +66,20 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_deferred_operation_khr: transmute(
+                create_deferred_operation: transmute(
                     load(c"vkCreateDeferredOperationKHR").ok_or(MissingEntryPointError)?,
                 ),
-                destroy_deferred_operation_khr: transmute(
+                destroy_deferred_operation: transmute(
                     load(c"vkDestroyDeferredOperationKHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_deferred_operation_max_concurrency_khr: transmute(
+                get_deferred_operation_max_concurrency: transmute(
                     load(c"vkGetDeferredOperationMaxConcurrencyKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                get_deferred_operation_result_khr: transmute(
+                get_deferred_operation_result: transmute(
                     load(c"vkGetDeferredOperationResultKHR").ok_or(MissingEntryPointError)?,
                 ),
-                deferred_operation_join_khr: transmute(
+                deferred_operation_join: transmute(
                     load(c"vkDeferredOperationJoinKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -90,14 +90,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDeferredOperationKHR.html>
     #[inline]
-    pub unsafe fn create_deferred_operation_khr(
+    pub unsafe fn create_deferred_operation(
         &self,
         device: Device,
         allocator: Option<&AllocationCallbacks<'_>>,
     ) -> crate::Result<DeferredOperationKHR> {
         unsafe {
             let mut deferred_operation = core::mem::MaybeUninit::uninit();
-            let result = (self.create_deferred_operation_khr)(
+            let result = (self.create_deferred_operation)(
                 device,
                 allocator.to_raw_ptr(),
                 deferred_operation.as_mut_ptr(),
@@ -112,34 +112,34 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDeferredOperationKHR.html>
     #[inline]
-    pub unsafe fn destroy_deferred_operation_khr(
+    pub unsafe fn destroy_deferred_operation(
         &self,
         device: Device,
         operation: DeferredOperationKHR,
         allocator: Option<&AllocationCallbacks<'_>>,
     ) {
-        unsafe { (self.destroy_deferred_operation_khr)(device, operation, allocator.to_raw_ptr()) }
+        unsafe { (self.destroy_deferred_operation)(device, operation, allocator.to_raw_ptr()) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeferredOperationMaxConcurrencyKHR.html>
     #[inline]
-    pub unsafe fn get_deferred_operation_max_concurrency_khr(
+    pub unsafe fn get_deferred_operation_max_concurrency(
         &self,
         device: Device,
         operation: DeferredOperationKHR,
     ) -> u32 {
-        unsafe { (self.get_deferred_operation_max_concurrency_khr)(device, operation) }
+        unsafe { (self.get_deferred_operation_max_concurrency)(device, operation) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeferredOperationResultKHR.html>
     #[inline]
-    pub unsafe fn get_deferred_operation_result_khr(
+    pub unsafe fn get_deferred_operation_result(
         &self,
         device: Device,
         operation: DeferredOperationKHR,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_deferred_operation_result_khr)(device, operation);
+            let result = (self.get_deferred_operation_result)(device, operation);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -150,13 +150,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDeferredOperationJoinKHR.html>
     #[inline]
-    pub unsafe fn deferred_operation_join_khr(
+    pub unsafe fn deferred_operation_join(
         &self,
         device: Device,
         operation: DeferredOperationKHR,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.deferred_operation_join_khr)(device, operation);
+            let result = (self.deferred_operation_join)(device, operation);
 
             match result {
                 VkResult::SUCCESS => Ok(()),

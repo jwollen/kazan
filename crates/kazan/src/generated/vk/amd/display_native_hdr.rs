@@ -143,7 +143,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    set_local_dimming_amd: PFN_vkSetLocalDimmingAMD,
+    set_local_dimming: PFN_vkSetLocalDimmingAMD,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -152,7 +152,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                set_local_dimming_amd: transmute(
+                set_local_dimming: transmute(
                     load(c"vkSetLocalDimmingAMD").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -163,12 +163,12 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetLocalDimmingAMD.html>
     #[inline]
-    pub unsafe fn set_local_dimming_amd(
+    pub unsafe fn set_local_dimming(
         &self,
         device: Device,
         swap_chain: SwapchainKHR,
         local_dimming_enable: bool,
     ) {
-        unsafe { (self.set_local_dimming_amd)(device, swap_chain, local_dimming_enable.into()) }
+        unsafe { (self.set_local_dimming)(device, swap_chain, local_dimming_enable.into()) }
     }
 }

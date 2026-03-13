@@ -603,9 +603,9 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_dispatch_tile_qcom: PFN_vkCmdDispatchTileQCOM,
-    cmd_begin_per_tile_execution_qcom: PFN_vkCmdBeginPerTileExecutionQCOM,
-    cmd_end_per_tile_execution_qcom: PFN_vkCmdEndPerTileExecutionQCOM,
+    cmd_dispatch_tile: PFN_vkCmdDispatchTileQCOM,
+    cmd_begin_per_tile_execution: PFN_vkCmdBeginPerTileExecutionQCOM,
+    cmd_end_per_tile_execution: PFN_vkCmdEndPerTileExecutionQCOM,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -614,13 +614,13 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_dispatch_tile_qcom: transmute(
+                cmd_dispatch_tile: transmute(
                     load(c"vkCmdDispatchTileQCOM").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_begin_per_tile_execution_qcom: transmute(
+                cmd_begin_per_tile_execution: transmute(
                     load(c"vkCmdBeginPerTileExecutionQCOM").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_end_per_tile_execution_qcom: transmute(
+                cmd_end_per_tile_execution: transmute(
                     load(c"vkCmdEndPerTileExecutionQCOM").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -631,31 +631,31 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDispatchTileQCOM.html>
     #[inline]
-    pub unsafe fn cmd_dispatch_tile_qcom(
+    pub unsafe fn cmd_dispatch_tile(
         &self,
         command_buffer: CommandBuffer,
         dispatch_tile_info: &DispatchTileInfoQCOM<'_>,
     ) {
-        unsafe { (self.cmd_dispatch_tile_qcom)(command_buffer, dispatch_tile_info) }
+        unsafe { (self.cmd_dispatch_tile)(command_buffer, dispatch_tile_info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginPerTileExecutionQCOM.html>
     #[inline]
-    pub unsafe fn cmd_begin_per_tile_execution_qcom(
+    pub unsafe fn cmd_begin_per_tile_execution(
         &self,
         command_buffer: CommandBuffer,
         per_tile_begin_info: &PerTileBeginInfoQCOM<'_>,
     ) {
-        unsafe { (self.cmd_begin_per_tile_execution_qcom)(command_buffer, per_tile_begin_info) }
+        unsafe { (self.cmd_begin_per_tile_execution)(command_buffer, per_tile_begin_info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndPerTileExecutionQCOM.html>
     #[inline]
-    pub unsafe fn cmd_end_per_tile_execution_qcom(
+    pub unsafe fn cmd_end_per_tile_execution(
         &self,
         command_buffer: CommandBuffer,
         per_tile_end_info: &PerTileEndInfoQCOM<'_>,
     ) {
-        unsafe { (self.cmd_end_per_tile_execution_qcom)(command_buffer, per_tile_end_info) }
+        unsafe { (self.cmd_end_per_tile_execution)(command_buffer, per_tile_end_info) }
     }
 }

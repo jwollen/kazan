@@ -1851,9 +1851,9 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    get_physical_device_queue_family_data_graph_properties_arm:
+    get_physical_device_queue_family_data_graph_properties:
         PFN_vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM,
-    get_physical_device_queue_family_data_graph_processing_engine_properties_arm:
+    get_physical_device_queue_family_data_graph_processing_engine_properties:
         PFN_vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM,
 }
 
@@ -1863,17 +1863,14 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_physical_device_queue_family_data_graph_properties_arm: transmute(
+                get_physical_device_queue_family_data_graph_properties: transmute(
                     load(c"vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                get_physical_device_queue_family_data_graph_processing_engine_properties_arm:
-                    transmute(
-                        load(
-                            c"vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM",
-                        )
+                get_physical_device_queue_family_data_graph_processing_engine_properties: transmute(
+                    load(c"vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM")
                         .ok_or(MissingEntryPointError)?,
-                    ),
+                ),
             })
         }
     }
@@ -1882,7 +1879,7 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM.html>
     #[inline]
-    pub unsafe fn get_physical_device_queue_family_data_graph_properties_arm<'a>(
+    pub unsafe fn get_physical_device_queue_family_data_graph_properties<'a>(
         &self,
         physical_device: PhysicalDevice,
         queue_family_index: u32,
@@ -1891,7 +1888,7 @@ impl InstanceFn {
         unsafe {
             let call = |queue_family_data_graph_property_count,
                         queue_family_data_graph_properties| {
-                let result = (self.get_physical_device_queue_family_data_graph_properties_arm)(
+                let result = (self.get_physical_device_queue_family_data_graph_properties)(
                     physical_device,
                     queue_family_index,
                     queue_family_data_graph_property_count,
@@ -1924,14 +1921,14 @@ impl InstanceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM.html>
     #[inline]
-    pub unsafe fn get_physical_device_queue_family_data_graph_processing_engine_properties_arm(
+    pub unsafe fn get_physical_device_queue_family_data_graph_processing_engine_properties(
         &self,
         physical_device: PhysicalDevice,
         queue_family_data_graph_processing_engine_info: &PhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM<'_>,
         queue_family_data_graph_processing_engine_properties: &mut QueueFamilyDataGraphProcessingEnginePropertiesARM<'_>,
     ) {
         unsafe {
-            (self.get_physical_device_queue_family_data_graph_processing_engine_properties_arm)(
+            (self.get_physical_device_queue_family_data_graph_processing_engine_properties)(
                 physical_device,
                 queue_family_data_graph_processing_engine_info,
                 queue_family_data_graph_processing_engine_properties,
@@ -1941,18 +1938,17 @@ impl InstanceFn {
 }
 
 pub struct DeviceFn {
-    create_data_graph_pipelines_arm: PFN_vkCreateDataGraphPipelinesARM,
-    create_data_graph_pipeline_session_arm: PFN_vkCreateDataGraphPipelineSessionARM,
-    get_data_graph_pipeline_session_bind_point_requirements_arm:
+    create_data_graph_pipelines: PFN_vkCreateDataGraphPipelinesARM,
+    create_data_graph_pipeline_session: PFN_vkCreateDataGraphPipelineSessionARM,
+    get_data_graph_pipeline_session_bind_point_requirements:
         PFN_vkGetDataGraphPipelineSessionBindPointRequirementsARM,
-    get_data_graph_pipeline_session_memory_requirements_arm:
+    get_data_graph_pipeline_session_memory_requirements:
         PFN_vkGetDataGraphPipelineSessionMemoryRequirementsARM,
-    bind_data_graph_pipeline_session_memory_arm: PFN_vkBindDataGraphPipelineSessionMemoryARM,
-    destroy_data_graph_pipeline_session_arm: PFN_vkDestroyDataGraphPipelineSessionARM,
-    cmd_dispatch_data_graph_arm: PFN_vkCmdDispatchDataGraphARM,
-    get_data_graph_pipeline_available_properties_arm:
-        PFN_vkGetDataGraphPipelineAvailablePropertiesARM,
-    get_data_graph_pipeline_properties_arm: PFN_vkGetDataGraphPipelinePropertiesARM,
+    bind_data_graph_pipeline_session_memory: PFN_vkBindDataGraphPipelineSessionMemoryARM,
+    destroy_data_graph_pipeline_session: PFN_vkDestroyDataGraphPipelineSessionARM,
+    cmd_dispatch_data_graph: PFN_vkCmdDispatchDataGraphARM,
+    get_data_graph_pipeline_available_properties: PFN_vkGetDataGraphPipelineAvailablePropertiesARM,
+    get_data_graph_pipeline_properties: PFN_vkGetDataGraphPipelinePropertiesARM,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -1961,35 +1957,35 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_data_graph_pipelines_arm: transmute(
+                create_data_graph_pipelines: transmute(
                     load(c"vkCreateDataGraphPipelinesARM").ok_or(MissingEntryPointError)?,
                 ),
-                create_data_graph_pipeline_session_arm: transmute(
+                create_data_graph_pipeline_session: transmute(
                     load(c"vkCreateDataGraphPipelineSessionARM").ok_or(MissingEntryPointError)?,
                 ),
-                get_data_graph_pipeline_session_bind_point_requirements_arm: transmute(
+                get_data_graph_pipeline_session_bind_point_requirements: transmute(
                     load(c"vkGetDataGraphPipelineSessionBindPointRequirementsARM")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                get_data_graph_pipeline_session_memory_requirements_arm: transmute(
+                get_data_graph_pipeline_session_memory_requirements: transmute(
                     load(c"vkGetDataGraphPipelineSessionMemoryRequirementsARM")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                bind_data_graph_pipeline_session_memory_arm: transmute(
+                bind_data_graph_pipeline_session_memory: transmute(
                     load(c"vkBindDataGraphPipelineSessionMemoryARM")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                destroy_data_graph_pipeline_session_arm: transmute(
+                destroy_data_graph_pipeline_session: transmute(
                     load(c"vkDestroyDataGraphPipelineSessionARM").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_dispatch_data_graph_arm: transmute(
+                cmd_dispatch_data_graph: transmute(
                     load(c"vkCmdDispatchDataGraphARM").ok_or(MissingEntryPointError)?,
                 ),
-                get_data_graph_pipeline_available_properties_arm: transmute(
+                get_data_graph_pipeline_available_properties: transmute(
                     load(c"vkGetDataGraphPipelineAvailablePropertiesARM")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                get_data_graph_pipeline_properties_arm: transmute(
+                get_data_graph_pipeline_properties: transmute(
                     load(c"vkGetDataGraphPipelinePropertiesARM").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -2000,7 +1996,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDataGraphPipelinesARM.html>
     #[inline]
-    pub unsafe fn create_data_graph_pipelines_arm(
+    pub unsafe fn create_data_graph_pipelines(
         &self,
         device: Device,
         deferred_operation: DeferredOperationKHR,
@@ -2010,7 +2006,7 @@ impl DeviceFn {
         pipelines: &mut [Pipeline],
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.create_data_graph_pipelines_arm)(
+            let result = (self.create_data_graph_pipelines)(
                 device,
                 deferred_operation,
                 pipeline_cache,
@@ -2029,7 +2025,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDataGraphPipelineSessionARM.html>
     #[inline]
-    pub unsafe fn create_data_graph_pipeline_session_arm(
+    pub unsafe fn create_data_graph_pipeline_session(
         &self,
         device: Device,
         create_info: &DataGraphPipelineSessionCreateInfoARM<'_>,
@@ -2037,7 +2033,7 @@ impl DeviceFn {
     ) -> crate::Result<DataGraphPipelineSessionARM> {
         unsafe {
             let mut session = core::mem::MaybeUninit::uninit();
-            let result = (self.create_data_graph_pipeline_session_arm)(
+            let result = (self.create_data_graph_pipeline_session)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -2053,7 +2049,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDataGraphPipelineSessionBindPointRequirementsARM.html>
     #[inline]
-    pub unsafe fn get_data_graph_pipeline_session_bind_point_requirements_arm<'a>(
+    pub unsafe fn get_data_graph_pipeline_session_bind_point_requirements<'a>(
         &self,
         device: Device,
         info: &DataGraphPipelineSessionBindPointRequirementsInfoARM<'a>,
@@ -2063,7 +2059,7 @@ impl DeviceFn {
     ) -> crate::Result<()> {
         unsafe {
             let call = |bind_point_requirement_count, bind_point_requirements| {
-                let result = (self.get_data_graph_pipeline_session_bind_point_requirements_arm)(
+                let result = (self.get_data_graph_pipeline_session_bind_point_requirements)(
                     device,
                     info,
                     bind_point_requirement_count,
@@ -2089,14 +2085,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDataGraphPipelineSessionMemoryRequirementsARM.html>
     #[inline]
-    pub unsafe fn get_data_graph_pipeline_session_memory_requirements_arm(
+    pub unsafe fn get_data_graph_pipeline_session_memory_requirements(
         &self,
         device: Device,
         info: &DataGraphPipelineSessionMemoryRequirementsInfoARM<'_>,
         memory_requirements: &mut MemoryRequirements2<'_>,
     ) {
         unsafe {
-            (self.get_data_graph_pipeline_session_memory_requirements_arm)(
+            (self.get_data_graph_pipeline_session_memory_requirements)(
                 device,
                 info,
                 memory_requirements,
@@ -2106,13 +2102,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindDataGraphPipelineSessionMemoryARM.html>
     #[inline]
-    pub unsafe fn bind_data_graph_pipeline_session_memory_arm(
+    pub unsafe fn bind_data_graph_pipeline_session_memory(
         &self,
         device: Device,
         bind_infos: &[BindDataGraphPipelineSessionMemoryInfoARM<'_>],
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.bind_data_graph_pipeline_session_memory_arm)(
+            let result = (self.bind_data_graph_pipeline_session_memory)(
                 device,
                 bind_infos.len().try_into().unwrap(),
                 bind_infos.as_ptr() as _,
@@ -2127,31 +2123,31 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDataGraphPipelineSessionARM.html>
     #[inline]
-    pub unsafe fn destroy_data_graph_pipeline_session_arm(
+    pub unsafe fn destroy_data_graph_pipeline_session(
         &self,
         device: Device,
         session: DataGraphPipelineSessionARM,
         allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe {
-            (self.destroy_data_graph_pipeline_session_arm)(device, session, allocator.to_raw_ptr())
+            (self.destroy_data_graph_pipeline_session)(device, session, allocator.to_raw_ptr())
         }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDispatchDataGraphARM.html>
     #[inline]
-    pub unsafe fn cmd_dispatch_data_graph_arm(
+    pub unsafe fn cmd_dispatch_data_graph(
         &self,
         command_buffer: CommandBuffer,
         session: DataGraphPipelineSessionARM,
         info: Option<&DataGraphPipelineDispatchInfoARM<'_>>,
     ) {
-        unsafe { (self.cmd_dispatch_data_graph_arm)(command_buffer, session, info.to_raw_ptr()) }
+        unsafe { (self.cmd_dispatch_data_graph)(command_buffer, session, info.to_raw_ptr()) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDataGraphPipelineAvailablePropertiesARM.html>
     #[inline]
-    pub unsafe fn get_data_graph_pipeline_available_properties_arm<'a>(
+    pub unsafe fn get_data_graph_pipeline_available_properties<'a>(
         &self,
         device: Device,
         pipeline_info: &DataGraphPipelineInfoARM<'a>,
@@ -2159,7 +2155,7 @@ impl DeviceFn {
     ) -> crate::Result<()> {
         unsafe {
             let call = |properties_count, properties| {
-                let result = (self.get_data_graph_pipeline_available_properties_arm)(
+                let result = (self.get_data_graph_pipeline_available_properties)(
                     device,
                     pipeline_info,
                     properties_count,
@@ -2185,14 +2181,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDataGraphPipelinePropertiesARM.html>
     #[inline]
-    pub unsafe fn get_data_graph_pipeline_properties_arm(
+    pub unsafe fn get_data_graph_pipeline_properties(
         &self,
         device: Device,
         pipeline_info: &DataGraphPipelineInfoARM<'_>,
         properties: &mut [DataGraphPipelinePropertyQueryResultARM<'_>],
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_data_graph_pipeline_properties_arm)(
+            let result = (self.get_data_graph_pipeline_properties)(
                 device,
                 pipeline_info,
                 properties.len().try_into().unwrap(),

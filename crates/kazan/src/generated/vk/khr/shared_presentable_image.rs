@@ -89,7 +89,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_swapchain_status_khr: PFN_vkGetSwapchainStatusKHR,
+    get_swapchain_status: PFN_vkGetSwapchainStatusKHR,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -98,7 +98,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_swapchain_status_khr: transmute(
+                get_swapchain_status: transmute(
                     load(c"vkGetSwapchainStatusKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -109,13 +109,13 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSwapchainStatusKHR.html>
     #[inline]
-    pub unsafe fn get_swapchain_status_khr(
+    pub unsafe fn get_swapchain_status(
         &self,
         device: Device,
         swapchain: SwapchainKHR,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_swapchain_status_khr)(device, swapchain);
+            let result = (self.get_swapchain_status)(device, swapchain);
 
             match result {
                 VkResult::SUCCESS => Ok(()),

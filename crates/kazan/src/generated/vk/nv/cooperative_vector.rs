@@ -505,7 +505,7 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    get_physical_device_cooperative_vector_properties_nv:
+    get_physical_device_cooperative_vector_properties:
         PFN_vkGetPhysicalDeviceCooperativeVectorPropertiesNV,
 }
 
@@ -515,7 +515,7 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_physical_device_cooperative_vector_properties_nv: transmute(
+                get_physical_device_cooperative_vector_properties: transmute(
                     load(c"vkGetPhysicalDeviceCooperativeVectorPropertiesNV")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -527,14 +527,14 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceCooperativeVectorPropertiesNV.html>
     #[inline]
-    pub unsafe fn get_physical_device_cooperative_vector_properties_nv<'a>(
+    pub unsafe fn get_physical_device_cooperative_vector_properties<'a>(
         &self,
         physical_device: PhysicalDevice,
         mut properties: impl ExtendUninit<CooperativeVectorPropertiesNV<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |property_count, properties| {
-                let result = (self.get_physical_device_cooperative_vector_properties_nv)(
+                let result = (self.get_physical_device_cooperative_vector_properties)(
                     physical_device,
                     property_count,
                     properties as _,
@@ -559,8 +559,8 @@ impl InstanceFn {
 }
 
 pub struct DeviceFn {
-    convert_cooperative_vector_matrix_nv: PFN_vkConvertCooperativeVectorMatrixNV,
-    cmd_convert_cooperative_vector_matrix_nv: PFN_vkCmdConvertCooperativeVectorMatrixNV,
+    convert_cooperative_vector_matrix: PFN_vkConvertCooperativeVectorMatrixNV,
+    cmd_convert_cooperative_vector_matrix: PFN_vkCmdConvertCooperativeVectorMatrixNV,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -569,10 +569,10 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                convert_cooperative_vector_matrix_nv: transmute(
+                convert_cooperative_vector_matrix: transmute(
                     load(c"vkConvertCooperativeVectorMatrixNV").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_convert_cooperative_vector_matrix_nv: transmute(
+                cmd_convert_cooperative_vector_matrix: transmute(
                     load(c"vkCmdConvertCooperativeVectorMatrixNV").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -583,13 +583,13 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkConvertCooperativeVectorMatrixNV.html>
     #[inline]
-    pub unsafe fn convert_cooperative_vector_matrix_nv(
+    pub unsafe fn convert_cooperative_vector_matrix(
         &self,
         device: Device,
         info: &ConvertCooperativeVectorMatrixInfoNV<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.convert_cooperative_vector_matrix_nv)(device, info);
+            let result = (self.convert_cooperative_vector_matrix)(device, info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -600,13 +600,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdConvertCooperativeVectorMatrixNV.html>
     #[inline]
-    pub unsafe fn cmd_convert_cooperative_vector_matrix_nv(
+    pub unsafe fn cmd_convert_cooperative_vector_matrix(
         &self,
         command_buffer: CommandBuffer,
         infos: &[ConvertCooperativeVectorMatrixInfoNV<'_>],
     ) {
         unsafe {
-            (self.cmd_convert_cooperative_vector_matrix_nv)(
+            (self.cmd_convert_cooperative_vector_matrix)(
                 command_buffer,
                 infos.len().try_into().unwrap(),
                 infos.as_ptr() as _,

@@ -123,8 +123,8 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    create_xlib_surface_khr: PFN_vkCreateXlibSurfaceKHR,
-    get_physical_device_xlib_presentation_support_khr:
+    create_xlib_surface: PFN_vkCreateXlibSurfaceKHR,
+    get_physical_device_xlib_presentation_support:
         PFN_vkGetPhysicalDeviceXlibPresentationSupportKHR,
 }
 
@@ -134,10 +134,10 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_xlib_surface_khr: transmute(
+                create_xlib_surface: transmute(
                     load(c"vkCreateXlibSurfaceKHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_physical_device_xlib_presentation_support_khr: transmute(
+                get_physical_device_xlib_presentation_support: transmute(
                     load(c"vkGetPhysicalDeviceXlibPresentationSupportKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -149,7 +149,7 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateXlibSurfaceKHR.html>
     #[inline]
-    pub unsafe fn create_xlib_surface_khr(
+    pub unsafe fn create_xlib_surface(
         &self,
         instance: Instance,
         create_info: &XlibSurfaceCreateInfoKHR<'_>,
@@ -157,7 +157,7 @@ impl InstanceFn {
     ) -> crate::Result<SurfaceKHR> {
         unsafe {
             let mut surface = core::mem::MaybeUninit::uninit();
-            let result = (self.create_xlib_surface_khr)(
+            let result = (self.create_xlib_surface)(
                 instance,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -173,7 +173,7 @@ impl InstanceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceXlibPresentationSupportKHR.html>
     #[inline]
-    pub unsafe fn get_physical_device_xlib_presentation_support_khr(
+    pub unsafe fn get_physical_device_xlib_presentation_support(
         &self,
         physical_device: PhysicalDevice,
         queue_family_index: u32,
@@ -181,7 +181,7 @@ impl InstanceFn {
         visual_id: VisualID,
     ) -> bool {
         unsafe {
-            (self.get_physical_device_xlib_presentation_support_khr)(
+            (self.get_physical_device_xlib_presentation_support)(
                 physical_device,
                 queue_family_index,
                 dpy,

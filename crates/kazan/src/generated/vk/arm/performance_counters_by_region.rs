@@ -431,7 +431,7 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    enumerate_physical_device_queue_family_performance_counters_by_region_arm:
+    enumerate_physical_device_queue_family_performance_counters_by_region:
         PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM,
 }
 
@@ -441,11 +441,10 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                enumerate_physical_device_queue_family_performance_counters_by_region_arm:
-                    transmute(
-                        load(c"vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM")
-                            .ok_or(MissingEntryPointError)?,
-                    ),
+                enumerate_physical_device_queue_family_performance_counters_by_region: transmute(
+                    load(c"vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM")
+                        .ok_or(MissingEntryPointError)?,
+                ),
             })
         }
     }
@@ -454,7 +453,7 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumeratePhysicalDeviceQueueFamilyPerformanceCountersByRegionARM.html>
     #[inline]
-    pub unsafe fn enumerate_physical_device_queue_family_performance_counters_by_region_arm<'a>(
+    pub unsafe fn enumerate_physical_device_queue_family_performance_counters_by_region<'a>(
         &self,
         physical_device: PhysicalDevice,
         queue_family_index: u32,
@@ -464,7 +463,7 @@ impl InstanceFn {
         unsafe {
             let call = |counter_count, counters, counter_descriptions| {
                 let result = (self
-                    .enumerate_physical_device_queue_family_performance_counters_by_region_arm)(
+                    .enumerate_physical_device_queue_family_performance_counters_by_region)(
                     physical_device,
                     queue_family_index,
                     counter_count,

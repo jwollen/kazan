@@ -55,7 +55,7 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    get_physical_device_present_rectangles_khr: Option<PFN_vkGetPhysicalDevicePresentRectanglesKHR>,
+    get_physical_device_present_rectangles: Option<PFN_vkGetPhysicalDevicePresentRectanglesKHR>,
 }
 
 impl LoadInstanceFn for InstanceFn {
@@ -64,7 +64,7 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_physical_device_present_rectangles_khr: transmute(load(
+                get_physical_device_present_rectangles: transmute(load(
                     c"vkGetPhysicalDevicePresentRectanglesKHR",
                 )),
             })
@@ -75,7 +75,7 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDevicePresentRectanglesKHR.html>
     #[inline]
-    pub unsafe fn get_physical_device_present_rectangles_khr(
+    pub unsafe fn get_physical_device_present_rectangles(
         &self,
         physical_device: PhysicalDevice,
         surface: SurfaceKHR,
@@ -83,7 +83,7 @@ impl InstanceFn {
     ) -> crate::Result<()> {
         unsafe {
             let call = |rect_count, rects| {
-                let result = (self.get_physical_device_present_rectangles_khr.unwrap())(
+                let result = (self.get_physical_device_present_rectangles.unwrap())(
                     physical_device,
                     surface,
                     rect_count,
@@ -109,12 +109,12 @@ impl InstanceFn {
 }
 
 pub struct DeviceFn {
-    get_device_group_peer_memory_features_khr: PFN_vkGetDeviceGroupPeerMemoryFeatures,
-    cmd_set_device_mask_khr: PFN_vkCmdSetDeviceMask,
-    cmd_dispatch_base_khr: PFN_vkCmdDispatchBase,
-    get_device_group_present_capabilities_khr: Option<PFN_vkGetDeviceGroupPresentCapabilitiesKHR>,
-    get_device_group_surface_present_modes_khr: Option<PFN_vkGetDeviceGroupSurfacePresentModesKHR>,
-    acquire_next_image2_khr: Option<PFN_vkAcquireNextImage2KHR>,
+    get_device_group_peer_memory_features: PFN_vkGetDeviceGroupPeerMemoryFeatures,
+    cmd_set_device_mask: PFN_vkCmdSetDeviceMask,
+    cmd_dispatch_base: PFN_vkCmdDispatchBase,
+    get_device_group_present_capabilities: Option<PFN_vkGetDeviceGroupPresentCapabilitiesKHR>,
+    get_device_group_surface_present_modes: Option<PFN_vkGetDeviceGroupSurfacePresentModesKHR>,
+    acquire_next_image2: Option<PFN_vkAcquireNextImage2KHR>,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -123,22 +123,22 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_device_group_peer_memory_features_khr: transmute(
+                get_device_group_peer_memory_features: transmute(
                     load(c"vkGetDeviceGroupPeerMemoryFeaturesKHR").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_device_mask_khr: transmute(
+                cmd_set_device_mask: transmute(
                     load(c"vkCmdSetDeviceMaskKHR").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_dispatch_base_khr: transmute(
+                cmd_dispatch_base: transmute(
                     load(c"vkCmdDispatchBaseKHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_device_group_present_capabilities_khr: transmute(load(
+                get_device_group_present_capabilities: transmute(load(
                     c"vkGetDeviceGroupPresentCapabilitiesKHR",
                 )),
-                get_device_group_surface_present_modes_khr: transmute(load(
+                get_device_group_surface_present_modes: transmute(load(
                     c"vkGetDeviceGroupSurfacePresentModesKHR",
                 )),
-                acquire_next_image2_khr: transmute(load(c"vkAcquireNextImage2KHR")),
+                acquire_next_image2: transmute(load(c"vkAcquireNextImage2KHR")),
             })
         }
     }
@@ -147,7 +147,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceGroupPeerMemoryFeaturesKHR.html>
     #[inline]
-    pub unsafe fn get_device_group_peer_memory_features_khr(
+    pub unsafe fn get_device_group_peer_memory_features(
         &self,
         device: Device,
         heap_index: u32,
@@ -156,7 +156,7 @@ impl DeviceFn {
     ) -> PeerMemoryFeatureFlags {
         unsafe {
             let mut peer_memory_features = core::mem::MaybeUninit::uninit();
-            (self.get_device_group_peer_memory_features_khr)(
+            (self.get_device_group_peer_memory_features)(
                 device,
                 heap_index,
                 local_device_index,
@@ -169,13 +169,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDeviceMaskKHR.html>
     #[inline]
-    pub unsafe fn cmd_set_device_mask_khr(&self, command_buffer: CommandBuffer, device_mask: u32) {
-        unsafe { (self.cmd_set_device_mask_khr)(command_buffer, device_mask) }
+    pub unsafe fn cmd_set_device_mask(&self, command_buffer: CommandBuffer, device_mask: u32) {
+        unsafe { (self.cmd_set_device_mask)(command_buffer, device_mask) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDispatchBaseKHR.html>
     #[inline]
-    pub unsafe fn cmd_dispatch_base_khr(
+    pub unsafe fn cmd_dispatch_base(
         &self,
         command_buffer: CommandBuffer,
         base_group_x: u32,
@@ -186,7 +186,7 @@ impl DeviceFn {
         group_count_z: u32,
     ) {
         unsafe {
-            (self.cmd_dispatch_base_khr)(
+            (self.cmd_dispatch_base)(
                 command_buffer,
                 base_group_x,
                 base_group_y,
@@ -200,13 +200,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceGroupPresentCapabilitiesKHR.html>
     #[inline]
-    pub unsafe fn get_device_group_present_capabilities_khr(
+    pub unsafe fn get_device_group_present_capabilities(
         &self,
         device: Device,
         device_group_present_capabilities: &mut DeviceGroupPresentCapabilitiesKHR<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_device_group_present_capabilities_khr.unwrap())(
+            let result = (self.get_device_group_present_capabilities.unwrap())(
                 device,
                 device_group_present_capabilities,
             );
@@ -220,14 +220,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceGroupSurfacePresentModesKHR.html>
     #[inline]
-    pub unsafe fn get_device_group_surface_present_modes_khr(
+    pub unsafe fn get_device_group_surface_present_modes(
         &self,
         device: Device,
         surface: SurfaceKHR,
     ) -> crate::Result<DeviceGroupPresentModeFlagsKHR> {
         unsafe {
             let mut modes = core::mem::MaybeUninit::uninit();
-            let result = (self.get_device_group_surface_present_modes_khr.unwrap())(
+            let result = (self.get_device_group_surface_present_modes.unwrap())(
                 device,
                 surface,
                 modes.as_mut_ptr(),
@@ -242,18 +242,15 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireNextImage2KHR.html>
     #[inline]
-    pub unsafe fn acquire_next_image2_khr(
+    pub unsafe fn acquire_next_image2(
         &self,
         device: Device,
         acquire_info: &AcquireNextImageInfoKHR<'_>,
     ) -> crate::Result<(u32, bool)> {
         unsafe {
             let mut image_index = core::mem::MaybeUninit::uninit();
-            let result = (self.acquire_next_image2_khr.unwrap())(
-                device,
-                acquire_info,
-                image_index.as_mut_ptr(),
-            );
+            let result =
+                (self.acquire_next_image2.unwrap())(device, acquire_info, image_index.as_mut_ptr());
 
             match result {
                 VkResult::SUCCESS => Ok((image_index.assume_init(), false)),

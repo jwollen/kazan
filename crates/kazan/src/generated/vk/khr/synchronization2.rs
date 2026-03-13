@@ -66,12 +66,12 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_set_event2_khr: PFN_vkCmdSetEvent2,
-    cmd_reset_event2_khr: PFN_vkCmdResetEvent2,
-    cmd_wait_events2_khr: PFN_vkCmdWaitEvents2,
-    cmd_pipeline_barrier2_khr: PFN_vkCmdPipelineBarrier2,
-    cmd_write_timestamp2_khr: PFN_vkCmdWriteTimestamp2,
-    queue_submit2_khr: PFN_vkQueueSubmit2,
+    cmd_set_event2: PFN_vkCmdSetEvent2,
+    cmd_reset_event2: PFN_vkCmdResetEvent2,
+    cmd_wait_events2: PFN_vkCmdWaitEvents2,
+    cmd_pipeline_barrier2: PFN_vkCmdPipelineBarrier2,
+    cmd_write_timestamp2: PFN_vkCmdWriteTimestamp2,
+    queue_submit2: PFN_vkQueueSubmit2,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -80,24 +80,22 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_set_event2_khr: transmute(
+                cmd_set_event2: transmute(
                     load(c"vkCmdSetEvent2KHR").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_reset_event2_khr: transmute(
+                cmd_reset_event2: transmute(
                     load(c"vkCmdResetEvent2KHR").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_wait_events2_khr: transmute(
+                cmd_wait_events2: transmute(
                     load(c"vkCmdWaitEvents2KHR").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_pipeline_barrier2_khr: transmute(
+                cmd_pipeline_barrier2: transmute(
                     load(c"vkCmdPipelineBarrier2KHR").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_write_timestamp2_khr: transmute(
+                cmd_write_timestamp2: transmute(
                     load(c"vkCmdWriteTimestamp2KHR").ok_or(MissingEntryPointError)?,
                 ),
-                queue_submit2_khr: transmute(
-                    load(c"vkQueueSubmit2KHR").ok_or(MissingEntryPointError)?,
-                ),
+                queue_submit2: transmute(load(c"vkQueueSubmit2KHR").ok_or(MissingEntryPointError)?),
             })
         }
     }
@@ -106,36 +104,36 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetEvent2KHR.html>
     #[inline]
-    pub unsafe fn cmd_set_event2_khr(
+    pub unsafe fn cmd_set_event2(
         &self,
         command_buffer: CommandBuffer,
         event: Event,
         dependency_info: &DependencyInfo<'_>,
     ) {
-        unsafe { (self.cmd_set_event2_khr)(command_buffer, event, dependency_info) }
+        unsafe { (self.cmd_set_event2)(command_buffer, event, dependency_info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdResetEvent2KHR.html>
     #[inline]
-    pub unsafe fn cmd_reset_event2_khr(
+    pub unsafe fn cmd_reset_event2(
         &self,
         command_buffer: CommandBuffer,
         event: Event,
         stage_mask: PipelineStageFlags2,
     ) {
-        unsafe { (self.cmd_reset_event2_khr)(command_buffer, event, stage_mask) }
+        unsafe { (self.cmd_reset_event2)(command_buffer, event, stage_mask) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWaitEvents2KHR.html>
     #[inline]
-    pub unsafe fn cmd_wait_events2_khr(
+    pub unsafe fn cmd_wait_events2(
         &self,
         command_buffer: CommandBuffer,
         events: &[Event],
         dependency_infos: &[DependencyInfo<'_>],
     ) {
         unsafe {
-            (self.cmd_wait_events2_khr)(
+            (self.cmd_wait_events2)(
                 command_buffer,
                 events.len().try_into().unwrap(),
                 events.as_ptr() as _,
@@ -146,36 +144,36 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPipelineBarrier2KHR.html>
     #[inline]
-    pub unsafe fn cmd_pipeline_barrier2_khr(
+    pub unsafe fn cmd_pipeline_barrier2(
         &self,
         command_buffer: CommandBuffer,
         dependency_info: &DependencyInfo<'_>,
     ) {
-        unsafe { (self.cmd_pipeline_barrier2_khr)(command_buffer, dependency_info) }
+        unsafe { (self.cmd_pipeline_barrier2)(command_buffer, dependency_info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWriteTimestamp2KHR.html>
     #[inline]
-    pub unsafe fn cmd_write_timestamp2_khr(
+    pub unsafe fn cmd_write_timestamp2(
         &self,
         command_buffer: CommandBuffer,
         stage: PipelineStageFlags2,
         query_pool: QueryPool,
         query: u32,
     ) {
-        unsafe { (self.cmd_write_timestamp2_khr)(command_buffer, stage, query_pool, query) }
+        unsafe { (self.cmd_write_timestamp2)(command_buffer, stage, query_pool, query) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueSubmit2KHR.html>
     #[inline]
-    pub unsafe fn queue_submit2_khr(
+    pub unsafe fn queue_submit2(
         &self,
         queue: Queue,
         submits: &[SubmitInfo2<'_>],
         fence: Fence,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.queue_submit2_khr)(
+            let result = (self.queue_submit2)(
                 queue,
                 submits.len().try_into().unwrap(),
                 submits.as_ptr() as _,

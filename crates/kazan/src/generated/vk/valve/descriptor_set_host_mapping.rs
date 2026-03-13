@@ -229,9 +229,8 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_descriptor_set_layout_host_mapping_info_valve:
-        PFN_vkGetDescriptorSetLayoutHostMappingInfoVALVE,
-    get_descriptor_set_host_mapping_valve: PFN_vkGetDescriptorSetHostMappingVALVE,
+    get_descriptor_set_layout_host_mapping_info: PFN_vkGetDescriptorSetLayoutHostMappingInfoVALVE,
+    get_descriptor_set_host_mapping: PFN_vkGetDescriptorSetHostMappingVALVE,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -240,11 +239,11 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_descriptor_set_layout_host_mapping_info_valve: transmute(
+                get_descriptor_set_layout_host_mapping_info: transmute(
                     load(c"vkGetDescriptorSetLayoutHostMappingInfoVALVE")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                get_descriptor_set_host_mapping_valve: transmute(
+                get_descriptor_set_host_mapping: transmute(
                     load(c"vkGetDescriptorSetHostMappingVALVE").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -255,14 +254,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDescriptorSetLayoutHostMappingInfoVALVE.html>
     #[inline]
-    pub unsafe fn get_descriptor_set_layout_host_mapping_info_valve(
+    pub unsafe fn get_descriptor_set_layout_host_mapping_info(
         &self,
         device: Device,
         binding_reference: &DescriptorSetBindingReferenceVALVE<'_>,
         host_mapping: &mut DescriptorSetLayoutHostMappingInfoVALVE<'_>,
     ) {
         unsafe {
-            (self.get_descriptor_set_layout_host_mapping_info_valve)(
+            (self.get_descriptor_set_layout_host_mapping_info)(
                 device,
                 binding_reference,
                 host_mapping,
@@ -272,14 +271,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDescriptorSetHostMappingVALVE.html>
     #[inline]
-    pub unsafe fn get_descriptor_set_host_mapping_valve(
+    pub unsafe fn get_descriptor_set_host_mapping(
         &self,
         device: Device,
         descriptor_set: DescriptorSet,
     ) -> *mut c_void {
         unsafe {
             let mut data = core::mem::MaybeUninit::uninit();
-            (self.get_descriptor_set_host_mapping_valve)(device, descriptor_set, data.as_mut_ptr());
+            (self.get_descriptor_set_host_mapping)(device, descriptor_set, data.as_mut_ptr());
             data.assume_init()
         }
     }

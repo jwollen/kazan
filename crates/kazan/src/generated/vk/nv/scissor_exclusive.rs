@@ -161,8 +161,8 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_set_exclusive_scissor_enable_nv: PFN_vkCmdSetExclusiveScissorEnableNV,
-    cmd_set_exclusive_scissor_nv: PFN_vkCmdSetExclusiveScissorNV,
+    cmd_set_exclusive_scissor_enable: PFN_vkCmdSetExclusiveScissorEnableNV,
+    cmd_set_exclusive_scissor: PFN_vkCmdSetExclusiveScissorNV,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -171,10 +171,10 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_set_exclusive_scissor_enable_nv: transmute(
+                cmd_set_exclusive_scissor_enable: transmute(
                     load(c"vkCmdSetExclusiveScissorEnableNV").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_exclusive_scissor_nv: transmute(
+                cmd_set_exclusive_scissor: transmute(
                     load(c"vkCmdSetExclusiveScissorNV").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -185,14 +185,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetExclusiveScissorEnableNV.html>
     #[inline]
-    pub unsafe fn cmd_set_exclusive_scissor_enable_nv(
+    pub unsafe fn cmd_set_exclusive_scissor_enable(
         &self,
         command_buffer: CommandBuffer,
         first_exclusive_scissor: u32,
         exclusive_scissor_enables: &[Bool32],
     ) {
         unsafe {
-            (self.cmd_set_exclusive_scissor_enable_nv)(
+            (self.cmd_set_exclusive_scissor_enable)(
                 command_buffer,
                 first_exclusive_scissor,
                 exclusive_scissor_enables.len().try_into().unwrap(),
@@ -203,14 +203,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetExclusiveScissorNV.html>
     #[inline]
-    pub unsafe fn cmd_set_exclusive_scissor_nv(
+    pub unsafe fn cmd_set_exclusive_scissor(
         &self,
         command_buffer: CommandBuffer,
         first_exclusive_scissor: u32,
         exclusive_scissors: &[Rect2D],
     ) {
         unsafe {
-            (self.cmd_set_exclusive_scissor_nv)(
+            (self.cmd_set_exclusive_scissor)(
                 command_buffer,
                 first_exclusive_scissor,
                 exclusive_scissors.len().try_into().unwrap(),

@@ -212,7 +212,7 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    get_physical_device_external_image_format_properties_nv:
+    get_physical_device_external_image_format_properties:
         PFN_vkGetPhysicalDeviceExternalImageFormatPropertiesNV,
 }
 
@@ -222,7 +222,7 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_physical_device_external_image_format_properties_nv: transmute(
+                get_physical_device_external_image_format_properties: transmute(
                     load(c"vkGetPhysicalDeviceExternalImageFormatPropertiesNV")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -234,7 +234,7 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceExternalImageFormatPropertiesNV.html>
     #[inline]
-    pub unsafe fn get_physical_device_external_image_format_properties_nv(
+    pub unsafe fn get_physical_device_external_image_format_properties(
         &self,
         physical_device: PhysicalDevice,
         format: Format,
@@ -246,7 +246,7 @@ impl InstanceFn {
     ) -> crate::Result<ExternalImageFormatPropertiesNV> {
         unsafe {
             let mut external_image_format_properties = core::mem::MaybeUninit::uninit();
-            let result = (self.get_physical_device_external_image_format_properties_nv)(
+            let result = (self.get_physical_device_external_image_format_properties)(
                 physical_device,
                 format,
                 ty,

@@ -158,7 +158,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_pipeline_properties_ext: PFN_vkGetPipelinePropertiesEXT,
+    get_pipeline_properties: PFN_vkGetPipelinePropertiesEXT,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -167,7 +167,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_pipeline_properties_ext: transmute(
+                get_pipeline_properties: transmute(
                     load(c"vkGetPipelinePropertiesEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -178,15 +178,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelinePropertiesEXT.html>
     #[inline]
-    pub unsafe fn get_pipeline_properties_ext(
+    pub unsafe fn get_pipeline_properties(
         &self,
         device: Device,
         pipeline_info: &PipelineInfoEXT<'_>,
         pipeline_properties: &mut BaseOutStructure<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result =
-                (self.get_pipeline_properties_ext)(device, pipeline_info, pipeline_properties);
+            let result = (self.get_pipeline_properties)(device, pipeline_info, pipeline_properties);
 
             match result {
                 VkResult::SUCCESS => Ok(()),

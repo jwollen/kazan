@@ -102,7 +102,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_set_attachment_feedback_loop_enable_ext: PFN_vkCmdSetAttachmentFeedbackLoopEnableEXT,
+    cmd_set_attachment_feedback_loop_enable: PFN_vkCmdSetAttachmentFeedbackLoopEnableEXT,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -111,7 +111,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_set_attachment_feedback_loop_enable_ext: transmute(
+                cmd_set_attachment_feedback_loop_enable: transmute(
                     load(c"vkCmdSetAttachmentFeedbackLoopEnableEXT")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -123,11 +123,11 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetAttachmentFeedbackLoopEnableEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_attachment_feedback_loop_enable_ext(
+    pub unsafe fn cmd_set_attachment_feedback_loop_enable(
         &self,
         command_buffer: CommandBuffer,
         aspect_mask: ImageAspectFlags,
     ) {
-        unsafe { (self.cmd_set_attachment_feedback_loop_enable_ext)(command_buffer, aspect_mask) }
+        unsafe { (self.cmd_set_attachment_feedback_loop_enable)(command_buffer, aspect_mask) }
     }
 }

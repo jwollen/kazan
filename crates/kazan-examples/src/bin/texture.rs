@@ -738,7 +738,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
             let (present_index, _) = base
                 .swapchain_fn
-                .acquire_next_image_khr(
+                .acquire_next_image(
                     base.device,
                     base.swapchain,
                     u64::MAX,
@@ -833,7 +833,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                 ..Default::default()
             };
             base.swapchain_fn
-                .queue_present_khr(base.present_queue, &present_info)
+                .queue_present(base.present_queue, &present_info)
                 .unwrap();
         });
         base.device_fn.device_wait_idle(base.device).unwrap();

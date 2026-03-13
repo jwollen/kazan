@@ -511,7 +511,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_device_fault_info_ext: PFN_vkGetDeviceFaultInfoEXT,
+    get_device_fault_info: PFN_vkGetDeviceFaultInfoEXT,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -520,7 +520,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_device_fault_info_ext: transmute(
+                get_device_fault_info: transmute(
                     load(c"vkGetDeviceFaultInfoEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -531,7 +531,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceFaultInfoEXT.html>
     #[inline]
-    pub unsafe fn get_device_fault_info_ext(
+    pub unsafe fn get_device_fault_info(
         &self,
         device: Device,
         fault_counts: &mut DeviceFaultCountsEXT<'_>,
@@ -539,7 +539,7 @@ impl DeviceFn {
     ) -> crate::Result<()> {
         unsafe {
             let result =
-                (self.get_device_fault_info_ext)(device, fault_counts, fault_info.to_raw_mut_ptr());
+                (self.get_device_fault_info)(device, fault_counts, fault_info.to_raw_mut_ptr());
 
             match result {
                 VkResult::SUCCESS => Ok(()),

@@ -166,8 +166,8 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_framebuffer_tile_properties_qcom: PFN_vkGetFramebufferTilePropertiesQCOM,
-    get_dynamic_rendering_tile_properties_qcom: PFN_vkGetDynamicRenderingTilePropertiesQCOM,
+    get_framebuffer_tile_properties: PFN_vkGetFramebufferTilePropertiesQCOM,
+    get_dynamic_rendering_tile_properties: PFN_vkGetDynamicRenderingTilePropertiesQCOM,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -176,10 +176,10 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_framebuffer_tile_properties_qcom: transmute(
+                get_framebuffer_tile_properties: transmute(
                     load(c"vkGetFramebufferTilePropertiesQCOM").ok_or(MissingEntryPointError)?,
                 ),
-                get_dynamic_rendering_tile_properties_qcom: transmute(
+                get_dynamic_rendering_tile_properties: transmute(
                     load(c"vkGetDynamicRenderingTilePropertiesQCOM")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -191,7 +191,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetFramebufferTilePropertiesQCOM.html>
     #[inline]
-    pub unsafe fn get_framebuffer_tile_properties_qcom<'a>(
+    pub unsafe fn get_framebuffer_tile_properties<'a>(
         &self,
         device: Device,
         framebuffer: Framebuffer,
@@ -199,7 +199,7 @@ impl DeviceFn {
     ) -> crate::Result<()> {
         unsafe {
             let call = |properties_count, properties| {
-                let result = (self.get_framebuffer_tile_properties_qcom)(
+                let result = (self.get_framebuffer_tile_properties)(
                     device,
                     framebuffer,
                     properties_count,
@@ -225,18 +225,15 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDynamicRenderingTilePropertiesQCOM.html>
     #[inline]
-    pub unsafe fn get_dynamic_rendering_tile_properties_qcom(
+    pub unsafe fn get_dynamic_rendering_tile_properties(
         &self,
         device: Device,
         rendering_info: &RenderingInfo<'_>,
         properties: &mut TilePropertiesQCOM<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_dynamic_rendering_tile_properties_qcom)(
-                device,
-                rendering_info,
-                properties,
-            );
+            let result =
+                (self.get_dynamic_rendering_tile_properties)(device, rendering_info, properties);
 
             match result {
                 VkResult::SUCCESS => Ok(()),

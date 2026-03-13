@@ -44,7 +44,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_set_line_stipple_ext: PFN_vkCmdSetLineStipple,
+    cmd_set_line_stipple: PFN_vkCmdSetLineStipple,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -53,7 +53,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_set_line_stipple_ext: transmute(
+                cmd_set_line_stipple: transmute(
                     load(c"vkCmdSetLineStippleEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -64,18 +64,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLineStippleEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_line_stipple_ext(
+    pub unsafe fn cmd_set_line_stipple(
         &self,
         command_buffer: CommandBuffer,
         line_stipple_factor: u32,
         line_stipple_pattern: u16,
     ) {
         unsafe {
-            (self.cmd_set_line_stipple_ext)(
-                command_buffer,
-                line_stipple_factor,
-                line_stipple_pattern,
-            )
+            (self.cmd_set_line_stipple)(command_buffer, line_stipple_factor, line_stipple_pattern)
         }
     }
 }

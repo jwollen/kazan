@@ -64,12 +64,12 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_copy_buffer2_khr: PFN_vkCmdCopyBuffer2,
-    cmd_copy_image2_khr: PFN_vkCmdCopyImage2,
-    cmd_copy_buffer_to_image2_khr: PFN_vkCmdCopyBufferToImage2,
-    cmd_copy_image_to_buffer2_khr: PFN_vkCmdCopyImageToBuffer2,
-    cmd_blit_image2_khr: PFN_vkCmdBlitImage2,
-    cmd_resolve_image2_khr: PFN_vkCmdResolveImage2,
+    cmd_copy_buffer2: PFN_vkCmdCopyBuffer2,
+    cmd_copy_image2: PFN_vkCmdCopyImage2,
+    cmd_copy_buffer_to_image2: PFN_vkCmdCopyBufferToImage2,
+    cmd_copy_image_to_buffer2: PFN_vkCmdCopyImageToBuffer2,
+    cmd_blit_image2: PFN_vkCmdBlitImage2,
+    cmd_resolve_image2: PFN_vkCmdResolveImage2,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -78,22 +78,22 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_copy_buffer2_khr: transmute(
+                cmd_copy_buffer2: transmute(
                     load(c"vkCmdCopyBuffer2KHR").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_copy_image2_khr: transmute(
+                cmd_copy_image2: transmute(
                     load(c"vkCmdCopyImage2KHR").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_copy_buffer_to_image2_khr: transmute(
+                cmd_copy_buffer_to_image2: transmute(
                     load(c"vkCmdCopyBufferToImage2KHR").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_copy_image_to_buffer2_khr: transmute(
+                cmd_copy_image_to_buffer2: transmute(
                     load(c"vkCmdCopyImageToBuffer2KHR").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_blit_image2_khr: transmute(
+                cmd_blit_image2: transmute(
                     load(c"vkCmdBlitImage2KHR").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_resolve_image2_khr: transmute(
+                cmd_resolve_image2: transmute(
                     load(c"vkCmdResolveImage2KHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -104,61 +104,61 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyBuffer2KHR.html>
     #[inline]
-    pub unsafe fn cmd_copy_buffer2_khr(
+    pub unsafe fn cmd_copy_buffer2(
         &self,
         command_buffer: CommandBuffer,
         copy_buffer_info: &CopyBufferInfo2<'_>,
     ) {
-        unsafe { (self.cmd_copy_buffer2_khr)(command_buffer, copy_buffer_info) }
+        unsafe { (self.cmd_copy_buffer2)(command_buffer, copy_buffer_info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyImage2KHR.html>
     #[inline]
-    pub unsafe fn cmd_copy_image2_khr(
+    pub unsafe fn cmd_copy_image2(
         &self,
         command_buffer: CommandBuffer,
         copy_image_info: &CopyImageInfo2<'_>,
     ) {
-        unsafe { (self.cmd_copy_image2_khr)(command_buffer, copy_image_info) }
+        unsafe { (self.cmd_copy_image2)(command_buffer, copy_image_info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyBufferToImage2KHR.html>
     #[inline]
-    pub unsafe fn cmd_copy_buffer_to_image2_khr(
+    pub unsafe fn cmd_copy_buffer_to_image2(
         &self,
         command_buffer: CommandBuffer,
         copy_buffer_to_image_info: &CopyBufferToImageInfo2<'_>,
     ) {
-        unsafe { (self.cmd_copy_buffer_to_image2_khr)(command_buffer, copy_buffer_to_image_info) }
+        unsafe { (self.cmd_copy_buffer_to_image2)(command_buffer, copy_buffer_to_image_info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyImageToBuffer2KHR.html>
     #[inline]
-    pub unsafe fn cmd_copy_image_to_buffer2_khr(
+    pub unsafe fn cmd_copy_image_to_buffer2(
         &self,
         command_buffer: CommandBuffer,
         copy_image_to_buffer_info: &CopyImageToBufferInfo2<'_>,
     ) {
-        unsafe { (self.cmd_copy_image_to_buffer2_khr)(command_buffer, copy_image_to_buffer_info) }
+        unsafe { (self.cmd_copy_image_to_buffer2)(command_buffer, copy_image_to_buffer_info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBlitImage2KHR.html>
     #[inline]
-    pub unsafe fn cmd_blit_image2_khr(
+    pub unsafe fn cmd_blit_image2(
         &self,
         command_buffer: CommandBuffer,
         blit_image_info: &BlitImageInfo2<'_>,
     ) {
-        unsafe { (self.cmd_blit_image2_khr)(command_buffer, blit_image_info) }
+        unsafe { (self.cmd_blit_image2)(command_buffer, blit_image_info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdResolveImage2KHR.html>
     #[inline]
-    pub unsafe fn cmd_resolve_image2_khr(
+    pub unsafe fn cmd_resolve_image2(
         &self,
         command_buffer: CommandBuffer,
         resolve_image_info: &ResolveImageInfo2<'_>,
     ) {
-        unsafe { (self.cmd_resolve_image2_khr)(command_buffer, resolve_image_info) }
+        unsafe { (self.cmd_resolve_image2)(command_buffer, resolve_image_info) }
     }
 }

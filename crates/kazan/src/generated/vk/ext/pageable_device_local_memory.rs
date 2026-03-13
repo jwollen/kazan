@@ -96,7 +96,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    set_device_memory_priority_ext: PFN_vkSetDeviceMemoryPriorityEXT,
+    set_device_memory_priority: PFN_vkSetDeviceMemoryPriorityEXT,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -105,7 +105,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                set_device_memory_priority_ext: transmute(
+                set_device_memory_priority: transmute(
                     load(c"vkSetDeviceMemoryPriorityEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -116,12 +116,12 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetDeviceMemoryPriorityEXT.html>
     #[inline]
-    pub unsafe fn set_device_memory_priority_ext(
+    pub unsafe fn set_device_memory_priority(
         &self,
         device: Device,
         memory: DeviceMemory,
         priority: f32,
     ) {
-        unsafe { (self.set_device_memory_priority_ext)(device, memory, priority) }
+        unsafe { (self.set_device_memory_priority)(device, memory, priority) }
     }
 }

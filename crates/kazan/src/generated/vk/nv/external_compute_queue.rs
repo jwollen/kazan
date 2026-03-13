@@ -281,9 +281,9 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    create_external_compute_queue_nv: PFN_vkCreateExternalComputeQueueNV,
-    destroy_external_compute_queue_nv: PFN_vkDestroyExternalComputeQueueNV,
-    get_external_compute_queue_data_nv: PFN_vkGetExternalComputeQueueDataNV,
+    create_external_compute_queue: PFN_vkCreateExternalComputeQueueNV,
+    destroy_external_compute_queue: PFN_vkDestroyExternalComputeQueueNV,
+    get_external_compute_queue_data: PFN_vkGetExternalComputeQueueDataNV,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -292,13 +292,13 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_external_compute_queue_nv: transmute(
+                create_external_compute_queue: transmute(
                     load(c"vkCreateExternalComputeQueueNV").ok_or(MissingEntryPointError)?,
                 ),
-                destroy_external_compute_queue_nv: transmute(
+                destroy_external_compute_queue: transmute(
                     load(c"vkDestroyExternalComputeQueueNV").ok_or(MissingEntryPointError)?,
                 ),
-                get_external_compute_queue_data_nv: transmute(
+                get_external_compute_queue_data: transmute(
                     load(c"vkGetExternalComputeQueueDataNV").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -309,7 +309,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateExternalComputeQueueNV.html>
     #[inline]
-    pub unsafe fn create_external_compute_queue_nv(
+    pub unsafe fn create_external_compute_queue(
         &self,
         device: Device,
         create_info: &ExternalComputeQueueCreateInfoNV<'_>,
@@ -317,7 +317,7 @@ impl DeviceFn {
     ) -> crate::Result<ExternalComputeQueueNV> {
         unsafe {
             let mut external_queue = core::mem::MaybeUninit::uninit();
-            let result = (self.create_external_compute_queue_nv)(
+            let result = (self.create_external_compute_queue)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -333,25 +333,25 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyExternalComputeQueueNV.html>
     #[inline]
-    pub unsafe fn destroy_external_compute_queue_nv(
+    pub unsafe fn destroy_external_compute_queue(
         &self,
         device: Device,
         external_queue: ExternalComputeQueueNV,
         allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe {
-            (self.destroy_external_compute_queue_nv)(device, external_queue, allocator.to_raw_ptr())
+            (self.destroy_external_compute_queue)(device, external_queue, allocator.to_raw_ptr())
         }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetExternalComputeQueueDataNV.html>
     #[inline]
-    pub unsafe fn get_external_compute_queue_data_nv(
+    pub unsafe fn get_external_compute_queue_data(
         &self,
         external_queue: ExternalComputeQueueNV,
         params: &mut ExternalComputeQueueDataParamsNV<'_>,
         data: *mut c_void,
     ) {
-        unsafe { (self.get_external_compute_queue_data_nv)(external_queue, params, data) }
+        unsafe { (self.get_external_compute_queue_data)(external_queue, params, data) }
     }
 }

@@ -296,7 +296,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_set_depth_bias2_ext: PFN_vkCmdSetDepthBias2EXT,
+    cmd_set_depth_bias2: PFN_vkCmdSetDepthBias2EXT,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -305,7 +305,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_set_depth_bias2_ext: transmute(
+                cmd_set_depth_bias2: transmute(
                     load(c"vkCmdSetDepthBias2EXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -316,11 +316,11 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthBias2EXT.html>
     #[inline]
-    pub unsafe fn cmd_set_depth_bias2_ext(
+    pub unsafe fn cmd_set_depth_bias2(
         &self,
         command_buffer: CommandBuffer,
         depth_bias_info: &DepthBiasInfoEXT<'_>,
     ) {
-        unsafe { (self.cmd_set_depth_bias2_ext)(command_buffer, depth_bias_info) }
+        unsafe { (self.cmd_set_depth_bias2)(command_buffer, depth_bias_info) }
     }
 }

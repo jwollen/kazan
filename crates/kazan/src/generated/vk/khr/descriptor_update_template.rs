@@ -44,10 +44,10 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    create_descriptor_update_template_khr: PFN_vkCreateDescriptorUpdateTemplate,
-    destroy_descriptor_update_template_khr: PFN_vkDestroyDescriptorUpdateTemplate,
-    update_descriptor_set_with_template_khr: PFN_vkUpdateDescriptorSetWithTemplate,
-    cmd_push_descriptor_set_with_template_khr: Option<PFN_vkCmdPushDescriptorSetWithTemplate>,
+    create_descriptor_update_template: PFN_vkCreateDescriptorUpdateTemplate,
+    destroy_descriptor_update_template: PFN_vkDestroyDescriptorUpdateTemplate,
+    update_descriptor_set_with_template: PFN_vkUpdateDescriptorSetWithTemplate,
+    cmd_push_descriptor_set_with_template: Option<PFN_vkCmdPushDescriptorSetWithTemplate>,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -56,16 +56,16 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_descriptor_update_template_khr: transmute(
+                create_descriptor_update_template: transmute(
                     load(c"vkCreateDescriptorUpdateTemplateKHR").ok_or(MissingEntryPointError)?,
                 ),
-                destroy_descriptor_update_template_khr: transmute(
+                destroy_descriptor_update_template: transmute(
                     load(c"vkDestroyDescriptorUpdateTemplateKHR").ok_or(MissingEntryPointError)?,
                 ),
-                update_descriptor_set_with_template_khr: transmute(
+                update_descriptor_set_with_template: transmute(
                     load(c"vkUpdateDescriptorSetWithTemplateKHR").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_push_descriptor_set_with_template_khr: transmute(load(
+                cmd_push_descriptor_set_with_template: transmute(load(
                     c"vkCmdPushDescriptorSetWithTemplateKHR",
                 )),
             })
@@ -76,7 +76,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDescriptorUpdateTemplateKHR.html>
     #[inline]
-    pub unsafe fn create_descriptor_update_template_khr(
+    pub unsafe fn create_descriptor_update_template(
         &self,
         device: Device,
         create_info: &DescriptorUpdateTemplateCreateInfo<'_>,
@@ -84,7 +84,7 @@ impl DeviceFn {
     ) -> crate::Result<DescriptorUpdateTemplate> {
         unsafe {
             let mut descriptor_update_template = core::mem::MaybeUninit::uninit();
-            let result = (self.create_descriptor_update_template_khr)(
+            let result = (self.create_descriptor_update_template)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -100,14 +100,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDescriptorUpdateTemplateKHR.html>
     #[inline]
-    pub unsafe fn destroy_descriptor_update_template_khr(
+    pub unsafe fn destroy_descriptor_update_template(
         &self,
         device: Device,
         descriptor_update_template: DescriptorUpdateTemplate,
         allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe {
-            (self.destroy_descriptor_update_template_khr)(
+            (self.destroy_descriptor_update_template)(
                 device,
                 descriptor_update_template,
                 allocator.to_raw_ptr(),
@@ -117,7 +117,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUpdateDescriptorSetWithTemplateKHR.html>
     #[inline]
-    pub unsafe fn update_descriptor_set_with_template_khr(
+    pub unsafe fn update_descriptor_set_with_template(
         &self,
         device: Device,
         descriptor_set: DescriptorSet,
@@ -125,7 +125,7 @@ impl DeviceFn {
         data: *const c_void,
     ) {
         unsafe {
-            (self.update_descriptor_set_with_template_khr)(
+            (self.update_descriptor_set_with_template)(
                 device,
                 descriptor_set,
                 descriptor_update_template,
@@ -136,7 +136,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushDescriptorSetWithTemplateKHR.html>
     #[inline]
-    pub unsafe fn cmd_push_descriptor_set_with_template_khr(
+    pub unsafe fn cmd_push_descriptor_set_with_template(
         &self,
         command_buffer: CommandBuffer,
         descriptor_update_template: DescriptorUpdateTemplate,
@@ -145,7 +145,7 @@ impl DeviceFn {
         data: *const c_void,
     ) {
         unsafe {
-            (self.cmd_push_descriptor_set_with_template_khr.unwrap())(
+            (self.cmd_push_descriptor_set_with_template.unwrap())(
                 command_buffer,
                 descriptor_update_template,
                 layout,

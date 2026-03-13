@@ -99,18 +99,18 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_set_cull_mode_ext: PFN_vkCmdSetCullMode,
-    cmd_set_front_face_ext: PFN_vkCmdSetFrontFace,
-    cmd_set_primitive_topology_ext: PFN_vkCmdSetPrimitiveTopology,
-    cmd_set_viewport_with_count_ext: PFN_vkCmdSetViewportWithCount,
-    cmd_set_scissor_with_count_ext: PFN_vkCmdSetScissorWithCount,
-    cmd_bind_vertex_buffers2_ext: PFN_vkCmdBindVertexBuffers2,
-    cmd_set_depth_test_enable_ext: PFN_vkCmdSetDepthTestEnable,
-    cmd_set_depth_write_enable_ext: PFN_vkCmdSetDepthWriteEnable,
-    cmd_set_depth_compare_op_ext: PFN_vkCmdSetDepthCompareOp,
-    cmd_set_depth_bounds_test_enable_ext: PFN_vkCmdSetDepthBoundsTestEnable,
-    cmd_set_stencil_test_enable_ext: PFN_vkCmdSetStencilTestEnable,
-    cmd_set_stencil_op_ext: PFN_vkCmdSetStencilOp,
+    cmd_set_cull_mode: PFN_vkCmdSetCullMode,
+    cmd_set_front_face: PFN_vkCmdSetFrontFace,
+    cmd_set_primitive_topology: PFN_vkCmdSetPrimitiveTopology,
+    cmd_set_viewport_with_count: PFN_vkCmdSetViewportWithCount,
+    cmd_set_scissor_with_count: PFN_vkCmdSetScissorWithCount,
+    cmd_bind_vertex_buffers2: PFN_vkCmdBindVertexBuffers2,
+    cmd_set_depth_test_enable: PFN_vkCmdSetDepthTestEnable,
+    cmd_set_depth_write_enable: PFN_vkCmdSetDepthWriteEnable,
+    cmd_set_depth_compare_op: PFN_vkCmdSetDepthCompareOp,
+    cmd_set_depth_bounds_test_enable: PFN_vkCmdSetDepthBoundsTestEnable,
+    cmd_set_stencil_test_enable: PFN_vkCmdSetStencilTestEnable,
+    cmd_set_stencil_op: PFN_vkCmdSetStencilOp,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -119,40 +119,40 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_set_cull_mode_ext: transmute(
+                cmd_set_cull_mode: transmute(
                     load(c"vkCmdSetCullModeEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_front_face_ext: transmute(
+                cmd_set_front_face: transmute(
                     load(c"vkCmdSetFrontFaceEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_primitive_topology_ext: transmute(
+                cmd_set_primitive_topology: transmute(
                     load(c"vkCmdSetPrimitiveTopologyEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_viewport_with_count_ext: transmute(
+                cmd_set_viewport_with_count: transmute(
                     load(c"vkCmdSetViewportWithCountEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_scissor_with_count_ext: transmute(
+                cmd_set_scissor_with_count: transmute(
                     load(c"vkCmdSetScissorWithCountEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_bind_vertex_buffers2_ext: transmute(
+                cmd_bind_vertex_buffers2: transmute(
                     load(c"vkCmdBindVertexBuffers2EXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_depth_test_enable_ext: transmute(
+                cmd_set_depth_test_enable: transmute(
                     load(c"vkCmdSetDepthTestEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_depth_write_enable_ext: transmute(
+                cmd_set_depth_write_enable: transmute(
                     load(c"vkCmdSetDepthWriteEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_depth_compare_op_ext: transmute(
+                cmd_set_depth_compare_op: transmute(
                     load(c"vkCmdSetDepthCompareOpEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_depth_bounds_test_enable_ext: transmute(
+                cmd_set_depth_bounds_test_enable: transmute(
                     load(c"vkCmdSetDepthBoundsTestEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_stencil_test_enable_ext: transmute(
+                cmd_set_stencil_test_enable: transmute(
                     load(c"vkCmdSetStencilTestEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_stencil_op_ext: transmute(
+                cmd_set_stencil_op: transmute(
                     load(c"vkCmdSetStencilOpEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -163,43 +163,39 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCullModeEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_cull_mode_ext(
+    pub unsafe fn cmd_set_cull_mode(
         &self,
         command_buffer: CommandBuffer,
         cull_mode: CullModeFlags,
     ) {
-        unsafe { (self.cmd_set_cull_mode_ext)(command_buffer, cull_mode) }
+        unsafe { (self.cmd_set_cull_mode)(command_buffer, cull_mode) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetFrontFaceEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_front_face_ext(
-        &self,
-        command_buffer: CommandBuffer,
-        front_face: FrontFace,
-    ) {
-        unsafe { (self.cmd_set_front_face_ext)(command_buffer, front_face) }
+    pub unsafe fn cmd_set_front_face(&self, command_buffer: CommandBuffer, front_face: FrontFace) {
+        unsafe { (self.cmd_set_front_face)(command_buffer, front_face) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPrimitiveTopologyEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_primitive_topology_ext(
+    pub unsafe fn cmd_set_primitive_topology(
         &self,
         command_buffer: CommandBuffer,
         primitive_topology: PrimitiveTopology,
     ) {
-        unsafe { (self.cmd_set_primitive_topology_ext)(command_buffer, primitive_topology) }
+        unsafe { (self.cmd_set_primitive_topology)(command_buffer, primitive_topology) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetViewportWithCountEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_viewport_with_count_ext(
+    pub unsafe fn cmd_set_viewport_with_count(
         &self,
         command_buffer: CommandBuffer,
         viewports: &[Viewport],
     ) {
         unsafe {
-            (self.cmd_set_viewport_with_count_ext)(
+            (self.cmd_set_viewport_with_count)(
                 command_buffer,
                 viewports.len().try_into().unwrap(),
                 viewports.as_ptr() as _,
@@ -209,13 +205,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetScissorWithCountEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_scissor_with_count_ext(
+    pub unsafe fn cmd_set_scissor_with_count(
         &self,
         command_buffer: CommandBuffer,
         scissors: &[Rect2D],
     ) {
         unsafe {
-            (self.cmd_set_scissor_with_count_ext)(
+            (self.cmd_set_scissor_with_count)(
                 command_buffer,
                 scissors.len().try_into().unwrap(),
                 scissors.as_ptr() as _,
@@ -225,7 +221,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindVertexBuffers2EXT.html>
     #[inline]
-    pub unsafe fn cmd_bind_vertex_buffers2_ext(
+    pub unsafe fn cmd_bind_vertex_buffers2(
         &self,
         command_buffer: CommandBuffer,
         first_binding: u32,
@@ -235,7 +231,7 @@ impl DeviceFn {
         strides: Option<&[DeviceSize]>,
     ) {
         unsafe {
-            (self.cmd_bind_vertex_buffers2_ext)(
+            (self.cmd_bind_vertex_buffers2)(
                 command_buffer,
                 first_binding,
                 buffers.len().try_into().unwrap(),
@@ -249,64 +245,59 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthTestEnableEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_depth_test_enable_ext(
+    pub unsafe fn cmd_set_depth_test_enable(
         &self,
         command_buffer: CommandBuffer,
         depth_test_enable: bool,
     ) {
-        unsafe { (self.cmd_set_depth_test_enable_ext)(command_buffer, depth_test_enable.into()) }
+        unsafe { (self.cmd_set_depth_test_enable)(command_buffer, depth_test_enable.into()) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthWriteEnableEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_depth_write_enable_ext(
+    pub unsafe fn cmd_set_depth_write_enable(
         &self,
         command_buffer: CommandBuffer,
         depth_write_enable: bool,
     ) {
-        unsafe { (self.cmd_set_depth_write_enable_ext)(command_buffer, depth_write_enable.into()) }
+        unsafe { (self.cmd_set_depth_write_enable)(command_buffer, depth_write_enable.into()) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthCompareOpEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_depth_compare_op_ext(
+    pub unsafe fn cmd_set_depth_compare_op(
         &self,
         command_buffer: CommandBuffer,
         depth_compare_op: CompareOp,
     ) {
-        unsafe { (self.cmd_set_depth_compare_op_ext)(command_buffer, depth_compare_op) }
+        unsafe { (self.cmd_set_depth_compare_op)(command_buffer, depth_compare_op) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthBoundsTestEnableEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_depth_bounds_test_enable_ext(
+    pub unsafe fn cmd_set_depth_bounds_test_enable(
         &self,
         command_buffer: CommandBuffer,
         depth_bounds_test_enable: bool,
     ) {
         unsafe {
-            (self.cmd_set_depth_bounds_test_enable_ext)(
-                command_buffer,
-                depth_bounds_test_enable.into(),
-            )
+            (self.cmd_set_depth_bounds_test_enable)(command_buffer, depth_bounds_test_enable.into())
         }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetStencilTestEnableEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_stencil_test_enable_ext(
+    pub unsafe fn cmd_set_stencil_test_enable(
         &self,
         command_buffer: CommandBuffer,
         stencil_test_enable: bool,
     ) {
-        unsafe {
-            (self.cmd_set_stencil_test_enable_ext)(command_buffer, stencil_test_enable.into())
-        }
+        unsafe { (self.cmd_set_stencil_test_enable)(command_buffer, stencil_test_enable.into()) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetStencilOpEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_stencil_op_ext(
+    pub unsafe fn cmd_set_stencil_op(
         &self,
         command_buffer: CommandBuffer,
         face_mask: StencilFaceFlags,
@@ -316,7 +307,7 @@ impl DeviceFn {
         compare_op: CompareOp,
     ) {
         unsafe {
-            (self.cmd_set_stencil_op_ext)(
+            (self.cmd_set_stencil_op)(
                 command_buffer,
                 face_mask,
                 fail_op,

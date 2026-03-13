@@ -34,8 +34,8 @@ pub(super) mod defs {
 }
 
 pub struct DeviceFn {
-    cmd_write_buffer_marker_amd: PFN_vkCmdWriteBufferMarkerAMD,
-    cmd_write_buffer_marker2_amd: Option<PFN_vkCmdWriteBufferMarker2AMD>,
+    cmd_write_buffer_marker: PFN_vkCmdWriteBufferMarkerAMD,
+    cmd_write_buffer_marker2: Option<PFN_vkCmdWriteBufferMarker2AMD>,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -44,10 +44,10 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_write_buffer_marker_amd: transmute(
+                cmd_write_buffer_marker: transmute(
                     load(c"vkCmdWriteBufferMarkerAMD").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_write_buffer_marker2_amd: transmute(load(c"vkCmdWriteBufferMarker2AMD")),
+                cmd_write_buffer_marker2: transmute(load(c"vkCmdWriteBufferMarker2AMD")),
             })
         }
     }
@@ -56,7 +56,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWriteBufferMarkerAMD.html>
     #[inline]
-    pub unsafe fn cmd_write_buffer_marker_amd(
+    pub unsafe fn cmd_write_buffer_marker(
         &self,
         command_buffer: CommandBuffer,
         pipeline_stage: PipelineStageFlagBits,
@@ -65,7 +65,7 @@ impl DeviceFn {
         marker: u32,
     ) {
         unsafe {
-            (self.cmd_write_buffer_marker_amd)(
+            (self.cmd_write_buffer_marker)(
                 command_buffer,
                 pipeline_stage,
                 dst_buffer,
@@ -77,7 +77,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWriteBufferMarker2AMD.html>
     #[inline]
-    pub unsafe fn cmd_write_buffer_marker2_amd(
+    pub unsafe fn cmd_write_buffer_marker2(
         &self,
         command_buffer: CommandBuffer,
         stage: PipelineStageFlags2,
@@ -86,7 +86,7 @@ impl DeviceFn {
         marker: u32,
     ) {
         unsafe {
-            (self.cmd_write_buffer_marker2_amd.unwrap())(
+            (self.cmd_write_buffer_marker2.unwrap())(
                 command_buffer,
                 stage,
                 dst_buffer,

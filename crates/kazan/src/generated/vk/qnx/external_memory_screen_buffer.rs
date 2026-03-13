@@ -407,7 +407,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_screen_buffer_properties_qnx: PFN_vkGetScreenBufferPropertiesQNX,
+    get_screen_buffer_properties: PFN_vkGetScreenBufferPropertiesQNX,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -416,7 +416,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_screen_buffer_properties_qnx: transmute(
+                get_screen_buffer_properties: transmute(
                     load(c"vkGetScreenBufferPropertiesQNX").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -427,14 +427,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetScreenBufferPropertiesQNX.html>
     #[inline]
-    pub unsafe fn get_screen_buffer_properties_qnx(
+    pub unsafe fn get_screen_buffer_properties(
         &self,
         device: Device,
         buffer: *const _screen_buffer,
         properties: &mut ScreenBufferPropertiesQNX<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_screen_buffer_properties_qnx)(device, buffer, properties);
+            let result = (self.get_screen_buffer_properties)(device, buffer, properties);
 
             match result {
                 VkResult::SUCCESS => Ok(()),

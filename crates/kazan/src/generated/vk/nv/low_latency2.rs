@@ -773,11 +773,11 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    set_latency_sleep_mode_nv: PFN_vkSetLatencySleepModeNV,
-    latency_sleep_nv: PFN_vkLatencySleepNV,
-    set_latency_marker_nv: PFN_vkSetLatencyMarkerNV,
-    get_latency_timings_nv: PFN_vkGetLatencyTimingsNV,
-    queue_notify_out_of_band_nv: PFN_vkQueueNotifyOutOfBandNV,
+    set_latency_sleep_mode: PFN_vkSetLatencySleepModeNV,
+    latency_sleep: PFN_vkLatencySleepNV,
+    set_latency_marker: PFN_vkSetLatencyMarkerNV,
+    get_latency_timings: PFN_vkGetLatencyTimingsNV,
+    queue_notify_out_of_band: PFN_vkQueueNotifyOutOfBandNV,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -786,19 +786,17 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                set_latency_sleep_mode_nv: transmute(
+                set_latency_sleep_mode: transmute(
                     load(c"vkSetLatencySleepModeNV").ok_or(MissingEntryPointError)?,
                 ),
-                latency_sleep_nv: transmute(
-                    load(c"vkLatencySleepNV").ok_or(MissingEntryPointError)?,
-                ),
-                set_latency_marker_nv: transmute(
+                latency_sleep: transmute(load(c"vkLatencySleepNV").ok_or(MissingEntryPointError)?),
+                set_latency_marker: transmute(
                     load(c"vkSetLatencyMarkerNV").ok_or(MissingEntryPointError)?,
                 ),
-                get_latency_timings_nv: transmute(
+                get_latency_timings: transmute(
                     load(c"vkGetLatencyTimingsNV").ok_or(MissingEntryPointError)?,
                 ),
-                queue_notify_out_of_band_nv: transmute(
+                queue_notify_out_of_band: transmute(
                     load(c"vkQueueNotifyOutOfBandNV").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -809,14 +807,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetLatencySleepModeNV.html>
     #[inline]
-    pub unsafe fn set_latency_sleep_mode_nv(
+    pub unsafe fn set_latency_sleep_mode(
         &self,
         device: Device,
         swapchain: SwapchainKHR,
         sleep_mode_info: &LatencySleepModeInfoNV<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.set_latency_sleep_mode_nv)(device, swapchain, sleep_mode_info);
+            let result = (self.set_latency_sleep_mode)(device, swapchain, sleep_mode_info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -827,14 +825,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkLatencySleepNV.html>
     #[inline]
-    pub unsafe fn latency_sleep_nv(
+    pub unsafe fn latency_sleep(
         &self,
         device: Device,
         swapchain: SwapchainKHR,
         sleep_info: &LatencySleepInfoNV<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.latency_sleep_nv)(device, swapchain, sleep_info);
+            let result = (self.latency_sleep)(device, swapchain, sleep_info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -845,33 +843,33 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetLatencyMarkerNV.html>
     #[inline]
-    pub unsafe fn set_latency_marker_nv(
+    pub unsafe fn set_latency_marker(
         &self,
         device: Device,
         swapchain: SwapchainKHR,
         latency_marker_info: &SetLatencyMarkerInfoNV<'_>,
     ) {
-        unsafe { (self.set_latency_marker_nv)(device, swapchain, latency_marker_info) }
+        unsafe { (self.set_latency_marker)(device, swapchain, latency_marker_info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetLatencyTimingsNV.html>
     #[inline]
-    pub unsafe fn get_latency_timings_nv(
+    pub unsafe fn get_latency_timings(
         &self,
         device: Device,
         swapchain: SwapchainKHR,
         latency_marker_info: &mut GetLatencyMarkerInfoNV<'_>,
     ) {
-        unsafe { (self.get_latency_timings_nv)(device, swapchain, latency_marker_info) }
+        unsafe { (self.get_latency_timings)(device, swapchain, latency_marker_info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueNotifyOutOfBandNV.html>
     #[inline]
-    pub unsafe fn queue_notify_out_of_band_nv(
+    pub unsafe fn queue_notify_out_of_band(
         &self,
         queue: Queue,
         queue_type_info: &OutOfBandQueueTypeInfoNV<'_>,
     ) {
-        unsafe { (self.queue_notify_out_of_band_nv)(queue, queue_type_info) }
+        unsafe { (self.queue_notify_out_of_band)(queue, queue_type_info) }
     }
 }

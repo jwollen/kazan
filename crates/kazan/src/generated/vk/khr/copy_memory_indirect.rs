@@ -519,8 +519,8 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_copy_memory_indirect_khr: PFN_vkCmdCopyMemoryIndirectKHR,
-    cmd_copy_memory_to_image_indirect_khr: PFN_vkCmdCopyMemoryToImageIndirectKHR,
+    cmd_copy_memory_indirect: PFN_vkCmdCopyMemoryIndirectKHR,
+    cmd_copy_memory_to_image_indirect: PFN_vkCmdCopyMemoryToImageIndirectKHR,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -529,10 +529,10 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_copy_memory_indirect_khr: transmute(
+                cmd_copy_memory_indirect: transmute(
                     load(c"vkCmdCopyMemoryIndirectKHR").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_copy_memory_to_image_indirect_khr: transmute(
+                cmd_copy_memory_to_image_indirect: transmute(
                     load(c"vkCmdCopyMemoryToImageIndirectKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -543,23 +543,23 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryIndirectKHR.html>
     #[inline]
-    pub unsafe fn cmd_copy_memory_indirect_khr(
+    pub unsafe fn cmd_copy_memory_indirect(
         &self,
         command_buffer: CommandBuffer,
         copy_memory_indirect_info: &CopyMemoryIndirectInfoKHR<'_>,
     ) {
-        unsafe { (self.cmd_copy_memory_indirect_khr)(command_buffer, copy_memory_indirect_info) }
+        unsafe { (self.cmd_copy_memory_indirect)(command_buffer, copy_memory_indirect_info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryToImageIndirectKHR.html>
     #[inline]
-    pub unsafe fn cmd_copy_memory_to_image_indirect_khr(
+    pub unsafe fn cmd_copy_memory_to_image_indirect(
         &self,
         command_buffer: CommandBuffer,
         copy_memory_to_image_indirect_info: &CopyMemoryToImageIndirectInfoKHR<'_>,
     ) {
         unsafe {
-            (self.cmd_copy_memory_to_image_indirect_khr)(
+            (self.cmd_copy_memory_to_image_indirect)(
                 command_buffer,
                 copy_memory_to_image_indirect_info,
             )

@@ -121,8 +121,8 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    create_win32_surface_khr: PFN_vkCreateWin32SurfaceKHR,
-    get_physical_device_win32_presentation_support_khr:
+    create_win32_surface: PFN_vkCreateWin32SurfaceKHR,
+    get_physical_device_win32_presentation_support:
         PFN_vkGetPhysicalDeviceWin32PresentationSupportKHR,
 }
 
@@ -132,10 +132,10 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_win32_surface_khr: transmute(
+                create_win32_surface: transmute(
                     load(c"vkCreateWin32SurfaceKHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_physical_device_win32_presentation_support_khr: transmute(
+                get_physical_device_win32_presentation_support: transmute(
                     load(c"vkGetPhysicalDeviceWin32PresentationSupportKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -147,7 +147,7 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateWin32SurfaceKHR.html>
     #[inline]
-    pub unsafe fn create_win32_surface_khr(
+    pub unsafe fn create_win32_surface(
         &self,
         instance: Instance,
         create_info: &Win32SurfaceCreateInfoKHR<'_>,
@@ -155,7 +155,7 @@ impl InstanceFn {
     ) -> crate::Result<SurfaceKHR> {
         unsafe {
             let mut surface = core::mem::MaybeUninit::uninit();
-            let result = (self.create_win32_surface_khr)(
+            let result = (self.create_win32_surface)(
                 instance,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -171,13 +171,13 @@ impl InstanceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceWin32PresentationSupportKHR.html>
     #[inline]
-    pub unsafe fn get_physical_device_win32_presentation_support_khr(
+    pub unsafe fn get_physical_device_win32_presentation_support(
         &self,
         physical_device: PhysicalDevice,
         queue_family_index: u32,
     ) -> bool {
         unsafe {
-            (self.get_physical_device_win32_presentation_support_khr)(
+            (self.get_physical_device_win32_presentation_support)(
                 physical_device,
                 queue_family_index,
             ) != 0

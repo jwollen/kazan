@@ -106,7 +106,7 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    create_image_pipe_surface_fuchsia: PFN_vkCreateImagePipeSurfaceFUCHSIA,
+    create_image_pipe_surface: PFN_vkCreateImagePipeSurfaceFUCHSIA,
 }
 
 impl LoadInstanceFn for InstanceFn {
@@ -115,7 +115,7 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_image_pipe_surface_fuchsia: transmute(
+                create_image_pipe_surface: transmute(
                     load(c"vkCreateImagePipeSurfaceFUCHSIA").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -126,7 +126,7 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateImagePipeSurfaceFUCHSIA.html>
     #[inline]
-    pub unsafe fn create_image_pipe_surface_fuchsia(
+    pub unsafe fn create_image_pipe_surface(
         &self,
         instance: Instance,
         create_info: &ImagePipeSurfaceCreateInfoFUCHSIA<'_>,
@@ -134,7 +134,7 @@ impl InstanceFn {
     ) -> crate::Result<SurfaceKHR> {
         unsafe {
             let mut surface = core::mem::MaybeUninit::uninit();
-            let result = (self.create_image_pipe_surface_fuchsia)(
+            let result = (self.create_image_pipe_surface)(
                 instance,
                 create_info,
                 allocator.to_raw_ptr(),

@@ -31,8 +31,8 @@ pub(super) mod defs {
 }
 
 pub struct InstanceFn {
-    acquire_drm_display_ext: PFN_vkAcquireDrmDisplayEXT,
-    get_drm_display_ext: PFN_vkGetDrmDisplayEXT,
+    acquire_drm_display: PFN_vkAcquireDrmDisplayEXT,
+    get_drm_display: PFN_vkGetDrmDisplayEXT,
 }
 
 impl LoadInstanceFn for InstanceFn {
@@ -41,10 +41,10 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                acquire_drm_display_ext: transmute(
+                acquire_drm_display: transmute(
                     load(c"vkAcquireDrmDisplayEXT").ok_or(MissingEntryPointError)?,
                 ),
-                get_drm_display_ext: transmute(
+                get_drm_display: transmute(
                     load(c"vkGetDrmDisplayEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -55,14 +55,14 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireDrmDisplayEXT.html>
     #[inline]
-    pub unsafe fn acquire_drm_display_ext(
+    pub unsafe fn acquire_drm_display(
         &self,
         physical_device: PhysicalDevice,
         drm_fd: i32,
         display: DisplayKHR,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.acquire_drm_display_ext)(physical_device, drm_fd, display);
+            let result = (self.acquire_drm_display)(physical_device, drm_fd, display);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -73,7 +73,7 @@ impl InstanceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDrmDisplayEXT.html>
     #[inline]
-    pub unsafe fn get_drm_display_ext(
+    pub unsafe fn get_drm_display(
         &self,
         physical_device: PhysicalDevice,
         drm_fd: i32,
@@ -81,12 +81,8 @@ impl InstanceFn {
     ) -> crate::Result<DisplayKHR> {
         unsafe {
             let mut display = core::mem::MaybeUninit::uninit();
-            let result = (self.get_drm_display_ext)(
-                physical_device,
-                drm_fd,
-                connector_id,
-                display.as_mut_ptr(),
-            );
+            let result =
+                (self.get_drm_display)(physical_device, drm_fd, connector_id, display.as_mut_ptr());
 
             match result {
                 VkResult::SUCCESS => Ok(display.assume_init()),

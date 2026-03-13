@@ -122,9 +122,8 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    create_ubm_surface_sec: PFN_vkCreateUbmSurfaceSEC,
-    get_physical_device_ubm_presentation_support_sec:
-        PFN_vkGetPhysicalDeviceUbmPresentationSupportSEC,
+    create_ubm_surface: PFN_vkCreateUbmSurfaceSEC,
+    get_physical_device_ubm_presentation_support: PFN_vkGetPhysicalDeviceUbmPresentationSupportSEC,
 }
 
 impl LoadInstanceFn for InstanceFn {
@@ -133,10 +132,10 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_ubm_surface_sec: transmute(
+                create_ubm_surface: transmute(
                     load(c"vkCreateUbmSurfaceSEC").ok_or(MissingEntryPointError)?,
                 ),
-                get_physical_device_ubm_presentation_support_sec: transmute(
+                get_physical_device_ubm_presentation_support: transmute(
                     load(c"vkGetPhysicalDeviceUbmPresentationSupportSEC")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -148,7 +147,7 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateUbmSurfaceSEC.html>
     #[inline]
-    pub unsafe fn create_ubm_surface_sec(
+    pub unsafe fn create_ubm_surface(
         &self,
         instance: Instance,
         create_info: &UbmSurfaceCreateInfoSEC<'_>,
@@ -156,7 +155,7 @@ impl InstanceFn {
     ) -> crate::Result<SurfaceKHR> {
         unsafe {
             let mut surface = core::mem::MaybeUninit::uninit();
-            let result = (self.create_ubm_surface_sec)(
+            let result = (self.create_ubm_surface)(
                 instance,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -172,14 +171,14 @@ impl InstanceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceUbmPresentationSupportSEC.html>
     #[inline]
-    pub unsafe fn get_physical_device_ubm_presentation_support_sec(
+    pub unsafe fn get_physical_device_ubm_presentation_support(
         &self,
         physical_device: PhysicalDevice,
         queue_family_index: u32,
         device: *mut ubm_device,
     ) -> bool {
         unsafe {
-            (self.get_physical_device_ubm_presentation_support_sec)(
+            (self.get_physical_device_ubm_presentation_support)(
                 physical_device,
                 queue_family_index,
                 device,

@@ -298,9 +298,9 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_pipeline_indirect_memory_requirements_nv: PFN_vkGetPipelineIndirectMemoryRequirementsNV,
-    cmd_update_pipeline_indirect_buffer_nv: PFN_vkCmdUpdatePipelineIndirectBufferNV,
-    get_pipeline_indirect_device_address_nv: PFN_vkGetPipelineIndirectDeviceAddressNV,
+    get_pipeline_indirect_memory_requirements: PFN_vkGetPipelineIndirectMemoryRequirementsNV,
+    cmd_update_pipeline_indirect_buffer: PFN_vkCmdUpdatePipelineIndirectBufferNV,
+    get_pipeline_indirect_device_address: PFN_vkGetPipelineIndirectDeviceAddressNV,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -309,14 +309,14 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_pipeline_indirect_memory_requirements_nv: transmute(
+                get_pipeline_indirect_memory_requirements: transmute(
                     load(c"vkGetPipelineIndirectMemoryRequirementsNV")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                cmd_update_pipeline_indirect_buffer_nv: transmute(
+                cmd_update_pipeline_indirect_buffer: transmute(
                     load(c"vkCmdUpdatePipelineIndirectBufferNV").ok_or(MissingEntryPointError)?,
                 ),
-                get_pipeline_indirect_device_address_nv: transmute(
+                get_pipeline_indirect_device_address: transmute(
                     load(c"vkGetPipelineIndirectDeviceAddressNV").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -327,14 +327,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineIndirectMemoryRequirementsNV.html>
     #[inline]
-    pub unsafe fn get_pipeline_indirect_memory_requirements_nv(
+    pub unsafe fn get_pipeline_indirect_memory_requirements(
         &self,
         device: Device,
         create_info: &ComputePipelineCreateInfo<'_>,
         memory_requirements: &mut MemoryRequirements2<'_>,
     ) {
         unsafe {
-            (self.get_pipeline_indirect_memory_requirements_nv)(
+            (self.get_pipeline_indirect_memory_requirements)(
                 device,
                 create_info,
                 memory_requirements,
@@ -344,14 +344,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdUpdatePipelineIndirectBufferNV.html>
     #[inline]
-    pub unsafe fn cmd_update_pipeline_indirect_buffer_nv(
+    pub unsafe fn cmd_update_pipeline_indirect_buffer(
         &self,
         command_buffer: CommandBuffer,
         pipeline_bind_point: PipelineBindPoint,
         pipeline: Pipeline,
     ) {
         unsafe {
-            (self.cmd_update_pipeline_indirect_buffer_nv)(
+            (self.cmd_update_pipeline_indirect_buffer)(
                 command_buffer,
                 pipeline_bind_point,
                 pipeline,
@@ -361,11 +361,11 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineIndirectDeviceAddressNV.html>
     #[inline]
-    pub unsafe fn get_pipeline_indirect_device_address_nv(
+    pub unsafe fn get_pipeline_indirect_device_address(
         &self,
         device: Device,
         info: &PipelineIndirectDeviceAddressInfoNV<'_>,
     ) -> DeviceAddress {
-        unsafe { (self.get_pipeline_indirect_device_address_nv)(device, info) }
+        unsafe { (self.get_pipeline_indirect_device_address)(device, info) }
     }
 }

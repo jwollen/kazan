@@ -33,7 +33,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_descriptor_set_layout_support_khr: PFN_vkGetDescriptorSetLayoutSupport,
+    get_descriptor_set_layout_support: PFN_vkGetDescriptorSetLayoutSupport,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -42,7 +42,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_descriptor_set_layout_support_khr: transmute(
+                get_descriptor_set_layout_support: transmute(
                     load(c"vkGetDescriptorSetLayoutSupportKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -53,12 +53,12 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDescriptorSetLayoutSupportKHR.html>
     #[inline]
-    pub unsafe fn get_descriptor_set_layout_support_khr(
+    pub unsafe fn get_descriptor_set_layout_support(
         &self,
         device: Device,
         create_info: &DescriptorSetLayoutCreateInfo<'_>,
         support: &mut DescriptorSetLayoutSupport<'_>,
     ) {
-        unsafe { (self.get_descriptor_set_layout_support_khr)(device, create_info, support) }
+        unsafe { (self.get_descriptor_set_layout_support)(device, create_info, support) }
     }
 }

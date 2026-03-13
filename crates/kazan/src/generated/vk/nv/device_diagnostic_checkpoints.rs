@@ -285,9 +285,9 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_set_checkpoint_nv: PFN_vkCmdSetCheckpointNV,
-    get_queue_checkpoint_data_nv: PFN_vkGetQueueCheckpointDataNV,
-    get_queue_checkpoint_data2_nv: Option<PFN_vkGetQueueCheckpointData2NV>,
+    cmd_set_checkpoint: PFN_vkCmdSetCheckpointNV,
+    get_queue_checkpoint_data: PFN_vkGetQueueCheckpointDataNV,
+    get_queue_checkpoint_data2: Option<PFN_vkGetQueueCheckpointData2NV>,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -296,13 +296,13 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_set_checkpoint_nv: transmute(
+                cmd_set_checkpoint: transmute(
                     load(c"vkCmdSetCheckpointNV").ok_or(MissingEntryPointError)?,
                 ),
-                get_queue_checkpoint_data_nv: transmute(
+                get_queue_checkpoint_data: transmute(
                     load(c"vkGetQueueCheckpointDataNV").ok_or(MissingEntryPointError)?,
                 ),
-                get_queue_checkpoint_data2_nv: transmute(load(c"vkGetQueueCheckpointData2NV")),
+                get_queue_checkpoint_data2: transmute(load(c"vkGetQueueCheckpointData2NV")),
             })
         }
     }
@@ -311,28 +311,24 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCheckpointNV.html>
     #[inline]
-    pub unsafe fn cmd_set_checkpoint_nv(
+    pub unsafe fn cmd_set_checkpoint(
         &self,
         command_buffer: CommandBuffer,
         checkpoint_marker: *const c_void,
     ) {
-        unsafe { (self.cmd_set_checkpoint_nv)(command_buffer, checkpoint_marker) }
+        unsafe { (self.cmd_set_checkpoint)(command_buffer, checkpoint_marker) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetQueueCheckpointDataNV.html>
     #[inline]
-    pub unsafe fn get_queue_checkpoint_data_nv<'a>(
+    pub unsafe fn get_queue_checkpoint_data<'a>(
         &self,
         queue: Queue,
         mut checkpoint_data: impl ExtendUninit<CheckpointDataNV<'a>>,
     ) {
         unsafe {
             let call = |checkpoint_data_count, checkpoint_data| {
-                (self.get_queue_checkpoint_data_nv)(
-                    queue,
-                    checkpoint_data_count,
-                    checkpoint_data as _,
-                )
+                (self.get_queue_checkpoint_data)(queue, checkpoint_data_count, checkpoint_data as _)
             };
             let mut len = 0;
             call(&mut len, std::ptr::null_mut());
@@ -346,14 +342,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetQueueCheckpointData2NV.html>
     #[inline]
-    pub unsafe fn get_queue_checkpoint_data2_nv<'a>(
+    pub unsafe fn get_queue_checkpoint_data2<'a>(
         &self,
         queue: Queue,
         mut checkpoint_data: impl ExtendUninit<CheckpointData2NV<'a>>,
     ) {
         unsafe {
             let call = |checkpoint_data_count, checkpoint_data| {
-                (self.get_queue_checkpoint_data2_nv.unwrap())(
+                (self.get_queue_checkpoint_data2.unwrap())(
                     queue,
                     checkpoint_data_count,
                     checkpoint_data as _,

@@ -220,7 +220,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_begin_custom_resolve_ext: Option<PFN_vkCmdBeginCustomResolveEXT>,
+    cmd_begin_custom_resolve: Option<PFN_vkCmdBeginCustomResolveEXT>,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -229,7 +229,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_begin_custom_resolve_ext: transmute(load(c"vkCmdBeginCustomResolveEXT")),
+                cmd_begin_custom_resolve: transmute(load(c"vkCmdBeginCustomResolveEXT")),
             })
         }
     }
@@ -238,13 +238,13 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginCustomResolveEXT.html>
     #[inline]
-    pub unsafe fn cmd_begin_custom_resolve_ext(
+    pub unsafe fn cmd_begin_custom_resolve(
         &self,
         command_buffer: CommandBuffer,
         begin_custom_resolve_info: Option<&BeginCustomResolveInfoEXT<'_>>,
     ) {
         unsafe {
-            (self.cmd_begin_custom_resolve_ext.unwrap())(
+            (self.cmd_begin_custom_resolve.unwrap())(
                 command_buffer,
                 begin_custom_resolve_info.to_raw_ptr(),
             )

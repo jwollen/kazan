@@ -105,7 +105,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    create_shared_swapchains_khr: PFN_vkCreateSharedSwapchainsKHR,
+    create_shared_swapchains: PFN_vkCreateSharedSwapchainsKHR,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -114,7 +114,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_shared_swapchains_khr: transmute(
+                create_shared_swapchains: transmute(
                     load(c"vkCreateSharedSwapchainsKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -125,7 +125,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSharedSwapchainsKHR.html>
     #[inline]
-    pub unsafe fn create_shared_swapchains_khr(
+    pub unsafe fn create_shared_swapchains(
         &self,
         device: Device,
         create_infos: &[SwapchainCreateInfoKHR<'_>],
@@ -133,7 +133,7 @@ impl DeviceFn {
         swapchains: &mut [SwapchainKHR],
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.create_shared_swapchains_khr)(
+            let result = (self.create_shared_swapchains)(
                 device,
                 create_infos.len().try_into().unwrap(),
                 create_infos.as_ptr() as _,

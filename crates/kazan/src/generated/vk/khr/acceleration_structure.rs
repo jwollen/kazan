@@ -2252,24 +2252,23 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    create_acceleration_structure_khr: PFN_vkCreateAccelerationStructureKHR,
-    destroy_acceleration_structure_khr: PFN_vkDestroyAccelerationStructureKHR,
-    cmd_build_acceleration_structures_khr: PFN_vkCmdBuildAccelerationStructuresKHR,
-    cmd_build_acceleration_structures_indirect_khr: PFN_vkCmdBuildAccelerationStructuresIndirectKHR,
-    build_acceleration_structures_khr: PFN_vkBuildAccelerationStructuresKHR,
-    copy_acceleration_structure_khr: PFN_vkCopyAccelerationStructureKHR,
-    copy_acceleration_structure_to_memory_khr: PFN_vkCopyAccelerationStructureToMemoryKHR,
-    copy_memory_to_acceleration_structure_khr: PFN_vkCopyMemoryToAccelerationStructureKHR,
-    write_acceleration_structures_properties_khr: PFN_vkWriteAccelerationStructuresPropertiesKHR,
-    cmd_copy_acceleration_structure_khr: PFN_vkCmdCopyAccelerationStructureKHR,
-    cmd_copy_acceleration_structure_to_memory_khr: PFN_vkCmdCopyAccelerationStructureToMemoryKHR,
-    cmd_copy_memory_to_acceleration_structure_khr: PFN_vkCmdCopyMemoryToAccelerationStructureKHR,
-    get_acceleration_structure_device_address_khr: PFN_vkGetAccelerationStructureDeviceAddressKHR,
-    cmd_write_acceleration_structures_properties_khr:
-        PFN_vkCmdWriteAccelerationStructuresPropertiesKHR,
-    get_device_acceleration_structure_compatibility_khr:
+    create_acceleration_structure: PFN_vkCreateAccelerationStructureKHR,
+    destroy_acceleration_structure: PFN_vkDestroyAccelerationStructureKHR,
+    cmd_build_acceleration_structures: PFN_vkCmdBuildAccelerationStructuresKHR,
+    cmd_build_acceleration_structures_indirect: PFN_vkCmdBuildAccelerationStructuresIndirectKHR,
+    build_acceleration_structures: PFN_vkBuildAccelerationStructuresKHR,
+    copy_acceleration_structure: PFN_vkCopyAccelerationStructureKHR,
+    copy_acceleration_structure_to_memory: PFN_vkCopyAccelerationStructureToMemoryKHR,
+    copy_memory_to_acceleration_structure: PFN_vkCopyMemoryToAccelerationStructureKHR,
+    write_acceleration_structures_properties: PFN_vkWriteAccelerationStructuresPropertiesKHR,
+    cmd_copy_acceleration_structure: PFN_vkCmdCopyAccelerationStructureKHR,
+    cmd_copy_acceleration_structure_to_memory: PFN_vkCmdCopyAccelerationStructureToMemoryKHR,
+    cmd_copy_memory_to_acceleration_structure: PFN_vkCmdCopyMemoryToAccelerationStructureKHR,
+    get_acceleration_structure_device_address: PFN_vkGetAccelerationStructureDeviceAddressKHR,
+    cmd_write_acceleration_structures_properties: PFN_vkCmdWriteAccelerationStructuresPropertiesKHR,
+    get_device_acceleration_structure_compatibility:
         PFN_vkGetDeviceAccelerationStructureCompatibilityKHR,
-    get_acceleration_structure_build_sizes_khr: PFN_vkGetAccelerationStructureBuildSizesKHR,
+    get_acceleration_structure_build_sizes: PFN_vkGetAccelerationStructureBuildSizesKHR,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -2278,61 +2277,61 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_acceleration_structure_khr: transmute(
+                create_acceleration_structure: transmute(
                     load(c"vkCreateAccelerationStructureKHR").ok_or(MissingEntryPointError)?,
                 ),
-                destroy_acceleration_structure_khr: transmute(
+                destroy_acceleration_structure: transmute(
                     load(c"vkDestroyAccelerationStructureKHR").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_build_acceleration_structures_khr: transmute(
+                cmd_build_acceleration_structures: transmute(
                     load(c"vkCmdBuildAccelerationStructuresKHR").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_build_acceleration_structures_indirect_khr: transmute(
+                cmd_build_acceleration_structures_indirect: transmute(
                     load(c"vkCmdBuildAccelerationStructuresIndirectKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                build_acceleration_structures_khr: transmute(
+                build_acceleration_structures: transmute(
                     load(c"vkBuildAccelerationStructuresKHR").ok_or(MissingEntryPointError)?,
                 ),
-                copy_acceleration_structure_khr: transmute(
+                copy_acceleration_structure: transmute(
                     load(c"vkCopyAccelerationStructureKHR").ok_or(MissingEntryPointError)?,
                 ),
-                copy_acceleration_structure_to_memory_khr: transmute(
+                copy_acceleration_structure_to_memory: transmute(
                     load(c"vkCopyAccelerationStructureToMemoryKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                copy_memory_to_acceleration_structure_khr: transmute(
+                copy_memory_to_acceleration_structure: transmute(
                     load(c"vkCopyMemoryToAccelerationStructureKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                write_acceleration_structures_properties_khr: transmute(
+                write_acceleration_structures_properties: transmute(
                     load(c"vkWriteAccelerationStructuresPropertiesKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                cmd_copy_acceleration_structure_khr: transmute(
+                cmd_copy_acceleration_structure: transmute(
                     load(c"vkCmdCopyAccelerationStructureKHR").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_copy_acceleration_structure_to_memory_khr: transmute(
+                cmd_copy_acceleration_structure_to_memory: transmute(
                     load(c"vkCmdCopyAccelerationStructureToMemoryKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                cmd_copy_memory_to_acceleration_structure_khr: transmute(
+                cmd_copy_memory_to_acceleration_structure: transmute(
                     load(c"vkCmdCopyMemoryToAccelerationStructureKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                get_acceleration_structure_device_address_khr: transmute(
+                get_acceleration_structure_device_address: transmute(
                     load(c"vkGetAccelerationStructureDeviceAddressKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                cmd_write_acceleration_structures_properties_khr: transmute(
+                cmd_write_acceleration_structures_properties: transmute(
                     load(c"vkCmdWriteAccelerationStructuresPropertiesKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                get_device_acceleration_structure_compatibility_khr: transmute(
+                get_device_acceleration_structure_compatibility: transmute(
                     load(c"vkGetDeviceAccelerationStructureCompatibilityKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                get_acceleration_structure_build_sizes_khr: transmute(
+                get_acceleration_structure_build_sizes: transmute(
                     load(c"vkGetAccelerationStructureBuildSizesKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -2344,7 +2343,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateAccelerationStructureKHR.html>
     #[inline]
-    pub unsafe fn create_acceleration_structure_khr(
+    pub unsafe fn create_acceleration_structure(
         &self,
         device: Device,
         create_info: &AccelerationStructureCreateInfoKHR<'_>,
@@ -2352,7 +2351,7 @@ impl DeviceFn {
     ) -> crate::Result<AccelerationStructureKHR> {
         unsafe {
             let mut acceleration_structure = core::mem::MaybeUninit::uninit();
-            let result = (self.create_acceleration_structure_khr)(
+            let result = (self.create_acceleration_structure)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -2368,14 +2367,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyAccelerationStructureKHR.html>
     #[inline]
-    pub unsafe fn destroy_acceleration_structure_khr(
+    pub unsafe fn destroy_acceleration_structure(
         &self,
         device: Device,
         acceleration_structure: AccelerationStructureKHR,
         allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe {
-            (self.destroy_acceleration_structure_khr)(
+            (self.destroy_acceleration_structure)(
                 device,
                 acceleration_structure,
                 allocator.to_raw_ptr(),
@@ -2385,14 +2384,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBuildAccelerationStructuresKHR.html>
     #[inline]
-    pub unsafe fn cmd_build_acceleration_structures_khr(
+    pub unsafe fn cmd_build_acceleration_structures(
         &self,
         command_buffer: CommandBuffer,
         infos: &[AccelerationStructureBuildGeometryInfoKHR<'_>],
         build_range_infos: &[*const AccelerationStructureBuildRangeInfoKHR],
     ) {
         unsafe {
-            (self.cmd_build_acceleration_structures_khr)(
+            (self.cmd_build_acceleration_structures)(
                 command_buffer,
                 infos.len().try_into().unwrap(),
                 infos.as_ptr() as _,
@@ -2403,7 +2402,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBuildAccelerationStructuresIndirectKHR.html>
     #[inline]
-    pub unsafe fn cmd_build_acceleration_structures_indirect_khr(
+    pub unsafe fn cmd_build_acceleration_structures_indirect(
         &self,
         command_buffer: CommandBuffer,
         infos: &[AccelerationStructureBuildGeometryInfoKHR<'_>],
@@ -2412,7 +2411,7 @@ impl DeviceFn {
         max_primitive_counts: &[*const u32],
     ) {
         unsafe {
-            (self.cmd_build_acceleration_structures_indirect_khr)(
+            (self.cmd_build_acceleration_structures_indirect)(
                 command_buffer,
                 infos.len().try_into().unwrap(),
                 infos.as_ptr() as _,
@@ -2425,7 +2424,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBuildAccelerationStructuresKHR.html>
     #[inline]
-    pub unsafe fn build_acceleration_structures_khr(
+    pub unsafe fn build_acceleration_structures(
         &self,
         device: Device,
         deferred_operation: DeferredOperationKHR,
@@ -2433,7 +2432,7 @@ impl DeviceFn {
         build_range_infos: &[*const AccelerationStructureBuildRangeInfoKHR],
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.build_acceleration_structures_khr)(
+            let result = (self.build_acceleration_structures)(
                 device,
                 deferred_operation,
                 infos.len().try_into().unwrap(),
@@ -2450,14 +2449,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyAccelerationStructureKHR.html>
     #[inline]
-    pub unsafe fn copy_acceleration_structure_khr(
+    pub unsafe fn copy_acceleration_structure(
         &self,
         device: Device,
         deferred_operation: DeferredOperationKHR,
         info: &CopyAccelerationStructureInfoKHR<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.copy_acceleration_structure_khr)(device, deferred_operation, info);
+            let result = (self.copy_acceleration_structure)(device, deferred_operation, info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -2468,7 +2467,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyAccelerationStructureToMemoryKHR.html>
     #[inline]
-    pub unsafe fn copy_acceleration_structure_to_memory_khr(
+    pub unsafe fn copy_acceleration_structure_to_memory(
         &self,
         device: Device,
         deferred_operation: DeferredOperationKHR,
@@ -2476,7 +2475,7 @@ impl DeviceFn {
     ) -> crate::Result<()> {
         unsafe {
             let result =
-                (self.copy_acceleration_structure_to_memory_khr)(device, deferred_operation, info);
+                (self.copy_acceleration_structure_to_memory)(device, deferred_operation, info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -2487,7 +2486,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyMemoryToAccelerationStructureKHR.html>
     #[inline]
-    pub unsafe fn copy_memory_to_acceleration_structure_khr(
+    pub unsafe fn copy_memory_to_acceleration_structure(
         &self,
         device: Device,
         deferred_operation: DeferredOperationKHR,
@@ -2495,7 +2494,7 @@ impl DeviceFn {
     ) -> crate::Result<()> {
         unsafe {
             let result =
-                (self.copy_memory_to_acceleration_structure_khr)(device, deferred_operation, info);
+                (self.copy_memory_to_acceleration_structure)(device, deferred_operation, info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -2506,7 +2505,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkWriteAccelerationStructuresPropertiesKHR.html>
     #[inline]
-    pub unsafe fn write_acceleration_structures_properties_khr(
+    pub unsafe fn write_acceleration_structures_properties(
         &self,
         device: Device,
         acceleration_structures: &[AccelerationStructureKHR],
@@ -2515,7 +2514,7 @@ impl DeviceFn {
         stride: usize,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.write_acceleration_structures_properties_khr)(
+            let result = (self.write_acceleration_structures_properties)(
                 device,
                 acceleration_structures.len().try_into().unwrap(),
                 acceleration_structures.as_ptr() as _,
@@ -2534,47 +2533,47 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyAccelerationStructureKHR.html>
     #[inline]
-    pub unsafe fn cmd_copy_acceleration_structure_khr(
+    pub unsafe fn cmd_copy_acceleration_structure(
         &self,
         command_buffer: CommandBuffer,
         info: &CopyAccelerationStructureInfoKHR<'_>,
     ) {
-        unsafe { (self.cmd_copy_acceleration_structure_khr)(command_buffer, info) }
+        unsafe { (self.cmd_copy_acceleration_structure)(command_buffer, info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyAccelerationStructureToMemoryKHR.html>
     #[inline]
-    pub unsafe fn cmd_copy_acceleration_structure_to_memory_khr(
+    pub unsafe fn cmd_copy_acceleration_structure_to_memory(
         &self,
         command_buffer: CommandBuffer,
         info: &CopyAccelerationStructureToMemoryInfoKHR<'_>,
     ) {
-        unsafe { (self.cmd_copy_acceleration_structure_to_memory_khr)(command_buffer, info) }
+        unsafe { (self.cmd_copy_acceleration_structure_to_memory)(command_buffer, info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryToAccelerationStructureKHR.html>
     #[inline]
-    pub unsafe fn cmd_copy_memory_to_acceleration_structure_khr(
+    pub unsafe fn cmd_copy_memory_to_acceleration_structure(
         &self,
         command_buffer: CommandBuffer,
         info: &CopyMemoryToAccelerationStructureInfoKHR<'_>,
     ) {
-        unsafe { (self.cmd_copy_memory_to_acceleration_structure_khr)(command_buffer, info) }
+        unsafe { (self.cmd_copy_memory_to_acceleration_structure)(command_buffer, info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetAccelerationStructureDeviceAddressKHR.html>
     #[inline]
-    pub unsafe fn get_acceleration_structure_device_address_khr(
+    pub unsafe fn get_acceleration_structure_device_address(
         &self,
         device: Device,
         info: &AccelerationStructureDeviceAddressInfoKHR<'_>,
     ) -> DeviceAddress {
-        unsafe { (self.get_acceleration_structure_device_address_khr)(device, info) }
+        unsafe { (self.get_acceleration_structure_device_address)(device, info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWriteAccelerationStructuresPropertiesKHR.html>
     #[inline]
-    pub unsafe fn cmd_write_acceleration_structures_properties_khr(
+    pub unsafe fn cmd_write_acceleration_structures_properties(
         &self,
         command_buffer: CommandBuffer,
         acceleration_structures: &[AccelerationStructureKHR],
@@ -2583,7 +2582,7 @@ impl DeviceFn {
         first_query: u32,
     ) {
         unsafe {
-            (self.cmd_write_acceleration_structures_properties_khr)(
+            (self.cmd_write_acceleration_structures_properties)(
                 command_buffer,
                 acceleration_structures.len().try_into().unwrap(),
                 acceleration_structures.as_ptr() as _,
@@ -2596,14 +2595,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceAccelerationStructureCompatibilityKHR.html>
     #[inline]
-    pub unsafe fn get_device_acceleration_structure_compatibility_khr(
+    pub unsafe fn get_device_acceleration_structure_compatibility(
         &self,
         device: Device,
         version_info: &AccelerationStructureVersionInfoKHR<'_>,
     ) -> AccelerationStructureCompatibilityKHR {
         unsafe {
             let mut compatibility = core::mem::MaybeUninit::uninit();
-            (self.get_device_acceleration_structure_compatibility_khr)(
+            (self.get_device_acceleration_structure_compatibility)(
                 device,
                 version_info,
                 compatibility.as_mut_ptr(),
@@ -2614,7 +2613,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetAccelerationStructureBuildSizesKHR.html>
     #[inline]
-    pub unsafe fn get_acceleration_structure_build_sizes_khr(
+    pub unsafe fn get_acceleration_structure_build_sizes(
         &self,
         device: Device,
         build_type: AccelerationStructureBuildTypeKHR,
@@ -2623,7 +2622,7 @@ impl DeviceFn {
         size_info: &mut AccelerationStructureBuildSizesInfoKHR<'_>,
     ) {
         unsafe {
-            (self.get_acceleration_structure_build_sizes_khr)(
+            (self.get_acceleration_structure_build_sizes)(
                 device,
                 build_type,
                 build_info,

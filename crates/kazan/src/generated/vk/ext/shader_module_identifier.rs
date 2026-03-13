@@ -289,8 +289,8 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_shader_module_identifier_ext: PFN_vkGetShaderModuleIdentifierEXT,
-    get_shader_module_create_info_identifier_ext: PFN_vkGetShaderModuleCreateInfoIdentifierEXT,
+    get_shader_module_identifier: PFN_vkGetShaderModuleIdentifierEXT,
+    get_shader_module_create_info_identifier: PFN_vkGetShaderModuleCreateInfoIdentifierEXT,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -299,10 +299,10 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_shader_module_identifier_ext: transmute(
+                get_shader_module_identifier: transmute(
                     load(c"vkGetShaderModuleIdentifierEXT").ok_or(MissingEntryPointError)?,
                 ),
-                get_shader_module_create_info_identifier_ext: transmute(
+                get_shader_module_create_info_identifier: transmute(
                     load(c"vkGetShaderModuleCreateInfoIdentifierEXT")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -314,25 +314,23 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetShaderModuleIdentifierEXT.html>
     #[inline]
-    pub unsafe fn get_shader_module_identifier_ext(
+    pub unsafe fn get_shader_module_identifier(
         &self,
         device: Device,
         shader_module: ShaderModule,
         identifier: &mut ShaderModuleIdentifierEXT<'_>,
     ) {
-        unsafe { (self.get_shader_module_identifier_ext)(device, shader_module, identifier) }
+        unsafe { (self.get_shader_module_identifier)(device, shader_module, identifier) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetShaderModuleCreateInfoIdentifierEXT.html>
     #[inline]
-    pub unsafe fn get_shader_module_create_info_identifier_ext(
+    pub unsafe fn get_shader_module_create_info_identifier(
         &self,
         device: Device,
         create_info: &ShaderModuleCreateInfo<'_>,
         identifier: &mut ShaderModuleIdentifierEXT<'_>,
     ) {
-        unsafe {
-            (self.get_shader_module_create_info_identifier_ext)(device, create_info, identifier)
-        }
+        unsafe { (self.get_shader_module_create_info_identifier)(device, create_info, identifier) }
     }
 }

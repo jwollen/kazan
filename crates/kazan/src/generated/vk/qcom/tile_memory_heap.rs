@@ -330,7 +330,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_bind_tile_memory_qcom: PFN_vkCmdBindTileMemoryQCOM,
+    cmd_bind_tile_memory: PFN_vkCmdBindTileMemoryQCOM,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -339,7 +339,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_bind_tile_memory_qcom: transmute(
+                cmd_bind_tile_memory: transmute(
                     load(c"vkCmdBindTileMemoryQCOM").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -350,13 +350,11 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindTileMemoryQCOM.html>
     #[inline]
-    pub unsafe fn cmd_bind_tile_memory_qcom(
+    pub unsafe fn cmd_bind_tile_memory(
         &self,
         command_buffer: CommandBuffer,
         tile_memory_bind_info: Option<&TileMemoryBindInfoQCOM<'_>>,
     ) {
-        unsafe {
-            (self.cmd_bind_tile_memory_qcom)(command_buffer, tile_memory_bind_info.to_raw_ptr())
-        }
+        unsafe { (self.cmd_bind_tile_memory)(command_buffer, tile_memory_bind_info.to_raw_ptr()) }
     }
 }

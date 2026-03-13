@@ -480,6 +480,13 @@ pub fn normalize_setter_param_name(name: &str) -> String {
         .to_string()
 }
 
-pub fn normalize_command_name(name: &str) -> String {
-    name.strip_prefix("vk").unwrap().to_snake_case()
+pub fn normalize_command_name(name: &str, registry: &xml::Registry) -> String {
+    let without_prefix = name.strip_prefix("vk").unwrap();
+    let snake = without_prefix.to_snake_case();
+    if let Some(tag) = registry.vendor_suffix(without_prefix) {
+        let suffix = format!("_{}", tag.to_lowercase());
+        snake.strip_suffix(&suffix).unwrap_or(&snake).to_string()
+    } else {
+        snake
+    }
 }

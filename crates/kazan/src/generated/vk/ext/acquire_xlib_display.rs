@@ -31,8 +31,8 @@ pub(super) mod defs {
 }
 
 pub struct InstanceFn {
-    acquire_xlib_display_ext: PFN_vkAcquireXlibDisplayEXT,
-    get_rand_r_output_display_ext: PFN_vkGetRandROutputDisplayEXT,
+    acquire_xlib_display: PFN_vkAcquireXlibDisplayEXT,
+    get_rand_r_output_display: PFN_vkGetRandROutputDisplayEXT,
 }
 
 impl LoadInstanceFn for InstanceFn {
@@ -41,10 +41,10 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                acquire_xlib_display_ext: transmute(
+                acquire_xlib_display: transmute(
                     load(c"vkAcquireXlibDisplayEXT").ok_or(MissingEntryPointError)?,
                 ),
-                get_rand_r_output_display_ext: transmute(
+                get_rand_r_output_display: transmute(
                     load(c"vkGetRandROutputDisplayEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -55,14 +55,14 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireXlibDisplayEXT.html>
     #[inline]
-    pub unsafe fn acquire_xlib_display_ext(
+    pub unsafe fn acquire_xlib_display(
         &self,
         physical_device: PhysicalDevice,
         dpy: *mut Display,
         display: DisplayKHR,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.acquire_xlib_display_ext)(physical_device, dpy, display);
+            let result = (self.acquire_xlib_display)(physical_device, dpy, display);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -73,7 +73,7 @@ impl InstanceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRandROutputDisplayEXT.html>
     #[inline]
-    pub unsafe fn get_rand_r_output_display_ext(
+    pub unsafe fn get_rand_r_output_display(
         &self,
         physical_device: PhysicalDevice,
         dpy: *mut Display,
@@ -81,7 +81,7 @@ impl InstanceFn {
     ) -> crate::Result<DisplayKHR> {
         unsafe {
             let mut display = core::mem::MaybeUninit::uninit();
-            let result = (self.get_rand_r_output_display_ext)(
+            let result = (self.get_rand_r_output_display)(
                 physical_device,
                 dpy,
                 rr_output,

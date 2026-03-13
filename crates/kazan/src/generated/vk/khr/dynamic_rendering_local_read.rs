@@ -39,8 +39,8 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_set_rendering_attachment_locations_khr: PFN_vkCmdSetRenderingAttachmentLocations,
-    cmd_set_rendering_input_attachment_indices_khr: PFN_vkCmdSetRenderingInputAttachmentIndices,
+    cmd_set_rendering_attachment_locations: PFN_vkCmdSetRenderingAttachmentLocations,
+    cmd_set_rendering_input_attachment_indices: PFN_vkCmdSetRenderingInputAttachmentIndices,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -49,11 +49,11 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_set_rendering_attachment_locations_khr: transmute(
+                cmd_set_rendering_attachment_locations: transmute(
                     load(c"vkCmdSetRenderingAttachmentLocationsKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_rendering_input_attachment_indices_khr: transmute(
+                cmd_set_rendering_input_attachment_indices: transmute(
                     load(c"vkCmdSetRenderingInputAttachmentIndicesKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -65,23 +65,23 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetRenderingAttachmentLocationsKHR.html>
     #[inline]
-    pub unsafe fn cmd_set_rendering_attachment_locations_khr(
+    pub unsafe fn cmd_set_rendering_attachment_locations(
         &self,
         command_buffer: CommandBuffer,
         location_info: &RenderingAttachmentLocationInfo<'_>,
     ) {
-        unsafe { (self.cmd_set_rendering_attachment_locations_khr)(command_buffer, location_info) }
+        unsafe { (self.cmd_set_rendering_attachment_locations)(command_buffer, location_info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetRenderingInputAttachmentIndicesKHR.html>
     #[inline]
-    pub unsafe fn cmd_set_rendering_input_attachment_indices_khr(
+    pub unsafe fn cmd_set_rendering_input_attachment_indices(
         &self,
         command_buffer: CommandBuffer,
         input_attachment_index_info: &RenderingInputAttachmentIndexInfo<'_>,
     ) {
         unsafe {
-            (self.cmd_set_rendering_input_attachment_indices_khr)(
+            (self.cmd_set_rendering_input_attachment_indices)(
                 command_buffer,
                 input_attachment_index_info,
             )

@@ -276,7 +276,7 @@ fn write_fn_struct(
     writeln!(file, "pub struct {fn_type_name} {{")?;
     for command_group in command_groups {
         for command in &command_group.commands {
-            let name = normalize_command_name(command.required_name);
+            let name = normalize_command_name(command.required_name, analysis.registry());
             let ty = format!("PFN_{}", normalize_ty_name(command.command.name));
             let ty = if command.conditionally_required {
                 format!("Option<{ty}>")
@@ -308,7 +308,7 @@ fn write_fn_struct(
     writeln!(file, "unsafe {{ Ok(Self {{")?;
     for command_group in command_groups {
         for command in &command_group.commands {
-            let name = normalize_command_name(command.required_name);
+            let name = normalize_command_name(command.required_name, analysis.registry());
             if command.conditionally_required {
                 writeln!(
                     file,
@@ -619,7 +619,7 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
         });
     }
 
-    let name = normalize_command_name(info.required_name);
+    let name = normalize_command_name(info.required_name, analysis.registry());
     let wrapper_return = build_wrapper_return(
         analysis,
         command,

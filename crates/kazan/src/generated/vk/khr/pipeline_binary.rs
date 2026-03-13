@@ -813,11 +813,11 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    create_pipeline_binaries_khr: PFN_vkCreatePipelineBinariesKHR,
-    destroy_pipeline_binary_khr: PFN_vkDestroyPipelineBinaryKHR,
-    get_pipeline_key_khr: PFN_vkGetPipelineKeyKHR,
-    get_pipeline_binary_data_khr: PFN_vkGetPipelineBinaryDataKHR,
-    release_captured_pipeline_data_khr: PFN_vkReleaseCapturedPipelineDataKHR,
+    create_pipeline_binaries: PFN_vkCreatePipelineBinariesKHR,
+    destroy_pipeline_binary: PFN_vkDestroyPipelineBinaryKHR,
+    get_pipeline_key: PFN_vkGetPipelineKeyKHR,
+    get_pipeline_binary_data: PFN_vkGetPipelineBinaryDataKHR,
+    release_captured_pipeline_data: PFN_vkReleaseCapturedPipelineDataKHR,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -826,19 +826,19 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_pipeline_binaries_khr: transmute(
+                create_pipeline_binaries: transmute(
                     load(c"vkCreatePipelineBinariesKHR").ok_or(MissingEntryPointError)?,
                 ),
-                destroy_pipeline_binary_khr: transmute(
+                destroy_pipeline_binary: transmute(
                     load(c"vkDestroyPipelineBinaryKHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_pipeline_key_khr: transmute(
+                get_pipeline_key: transmute(
                     load(c"vkGetPipelineKeyKHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_pipeline_binary_data_khr: transmute(
+                get_pipeline_binary_data: transmute(
                     load(c"vkGetPipelineBinaryDataKHR").ok_or(MissingEntryPointError)?,
                 ),
-                release_captured_pipeline_data_khr: transmute(
+                release_captured_pipeline_data: transmute(
                     load(c"vkReleaseCapturedPipelineDataKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -849,7 +849,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreatePipelineBinariesKHR.html>
     #[inline]
-    pub unsafe fn create_pipeline_binaries_khr(
+    pub unsafe fn create_pipeline_binaries(
         &self,
         device: Device,
         create_info: &PipelineBinaryCreateInfoKHR<'_>,
@@ -857,7 +857,7 @@ impl DeviceFn {
         binaries: &mut PipelineBinaryHandlesInfoKHR<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.create_pipeline_binaries_khr)(
+            let result = (self.create_pipeline_binaries)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -873,31 +873,26 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyPipelineBinaryKHR.html>
     #[inline]
-    pub unsafe fn destroy_pipeline_binary_khr(
+    pub unsafe fn destroy_pipeline_binary(
         &self,
         device: Device,
         pipeline_binary: PipelineBinaryKHR,
         allocator: Option<&AllocationCallbacks<'_>>,
     ) {
-        unsafe {
-            (self.destroy_pipeline_binary_khr)(device, pipeline_binary, allocator.to_raw_ptr())
-        }
+        unsafe { (self.destroy_pipeline_binary)(device, pipeline_binary, allocator.to_raw_ptr()) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineKeyKHR.html>
     #[inline]
-    pub unsafe fn get_pipeline_key_khr(
+    pub unsafe fn get_pipeline_key(
         &self,
         device: Device,
         pipeline_create_info: Option<&PipelineCreateInfoKHR<'_>>,
         pipeline_key: &mut PipelineBinaryKeyKHR<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_pipeline_key_khr)(
-                device,
-                pipeline_create_info.to_raw_ptr(),
-                pipeline_key,
-            );
+            let result =
+                (self.get_pipeline_key)(device, pipeline_create_info.to_raw_ptr(), pipeline_key);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -908,7 +903,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineBinaryDataKHR.html>
     #[inline]
-    pub unsafe fn get_pipeline_binary_data_khr<'a>(
+    pub unsafe fn get_pipeline_binary_data<'a>(
         &self,
         device: Device,
         info: &PipelineBinaryDataInfoKHR<'a>,
@@ -919,7 +914,7 @@ impl DeviceFn {
             let call = |pipeline_binary_data_size,
                         pipeline_binary_data,
                         pipeline_binary_key: &mut PipelineBinaryKeyKHR<'a>| {
-                let result = (self.get_pipeline_binary_data_khr)(
+                let result = (self.get_pipeline_binary_data)(
                     device,
                     info,
                     pipeline_binary_key,
@@ -949,7 +944,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkReleaseCapturedPipelineDataKHR.html>
     #[inline]
-    pub unsafe fn release_captured_pipeline_data_khr(
+    pub unsafe fn release_captured_pipeline_data(
         &self,
         device: Device,
         info: &ReleaseCapturedPipelineDataInfoKHR<'_>,
@@ -957,7 +952,7 @@ impl DeviceFn {
     ) -> crate::Result<()> {
         unsafe {
             let result =
-                (self.release_captured_pipeline_data_khr)(device, info, allocator.to_raw_ptr());
+                (self.release_captured_pipeline_data)(device, info, allocator.to_raw_ptr());
 
             match result {
                 VkResult::SUCCESS => Ok(()),

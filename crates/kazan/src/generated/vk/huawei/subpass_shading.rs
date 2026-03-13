@@ -230,9 +230,9 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_device_subpass_shading_max_workgroup_size_huawei:
+    get_device_subpass_shading_max_workgroup_size:
         PFN_vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI,
-    cmd_subpass_shading_huawei: PFN_vkCmdSubpassShadingHUAWEI,
+    cmd_subpass_shading: PFN_vkCmdSubpassShadingHUAWEI,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -241,11 +241,11 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_device_subpass_shading_max_workgroup_size_huawei: transmute(
+                get_device_subpass_shading_max_workgroup_size: transmute(
                     load(c"vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                cmd_subpass_shading_huawei: transmute(
+                cmd_subpass_shading: transmute(
                     load(c"vkCmdSubpassShadingHUAWEI").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -256,14 +256,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI.html>
     #[inline]
-    pub unsafe fn get_device_subpass_shading_max_workgroup_size_huawei(
+    pub unsafe fn get_device_subpass_shading_max_workgroup_size(
         &self,
         device: Device,
         renderpass: RenderPass,
         max_workgroup_size: &mut Extent2D,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_device_subpass_shading_max_workgroup_size_huawei)(
+            let result = (self.get_device_subpass_shading_max_workgroup_size)(
                 device,
                 renderpass,
                 max_workgroup_size,
@@ -278,7 +278,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSubpassShadingHUAWEI.html>
     #[inline]
-    pub unsafe fn cmd_subpass_shading_huawei(&self, command_buffer: CommandBuffer) {
-        unsafe { (self.cmd_subpass_shading_huawei)(command_buffer) }
+    pub unsafe fn cmd_subpass_shading(&self, command_buffer: CommandBuffer) {
+        unsafe { (self.cmd_subpass_shading)(command_buffer) }
     }
 }

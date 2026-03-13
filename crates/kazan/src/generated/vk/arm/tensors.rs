@@ -2159,7 +2159,7 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    get_physical_device_external_tensor_properties_arm:
+    get_physical_device_external_tensor_properties:
         PFN_vkGetPhysicalDeviceExternalTensorPropertiesARM,
 }
 
@@ -2169,7 +2169,7 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_physical_device_external_tensor_properties_arm: transmute(
+                get_physical_device_external_tensor_properties: transmute(
                     load(c"vkGetPhysicalDeviceExternalTensorPropertiesARM")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -2181,14 +2181,14 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceExternalTensorPropertiesARM.html>
     #[inline]
-    pub unsafe fn get_physical_device_external_tensor_properties_arm(
+    pub unsafe fn get_physical_device_external_tensor_properties(
         &self,
         physical_device: PhysicalDevice,
         external_tensor_info: &PhysicalDeviceExternalTensorInfoARM<'_>,
         external_tensor_properties: &mut ExternalTensorPropertiesARM<'_>,
     ) {
         unsafe {
-            (self.get_physical_device_external_tensor_properties_arm)(
+            (self.get_physical_device_external_tensor_properties)(
                 physical_device,
                 external_tensor_info,
                 external_tensor_properties,
@@ -2198,17 +2198,17 @@ impl InstanceFn {
 }
 
 pub struct DeviceFn {
-    create_tensor_arm: PFN_vkCreateTensorARM,
-    destroy_tensor_arm: PFN_vkDestroyTensorARM,
-    create_tensor_view_arm: PFN_vkCreateTensorViewARM,
-    destroy_tensor_view_arm: PFN_vkDestroyTensorViewARM,
-    get_tensor_memory_requirements_arm: PFN_vkGetTensorMemoryRequirementsARM,
-    bind_tensor_memory_arm: PFN_vkBindTensorMemoryARM,
-    get_device_tensor_memory_requirements_arm: PFN_vkGetDeviceTensorMemoryRequirementsARM,
-    cmd_copy_tensor_arm: PFN_vkCmdCopyTensorARM,
-    get_tensor_opaque_capture_descriptor_data_arm:
+    create_tensor: PFN_vkCreateTensorARM,
+    destroy_tensor: PFN_vkDestroyTensorARM,
+    create_tensor_view: PFN_vkCreateTensorViewARM,
+    destroy_tensor_view: PFN_vkDestroyTensorViewARM,
+    get_tensor_memory_requirements: PFN_vkGetTensorMemoryRequirementsARM,
+    bind_tensor_memory: PFN_vkBindTensorMemoryARM,
+    get_device_tensor_memory_requirements: PFN_vkGetDeviceTensorMemoryRequirementsARM,
+    cmd_copy_tensor: PFN_vkCmdCopyTensorARM,
+    get_tensor_opaque_capture_descriptor_data:
         Option<PFN_vkGetTensorOpaqueCaptureDescriptorDataARM>,
-    get_tensor_view_opaque_capture_descriptor_data_arm:
+    get_tensor_view_opaque_capture_descriptor_data:
         Option<PFN_vkGetTensorViewOpaqueCaptureDescriptorDataARM>,
 }
 
@@ -2218,35 +2218,33 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_tensor_arm: transmute(
-                    load(c"vkCreateTensorARM").ok_or(MissingEntryPointError)?,
-                ),
-                destroy_tensor_arm: transmute(
+                create_tensor: transmute(load(c"vkCreateTensorARM").ok_or(MissingEntryPointError)?),
+                destroy_tensor: transmute(
                     load(c"vkDestroyTensorARM").ok_or(MissingEntryPointError)?,
                 ),
-                create_tensor_view_arm: transmute(
+                create_tensor_view: transmute(
                     load(c"vkCreateTensorViewARM").ok_or(MissingEntryPointError)?,
                 ),
-                destroy_tensor_view_arm: transmute(
+                destroy_tensor_view: transmute(
                     load(c"vkDestroyTensorViewARM").ok_or(MissingEntryPointError)?,
                 ),
-                get_tensor_memory_requirements_arm: transmute(
+                get_tensor_memory_requirements: transmute(
                     load(c"vkGetTensorMemoryRequirementsARM").ok_or(MissingEntryPointError)?,
                 ),
-                bind_tensor_memory_arm: transmute(
+                bind_tensor_memory: transmute(
                     load(c"vkBindTensorMemoryARM").ok_or(MissingEntryPointError)?,
                 ),
-                get_device_tensor_memory_requirements_arm: transmute(
+                get_device_tensor_memory_requirements: transmute(
                     load(c"vkGetDeviceTensorMemoryRequirementsARM")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                cmd_copy_tensor_arm: transmute(
+                cmd_copy_tensor: transmute(
                     load(c"vkCmdCopyTensorARM").ok_or(MissingEntryPointError)?,
                 ),
-                get_tensor_opaque_capture_descriptor_data_arm: transmute(load(
+                get_tensor_opaque_capture_descriptor_data: transmute(load(
                     c"vkGetTensorOpaqueCaptureDescriptorDataARM",
                 )),
-                get_tensor_view_opaque_capture_descriptor_data_arm: transmute(load(
+                get_tensor_view_opaque_capture_descriptor_data: transmute(load(
                     c"vkGetTensorViewOpaqueCaptureDescriptorDataARM",
                 )),
             })
@@ -2257,7 +2255,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateTensorARM.html>
     #[inline]
-    pub unsafe fn create_tensor_arm(
+    pub unsafe fn create_tensor(
         &self,
         device: Device,
         create_info: &TensorCreateInfoARM<'_>,
@@ -2265,7 +2263,7 @@ impl DeviceFn {
     ) -> crate::Result<TensorARM> {
         unsafe {
             let mut tensor = core::mem::MaybeUninit::uninit();
-            let result = (self.create_tensor_arm)(
+            let result = (self.create_tensor)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -2281,18 +2279,18 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyTensorARM.html>
     #[inline]
-    pub unsafe fn destroy_tensor_arm(
+    pub unsafe fn destroy_tensor(
         &self,
         device: Device,
         tensor: TensorARM,
         allocator: Option<&AllocationCallbacks<'_>>,
     ) {
-        unsafe { (self.destroy_tensor_arm)(device, tensor, allocator.to_raw_ptr()) }
+        unsafe { (self.destroy_tensor)(device, tensor, allocator.to_raw_ptr()) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateTensorViewARM.html>
     #[inline]
-    pub unsafe fn create_tensor_view_arm(
+    pub unsafe fn create_tensor_view(
         &self,
         device: Device,
         create_info: &TensorViewCreateInfoARM<'_>,
@@ -2300,7 +2298,7 @@ impl DeviceFn {
     ) -> crate::Result<TensorViewARM> {
         unsafe {
             let mut view = core::mem::MaybeUninit::uninit();
-            let result = (self.create_tensor_view_arm)(
+            let result = (self.create_tensor_view)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -2316,35 +2314,35 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyTensorViewARM.html>
     #[inline]
-    pub unsafe fn destroy_tensor_view_arm(
+    pub unsafe fn destroy_tensor_view(
         &self,
         device: Device,
         tensor_view: TensorViewARM,
         allocator: Option<&AllocationCallbacks<'_>>,
     ) {
-        unsafe { (self.destroy_tensor_view_arm)(device, tensor_view, allocator.to_raw_ptr()) }
+        unsafe { (self.destroy_tensor_view)(device, tensor_view, allocator.to_raw_ptr()) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetTensorMemoryRequirementsARM.html>
     #[inline]
-    pub unsafe fn get_tensor_memory_requirements_arm(
+    pub unsafe fn get_tensor_memory_requirements(
         &self,
         device: Device,
         info: &TensorMemoryRequirementsInfoARM<'_>,
         memory_requirements: &mut MemoryRequirements2<'_>,
     ) {
-        unsafe { (self.get_tensor_memory_requirements_arm)(device, info, memory_requirements) }
+        unsafe { (self.get_tensor_memory_requirements)(device, info, memory_requirements) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindTensorMemoryARM.html>
     #[inline]
-    pub unsafe fn bind_tensor_memory_arm(
+    pub unsafe fn bind_tensor_memory(
         &self,
         device: Device,
         bind_infos: &[BindTensorMemoryInfoARM<'_>],
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.bind_tensor_memory_arm)(
+            let result = (self.bind_tensor_memory)(
                 device,
                 bind_infos.len().try_into().unwrap(),
                 bind_infos.as_ptr() as _,
@@ -2359,30 +2357,28 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceTensorMemoryRequirementsARM.html>
     #[inline]
-    pub unsafe fn get_device_tensor_memory_requirements_arm(
+    pub unsafe fn get_device_tensor_memory_requirements(
         &self,
         device: Device,
         info: &DeviceTensorMemoryRequirementsARM<'_>,
         memory_requirements: &mut MemoryRequirements2<'_>,
     ) {
-        unsafe {
-            (self.get_device_tensor_memory_requirements_arm)(device, info, memory_requirements)
-        }
+        unsafe { (self.get_device_tensor_memory_requirements)(device, info, memory_requirements) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyTensorARM.html>
     #[inline]
-    pub unsafe fn cmd_copy_tensor_arm(
+    pub unsafe fn cmd_copy_tensor(
         &self,
         command_buffer: CommandBuffer,
         copy_tensor_info: &CopyTensorInfoARM<'_>,
     ) {
-        unsafe { (self.cmd_copy_tensor_arm)(command_buffer, copy_tensor_info) }
+        unsafe { (self.cmd_copy_tensor)(command_buffer, copy_tensor_info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetTensorOpaqueCaptureDescriptorDataARM.html>
     #[inline]
-    pub unsafe fn get_tensor_opaque_capture_descriptor_data_arm(
+    pub unsafe fn get_tensor_opaque_capture_descriptor_data(
         &self,
         device: Device,
         info: &TensorCaptureDescriptorDataInfoARM<'_>,
@@ -2390,7 +2386,7 @@ impl DeviceFn {
     ) -> crate::Result<()> {
         unsafe {
             let result =
-                (self.get_tensor_opaque_capture_descriptor_data_arm.unwrap())(device, info, data);
+                (self.get_tensor_opaque_capture_descriptor_data.unwrap())(device, info, data);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -2401,16 +2397,15 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetTensorViewOpaqueCaptureDescriptorDataARM.html>
     #[inline]
-    pub unsafe fn get_tensor_view_opaque_capture_descriptor_data_arm(
+    pub unsafe fn get_tensor_view_opaque_capture_descriptor_data(
         &self,
         device: Device,
         info: &TensorViewCaptureDescriptorDataInfoARM<'_>,
         data: *mut c_void,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self
-                .get_tensor_view_opaque_capture_descriptor_data_arm
-                .unwrap())(device, info, data);
+            let result =
+                (self.get_tensor_view_opaque_capture_descriptor_data.unwrap())(device, info, data);
 
             match result {
                 VkResult::SUCCESS => Ok(()),

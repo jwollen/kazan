@@ -464,7 +464,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_end_rendering2_khr: PFN_vkCmdEndRendering2KHR,
+    cmd_end_rendering2: PFN_vkCmdEndRendering2KHR,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -473,7 +473,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_end_rendering2_khr: transmute(
+                cmd_end_rendering2: transmute(
                     load(c"vkCmdEndRendering2KHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -484,11 +484,11 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndRendering2KHR.html>
     #[inline]
-    pub unsafe fn cmd_end_rendering2_khr(
+    pub unsafe fn cmd_end_rendering2(
         &self,
         command_buffer: CommandBuffer,
         rendering_end_info: Option<&RenderingEndInfoKHR<'_>>,
     ) {
-        unsafe { (self.cmd_end_rendering2_khr)(command_buffer, rendering_end_info.to_raw_ptr()) }
+        unsafe { (self.cmd_end_rendering2)(command_buffer, rendering_end_info.to_raw_ptr()) }
     }
 }

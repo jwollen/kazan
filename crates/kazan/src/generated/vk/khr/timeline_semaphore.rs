@@ -56,9 +56,9 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_semaphore_counter_value_khr: PFN_vkGetSemaphoreCounterValue,
-    wait_semaphores_khr: PFN_vkWaitSemaphores,
-    signal_semaphore_khr: PFN_vkSignalSemaphore,
+    get_semaphore_counter_value: PFN_vkGetSemaphoreCounterValue,
+    wait_semaphores: PFN_vkWaitSemaphores,
+    signal_semaphore: PFN_vkSignalSemaphore,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -67,13 +67,13 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_semaphore_counter_value_khr: transmute(
+                get_semaphore_counter_value: transmute(
                     load(c"vkGetSemaphoreCounterValueKHR").ok_or(MissingEntryPointError)?,
                 ),
-                wait_semaphores_khr: transmute(
+                wait_semaphores: transmute(
                     load(c"vkWaitSemaphoresKHR").ok_or(MissingEntryPointError)?,
                 ),
-                signal_semaphore_khr: transmute(
+                signal_semaphore: transmute(
                     load(c"vkSignalSemaphoreKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -84,15 +84,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSemaphoreCounterValueKHR.html>
     #[inline]
-    pub unsafe fn get_semaphore_counter_value_khr(
+    pub unsafe fn get_semaphore_counter_value(
         &self,
         device: Device,
         semaphore: Semaphore,
     ) -> crate::Result<u64> {
         unsafe {
             let mut value = core::mem::MaybeUninit::uninit();
-            let result =
-                (self.get_semaphore_counter_value_khr)(device, semaphore, value.as_mut_ptr());
+            let result = (self.get_semaphore_counter_value)(device, semaphore, value.as_mut_ptr());
 
             match result {
                 VkResult::SUCCESS => Ok(value.assume_init()),
@@ -103,14 +102,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkWaitSemaphoresKHR.html>
     #[inline]
-    pub unsafe fn wait_semaphores_khr(
+    pub unsafe fn wait_semaphores(
         &self,
         device: Device,
         wait_info: &SemaphoreWaitInfo<'_>,
         timeout: u64,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.wait_semaphores_khr)(device, wait_info, timeout);
+            let result = (self.wait_semaphores)(device, wait_info, timeout);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -121,13 +120,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSignalSemaphoreKHR.html>
     #[inline]
-    pub unsafe fn signal_semaphore_khr(
+    pub unsafe fn signal_semaphore(
         &self,
         device: Device,
         signal_info: &SemaphoreSignalInfo<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.signal_semaphore_khr)(device, signal_info);
+            let result = (self.signal_semaphore)(device, signal_info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),

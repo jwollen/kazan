@@ -217,8 +217,8 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_memory_zircon_handle_fuchsia: PFN_vkGetMemoryZirconHandleFUCHSIA,
-    get_memory_zircon_handle_properties_fuchsia: PFN_vkGetMemoryZirconHandlePropertiesFUCHSIA,
+    get_memory_zircon_handle: PFN_vkGetMemoryZirconHandleFUCHSIA,
+    get_memory_zircon_handle_properties: PFN_vkGetMemoryZirconHandlePropertiesFUCHSIA,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -227,10 +227,10 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_memory_zircon_handle_fuchsia: transmute(
+                get_memory_zircon_handle: transmute(
                     load(c"vkGetMemoryZirconHandleFUCHSIA").ok_or(MissingEntryPointError)?,
                 ),
-                get_memory_zircon_handle_properties_fuchsia: transmute(
+                get_memory_zircon_handle_properties: transmute(
                     load(c"vkGetMemoryZirconHandlePropertiesFUCHSIA")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -242,14 +242,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryZirconHandleFUCHSIA.html>
     #[inline]
-    pub unsafe fn get_memory_zircon_handle_fuchsia(
+    pub unsafe fn get_memory_zircon_handle(
         &self,
         device: Device,
         get_zircon_handle_info: &MemoryGetZirconHandleInfoFUCHSIA<'_>,
     ) -> crate::Result<zx_handle_t> {
         unsafe {
             let mut zircon_handle = core::mem::MaybeUninit::uninit();
-            let result = (self.get_memory_zircon_handle_fuchsia)(
+            let result = (self.get_memory_zircon_handle)(
                 device,
                 get_zircon_handle_info,
                 zircon_handle.as_mut_ptr(),
@@ -264,7 +264,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryZirconHandlePropertiesFUCHSIA.html>
     #[inline]
-    pub unsafe fn get_memory_zircon_handle_properties_fuchsia(
+    pub unsafe fn get_memory_zircon_handle_properties(
         &self,
         device: Device,
         handle_type: ExternalMemoryHandleTypeFlagBits,
@@ -272,7 +272,7 @@ impl DeviceFn {
         memory_zircon_handle_properties: &mut MemoryZirconHandlePropertiesFUCHSIA<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_memory_zircon_handle_properties_fuchsia)(
+            let result = (self.get_memory_zircon_handle_properties)(
                 device,
                 handle_type,
                 zircon_handle,

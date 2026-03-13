@@ -851,7 +851,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    export_metal_objects_ext: PFN_vkExportMetalObjectsEXT,
+    export_metal_objects: PFN_vkExportMetalObjectsEXT,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -860,7 +860,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                export_metal_objects_ext: transmute(
+                export_metal_objects: transmute(
                     load(c"vkExportMetalObjectsEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -871,11 +871,11 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkExportMetalObjectsEXT.html>
     #[inline]
-    pub unsafe fn export_metal_objects_ext(
+    pub unsafe fn export_metal_objects(
         &self,
         device: Device,
         metal_objects_info: &mut ExportMetalObjectsInfoEXT<'_>,
     ) {
-        unsafe { (self.export_metal_objects_ext)(device, metal_objects_info) }
+        unsafe { (self.export_metal_objects)(device, metal_objects_info) }
     }
 }

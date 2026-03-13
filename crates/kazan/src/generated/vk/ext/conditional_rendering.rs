@@ -289,8 +289,8 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_begin_conditional_rendering_ext: PFN_vkCmdBeginConditionalRenderingEXT,
-    cmd_end_conditional_rendering_ext: PFN_vkCmdEndConditionalRenderingEXT,
+    cmd_begin_conditional_rendering: PFN_vkCmdBeginConditionalRenderingEXT,
+    cmd_end_conditional_rendering: PFN_vkCmdEndConditionalRenderingEXT,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -299,10 +299,10 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_begin_conditional_rendering_ext: transmute(
+                cmd_begin_conditional_rendering: transmute(
                     load(c"vkCmdBeginConditionalRenderingEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_end_conditional_rendering_ext: transmute(
+                cmd_end_conditional_rendering: transmute(
                     load(c"vkCmdEndConditionalRenderingEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -313,19 +313,19 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginConditionalRenderingEXT.html>
     #[inline]
-    pub unsafe fn cmd_begin_conditional_rendering_ext(
+    pub unsafe fn cmd_begin_conditional_rendering(
         &self,
         command_buffer: CommandBuffer,
         conditional_rendering_begin: &ConditionalRenderingBeginInfoEXT<'_>,
     ) {
         unsafe {
-            (self.cmd_begin_conditional_rendering_ext)(command_buffer, conditional_rendering_begin)
+            (self.cmd_begin_conditional_rendering)(command_buffer, conditional_rendering_begin)
         }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndConditionalRenderingEXT.html>
     #[inline]
-    pub unsafe fn cmd_end_conditional_rendering_ext(&self, command_buffer: CommandBuffer) {
-        unsafe { (self.cmd_end_conditional_rendering_ext)(command_buffer) }
+    pub unsafe fn cmd_end_conditional_rendering(&self, command_buffer: CommandBuffer) {
+        unsafe { (self.cmd_end_conditional_rendering)(command_buffer) }
     }
 }

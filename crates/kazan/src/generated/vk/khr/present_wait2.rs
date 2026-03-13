@@ -204,7 +204,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    wait_for_present2_khr: PFN_vkWaitForPresent2KHR,
+    wait_for_present2: PFN_vkWaitForPresent2KHR,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -213,7 +213,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                wait_for_present2_khr: transmute(
+                wait_for_present2: transmute(
                     load(c"vkWaitForPresent2KHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -224,14 +224,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkWaitForPresent2KHR.html>
     #[inline]
-    pub unsafe fn wait_for_present2_khr(
+    pub unsafe fn wait_for_present2(
         &self,
         device: Device,
         swapchain: SwapchainKHR,
         present_wait2_info: &PresentWait2InfoKHR<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.wait_for_present2_khr)(device, swapchain, present_wait2_info);
+            let result = (self.wait_for_present2)(device, swapchain, present_wait2_info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),

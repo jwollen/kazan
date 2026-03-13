@@ -295,8 +295,8 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_memory_win32_handle_khr: PFN_vkGetMemoryWin32HandleKHR,
-    get_memory_win32_handle_properties_khr: PFN_vkGetMemoryWin32HandlePropertiesKHR,
+    get_memory_win32_handle: PFN_vkGetMemoryWin32HandleKHR,
+    get_memory_win32_handle_properties: PFN_vkGetMemoryWin32HandlePropertiesKHR,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -305,10 +305,10 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_memory_win32_handle_khr: transmute(
+                get_memory_win32_handle: transmute(
                     load(c"vkGetMemoryWin32HandleKHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_memory_win32_handle_properties_khr: transmute(
+                get_memory_win32_handle_properties: transmute(
                     load(c"vkGetMemoryWin32HandlePropertiesKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -319,18 +319,15 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryWin32HandleKHR.html>
     #[inline]
-    pub unsafe fn get_memory_win32_handle_khr(
+    pub unsafe fn get_memory_win32_handle(
         &self,
         device: Device,
         get_win32_handle_info: &MemoryGetWin32HandleInfoKHR<'_>,
     ) -> crate::Result<HANDLE> {
         unsafe {
             let mut handle = core::mem::MaybeUninit::uninit();
-            let result = (self.get_memory_win32_handle_khr)(
-                device,
-                get_win32_handle_info,
-                handle.as_mut_ptr(),
-            );
+            let result =
+                (self.get_memory_win32_handle)(device, get_win32_handle_info, handle.as_mut_ptr());
 
             match result {
                 VkResult::SUCCESS => Ok(handle.assume_init()),
@@ -341,7 +338,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryWin32HandlePropertiesKHR.html>
     #[inline]
-    pub unsafe fn get_memory_win32_handle_properties_khr(
+    pub unsafe fn get_memory_win32_handle_properties(
         &self,
         device: Device,
         handle_type: ExternalMemoryHandleTypeFlagBits,
@@ -349,7 +346,7 @@ impl DeviceFn {
         memory_win32_handle_properties: &mut MemoryWin32HandlePropertiesKHR<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_memory_win32_handle_properties_khr)(
+            let result = (self.get_memory_win32_handle_properties)(
                 device,
                 handle_type,
                 handle,

@@ -1286,20 +1286,20 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    create_micromap_ext: PFN_vkCreateMicromapEXT,
-    destroy_micromap_ext: PFN_vkDestroyMicromapEXT,
-    cmd_build_micromaps_ext: PFN_vkCmdBuildMicromapsEXT,
-    build_micromaps_ext: PFN_vkBuildMicromapsEXT,
-    copy_micromap_ext: PFN_vkCopyMicromapEXT,
-    copy_micromap_to_memory_ext: PFN_vkCopyMicromapToMemoryEXT,
-    copy_memory_to_micromap_ext: PFN_vkCopyMemoryToMicromapEXT,
-    write_micromaps_properties_ext: PFN_vkWriteMicromapsPropertiesEXT,
-    cmd_copy_micromap_ext: PFN_vkCmdCopyMicromapEXT,
-    cmd_copy_micromap_to_memory_ext: PFN_vkCmdCopyMicromapToMemoryEXT,
-    cmd_copy_memory_to_micromap_ext: PFN_vkCmdCopyMemoryToMicromapEXT,
-    cmd_write_micromaps_properties_ext: PFN_vkCmdWriteMicromapsPropertiesEXT,
-    get_device_micromap_compatibility_ext: PFN_vkGetDeviceMicromapCompatibilityEXT,
-    get_micromap_build_sizes_ext: PFN_vkGetMicromapBuildSizesEXT,
+    create_micromap: PFN_vkCreateMicromapEXT,
+    destroy_micromap: PFN_vkDestroyMicromapEXT,
+    cmd_build_micromaps: PFN_vkCmdBuildMicromapsEXT,
+    build_micromaps: PFN_vkBuildMicromapsEXT,
+    copy_micromap: PFN_vkCopyMicromapEXT,
+    copy_micromap_to_memory: PFN_vkCopyMicromapToMemoryEXT,
+    copy_memory_to_micromap: PFN_vkCopyMemoryToMicromapEXT,
+    write_micromaps_properties: PFN_vkWriteMicromapsPropertiesEXT,
+    cmd_copy_micromap: PFN_vkCmdCopyMicromapEXT,
+    cmd_copy_micromap_to_memory: PFN_vkCmdCopyMicromapToMemoryEXT,
+    cmd_copy_memory_to_micromap: PFN_vkCmdCopyMemoryToMicromapEXT,
+    cmd_write_micromaps_properties: PFN_vkCmdWriteMicromapsPropertiesEXT,
+    get_device_micromap_compatibility: PFN_vkGetDeviceMicromapCompatibilityEXT,
+    get_micromap_build_sizes: PFN_vkGetMicromapBuildSizesEXT,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -1308,46 +1308,44 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_micromap_ext: transmute(
+                create_micromap: transmute(
                     load(c"vkCreateMicromapEXT").ok_or(MissingEntryPointError)?,
                 ),
-                destroy_micromap_ext: transmute(
+                destroy_micromap: transmute(
                     load(c"vkDestroyMicromapEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_build_micromaps_ext: transmute(
+                cmd_build_micromaps: transmute(
                     load(c"vkCmdBuildMicromapsEXT").ok_or(MissingEntryPointError)?,
                 ),
-                build_micromaps_ext: transmute(
+                build_micromaps: transmute(
                     load(c"vkBuildMicromapsEXT").ok_or(MissingEntryPointError)?,
                 ),
-                copy_micromap_ext: transmute(
-                    load(c"vkCopyMicromapEXT").ok_or(MissingEntryPointError)?,
-                ),
-                copy_micromap_to_memory_ext: transmute(
+                copy_micromap: transmute(load(c"vkCopyMicromapEXT").ok_or(MissingEntryPointError)?),
+                copy_micromap_to_memory: transmute(
                     load(c"vkCopyMicromapToMemoryEXT").ok_or(MissingEntryPointError)?,
                 ),
-                copy_memory_to_micromap_ext: transmute(
+                copy_memory_to_micromap: transmute(
                     load(c"vkCopyMemoryToMicromapEXT").ok_or(MissingEntryPointError)?,
                 ),
-                write_micromaps_properties_ext: transmute(
+                write_micromaps_properties: transmute(
                     load(c"vkWriteMicromapsPropertiesEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_copy_micromap_ext: transmute(
+                cmd_copy_micromap: transmute(
                     load(c"vkCmdCopyMicromapEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_copy_micromap_to_memory_ext: transmute(
+                cmd_copy_micromap_to_memory: transmute(
                     load(c"vkCmdCopyMicromapToMemoryEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_copy_memory_to_micromap_ext: transmute(
+                cmd_copy_memory_to_micromap: transmute(
                     load(c"vkCmdCopyMemoryToMicromapEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_write_micromaps_properties_ext: transmute(
+                cmd_write_micromaps_properties: transmute(
                     load(c"vkCmdWriteMicromapsPropertiesEXT").ok_or(MissingEntryPointError)?,
                 ),
-                get_device_micromap_compatibility_ext: transmute(
+                get_device_micromap_compatibility: transmute(
                     load(c"vkGetDeviceMicromapCompatibilityEXT").ok_or(MissingEntryPointError)?,
                 ),
-                get_micromap_build_sizes_ext: transmute(
+                get_micromap_build_sizes: transmute(
                     load(c"vkGetMicromapBuildSizesEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -1358,7 +1356,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateMicromapEXT.html>
     #[inline]
-    pub unsafe fn create_micromap_ext(
+    pub unsafe fn create_micromap(
         &self,
         device: Device,
         create_info: &MicromapCreateInfoEXT<'_>,
@@ -1366,7 +1364,7 @@ impl DeviceFn {
     ) -> crate::Result<MicromapEXT> {
         unsafe {
             let mut micromap = core::mem::MaybeUninit::uninit();
-            let result = (self.create_micromap_ext)(
+            let result = (self.create_micromap)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -1382,24 +1380,24 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyMicromapEXT.html>
     #[inline]
-    pub unsafe fn destroy_micromap_ext(
+    pub unsafe fn destroy_micromap(
         &self,
         device: Device,
         micromap: MicromapEXT,
         allocator: Option<&AllocationCallbacks<'_>>,
     ) {
-        unsafe { (self.destroy_micromap_ext)(device, micromap, allocator.to_raw_ptr()) }
+        unsafe { (self.destroy_micromap)(device, micromap, allocator.to_raw_ptr()) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBuildMicromapsEXT.html>
     #[inline]
-    pub unsafe fn cmd_build_micromaps_ext(
+    pub unsafe fn cmd_build_micromaps(
         &self,
         command_buffer: CommandBuffer,
         infos: &[MicromapBuildInfoEXT<'_>],
     ) {
         unsafe {
-            (self.cmd_build_micromaps_ext)(
+            (self.cmd_build_micromaps)(
                 command_buffer,
                 infos.len().try_into().unwrap(),
                 infos.as_ptr() as _,
@@ -1409,14 +1407,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBuildMicromapsEXT.html>
     #[inline]
-    pub unsafe fn build_micromaps_ext(
+    pub unsafe fn build_micromaps(
         &self,
         device: Device,
         deferred_operation: DeferredOperationKHR,
         infos: &[MicromapBuildInfoEXT<'_>],
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.build_micromaps_ext)(
+            let result = (self.build_micromaps)(
                 device,
                 deferred_operation,
                 infos.len().try_into().unwrap(),
@@ -1432,14 +1430,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyMicromapEXT.html>
     #[inline]
-    pub unsafe fn copy_micromap_ext(
+    pub unsafe fn copy_micromap(
         &self,
         device: Device,
         deferred_operation: DeferredOperationKHR,
         info: &CopyMicromapInfoEXT<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.copy_micromap_ext)(device, deferred_operation, info);
+            let result = (self.copy_micromap)(device, deferred_operation, info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -1450,14 +1448,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyMicromapToMemoryEXT.html>
     #[inline]
-    pub unsafe fn copy_micromap_to_memory_ext(
+    pub unsafe fn copy_micromap_to_memory(
         &self,
         device: Device,
         deferred_operation: DeferredOperationKHR,
         info: &CopyMicromapToMemoryInfoEXT<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.copy_micromap_to_memory_ext)(device, deferred_operation, info);
+            let result = (self.copy_micromap_to_memory)(device, deferred_operation, info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -1468,14 +1466,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyMemoryToMicromapEXT.html>
     #[inline]
-    pub unsafe fn copy_memory_to_micromap_ext(
+    pub unsafe fn copy_memory_to_micromap(
         &self,
         device: Device,
         deferred_operation: DeferredOperationKHR,
         info: &CopyMemoryToMicromapInfoEXT<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.copy_memory_to_micromap_ext)(device, deferred_operation, info);
+            let result = (self.copy_memory_to_micromap)(device, deferred_operation, info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -1486,7 +1484,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkWriteMicromapsPropertiesEXT.html>
     #[inline]
-    pub unsafe fn write_micromaps_properties_ext(
+    pub unsafe fn write_micromaps_properties(
         &self,
         device: Device,
         micromaps: &[MicromapEXT],
@@ -1495,7 +1493,7 @@ impl DeviceFn {
         stride: usize,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.write_micromaps_properties_ext)(
+            let result = (self.write_micromaps_properties)(
                 device,
                 micromaps.len().try_into().unwrap(),
                 micromaps.as_ptr() as _,
@@ -1514,37 +1512,37 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMicromapEXT.html>
     #[inline]
-    pub unsafe fn cmd_copy_micromap_ext(
+    pub unsafe fn cmd_copy_micromap(
         &self,
         command_buffer: CommandBuffer,
         info: &CopyMicromapInfoEXT<'_>,
     ) {
-        unsafe { (self.cmd_copy_micromap_ext)(command_buffer, info) }
+        unsafe { (self.cmd_copy_micromap)(command_buffer, info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMicromapToMemoryEXT.html>
     #[inline]
-    pub unsafe fn cmd_copy_micromap_to_memory_ext(
+    pub unsafe fn cmd_copy_micromap_to_memory(
         &self,
         command_buffer: CommandBuffer,
         info: &CopyMicromapToMemoryInfoEXT<'_>,
     ) {
-        unsafe { (self.cmd_copy_micromap_to_memory_ext)(command_buffer, info) }
+        unsafe { (self.cmd_copy_micromap_to_memory)(command_buffer, info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryToMicromapEXT.html>
     #[inline]
-    pub unsafe fn cmd_copy_memory_to_micromap_ext(
+    pub unsafe fn cmd_copy_memory_to_micromap(
         &self,
         command_buffer: CommandBuffer,
         info: &CopyMemoryToMicromapInfoEXT<'_>,
     ) {
-        unsafe { (self.cmd_copy_memory_to_micromap_ext)(command_buffer, info) }
+        unsafe { (self.cmd_copy_memory_to_micromap)(command_buffer, info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWriteMicromapsPropertiesEXT.html>
     #[inline]
-    pub unsafe fn cmd_write_micromaps_properties_ext(
+    pub unsafe fn cmd_write_micromaps_properties(
         &self,
         command_buffer: CommandBuffer,
         micromaps: &[MicromapEXT],
@@ -1553,7 +1551,7 @@ impl DeviceFn {
         first_query: u32,
     ) {
         unsafe {
-            (self.cmd_write_micromaps_properties_ext)(
+            (self.cmd_write_micromaps_properties)(
                 command_buffer,
                 micromaps.len().try_into().unwrap(),
                 micromaps.as_ptr() as _,
@@ -1566,14 +1564,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceMicromapCompatibilityEXT.html>
     #[inline]
-    pub unsafe fn get_device_micromap_compatibility_ext(
+    pub unsafe fn get_device_micromap_compatibility(
         &self,
         device: Device,
         version_info: &MicromapVersionInfoEXT<'_>,
     ) -> AccelerationStructureCompatibilityKHR {
         unsafe {
             let mut compatibility = core::mem::MaybeUninit::uninit();
-            (self.get_device_micromap_compatibility_ext)(
+            (self.get_device_micromap_compatibility)(
                 device,
                 version_info,
                 compatibility.as_mut_ptr(),
@@ -1584,13 +1582,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMicromapBuildSizesEXT.html>
     #[inline]
-    pub unsafe fn get_micromap_build_sizes_ext(
+    pub unsafe fn get_micromap_build_sizes(
         &self,
         device: Device,
         build_type: AccelerationStructureBuildTypeKHR,
         build_info: &MicromapBuildInfoEXT<'_>,
         size_info: &mut MicromapBuildSizesInfoEXT<'_>,
     ) {
-        unsafe { (self.get_micromap_build_sizes_ext)(device, build_type, build_info, size_info) }
+        unsafe { (self.get_micromap_build_sizes)(device, build_type, build_info, size_info) }
     }
 }

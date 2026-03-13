@@ -247,7 +247,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_trace_rays_indirect2_khr: Option<PFN_vkCmdTraceRaysIndirect2KHR>,
+    cmd_trace_rays_indirect2: Option<PFN_vkCmdTraceRaysIndirect2KHR>,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -256,7 +256,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_trace_rays_indirect2_khr: transmute(load(c"vkCmdTraceRaysIndirect2KHR")),
+                cmd_trace_rays_indirect2: transmute(load(c"vkCmdTraceRaysIndirect2KHR")),
             })
         }
     }
@@ -265,13 +265,11 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdTraceRaysIndirect2KHR.html>
     #[inline]
-    pub unsafe fn cmd_trace_rays_indirect2_khr(
+    pub unsafe fn cmd_trace_rays_indirect2(
         &self,
         command_buffer: CommandBuffer,
         indirect_device_address: DeviceAddress,
     ) {
-        unsafe {
-            (self.cmd_trace_rays_indirect2_khr.unwrap())(command_buffer, indirect_device_address)
-        }
+        unsafe { (self.cmd_trace_rays_indirect2.unwrap())(command_buffer, indirect_device_address) }
     }
 }

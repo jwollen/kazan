@@ -584,9 +584,9 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_bind_shading_rate_image_nv: PFN_vkCmdBindShadingRateImageNV,
-    cmd_set_viewport_shading_rate_palette_nv: PFN_vkCmdSetViewportShadingRatePaletteNV,
-    cmd_set_coarse_sample_order_nv: PFN_vkCmdSetCoarseSampleOrderNV,
+    cmd_bind_shading_rate_image: PFN_vkCmdBindShadingRateImageNV,
+    cmd_set_viewport_shading_rate_palette: PFN_vkCmdSetViewportShadingRatePaletteNV,
+    cmd_set_coarse_sample_order: PFN_vkCmdSetCoarseSampleOrderNV,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -595,13 +595,13 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_bind_shading_rate_image_nv: transmute(
+                cmd_bind_shading_rate_image: transmute(
                     load(c"vkCmdBindShadingRateImageNV").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_viewport_shading_rate_palette_nv: transmute(
+                cmd_set_viewport_shading_rate_palette: transmute(
                     load(c"vkCmdSetViewportShadingRatePaletteNV").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_coarse_sample_order_nv: transmute(
+                cmd_set_coarse_sample_order: transmute(
                     load(c"vkCmdSetCoarseSampleOrderNV").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -612,25 +612,25 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindShadingRateImageNV.html>
     #[inline]
-    pub unsafe fn cmd_bind_shading_rate_image_nv(
+    pub unsafe fn cmd_bind_shading_rate_image(
         &self,
         command_buffer: CommandBuffer,
         image_view: ImageView,
         image_layout: ImageLayout,
     ) {
-        unsafe { (self.cmd_bind_shading_rate_image_nv)(command_buffer, image_view, image_layout) }
+        unsafe { (self.cmd_bind_shading_rate_image)(command_buffer, image_view, image_layout) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetViewportShadingRatePaletteNV.html>
     #[inline]
-    pub unsafe fn cmd_set_viewport_shading_rate_palette_nv(
+    pub unsafe fn cmd_set_viewport_shading_rate_palette(
         &self,
         command_buffer: CommandBuffer,
         first_viewport: u32,
         shading_rate_palettes: &[ShadingRatePaletteNV<'_>],
     ) {
         unsafe {
-            (self.cmd_set_viewport_shading_rate_palette_nv)(
+            (self.cmd_set_viewport_shading_rate_palette)(
                 command_buffer,
                 first_viewport,
                 shading_rate_palettes.len().try_into().unwrap(),
@@ -641,14 +641,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoarseSampleOrderNV.html>
     #[inline]
-    pub unsafe fn cmd_set_coarse_sample_order_nv(
+    pub unsafe fn cmd_set_coarse_sample_order(
         &self,
         command_buffer: CommandBuffer,
         sample_order_type: CoarseSampleOrderTypeNV,
         custom_sample_orders: &[CoarseSampleOrderCustomNV<'_>],
     ) {
         unsafe {
-            (self.cmd_set_coarse_sample_order_nv)(
+            (self.cmd_set_coarse_sample_order)(
                 command_buffer,
                 sample_order_type,
                 custom_sample_orders.len().try_into().unwrap(),

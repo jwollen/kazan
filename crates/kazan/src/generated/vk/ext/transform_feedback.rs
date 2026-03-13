@@ -426,12 +426,12 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_bind_transform_feedback_buffers_ext: PFN_vkCmdBindTransformFeedbackBuffersEXT,
-    cmd_begin_transform_feedback_ext: PFN_vkCmdBeginTransformFeedbackEXT,
-    cmd_end_transform_feedback_ext: PFN_vkCmdEndTransformFeedbackEXT,
-    cmd_begin_query_indexed_ext: PFN_vkCmdBeginQueryIndexedEXT,
-    cmd_end_query_indexed_ext: PFN_vkCmdEndQueryIndexedEXT,
-    cmd_draw_indirect_byte_count_ext: PFN_vkCmdDrawIndirectByteCountEXT,
+    cmd_bind_transform_feedback_buffers: PFN_vkCmdBindTransformFeedbackBuffersEXT,
+    cmd_begin_transform_feedback: PFN_vkCmdBeginTransformFeedbackEXT,
+    cmd_end_transform_feedback: PFN_vkCmdEndTransformFeedbackEXT,
+    cmd_begin_query_indexed: PFN_vkCmdBeginQueryIndexedEXT,
+    cmd_end_query_indexed: PFN_vkCmdEndQueryIndexedEXT,
+    cmd_draw_indirect_byte_count: PFN_vkCmdDrawIndirectByteCountEXT,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -440,22 +440,22 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_bind_transform_feedback_buffers_ext: transmute(
+                cmd_bind_transform_feedback_buffers: transmute(
                     load(c"vkCmdBindTransformFeedbackBuffersEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_begin_transform_feedback_ext: transmute(
+                cmd_begin_transform_feedback: transmute(
                     load(c"vkCmdBeginTransformFeedbackEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_end_transform_feedback_ext: transmute(
+                cmd_end_transform_feedback: transmute(
                     load(c"vkCmdEndTransformFeedbackEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_begin_query_indexed_ext: transmute(
+                cmd_begin_query_indexed: transmute(
                     load(c"vkCmdBeginQueryIndexedEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_end_query_indexed_ext: transmute(
+                cmd_end_query_indexed: transmute(
                     load(c"vkCmdEndQueryIndexedEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_draw_indirect_byte_count_ext: transmute(
+                cmd_draw_indirect_byte_count: transmute(
                     load(c"vkCmdDrawIndirectByteCountEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -466,7 +466,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindTransformFeedbackBuffersEXT.html>
     #[inline]
-    pub unsafe fn cmd_bind_transform_feedback_buffers_ext(
+    pub unsafe fn cmd_bind_transform_feedback_buffers(
         &self,
         command_buffer: CommandBuffer,
         first_binding: u32,
@@ -475,7 +475,7 @@ impl DeviceFn {
         sizes: Option<&[DeviceSize]>,
     ) {
         unsafe {
-            (self.cmd_bind_transform_feedback_buffers_ext)(
+            (self.cmd_bind_transform_feedback_buffers)(
                 command_buffer,
                 first_binding,
                 buffers.len().try_into().unwrap(),
@@ -488,7 +488,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginTransformFeedbackEXT.html>
     #[inline]
-    pub unsafe fn cmd_begin_transform_feedback_ext(
+    pub unsafe fn cmd_begin_transform_feedback(
         &self,
         command_buffer: CommandBuffer,
         first_counter_buffer: u32,
@@ -496,7 +496,7 @@ impl DeviceFn {
         counter_buffer_offsets: Option<&[DeviceSize]>,
     ) {
         unsafe {
-            (self.cmd_begin_transform_feedback_ext)(
+            (self.cmd_begin_transform_feedback)(
                 command_buffer,
                 first_counter_buffer,
                 counter_buffers.len().try_into().unwrap(),
@@ -508,7 +508,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndTransformFeedbackEXT.html>
     #[inline]
-    pub unsafe fn cmd_end_transform_feedback_ext(
+    pub unsafe fn cmd_end_transform_feedback(
         &self,
         command_buffer: CommandBuffer,
         first_counter_buffer: u32,
@@ -516,7 +516,7 @@ impl DeviceFn {
         counter_buffer_offsets: Option<&[DeviceSize]>,
     ) {
         unsafe {
-            (self.cmd_end_transform_feedback_ext)(
+            (self.cmd_end_transform_feedback)(
                 command_buffer,
                 first_counter_buffer,
                 counter_buffers.len().try_into().unwrap(),
@@ -528,7 +528,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginQueryIndexedEXT.html>
     #[inline]
-    pub unsafe fn cmd_begin_query_indexed_ext(
+    pub unsafe fn cmd_begin_query_indexed(
         &self,
         command_buffer: CommandBuffer,
         query_pool: QueryPool,
@@ -536,26 +536,24 @@ impl DeviceFn {
         flags: QueryControlFlags,
         index: u32,
     ) {
-        unsafe {
-            (self.cmd_begin_query_indexed_ext)(command_buffer, query_pool, query, flags, index)
-        }
+        unsafe { (self.cmd_begin_query_indexed)(command_buffer, query_pool, query, flags, index) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndQueryIndexedEXT.html>
     #[inline]
-    pub unsafe fn cmd_end_query_indexed_ext(
+    pub unsafe fn cmd_end_query_indexed(
         &self,
         command_buffer: CommandBuffer,
         query_pool: QueryPool,
         query: u32,
         index: u32,
     ) {
-        unsafe { (self.cmd_end_query_indexed_ext)(command_buffer, query_pool, query, index) }
+        unsafe { (self.cmd_end_query_indexed)(command_buffer, query_pool, query, index) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawIndirectByteCountEXT.html>
     #[inline]
-    pub unsafe fn cmd_draw_indirect_byte_count_ext(
+    pub unsafe fn cmd_draw_indirect_byte_count(
         &self,
         command_buffer: CommandBuffer,
         instance_count: u32,
@@ -566,7 +564,7 @@ impl DeviceFn {
         vertex_stride: u32,
     ) {
         unsafe {
-            (self.cmd_draw_indirect_byte_count_ext)(
+            (self.cmd_draw_indirect_byte_count)(
                 command_buffer,
                 instance_count,
                 first_instance,

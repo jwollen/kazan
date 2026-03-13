@@ -180,8 +180,8 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    import_semaphore_zircon_handle_fuchsia: PFN_vkImportSemaphoreZirconHandleFUCHSIA,
-    get_semaphore_zircon_handle_fuchsia: PFN_vkGetSemaphoreZirconHandleFUCHSIA,
+    import_semaphore_zircon_handle: PFN_vkImportSemaphoreZirconHandleFUCHSIA,
+    get_semaphore_zircon_handle: PFN_vkGetSemaphoreZirconHandleFUCHSIA,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -190,10 +190,10 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                import_semaphore_zircon_handle_fuchsia: transmute(
+                import_semaphore_zircon_handle: transmute(
                     load(c"vkImportSemaphoreZirconHandleFUCHSIA").ok_or(MissingEntryPointError)?,
                 ),
-                get_semaphore_zircon_handle_fuchsia: transmute(
+                get_semaphore_zircon_handle: transmute(
                     load(c"vkGetSemaphoreZirconHandleFUCHSIA").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -204,16 +204,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportSemaphoreZirconHandleFUCHSIA.html>
     #[inline]
-    pub unsafe fn import_semaphore_zircon_handle_fuchsia(
+    pub unsafe fn import_semaphore_zircon_handle(
         &self,
         device: Device,
         import_semaphore_zircon_handle_info: &ImportSemaphoreZirconHandleInfoFUCHSIA<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.import_semaphore_zircon_handle_fuchsia)(
-                device,
-                import_semaphore_zircon_handle_info,
-            );
+            let result =
+                (self.import_semaphore_zircon_handle)(device, import_semaphore_zircon_handle_info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -224,14 +222,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSemaphoreZirconHandleFUCHSIA.html>
     #[inline]
-    pub unsafe fn get_semaphore_zircon_handle_fuchsia(
+    pub unsafe fn get_semaphore_zircon_handle(
         &self,
         device: Device,
         get_zircon_handle_info: &SemaphoreGetZirconHandleInfoFUCHSIA<'_>,
     ) -> crate::Result<zx_handle_t> {
         unsafe {
             let mut zircon_handle = core::mem::MaybeUninit::uninit();
-            let result = (self.get_semaphore_zircon_handle_fuchsia)(
+            let result = (self.get_semaphore_zircon_handle)(
                 device,
                 get_zircon_handle_info,
                 zircon_handle.as_mut_ptr(),

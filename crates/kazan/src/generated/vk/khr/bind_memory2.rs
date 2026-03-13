@@ -33,8 +33,8 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    bind_buffer_memory2_khr: PFN_vkBindBufferMemory2,
-    bind_image_memory2_khr: PFN_vkBindImageMemory2,
+    bind_buffer_memory2: PFN_vkBindBufferMemory2,
+    bind_image_memory2: PFN_vkBindImageMemory2,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -43,10 +43,10 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                bind_buffer_memory2_khr: transmute(
+                bind_buffer_memory2: transmute(
                     load(c"vkBindBufferMemory2KHR").ok_or(MissingEntryPointError)?,
                 ),
-                bind_image_memory2_khr: transmute(
+                bind_image_memory2: transmute(
                     load(c"vkBindImageMemory2KHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -57,13 +57,13 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindBufferMemory2KHR.html>
     #[inline]
-    pub unsafe fn bind_buffer_memory2_khr(
+    pub unsafe fn bind_buffer_memory2(
         &self,
         device: Device,
         bind_infos: &[BindBufferMemoryInfo<'_>],
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.bind_buffer_memory2_khr)(
+            let result = (self.bind_buffer_memory2)(
                 device,
                 bind_infos.len().try_into().unwrap(),
                 bind_infos.as_ptr() as _,
@@ -78,13 +78,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindImageMemory2KHR.html>
     #[inline]
-    pub unsafe fn bind_image_memory2_khr(
+    pub unsafe fn bind_image_memory2(
         &self,
         device: Device,
         bind_infos: &[BindImageMemoryInfo<'_>],
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.bind_image_memory2_khr)(
+            let result = (self.bind_image_memory2)(
                 device,
                 bind_infos.len().try_into().unwrap(),
                 bind_infos.as_ptr() as _,

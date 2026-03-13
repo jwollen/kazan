@@ -1920,9 +1920,8 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    get_physical_device_video_capabilities_khr: PFN_vkGetPhysicalDeviceVideoCapabilitiesKHR,
-    get_physical_device_video_format_properties_khr:
-        PFN_vkGetPhysicalDeviceVideoFormatPropertiesKHR,
+    get_physical_device_video_capabilities: PFN_vkGetPhysicalDeviceVideoCapabilitiesKHR,
+    get_physical_device_video_format_properties: PFN_vkGetPhysicalDeviceVideoFormatPropertiesKHR,
 }
 
 impl LoadInstanceFn for InstanceFn {
@@ -1931,11 +1930,11 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_physical_device_video_capabilities_khr: transmute(
+                get_physical_device_video_capabilities: transmute(
                     load(c"vkGetPhysicalDeviceVideoCapabilitiesKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                get_physical_device_video_format_properties_khr: transmute(
+                get_physical_device_video_format_properties: transmute(
                     load(c"vkGetPhysicalDeviceVideoFormatPropertiesKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -1947,14 +1946,14 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceVideoCapabilitiesKHR.html>
     #[inline]
-    pub unsafe fn get_physical_device_video_capabilities_khr(
+    pub unsafe fn get_physical_device_video_capabilities(
         &self,
         physical_device: PhysicalDevice,
         video_profile: &VideoProfileInfoKHR<'_>,
         capabilities: &mut VideoCapabilitiesKHR<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_physical_device_video_capabilities_khr)(
+            let result = (self.get_physical_device_video_capabilities)(
                 physical_device,
                 video_profile,
                 capabilities,
@@ -1969,7 +1968,7 @@ impl InstanceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceVideoFormatPropertiesKHR.html>
     #[inline]
-    pub unsafe fn get_physical_device_video_format_properties_khr<'a>(
+    pub unsafe fn get_physical_device_video_format_properties<'a>(
         &self,
         physical_device: PhysicalDevice,
         video_format_info: &PhysicalDeviceVideoFormatInfoKHR<'a>,
@@ -1977,7 +1976,7 @@ impl InstanceFn {
     ) -> crate::Result<()> {
         unsafe {
             let call = |video_format_property_count, video_format_properties| {
-                let result = (self.get_physical_device_video_format_properties_khr)(
+                let result = (self.get_physical_device_video_format_properties)(
                     physical_device,
                     video_format_info,
                     video_format_property_count,
@@ -2003,16 +2002,16 @@ impl InstanceFn {
 }
 
 pub struct DeviceFn {
-    create_video_session_khr: PFN_vkCreateVideoSessionKHR,
-    destroy_video_session_khr: PFN_vkDestroyVideoSessionKHR,
-    get_video_session_memory_requirements_khr: PFN_vkGetVideoSessionMemoryRequirementsKHR,
-    bind_video_session_memory_khr: PFN_vkBindVideoSessionMemoryKHR,
-    create_video_session_parameters_khr: PFN_vkCreateVideoSessionParametersKHR,
-    update_video_session_parameters_khr: PFN_vkUpdateVideoSessionParametersKHR,
-    destroy_video_session_parameters_khr: PFN_vkDestroyVideoSessionParametersKHR,
-    cmd_begin_video_coding_khr: PFN_vkCmdBeginVideoCodingKHR,
-    cmd_end_video_coding_khr: PFN_vkCmdEndVideoCodingKHR,
-    cmd_control_video_coding_khr: PFN_vkCmdControlVideoCodingKHR,
+    create_video_session: PFN_vkCreateVideoSessionKHR,
+    destroy_video_session: PFN_vkDestroyVideoSessionKHR,
+    get_video_session_memory_requirements: PFN_vkGetVideoSessionMemoryRequirementsKHR,
+    bind_video_session_memory: PFN_vkBindVideoSessionMemoryKHR,
+    create_video_session_parameters: PFN_vkCreateVideoSessionParametersKHR,
+    update_video_session_parameters: PFN_vkUpdateVideoSessionParametersKHR,
+    destroy_video_session_parameters: PFN_vkDestroyVideoSessionParametersKHR,
+    cmd_begin_video_coding: PFN_vkCmdBeginVideoCodingKHR,
+    cmd_end_video_coding: PFN_vkCmdEndVideoCodingKHR,
+    cmd_control_video_coding: PFN_vkCmdControlVideoCodingKHR,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -2021,35 +2020,35 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_video_session_khr: transmute(
+                create_video_session: transmute(
                     load(c"vkCreateVideoSessionKHR").ok_or(MissingEntryPointError)?,
                 ),
-                destroy_video_session_khr: transmute(
+                destroy_video_session: transmute(
                     load(c"vkDestroyVideoSessionKHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_video_session_memory_requirements_khr: transmute(
+                get_video_session_memory_requirements: transmute(
                     load(c"vkGetVideoSessionMemoryRequirementsKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                bind_video_session_memory_khr: transmute(
+                bind_video_session_memory: transmute(
                     load(c"vkBindVideoSessionMemoryKHR").ok_or(MissingEntryPointError)?,
                 ),
-                create_video_session_parameters_khr: transmute(
+                create_video_session_parameters: transmute(
                     load(c"vkCreateVideoSessionParametersKHR").ok_or(MissingEntryPointError)?,
                 ),
-                update_video_session_parameters_khr: transmute(
+                update_video_session_parameters: transmute(
                     load(c"vkUpdateVideoSessionParametersKHR").ok_or(MissingEntryPointError)?,
                 ),
-                destroy_video_session_parameters_khr: transmute(
+                destroy_video_session_parameters: transmute(
                     load(c"vkDestroyVideoSessionParametersKHR").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_begin_video_coding_khr: transmute(
+                cmd_begin_video_coding: transmute(
                     load(c"vkCmdBeginVideoCodingKHR").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_end_video_coding_khr: transmute(
+                cmd_end_video_coding: transmute(
                     load(c"vkCmdEndVideoCodingKHR").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_control_video_coding_khr: transmute(
+                cmd_control_video_coding: transmute(
                     load(c"vkCmdControlVideoCodingKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -2060,7 +2059,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateVideoSessionKHR.html>
     #[inline]
-    pub unsafe fn create_video_session_khr(
+    pub unsafe fn create_video_session(
         &self,
         device: Device,
         create_info: &VideoSessionCreateInfoKHR<'_>,
@@ -2068,7 +2067,7 @@ impl DeviceFn {
     ) -> crate::Result<VideoSessionKHR> {
         unsafe {
             let mut video_session = core::mem::MaybeUninit::uninit();
-            let result = (self.create_video_session_khr)(
+            let result = (self.create_video_session)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -2084,18 +2083,18 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyVideoSessionKHR.html>
     #[inline]
-    pub unsafe fn destroy_video_session_khr(
+    pub unsafe fn destroy_video_session(
         &self,
         device: Device,
         video_session: VideoSessionKHR,
         allocator: Option<&AllocationCallbacks<'_>>,
     ) {
-        unsafe { (self.destroy_video_session_khr)(device, video_session, allocator.to_raw_ptr()) }
+        unsafe { (self.destroy_video_session)(device, video_session, allocator.to_raw_ptr()) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetVideoSessionMemoryRequirementsKHR.html>
     #[inline]
-    pub unsafe fn get_video_session_memory_requirements_khr<'a>(
+    pub unsafe fn get_video_session_memory_requirements<'a>(
         &self,
         device: Device,
         video_session: VideoSessionKHR,
@@ -2103,7 +2102,7 @@ impl DeviceFn {
     ) -> crate::Result<()> {
         unsafe {
             let call = |memory_requirements_count, memory_requirements| {
-                let result = (self.get_video_session_memory_requirements_khr)(
+                let result = (self.get_video_session_memory_requirements)(
                     device,
                     video_session,
                     memory_requirements_count,
@@ -2129,14 +2128,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindVideoSessionMemoryKHR.html>
     #[inline]
-    pub unsafe fn bind_video_session_memory_khr(
+    pub unsafe fn bind_video_session_memory(
         &self,
         device: Device,
         video_session: VideoSessionKHR,
         bind_session_memory_infos: &[BindVideoSessionMemoryInfoKHR<'_>],
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.bind_video_session_memory_khr)(
+            let result = (self.bind_video_session_memory)(
                 device,
                 video_session,
                 bind_session_memory_infos.len().try_into().unwrap(),
@@ -2152,7 +2151,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateVideoSessionParametersKHR.html>
     #[inline]
-    pub unsafe fn create_video_session_parameters_khr(
+    pub unsafe fn create_video_session_parameters(
         &self,
         device: Device,
         create_info: &VideoSessionParametersCreateInfoKHR<'_>,
@@ -2160,7 +2159,7 @@ impl DeviceFn {
     ) -> crate::Result<VideoSessionParametersKHR> {
         unsafe {
             let mut video_session_parameters = core::mem::MaybeUninit::uninit();
-            let result = (self.create_video_session_parameters_khr)(
+            let result = (self.create_video_session_parameters)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -2176,14 +2175,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUpdateVideoSessionParametersKHR.html>
     #[inline]
-    pub unsafe fn update_video_session_parameters_khr(
+    pub unsafe fn update_video_session_parameters(
         &self,
         device: Device,
         video_session_parameters: VideoSessionParametersKHR,
         update_info: &VideoSessionParametersUpdateInfoKHR<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.update_video_session_parameters_khr)(
+            let result = (self.update_video_session_parameters)(
                 device,
                 video_session_parameters,
                 update_info,
@@ -2198,14 +2197,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyVideoSessionParametersKHR.html>
     #[inline]
-    pub unsafe fn destroy_video_session_parameters_khr(
+    pub unsafe fn destroy_video_session_parameters(
         &self,
         device: Device,
         video_session_parameters: VideoSessionParametersKHR,
         allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe {
-            (self.destroy_video_session_parameters_khr)(
+            (self.destroy_video_session_parameters)(
                 device,
                 video_session_parameters,
                 allocator.to_raw_ptr(),
@@ -2215,31 +2214,31 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginVideoCodingKHR.html>
     #[inline]
-    pub unsafe fn cmd_begin_video_coding_khr(
+    pub unsafe fn cmd_begin_video_coding(
         &self,
         command_buffer: CommandBuffer,
         begin_info: &VideoBeginCodingInfoKHR<'_>,
     ) {
-        unsafe { (self.cmd_begin_video_coding_khr)(command_buffer, begin_info) }
+        unsafe { (self.cmd_begin_video_coding)(command_buffer, begin_info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndVideoCodingKHR.html>
     #[inline]
-    pub unsafe fn cmd_end_video_coding_khr(
+    pub unsafe fn cmd_end_video_coding(
         &self,
         command_buffer: CommandBuffer,
         end_coding_info: &VideoEndCodingInfoKHR<'_>,
     ) {
-        unsafe { (self.cmd_end_video_coding_khr)(command_buffer, end_coding_info) }
+        unsafe { (self.cmd_end_video_coding)(command_buffer, end_coding_info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdControlVideoCodingKHR.html>
     #[inline]
-    pub unsafe fn cmd_control_video_coding_khr(
+    pub unsafe fn cmd_control_video_coding(
         &self,
         command_buffer: CommandBuffer,
         coding_control_info: &VideoCodingControlInfoKHR<'_>,
     ) {
-        unsafe { (self.cmd_control_video_coding_khr)(command_buffer, coding_control_info) }
+        unsafe { (self.cmd_control_video_coding)(command_buffer, coding_control_info) }
     }
 }

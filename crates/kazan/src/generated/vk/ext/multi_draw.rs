@@ -212,8 +212,8 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_draw_multi_ext: PFN_vkCmdDrawMultiEXT,
-    cmd_draw_multi_indexed_ext: PFN_vkCmdDrawMultiIndexedEXT,
+    cmd_draw_multi: PFN_vkCmdDrawMultiEXT,
+    cmd_draw_multi_indexed: PFN_vkCmdDrawMultiIndexedEXT,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -222,10 +222,10 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_draw_multi_ext: transmute(
+                cmd_draw_multi: transmute(
                     load(c"vkCmdDrawMultiEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_draw_multi_indexed_ext: transmute(
+                cmd_draw_multi_indexed: transmute(
                     load(c"vkCmdDrawMultiIndexedEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -236,7 +236,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawMultiEXT.html>
     #[inline]
-    pub unsafe fn cmd_draw_multi_ext(
+    pub unsafe fn cmd_draw_multi(
         &self,
         command_buffer: CommandBuffer,
         vertex_info: &[MultiDrawInfoEXT],
@@ -245,7 +245,7 @@ impl DeviceFn {
         stride: u32,
     ) {
         unsafe {
-            (self.cmd_draw_multi_ext)(
+            (self.cmd_draw_multi)(
                 command_buffer,
                 vertex_info.len().try_into().unwrap(),
                 vertex_info.as_ptr() as _,
@@ -258,7 +258,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawMultiIndexedEXT.html>
     #[inline]
-    pub unsafe fn cmd_draw_multi_indexed_ext(
+    pub unsafe fn cmd_draw_multi_indexed(
         &self,
         command_buffer: CommandBuffer,
         index_info: &[MultiDrawIndexedInfoEXT],
@@ -268,7 +268,7 @@ impl DeviceFn {
         vertex_offset: Option<&i32>,
     ) {
         unsafe {
-            (self.cmd_draw_multi_indexed_ext)(
+            (self.cmd_draw_multi_indexed)(
                 command_buffer,
                 index_info.len().try_into().unwrap(),
                 index_info.as_ptr() as _,

@@ -43,9 +43,9 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_device_buffer_memory_requirements_khr: PFN_vkGetDeviceBufferMemoryRequirements,
-    get_device_image_memory_requirements_khr: PFN_vkGetDeviceImageMemoryRequirements,
-    get_device_image_sparse_memory_requirements_khr: PFN_vkGetDeviceImageSparseMemoryRequirements,
+    get_device_buffer_memory_requirements: PFN_vkGetDeviceBufferMemoryRequirements,
+    get_device_image_memory_requirements: PFN_vkGetDeviceImageMemoryRequirements,
+    get_device_image_sparse_memory_requirements: PFN_vkGetDeviceImageSparseMemoryRequirements,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -54,14 +54,14 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_device_buffer_memory_requirements_khr: transmute(
+                get_device_buffer_memory_requirements: transmute(
                     load(c"vkGetDeviceBufferMemoryRequirementsKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                get_device_image_memory_requirements_khr: transmute(
+                get_device_image_memory_requirements: transmute(
                     load(c"vkGetDeviceImageMemoryRequirementsKHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_device_image_sparse_memory_requirements_khr: transmute(
+                get_device_image_sparse_memory_requirements: transmute(
                     load(c"vkGetDeviceImageSparseMemoryRequirementsKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -73,33 +73,29 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceBufferMemoryRequirementsKHR.html>
     #[inline]
-    pub unsafe fn get_device_buffer_memory_requirements_khr(
+    pub unsafe fn get_device_buffer_memory_requirements(
         &self,
         device: Device,
         info: &DeviceBufferMemoryRequirements<'_>,
         memory_requirements: &mut MemoryRequirements2<'_>,
     ) {
-        unsafe {
-            (self.get_device_buffer_memory_requirements_khr)(device, info, memory_requirements)
-        }
+        unsafe { (self.get_device_buffer_memory_requirements)(device, info, memory_requirements) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceImageMemoryRequirementsKHR.html>
     #[inline]
-    pub unsafe fn get_device_image_memory_requirements_khr(
+    pub unsafe fn get_device_image_memory_requirements(
         &self,
         device: Device,
         info: &DeviceImageMemoryRequirements<'_>,
         memory_requirements: &mut MemoryRequirements2<'_>,
     ) {
-        unsafe {
-            (self.get_device_image_memory_requirements_khr)(device, info, memory_requirements)
-        }
+        unsafe { (self.get_device_image_memory_requirements)(device, info, memory_requirements) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceImageSparseMemoryRequirementsKHR.html>
     #[inline]
-    pub unsafe fn get_device_image_sparse_memory_requirements_khr<'a>(
+    pub unsafe fn get_device_image_sparse_memory_requirements<'a>(
         &self,
         device: Device,
         info: &DeviceImageMemoryRequirements<'a>,
@@ -107,7 +103,7 @@ impl DeviceFn {
     ) {
         unsafe {
             let call = |sparse_memory_requirement_count, sparse_memory_requirements| {
-                (self.get_device_image_sparse_memory_requirements_khr)(
+                (self.get_device_image_sparse_memory_requirements)(
                     device,
                     info,
                     sparse_memory_requirement_count,

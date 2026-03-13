@@ -271,7 +271,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    anti_lag_update_amd: PFN_vkAntiLagUpdateAMD,
+    anti_lag_update: PFN_vkAntiLagUpdateAMD,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -280,7 +280,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                anti_lag_update_amd: transmute(
+                anti_lag_update: transmute(
                     load(c"vkAntiLagUpdateAMD").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -291,7 +291,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAntiLagUpdateAMD.html>
     #[inline]
-    pub unsafe fn anti_lag_update_amd(&self, device: Device, data: &AntiLagDataAMD<'_>) {
-        unsafe { (self.anti_lag_update_amd)(device, data) }
+    pub unsafe fn anti_lag_update(&self, device: Device, data: &AntiLagDataAMD<'_>) {
+        unsafe { (self.anti_lag_update)(device, data) }
     }
 }

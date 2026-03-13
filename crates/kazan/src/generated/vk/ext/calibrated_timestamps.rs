@@ -34,7 +34,7 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    get_physical_device_calibrateable_time_domains_ext:
+    get_physical_device_calibrateable_time_domains:
         PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsKHR,
 }
 
@@ -44,7 +44,7 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_physical_device_calibrateable_time_domains_ext: transmute(
+                get_physical_device_calibrateable_time_domains: transmute(
                     load(c"vkGetPhysicalDeviceCalibrateableTimeDomainsEXT")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -56,14 +56,14 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceCalibrateableTimeDomainsEXT.html>
     #[inline]
-    pub unsafe fn get_physical_device_calibrateable_time_domains_ext(
+    pub unsafe fn get_physical_device_calibrateable_time_domains(
         &self,
         physical_device: PhysicalDevice,
         mut time_domains: impl ExtendUninit<TimeDomainKHR>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |time_domain_count, time_domains| {
-                let result = (self.get_physical_device_calibrateable_time_domains_ext)(
+                let result = (self.get_physical_device_calibrateable_time_domains)(
                     physical_device,
                     time_domain_count,
                     time_domains as _,
@@ -88,7 +88,7 @@ impl InstanceFn {
 }
 
 pub struct DeviceFn {
-    get_calibrated_timestamps_ext: PFN_vkGetCalibratedTimestampsKHR,
+    get_calibrated_timestamps: PFN_vkGetCalibratedTimestampsKHR,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -97,7 +97,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_calibrated_timestamps_ext: transmute(
+                get_calibrated_timestamps: transmute(
                     load(c"vkGetCalibratedTimestampsEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -108,7 +108,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetCalibratedTimestampsEXT.html>
     #[inline]
-    pub unsafe fn get_calibrated_timestamps_ext(
+    pub unsafe fn get_calibrated_timestamps(
         &self,
         device: Device,
         timestamp_infos: &[CalibratedTimestampInfoKHR<'_>],
@@ -116,7 +116,7 @@ impl DeviceFn {
     ) -> crate::Result<u64> {
         unsafe {
             let mut max_deviation = core::mem::MaybeUninit::uninit();
-            let result = (self.get_calibrated_timestamps_ext)(
+            let result = (self.get_calibrated_timestamps)(
                 device,
                 timestamp_infos.len().try_into().unwrap(),
                 timestamp_infos.as_ptr() as _,

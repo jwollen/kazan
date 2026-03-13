@@ -429,7 +429,7 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    get_physical_device_cooperative_matrix_flexible_dimensions_properties_nv:
+    get_physical_device_cooperative_matrix_flexible_dimensions_properties:
         PFN_vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV,
 }
 
@@ -439,7 +439,7 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_physical_device_cooperative_matrix_flexible_dimensions_properties_nv: transmute(
+                get_physical_device_cooperative_matrix_flexible_dimensions_properties: transmute(
                     load(c"vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -451,7 +451,7 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV.html>
     #[inline]
-    pub unsafe fn get_physical_device_cooperative_matrix_flexible_dimensions_properties_nv<'a>(
+    pub unsafe fn get_physical_device_cooperative_matrix_flexible_dimensions_properties<'a>(
         &self,
         physical_device: PhysicalDevice,
         mut properties: impl ExtendUninit<CooperativeMatrixFlexibleDimensionsPropertiesNV<'a>>,
@@ -459,7 +459,7 @@ impl InstanceFn {
         unsafe {
             let call = |property_count, properties| {
                 let result = (self
-                    .get_physical_device_cooperative_matrix_flexible_dimensions_properties_nv)(
+                    .get_physical_device_cooperative_matrix_flexible_dimensions_properties)(
                     physical_device,
                     property_count,
                     properties as _,

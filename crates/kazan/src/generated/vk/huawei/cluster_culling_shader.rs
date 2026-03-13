@@ -270,8 +270,8 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_draw_cluster_huawei: PFN_vkCmdDrawClusterHUAWEI,
-    cmd_draw_cluster_indirect_huawei: PFN_vkCmdDrawClusterIndirectHUAWEI,
+    cmd_draw_cluster: PFN_vkCmdDrawClusterHUAWEI,
+    cmd_draw_cluster_indirect: PFN_vkCmdDrawClusterIndirectHUAWEI,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -280,10 +280,10 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_draw_cluster_huawei: transmute(
+                cmd_draw_cluster: transmute(
                     load(c"vkCmdDrawClusterHUAWEI").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_draw_cluster_indirect_huawei: transmute(
+                cmd_draw_cluster_indirect: transmute(
                     load(c"vkCmdDrawClusterIndirectHUAWEI").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -294,7 +294,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawClusterHUAWEI.html>
     #[inline]
-    pub unsafe fn cmd_draw_cluster_huawei(
+    pub unsafe fn cmd_draw_cluster(
         &self,
         command_buffer: CommandBuffer,
         group_count_x: u32,
@@ -302,23 +302,18 @@ impl DeviceFn {
         group_count_z: u32,
     ) {
         unsafe {
-            (self.cmd_draw_cluster_huawei)(
-                command_buffer,
-                group_count_x,
-                group_count_y,
-                group_count_z,
-            )
+            (self.cmd_draw_cluster)(command_buffer, group_count_x, group_count_y, group_count_z)
         }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawClusterIndirectHUAWEI.html>
     #[inline]
-    pub unsafe fn cmd_draw_cluster_indirect_huawei(
+    pub unsafe fn cmd_draw_cluster_indirect(
         &self,
         command_buffer: CommandBuffer,
         buffer: Buffer,
         offset: DeviceSize,
     ) {
-        unsafe { (self.cmd_draw_cluster_indirect_huawei)(command_buffer, buffer, offset) }
+        unsafe { (self.cmd_draw_cluster_indirect)(command_buffer, buffer, offset) }
     }
 }

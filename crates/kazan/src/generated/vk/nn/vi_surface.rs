@@ -106,7 +106,7 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    create_vi_surface_nn: PFN_vkCreateViSurfaceNN,
+    create_vi_surface: PFN_vkCreateViSurfaceNN,
 }
 
 impl LoadInstanceFn for InstanceFn {
@@ -115,7 +115,7 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_vi_surface_nn: transmute(
+                create_vi_surface: transmute(
                     load(c"vkCreateViSurfaceNN").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -126,7 +126,7 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateViSurfaceNN.html>
     #[inline]
-    pub unsafe fn create_vi_surface_nn(
+    pub unsafe fn create_vi_surface(
         &self,
         instance: Instance,
         create_info: &ViSurfaceCreateInfoNN<'_>,
@@ -134,7 +134,7 @@ impl InstanceFn {
     ) -> crate::Result<SurfaceKHR> {
         unsafe {
             let mut surface = core::mem::MaybeUninit::uninit();
-            let result = (self.create_vi_surface_nn)(
+            let result = (self.create_vi_surface)(
                 instance,
                 create_info,
                 allocator.to_raw_ptr(),

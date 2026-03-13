@@ -46,7 +46,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    release_swapchain_images_ext: PFN_vkReleaseSwapchainImagesKHR,
+    release_swapchain_images: PFN_vkReleaseSwapchainImagesKHR,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -55,7 +55,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                release_swapchain_images_ext: transmute(
+                release_swapchain_images: transmute(
                     load(c"vkReleaseSwapchainImagesEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -66,13 +66,13 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkReleaseSwapchainImagesEXT.html>
     #[inline]
-    pub unsafe fn release_swapchain_images_ext(
+    pub unsafe fn release_swapchain_images(
         &self,
         device: Device,
         release_info: &ReleaseSwapchainImagesInfoKHR<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.release_swapchain_images_ext)(device, release_info);
+            let result = (self.release_swapchain_images)(device, release_info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),

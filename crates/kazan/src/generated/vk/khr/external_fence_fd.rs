@@ -176,8 +176,8 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    import_fence_fd_khr: PFN_vkImportFenceFdKHR,
-    get_fence_fd_khr: PFN_vkGetFenceFdKHR,
+    import_fence_fd: PFN_vkImportFenceFdKHR,
+    get_fence_fd: PFN_vkGetFenceFdKHR,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -186,12 +186,10 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                import_fence_fd_khr: transmute(
+                import_fence_fd: transmute(
                     load(c"vkImportFenceFdKHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_fence_fd_khr: transmute(
-                    load(c"vkGetFenceFdKHR").ok_or(MissingEntryPointError)?,
-                ),
+                get_fence_fd: transmute(load(c"vkGetFenceFdKHR").ok_or(MissingEntryPointError)?),
             })
         }
     }
@@ -200,13 +198,13 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportFenceFdKHR.html>
     #[inline]
-    pub unsafe fn import_fence_fd_khr(
+    pub unsafe fn import_fence_fd(
         &self,
         device: Device,
         import_fence_fd_info: &ImportFenceFdInfoKHR<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.import_fence_fd_khr)(device, import_fence_fd_info);
+            let result = (self.import_fence_fd)(device, import_fence_fd_info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -217,14 +215,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetFenceFdKHR.html>
     #[inline]
-    pub unsafe fn get_fence_fd_khr(
+    pub unsafe fn get_fence_fd(
         &self,
         device: Device,
         get_fd_info: &FenceGetFdInfoKHR<'_>,
     ) -> crate::Result<c_int> {
         unsafe {
             let mut fd = core::mem::MaybeUninit::uninit();
-            let result = (self.get_fence_fd_khr)(device, get_fd_info, fd.as_mut_ptr());
+            let result = (self.get_fence_fd)(device, get_fd_info, fd.as_mut_ptr());
 
             match result {
                 VkResult::SUCCESS => Ok(fd.assume_init()),

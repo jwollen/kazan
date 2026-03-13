@@ -227,9 +227,9 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_set_discard_rectangle_ext: PFN_vkCmdSetDiscardRectangleEXT,
-    cmd_set_discard_rectangle_enable_ext: PFN_vkCmdSetDiscardRectangleEnableEXT,
-    cmd_set_discard_rectangle_mode_ext: PFN_vkCmdSetDiscardRectangleModeEXT,
+    cmd_set_discard_rectangle: PFN_vkCmdSetDiscardRectangleEXT,
+    cmd_set_discard_rectangle_enable: PFN_vkCmdSetDiscardRectangleEnableEXT,
+    cmd_set_discard_rectangle_mode: PFN_vkCmdSetDiscardRectangleModeEXT,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -238,13 +238,13 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_set_discard_rectangle_ext: transmute(
+                cmd_set_discard_rectangle: transmute(
                     load(c"vkCmdSetDiscardRectangleEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_discard_rectangle_enable_ext: transmute(
+                cmd_set_discard_rectangle_enable: transmute(
                     load(c"vkCmdSetDiscardRectangleEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_discard_rectangle_mode_ext: transmute(
+                cmd_set_discard_rectangle_mode: transmute(
                     load(c"vkCmdSetDiscardRectangleModeEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -255,14 +255,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDiscardRectangleEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_discard_rectangle_ext(
+    pub unsafe fn cmd_set_discard_rectangle(
         &self,
         command_buffer: CommandBuffer,
         first_discard_rectangle: u32,
         discard_rectangles: &[Rect2D],
     ) {
         unsafe {
-            (self.cmd_set_discard_rectangle_ext)(
+            (self.cmd_set_discard_rectangle)(
                 command_buffer,
                 first_discard_rectangle,
                 discard_rectangles.len().try_into().unwrap(),
@@ -273,26 +273,23 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDiscardRectangleEnableEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_discard_rectangle_enable_ext(
+    pub unsafe fn cmd_set_discard_rectangle_enable(
         &self,
         command_buffer: CommandBuffer,
         discard_rectangle_enable: bool,
     ) {
         unsafe {
-            (self.cmd_set_discard_rectangle_enable_ext)(
-                command_buffer,
-                discard_rectangle_enable.into(),
-            )
+            (self.cmd_set_discard_rectangle_enable)(command_buffer, discard_rectangle_enable.into())
         }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDiscardRectangleModeEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_discard_rectangle_mode_ext(
+    pub unsafe fn cmd_set_discard_rectangle_mode(
         &self,
         command_buffer: CommandBuffer,
         discard_rectangle_mode: DiscardRectangleModeEXT,
     ) {
-        unsafe { (self.cmd_set_discard_rectangle_mode_ext)(command_buffer, discard_rectangle_mode) }
+        unsafe { (self.cmd_set_discard_rectangle_mode)(command_buffer, discard_rectangle_mode) }
     }
 }

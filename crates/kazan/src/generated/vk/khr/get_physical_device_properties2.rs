@@ -63,13 +63,13 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    get_physical_device_features2_khr: PFN_vkGetPhysicalDeviceFeatures2,
-    get_physical_device_properties2_khr: PFN_vkGetPhysicalDeviceProperties2,
-    get_physical_device_format_properties2_khr: PFN_vkGetPhysicalDeviceFormatProperties2,
-    get_physical_device_image_format_properties2_khr: PFN_vkGetPhysicalDeviceImageFormatProperties2,
-    get_physical_device_queue_family_properties2_khr: PFN_vkGetPhysicalDeviceQueueFamilyProperties2,
-    get_physical_device_memory_properties2_khr: PFN_vkGetPhysicalDeviceMemoryProperties2,
-    get_physical_device_sparse_image_format_properties2_khr:
+    get_physical_device_features2: PFN_vkGetPhysicalDeviceFeatures2,
+    get_physical_device_properties2: PFN_vkGetPhysicalDeviceProperties2,
+    get_physical_device_format_properties2: PFN_vkGetPhysicalDeviceFormatProperties2,
+    get_physical_device_image_format_properties2: PFN_vkGetPhysicalDeviceImageFormatProperties2,
+    get_physical_device_queue_family_properties2: PFN_vkGetPhysicalDeviceQueueFamilyProperties2,
+    get_physical_device_memory_properties2: PFN_vkGetPhysicalDeviceMemoryProperties2,
+    get_physical_device_sparse_image_format_properties2:
         PFN_vkGetPhysicalDeviceSparseImageFormatProperties2,
 }
 
@@ -79,29 +79,29 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_physical_device_features2_khr: transmute(
+                get_physical_device_features2: transmute(
                     load(c"vkGetPhysicalDeviceFeatures2KHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_physical_device_properties2_khr: transmute(
+                get_physical_device_properties2: transmute(
                     load(c"vkGetPhysicalDeviceProperties2KHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_physical_device_format_properties2_khr: transmute(
+                get_physical_device_format_properties2: transmute(
                     load(c"vkGetPhysicalDeviceFormatProperties2KHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                get_physical_device_image_format_properties2_khr: transmute(
+                get_physical_device_image_format_properties2: transmute(
                     load(c"vkGetPhysicalDeviceImageFormatProperties2KHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                get_physical_device_queue_family_properties2_khr: transmute(
+                get_physical_device_queue_family_properties2: transmute(
                     load(c"vkGetPhysicalDeviceQueueFamilyProperties2KHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                get_physical_device_memory_properties2_khr: transmute(
+                get_physical_device_memory_properties2: transmute(
                     load(c"vkGetPhysicalDeviceMemoryProperties2KHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                get_physical_device_sparse_image_format_properties2_khr: transmute(
+                get_physical_device_sparse_image_format_properties2: transmute(
                     load(c"vkGetPhysicalDeviceSparseImageFormatProperties2KHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -113,34 +113,34 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFeatures2KHR.html>
     #[inline]
-    pub unsafe fn get_physical_device_features2_khr(
+    pub unsafe fn get_physical_device_features2(
         &self,
         physical_device: PhysicalDevice,
         features: &mut PhysicalDeviceFeatures2<'_>,
     ) {
-        unsafe { (self.get_physical_device_features2_khr)(physical_device, features) }
+        unsafe { (self.get_physical_device_features2)(physical_device, features) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceProperties2KHR.html>
     #[inline]
-    pub unsafe fn get_physical_device_properties2_khr(
+    pub unsafe fn get_physical_device_properties2(
         &self,
         physical_device: PhysicalDevice,
         properties: &mut PhysicalDeviceProperties2<'_>,
     ) {
-        unsafe { (self.get_physical_device_properties2_khr)(physical_device, properties) }
+        unsafe { (self.get_physical_device_properties2)(physical_device, properties) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFormatProperties2KHR.html>
     #[inline]
-    pub unsafe fn get_physical_device_format_properties2_khr(
+    pub unsafe fn get_physical_device_format_properties2(
         &self,
         physical_device: PhysicalDevice,
         format: Format,
         format_properties: &mut FormatProperties2<'_>,
     ) {
         unsafe {
-            (self.get_physical_device_format_properties2_khr)(
+            (self.get_physical_device_format_properties2)(
                 physical_device,
                 format,
                 format_properties,
@@ -150,14 +150,14 @@ impl InstanceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceImageFormatProperties2KHR.html>
     #[inline]
-    pub unsafe fn get_physical_device_image_format_properties2_khr(
+    pub unsafe fn get_physical_device_image_format_properties2(
         &self,
         physical_device: PhysicalDevice,
         image_format_info: &PhysicalDeviceImageFormatInfo2<'_>,
         image_format_properties: &mut ImageFormatProperties2<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_physical_device_image_format_properties2_khr)(
+            let result = (self.get_physical_device_image_format_properties2)(
                 physical_device,
                 image_format_info,
                 image_format_properties,
@@ -172,14 +172,14 @@ impl InstanceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceQueueFamilyProperties2KHR.html>
     #[inline]
-    pub unsafe fn get_physical_device_queue_family_properties2_khr<'a>(
+    pub unsafe fn get_physical_device_queue_family_properties2<'a>(
         &self,
         physical_device: PhysicalDevice,
         mut queue_family_properties: impl ExtendUninit<QueueFamilyProperties2<'a>>,
     ) {
         unsafe {
             let call = |queue_family_property_count, queue_family_properties| {
-                (self.get_physical_device_queue_family_properties2_khr)(
+                (self.get_physical_device_queue_family_properties2)(
                     physical_device,
                     queue_family_property_count,
                     queue_family_properties as _,
@@ -197,19 +197,17 @@ impl InstanceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceMemoryProperties2KHR.html>
     #[inline]
-    pub unsafe fn get_physical_device_memory_properties2_khr(
+    pub unsafe fn get_physical_device_memory_properties2(
         &self,
         physical_device: PhysicalDevice,
         memory_properties: &mut PhysicalDeviceMemoryProperties2<'_>,
     ) {
-        unsafe {
-            (self.get_physical_device_memory_properties2_khr)(physical_device, memory_properties)
-        }
+        unsafe { (self.get_physical_device_memory_properties2)(physical_device, memory_properties) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSparseImageFormatProperties2KHR.html>
     #[inline]
-    pub unsafe fn get_physical_device_sparse_image_format_properties2_khr<'a>(
+    pub unsafe fn get_physical_device_sparse_image_format_properties2<'a>(
         &self,
         physical_device: PhysicalDevice,
         format_info: &PhysicalDeviceSparseImageFormatInfo2<'a>,
@@ -217,7 +215,7 @@ impl InstanceFn {
     ) {
         unsafe {
             let call = |property_count, properties| {
-                (self.get_physical_device_sparse_image_format_properties2_khr)(
+                (self.get_physical_device_sparse_image_format_properties2)(
                     physical_device,
                     format_info,
                     property_count,

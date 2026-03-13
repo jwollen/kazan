@@ -334,8 +334,8 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    import_semaphore_win32_handle_khr: PFN_vkImportSemaphoreWin32HandleKHR,
-    get_semaphore_win32_handle_khr: PFN_vkGetSemaphoreWin32HandleKHR,
+    import_semaphore_win32_handle: PFN_vkImportSemaphoreWin32HandleKHR,
+    get_semaphore_win32_handle: PFN_vkGetSemaphoreWin32HandleKHR,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -344,10 +344,10 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                import_semaphore_win32_handle_khr: transmute(
+                import_semaphore_win32_handle: transmute(
                     load(c"vkImportSemaphoreWin32HandleKHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_semaphore_win32_handle_khr: transmute(
+                get_semaphore_win32_handle: transmute(
                     load(c"vkGetSemaphoreWin32HandleKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -358,16 +358,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportSemaphoreWin32HandleKHR.html>
     #[inline]
-    pub unsafe fn import_semaphore_win32_handle_khr(
+    pub unsafe fn import_semaphore_win32_handle(
         &self,
         device: Device,
         import_semaphore_win32_handle_info: &ImportSemaphoreWin32HandleInfoKHR<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.import_semaphore_win32_handle_khr)(
-                device,
-                import_semaphore_win32_handle_info,
-            );
+            let result =
+                (self.import_semaphore_win32_handle)(device, import_semaphore_win32_handle_info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -378,14 +376,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSemaphoreWin32HandleKHR.html>
     #[inline]
-    pub unsafe fn get_semaphore_win32_handle_khr(
+    pub unsafe fn get_semaphore_win32_handle(
         &self,
         device: Device,
         get_win32_handle_info: &SemaphoreGetWin32HandleInfoKHR<'_>,
     ) -> crate::Result<HANDLE> {
         unsafe {
             let mut handle = core::mem::MaybeUninit::uninit();
-            let result = (self.get_semaphore_win32_handle_khr)(
+            let result = (self.get_semaphore_win32_handle)(
                 device,
                 get_win32_handle_info,
                 handle.as_mut_ptr(),

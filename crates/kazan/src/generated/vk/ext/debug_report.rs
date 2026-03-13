@@ -321,9 +321,9 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    create_debug_report_callback_ext: PFN_vkCreateDebugReportCallbackEXT,
-    destroy_debug_report_callback_ext: PFN_vkDestroyDebugReportCallbackEXT,
-    debug_report_message_ext: PFN_vkDebugReportMessageEXT,
+    create_debug_report_callback: PFN_vkCreateDebugReportCallbackEXT,
+    destroy_debug_report_callback: PFN_vkDestroyDebugReportCallbackEXT,
+    debug_report_message: PFN_vkDebugReportMessageEXT,
 }
 
 impl LoadInstanceFn for InstanceFn {
@@ -332,13 +332,13 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_debug_report_callback_ext: transmute(
+                create_debug_report_callback: transmute(
                     load(c"vkCreateDebugReportCallbackEXT").ok_or(MissingEntryPointError)?,
                 ),
-                destroy_debug_report_callback_ext: transmute(
+                destroy_debug_report_callback: transmute(
                     load(c"vkDestroyDebugReportCallbackEXT").ok_or(MissingEntryPointError)?,
                 ),
-                debug_report_message_ext: transmute(
+                debug_report_message: transmute(
                     load(c"vkDebugReportMessageEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -349,7 +349,7 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDebugReportCallbackEXT.html>
     #[inline]
-    pub unsafe fn create_debug_report_callback_ext(
+    pub unsafe fn create_debug_report_callback(
         &self,
         instance: Instance,
         create_info: &DebugReportCallbackCreateInfoEXT<'_>,
@@ -357,7 +357,7 @@ impl InstanceFn {
     ) -> crate::Result<DebugReportCallbackEXT> {
         unsafe {
             let mut callback = core::mem::MaybeUninit::uninit();
-            let result = (self.create_debug_report_callback_ext)(
+            let result = (self.create_debug_report_callback)(
                 instance,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -373,20 +373,18 @@ impl InstanceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDebugReportCallbackEXT.html>
     #[inline]
-    pub unsafe fn destroy_debug_report_callback_ext(
+    pub unsafe fn destroy_debug_report_callback(
         &self,
         instance: Instance,
         callback: DebugReportCallbackEXT,
         allocator: Option<&AllocationCallbacks<'_>>,
     ) {
-        unsafe {
-            (self.destroy_debug_report_callback_ext)(instance, callback, allocator.to_raw_ptr())
-        }
+        unsafe { (self.destroy_debug_report_callback)(instance, callback, allocator.to_raw_ptr()) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDebugReportMessageEXT.html>
     #[inline]
-    pub unsafe fn debug_report_message_ext(
+    pub unsafe fn debug_report_message(
         &self,
         instance: Instance,
         flags: DebugReportFlagsEXT,
@@ -398,7 +396,7 @@ impl InstanceFn {
         message: &CStr,
     ) {
         unsafe {
-            (self.debug_report_message_ext)(
+            (self.debug_report_message)(
                 instance,
                 flags,
                 object_type,

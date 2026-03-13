@@ -49,8 +49,8 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_begin_rendering_khr: PFN_vkCmdBeginRendering,
-    cmd_end_rendering_khr: PFN_vkCmdEndRendering,
+    cmd_begin_rendering: PFN_vkCmdBeginRendering,
+    cmd_end_rendering: PFN_vkCmdEndRendering,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -59,10 +59,10 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_begin_rendering_khr: transmute(
+                cmd_begin_rendering: transmute(
                     load(c"vkCmdBeginRenderingKHR").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_end_rendering_khr: transmute(
+                cmd_end_rendering: transmute(
                     load(c"vkCmdEndRenderingKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -73,17 +73,17 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginRenderingKHR.html>
     #[inline]
-    pub unsafe fn cmd_begin_rendering_khr(
+    pub unsafe fn cmd_begin_rendering(
         &self,
         command_buffer: CommandBuffer,
         rendering_info: &RenderingInfo<'_>,
     ) {
-        unsafe { (self.cmd_begin_rendering_khr)(command_buffer, rendering_info) }
+        unsafe { (self.cmd_begin_rendering)(command_buffer, rendering_info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndRenderingKHR.html>
     #[inline]
-    pub unsafe fn cmd_end_rendering_khr(&self, command_buffer: CommandBuffer) {
-        unsafe { (self.cmd_end_rendering_khr)(command_buffer) }
+    pub unsafe fn cmd_end_rendering(&self, command_buffer: CommandBuffer) {
+        unsafe { (self.cmd_end_rendering)(command_buffer) }
     }
 }

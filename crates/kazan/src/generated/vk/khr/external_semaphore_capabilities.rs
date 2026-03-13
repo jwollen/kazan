@@ -40,7 +40,7 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    get_physical_device_external_semaphore_properties_khr:
+    get_physical_device_external_semaphore_properties:
         PFN_vkGetPhysicalDeviceExternalSemaphoreProperties,
 }
 
@@ -50,7 +50,7 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_physical_device_external_semaphore_properties_khr: transmute(
+                get_physical_device_external_semaphore_properties: transmute(
                     load(c"vkGetPhysicalDeviceExternalSemaphorePropertiesKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -62,14 +62,14 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceExternalSemaphorePropertiesKHR.html>
     #[inline]
-    pub unsafe fn get_physical_device_external_semaphore_properties_khr(
+    pub unsafe fn get_physical_device_external_semaphore_properties(
         &self,
         physical_device: PhysicalDevice,
         external_semaphore_info: &PhysicalDeviceExternalSemaphoreInfo<'_>,
         external_semaphore_properties: &mut ExternalSemaphoreProperties<'_>,
     ) {
         unsafe {
-            (self.get_physical_device_external_semaphore_properties_khr)(
+            (self.get_physical_device_external_semaphore_properties)(
                 physical_device,
                 external_semaphore_info,
                 external_semaphore_properties,

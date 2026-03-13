@@ -29,8 +29,8 @@ pub(super) mod defs {
 }
 
 pub struct InstanceFn {
-    acquire_winrt_display_nv: PFN_vkAcquireWinrtDisplayNV,
-    get_winrt_display_nv: PFN_vkGetWinrtDisplayNV,
+    acquire_winrt_display: PFN_vkAcquireWinrtDisplayNV,
+    get_winrt_display: PFN_vkGetWinrtDisplayNV,
 }
 
 impl LoadInstanceFn for InstanceFn {
@@ -39,10 +39,10 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                acquire_winrt_display_nv: transmute(
+                acquire_winrt_display: transmute(
                     load(c"vkAcquireWinrtDisplayNV").ok_or(MissingEntryPointError)?,
                 ),
-                get_winrt_display_nv: transmute(
+                get_winrt_display: transmute(
                     load(c"vkGetWinrtDisplayNV").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -53,13 +53,13 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireWinrtDisplayNV.html>
     #[inline]
-    pub unsafe fn acquire_winrt_display_nv(
+    pub unsafe fn acquire_winrt_display(
         &self,
         physical_device: PhysicalDevice,
         display: DisplayKHR,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.acquire_winrt_display_nv)(physical_device, display);
+            let result = (self.acquire_winrt_display)(physical_device, display);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -70,18 +70,15 @@ impl InstanceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetWinrtDisplayNV.html>
     #[inline]
-    pub unsafe fn get_winrt_display_nv(
+    pub unsafe fn get_winrt_display(
         &self,
         physical_device: PhysicalDevice,
         device_relative_id: u32,
     ) -> crate::Result<DisplayKHR> {
         unsafe {
             let mut display = core::mem::MaybeUninit::uninit();
-            let result = (self.get_winrt_display_nv)(
-                physical_device,
-                device_relative_id,
-                display.as_mut_ptr(),
-            );
+            let result =
+                (self.get_winrt_display)(physical_device, device_relative_id, display.as_mut_ptr());
 
             match result {
                 VkResult::SUCCESS => Ok(display.assume_init()),

@@ -29,7 +29,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    trim_command_pool_khr: PFN_vkTrimCommandPool,
+    trim_command_pool: PFN_vkTrimCommandPool,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -38,7 +38,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                trim_command_pool_khr: transmute(
+                trim_command_pool: transmute(
                     load(c"vkTrimCommandPoolKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -49,12 +49,12 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkTrimCommandPoolKHR.html>
     #[inline]
-    pub unsafe fn trim_command_pool_khr(
+    pub unsafe fn trim_command_pool(
         &self,
         device: Device,
         command_pool: CommandPool,
         flags: CommandPoolTrimFlags,
     ) {
-        unsafe { (self.trim_command_pool_khr)(device, command_pool, flags) }
+        unsafe { (self.trim_command_pool)(device, command_pool, flags) }
     }
 }

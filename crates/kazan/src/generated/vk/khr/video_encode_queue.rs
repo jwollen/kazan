@@ -1344,7 +1344,7 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    get_physical_device_video_encode_quality_level_properties_khr:
+    get_physical_device_video_encode_quality_level_properties:
         PFN_vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR,
 }
 
@@ -1354,7 +1354,7 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_physical_device_video_encode_quality_level_properties_khr: transmute(
+                get_physical_device_video_encode_quality_level_properties: transmute(
                     load(c"vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -1366,14 +1366,14 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR.html>
     #[inline]
-    pub unsafe fn get_physical_device_video_encode_quality_level_properties_khr(
+    pub unsafe fn get_physical_device_video_encode_quality_level_properties(
         &self,
         physical_device: PhysicalDevice,
         quality_level_info: &PhysicalDeviceVideoEncodeQualityLevelInfoKHR<'_>,
         quality_level_properties: &mut VideoEncodeQualityLevelPropertiesKHR<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_physical_device_video_encode_quality_level_properties_khr)(
+            let result = (self.get_physical_device_video_encode_quality_level_properties)(
                 physical_device,
                 quality_level_info,
                 quality_level_properties,
@@ -1388,8 +1388,8 @@ impl InstanceFn {
 }
 
 pub struct DeviceFn {
-    get_encoded_video_session_parameters_khr: PFN_vkGetEncodedVideoSessionParametersKHR,
-    cmd_encode_video_khr: PFN_vkCmdEncodeVideoKHR,
+    get_encoded_video_session_parameters: PFN_vkGetEncodedVideoSessionParametersKHR,
+    cmd_encode_video: PFN_vkCmdEncodeVideoKHR,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -1398,10 +1398,10 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_encoded_video_session_parameters_khr: transmute(
+                get_encoded_video_session_parameters: transmute(
                     load(c"vkGetEncodedVideoSessionParametersKHR").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_encode_video_khr: transmute(
+                cmd_encode_video: transmute(
                     load(c"vkCmdEncodeVideoKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -1412,7 +1412,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetEncodedVideoSessionParametersKHR.html>
     #[inline]
-    pub unsafe fn get_encoded_video_session_parameters_khr<'a>(
+    pub unsafe fn get_encoded_video_session_parameters<'a>(
         &self,
         device: Device,
         video_session_parameters_info: &VideoEncodeSessionParametersGetInfoKHR<'a>,
@@ -1425,7 +1425,7 @@ impl DeviceFn {
                         feedback_info: Option<
                 &mut VideoEncodeSessionParametersFeedbackInfoKHR<'a>,
             >| {
-                let result = (self.get_encoded_video_session_parameters_khr)(
+                let result = (self.get_encoded_video_session_parameters)(
                     device,
                     video_session_parameters_info,
                     feedback_info.to_raw_mut_ptr(),
@@ -1452,11 +1452,11 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEncodeVideoKHR.html>
     #[inline]
-    pub unsafe fn cmd_encode_video_khr(
+    pub unsafe fn cmd_encode_video(
         &self,
         command_buffer: CommandBuffer,
         encode_info: &VideoEncodeInfoKHR<'_>,
     ) {
-        unsafe { (self.cmd_encode_video_khr)(command_buffer, encode_info) }
+        unsafe { (self.cmd_encode_video)(command_buffer, encode_info) }
     }
 }

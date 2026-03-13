@@ -607,8 +607,8 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_android_hardware_buffer_properties_android: PFN_vkGetAndroidHardwareBufferPropertiesANDROID,
-    get_memory_android_hardware_buffer_android: PFN_vkGetMemoryAndroidHardwareBufferANDROID,
+    get_android_hardware_buffer_properties: PFN_vkGetAndroidHardwareBufferPropertiesANDROID,
+    get_memory_android_hardware_buffer: PFN_vkGetMemoryAndroidHardwareBufferANDROID,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -617,11 +617,11 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_android_hardware_buffer_properties_android: transmute(
+                get_android_hardware_buffer_properties: transmute(
                     load(c"vkGetAndroidHardwareBufferPropertiesANDROID")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                get_memory_android_hardware_buffer_android: transmute(
+                get_memory_android_hardware_buffer: transmute(
                     load(c"vkGetMemoryAndroidHardwareBufferANDROID")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -633,15 +633,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetAndroidHardwareBufferPropertiesANDROID.html>
     #[inline]
-    pub unsafe fn get_android_hardware_buffer_properties_android(
+    pub unsafe fn get_android_hardware_buffer_properties(
         &self,
         device: Device,
         buffer: *const AHardwareBuffer,
         properties: &mut AndroidHardwareBufferPropertiesANDROID<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result =
-                (self.get_android_hardware_buffer_properties_android)(device, buffer, properties);
+            let result = (self.get_android_hardware_buffer_properties)(device, buffer, properties);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -652,18 +651,15 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryAndroidHardwareBufferANDROID.html>
     #[inline]
-    pub unsafe fn get_memory_android_hardware_buffer_android(
+    pub unsafe fn get_memory_android_hardware_buffer(
         &self,
         device: Device,
         info: &MemoryGetAndroidHardwareBufferInfoANDROID<'_>,
     ) -> crate::Result<*mut AHardwareBuffer> {
         unsafe {
             let mut buffer = core::mem::MaybeUninit::uninit();
-            let result = (self.get_memory_android_hardware_buffer_android)(
-                device,
-                info,
-                buffer.as_mut_ptr(),
-            );
+            let result =
+                (self.get_memory_android_hardware_buffer)(device, info, buffer.as_mut_ptr());
 
             match result {
                 VkResult::SUCCESS => Ok(buffer.assume_init()),

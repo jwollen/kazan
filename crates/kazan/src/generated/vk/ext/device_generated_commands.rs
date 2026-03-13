@@ -1743,15 +1743,15 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_generated_commands_memory_requirements_ext: PFN_vkGetGeneratedCommandsMemoryRequirementsEXT,
-    cmd_preprocess_generated_commands_ext: PFN_vkCmdPreprocessGeneratedCommandsEXT,
-    cmd_execute_generated_commands_ext: PFN_vkCmdExecuteGeneratedCommandsEXT,
-    create_indirect_commands_layout_ext: PFN_vkCreateIndirectCommandsLayoutEXT,
-    destroy_indirect_commands_layout_ext: PFN_vkDestroyIndirectCommandsLayoutEXT,
-    create_indirect_execution_set_ext: PFN_vkCreateIndirectExecutionSetEXT,
-    destroy_indirect_execution_set_ext: PFN_vkDestroyIndirectExecutionSetEXT,
-    update_indirect_execution_set_pipeline_ext: PFN_vkUpdateIndirectExecutionSetPipelineEXT,
-    update_indirect_execution_set_shader_ext: PFN_vkUpdateIndirectExecutionSetShaderEXT,
+    get_generated_commands_memory_requirements: PFN_vkGetGeneratedCommandsMemoryRequirementsEXT,
+    cmd_preprocess_generated_commands: PFN_vkCmdPreprocessGeneratedCommandsEXT,
+    cmd_execute_generated_commands: PFN_vkCmdExecuteGeneratedCommandsEXT,
+    create_indirect_commands_layout: PFN_vkCreateIndirectCommandsLayoutEXT,
+    destroy_indirect_commands_layout: PFN_vkDestroyIndirectCommandsLayoutEXT,
+    create_indirect_execution_set: PFN_vkCreateIndirectExecutionSetEXT,
+    destroy_indirect_execution_set: PFN_vkDestroyIndirectExecutionSetEXT,
+    update_indirect_execution_set_pipeline: PFN_vkUpdateIndirectExecutionSetPipelineEXT,
+    update_indirect_execution_set_shader: PFN_vkUpdateIndirectExecutionSetShaderEXT,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -1760,33 +1760,33 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_generated_commands_memory_requirements_ext: transmute(
+                get_generated_commands_memory_requirements: transmute(
                     load(c"vkGetGeneratedCommandsMemoryRequirementsEXT")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                cmd_preprocess_generated_commands_ext: transmute(
+                cmd_preprocess_generated_commands: transmute(
                     load(c"vkCmdPreprocessGeneratedCommandsEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_execute_generated_commands_ext: transmute(
+                cmd_execute_generated_commands: transmute(
                     load(c"vkCmdExecuteGeneratedCommandsEXT").ok_or(MissingEntryPointError)?,
                 ),
-                create_indirect_commands_layout_ext: transmute(
+                create_indirect_commands_layout: transmute(
                     load(c"vkCreateIndirectCommandsLayoutEXT").ok_or(MissingEntryPointError)?,
                 ),
-                destroy_indirect_commands_layout_ext: transmute(
+                destroy_indirect_commands_layout: transmute(
                     load(c"vkDestroyIndirectCommandsLayoutEXT").ok_or(MissingEntryPointError)?,
                 ),
-                create_indirect_execution_set_ext: transmute(
+                create_indirect_execution_set: transmute(
                     load(c"vkCreateIndirectExecutionSetEXT").ok_or(MissingEntryPointError)?,
                 ),
-                destroy_indirect_execution_set_ext: transmute(
+                destroy_indirect_execution_set: transmute(
                     load(c"vkDestroyIndirectExecutionSetEXT").ok_or(MissingEntryPointError)?,
                 ),
-                update_indirect_execution_set_pipeline_ext: transmute(
+                update_indirect_execution_set_pipeline: transmute(
                     load(c"vkUpdateIndirectExecutionSetPipelineEXT")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                update_indirect_execution_set_shader_ext: transmute(
+                update_indirect_execution_set_shader: transmute(
                     load(c"vkUpdateIndirectExecutionSetShaderEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -1797,27 +1797,27 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetGeneratedCommandsMemoryRequirementsEXT.html>
     #[inline]
-    pub unsafe fn get_generated_commands_memory_requirements_ext(
+    pub unsafe fn get_generated_commands_memory_requirements(
         &self,
         device: Device,
         info: &GeneratedCommandsMemoryRequirementsInfoEXT<'_>,
         memory_requirements: &mut MemoryRequirements2<'_>,
     ) {
         unsafe {
-            (self.get_generated_commands_memory_requirements_ext)(device, info, memory_requirements)
+            (self.get_generated_commands_memory_requirements)(device, info, memory_requirements)
         }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPreprocessGeneratedCommandsEXT.html>
     #[inline]
-    pub unsafe fn cmd_preprocess_generated_commands_ext(
+    pub unsafe fn cmd_preprocess_generated_commands(
         &self,
         command_buffer: CommandBuffer,
         generated_commands_info: &GeneratedCommandsInfoEXT<'_>,
         state_command_buffer: CommandBuffer,
     ) {
         unsafe {
-            (self.cmd_preprocess_generated_commands_ext)(
+            (self.cmd_preprocess_generated_commands)(
                 command_buffer,
                 generated_commands_info,
                 state_command_buffer,
@@ -1827,14 +1827,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdExecuteGeneratedCommandsEXT.html>
     #[inline]
-    pub unsafe fn cmd_execute_generated_commands_ext(
+    pub unsafe fn cmd_execute_generated_commands(
         &self,
         command_buffer: CommandBuffer,
         is_preprocessed: bool,
         generated_commands_info: &GeneratedCommandsInfoEXT<'_>,
     ) {
         unsafe {
-            (self.cmd_execute_generated_commands_ext)(
+            (self.cmd_execute_generated_commands)(
                 command_buffer,
                 is_preprocessed.into(),
                 generated_commands_info,
@@ -1844,7 +1844,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateIndirectCommandsLayoutEXT.html>
     #[inline]
-    pub unsafe fn create_indirect_commands_layout_ext(
+    pub unsafe fn create_indirect_commands_layout(
         &self,
         device: Device,
         create_info: &IndirectCommandsLayoutCreateInfoEXT<'_>,
@@ -1852,7 +1852,7 @@ impl DeviceFn {
     ) -> crate::Result<IndirectCommandsLayoutEXT> {
         unsafe {
             let mut indirect_commands_layout = core::mem::MaybeUninit::uninit();
-            let result = (self.create_indirect_commands_layout_ext)(
+            let result = (self.create_indirect_commands_layout)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -1868,14 +1868,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyIndirectCommandsLayoutEXT.html>
     #[inline]
-    pub unsafe fn destroy_indirect_commands_layout_ext(
+    pub unsafe fn destroy_indirect_commands_layout(
         &self,
         device: Device,
         indirect_commands_layout: IndirectCommandsLayoutEXT,
         allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe {
-            (self.destroy_indirect_commands_layout_ext)(
+            (self.destroy_indirect_commands_layout)(
                 device,
                 indirect_commands_layout,
                 allocator.to_raw_ptr(),
@@ -1885,7 +1885,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateIndirectExecutionSetEXT.html>
     #[inline]
-    pub unsafe fn create_indirect_execution_set_ext(
+    pub unsafe fn create_indirect_execution_set(
         &self,
         device: Device,
         create_info: &IndirectExecutionSetCreateInfoEXT<'_>,
@@ -1893,7 +1893,7 @@ impl DeviceFn {
     ) -> crate::Result<IndirectExecutionSetEXT> {
         unsafe {
             let mut indirect_execution_set = core::mem::MaybeUninit::uninit();
-            let result = (self.create_indirect_execution_set_ext)(
+            let result = (self.create_indirect_execution_set)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -1909,14 +1909,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyIndirectExecutionSetEXT.html>
     #[inline]
-    pub unsafe fn destroy_indirect_execution_set_ext(
+    pub unsafe fn destroy_indirect_execution_set(
         &self,
         device: Device,
         indirect_execution_set: IndirectExecutionSetEXT,
         allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe {
-            (self.destroy_indirect_execution_set_ext)(
+            (self.destroy_indirect_execution_set)(
                 device,
                 indirect_execution_set,
                 allocator.to_raw_ptr(),
@@ -1926,14 +1926,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUpdateIndirectExecutionSetPipelineEXT.html>
     #[inline]
-    pub unsafe fn update_indirect_execution_set_pipeline_ext(
+    pub unsafe fn update_indirect_execution_set_pipeline(
         &self,
         device: Device,
         indirect_execution_set: IndirectExecutionSetEXT,
         execution_set_writes: &[WriteIndirectExecutionSetPipelineEXT<'_>],
     ) {
         unsafe {
-            (self.update_indirect_execution_set_pipeline_ext)(
+            (self.update_indirect_execution_set_pipeline)(
                 device,
                 indirect_execution_set,
                 execution_set_writes.len().try_into().unwrap(),
@@ -1944,14 +1944,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUpdateIndirectExecutionSetShaderEXT.html>
     #[inline]
-    pub unsafe fn update_indirect_execution_set_shader_ext(
+    pub unsafe fn update_indirect_execution_set_shader(
         &self,
         device: Device,
         indirect_execution_set: IndirectExecutionSetEXT,
         execution_set_writes: &[WriteIndirectExecutionSetShaderEXT<'_>],
     ) {
         unsafe {
-            (self.update_indirect_execution_set_shader_ext)(
+            (self.update_indirect_execution_set_shader)(
                 device,
                 indirect_execution_set,
                 execution_set_writes.len().try_into().unwrap(),

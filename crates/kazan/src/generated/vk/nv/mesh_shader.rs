@@ -335,9 +335,9 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_draw_mesh_tasks_nv: PFN_vkCmdDrawMeshTasksNV,
-    cmd_draw_mesh_tasks_indirect_nv: PFN_vkCmdDrawMeshTasksIndirectNV,
-    cmd_draw_mesh_tasks_indirect_count_nv: Option<PFN_vkCmdDrawMeshTasksIndirectCountNV>,
+    cmd_draw_mesh_tasks: PFN_vkCmdDrawMeshTasksNV,
+    cmd_draw_mesh_tasks_indirect: PFN_vkCmdDrawMeshTasksIndirectNV,
+    cmd_draw_mesh_tasks_indirect_count: Option<PFN_vkCmdDrawMeshTasksIndirectCountNV>,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -346,13 +346,13 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_draw_mesh_tasks_nv: transmute(
+                cmd_draw_mesh_tasks: transmute(
                     load(c"vkCmdDrawMeshTasksNV").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_draw_mesh_tasks_indirect_nv: transmute(
+                cmd_draw_mesh_tasks_indirect: transmute(
                     load(c"vkCmdDrawMeshTasksIndirectNV").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_draw_mesh_tasks_indirect_count_nv: transmute(load(
+                cmd_draw_mesh_tasks_indirect_count: transmute(load(
                     c"vkCmdDrawMeshTasksIndirectCountNV",
                 )),
             })
@@ -363,18 +363,18 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawMeshTasksNV.html>
     #[inline]
-    pub unsafe fn cmd_draw_mesh_tasks_nv(
+    pub unsafe fn cmd_draw_mesh_tasks(
         &self,
         command_buffer: CommandBuffer,
         task_count: u32,
         first_task: u32,
     ) {
-        unsafe { (self.cmd_draw_mesh_tasks_nv)(command_buffer, task_count, first_task) }
+        unsafe { (self.cmd_draw_mesh_tasks)(command_buffer, task_count, first_task) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawMeshTasksIndirectNV.html>
     #[inline]
-    pub unsafe fn cmd_draw_mesh_tasks_indirect_nv(
+    pub unsafe fn cmd_draw_mesh_tasks_indirect(
         &self,
         command_buffer: CommandBuffer,
         buffer: Buffer,
@@ -383,19 +383,13 @@ impl DeviceFn {
         stride: u32,
     ) {
         unsafe {
-            (self.cmd_draw_mesh_tasks_indirect_nv)(
-                command_buffer,
-                buffer,
-                offset,
-                draw_count,
-                stride,
-            )
+            (self.cmd_draw_mesh_tasks_indirect)(command_buffer, buffer, offset, draw_count, stride)
         }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawMeshTasksIndirectCountNV.html>
     #[inline]
-    pub unsafe fn cmd_draw_mesh_tasks_indirect_count_nv(
+    pub unsafe fn cmd_draw_mesh_tasks_indirect_count(
         &self,
         command_buffer: CommandBuffer,
         buffer: Buffer,
@@ -406,7 +400,7 @@ impl DeviceFn {
         stride: u32,
     ) {
         unsafe {
-            (self.cmd_draw_mesh_tasks_indirect_count_nv.unwrap())(
+            (self.cmd_draw_mesh_tasks_indirect_count.unwrap())(
                 command_buffer,
                 buffer,
                 offset,

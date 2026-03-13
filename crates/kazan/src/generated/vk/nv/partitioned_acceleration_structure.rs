@@ -820,9 +820,9 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_partitioned_acceleration_structures_build_sizes_nv:
+    get_partitioned_acceleration_structures_build_sizes:
         PFN_vkGetPartitionedAccelerationStructuresBuildSizesNV,
-    cmd_build_partitioned_acceleration_structures_nv:
+    cmd_build_partitioned_acceleration_structures:
         PFN_vkCmdBuildPartitionedAccelerationStructuresNV,
 }
 
@@ -832,11 +832,11 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_partitioned_acceleration_structures_build_sizes_nv: transmute(
+                get_partitioned_acceleration_structures_build_sizes: transmute(
                     load(c"vkGetPartitionedAccelerationStructuresBuildSizesNV")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                cmd_build_partitioned_acceleration_structures_nv: transmute(
+                cmd_build_partitioned_acceleration_structures: transmute(
                     load(c"vkCmdBuildPartitionedAccelerationStructuresNV")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -848,26 +848,24 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPartitionedAccelerationStructuresBuildSizesNV.html>
     #[inline]
-    pub unsafe fn get_partitioned_acceleration_structures_build_sizes_nv(
+    pub unsafe fn get_partitioned_acceleration_structures_build_sizes(
         &self,
         device: Device,
         info: &PartitionedAccelerationStructureInstancesInputNV<'_>,
         size_info: &mut AccelerationStructureBuildSizesInfoKHR<'_>,
     ) {
         unsafe {
-            (self.get_partitioned_acceleration_structures_build_sizes_nv)(device, info, size_info)
+            (self.get_partitioned_acceleration_structures_build_sizes)(device, info, size_info)
         }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBuildPartitionedAccelerationStructuresNV.html>
     #[inline]
-    pub unsafe fn cmd_build_partitioned_acceleration_structures_nv(
+    pub unsafe fn cmd_build_partitioned_acceleration_structures(
         &self,
         command_buffer: CommandBuffer,
         build_info: &BuildPartitionedAccelerationStructureInfoNV<'_>,
     ) {
-        unsafe {
-            (self.cmd_build_partitioned_acceleration_structures_nv)(command_buffer, build_info)
-        }
+        unsafe { (self.cmd_build_partitioned_acceleration_structures)(command_buffer, build_info) }
     }
 }

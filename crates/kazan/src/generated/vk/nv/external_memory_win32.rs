@@ -158,7 +158,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_memory_win32_handle_nv: PFN_vkGetMemoryWin32HandleNV,
+    get_memory_win32_handle: PFN_vkGetMemoryWin32HandleNV,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -167,7 +167,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_memory_win32_handle_nv: transmute(
+                get_memory_win32_handle: transmute(
                     load(c"vkGetMemoryWin32HandleNV").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -178,7 +178,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryWin32HandleNV.html>
     #[inline]
-    pub unsafe fn get_memory_win32_handle_nv(
+    pub unsafe fn get_memory_win32_handle(
         &self,
         device: Device,
         memory: DeviceMemory,
@@ -187,7 +187,7 @@ impl DeviceFn {
         unsafe {
             let mut handle = core::mem::MaybeUninit::uninit();
             let result =
-                (self.get_memory_win32_handle_nv)(device, memory, handle_type, handle.as_mut_ptr());
+                (self.get_memory_win32_handle)(device, memory, handle_type, handle.as_mut_ptr());
 
             match result {
                 VkResult::SUCCESS => Ok(handle.assume_init()),

@@ -97,7 +97,7 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    create_headless_surface_ext: PFN_vkCreateHeadlessSurfaceEXT,
+    create_headless_surface: PFN_vkCreateHeadlessSurfaceEXT,
 }
 
 impl LoadInstanceFn for InstanceFn {
@@ -106,7 +106,7 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_headless_surface_ext: transmute(
+                create_headless_surface: transmute(
                     load(c"vkCreateHeadlessSurfaceEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -117,7 +117,7 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateHeadlessSurfaceEXT.html>
     #[inline]
-    pub unsafe fn create_headless_surface_ext(
+    pub unsafe fn create_headless_surface(
         &self,
         instance: Instance,
         create_info: &HeadlessSurfaceCreateInfoEXT<'_>,
@@ -125,7 +125,7 @@ impl InstanceFn {
     ) -> crate::Result<SurfaceKHR> {
         unsafe {
             let mut surface = core::mem::MaybeUninit::uninit();
-            let result = (self.create_headless_surface_ext)(
+            let result = (self.create_headless_surface)(
                 instance,
                 create_info,
                 allocator.to_raw_ptr(),

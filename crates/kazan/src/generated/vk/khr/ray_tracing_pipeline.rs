@@ -814,14 +814,14 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_trace_rays_khr: PFN_vkCmdTraceRaysKHR,
-    create_ray_tracing_pipelines_khr: PFN_vkCreateRayTracingPipelinesKHR,
-    get_ray_tracing_shader_group_handles_khr: PFN_vkGetRayTracingShaderGroupHandlesKHR,
-    get_ray_tracing_capture_replay_shader_group_handles_khr:
+    cmd_trace_rays: PFN_vkCmdTraceRaysKHR,
+    create_ray_tracing_pipelines: PFN_vkCreateRayTracingPipelinesKHR,
+    get_ray_tracing_shader_group_handles: PFN_vkGetRayTracingShaderGroupHandlesKHR,
+    get_ray_tracing_capture_replay_shader_group_handles:
         PFN_vkGetRayTracingCaptureReplayShaderGroupHandlesKHR,
-    cmd_trace_rays_indirect_khr: PFN_vkCmdTraceRaysIndirectKHR,
-    get_ray_tracing_shader_group_stack_size_khr: PFN_vkGetRayTracingShaderGroupStackSizeKHR,
-    cmd_set_ray_tracing_pipeline_stack_size_khr: PFN_vkCmdSetRayTracingPipelineStackSizeKHR,
+    cmd_trace_rays_indirect: PFN_vkCmdTraceRaysIndirectKHR,
+    get_ray_tracing_shader_group_stack_size: PFN_vkGetRayTracingShaderGroupStackSizeKHR,
+    cmd_set_ray_tracing_pipeline_stack_size: PFN_vkCmdSetRayTracingPipelineStackSizeKHR,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -830,27 +830,27 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_trace_rays_khr: transmute(
+                cmd_trace_rays: transmute(
                     load(c"vkCmdTraceRaysKHR").ok_or(MissingEntryPointError)?,
                 ),
-                create_ray_tracing_pipelines_khr: transmute(
+                create_ray_tracing_pipelines: transmute(
                     load(c"vkCreateRayTracingPipelinesKHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_ray_tracing_shader_group_handles_khr: transmute(
+                get_ray_tracing_shader_group_handles: transmute(
                     load(c"vkGetRayTracingShaderGroupHandlesKHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_ray_tracing_capture_replay_shader_group_handles_khr: transmute(
+                get_ray_tracing_capture_replay_shader_group_handles: transmute(
                     load(c"vkGetRayTracingCaptureReplayShaderGroupHandlesKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                cmd_trace_rays_indirect_khr: transmute(
+                cmd_trace_rays_indirect: transmute(
                     load(c"vkCmdTraceRaysIndirectKHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_ray_tracing_shader_group_stack_size_khr: transmute(
+                get_ray_tracing_shader_group_stack_size: transmute(
                     load(c"vkGetRayTracingShaderGroupStackSizeKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_ray_tracing_pipeline_stack_size_khr: transmute(
+                cmd_set_ray_tracing_pipeline_stack_size: transmute(
                     load(c"vkCmdSetRayTracingPipelineStackSizeKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -862,7 +862,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdTraceRaysKHR.html>
     #[inline]
-    pub unsafe fn cmd_trace_rays_khr(
+    pub unsafe fn cmd_trace_rays(
         &self,
         command_buffer: CommandBuffer,
         raygen_shader_binding_table: &StridedDeviceAddressRegionKHR,
@@ -874,7 +874,7 @@ impl DeviceFn {
         depth: u32,
     ) {
         unsafe {
-            (self.cmd_trace_rays_khr)(
+            (self.cmd_trace_rays)(
                 command_buffer,
                 raygen_shader_binding_table,
                 miss_shader_binding_table,
@@ -889,7 +889,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateRayTracingPipelinesKHR.html>
     #[inline]
-    pub unsafe fn create_ray_tracing_pipelines_khr(
+    pub unsafe fn create_ray_tracing_pipelines(
         &self,
         device: Device,
         deferred_operation: DeferredOperationKHR,
@@ -899,7 +899,7 @@ impl DeviceFn {
         pipelines: &mut [Pipeline],
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.create_ray_tracing_pipelines_khr)(
+            let result = (self.create_ray_tracing_pipelines)(
                 device,
                 deferred_operation,
                 pipeline_cache,
@@ -918,7 +918,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRayTracingShaderGroupHandlesKHR.html>
     #[inline]
-    pub unsafe fn get_ray_tracing_shader_group_handles_khr(
+    pub unsafe fn get_ray_tracing_shader_group_handles(
         &self,
         device: Device,
         pipeline: Pipeline,
@@ -927,7 +927,7 @@ impl DeviceFn {
         data: &mut [u8],
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_ray_tracing_shader_group_handles_khr)(
+            let result = (self.get_ray_tracing_shader_group_handles)(
                 device,
                 pipeline,
                 first_group,
@@ -945,7 +945,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRayTracingCaptureReplayShaderGroupHandlesKHR.html>
     #[inline]
-    pub unsafe fn get_ray_tracing_capture_replay_shader_group_handles_khr(
+    pub unsafe fn get_ray_tracing_capture_replay_shader_group_handles(
         &self,
         device: Device,
         pipeline: Pipeline,
@@ -954,7 +954,7 @@ impl DeviceFn {
         data: &mut [u8],
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_ray_tracing_capture_replay_shader_group_handles_khr)(
+            let result = (self.get_ray_tracing_capture_replay_shader_group_handles)(
                 device,
                 pipeline,
                 first_group,
@@ -972,7 +972,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdTraceRaysIndirectKHR.html>
     #[inline]
-    pub unsafe fn cmd_trace_rays_indirect_khr(
+    pub unsafe fn cmd_trace_rays_indirect(
         &self,
         command_buffer: CommandBuffer,
         raygen_shader_binding_table: &StridedDeviceAddressRegionKHR,
@@ -982,7 +982,7 @@ impl DeviceFn {
         indirect_device_address: DeviceAddress,
     ) {
         unsafe {
-            (self.cmd_trace_rays_indirect_khr)(
+            (self.cmd_trace_rays_indirect)(
                 command_buffer,
                 raygen_shader_binding_table,
                 miss_shader_binding_table,
@@ -995,7 +995,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRayTracingShaderGroupStackSizeKHR.html>
     #[inline]
-    pub unsafe fn get_ray_tracing_shader_group_stack_size_khr(
+    pub unsafe fn get_ray_tracing_shader_group_stack_size(
         &self,
         device: Device,
         pipeline: Pipeline,
@@ -1003,24 +1003,19 @@ impl DeviceFn {
         group_shader: ShaderGroupShaderKHR,
     ) -> DeviceSize {
         unsafe {
-            (self.get_ray_tracing_shader_group_stack_size_khr)(
-                device,
-                pipeline,
-                group,
-                group_shader,
-            )
+            (self.get_ray_tracing_shader_group_stack_size)(device, pipeline, group, group_shader)
         }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetRayTracingPipelineStackSizeKHR.html>
     #[inline]
-    pub unsafe fn cmd_set_ray_tracing_pipeline_stack_size_khr(
+    pub unsafe fn cmd_set_ray_tracing_pipeline_stack_size(
         &self,
         command_buffer: CommandBuffer,
         pipeline_stack_size: u32,
     ) {
         unsafe {
-            (self.cmd_set_ray_tracing_pipeline_stack_size_khr)(command_buffer, pipeline_stack_size)
+            (self.cmd_set_ray_tracing_pipeline_stack_size)(command_buffer, pipeline_stack_size)
         }
     }
 }

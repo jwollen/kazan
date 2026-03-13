@@ -214,7 +214,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_memory_host_pointer_properties_ext: PFN_vkGetMemoryHostPointerPropertiesEXT,
+    get_memory_host_pointer_properties: PFN_vkGetMemoryHostPointerPropertiesEXT,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -223,7 +223,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_memory_host_pointer_properties_ext: transmute(
+                get_memory_host_pointer_properties: transmute(
                     load(c"vkGetMemoryHostPointerPropertiesEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -234,7 +234,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryHostPointerPropertiesEXT.html>
     #[inline]
-    pub unsafe fn get_memory_host_pointer_properties_ext(
+    pub unsafe fn get_memory_host_pointer_properties(
         &self,
         device: Device,
         handle_type: ExternalMemoryHandleTypeFlagBits,
@@ -242,7 +242,7 @@ impl DeviceFn {
         memory_host_pointer_properties: &mut MemoryHostPointerPropertiesEXT<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_memory_host_pointer_properties_ext)(
+            let result = (self.get_memory_host_pointer_properties)(
                 device,
                 handle_type,
                 host_pointer,

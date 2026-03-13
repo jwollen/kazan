@@ -773,7 +773,7 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    get_physical_device_fragment_shading_rates_khr: PFN_vkGetPhysicalDeviceFragmentShadingRatesKHR,
+    get_physical_device_fragment_shading_rates: PFN_vkGetPhysicalDeviceFragmentShadingRatesKHR,
 }
 
 impl LoadInstanceFn for InstanceFn {
@@ -782,7 +782,7 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_physical_device_fragment_shading_rates_khr: transmute(
+                get_physical_device_fragment_shading_rates: transmute(
                     load(c"vkGetPhysicalDeviceFragmentShadingRatesKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -794,14 +794,14 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceFragmentShadingRatesKHR.html>
     #[inline]
-    pub unsafe fn get_physical_device_fragment_shading_rates_khr<'a>(
+    pub unsafe fn get_physical_device_fragment_shading_rates<'a>(
         &self,
         physical_device: PhysicalDevice,
         mut fragment_shading_rates: impl ExtendUninit<PhysicalDeviceFragmentShadingRateKHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |fragment_shading_rate_count, fragment_shading_rates| {
-                let result = (self.get_physical_device_fragment_shading_rates_khr)(
+                let result = (self.get_physical_device_fragment_shading_rates)(
                     physical_device,
                     fragment_shading_rate_count,
                     fragment_shading_rates as _,
@@ -826,7 +826,7 @@ impl InstanceFn {
 }
 
 pub struct DeviceFn {
-    cmd_set_fragment_shading_rate_khr: PFN_vkCmdSetFragmentShadingRateKHR,
+    cmd_set_fragment_shading_rate: PFN_vkCmdSetFragmentShadingRateKHR,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -835,7 +835,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_set_fragment_shading_rate_khr: transmute(
+                cmd_set_fragment_shading_rate: transmute(
                     load(c"vkCmdSetFragmentShadingRateKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -846,14 +846,12 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetFragmentShadingRateKHR.html>
     #[inline]
-    pub unsafe fn cmd_set_fragment_shading_rate_khr(
+    pub unsafe fn cmd_set_fragment_shading_rate(
         &self,
         command_buffer: CommandBuffer,
         fragment_size: &Extent2D,
         combiner_ops: &[FragmentShadingRateCombinerOpKHR; 2],
     ) {
-        unsafe {
-            (self.cmd_set_fragment_shading_rate_khr)(command_buffer, fragment_size, combiner_ops)
-        }
+        unsafe { (self.cmd_set_fragment_shading_rate)(command_buffer, fragment_size, combiner_ops) }
     }
 }

@@ -1222,20 +1222,19 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    create_acceleration_structure_nv: PFN_vkCreateAccelerationStructureNV,
-    destroy_acceleration_structure_nv: PFN_vkDestroyAccelerationStructureNV,
-    get_acceleration_structure_memory_requirements_nv:
+    create_acceleration_structure: PFN_vkCreateAccelerationStructureNV,
+    destroy_acceleration_structure: PFN_vkDestroyAccelerationStructureNV,
+    get_acceleration_structure_memory_requirements:
         PFN_vkGetAccelerationStructureMemoryRequirementsNV,
-    bind_acceleration_structure_memory_nv: PFN_vkBindAccelerationStructureMemoryNV,
-    cmd_build_acceleration_structure_nv: PFN_vkCmdBuildAccelerationStructureNV,
-    cmd_copy_acceleration_structure_nv: PFN_vkCmdCopyAccelerationStructureNV,
-    cmd_trace_rays_nv: PFN_vkCmdTraceRaysNV,
-    create_ray_tracing_pipelines_nv: PFN_vkCreateRayTracingPipelinesNV,
-    get_ray_tracing_shader_group_handles_nv: PFN_vkGetRayTracingShaderGroupHandlesKHR,
-    get_acceleration_structure_handle_nv: PFN_vkGetAccelerationStructureHandleNV,
-    cmd_write_acceleration_structures_properties_nv:
-        PFN_vkCmdWriteAccelerationStructuresPropertiesNV,
-    compile_deferred_nv: PFN_vkCompileDeferredNV,
+    bind_acceleration_structure_memory: PFN_vkBindAccelerationStructureMemoryNV,
+    cmd_build_acceleration_structure: PFN_vkCmdBuildAccelerationStructureNV,
+    cmd_copy_acceleration_structure: PFN_vkCmdCopyAccelerationStructureNV,
+    cmd_trace_rays: PFN_vkCmdTraceRaysNV,
+    create_ray_tracing_pipelines: PFN_vkCreateRayTracingPipelinesNV,
+    get_ray_tracing_shader_group_handles: PFN_vkGetRayTracingShaderGroupHandlesKHR,
+    get_acceleration_structure_handle: PFN_vkGetAccelerationStructureHandleNV,
+    cmd_write_acceleration_structures_properties: PFN_vkCmdWriteAccelerationStructuresPropertiesNV,
+    compile_deferred: PFN_vkCompileDeferredNV,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -1244,42 +1243,40 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_acceleration_structure_nv: transmute(
+                create_acceleration_structure: transmute(
                     load(c"vkCreateAccelerationStructureNV").ok_or(MissingEntryPointError)?,
                 ),
-                destroy_acceleration_structure_nv: transmute(
+                destroy_acceleration_structure: transmute(
                     load(c"vkDestroyAccelerationStructureNV").ok_or(MissingEntryPointError)?,
                 ),
-                get_acceleration_structure_memory_requirements_nv: transmute(
+                get_acceleration_structure_memory_requirements: transmute(
                     load(c"vkGetAccelerationStructureMemoryRequirementsNV")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                bind_acceleration_structure_memory_nv: transmute(
+                bind_acceleration_structure_memory: transmute(
                     load(c"vkBindAccelerationStructureMemoryNV").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_build_acceleration_structure_nv: transmute(
+                cmd_build_acceleration_structure: transmute(
                     load(c"vkCmdBuildAccelerationStructureNV").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_copy_acceleration_structure_nv: transmute(
+                cmd_copy_acceleration_structure: transmute(
                     load(c"vkCmdCopyAccelerationStructureNV").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_trace_rays_nv: transmute(
-                    load(c"vkCmdTraceRaysNV").ok_or(MissingEntryPointError)?,
-                ),
-                create_ray_tracing_pipelines_nv: transmute(
+                cmd_trace_rays: transmute(load(c"vkCmdTraceRaysNV").ok_or(MissingEntryPointError)?),
+                create_ray_tracing_pipelines: transmute(
                     load(c"vkCreateRayTracingPipelinesNV").ok_or(MissingEntryPointError)?,
                 ),
-                get_ray_tracing_shader_group_handles_nv: transmute(
+                get_ray_tracing_shader_group_handles: transmute(
                     load(c"vkGetRayTracingShaderGroupHandlesNV").ok_or(MissingEntryPointError)?,
                 ),
-                get_acceleration_structure_handle_nv: transmute(
+                get_acceleration_structure_handle: transmute(
                     load(c"vkGetAccelerationStructureHandleNV").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_write_acceleration_structures_properties_nv: transmute(
+                cmd_write_acceleration_structures_properties: transmute(
                     load(c"vkCmdWriteAccelerationStructuresPropertiesNV")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                compile_deferred_nv: transmute(
+                compile_deferred: transmute(
                     load(c"vkCompileDeferredNV").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -1290,7 +1287,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateAccelerationStructureNV.html>
     #[inline]
-    pub unsafe fn create_acceleration_structure_nv(
+    pub unsafe fn create_acceleration_structure(
         &self,
         device: Device,
         create_info: &AccelerationStructureCreateInfoNV<'_>,
@@ -1298,7 +1295,7 @@ impl DeviceFn {
     ) -> crate::Result<AccelerationStructureNV> {
         unsafe {
             let mut acceleration_structure = core::mem::MaybeUninit::uninit();
-            let result = (self.create_acceleration_structure_nv)(
+            let result = (self.create_acceleration_structure)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -1314,14 +1311,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyAccelerationStructureNV.html>
     #[inline]
-    pub unsafe fn destroy_acceleration_structure_nv(
+    pub unsafe fn destroy_acceleration_structure(
         &self,
         device: Device,
         acceleration_structure: AccelerationStructureNV,
         allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe {
-            (self.destroy_acceleration_structure_nv)(
+            (self.destroy_acceleration_structure)(
                 device,
                 acceleration_structure,
                 allocator.to_raw_ptr(),
@@ -1331,30 +1328,26 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetAccelerationStructureMemoryRequirementsNV.html>
     #[inline]
-    pub unsafe fn get_acceleration_structure_memory_requirements_nv(
+    pub unsafe fn get_acceleration_structure_memory_requirements(
         &self,
         device: Device,
         info: &AccelerationStructureMemoryRequirementsInfoNV<'_>,
         memory_requirements: &mut MemoryRequirements2KHR<'_>,
     ) {
         unsafe {
-            (self.get_acceleration_structure_memory_requirements_nv)(
-                device,
-                info,
-                memory_requirements,
-            )
+            (self.get_acceleration_structure_memory_requirements)(device, info, memory_requirements)
         }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindAccelerationStructureMemoryNV.html>
     #[inline]
-    pub unsafe fn bind_acceleration_structure_memory_nv(
+    pub unsafe fn bind_acceleration_structure_memory(
         &self,
         device: Device,
         bind_infos: &[BindAccelerationStructureMemoryInfoNV<'_>],
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.bind_acceleration_structure_memory_nv)(
+            let result = (self.bind_acceleration_structure_memory)(
                 device,
                 bind_infos.len().try_into().unwrap(),
                 bind_infos.as_ptr() as _,
@@ -1369,7 +1362,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBuildAccelerationStructureNV.html>
     #[inline]
-    pub unsafe fn cmd_build_acceleration_structure_nv(
+    pub unsafe fn cmd_build_acceleration_structure(
         &self,
         command_buffer: CommandBuffer,
         info: &AccelerationStructureInfoNV<'_>,
@@ -1382,7 +1375,7 @@ impl DeviceFn {
         scratch_offset: DeviceSize,
     ) {
         unsafe {
-            (self.cmd_build_acceleration_structure_nv)(
+            (self.cmd_build_acceleration_structure)(
                 command_buffer,
                 info,
                 instance_data,
@@ -1398,19 +1391,19 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyAccelerationStructureNV.html>
     #[inline]
-    pub unsafe fn cmd_copy_acceleration_structure_nv(
+    pub unsafe fn cmd_copy_acceleration_structure(
         &self,
         command_buffer: CommandBuffer,
         dst: AccelerationStructureNV,
         src: AccelerationStructureNV,
         mode: CopyAccelerationStructureModeKHR,
     ) {
-        unsafe { (self.cmd_copy_acceleration_structure_nv)(command_buffer, dst, src, mode) }
+        unsafe { (self.cmd_copy_acceleration_structure)(command_buffer, dst, src, mode) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdTraceRaysNV.html>
     #[inline]
-    pub unsafe fn cmd_trace_rays_nv(
+    pub unsafe fn cmd_trace_rays(
         &self,
         command_buffer: CommandBuffer,
         raygen_shader_binding_table_buffer: Buffer,
@@ -1429,7 +1422,7 @@ impl DeviceFn {
         depth: u32,
     ) {
         unsafe {
-            (self.cmd_trace_rays_nv)(
+            (self.cmd_trace_rays)(
                 command_buffer,
                 raygen_shader_binding_table_buffer,
                 raygen_shader_binding_offset,
@@ -1451,7 +1444,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateRayTracingPipelinesNV.html>
     #[inline]
-    pub unsafe fn create_ray_tracing_pipelines_nv(
+    pub unsafe fn create_ray_tracing_pipelines(
         &self,
         device: Device,
         pipeline_cache: PipelineCache,
@@ -1460,7 +1453,7 @@ impl DeviceFn {
         pipelines: &mut [Pipeline],
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.create_ray_tracing_pipelines_nv)(
+            let result = (self.create_ray_tracing_pipelines)(
                 device,
                 pipeline_cache,
                 create_infos.len().try_into().unwrap(),
@@ -1478,7 +1471,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRayTracingShaderGroupHandlesNV.html>
     #[inline]
-    pub unsafe fn get_ray_tracing_shader_group_handles_nv(
+    pub unsafe fn get_ray_tracing_shader_group_handles(
         &self,
         device: Device,
         pipeline: Pipeline,
@@ -1487,7 +1480,7 @@ impl DeviceFn {
         data: &mut [u8],
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_ray_tracing_shader_group_handles_nv)(
+            let result = (self.get_ray_tracing_shader_group_handles)(
                 device,
                 pipeline,
                 first_group,
@@ -1505,14 +1498,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetAccelerationStructureHandleNV.html>
     #[inline]
-    pub unsafe fn get_acceleration_structure_handle_nv(
+    pub unsafe fn get_acceleration_structure_handle(
         &self,
         device: Device,
         acceleration_structure: AccelerationStructureNV,
         data: &mut [u8],
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_acceleration_structure_handle_nv)(
+            let result = (self.get_acceleration_structure_handle)(
                 device,
                 acceleration_structure,
                 data.len().try_into().unwrap(),
@@ -1528,7 +1521,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdWriteAccelerationStructuresPropertiesNV.html>
     #[inline]
-    pub unsafe fn cmd_write_acceleration_structures_properties_nv(
+    pub unsafe fn cmd_write_acceleration_structures_properties(
         &self,
         command_buffer: CommandBuffer,
         acceleration_structures: &[AccelerationStructureNV],
@@ -1537,7 +1530,7 @@ impl DeviceFn {
         first_query: u32,
     ) {
         unsafe {
-            (self.cmd_write_acceleration_structures_properties_nv)(
+            (self.cmd_write_acceleration_structures_properties)(
                 command_buffer,
                 acceleration_structures.len().try_into().unwrap(),
                 acceleration_structures.as_ptr() as _,
@@ -1550,14 +1543,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCompileDeferredNV.html>
     #[inline]
-    pub unsafe fn compile_deferred_nv(
+    pub unsafe fn compile_deferred(
         &self,
         device: Device,
         pipeline: Pipeline,
         shader: u32,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.compile_deferred_nv)(device, pipeline, shader);
+            let result = (self.compile_deferred)(device, pipeline, shader);
 
             match result {
                 VkResult::SUCCESS => Ok(()),

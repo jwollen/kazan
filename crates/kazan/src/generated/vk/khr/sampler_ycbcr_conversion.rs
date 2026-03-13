@@ -61,8 +61,8 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    create_sampler_ycbcr_conversion_khr: PFN_vkCreateSamplerYcbcrConversion,
-    destroy_sampler_ycbcr_conversion_khr: PFN_vkDestroySamplerYcbcrConversion,
+    create_sampler_ycbcr_conversion: PFN_vkCreateSamplerYcbcrConversion,
+    destroy_sampler_ycbcr_conversion: PFN_vkDestroySamplerYcbcrConversion,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -71,10 +71,10 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_sampler_ycbcr_conversion_khr: transmute(
+                create_sampler_ycbcr_conversion: transmute(
                     load(c"vkCreateSamplerYcbcrConversionKHR").ok_or(MissingEntryPointError)?,
                 ),
-                destroy_sampler_ycbcr_conversion_khr: transmute(
+                destroy_sampler_ycbcr_conversion: transmute(
                     load(c"vkDestroySamplerYcbcrConversionKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -85,7 +85,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSamplerYcbcrConversionKHR.html>
     #[inline]
-    pub unsafe fn create_sampler_ycbcr_conversion_khr(
+    pub unsafe fn create_sampler_ycbcr_conversion(
         &self,
         device: Device,
         create_info: &SamplerYcbcrConversionCreateInfo<'_>,
@@ -93,7 +93,7 @@ impl DeviceFn {
     ) -> crate::Result<SamplerYcbcrConversion> {
         unsafe {
             let mut ycbcr_conversion = core::mem::MaybeUninit::uninit();
-            let result = (self.create_sampler_ycbcr_conversion_khr)(
+            let result = (self.create_sampler_ycbcr_conversion)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -109,14 +109,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroySamplerYcbcrConversionKHR.html>
     #[inline]
-    pub unsafe fn destroy_sampler_ycbcr_conversion_khr(
+    pub unsafe fn destroy_sampler_ycbcr_conversion(
         &self,
         device: Device,
         ycbcr_conversion: SamplerYcbcrConversion,
         allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe {
-            (self.destroy_sampler_ycbcr_conversion_khr)(
+            (self.destroy_sampler_ycbcr_conversion)(
                 device,
                 ycbcr_conversion,
                 allocator.to_raw_ptr(),

@@ -146,7 +146,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_set_color_write_enable_ext: PFN_vkCmdSetColorWriteEnableEXT,
+    cmd_set_color_write_enable: PFN_vkCmdSetColorWriteEnableEXT,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -155,7 +155,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_set_color_write_enable_ext: transmute(
+                cmd_set_color_write_enable: transmute(
                     load(c"vkCmdSetColorWriteEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -166,13 +166,13 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetColorWriteEnableEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_color_write_enable_ext(
+    pub unsafe fn cmd_set_color_write_enable(
         &self,
         command_buffer: CommandBuffer,
         color_write_enables: &[Bool32],
     ) {
         unsafe {
-            (self.cmd_set_color_write_enable_ext)(
+            (self.cmd_set_color_write_enable)(
                 command_buffer,
                 color_write_enables.len().try_into().unwrap(),
                 color_write_enables.as_ptr() as _,

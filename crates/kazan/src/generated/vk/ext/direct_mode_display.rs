@@ -23,7 +23,7 @@ pub(super) mod defs {
 }
 
 pub struct InstanceFn {
-    release_display_ext: PFN_vkReleaseDisplayEXT,
+    release_display: PFN_vkReleaseDisplayEXT,
 }
 
 impl LoadInstanceFn for InstanceFn {
@@ -32,7 +32,7 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                release_display_ext: transmute(
+                release_display: transmute(
                     load(c"vkReleaseDisplayEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -43,13 +43,13 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkReleaseDisplayEXT.html>
     #[inline]
-    pub unsafe fn release_display_ext(
+    pub unsafe fn release_display(
         &self,
         physical_device: PhysicalDevice,
         display: DisplayKHR,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.release_display_ext)(physical_device, display);
+            let result = (self.release_display)(physical_device, display);
 
             match result {
                 VkResult::SUCCESS => Ok(()),

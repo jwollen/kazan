@@ -1648,9 +1648,9 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_cluster_acceleration_structure_build_sizes_nv:
+    get_cluster_acceleration_structure_build_sizes:
         PFN_vkGetClusterAccelerationStructureBuildSizesNV,
-    cmd_build_cluster_acceleration_structure_indirect_nv:
+    cmd_build_cluster_acceleration_structure_indirect:
         PFN_vkCmdBuildClusterAccelerationStructureIndirectNV,
 }
 
@@ -1660,11 +1660,11 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_cluster_acceleration_structure_build_sizes_nv: transmute(
+                get_cluster_acceleration_structure_build_sizes: transmute(
                     load(c"vkGetClusterAccelerationStructureBuildSizesNV")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                cmd_build_cluster_acceleration_structure_indirect_nv: transmute(
+                cmd_build_cluster_acceleration_structure_indirect: transmute(
                     load(c"vkCmdBuildClusterAccelerationStructureIndirectNV")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -1676,27 +1676,24 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetClusterAccelerationStructureBuildSizesNV.html>
     #[inline]
-    pub unsafe fn get_cluster_acceleration_structure_build_sizes_nv(
+    pub unsafe fn get_cluster_acceleration_structure_build_sizes(
         &self,
         device: Device,
         info: &ClusterAccelerationStructureInputInfoNV<'_>,
         size_info: &mut AccelerationStructureBuildSizesInfoKHR<'_>,
     ) {
-        unsafe { (self.get_cluster_acceleration_structure_build_sizes_nv)(device, info, size_info) }
+        unsafe { (self.get_cluster_acceleration_structure_build_sizes)(device, info, size_info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBuildClusterAccelerationStructureIndirectNV.html>
     #[inline]
-    pub unsafe fn cmd_build_cluster_acceleration_structure_indirect_nv(
+    pub unsafe fn cmd_build_cluster_acceleration_structure_indirect(
         &self,
         command_buffer: CommandBuffer,
         command_infos: &ClusterAccelerationStructureCommandsInfoNV<'_>,
     ) {
         unsafe {
-            (self.cmd_build_cluster_acceleration_structure_indirect_nv)(
-                command_buffer,
-                command_infos,
-            )
+            (self.cmd_build_cluster_acceleration_structure_indirect)(command_buffer, command_infos)
         }
     }
 }

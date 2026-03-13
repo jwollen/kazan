@@ -294,7 +294,7 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    get_physical_device_cooperative_matrix_properties_nv:
+    get_physical_device_cooperative_matrix_properties:
         PFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesNV,
 }
 
@@ -304,7 +304,7 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_physical_device_cooperative_matrix_properties_nv: transmute(
+                get_physical_device_cooperative_matrix_properties: transmute(
                     load(c"vkGetPhysicalDeviceCooperativeMatrixPropertiesNV")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -316,14 +316,14 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceCooperativeMatrixPropertiesNV.html>
     #[inline]
-    pub unsafe fn get_physical_device_cooperative_matrix_properties_nv<'a>(
+    pub unsafe fn get_physical_device_cooperative_matrix_properties<'a>(
         &self,
         physical_device: PhysicalDevice,
         mut properties: impl ExtendUninit<CooperativeMatrixPropertiesNV<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |property_count, properties| {
-                let result = (self.get_physical_device_cooperative_matrix_properties_nv)(
+                let result = (self.get_physical_device_cooperative_matrix_properties)(
                     physical_device,
                     property_count,
                     properties as _,

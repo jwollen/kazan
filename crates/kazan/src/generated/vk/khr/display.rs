@@ -683,14 +683,13 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    get_physical_device_display_properties_khr: PFN_vkGetPhysicalDeviceDisplayPropertiesKHR,
-    get_physical_device_display_plane_properties_khr:
-        PFN_vkGetPhysicalDeviceDisplayPlanePropertiesKHR,
-    get_display_plane_supported_displays_khr: PFN_vkGetDisplayPlaneSupportedDisplaysKHR,
-    get_display_mode_properties_khr: PFN_vkGetDisplayModePropertiesKHR,
-    create_display_mode_khr: PFN_vkCreateDisplayModeKHR,
-    get_display_plane_capabilities_khr: PFN_vkGetDisplayPlaneCapabilitiesKHR,
-    create_display_plane_surface_khr: PFN_vkCreateDisplayPlaneSurfaceKHR,
+    get_physical_device_display_properties: PFN_vkGetPhysicalDeviceDisplayPropertiesKHR,
+    get_physical_device_display_plane_properties: PFN_vkGetPhysicalDeviceDisplayPlanePropertiesKHR,
+    get_display_plane_supported_displays: PFN_vkGetDisplayPlaneSupportedDisplaysKHR,
+    get_display_mode_properties: PFN_vkGetDisplayModePropertiesKHR,
+    create_display_mode: PFN_vkCreateDisplayModeKHR,
+    get_display_plane_capabilities: PFN_vkGetDisplayPlaneCapabilitiesKHR,
+    create_display_plane_surface: PFN_vkCreateDisplayPlaneSurfaceKHR,
 }
 
 impl LoadInstanceFn for InstanceFn {
@@ -699,27 +698,27 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_physical_device_display_properties_khr: transmute(
+                get_physical_device_display_properties: transmute(
                     load(c"vkGetPhysicalDeviceDisplayPropertiesKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                get_physical_device_display_plane_properties_khr: transmute(
+                get_physical_device_display_plane_properties: transmute(
                     load(c"vkGetPhysicalDeviceDisplayPlanePropertiesKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                get_display_plane_supported_displays_khr: transmute(
+                get_display_plane_supported_displays: transmute(
                     load(c"vkGetDisplayPlaneSupportedDisplaysKHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_display_mode_properties_khr: transmute(
+                get_display_mode_properties: transmute(
                     load(c"vkGetDisplayModePropertiesKHR").ok_or(MissingEntryPointError)?,
                 ),
-                create_display_mode_khr: transmute(
+                create_display_mode: transmute(
                     load(c"vkCreateDisplayModeKHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_display_plane_capabilities_khr: transmute(
+                get_display_plane_capabilities: transmute(
                     load(c"vkGetDisplayPlaneCapabilitiesKHR").ok_or(MissingEntryPointError)?,
                 ),
-                create_display_plane_surface_khr: transmute(
+                create_display_plane_surface: transmute(
                     load(c"vkCreateDisplayPlaneSurfaceKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -730,14 +729,14 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDisplayPropertiesKHR.html>
     #[inline]
-    pub unsafe fn get_physical_device_display_properties_khr<'a>(
+    pub unsafe fn get_physical_device_display_properties<'a>(
         &self,
         physical_device: PhysicalDevice,
         mut properties: impl ExtendUninit<DisplayPropertiesKHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |property_count, properties| {
-                let result = (self.get_physical_device_display_properties_khr)(
+                let result = (self.get_physical_device_display_properties)(
                     physical_device,
                     property_count,
                     properties as _,
@@ -762,14 +761,14 @@ impl InstanceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDisplayPlanePropertiesKHR.html>
     #[inline]
-    pub unsafe fn get_physical_device_display_plane_properties_khr(
+    pub unsafe fn get_physical_device_display_plane_properties(
         &self,
         physical_device: PhysicalDevice,
         mut properties: impl ExtendUninit<DisplayPlanePropertiesKHR>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |property_count, properties| {
-                let result = (self.get_physical_device_display_plane_properties_khr)(
+                let result = (self.get_physical_device_display_plane_properties)(
                     physical_device,
                     property_count,
                     properties as _,
@@ -794,7 +793,7 @@ impl InstanceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDisplayPlaneSupportedDisplaysKHR.html>
     #[inline]
-    pub unsafe fn get_display_plane_supported_displays_khr(
+    pub unsafe fn get_display_plane_supported_displays(
         &self,
         physical_device: PhysicalDevice,
         plane_index: u32,
@@ -802,7 +801,7 @@ impl InstanceFn {
     ) -> crate::Result<()> {
         unsafe {
             let call = |display_count, displays| {
-                let result = (self.get_display_plane_supported_displays_khr)(
+                let result = (self.get_display_plane_supported_displays)(
                     physical_device,
                     plane_index,
                     display_count,
@@ -828,7 +827,7 @@ impl InstanceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDisplayModePropertiesKHR.html>
     #[inline]
-    pub unsafe fn get_display_mode_properties_khr(
+    pub unsafe fn get_display_mode_properties(
         &self,
         physical_device: PhysicalDevice,
         display: DisplayKHR,
@@ -836,7 +835,7 @@ impl InstanceFn {
     ) -> crate::Result<()> {
         unsafe {
             let call = |property_count, properties| {
-                let result = (self.get_display_mode_properties_khr)(
+                let result = (self.get_display_mode_properties)(
                     physical_device,
                     display,
                     property_count,
@@ -862,7 +861,7 @@ impl InstanceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDisplayModeKHR.html>
     #[inline]
-    pub unsafe fn create_display_mode_khr(
+    pub unsafe fn create_display_mode(
         &self,
         physical_device: PhysicalDevice,
         display: DisplayKHR,
@@ -871,7 +870,7 @@ impl InstanceFn {
     ) -> crate::Result<DisplayModeKHR> {
         unsafe {
             let mut mode = core::mem::MaybeUninit::uninit();
-            let result = (self.create_display_mode_khr)(
+            let result = (self.create_display_mode)(
                 physical_device,
                 display,
                 create_info,
@@ -888,7 +887,7 @@ impl InstanceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDisplayPlaneCapabilitiesKHR.html>
     #[inline]
-    pub unsafe fn get_display_plane_capabilities_khr(
+    pub unsafe fn get_display_plane_capabilities(
         &self,
         physical_device: PhysicalDevice,
         mode: DisplayModeKHR,
@@ -896,7 +895,7 @@ impl InstanceFn {
     ) -> crate::Result<DisplayPlaneCapabilitiesKHR> {
         unsafe {
             let mut capabilities = core::mem::MaybeUninit::uninit();
-            let result = (self.get_display_plane_capabilities_khr)(
+            let result = (self.get_display_plane_capabilities)(
                 physical_device,
                 mode,
                 plane_index,
@@ -912,7 +911,7 @@ impl InstanceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDisplayPlaneSurfaceKHR.html>
     #[inline]
-    pub unsafe fn create_display_plane_surface_khr(
+    pub unsafe fn create_display_plane_surface(
         &self,
         instance: Instance,
         create_info: &DisplaySurfaceCreateInfoKHR<'_>,
@@ -920,7 +919,7 @@ impl InstanceFn {
     ) -> crate::Result<SurfaceKHR> {
         unsafe {
             let mut surface = core::mem::MaybeUninit::uninit();
-            let result = (self.create_display_plane_surface_khr)(
+            let result = (self.create_display_plane_surface)(
                 instance,
                 create_info,
                 allocator.to_raw_ptr(),

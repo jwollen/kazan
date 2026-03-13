@@ -643,15 +643,15 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    initialize_performance_api_intel: PFN_vkInitializePerformanceApiINTEL,
-    uninitialize_performance_api_intel: PFN_vkUninitializePerformanceApiINTEL,
-    cmd_set_performance_marker_intel: PFN_vkCmdSetPerformanceMarkerINTEL,
-    cmd_set_performance_stream_marker_intel: PFN_vkCmdSetPerformanceStreamMarkerINTEL,
-    cmd_set_performance_override_intel: PFN_vkCmdSetPerformanceOverrideINTEL,
-    acquire_performance_configuration_intel: PFN_vkAcquirePerformanceConfigurationINTEL,
-    release_performance_configuration_intel: PFN_vkReleasePerformanceConfigurationINTEL,
-    queue_set_performance_configuration_intel: PFN_vkQueueSetPerformanceConfigurationINTEL,
-    get_performance_parameter_intel: PFN_vkGetPerformanceParameterINTEL,
+    initialize_performance_api: PFN_vkInitializePerformanceApiINTEL,
+    uninitialize_performance_api: PFN_vkUninitializePerformanceApiINTEL,
+    cmd_set_performance_marker: PFN_vkCmdSetPerformanceMarkerINTEL,
+    cmd_set_performance_stream_marker: PFN_vkCmdSetPerformanceStreamMarkerINTEL,
+    cmd_set_performance_override: PFN_vkCmdSetPerformanceOverrideINTEL,
+    acquire_performance_configuration: PFN_vkAcquirePerformanceConfigurationINTEL,
+    release_performance_configuration: PFN_vkReleasePerformanceConfigurationINTEL,
+    queue_set_performance_configuration: PFN_vkQueueSetPerformanceConfigurationINTEL,
+    get_performance_parameter: PFN_vkGetPerformanceParameterINTEL,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -660,34 +660,34 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                initialize_performance_api_intel: transmute(
+                initialize_performance_api: transmute(
                     load(c"vkInitializePerformanceApiINTEL").ok_or(MissingEntryPointError)?,
                 ),
-                uninitialize_performance_api_intel: transmute(
+                uninitialize_performance_api: transmute(
                     load(c"vkUninitializePerformanceApiINTEL").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_performance_marker_intel: transmute(
+                cmd_set_performance_marker: transmute(
                     load(c"vkCmdSetPerformanceMarkerINTEL").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_performance_stream_marker_intel: transmute(
+                cmd_set_performance_stream_marker: transmute(
                     load(c"vkCmdSetPerformanceStreamMarkerINTEL").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_performance_override_intel: transmute(
+                cmd_set_performance_override: transmute(
                     load(c"vkCmdSetPerformanceOverrideINTEL").ok_or(MissingEntryPointError)?,
                 ),
-                acquire_performance_configuration_intel: transmute(
+                acquire_performance_configuration: transmute(
                     load(c"vkAcquirePerformanceConfigurationINTEL")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                release_performance_configuration_intel: transmute(
+                release_performance_configuration: transmute(
                     load(c"vkReleasePerformanceConfigurationINTEL")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                queue_set_performance_configuration_intel: transmute(
+                queue_set_performance_configuration: transmute(
                     load(c"vkQueueSetPerformanceConfigurationINTEL")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                get_performance_parameter_intel: transmute(
+                get_performance_parameter: transmute(
                     load(c"vkGetPerformanceParameterINTEL").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -698,13 +698,13 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkInitializePerformanceApiINTEL.html>
     #[inline]
-    pub unsafe fn initialize_performance_api_intel(
+    pub unsafe fn initialize_performance_api(
         &self,
         device: Device,
         initialize_info: &InitializePerformanceApiInfoINTEL<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.initialize_performance_api_intel)(device, initialize_info);
+            let result = (self.initialize_performance_api)(device, initialize_info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -715,19 +715,19 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUninitializePerformanceApiINTEL.html>
     #[inline]
-    pub unsafe fn uninitialize_performance_api_intel(&self, device: Device) {
-        unsafe { (self.uninitialize_performance_api_intel)(device) }
+    pub unsafe fn uninitialize_performance_api(&self, device: Device) {
+        unsafe { (self.uninitialize_performance_api)(device) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPerformanceMarkerINTEL.html>
     #[inline]
-    pub unsafe fn cmd_set_performance_marker_intel(
+    pub unsafe fn cmd_set_performance_marker(
         &self,
         command_buffer: CommandBuffer,
         marker_info: &PerformanceMarkerInfoINTEL<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.cmd_set_performance_marker_intel)(command_buffer, marker_info);
+            let result = (self.cmd_set_performance_marker)(command_buffer, marker_info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -738,14 +738,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPerformanceStreamMarkerINTEL.html>
     #[inline]
-    pub unsafe fn cmd_set_performance_stream_marker_intel(
+    pub unsafe fn cmd_set_performance_stream_marker(
         &self,
         command_buffer: CommandBuffer,
         marker_info: &PerformanceStreamMarkerInfoINTEL<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result =
-                (self.cmd_set_performance_stream_marker_intel)(command_buffer, marker_info);
+            let result = (self.cmd_set_performance_stream_marker)(command_buffer, marker_info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -756,13 +755,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPerformanceOverrideINTEL.html>
     #[inline]
-    pub unsafe fn cmd_set_performance_override_intel(
+    pub unsafe fn cmd_set_performance_override(
         &self,
         command_buffer: CommandBuffer,
         override_info: &PerformanceOverrideInfoINTEL<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.cmd_set_performance_override_intel)(command_buffer, override_info);
+            let result = (self.cmd_set_performance_override)(command_buffer, override_info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -773,14 +772,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquirePerformanceConfigurationINTEL.html>
     #[inline]
-    pub unsafe fn acquire_performance_configuration_intel(
+    pub unsafe fn acquire_performance_configuration(
         &self,
         device: Device,
         acquire_info: &PerformanceConfigurationAcquireInfoINTEL<'_>,
     ) -> crate::Result<PerformanceConfigurationINTEL> {
         unsafe {
             let mut configuration = core::mem::MaybeUninit::uninit();
-            let result = (self.acquire_performance_configuration_intel)(
+            let result = (self.acquire_performance_configuration)(
                 device,
                 acquire_info,
                 configuration.as_mut_ptr(),
@@ -795,13 +794,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkReleasePerformanceConfigurationINTEL.html>
     #[inline]
-    pub unsafe fn release_performance_configuration_intel(
+    pub unsafe fn release_performance_configuration(
         &self,
         device: Device,
         configuration: PerformanceConfigurationINTEL,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.release_performance_configuration_intel)(device, configuration);
+            let result = (self.release_performance_configuration)(device, configuration);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -812,13 +811,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueSetPerformanceConfigurationINTEL.html>
     #[inline]
-    pub unsafe fn queue_set_performance_configuration_intel(
+    pub unsafe fn queue_set_performance_configuration(
         &self,
         queue: Queue,
         configuration: PerformanceConfigurationINTEL,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.queue_set_performance_configuration_intel)(queue, configuration);
+            let result = (self.queue_set_performance_configuration)(queue, configuration);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -829,15 +828,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPerformanceParameterINTEL.html>
     #[inline]
-    pub unsafe fn get_performance_parameter_intel(
+    pub unsafe fn get_performance_parameter(
         &self,
         device: Device,
         parameter: PerformanceParameterTypeINTEL,
     ) -> crate::Result<PerformanceValueINTEL<'_>> {
         unsafe {
             let mut value = core::mem::MaybeUninit::uninit();
-            let result =
-                (self.get_performance_parameter_intel)(device, parameter, value.as_mut_ptr());
+            let result = (self.get_performance_parameter)(device, parameter, value.as_mut_ptr());
 
             match result {
                 VkResult::SUCCESS => Ok(value.assume_init()),

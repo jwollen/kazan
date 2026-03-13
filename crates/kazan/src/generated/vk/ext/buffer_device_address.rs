@@ -180,7 +180,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_buffer_device_address_ext: PFN_vkGetBufferDeviceAddress,
+    get_buffer_device_address: PFN_vkGetBufferDeviceAddress,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -189,7 +189,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_buffer_device_address_ext: transmute(
+                get_buffer_device_address: transmute(
                     load(c"vkGetBufferDeviceAddressEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -200,11 +200,11 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferDeviceAddressEXT.html>
     #[inline]
-    pub unsafe fn get_buffer_device_address_ext(
+    pub unsafe fn get_buffer_device_address(
         &self,
         device: Device,
         info: &BufferDeviceAddressInfo<'_>,
     ) -> DeviceAddress {
-        unsafe { (self.get_buffer_device_address_ext)(device, info) }
+        unsafe { (self.get_buffer_device_address)(device, info) }
     }
 }

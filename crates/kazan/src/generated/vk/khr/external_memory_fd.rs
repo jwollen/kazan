@@ -214,8 +214,8 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_memory_fd_khr: PFN_vkGetMemoryFdKHR,
-    get_memory_fd_properties_khr: PFN_vkGetMemoryFdPropertiesKHR,
+    get_memory_fd: PFN_vkGetMemoryFdKHR,
+    get_memory_fd_properties: PFN_vkGetMemoryFdPropertiesKHR,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -224,10 +224,8 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_memory_fd_khr: transmute(
-                    load(c"vkGetMemoryFdKHR").ok_or(MissingEntryPointError)?,
-                ),
-                get_memory_fd_properties_khr: transmute(
+                get_memory_fd: transmute(load(c"vkGetMemoryFdKHR").ok_or(MissingEntryPointError)?),
+                get_memory_fd_properties: transmute(
                     load(c"vkGetMemoryFdPropertiesKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -238,14 +236,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryFdKHR.html>
     #[inline]
-    pub unsafe fn get_memory_fd_khr(
+    pub unsafe fn get_memory_fd(
         &self,
         device: Device,
         get_fd_info: &MemoryGetFdInfoKHR<'_>,
     ) -> crate::Result<c_int> {
         unsafe {
             let mut fd = core::mem::MaybeUninit::uninit();
-            let result = (self.get_memory_fd_khr)(device, get_fd_info, fd.as_mut_ptr());
+            let result = (self.get_memory_fd)(device, get_fd_info, fd.as_mut_ptr());
 
             match result {
                 VkResult::SUCCESS => Ok(fd.assume_init()),
@@ -256,7 +254,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryFdPropertiesKHR.html>
     #[inline]
-    pub unsafe fn get_memory_fd_properties_khr(
+    pub unsafe fn get_memory_fd_properties(
         &self,
         device: Device,
         handle_type: ExternalMemoryHandleTypeFlagBits,
@@ -265,7 +263,7 @@ impl DeviceFn {
     ) -> crate::Result<()> {
         unsafe {
             let result =
-                (self.get_memory_fd_properties_khr)(device, handle_type, fd, memory_fd_properties);
+                (self.get_memory_fd_properties)(device, handle_type, fd, memory_fd_properties);
 
             match result {
                 VkResult::SUCCESS => Ok(()),

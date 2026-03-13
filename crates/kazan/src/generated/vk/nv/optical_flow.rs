@@ -963,7 +963,7 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    get_physical_device_optical_flow_image_formats_nv:
+    get_physical_device_optical_flow_image_formats:
         PFN_vkGetPhysicalDeviceOpticalFlowImageFormatsNV,
 }
 
@@ -973,7 +973,7 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_physical_device_optical_flow_image_formats_nv: transmute(
+                get_physical_device_optical_flow_image_formats: transmute(
                     load(c"vkGetPhysicalDeviceOpticalFlowImageFormatsNV")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -985,7 +985,7 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceOpticalFlowImageFormatsNV.html>
     #[inline]
-    pub unsafe fn get_physical_device_optical_flow_image_formats_nv<'a>(
+    pub unsafe fn get_physical_device_optical_flow_image_formats<'a>(
         &self,
         physical_device: PhysicalDevice,
         optical_flow_image_format_info: &OpticalFlowImageFormatInfoNV<'a>,
@@ -993,7 +993,7 @@ impl InstanceFn {
     ) -> crate::Result<()> {
         unsafe {
             let call = |format_count, image_format_properties| {
-                let result = (self.get_physical_device_optical_flow_image_formats_nv)(
+                let result = (self.get_physical_device_optical_flow_image_formats)(
                     physical_device,
                     optical_flow_image_format_info,
                     format_count,
@@ -1019,10 +1019,10 @@ impl InstanceFn {
 }
 
 pub struct DeviceFn {
-    create_optical_flow_session_nv: PFN_vkCreateOpticalFlowSessionNV,
-    destroy_optical_flow_session_nv: PFN_vkDestroyOpticalFlowSessionNV,
-    bind_optical_flow_session_image_nv: PFN_vkBindOpticalFlowSessionImageNV,
-    cmd_optical_flow_execute_nv: PFN_vkCmdOpticalFlowExecuteNV,
+    create_optical_flow_session: PFN_vkCreateOpticalFlowSessionNV,
+    destroy_optical_flow_session: PFN_vkDestroyOpticalFlowSessionNV,
+    bind_optical_flow_session_image: PFN_vkBindOpticalFlowSessionImageNV,
+    cmd_optical_flow_execute: PFN_vkCmdOpticalFlowExecuteNV,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -1031,16 +1031,16 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_optical_flow_session_nv: transmute(
+                create_optical_flow_session: transmute(
                     load(c"vkCreateOpticalFlowSessionNV").ok_or(MissingEntryPointError)?,
                 ),
-                destroy_optical_flow_session_nv: transmute(
+                destroy_optical_flow_session: transmute(
                     load(c"vkDestroyOpticalFlowSessionNV").ok_or(MissingEntryPointError)?,
                 ),
-                bind_optical_flow_session_image_nv: transmute(
+                bind_optical_flow_session_image: transmute(
                     load(c"vkBindOpticalFlowSessionImageNV").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_optical_flow_execute_nv: transmute(
+                cmd_optical_flow_execute: transmute(
                     load(c"vkCmdOpticalFlowExecuteNV").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -1051,7 +1051,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateOpticalFlowSessionNV.html>
     #[inline]
-    pub unsafe fn create_optical_flow_session_nv(
+    pub unsafe fn create_optical_flow_session(
         &self,
         device: Device,
         create_info: &OpticalFlowSessionCreateInfoNV<'_>,
@@ -1059,7 +1059,7 @@ impl DeviceFn {
     ) -> crate::Result<OpticalFlowSessionNV> {
         unsafe {
             let mut session = core::mem::MaybeUninit::uninit();
-            let result = (self.create_optical_flow_session_nv)(
+            let result = (self.create_optical_flow_session)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -1075,18 +1075,18 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyOpticalFlowSessionNV.html>
     #[inline]
-    pub unsafe fn destroy_optical_flow_session_nv(
+    pub unsafe fn destroy_optical_flow_session(
         &self,
         device: Device,
         session: OpticalFlowSessionNV,
         allocator: Option<&AllocationCallbacks<'_>>,
     ) {
-        unsafe { (self.destroy_optical_flow_session_nv)(device, session, allocator.to_raw_ptr()) }
+        unsafe { (self.destroy_optical_flow_session)(device, session, allocator.to_raw_ptr()) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindOpticalFlowSessionImageNV.html>
     #[inline]
-    pub unsafe fn bind_optical_flow_session_image_nv(
+    pub unsafe fn bind_optical_flow_session_image(
         &self,
         device: Device,
         session: OpticalFlowSessionNV,
@@ -1095,7 +1095,7 @@ impl DeviceFn {
         layout: ImageLayout,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.bind_optical_flow_session_image_nv)(
+            let result = (self.bind_optical_flow_session_image)(
                 device,
                 session,
                 binding_point,
@@ -1112,12 +1112,12 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdOpticalFlowExecuteNV.html>
     #[inline]
-    pub unsafe fn cmd_optical_flow_execute_nv(
+    pub unsafe fn cmd_optical_flow_execute(
         &self,
         command_buffer: CommandBuffer,
         session: OpticalFlowSessionNV,
         execute_info: &OpticalFlowExecuteInfoNV<'_>,
     ) {
-        unsafe { (self.cmd_optical_flow_execute_nv)(command_buffer, session, execute_info) }
+        unsafe { (self.cmd_optical_flow_execute)(command_buffer, session, execute_info) }
     }
 }

@@ -257,8 +257,8 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    import_fence_win32_handle_khr: PFN_vkImportFenceWin32HandleKHR,
-    get_fence_win32_handle_khr: PFN_vkGetFenceWin32HandleKHR,
+    import_fence_win32_handle: PFN_vkImportFenceWin32HandleKHR,
+    get_fence_win32_handle: PFN_vkGetFenceWin32HandleKHR,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -267,10 +267,10 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                import_fence_win32_handle_khr: transmute(
+                import_fence_win32_handle: transmute(
                     load(c"vkImportFenceWin32HandleKHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_fence_win32_handle_khr: transmute(
+                get_fence_win32_handle: transmute(
                     load(c"vkGetFenceWin32HandleKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -281,14 +281,13 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportFenceWin32HandleKHR.html>
     #[inline]
-    pub unsafe fn import_fence_win32_handle_khr(
+    pub unsafe fn import_fence_win32_handle(
         &self,
         device: Device,
         import_fence_win32_handle_info: &ImportFenceWin32HandleInfoKHR<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result =
-                (self.import_fence_win32_handle_khr)(device, import_fence_win32_handle_info);
+            let result = (self.import_fence_win32_handle)(device, import_fence_win32_handle_info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -299,18 +298,15 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetFenceWin32HandleKHR.html>
     #[inline]
-    pub unsafe fn get_fence_win32_handle_khr(
+    pub unsafe fn get_fence_win32_handle(
         &self,
         device: Device,
         get_win32_handle_info: &FenceGetWin32HandleInfoKHR<'_>,
     ) -> crate::Result<HANDLE> {
         unsafe {
             let mut handle = core::mem::MaybeUninit::uninit();
-            let result = (self.get_fence_win32_handle_khr)(
-                device,
-                get_win32_handle_info,
-                handle.as_mut_ptr(),
-            );
+            let result =
+                (self.get_fence_win32_handle)(device, get_win32_handle_info, handle.as_mut_ptr());
 
             match result {
                 VkResult::SUCCESS => Ok(handle.assume_init()),

@@ -380,7 +380,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
             let (present_index, _) = base
                 .swapchain_fn
-                .acquire_next_image_khr(
+                .acquire_next_image(
                     base.device,
                     base.swapchain,
                     u64::MAX,
@@ -464,7 +464,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                 .swapchains(&swapchains, &image_indices, None);
 
             base.swapchain_fn
-                .queue_present_khr(base.present_queue, &present_info)
+                .queue_present(base.present_queue, &present_info)
                 .unwrap();
         });
 

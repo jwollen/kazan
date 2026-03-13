@@ -182,7 +182,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_shader_info_amd: PFN_vkGetShaderInfoAMD,
+    get_shader_info: PFN_vkGetShaderInfoAMD,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -191,7 +191,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_shader_info_amd: transmute(
+                get_shader_info: transmute(
                     load(c"vkGetShaderInfoAMD").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -202,7 +202,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetShaderInfoAMD.html>
     #[inline]
-    pub unsafe fn get_shader_info_amd(
+    pub unsafe fn get_shader_info(
         &self,
         device: Device,
         pipeline: Pipeline,
@@ -212,7 +212,7 @@ impl DeviceFn {
     ) -> crate::Result<()> {
         unsafe {
             let call = |info_size, info| {
-                let result = (self.get_shader_info_amd)(
+                let result = (self.get_shader_info)(
                     device,
                     pipeline,
                     shader_stage,

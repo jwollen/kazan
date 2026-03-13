@@ -32,7 +32,7 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    get_physical_device_tool_properties_ext: PFN_vkGetPhysicalDeviceToolProperties,
+    get_physical_device_tool_properties: PFN_vkGetPhysicalDeviceToolProperties,
 }
 
 impl LoadInstanceFn for InstanceFn {
@@ -41,7 +41,7 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_physical_device_tool_properties_ext: transmute(
+                get_physical_device_tool_properties: transmute(
                     load(c"vkGetPhysicalDeviceToolPropertiesEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -52,14 +52,14 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceToolPropertiesEXT.html>
     #[inline]
-    pub unsafe fn get_physical_device_tool_properties_ext<'a>(
+    pub unsafe fn get_physical_device_tool_properties<'a>(
         &self,
         physical_device: PhysicalDevice,
         mut tool_properties: impl ExtendUninit<PhysicalDeviceToolProperties<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |tool_count, tool_properties| {
-                let result = (self.get_physical_device_tool_properties_ext)(
+                let result = (self.get_physical_device_tool_properties)(
                     physical_device,
                     tool_count,
                     tool_properties as _,

@@ -61,10 +61,10 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_bind_index_buffer2_khr: PFN_vkCmdBindIndexBuffer2,
-    get_rendering_area_granularity_khr: PFN_vkGetRenderingAreaGranularity,
-    get_device_image_subresource_layout_khr: PFN_vkGetDeviceImageSubresourceLayout,
-    get_image_subresource_layout2_khr: PFN_vkGetImageSubresourceLayout2,
+    cmd_bind_index_buffer2: PFN_vkCmdBindIndexBuffer2,
+    get_rendering_area_granularity: PFN_vkGetRenderingAreaGranularity,
+    get_device_image_subresource_layout: PFN_vkGetDeviceImageSubresourceLayout,
+    get_image_subresource_layout2: PFN_vkGetImageSubresourceLayout2,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -73,16 +73,16 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_bind_index_buffer2_khr: transmute(
+                cmd_bind_index_buffer2: transmute(
                     load(c"vkCmdBindIndexBuffer2KHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_rendering_area_granularity_khr: transmute(
+                get_rendering_area_granularity: transmute(
                     load(c"vkGetRenderingAreaGranularityKHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_device_image_subresource_layout_khr: transmute(
+                get_device_image_subresource_layout: transmute(
                     load(c"vkGetDeviceImageSubresourceLayoutKHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_image_subresource_layout2_khr: transmute(
+                get_image_subresource_layout2: transmute(
                     load(c"vkGetImageSubresourceLayout2KHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -93,7 +93,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindIndexBuffer2KHR.html>
     #[inline]
-    pub unsafe fn cmd_bind_index_buffer2_khr(
+    pub unsafe fn cmd_bind_index_buffer2(
         &self,
         command_buffer: CommandBuffer,
         buffer: Buffer,
@@ -101,21 +101,19 @@ impl DeviceFn {
         size: DeviceSize,
         index_type: IndexType,
     ) {
-        unsafe {
-            (self.cmd_bind_index_buffer2_khr)(command_buffer, buffer, offset, size, index_type)
-        }
+        unsafe { (self.cmd_bind_index_buffer2)(command_buffer, buffer, offset, size, index_type) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRenderingAreaGranularityKHR.html>
     #[inline]
-    pub unsafe fn get_rendering_area_granularity_khr(
+    pub unsafe fn get_rendering_area_granularity(
         &self,
         device: Device,
         rendering_area_info: &RenderingAreaInfo<'_>,
     ) -> Extent2D {
         unsafe {
             let mut granularity = core::mem::MaybeUninit::uninit();
-            (self.get_rendering_area_granularity_khr)(
+            (self.get_rendering_area_granularity)(
                 device,
                 rendering_area_info,
                 granularity.as_mut_ptr(),
@@ -126,24 +124,24 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceImageSubresourceLayoutKHR.html>
     #[inline]
-    pub unsafe fn get_device_image_subresource_layout_khr(
+    pub unsafe fn get_device_image_subresource_layout(
         &self,
         device: Device,
         info: &DeviceImageSubresourceInfo<'_>,
         layout: &mut SubresourceLayout2<'_>,
     ) {
-        unsafe { (self.get_device_image_subresource_layout_khr)(device, info, layout) }
+        unsafe { (self.get_device_image_subresource_layout)(device, info, layout) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageSubresourceLayout2KHR.html>
     #[inline]
-    pub unsafe fn get_image_subresource_layout2_khr(
+    pub unsafe fn get_image_subresource_layout2(
         &self,
         device: Device,
         image: Image,
         subresource: &ImageSubresource2<'_>,
         layout: &mut SubresourceLayout2<'_>,
     ) {
-        unsafe { (self.get_image_subresource_layout2_khr)(device, image, subresource, layout) }
+        unsafe { (self.get_image_subresource_layout2)(device, image, subresource, layout) }
     }
 }

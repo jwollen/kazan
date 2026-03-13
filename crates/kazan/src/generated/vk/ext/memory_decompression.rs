@@ -333,8 +333,8 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_decompress_memory_ext: PFN_vkCmdDecompressMemoryEXT,
-    cmd_decompress_memory_indirect_count_ext: PFN_vkCmdDecompressMemoryIndirectCountEXT,
+    cmd_decompress_memory: PFN_vkCmdDecompressMemoryEXT,
+    cmd_decompress_memory_indirect_count: PFN_vkCmdDecompressMemoryIndirectCountEXT,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -343,10 +343,10 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_decompress_memory_ext: transmute(
+                cmd_decompress_memory: transmute(
                     load(c"vkCmdDecompressMemoryEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_decompress_memory_indirect_count_ext: transmute(
+                cmd_decompress_memory_indirect_count: transmute(
                     load(c"vkCmdDecompressMemoryIndirectCountEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -357,17 +357,17 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDecompressMemoryEXT.html>
     #[inline]
-    pub unsafe fn cmd_decompress_memory_ext(
+    pub unsafe fn cmd_decompress_memory(
         &self,
         command_buffer: CommandBuffer,
         decompress_memory_info_ext: &DecompressMemoryInfoEXT<'_>,
     ) {
-        unsafe { (self.cmd_decompress_memory_ext)(command_buffer, decompress_memory_info_ext) }
+        unsafe { (self.cmd_decompress_memory)(command_buffer, decompress_memory_info_ext) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDecompressMemoryIndirectCountEXT.html>
     #[inline]
-    pub unsafe fn cmd_decompress_memory_indirect_count_ext(
+    pub unsafe fn cmd_decompress_memory_indirect_count(
         &self,
         command_buffer: CommandBuffer,
         decompression_method: MemoryDecompressionMethodFlagsEXT,
@@ -377,7 +377,7 @@ impl DeviceFn {
         stride: u32,
     ) {
         unsafe {
-            (self.cmd_decompress_memory_indirect_count_ext)(
+            (self.cmd_decompress_memory_indirect_count)(
                 command_buffer,
                 decompression_method,
                 indirect_commands_address,

@@ -697,13 +697,13 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    create_execution_graph_pipelines_amdx: PFN_vkCreateExecutionGraphPipelinesAMDX,
-    get_execution_graph_pipeline_scratch_size_amdx: PFN_vkGetExecutionGraphPipelineScratchSizeAMDX,
-    get_execution_graph_pipeline_node_index_amdx: PFN_vkGetExecutionGraphPipelineNodeIndexAMDX,
-    cmd_initialize_graph_scratch_memory_amdx: PFN_vkCmdInitializeGraphScratchMemoryAMDX,
-    cmd_dispatch_graph_amdx: PFN_vkCmdDispatchGraphAMDX,
-    cmd_dispatch_graph_indirect_amdx: PFN_vkCmdDispatchGraphIndirectAMDX,
-    cmd_dispatch_graph_indirect_count_amdx: PFN_vkCmdDispatchGraphIndirectCountAMDX,
+    create_execution_graph_pipelines: PFN_vkCreateExecutionGraphPipelinesAMDX,
+    get_execution_graph_pipeline_scratch_size: PFN_vkGetExecutionGraphPipelineScratchSizeAMDX,
+    get_execution_graph_pipeline_node_index: PFN_vkGetExecutionGraphPipelineNodeIndexAMDX,
+    cmd_initialize_graph_scratch_memory: PFN_vkCmdInitializeGraphScratchMemoryAMDX,
+    cmd_dispatch_graph: PFN_vkCmdDispatchGraphAMDX,
+    cmd_dispatch_graph_indirect: PFN_vkCmdDispatchGraphIndirectAMDX,
+    cmd_dispatch_graph_indirect_count: PFN_vkCmdDispatchGraphIndirectCountAMDX,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -712,27 +712,27 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_execution_graph_pipelines_amdx: transmute(
+                create_execution_graph_pipelines: transmute(
                     load(c"vkCreateExecutionGraphPipelinesAMDX").ok_or(MissingEntryPointError)?,
                 ),
-                get_execution_graph_pipeline_scratch_size_amdx: transmute(
+                get_execution_graph_pipeline_scratch_size: transmute(
                     load(c"vkGetExecutionGraphPipelineScratchSizeAMDX")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                get_execution_graph_pipeline_node_index_amdx: transmute(
+                get_execution_graph_pipeline_node_index: transmute(
                     load(c"vkGetExecutionGraphPipelineNodeIndexAMDX")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                cmd_initialize_graph_scratch_memory_amdx: transmute(
+                cmd_initialize_graph_scratch_memory: transmute(
                     load(c"vkCmdInitializeGraphScratchMemoryAMDX").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_dispatch_graph_amdx: transmute(
+                cmd_dispatch_graph: transmute(
                     load(c"vkCmdDispatchGraphAMDX").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_dispatch_graph_indirect_amdx: transmute(
+                cmd_dispatch_graph_indirect: transmute(
                     load(c"vkCmdDispatchGraphIndirectAMDX").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_dispatch_graph_indirect_count_amdx: transmute(
+                cmd_dispatch_graph_indirect_count: transmute(
                     load(c"vkCmdDispatchGraphIndirectCountAMDX").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -743,7 +743,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateExecutionGraphPipelinesAMDX.html>
     #[inline]
-    pub unsafe fn create_execution_graph_pipelines_amdx(
+    pub unsafe fn create_execution_graph_pipelines(
         &self,
         device: Device,
         pipeline_cache: PipelineCache,
@@ -752,7 +752,7 @@ impl DeviceFn {
         pipelines: &mut [Pipeline],
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.create_execution_graph_pipelines_amdx)(
+            let result = (self.create_execution_graph_pipelines)(
                 device,
                 pipeline_cache,
                 create_infos.len().try_into().unwrap(),
@@ -770,14 +770,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetExecutionGraphPipelineScratchSizeAMDX.html>
     #[inline]
-    pub unsafe fn get_execution_graph_pipeline_scratch_size_amdx(
+    pub unsafe fn get_execution_graph_pipeline_scratch_size(
         &self,
         device: Device,
         execution_graph: Pipeline,
         size_info: &mut ExecutionGraphPipelineScratchSizeAMDX<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_execution_graph_pipeline_scratch_size_amdx)(
+            let result = (self.get_execution_graph_pipeline_scratch_size)(
                 device,
                 execution_graph,
                 size_info,
@@ -792,7 +792,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetExecutionGraphPipelineNodeIndexAMDX.html>
     #[inline]
-    pub unsafe fn get_execution_graph_pipeline_node_index_amdx(
+    pub unsafe fn get_execution_graph_pipeline_node_index(
         &self,
         device: Device,
         execution_graph: Pipeline,
@@ -800,7 +800,7 @@ impl DeviceFn {
     ) -> crate::Result<u32> {
         unsafe {
             let mut node_index = core::mem::MaybeUninit::uninit();
-            let result = (self.get_execution_graph_pipeline_node_index_amdx)(
+            let result = (self.get_execution_graph_pipeline_node_index)(
                 device,
                 execution_graph,
                 node_info,
@@ -816,7 +816,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdInitializeGraphScratchMemoryAMDX.html>
     #[inline]
-    pub unsafe fn cmd_initialize_graph_scratch_memory_amdx(
+    pub unsafe fn cmd_initialize_graph_scratch_memory(
         &self,
         command_buffer: CommandBuffer,
         execution_graph: Pipeline,
@@ -824,7 +824,7 @@ impl DeviceFn {
         scratch_size: DeviceSize,
     ) {
         unsafe {
-            (self.cmd_initialize_graph_scratch_memory_amdx)(
+            (self.cmd_initialize_graph_scratch_memory)(
                 command_buffer,
                 execution_graph,
                 scratch,
@@ -835,19 +835,19 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDispatchGraphAMDX.html>
     #[inline]
-    pub unsafe fn cmd_dispatch_graph_amdx(
+    pub unsafe fn cmd_dispatch_graph(
         &self,
         command_buffer: CommandBuffer,
         scratch: DeviceAddress,
         scratch_size: DeviceSize,
         count_info: &DispatchGraphCountInfoAMDX<'_>,
     ) {
-        unsafe { (self.cmd_dispatch_graph_amdx)(command_buffer, scratch, scratch_size, count_info) }
+        unsafe { (self.cmd_dispatch_graph)(command_buffer, scratch, scratch_size, count_info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDispatchGraphIndirectAMDX.html>
     #[inline]
-    pub unsafe fn cmd_dispatch_graph_indirect_amdx(
+    pub unsafe fn cmd_dispatch_graph_indirect(
         &self,
         command_buffer: CommandBuffer,
         scratch: DeviceAddress,
@@ -855,18 +855,13 @@ impl DeviceFn {
         count_info: &DispatchGraphCountInfoAMDX<'_>,
     ) {
         unsafe {
-            (self.cmd_dispatch_graph_indirect_amdx)(
-                command_buffer,
-                scratch,
-                scratch_size,
-                count_info,
-            )
+            (self.cmd_dispatch_graph_indirect)(command_buffer, scratch, scratch_size, count_info)
         }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDispatchGraphIndirectCountAMDX.html>
     #[inline]
-    pub unsafe fn cmd_dispatch_graph_indirect_count_amdx(
+    pub unsafe fn cmd_dispatch_graph_indirect_count(
         &self,
         command_buffer: CommandBuffer,
         scratch: DeviceAddress,
@@ -874,7 +869,7 @@ impl DeviceFn {
         count_info: DeviceAddress,
     ) {
         unsafe {
-            (self.cmd_dispatch_graph_indirect_count_amdx)(
+            (self.cmd_dispatch_graph_indirect_count)(
                 command_buffer,
                 scratch,
                 scratch_size,

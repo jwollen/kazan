@@ -32,8 +32,8 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_push_descriptor_set_khr: PFN_vkCmdPushDescriptorSet,
-    cmd_push_descriptor_set_with_template_khr: Option<PFN_vkCmdPushDescriptorSetWithTemplate>,
+    cmd_push_descriptor_set: PFN_vkCmdPushDescriptorSet,
+    cmd_push_descriptor_set_with_template: Option<PFN_vkCmdPushDescriptorSetWithTemplate>,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -42,10 +42,10 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_push_descriptor_set_khr: transmute(
+                cmd_push_descriptor_set: transmute(
                     load(c"vkCmdPushDescriptorSetKHR").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_push_descriptor_set_with_template_khr: transmute(load(
+                cmd_push_descriptor_set_with_template: transmute(load(
                     c"vkCmdPushDescriptorSetWithTemplateKHR",
                 )),
             })
@@ -56,7 +56,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushDescriptorSetKHR.html>
     #[inline]
-    pub unsafe fn cmd_push_descriptor_set_khr(
+    pub unsafe fn cmd_push_descriptor_set(
         &self,
         command_buffer: CommandBuffer,
         pipeline_bind_point: PipelineBindPoint,
@@ -65,7 +65,7 @@ impl DeviceFn {
         descriptor_writes: &[WriteDescriptorSet<'_>],
     ) {
         unsafe {
-            (self.cmd_push_descriptor_set_khr)(
+            (self.cmd_push_descriptor_set)(
                 command_buffer,
                 pipeline_bind_point,
                 layout,
@@ -78,7 +78,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushDescriptorSetWithTemplateKHR.html>
     #[inline]
-    pub unsafe fn cmd_push_descriptor_set_with_template_khr(
+    pub unsafe fn cmd_push_descriptor_set_with_template(
         &self,
         command_buffer: CommandBuffer,
         descriptor_update_template: DescriptorUpdateTemplate,
@@ -87,7 +87,7 @@ impl DeviceFn {
         data: *const c_void,
     ) {
         unsafe {
-            (self.cmd_push_descriptor_set_with_template_khr.unwrap())(
+            (self.cmd_push_descriptor_set_with_template.unwrap())(
                 command_buffer,
                 descriptor_update_template,
                 layout,

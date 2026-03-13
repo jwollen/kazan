@@ -338,11 +338,11 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    destroy_surface_khr: PFN_vkDestroySurfaceKHR,
-    get_physical_device_surface_support_khr: PFN_vkGetPhysicalDeviceSurfaceSupportKHR,
-    get_physical_device_surface_capabilities_khr: PFN_vkGetPhysicalDeviceSurfaceCapabilitiesKHR,
-    get_physical_device_surface_formats_khr: PFN_vkGetPhysicalDeviceSurfaceFormatsKHR,
-    get_physical_device_surface_present_modes_khr: PFN_vkGetPhysicalDeviceSurfacePresentModesKHR,
+    destroy_surface: PFN_vkDestroySurfaceKHR,
+    get_physical_device_surface_support: PFN_vkGetPhysicalDeviceSurfaceSupportKHR,
+    get_physical_device_surface_capabilities: PFN_vkGetPhysicalDeviceSurfaceCapabilitiesKHR,
+    get_physical_device_surface_formats: PFN_vkGetPhysicalDeviceSurfaceFormatsKHR,
+    get_physical_device_surface_present_modes: PFN_vkGetPhysicalDeviceSurfacePresentModesKHR,
 }
 
 impl LoadInstanceFn for InstanceFn {
@@ -351,20 +351,20 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                destroy_surface_khr: transmute(
+                destroy_surface: transmute(
                     load(c"vkDestroySurfaceKHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_physical_device_surface_support_khr: transmute(
+                get_physical_device_surface_support: transmute(
                     load(c"vkGetPhysicalDeviceSurfaceSupportKHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_physical_device_surface_capabilities_khr: transmute(
+                get_physical_device_surface_capabilities: transmute(
                     load(c"vkGetPhysicalDeviceSurfaceCapabilitiesKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                get_physical_device_surface_formats_khr: transmute(
+                get_physical_device_surface_formats: transmute(
                     load(c"vkGetPhysicalDeviceSurfaceFormatsKHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_physical_device_surface_present_modes_khr: transmute(
+                get_physical_device_surface_present_modes: transmute(
                     load(c"vkGetPhysicalDeviceSurfacePresentModesKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -376,18 +376,18 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroySurfaceKHR.html>
     #[inline]
-    pub unsafe fn destroy_surface_khr(
+    pub unsafe fn destroy_surface(
         &self,
         instance: Instance,
         surface: SurfaceKHR,
         allocator: Option<&AllocationCallbacks<'_>>,
     ) {
-        unsafe { (self.destroy_surface_khr)(instance, surface, allocator.to_raw_ptr()) }
+        unsafe { (self.destroy_surface)(instance, surface, allocator.to_raw_ptr()) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceSupportKHR.html>
     #[inline]
-    pub unsafe fn get_physical_device_surface_support_khr(
+    pub unsafe fn get_physical_device_surface_support(
         &self,
         physical_device: PhysicalDevice,
         queue_family_index: u32,
@@ -395,7 +395,7 @@ impl InstanceFn {
     ) -> crate::Result<bool> {
         unsafe {
             let mut supported = core::mem::MaybeUninit::uninit();
-            let result = (self.get_physical_device_surface_support_khr)(
+            let result = (self.get_physical_device_surface_support)(
                 physical_device,
                 queue_family_index,
                 surface,
@@ -411,14 +411,14 @@ impl InstanceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html>
     #[inline]
-    pub unsafe fn get_physical_device_surface_capabilities_khr(
+    pub unsafe fn get_physical_device_surface_capabilities(
         &self,
         physical_device: PhysicalDevice,
         surface: SurfaceKHR,
     ) -> crate::Result<SurfaceCapabilitiesKHR> {
         unsafe {
             let mut surface_capabilities = core::mem::MaybeUninit::uninit();
-            let result = (self.get_physical_device_surface_capabilities_khr)(
+            let result = (self.get_physical_device_surface_capabilities)(
                 physical_device,
                 surface,
                 surface_capabilities.as_mut_ptr(),
@@ -433,7 +433,7 @@ impl InstanceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfaceFormatsKHR.html>
     #[inline]
-    pub unsafe fn get_physical_device_surface_formats_khr(
+    pub unsafe fn get_physical_device_surface_formats(
         &self,
         physical_device: PhysicalDevice,
         surface: SurfaceKHR,
@@ -441,7 +441,7 @@ impl InstanceFn {
     ) -> crate::Result<()> {
         unsafe {
             let call = |surface_format_count, surface_formats| {
-                let result = (self.get_physical_device_surface_formats_khr)(
+                let result = (self.get_physical_device_surface_formats)(
                     physical_device,
                     surface,
                     surface_format_count,
@@ -467,7 +467,7 @@ impl InstanceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfacePresentModesKHR.html>
     #[inline]
-    pub unsafe fn get_physical_device_surface_present_modes_khr(
+    pub unsafe fn get_physical_device_surface_present_modes(
         &self,
         physical_device: PhysicalDevice,
         surface: SurfaceKHR,
@@ -475,7 +475,7 @@ impl InstanceFn {
     ) -> crate::Result<()> {
         unsafe {
             let call = |present_mode_count, present_modes| {
-                let result = (self.get_physical_device_surface_present_modes_khr)(
+                let result = (self.get_physical_device_surface_present_modes)(
                     physical_device,
                     surface,
                     present_mode_count,

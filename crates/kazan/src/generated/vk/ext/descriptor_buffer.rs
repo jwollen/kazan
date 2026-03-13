@@ -1471,19 +1471,17 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_descriptor_set_layout_size_ext: PFN_vkGetDescriptorSetLayoutSizeEXT,
-    get_descriptor_set_layout_binding_offset_ext: PFN_vkGetDescriptorSetLayoutBindingOffsetEXT,
-    get_descriptor_ext: PFN_vkGetDescriptorEXT,
-    cmd_bind_descriptor_buffers_ext: PFN_vkCmdBindDescriptorBuffersEXT,
-    cmd_set_descriptor_buffer_offsets_ext: PFN_vkCmdSetDescriptorBufferOffsetsEXT,
-    cmd_bind_descriptor_buffer_embedded_samplers_ext:
-        PFN_vkCmdBindDescriptorBufferEmbeddedSamplersEXT,
-    get_buffer_opaque_capture_descriptor_data_ext: PFN_vkGetBufferOpaqueCaptureDescriptorDataEXT,
-    get_image_opaque_capture_descriptor_data_ext: PFN_vkGetImageOpaqueCaptureDescriptorDataEXT,
-    get_image_view_opaque_capture_descriptor_data_ext:
-        PFN_vkGetImageViewOpaqueCaptureDescriptorDataEXT,
-    get_sampler_opaque_capture_descriptor_data_ext: PFN_vkGetSamplerOpaqueCaptureDescriptorDataEXT,
-    get_acceleration_structure_opaque_capture_descriptor_data_ext:
+    get_descriptor_set_layout_size: PFN_vkGetDescriptorSetLayoutSizeEXT,
+    get_descriptor_set_layout_binding_offset: PFN_vkGetDescriptorSetLayoutBindingOffsetEXT,
+    get_descriptor: PFN_vkGetDescriptorEXT,
+    cmd_bind_descriptor_buffers: PFN_vkCmdBindDescriptorBuffersEXT,
+    cmd_set_descriptor_buffer_offsets: PFN_vkCmdSetDescriptorBufferOffsetsEXT,
+    cmd_bind_descriptor_buffer_embedded_samplers: PFN_vkCmdBindDescriptorBufferEmbeddedSamplersEXT,
+    get_buffer_opaque_capture_descriptor_data: PFN_vkGetBufferOpaqueCaptureDescriptorDataEXT,
+    get_image_opaque_capture_descriptor_data: PFN_vkGetImageOpaqueCaptureDescriptorDataEXT,
+    get_image_view_opaque_capture_descriptor_data: PFN_vkGetImageViewOpaqueCaptureDescriptorDataEXT,
+    get_sampler_opaque_capture_descriptor_data: PFN_vkGetSamplerOpaqueCaptureDescriptorDataEXT,
+    get_acceleration_structure_opaque_capture_descriptor_data:
         Option<PFN_vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT>,
 }
 
@@ -1493,43 +1491,43 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_descriptor_set_layout_size_ext: transmute(
+                get_descriptor_set_layout_size: transmute(
                     load(c"vkGetDescriptorSetLayoutSizeEXT").ok_or(MissingEntryPointError)?,
                 ),
-                get_descriptor_set_layout_binding_offset_ext: transmute(
+                get_descriptor_set_layout_binding_offset: transmute(
                     load(c"vkGetDescriptorSetLayoutBindingOffsetEXT")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                get_descriptor_ext: transmute(
+                get_descriptor: transmute(
                     load(c"vkGetDescriptorEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_bind_descriptor_buffers_ext: transmute(
+                cmd_bind_descriptor_buffers: transmute(
                     load(c"vkCmdBindDescriptorBuffersEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_descriptor_buffer_offsets_ext: transmute(
+                cmd_set_descriptor_buffer_offsets: transmute(
                     load(c"vkCmdSetDescriptorBufferOffsetsEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_bind_descriptor_buffer_embedded_samplers_ext: transmute(
+                cmd_bind_descriptor_buffer_embedded_samplers: transmute(
                     load(c"vkCmdBindDescriptorBufferEmbeddedSamplersEXT")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                get_buffer_opaque_capture_descriptor_data_ext: transmute(
+                get_buffer_opaque_capture_descriptor_data: transmute(
                     load(c"vkGetBufferOpaqueCaptureDescriptorDataEXT")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                get_image_opaque_capture_descriptor_data_ext: transmute(
+                get_image_opaque_capture_descriptor_data: transmute(
                     load(c"vkGetImageOpaqueCaptureDescriptorDataEXT")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                get_image_view_opaque_capture_descriptor_data_ext: transmute(
+                get_image_view_opaque_capture_descriptor_data: transmute(
                     load(c"vkGetImageViewOpaqueCaptureDescriptorDataEXT")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                get_sampler_opaque_capture_descriptor_data_ext: transmute(
+                get_sampler_opaque_capture_descriptor_data: transmute(
                     load(c"vkGetSamplerOpaqueCaptureDescriptorDataEXT")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                get_acceleration_structure_opaque_capture_descriptor_data_ext: transmute(load(
+                get_acceleration_structure_opaque_capture_descriptor_data: transmute(load(
                     c"vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT",
                 )),
             })
@@ -1540,14 +1538,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDescriptorSetLayoutSizeEXT.html>
     #[inline]
-    pub unsafe fn get_descriptor_set_layout_size_ext(
+    pub unsafe fn get_descriptor_set_layout_size(
         &self,
         device: Device,
         layout: DescriptorSetLayout,
     ) -> DeviceSize {
         unsafe {
             let mut layout_size_in_bytes = core::mem::MaybeUninit::uninit();
-            (self.get_descriptor_set_layout_size_ext)(
+            (self.get_descriptor_set_layout_size)(
                 device,
                 layout,
                 layout_size_in_bytes.as_mut_ptr(),
@@ -1558,7 +1556,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDescriptorSetLayoutBindingOffsetEXT.html>
     #[inline]
-    pub unsafe fn get_descriptor_set_layout_binding_offset_ext(
+    pub unsafe fn get_descriptor_set_layout_binding_offset(
         &self,
         device: Device,
         layout: DescriptorSetLayout,
@@ -1566,7 +1564,7 @@ impl DeviceFn {
     ) -> DeviceSize {
         unsafe {
             let mut offset = core::mem::MaybeUninit::uninit();
-            (self.get_descriptor_set_layout_binding_offset_ext)(
+            (self.get_descriptor_set_layout_binding_offset)(
                 device,
                 layout,
                 binding,
@@ -1578,14 +1576,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDescriptorEXT.html>
     #[inline]
-    pub unsafe fn get_descriptor_ext(
+    pub unsafe fn get_descriptor(
         &self,
         device: Device,
         descriptor_info: &DescriptorGetInfoEXT<'_>,
         descriptor: &mut [u8],
     ) {
         unsafe {
-            (self.get_descriptor_ext)(
+            (self.get_descriptor)(
                 device,
                 descriptor_info,
                 descriptor.len().try_into().unwrap(),
@@ -1596,13 +1594,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindDescriptorBuffersEXT.html>
     #[inline]
-    pub unsafe fn cmd_bind_descriptor_buffers_ext(
+    pub unsafe fn cmd_bind_descriptor_buffers(
         &self,
         command_buffer: CommandBuffer,
         binding_infos: &[DescriptorBufferBindingInfoEXT<'_>],
     ) {
         unsafe {
-            (self.cmd_bind_descriptor_buffers_ext)(
+            (self.cmd_bind_descriptor_buffers)(
                 command_buffer,
                 binding_infos.len().try_into().unwrap(),
                 binding_infos.as_ptr() as _,
@@ -1612,7 +1610,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDescriptorBufferOffsetsEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_descriptor_buffer_offsets_ext(
+    pub unsafe fn cmd_set_descriptor_buffer_offsets(
         &self,
         command_buffer: CommandBuffer,
         pipeline_bind_point: PipelineBindPoint,
@@ -1622,7 +1620,7 @@ impl DeviceFn {
         offsets: &[DeviceSize],
     ) {
         unsafe {
-            (self.cmd_set_descriptor_buffer_offsets_ext)(
+            (self.cmd_set_descriptor_buffer_offsets)(
                 command_buffer,
                 pipeline_bind_point,
                 layout,
@@ -1636,7 +1634,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindDescriptorBufferEmbeddedSamplersEXT.html>
     #[inline]
-    pub unsafe fn cmd_bind_descriptor_buffer_embedded_samplers_ext(
+    pub unsafe fn cmd_bind_descriptor_buffer_embedded_samplers(
         &self,
         command_buffer: CommandBuffer,
         pipeline_bind_point: PipelineBindPoint,
@@ -1644,7 +1642,7 @@ impl DeviceFn {
         set: u32,
     ) {
         unsafe {
-            (self.cmd_bind_descriptor_buffer_embedded_samplers_ext)(
+            (self.cmd_bind_descriptor_buffer_embedded_samplers)(
                 command_buffer,
                 pipeline_bind_point,
                 layout,
@@ -1655,14 +1653,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferOpaqueCaptureDescriptorDataEXT.html>
     #[inline]
-    pub unsafe fn get_buffer_opaque_capture_descriptor_data_ext(
+    pub unsafe fn get_buffer_opaque_capture_descriptor_data(
         &self,
         device: Device,
         info: &BufferCaptureDescriptorDataInfoEXT<'_>,
         data: *mut c_void,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_buffer_opaque_capture_descriptor_data_ext)(device, info, data);
+            let result = (self.get_buffer_opaque_capture_descriptor_data)(device, info, data);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -1673,14 +1671,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageOpaqueCaptureDescriptorDataEXT.html>
     #[inline]
-    pub unsafe fn get_image_opaque_capture_descriptor_data_ext(
+    pub unsafe fn get_image_opaque_capture_descriptor_data(
         &self,
         device: Device,
         info: &ImageCaptureDescriptorDataInfoEXT<'_>,
         data: *mut c_void,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_image_opaque_capture_descriptor_data_ext)(device, info, data);
+            let result = (self.get_image_opaque_capture_descriptor_data)(device, info, data);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -1691,15 +1689,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageViewOpaqueCaptureDescriptorDataEXT.html>
     #[inline]
-    pub unsafe fn get_image_view_opaque_capture_descriptor_data_ext(
+    pub unsafe fn get_image_view_opaque_capture_descriptor_data(
         &self,
         device: Device,
         info: &ImageViewCaptureDescriptorDataInfoEXT<'_>,
         data: *mut c_void,
     ) -> crate::Result<()> {
         unsafe {
-            let result =
-                (self.get_image_view_opaque_capture_descriptor_data_ext)(device, info, data);
+            let result = (self.get_image_view_opaque_capture_descriptor_data)(device, info, data);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -1710,14 +1707,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSamplerOpaqueCaptureDescriptorDataEXT.html>
     #[inline]
-    pub unsafe fn get_sampler_opaque_capture_descriptor_data_ext(
+    pub unsafe fn get_sampler_opaque_capture_descriptor_data(
         &self,
         device: Device,
         info: &SamplerCaptureDescriptorDataInfoEXT<'_>,
         data: *mut c_void,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_sampler_opaque_capture_descriptor_data_ext)(device, info, data);
+            let result = (self.get_sampler_opaque_capture_descriptor_data)(device, info, data);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -1728,7 +1725,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT.html>
     #[inline]
-    pub unsafe fn get_acceleration_structure_opaque_capture_descriptor_data_ext(
+    pub unsafe fn get_acceleration_structure_opaque_capture_descriptor_data(
         &self,
         device: Device,
         info: &AccelerationStructureCaptureDescriptorDataInfoEXT<'_>,
@@ -1736,7 +1733,7 @@ impl DeviceFn {
     ) -> crate::Result<()> {
         unsafe {
             let result = (self
-                .get_acceleration_structure_opaque_capture_descriptor_data_ext
+                .get_acceleration_structure_opaque_capture_descriptor_data
                 .unwrap())(device, info, data);
 
             match result {

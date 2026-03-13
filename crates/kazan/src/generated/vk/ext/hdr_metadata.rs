@@ -175,7 +175,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    set_hdr_metadata_ext: PFN_vkSetHdrMetadataEXT,
+    set_hdr_metadata: PFN_vkSetHdrMetadataEXT,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -184,7 +184,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                set_hdr_metadata_ext: transmute(
+                set_hdr_metadata: transmute(
                     load(c"vkSetHdrMetadataEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -195,14 +195,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetHdrMetadataEXT.html>
     #[inline]
-    pub unsafe fn set_hdr_metadata_ext(
+    pub unsafe fn set_hdr_metadata(
         &self,
         device: Device,
         swapchains: &[SwapchainKHR],
         metadata: &[HdrMetadataEXT<'_>],
     ) {
         unsafe {
-            (self.set_hdr_metadata_ext)(
+            (self.set_hdr_metadata)(
                 device,
                 swapchains.len().try_into().unwrap(),
                 swapchains.as_ptr() as _,

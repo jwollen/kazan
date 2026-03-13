@@ -272,7 +272,7 @@ impl InstanceFn {
             match (self, display_handle, window_handle) {
                 #[cfg(target_os = "windows")]
                 (Self::Win32(fns), RawDisplayHandle::Windows(_), _) => fns
-                    .get_physical_device_win32_presentation_support_khr(
+                    .get_physical_device_win32_presentation_support(
                         physical_device,
                         queue_family_index,
                     ),
@@ -285,7 +285,7 @@ impl InstanceFn {
                     target_os = "openbsd",
                 ))]
                 (Self::Wayland(fns), RawDisplayHandle::Wayland(display), _) => fns
-                    .get_physical_device_wayland_presentation_support_khr(
+                    .get_physical_device_wayland_presentation_support(
                         physical_device,
                         queue_family_index,
                         display.display.as_ptr().cast(),
@@ -309,7 +309,7 @@ impl InstanceFn {
                     if window.visual_id == 0 {
                         return true;
                     }
-                    fns.get_physical_device_xlib_presentation_support_khr(
+                    fns.get_physical_device_xlib_presentation_support(
                         physical_device,
                         queue_family_index,
                         dpy.as_ptr().cast(),
@@ -331,7 +331,7 @@ impl InstanceFn {
                     let Some(visual_id) = window.visual_id else {
                         return true;
                     };
-                    fns.get_physical_device_xcb_presentation_support_khr(
+                    fns.get_physical_device_xcb_presentation_support(
                         physical_device,
                         queue_family_index,
                         connection.as_ptr().cast(),
@@ -375,7 +375,7 @@ impl InstanceFn {
                                 .ok_or(vk::Result::ERROR_INITIALIZATION_FAILED)?
                                 .get() as crate::HINSTANCE,
                         );
-                    fns.create_win32_surface_khr(instance, &create_info, allocator)
+                    fns.create_win32_surface(instance, &create_info, allocator)
                 }
 
                 #[cfg(any(
@@ -393,7 +393,7 @@ impl InstanceFn {
                     let create_info = vk::WaylandSurfaceCreateInfoKHR::default()
                         .display(display.display.as_ptr().cast())
                         .surface(window.surface.as_ptr().cast());
-                    fns.create_wayland_surface_khr(instance, &create_info, allocator)
+                    fns.create_wayland_surface(instance, &create_info, allocator)
                 }
 
                 #[cfg(any(
@@ -417,7 +417,7 @@ impl InstanceFn {
                                 .cast(),
                         )
                         .window(window.window);
-                    fns.create_xlib_surface_khr(instance, &create_info, allocator)
+                    fns.create_xlib_surface(instance, &create_info, allocator)
                 }
 
                 #[cfg(any(
@@ -437,7 +437,7 @@ impl InstanceFn {
                                 .cast(),
                         )
                         .window(window.window.get());
-                    fns.create_xcb_surface_khr(instance, &create_info, allocator)
+                    fns.create_xcb_surface(instance, &create_info, allocator)
                 }
 
                 #[cfg(target_os = "android")]
@@ -448,7 +448,7 @@ impl InstanceFn {
                 ) => {
                     let create_info = vk::AndroidSurfaceCreateInfoKHR::default()
                         .window(window.a_native_window.as_ptr().cast());
-                    fns.create_android_surface_khr(instance, &create_info, allocator)
+                    fns.create_android_surface(instance, &create_info, allocator)
                 }
 
                 #[cfg(target_env = "ohos")]
@@ -471,7 +471,7 @@ impl InstanceFn {
                     };
 
                     let create_info = vk::MetalSurfaceCreateInfoEXT::default().p_layer(&*layer);
-                    fns.create_metal_surface_ext(instance, &create_info, allocator)
+                    fns.create_metal_surface(instance, &create_info, allocator)
                 }
 
                 #[cfg(target_os = "ios")]
@@ -483,7 +483,7 @@ impl InstanceFn {
                     };
 
                     let create_info = vk::MetalSurfaceCreateInfoEXT::default().p_layer(&*layer);
-                    fns.create_metal_surface_ext(instance, &create_info, allocator)
+                    fns.create_metal_surface(instance, &create_info, allocator)
                 }
 
                 _ => Err(vk::Result::ERROR_EXTENSION_NOT_PRESENT),

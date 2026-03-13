@@ -32,7 +32,7 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    enumerate_physical_device_groups_khr: PFN_vkEnumeratePhysicalDeviceGroups,
+    enumerate_physical_device_groups: PFN_vkEnumeratePhysicalDeviceGroups,
 }
 
 impl LoadInstanceFn for InstanceFn {
@@ -41,7 +41,7 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                enumerate_physical_device_groups_khr: transmute(
+                enumerate_physical_device_groups: transmute(
                     load(c"vkEnumeratePhysicalDeviceGroupsKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -52,14 +52,14 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumeratePhysicalDeviceGroupsKHR.html>
     #[inline]
-    pub unsafe fn enumerate_physical_device_groups_khr<'a>(
+    pub unsafe fn enumerate_physical_device_groups<'a>(
         &self,
         instance: Instance,
         mut physical_device_group_properties: impl ExtendUninit<PhysicalDeviceGroupProperties<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |physical_device_group_count, physical_device_group_properties| {
-                let result = (self.enumerate_physical_device_groups_khr)(
+                let result = (self.enumerate_physical_device_groups)(
                     instance,
                     physical_device_group_count,
                     physical_device_group_properties as _,

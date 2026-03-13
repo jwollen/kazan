@@ -214,8 +214,8 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_memory_metal_handle_ext: PFN_vkGetMemoryMetalHandleEXT,
-    get_memory_metal_handle_properties_ext: PFN_vkGetMemoryMetalHandlePropertiesEXT,
+    get_memory_metal_handle: PFN_vkGetMemoryMetalHandleEXT,
+    get_memory_metal_handle_properties: PFN_vkGetMemoryMetalHandlePropertiesEXT,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -224,10 +224,10 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_memory_metal_handle_ext: transmute(
+                get_memory_metal_handle: transmute(
                     load(c"vkGetMemoryMetalHandleEXT").ok_or(MissingEntryPointError)?,
                 ),
-                get_memory_metal_handle_properties_ext: transmute(
+                get_memory_metal_handle_properties: transmute(
                     load(c"vkGetMemoryMetalHandlePropertiesEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -238,18 +238,15 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryMetalHandleEXT.html>
     #[inline]
-    pub unsafe fn get_memory_metal_handle_ext(
+    pub unsafe fn get_memory_metal_handle(
         &self,
         device: Device,
         get_metal_handle_info: &MemoryGetMetalHandleInfoEXT<'_>,
     ) -> crate::Result<*mut c_void> {
         unsafe {
             let mut handle = core::mem::MaybeUninit::uninit();
-            let result = (self.get_memory_metal_handle_ext)(
-                device,
-                get_metal_handle_info,
-                handle.as_mut_ptr(),
-            );
+            let result =
+                (self.get_memory_metal_handle)(device, get_metal_handle_info, handle.as_mut_ptr());
 
             match result {
                 VkResult::SUCCESS => Ok(handle.assume_init()),
@@ -260,7 +257,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryMetalHandlePropertiesEXT.html>
     #[inline]
-    pub unsafe fn get_memory_metal_handle_properties_ext(
+    pub unsafe fn get_memory_metal_handle_properties(
         &self,
         device: Device,
         handle_type: ExternalMemoryHandleTypeFlagBits,
@@ -268,7 +265,7 @@ impl DeviceFn {
         memory_metal_handle_properties: &mut MemoryMetalHandlePropertiesEXT<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_memory_metal_handle_properties_ext)(
+            let result = (self.get_memory_metal_handle_properties)(
                 device,
                 handle_type,
                 handle,

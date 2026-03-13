@@ -2330,7 +2330,7 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    get_physical_device_descriptor_size_ext: PFN_vkGetPhysicalDeviceDescriptorSizeEXT,
+    get_physical_device_descriptor_size: PFN_vkGetPhysicalDeviceDescriptorSizeEXT,
 }
 
 impl LoadInstanceFn for InstanceFn {
@@ -2339,7 +2339,7 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_physical_device_descriptor_size_ext: transmute(
+                get_physical_device_descriptor_size: transmute(
                     load(c"vkGetPhysicalDeviceDescriptorSizeEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -2350,25 +2350,25 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDescriptorSizeEXT.html>
     #[inline]
-    pub unsafe fn get_physical_device_descriptor_size_ext(
+    pub unsafe fn get_physical_device_descriptor_size(
         &self,
         physical_device: PhysicalDevice,
         descriptor_type: DescriptorType,
     ) -> DeviceSize {
-        unsafe { (self.get_physical_device_descriptor_size_ext)(physical_device, descriptor_type) }
+        unsafe { (self.get_physical_device_descriptor_size)(physical_device, descriptor_type) }
     }
 }
 
 pub struct DeviceFn {
-    write_sampler_descriptors_ext: PFN_vkWriteSamplerDescriptorsEXT,
-    write_resource_descriptors_ext: PFN_vkWriteResourceDescriptorsEXT,
-    cmd_bind_sampler_heap_ext: PFN_vkCmdBindSamplerHeapEXT,
-    cmd_bind_resource_heap_ext: PFN_vkCmdBindResourceHeapEXT,
-    cmd_push_data_ext: PFN_vkCmdPushDataEXT,
-    get_image_opaque_capture_data_ext: PFN_vkGetImageOpaqueCaptureDataEXT,
-    register_custom_border_color_ext: Option<PFN_vkRegisterCustomBorderColorEXT>,
-    unregister_custom_border_color_ext: Option<PFN_vkUnregisterCustomBorderColorEXT>,
-    get_tensor_opaque_capture_data_arm: Option<PFN_vkGetTensorOpaqueCaptureDataARM>,
+    write_sampler_descriptors: PFN_vkWriteSamplerDescriptorsEXT,
+    write_resource_descriptors: PFN_vkWriteResourceDescriptorsEXT,
+    cmd_bind_sampler_heap: PFN_vkCmdBindSamplerHeapEXT,
+    cmd_bind_resource_heap: PFN_vkCmdBindResourceHeapEXT,
+    cmd_push_data: PFN_vkCmdPushDataEXT,
+    get_image_opaque_capture_data: PFN_vkGetImageOpaqueCaptureDataEXT,
+    register_custom_border_color: Option<PFN_vkRegisterCustomBorderColorEXT>,
+    unregister_custom_border_color: Option<PFN_vkUnregisterCustomBorderColorEXT>,
+    get_tensor_opaque_capture_data: Option<PFN_vkGetTensorOpaqueCaptureDataARM>,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -2377,33 +2377,27 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                write_sampler_descriptors_ext: transmute(
+                write_sampler_descriptors: transmute(
                     load(c"vkWriteSamplerDescriptorsEXT").ok_or(MissingEntryPointError)?,
                 ),
-                write_resource_descriptors_ext: transmute(
+                write_resource_descriptors: transmute(
                     load(c"vkWriteResourceDescriptorsEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_bind_sampler_heap_ext: transmute(
+                cmd_bind_sampler_heap: transmute(
                     load(c"vkCmdBindSamplerHeapEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_bind_resource_heap_ext: transmute(
+                cmd_bind_resource_heap: transmute(
                     load(c"vkCmdBindResourceHeapEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_push_data_ext: transmute(
-                    load(c"vkCmdPushDataEXT").ok_or(MissingEntryPointError)?,
-                ),
-                get_image_opaque_capture_data_ext: transmute(
+                cmd_push_data: transmute(load(c"vkCmdPushDataEXT").ok_or(MissingEntryPointError)?),
+                get_image_opaque_capture_data: transmute(
                     load(c"vkGetImageOpaqueCaptureDataEXT").ok_or(MissingEntryPointError)?,
                 ),
-                register_custom_border_color_ext: transmute(load(
-                    c"vkRegisterCustomBorderColorEXT",
-                )),
-                unregister_custom_border_color_ext: transmute(load(
+                register_custom_border_color: transmute(load(c"vkRegisterCustomBorderColorEXT")),
+                unregister_custom_border_color: transmute(load(
                     c"vkUnregisterCustomBorderColorEXT",
                 )),
-                get_tensor_opaque_capture_data_arm: transmute(load(
-                    c"vkGetTensorOpaqueCaptureDataARM",
-                )),
+                get_tensor_opaque_capture_data: transmute(load(c"vkGetTensorOpaqueCaptureDataARM")),
             })
         }
     }
@@ -2412,14 +2406,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkWriteSamplerDescriptorsEXT.html>
     #[inline]
-    pub unsafe fn write_sampler_descriptors_ext(
+    pub unsafe fn write_sampler_descriptors(
         &self,
         device: Device,
         samplers: &[SamplerCreateInfo<'_>],
         descriptors: &[HostAddressRangeEXT<'_>],
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.write_sampler_descriptors_ext)(
+            let result = (self.write_sampler_descriptors)(
                 device,
                 samplers.len().try_into().unwrap(),
                 samplers.as_ptr() as _,
@@ -2435,14 +2429,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkWriteResourceDescriptorsEXT.html>
     #[inline]
-    pub unsafe fn write_resource_descriptors_ext(
+    pub unsafe fn write_resource_descriptors(
         &self,
         device: Device,
         resources: &[ResourceDescriptorInfoEXT<'_>],
         descriptors: &[HostAddressRangeEXT<'_>],
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.write_resource_descriptors_ext)(
+            let result = (self.write_resource_descriptors)(
                 device,
                 resources.len().try_into().unwrap(),
                 resources.as_ptr() as _,
@@ -2458,44 +2452,44 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindSamplerHeapEXT.html>
     #[inline]
-    pub unsafe fn cmd_bind_sampler_heap_ext(
+    pub unsafe fn cmd_bind_sampler_heap(
         &self,
         command_buffer: CommandBuffer,
         bind_info: &BindHeapInfoEXT<'_>,
     ) {
-        unsafe { (self.cmd_bind_sampler_heap_ext)(command_buffer, bind_info) }
+        unsafe { (self.cmd_bind_sampler_heap)(command_buffer, bind_info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindResourceHeapEXT.html>
     #[inline]
-    pub unsafe fn cmd_bind_resource_heap_ext(
+    pub unsafe fn cmd_bind_resource_heap(
         &self,
         command_buffer: CommandBuffer,
         bind_info: &BindHeapInfoEXT<'_>,
     ) {
-        unsafe { (self.cmd_bind_resource_heap_ext)(command_buffer, bind_info) }
+        unsafe { (self.cmd_bind_resource_heap)(command_buffer, bind_info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushDataEXT.html>
     #[inline]
-    pub unsafe fn cmd_push_data_ext(
+    pub unsafe fn cmd_push_data(
         &self,
         command_buffer: CommandBuffer,
         push_data_info: &PushDataInfoEXT<'_>,
     ) {
-        unsafe { (self.cmd_push_data_ext)(command_buffer, push_data_info) }
+        unsafe { (self.cmd_push_data)(command_buffer, push_data_info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageOpaqueCaptureDataEXT.html>
     #[inline]
-    pub unsafe fn get_image_opaque_capture_data_ext(
+    pub unsafe fn get_image_opaque_capture_data(
         &self,
         device: Device,
         images: &[Image],
         datas: &mut [HostAddressRangeEXT<'_>],
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_image_opaque_capture_data_ext)(
+            let result = (self.get_image_opaque_capture_data)(
                 device,
                 images.len().try_into().unwrap(),
                 images.as_ptr() as _,
@@ -2511,7 +2505,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkRegisterCustomBorderColorEXT.html>
     #[inline]
-    pub unsafe fn register_custom_border_color_ext(
+    pub unsafe fn register_custom_border_color(
         &self,
         device: Device,
         border_color: &SamplerCustomBorderColorCreateInfoEXT<'_>,
@@ -2519,7 +2513,7 @@ impl DeviceFn {
     ) -> crate::Result<u32> {
         unsafe {
             let mut index = core::mem::MaybeUninit::uninit();
-            let result = (self.register_custom_border_color_ext.unwrap())(
+            let result = (self.register_custom_border_color.unwrap())(
                 device,
                 border_color,
                 request_index.into(),
@@ -2535,20 +2529,20 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUnregisterCustomBorderColorEXT.html>
     #[inline]
-    pub unsafe fn unregister_custom_border_color_ext(&self, device: Device, index: u32) {
-        unsafe { (self.unregister_custom_border_color_ext.unwrap())(device, index) }
+    pub unsafe fn unregister_custom_border_color(&self, device: Device, index: u32) {
+        unsafe { (self.unregister_custom_border_color.unwrap())(device, index) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetTensorOpaqueCaptureDataARM.html>
     #[inline]
-    pub unsafe fn get_tensor_opaque_capture_data_arm(
+    pub unsafe fn get_tensor_opaque_capture_data(
         &self,
         device: Device,
         tensors: &[TensorARM],
         datas: &mut [HostAddressRangeEXT<'_>],
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_tensor_opaque_capture_data_arm.unwrap())(
+            let result = (self.get_tensor_opaque_capture_data.unwrap())(
                 device,
                 tensors.len().try_into().unwrap(),
                 tensors.as_ptr() as _,

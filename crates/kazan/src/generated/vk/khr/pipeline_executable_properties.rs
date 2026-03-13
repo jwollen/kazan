@@ -545,9 +545,9 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_pipeline_executable_properties_khr: PFN_vkGetPipelineExecutablePropertiesKHR,
-    get_pipeline_executable_statistics_khr: PFN_vkGetPipelineExecutableStatisticsKHR,
-    get_pipeline_executable_internal_representations_khr:
+    get_pipeline_executable_properties: PFN_vkGetPipelineExecutablePropertiesKHR,
+    get_pipeline_executable_statistics: PFN_vkGetPipelineExecutableStatisticsKHR,
+    get_pipeline_executable_internal_representations:
         PFN_vkGetPipelineExecutableInternalRepresentationsKHR,
 }
 
@@ -557,13 +557,13 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_pipeline_executable_properties_khr: transmute(
+                get_pipeline_executable_properties: transmute(
                     load(c"vkGetPipelineExecutablePropertiesKHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_pipeline_executable_statistics_khr: transmute(
+                get_pipeline_executable_statistics: transmute(
                     load(c"vkGetPipelineExecutableStatisticsKHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_pipeline_executable_internal_representations_khr: transmute(
+                get_pipeline_executable_internal_representations: transmute(
                     load(c"vkGetPipelineExecutableInternalRepresentationsKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -575,7 +575,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineExecutablePropertiesKHR.html>
     #[inline]
-    pub unsafe fn get_pipeline_executable_properties_khr<'a>(
+    pub unsafe fn get_pipeline_executable_properties<'a>(
         &self,
         device: Device,
         pipeline_info: &PipelineInfoKHR<'a>,
@@ -583,7 +583,7 @@ impl DeviceFn {
     ) -> crate::Result<()> {
         unsafe {
             let call = |executable_count, properties| {
-                let result = (self.get_pipeline_executable_properties_khr)(
+                let result = (self.get_pipeline_executable_properties)(
                     device,
                     pipeline_info,
                     executable_count,
@@ -609,7 +609,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineExecutableStatisticsKHR.html>
     #[inline]
-    pub unsafe fn get_pipeline_executable_statistics_khr<'a>(
+    pub unsafe fn get_pipeline_executable_statistics<'a>(
         &self,
         device: Device,
         executable_info: &PipelineExecutableInfoKHR<'a>,
@@ -617,7 +617,7 @@ impl DeviceFn {
     ) -> crate::Result<()> {
         unsafe {
             let call = |statistic_count, statistics| {
-                let result = (self.get_pipeline_executable_statistics_khr)(
+                let result = (self.get_pipeline_executable_statistics)(
                     device,
                     executable_info,
                     statistic_count,
@@ -643,7 +643,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineExecutableInternalRepresentationsKHR.html>
     #[inline]
-    pub unsafe fn get_pipeline_executable_internal_representations_khr<'a>(
+    pub unsafe fn get_pipeline_executable_internal_representations<'a>(
         &self,
         device: Device,
         executable_info: &PipelineExecutableInfoKHR<'a>,
@@ -651,7 +651,7 @@ impl DeviceFn {
     ) -> crate::Result<()> {
         unsafe {
             let call = |internal_representation_count, internal_representations| {
-                let result = (self.get_pipeline_executable_internal_representations_khr)(
+                let result = (self.get_pipeline_executable_internal_representations)(
                     device,
                     executable_info,
                     internal_representation_count,

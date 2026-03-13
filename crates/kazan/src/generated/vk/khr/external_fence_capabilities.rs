@@ -39,8 +39,7 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    get_physical_device_external_fence_properties_khr:
-        PFN_vkGetPhysicalDeviceExternalFenceProperties,
+    get_physical_device_external_fence_properties: PFN_vkGetPhysicalDeviceExternalFenceProperties,
 }
 
 impl LoadInstanceFn for InstanceFn {
@@ -49,7 +48,7 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_physical_device_external_fence_properties_khr: transmute(
+                get_physical_device_external_fence_properties: transmute(
                     load(c"vkGetPhysicalDeviceExternalFencePropertiesKHR")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -61,14 +60,14 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceExternalFencePropertiesKHR.html>
     #[inline]
-    pub unsafe fn get_physical_device_external_fence_properties_khr(
+    pub unsafe fn get_physical_device_external_fence_properties(
         &self,
         physical_device: PhysicalDevice,
         external_fence_info: &PhysicalDeviceExternalFenceInfo<'_>,
         external_fence_properties: &mut ExternalFenceProperties<'_>,
     ) {
         unsafe {
-            (self.get_physical_device_external_fence_properties_khr)(
+            (self.get_physical_device_external_fence_properties)(
                 physical_device,
                 external_fence_info,
                 external_fence_properties,

@@ -300,7 +300,7 @@ impl ExampleBase {
 
             let debug_utils_fn = debug_utils::InstanceFn::load(&entry, instance).unwrap();
             let debug_call_back = debug_utils_fn
-                .create_debug_utils_messenger_ext(instance, &debug_info, None)
+                .create_debug_utils_messenger(instance, &debug_info, None)
                 .unwrap();
 
             // Create surface
@@ -331,7 +331,7 @@ impl ExampleBase {
                             let supports_graphic_and_surface =
                                 info.queue_flags.contains_bit(vk::QueueFlagBits::GRAPHICS)
                                     && surface_fn
-                                        .get_physical_device_surface_support_khr(
+                                        .get_physical_device_surface_support(
                                             *pdevice,
                                             index as u32,
                                             surface,
@@ -376,12 +376,12 @@ impl ExampleBase {
 
             let mut surface_formats = Vec::new();
             surface_fn
-                .get_physical_device_surface_formats_khr(pdevice, surface, &mut surface_formats)
+                .get_physical_device_surface_formats(pdevice, surface, &mut surface_formats)
                 .unwrap();
             let surface_format = surface_formats[0];
 
             let surface_capabilities = surface_fn
-                .get_physical_device_surface_capabilities_khr(pdevice, surface)
+                .get_physical_device_surface_capabilities(pdevice, surface)
                 .unwrap();
             let mut desired_image_count = surface_capabilities.min_image_count + 1;
             if surface_capabilities.max_image_count > 0
@@ -406,7 +406,7 @@ impl ExampleBase {
             };
             let mut present_modes = Vec::new();
             surface_fn
-                .get_physical_device_surface_present_modes_khr(pdevice, surface, &mut present_modes)
+                .get_physical_device_surface_present_modes(pdevice, surface, &mut present_modes)
                 .unwrap();
             let present_mode = present_modes
                 .iter()
@@ -430,7 +430,7 @@ impl ExampleBase {
                 .image_array_layers(1);
 
             let swapchain = swapchain_fn
-                .create_swapchain_khr(device, &swapchain_create_info, None)
+                .create_swapchain(device, &swapchain_create_info, None)
                 .unwrap();
 
             let pool_create_info = vk::CommandPoolCreateInfo::default()
@@ -462,7 +462,7 @@ impl ExampleBase {
 
             let mut present_images = Vec::new();
             swapchain_fn
-                .get_swapchain_images_khr(device, swapchain, &mut present_images)
+                .get_swapchain_images(device, swapchain, &mut present_images)
                 .unwrap();
             let present_image_views: Vec<vk::ImageView> = present_images
                 .iter()
@@ -668,11 +668,11 @@ impl Drop for ExampleBase {
             self.device_fn
                 .destroy_command_pool(self.device, self.pool, None);
             self.swapchain_fn
-                .destroy_swapchain_khr(self.device, self.swapchain, None);
+                .destroy_swapchain(self.device, self.swapchain, None);
             self.device_fn.destroy_device(self.device, None);
             self.surface_fn
-                .destroy_surface_khr(self.instance, self.surface, None);
-            self.debug_utils_fn.destroy_debug_utils_messenger_ext(
+                .destroy_surface(self.instance, self.surface, None);
+            self.debug_utils_fn.destroy_debug_utils_messenger(
                 self.instance,
                 self.debug_call_back,
                 None,

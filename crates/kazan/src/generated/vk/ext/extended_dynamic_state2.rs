@@ -128,11 +128,11 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_set_patch_control_points_ext: PFN_vkCmdSetPatchControlPointsEXT,
-    cmd_set_rasterizer_discard_enable_ext: PFN_vkCmdSetRasterizerDiscardEnable,
-    cmd_set_depth_bias_enable_ext: PFN_vkCmdSetDepthBiasEnable,
-    cmd_set_logic_op_ext: PFN_vkCmdSetLogicOpEXT,
-    cmd_set_primitive_restart_enable_ext: PFN_vkCmdSetPrimitiveRestartEnable,
+    cmd_set_patch_control_points: PFN_vkCmdSetPatchControlPointsEXT,
+    cmd_set_rasterizer_discard_enable: PFN_vkCmdSetRasterizerDiscardEnable,
+    cmd_set_depth_bias_enable: PFN_vkCmdSetDepthBiasEnable,
+    cmd_set_logic_op: PFN_vkCmdSetLogicOpEXT,
+    cmd_set_primitive_restart_enable: PFN_vkCmdSetPrimitiveRestartEnable,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -141,19 +141,19 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_set_patch_control_points_ext: transmute(
+                cmd_set_patch_control_points: transmute(
                     load(c"vkCmdSetPatchControlPointsEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_rasterizer_discard_enable_ext: transmute(
+                cmd_set_rasterizer_discard_enable: transmute(
                     load(c"vkCmdSetRasterizerDiscardEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_depth_bias_enable_ext: transmute(
+                cmd_set_depth_bias_enable: transmute(
                     load(c"vkCmdSetDepthBiasEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_logic_op_ext: transmute(
+                cmd_set_logic_op: transmute(
                     load(c"vkCmdSetLogicOpEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_primitive_restart_enable_ext: transmute(
+                cmd_set_primitive_restart_enable: transmute(
                     load(c"vkCmdSetPrimitiveRestartEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -164,23 +164,23 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPatchControlPointsEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_patch_control_points_ext(
+    pub unsafe fn cmd_set_patch_control_points(
         &self,
         command_buffer: CommandBuffer,
         patch_control_points: u32,
     ) {
-        unsafe { (self.cmd_set_patch_control_points_ext)(command_buffer, patch_control_points) }
+        unsafe { (self.cmd_set_patch_control_points)(command_buffer, patch_control_points) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetRasterizerDiscardEnableEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_rasterizer_discard_enable_ext(
+    pub unsafe fn cmd_set_rasterizer_discard_enable(
         &self,
         command_buffer: CommandBuffer,
         rasterizer_discard_enable: bool,
     ) {
         unsafe {
-            (self.cmd_set_rasterizer_discard_enable_ext)(
+            (self.cmd_set_rasterizer_discard_enable)(
                 command_buffer,
                 rasterizer_discard_enable.into(),
             )
@@ -189,32 +189,29 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthBiasEnableEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_depth_bias_enable_ext(
+    pub unsafe fn cmd_set_depth_bias_enable(
         &self,
         command_buffer: CommandBuffer,
         depth_bias_enable: bool,
     ) {
-        unsafe { (self.cmd_set_depth_bias_enable_ext)(command_buffer, depth_bias_enable.into()) }
+        unsafe { (self.cmd_set_depth_bias_enable)(command_buffer, depth_bias_enable.into()) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLogicOpEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_logic_op_ext(&self, command_buffer: CommandBuffer, logic_op: LogicOp) {
-        unsafe { (self.cmd_set_logic_op_ext)(command_buffer, logic_op) }
+    pub unsafe fn cmd_set_logic_op(&self, command_buffer: CommandBuffer, logic_op: LogicOp) {
+        unsafe { (self.cmd_set_logic_op)(command_buffer, logic_op) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPrimitiveRestartEnableEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_primitive_restart_enable_ext(
+    pub unsafe fn cmd_set_primitive_restart_enable(
         &self,
         command_buffer: CommandBuffer,
         primitive_restart_enable: bool,
     ) {
         unsafe {
-            (self.cmd_set_primitive_restart_enable_ext)(
-                command_buffer,
-                primitive_restart_enable.into(),
-            )
+            (self.cmd_set_primitive_restart_enable)(command_buffer, primitive_restart_enable.into())
         }
     }
 }

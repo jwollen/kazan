@@ -1017,10 +1017,10 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    set_swapchain_present_timing_queue_size_ext: PFN_vkSetSwapchainPresentTimingQueueSizeEXT,
-    get_swapchain_timing_properties_ext: PFN_vkGetSwapchainTimingPropertiesEXT,
-    get_swapchain_time_domain_properties_ext: PFN_vkGetSwapchainTimeDomainPropertiesEXT,
-    get_past_presentation_timing_ext: PFN_vkGetPastPresentationTimingEXT,
+    set_swapchain_present_timing_queue_size: PFN_vkSetSwapchainPresentTimingQueueSizeEXT,
+    get_swapchain_timing_properties: PFN_vkGetSwapchainTimingPropertiesEXT,
+    get_swapchain_time_domain_properties: PFN_vkGetSwapchainTimeDomainPropertiesEXT,
+    get_past_presentation_timing: PFN_vkGetPastPresentationTimingEXT,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -1029,17 +1029,17 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                set_swapchain_present_timing_queue_size_ext: transmute(
+                set_swapchain_present_timing_queue_size: transmute(
                     load(c"vkSetSwapchainPresentTimingQueueSizeEXT")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                get_swapchain_timing_properties_ext: transmute(
+                get_swapchain_timing_properties: transmute(
                     load(c"vkGetSwapchainTimingPropertiesEXT").ok_or(MissingEntryPointError)?,
                 ),
-                get_swapchain_time_domain_properties_ext: transmute(
+                get_swapchain_time_domain_properties: transmute(
                     load(c"vkGetSwapchainTimeDomainPropertiesEXT").ok_or(MissingEntryPointError)?,
                 ),
-                get_past_presentation_timing_ext: transmute(
+                get_past_presentation_timing: transmute(
                     load(c"vkGetPastPresentationTimingEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -1050,15 +1050,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetSwapchainPresentTimingQueueSizeEXT.html>
     #[inline]
-    pub unsafe fn set_swapchain_present_timing_queue_size_ext(
+    pub unsafe fn set_swapchain_present_timing_queue_size(
         &self,
         device: Device,
         swapchain: SwapchainKHR,
         size: u32,
     ) -> crate::Result<()> {
         unsafe {
-            let result =
-                (self.set_swapchain_present_timing_queue_size_ext)(device, swapchain, size);
+            let result = (self.set_swapchain_present_timing_queue_size)(device, swapchain, size);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -1069,7 +1068,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSwapchainTimingPropertiesEXT.html>
     #[inline]
-    pub unsafe fn get_swapchain_timing_properties_ext(
+    pub unsafe fn get_swapchain_timing_properties(
         &self,
         device: Device,
         swapchain: SwapchainKHR,
@@ -1077,7 +1076,7 @@ impl DeviceFn {
         swapchain_timing_properties_counter: Option<&mut u64>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_swapchain_timing_properties_ext)(
+            let result = (self.get_swapchain_timing_properties)(
                 device,
                 swapchain,
                 swapchain_timing_properties,
@@ -1093,7 +1092,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSwapchainTimeDomainPropertiesEXT.html>
     #[inline]
-    pub unsafe fn get_swapchain_time_domain_properties_ext(
+    pub unsafe fn get_swapchain_time_domain_properties(
         &self,
         device: Device,
         swapchain: SwapchainKHR,
@@ -1101,7 +1100,7 @@ impl DeviceFn {
         time_domains_counter: Option<&mut u64>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_swapchain_time_domain_properties_ext)(
+            let result = (self.get_swapchain_time_domain_properties)(
                 device,
                 swapchain,
                 swapchain_time_domain_properties,
@@ -1117,14 +1116,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPastPresentationTimingEXT.html>
     #[inline]
-    pub unsafe fn get_past_presentation_timing_ext(
+    pub unsafe fn get_past_presentation_timing(
         &self,
         device: Device,
         past_presentation_timing_info: &PastPresentationTimingInfoEXT<'_>,
         past_presentation_timing_properties: &mut PastPresentationTimingPropertiesEXT<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_past_presentation_timing_ext)(
+            let result = (self.get_past_presentation_timing)(
                 device,
                 past_presentation_timing_info,
                 past_presentation_timing_properties,

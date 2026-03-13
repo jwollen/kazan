@@ -20,8 +20,8 @@ pub(super) mod defs {
 }
 
 pub struct DeviceFn {
-    cmd_draw_indirect_count_khr: PFN_vkCmdDrawIndirectCount,
-    cmd_draw_indexed_indirect_count_khr: PFN_vkCmdDrawIndexedIndirectCount,
+    cmd_draw_indirect_count: PFN_vkCmdDrawIndirectCount,
+    cmd_draw_indexed_indirect_count: PFN_vkCmdDrawIndexedIndirectCount,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -30,10 +30,10 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_draw_indirect_count_khr: transmute(
+                cmd_draw_indirect_count: transmute(
                     load(c"vkCmdDrawIndirectCountKHR").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_draw_indexed_indirect_count_khr: transmute(
+                cmd_draw_indexed_indirect_count: transmute(
                     load(c"vkCmdDrawIndexedIndirectCountKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -44,7 +44,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawIndirectCountKHR.html>
     #[inline]
-    pub unsafe fn cmd_draw_indirect_count_khr(
+    pub unsafe fn cmd_draw_indirect_count(
         &self,
         command_buffer: CommandBuffer,
         buffer: Buffer,
@@ -55,7 +55,7 @@ impl DeviceFn {
         stride: u32,
     ) {
         unsafe {
-            (self.cmd_draw_indirect_count_khr)(
+            (self.cmd_draw_indirect_count)(
                 command_buffer,
                 buffer,
                 offset,
@@ -69,7 +69,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDrawIndexedIndirectCountKHR.html>
     #[inline]
-    pub unsafe fn cmd_draw_indexed_indirect_count_khr(
+    pub unsafe fn cmd_draw_indexed_indirect_count(
         &self,
         command_buffer: CommandBuffer,
         buffer: Buffer,
@@ -80,7 +80,7 @@ impl DeviceFn {
         stride: u32,
     ) {
         unsafe {
-            (self.cmd_draw_indexed_indirect_count_khr)(
+            (self.cmd_draw_indexed_indirect_count)(
                 command_buffer,
                 buffer,
                 offset,

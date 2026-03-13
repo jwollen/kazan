@@ -108,7 +108,7 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    create_surface_ohos: PFN_vkCreateSurfaceOHOS,
+    create_surface: PFN_vkCreateSurfaceOHOS,
 }
 
 impl LoadInstanceFn for InstanceFn {
@@ -117,7 +117,7 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_surface_ohos: transmute(
+                create_surface: transmute(
                     load(c"vkCreateSurfaceOHOS").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -128,7 +128,7 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSurfaceOHOS.html>
     #[inline]
-    pub unsafe fn create_surface_ohos(
+    pub unsafe fn create_surface(
         &self,
         instance: Instance,
         create_info: &SurfaceCreateInfoOHOS<'_>,
@@ -136,7 +136,7 @@ impl InstanceFn {
     ) -> crate::Result<SurfaceKHR> {
         unsafe {
             let mut surface = core::mem::MaybeUninit::uninit();
-            let result = (self.create_surface_ohos)(
+            let result = (self.create_surface)(
                 instance,
                 create_info,
                 allocator.to_raw_ptr(),

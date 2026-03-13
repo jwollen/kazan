@@ -93,7 +93,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_bind_invocation_mask_huawei: PFN_vkCmdBindInvocationMaskHUAWEI,
+    cmd_bind_invocation_mask: PFN_vkCmdBindInvocationMaskHUAWEI,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -102,7 +102,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_bind_invocation_mask_huawei: transmute(
+                cmd_bind_invocation_mask: transmute(
                     load(c"vkCmdBindInvocationMaskHUAWEI").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -113,12 +113,12 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindInvocationMaskHUAWEI.html>
     #[inline]
-    pub unsafe fn cmd_bind_invocation_mask_huawei(
+    pub unsafe fn cmd_bind_invocation_mask(
         &self,
         command_buffer: CommandBuffer,
         image_view: ImageView,
         image_layout: ImageLayout,
     ) {
-        unsafe { (self.cmd_bind_invocation_mask_huawei)(command_buffer, image_view, image_layout) }
+        unsafe { (self.cmd_bind_invocation_mask)(command_buffer, image_view, image_layout) }
     }
 }

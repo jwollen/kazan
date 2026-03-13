@@ -101,8 +101,8 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_decompress_memory_nv: PFN_vkCmdDecompressMemoryNV,
-    cmd_decompress_memory_indirect_count_nv: PFN_vkCmdDecompressMemoryIndirectCountNV,
+    cmd_decompress_memory: PFN_vkCmdDecompressMemoryNV,
+    cmd_decompress_memory_indirect_count: PFN_vkCmdDecompressMemoryIndirectCountNV,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -111,10 +111,10 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_decompress_memory_nv: transmute(
+                cmd_decompress_memory: transmute(
                     load(c"vkCmdDecompressMemoryNV").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_decompress_memory_indirect_count_nv: transmute(
+                cmd_decompress_memory_indirect_count: transmute(
                     load(c"vkCmdDecompressMemoryIndirectCountNV").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -125,13 +125,13 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDecompressMemoryNV.html>
     #[inline]
-    pub unsafe fn cmd_decompress_memory_nv(
+    pub unsafe fn cmd_decompress_memory(
         &self,
         command_buffer: CommandBuffer,
         decompress_memory_regions: &[DecompressMemoryRegionNV],
     ) {
         unsafe {
-            (self.cmd_decompress_memory_nv)(
+            (self.cmd_decompress_memory)(
                 command_buffer,
                 decompress_memory_regions.len().try_into().unwrap(),
                 decompress_memory_regions.as_ptr() as _,
@@ -141,7 +141,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDecompressMemoryIndirectCountNV.html>
     #[inline]
-    pub unsafe fn cmd_decompress_memory_indirect_count_nv(
+    pub unsafe fn cmd_decompress_memory_indirect_count(
         &self,
         command_buffer: CommandBuffer,
         indirect_commands_address: DeviceAddress,
@@ -149,7 +149,7 @@ impl DeviceFn {
         stride: u32,
     ) {
         unsafe {
-            (self.cmd_decompress_memory_indirect_count_nv)(
+            (self.cmd_decompress_memory_indirect_count)(
                 command_buffer,
                 indirect_commands_address,
                 indirect_commands_count_address,

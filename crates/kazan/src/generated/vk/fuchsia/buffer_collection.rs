@@ -970,13 +970,11 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    create_buffer_collection_fuchsia: PFN_vkCreateBufferCollectionFUCHSIA,
-    set_buffer_collection_image_constraints_fuchsia:
-        PFN_vkSetBufferCollectionImageConstraintsFUCHSIA,
-    set_buffer_collection_buffer_constraints_fuchsia:
-        PFN_vkSetBufferCollectionBufferConstraintsFUCHSIA,
-    destroy_buffer_collection_fuchsia: PFN_vkDestroyBufferCollectionFUCHSIA,
-    get_buffer_collection_properties_fuchsia: PFN_vkGetBufferCollectionPropertiesFUCHSIA,
+    create_buffer_collection: PFN_vkCreateBufferCollectionFUCHSIA,
+    set_buffer_collection_image_constraints: PFN_vkSetBufferCollectionImageConstraintsFUCHSIA,
+    set_buffer_collection_buffer_constraints: PFN_vkSetBufferCollectionBufferConstraintsFUCHSIA,
+    destroy_buffer_collection: PFN_vkDestroyBufferCollectionFUCHSIA,
+    get_buffer_collection_properties: PFN_vkGetBufferCollectionPropertiesFUCHSIA,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -985,21 +983,21 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_buffer_collection_fuchsia: transmute(
+                create_buffer_collection: transmute(
                     load(c"vkCreateBufferCollectionFUCHSIA").ok_or(MissingEntryPointError)?,
                 ),
-                set_buffer_collection_image_constraints_fuchsia: transmute(
+                set_buffer_collection_image_constraints: transmute(
                     load(c"vkSetBufferCollectionImageConstraintsFUCHSIA")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                set_buffer_collection_buffer_constraints_fuchsia: transmute(
+                set_buffer_collection_buffer_constraints: transmute(
                     load(c"vkSetBufferCollectionBufferConstraintsFUCHSIA")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                destroy_buffer_collection_fuchsia: transmute(
+                destroy_buffer_collection: transmute(
                     load(c"vkDestroyBufferCollectionFUCHSIA").ok_or(MissingEntryPointError)?,
                 ),
-                get_buffer_collection_properties_fuchsia: transmute(
+                get_buffer_collection_properties: transmute(
                     load(c"vkGetBufferCollectionPropertiesFUCHSIA")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -1011,7 +1009,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateBufferCollectionFUCHSIA.html>
     #[inline]
-    pub unsafe fn create_buffer_collection_fuchsia(
+    pub unsafe fn create_buffer_collection(
         &self,
         device: Device,
         create_info: &BufferCollectionCreateInfoFUCHSIA<'_>,
@@ -1019,7 +1017,7 @@ impl DeviceFn {
     ) -> crate::Result<BufferCollectionFUCHSIA> {
         unsafe {
             let mut collection = core::mem::MaybeUninit::uninit();
-            let result = (self.create_buffer_collection_fuchsia)(
+            let result = (self.create_buffer_collection)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -1035,14 +1033,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetBufferCollectionImageConstraintsFUCHSIA.html>
     #[inline]
-    pub unsafe fn set_buffer_collection_image_constraints_fuchsia(
+    pub unsafe fn set_buffer_collection_image_constraints(
         &self,
         device: Device,
         collection: BufferCollectionFUCHSIA,
         image_constraints_info: &ImageConstraintsInfoFUCHSIA<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.set_buffer_collection_image_constraints_fuchsia)(
+            let result = (self.set_buffer_collection_image_constraints)(
                 device,
                 collection,
                 image_constraints_info,
@@ -1057,14 +1055,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetBufferCollectionBufferConstraintsFUCHSIA.html>
     #[inline]
-    pub unsafe fn set_buffer_collection_buffer_constraints_fuchsia(
+    pub unsafe fn set_buffer_collection_buffer_constraints(
         &self,
         device: Device,
         collection: BufferCollectionFUCHSIA,
         buffer_constraints_info: &BufferConstraintsInfoFUCHSIA<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.set_buffer_collection_buffer_constraints_fuchsia)(
+            let result = (self.set_buffer_collection_buffer_constraints)(
                 device,
                 collection,
                 buffer_constraints_info,
@@ -1079,28 +1077,25 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyBufferCollectionFUCHSIA.html>
     #[inline]
-    pub unsafe fn destroy_buffer_collection_fuchsia(
+    pub unsafe fn destroy_buffer_collection(
         &self,
         device: Device,
         collection: BufferCollectionFUCHSIA,
         allocator: Option<&AllocationCallbacks<'_>>,
     ) {
-        unsafe {
-            (self.destroy_buffer_collection_fuchsia)(device, collection, allocator.to_raw_ptr())
-        }
+        unsafe { (self.destroy_buffer_collection)(device, collection, allocator.to_raw_ptr()) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferCollectionPropertiesFUCHSIA.html>
     #[inline]
-    pub unsafe fn get_buffer_collection_properties_fuchsia(
+    pub unsafe fn get_buffer_collection_properties(
         &self,
         device: Device,
         collection: BufferCollectionFUCHSIA,
         properties: &mut BufferCollectionPropertiesFUCHSIA<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result =
-                (self.get_buffer_collection_properties_fuchsia)(device, collection, properties);
+            let result = (self.get_buffer_collection_properties)(device, collection, properties);
 
             match result {
                 VkResult::SUCCESS => Ok(()),

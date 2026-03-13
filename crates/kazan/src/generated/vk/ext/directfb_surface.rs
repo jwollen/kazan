@@ -122,8 +122,8 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    create_direct_fb_surface_ext: PFN_vkCreateDirectFBSurfaceEXT,
-    get_physical_device_direct_fb_presentation_support_ext:
+    create_direct_fb_surface: PFN_vkCreateDirectFBSurfaceEXT,
+    get_physical_device_direct_fb_presentation_support:
         PFN_vkGetPhysicalDeviceDirectFBPresentationSupportEXT,
 }
 
@@ -133,10 +133,10 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_direct_fb_surface_ext: transmute(
+                create_direct_fb_surface: transmute(
                     load(c"vkCreateDirectFBSurfaceEXT").ok_or(MissingEntryPointError)?,
                 ),
-                get_physical_device_direct_fb_presentation_support_ext: transmute(
+                get_physical_device_direct_fb_presentation_support: transmute(
                     load(c"vkGetPhysicalDeviceDirectFBPresentationSupportEXT")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -148,7 +148,7 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDirectFBSurfaceEXT.html>
     #[inline]
-    pub unsafe fn create_direct_fb_surface_ext(
+    pub unsafe fn create_direct_fb_surface(
         &self,
         instance: Instance,
         create_info: &DirectFBSurfaceCreateInfoEXT<'_>,
@@ -156,7 +156,7 @@ impl InstanceFn {
     ) -> crate::Result<SurfaceKHR> {
         unsafe {
             let mut surface = core::mem::MaybeUninit::uninit();
-            let result = (self.create_direct_fb_surface_ext)(
+            let result = (self.create_direct_fb_surface)(
                 instance,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -172,14 +172,14 @@ impl InstanceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDirectFBPresentationSupportEXT.html>
     #[inline]
-    pub unsafe fn get_physical_device_direct_fb_presentation_support_ext(
+    pub unsafe fn get_physical_device_direct_fb_presentation_support(
         &self,
         physical_device: PhysicalDevice,
         queue_family_index: u32,
         dfb: *mut IDirectFB,
     ) -> bool {
         unsafe {
-            (self.get_physical_device_direct_fb_presentation_support_ext)(
+            (self.get_physical_device_direct_fb_presentation_support)(
                 physical_device,
                 queue_family_index,
                 dfb,

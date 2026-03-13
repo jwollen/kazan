@@ -176,8 +176,8 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    import_semaphore_fd_khr: PFN_vkImportSemaphoreFdKHR,
-    get_semaphore_fd_khr: PFN_vkGetSemaphoreFdKHR,
+    import_semaphore_fd: PFN_vkImportSemaphoreFdKHR,
+    get_semaphore_fd: PFN_vkGetSemaphoreFdKHR,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -186,10 +186,10 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                import_semaphore_fd_khr: transmute(
+                import_semaphore_fd: transmute(
                     load(c"vkImportSemaphoreFdKHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_semaphore_fd_khr: transmute(
+                get_semaphore_fd: transmute(
                     load(c"vkGetSemaphoreFdKHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -200,13 +200,13 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportSemaphoreFdKHR.html>
     #[inline]
-    pub unsafe fn import_semaphore_fd_khr(
+    pub unsafe fn import_semaphore_fd(
         &self,
         device: Device,
         import_semaphore_fd_info: &ImportSemaphoreFdInfoKHR<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.import_semaphore_fd_khr)(device, import_semaphore_fd_info);
+            let result = (self.import_semaphore_fd)(device, import_semaphore_fd_info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -217,14 +217,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSemaphoreFdKHR.html>
     #[inline]
-    pub unsafe fn get_semaphore_fd_khr(
+    pub unsafe fn get_semaphore_fd(
         &self,
         device: Device,
         get_fd_info: &SemaphoreGetFdInfoKHR<'_>,
     ) -> crate::Result<c_int> {
         unsafe {
             let mut fd = core::mem::MaybeUninit::uninit();
-            let result = (self.get_semaphore_fd_khr)(device, get_fd_info, fd.as_mut_ptr());
+            let result = (self.get_semaphore_fd)(device, get_fd_info, fd.as_mut_ptr());
 
             match result {
                 VkResult::SUCCESS => Ok(fd.assume_init()),

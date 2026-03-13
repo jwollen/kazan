@@ -185,8 +185,8 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_refresh_cycle_duration_google: PFN_vkGetRefreshCycleDurationGOOGLE,
-    get_past_presentation_timing_google: PFN_vkGetPastPresentationTimingGOOGLE,
+    get_refresh_cycle_duration: PFN_vkGetRefreshCycleDurationGOOGLE,
+    get_past_presentation_timing: PFN_vkGetPastPresentationTimingGOOGLE,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -195,10 +195,10 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_refresh_cycle_duration_google: transmute(
+                get_refresh_cycle_duration: transmute(
                     load(c"vkGetRefreshCycleDurationGOOGLE").ok_or(MissingEntryPointError)?,
                 ),
-                get_past_presentation_timing_google: transmute(
+                get_past_presentation_timing: transmute(
                     load(c"vkGetPastPresentationTimingGOOGLE").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -209,14 +209,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRefreshCycleDurationGOOGLE.html>
     #[inline]
-    pub unsafe fn get_refresh_cycle_duration_google(
+    pub unsafe fn get_refresh_cycle_duration(
         &self,
         device: Device,
         swapchain: SwapchainKHR,
     ) -> crate::Result<RefreshCycleDurationGOOGLE> {
         unsafe {
             let mut display_timing_properties = core::mem::MaybeUninit::uninit();
-            let result = (self.get_refresh_cycle_duration_google)(
+            let result = (self.get_refresh_cycle_duration)(
                 device,
                 swapchain,
                 display_timing_properties.as_mut_ptr(),
@@ -231,7 +231,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPastPresentationTimingGOOGLE.html>
     #[inline]
-    pub unsafe fn get_past_presentation_timing_google(
+    pub unsafe fn get_past_presentation_timing(
         &self,
         device: Device,
         swapchain: SwapchainKHR,
@@ -239,7 +239,7 @@ impl DeviceFn {
     ) -> crate::Result<()> {
         unsafe {
             let call = |presentation_timing_count, presentation_timings| {
-                let result = (self.get_past_presentation_timing_google)(
+                let result = (self.get_past_presentation_timing)(
                     device,
                     swapchain,
                     presentation_timing_count,

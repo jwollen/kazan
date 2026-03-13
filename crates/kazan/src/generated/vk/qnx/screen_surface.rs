@@ -122,8 +122,8 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    create_screen_surface_qnx: PFN_vkCreateScreenSurfaceQNX,
-    get_physical_device_screen_presentation_support_qnx:
+    create_screen_surface: PFN_vkCreateScreenSurfaceQNX,
+    get_physical_device_screen_presentation_support:
         PFN_vkGetPhysicalDeviceScreenPresentationSupportQNX,
 }
 
@@ -133,10 +133,10 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_screen_surface_qnx: transmute(
+                create_screen_surface: transmute(
                     load(c"vkCreateScreenSurfaceQNX").ok_or(MissingEntryPointError)?,
                 ),
-                get_physical_device_screen_presentation_support_qnx: transmute(
+                get_physical_device_screen_presentation_support: transmute(
                     load(c"vkGetPhysicalDeviceScreenPresentationSupportQNX")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -148,7 +148,7 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateScreenSurfaceQNX.html>
     #[inline]
-    pub unsafe fn create_screen_surface_qnx(
+    pub unsafe fn create_screen_surface(
         &self,
         instance: Instance,
         create_info: &ScreenSurfaceCreateInfoQNX<'_>,
@@ -156,7 +156,7 @@ impl InstanceFn {
     ) -> crate::Result<SurfaceKHR> {
         unsafe {
             let mut surface = core::mem::MaybeUninit::uninit();
-            let result = (self.create_screen_surface_qnx)(
+            let result = (self.create_screen_surface)(
                 instance,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -172,14 +172,14 @@ impl InstanceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceScreenPresentationSupportQNX.html>
     #[inline]
-    pub unsafe fn get_physical_device_screen_presentation_support_qnx(
+    pub unsafe fn get_physical_device_screen_presentation_support(
         &self,
         physical_device: PhysicalDevice,
         queue_family_index: u32,
         window: *mut _screen_window,
     ) -> bool {
         unsafe {
-            (self.get_physical_device_screen_presentation_support_qnx)(
+            (self.get_physical_device_screen_presentation_support)(
                 physical_device,
                 queue_family_index,
                 window,

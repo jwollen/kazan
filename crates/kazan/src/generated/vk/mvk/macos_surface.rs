@@ -106,7 +106,7 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    create_mac_os_surface_mvk: PFN_vkCreateMacOSSurfaceMVK,
+    create_mac_os_surface: PFN_vkCreateMacOSSurfaceMVK,
 }
 
 impl LoadInstanceFn for InstanceFn {
@@ -115,7 +115,7 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_mac_os_surface_mvk: transmute(
+                create_mac_os_surface: transmute(
                     load(c"vkCreateMacOSSurfaceMVK").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -126,7 +126,7 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateMacOSSurfaceMVK.html>
     #[inline]
-    pub unsafe fn create_mac_os_surface_mvk(
+    pub unsafe fn create_mac_os_surface(
         &self,
         instance: Instance,
         create_info: &MacOSSurfaceCreateInfoMVK<'_>,
@@ -134,7 +134,7 @@ impl InstanceFn {
     ) -> crate::Result<SurfaceKHR> {
         unsafe {
             let mut surface = core::mem::MaybeUninit::uninit();
-            let result = (self.create_mac_os_surface_mvk)(
+            let result = (self.create_mac_os_surface)(
                 instance,
                 create_info,
                 allocator.to_raw_ptr(),

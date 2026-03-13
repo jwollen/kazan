@@ -36,8 +36,8 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    map_memory2_khr: PFN_vkMapMemory2,
-    unmap_memory2_khr: PFN_vkUnmapMemory2,
+    map_memory2: PFN_vkMapMemory2,
+    unmap_memory2: PFN_vkUnmapMemory2,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -46,10 +46,8 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                map_memory2_khr: transmute(load(c"vkMapMemory2KHR").ok_or(MissingEntryPointError)?),
-                unmap_memory2_khr: transmute(
-                    load(c"vkUnmapMemory2KHR").ok_or(MissingEntryPointError)?,
-                ),
+                map_memory2: transmute(load(c"vkMapMemory2KHR").ok_or(MissingEntryPointError)?),
+                unmap_memory2: transmute(load(c"vkUnmapMemory2KHR").ok_or(MissingEntryPointError)?),
             })
         }
     }
@@ -58,14 +56,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkMapMemory2KHR.html>
     #[inline]
-    pub unsafe fn map_memory2_khr(
+    pub unsafe fn map_memory2(
         &self,
         device: Device,
         memory_map_info: &MemoryMapInfo<'_>,
     ) -> crate::Result<*mut c_void> {
         unsafe {
             let mut data = core::mem::MaybeUninit::uninit();
-            let result = (self.map_memory2_khr)(device, memory_map_info, data.as_mut_ptr());
+            let result = (self.map_memory2)(device, memory_map_info, data.as_mut_ptr());
 
             match result {
                 VkResult::SUCCESS => Ok(data.assume_init()),
@@ -76,13 +74,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkUnmapMemory2KHR.html>
     #[inline]
-    pub unsafe fn unmap_memory2_khr(
+    pub unsafe fn unmap_memory2(
         &self,
         device: Device,
         memory_unmap_info: &MemoryUnmapInfo<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.unmap_memory2_khr)(device, memory_unmap_info);
+            let result = (self.unmap_memory2)(device, memory_unmap_info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),

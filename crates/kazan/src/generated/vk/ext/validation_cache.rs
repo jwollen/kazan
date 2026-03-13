@@ -222,10 +222,10 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    create_validation_cache_ext: PFN_vkCreateValidationCacheEXT,
-    destroy_validation_cache_ext: PFN_vkDestroyValidationCacheEXT,
-    merge_validation_caches_ext: PFN_vkMergeValidationCachesEXT,
-    get_validation_cache_data_ext: PFN_vkGetValidationCacheDataEXT,
+    create_validation_cache: PFN_vkCreateValidationCacheEXT,
+    destroy_validation_cache: PFN_vkDestroyValidationCacheEXT,
+    merge_validation_caches: PFN_vkMergeValidationCachesEXT,
+    get_validation_cache_data: PFN_vkGetValidationCacheDataEXT,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -234,16 +234,16 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_validation_cache_ext: transmute(
+                create_validation_cache: transmute(
                     load(c"vkCreateValidationCacheEXT").ok_or(MissingEntryPointError)?,
                 ),
-                destroy_validation_cache_ext: transmute(
+                destroy_validation_cache: transmute(
                     load(c"vkDestroyValidationCacheEXT").ok_or(MissingEntryPointError)?,
                 ),
-                merge_validation_caches_ext: transmute(
+                merge_validation_caches: transmute(
                     load(c"vkMergeValidationCachesEXT").ok_or(MissingEntryPointError)?,
                 ),
-                get_validation_cache_data_ext: transmute(
+                get_validation_cache_data: transmute(
                     load(c"vkGetValidationCacheDataEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -254,7 +254,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateValidationCacheEXT.html>
     #[inline]
-    pub unsafe fn create_validation_cache_ext(
+    pub unsafe fn create_validation_cache(
         &self,
         device: Device,
         create_info: &ValidationCacheCreateInfoEXT<'_>,
@@ -262,7 +262,7 @@ impl DeviceFn {
     ) -> crate::Result<ValidationCacheEXT> {
         unsafe {
             let mut validation_cache = core::mem::MaybeUninit::uninit();
-            let result = (self.create_validation_cache_ext)(
+            let result = (self.create_validation_cache)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -278,27 +278,25 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyValidationCacheEXT.html>
     #[inline]
-    pub unsafe fn destroy_validation_cache_ext(
+    pub unsafe fn destroy_validation_cache(
         &self,
         device: Device,
         validation_cache: ValidationCacheEXT,
         allocator: Option<&AllocationCallbacks<'_>>,
     ) {
-        unsafe {
-            (self.destroy_validation_cache_ext)(device, validation_cache, allocator.to_raw_ptr())
-        }
+        unsafe { (self.destroy_validation_cache)(device, validation_cache, allocator.to_raw_ptr()) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkMergeValidationCachesEXT.html>
     #[inline]
-    pub unsafe fn merge_validation_caches_ext(
+    pub unsafe fn merge_validation_caches(
         &self,
         device: Device,
         dst_cache: ValidationCacheEXT,
         src_caches: &[ValidationCacheEXT],
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.merge_validation_caches_ext)(
+            let result = (self.merge_validation_caches)(
                 device,
                 dst_cache,
                 src_caches.len().try_into().unwrap(),
@@ -314,7 +312,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetValidationCacheDataEXT.html>
     #[inline]
-    pub unsafe fn get_validation_cache_data_ext(
+    pub unsafe fn get_validation_cache_data(
         &self,
         device: Device,
         validation_cache: ValidationCacheEXT,
@@ -322,7 +320,7 @@ impl DeviceFn {
     ) -> crate::Result<()> {
         unsafe {
             let call = |data_size, data| {
-                let result = (self.get_validation_cache_data_ext)(
+                let result = (self.get_validation_cache_data)(
                     device,
                     validation_cache,
                     data_size,

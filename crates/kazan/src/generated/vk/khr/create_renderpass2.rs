@@ -50,10 +50,10 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    create_render_pass2_khr: PFN_vkCreateRenderPass2,
-    cmd_begin_render_pass2_khr: PFN_vkCmdBeginRenderPass2,
-    cmd_next_subpass2_khr: PFN_vkCmdNextSubpass2,
-    cmd_end_render_pass2_khr: PFN_vkCmdEndRenderPass2,
+    create_render_pass2: PFN_vkCreateRenderPass2,
+    cmd_begin_render_pass2: PFN_vkCmdBeginRenderPass2,
+    cmd_next_subpass2: PFN_vkCmdNextSubpass2,
+    cmd_end_render_pass2: PFN_vkCmdEndRenderPass2,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -62,16 +62,16 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_render_pass2_khr: transmute(
+                create_render_pass2: transmute(
                     load(c"vkCreateRenderPass2KHR").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_begin_render_pass2_khr: transmute(
+                cmd_begin_render_pass2: transmute(
                     load(c"vkCmdBeginRenderPass2KHR").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_next_subpass2_khr: transmute(
+                cmd_next_subpass2: transmute(
                     load(c"vkCmdNextSubpass2KHR").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_end_render_pass2_khr: transmute(
+                cmd_end_render_pass2: transmute(
                     load(c"vkCmdEndRenderPass2KHR").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -82,7 +82,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateRenderPass2KHR.html>
     #[inline]
-    pub unsafe fn create_render_pass2_khr(
+    pub unsafe fn create_render_pass2(
         &self,
         device: Device,
         create_info: &RenderPassCreateInfo2<'_>,
@@ -90,7 +90,7 @@ impl DeviceFn {
     ) -> crate::Result<RenderPass> {
         unsafe {
             let mut render_pass = core::mem::MaybeUninit::uninit();
-            let result = (self.create_render_pass2_khr)(
+            let result = (self.create_render_pass2)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -106,37 +106,35 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginRenderPass2KHR.html>
     #[inline]
-    pub unsafe fn cmd_begin_render_pass2_khr(
+    pub unsafe fn cmd_begin_render_pass2(
         &self,
         command_buffer: CommandBuffer,
         render_pass_begin: &RenderPassBeginInfo<'_>,
         subpass_begin_info: &SubpassBeginInfo<'_>,
     ) {
         unsafe {
-            (self.cmd_begin_render_pass2_khr)(command_buffer, render_pass_begin, subpass_begin_info)
+            (self.cmd_begin_render_pass2)(command_buffer, render_pass_begin, subpass_begin_info)
         }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdNextSubpass2KHR.html>
     #[inline]
-    pub unsafe fn cmd_next_subpass2_khr(
+    pub unsafe fn cmd_next_subpass2(
         &self,
         command_buffer: CommandBuffer,
         subpass_begin_info: &SubpassBeginInfo<'_>,
         subpass_end_info: &SubpassEndInfo<'_>,
     ) {
-        unsafe {
-            (self.cmd_next_subpass2_khr)(command_buffer, subpass_begin_info, subpass_end_info)
-        }
+        unsafe { (self.cmd_next_subpass2)(command_buffer, subpass_begin_info, subpass_end_info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndRenderPass2KHR.html>
     #[inline]
-    pub unsafe fn cmd_end_render_pass2_khr(
+    pub unsafe fn cmd_end_render_pass2(
         &self,
         command_buffer: CommandBuffer,
         subpass_end_info: &SubpassEndInfo<'_>,
     ) {
-        unsafe { (self.cmd_end_render_pass2_khr)(command_buffer, subpass_end_info) }
+        unsafe { (self.cmd_end_render_pass2)(command_buffer, subpass_end_info) }
     }
 }

@@ -683,9 +683,9 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    create_debug_utils_messenger_ext: PFN_vkCreateDebugUtilsMessengerEXT,
-    destroy_debug_utils_messenger_ext: PFN_vkDestroyDebugUtilsMessengerEXT,
-    submit_debug_utils_message_ext: PFN_vkSubmitDebugUtilsMessageEXT,
+    create_debug_utils_messenger: PFN_vkCreateDebugUtilsMessengerEXT,
+    destroy_debug_utils_messenger: PFN_vkDestroyDebugUtilsMessengerEXT,
+    submit_debug_utils_message: PFN_vkSubmitDebugUtilsMessageEXT,
 }
 
 impl LoadInstanceFn for InstanceFn {
@@ -694,13 +694,13 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_debug_utils_messenger_ext: transmute(
+                create_debug_utils_messenger: transmute(
                     load(c"vkCreateDebugUtilsMessengerEXT").ok_or(MissingEntryPointError)?,
                 ),
-                destroy_debug_utils_messenger_ext: transmute(
+                destroy_debug_utils_messenger: transmute(
                     load(c"vkDestroyDebugUtilsMessengerEXT").ok_or(MissingEntryPointError)?,
                 ),
-                submit_debug_utils_message_ext: transmute(
+                submit_debug_utils_message: transmute(
                     load(c"vkSubmitDebugUtilsMessageEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -711,7 +711,7 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDebugUtilsMessengerEXT.html>
     #[inline]
-    pub unsafe fn create_debug_utils_messenger_ext(
+    pub unsafe fn create_debug_utils_messenger(
         &self,
         instance: Instance,
         create_info: &DebugUtilsMessengerCreateInfoEXT<'_>,
@@ -719,7 +719,7 @@ impl InstanceFn {
     ) -> crate::Result<DebugUtilsMessengerEXT> {
         unsafe {
             let mut messenger = core::mem::MaybeUninit::uninit();
-            let result = (self.create_debug_utils_messenger_ext)(
+            let result = (self.create_debug_utils_messenger)(
                 instance,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -735,20 +735,18 @@ impl InstanceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyDebugUtilsMessengerEXT.html>
     #[inline]
-    pub unsafe fn destroy_debug_utils_messenger_ext(
+    pub unsafe fn destroy_debug_utils_messenger(
         &self,
         instance: Instance,
         messenger: DebugUtilsMessengerEXT,
         allocator: Option<&AllocationCallbacks<'_>>,
     ) {
-        unsafe {
-            (self.destroy_debug_utils_messenger_ext)(instance, messenger, allocator.to_raw_ptr())
-        }
+        unsafe { (self.destroy_debug_utils_messenger)(instance, messenger, allocator.to_raw_ptr()) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSubmitDebugUtilsMessageEXT.html>
     #[inline]
-    pub unsafe fn submit_debug_utils_message_ext(
+    pub unsafe fn submit_debug_utils_message(
         &self,
         instance: Instance,
         message_severity: DebugUtilsMessageSeverityFlagBitsEXT,
@@ -756,7 +754,7 @@ impl InstanceFn {
         callback_data: &DebugUtilsMessengerCallbackDataEXT<'_>,
     ) {
         unsafe {
-            (self.submit_debug_utils_message_ext)(
+            (self.submit_debug_utils_message)(
                 instance,
                 message_severity,
                 message_types,
@@ -767,14 +765,14 @@ impl InstanceFn {
 }
 
 pub struct DeviceFn {
-    set_debug_utils_object_name_ext: PFN_vkSetDebugUtilsObjectNameEXT,
-    set_debug_utils_object_tag_ext: PFN_vkSetDebugUtilsObjectTagEXT,
-    queue_begin_debug_utils_label_ext: PFN_vkQueueBeginDebugUtilsLabelEXT,
-    queue_end_debug_utils_label_ext: PFN_vkQueueEndDebugUtilsLabelEXT,
-    queue_insert_debug_utils_label_ext: PFN_vkQueueInsertDebugUtilsLabelEXT,
-    cmd_begin_debug_utils_label_ext: PFN_vkCmdBeginDebugUtilsLabelEXT,
-    cmd_end_debug_utils_label_ext: PFN_vkCmdEndDebugUtilsLabelEXT,
-    cmd_insert_debug_utils_label_ext: PFN_vkCmdInsertDebugUtilsLabelEXT,
+    set_debug_utils_object_name: PFN_vkSetDebugUtilsObjectNameEXT,
+    set_debug_utils_object_tag: PFN_vkSetDebugUtilsObjectTagEXT,
+    queue_begin_debug_utils_label: PFN_vkQueueBeginDebugUtilsLabelEXT,
+    queue_end_debug_utils_label: PFN_vkQueueEndDebugUtilsLabelEXT,
+    queue_insert_debug_utils_label: PFN_vkQueueInsertDebugUtilsLabelEXT,
+    cmd_begin_debug_utils_label: PFN_vkCmdBeginDebugUtilsLabelEXT,
+    cmd_end_debug_utils_label: PFN_vkCmdEndDebugUtilsLabelEXT,
+    cmd_insert_debug_utils_label: PFN_vkCmdInsertDebugUtilsLabelEXT,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -783,28 +781,28 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                set_debug_utils_object_name_ext: transmute(
+                set_debug_utils_object_name: transmute(
                     load(c"vkSetDebugUtilsObjectNameEXT").ok_or(MissingEntryPointError)?,
                 ),
-                set_debug_utils_object_tag_ext: transmute(
+                set_debug_utils_object_tag: transmute(
                     load(c"vkSetDebugUtilsObjectTagEXT").ok_or(MissingEntryPointError)?,
                 ),
-                queue_begin_debug_utils_label_ext: transmute(
+                queue_begin_debug_utils_label: transmute(
                     load(c"vkQueueBeginDebugUtilsLabelEXT").ok_or(MissingEntryPointError)?,
                 ),
-                queue_end_debug_utils_label_ext: transmute(
+                queue_end_debug_utils_label: transmute(
                     load(c"vkQueueEndDebugUtilsLabelEXT").ok_or(MissingEntryPointError)?,
                 ),
-                queue_insert_debug_utils_label_ext: transmute(
+                queue_insert_debug_utils_label: transmute(
                     load(c"vkQueueInsertDebugUtilsLabelEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_begin_debug_utils_label_ext: transmute(
+                cmd_begin_debug_utils_label: transmute(
                     load(c"vkCmdBeginDebugUtilsLabelEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_end_debug_utils_label_ext: transmute(
+                cmd_end_debug_utils_label: transmute(
                     load(c"vkCmdEndDebugUtilsLabelEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_insert_debug_utils_label_ext: transmute(
+                cmd_insert_debug_utils_label: transmute(
                     load(c"vkCmdInsertDebugUtilsLabelEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -815,13 +813,13 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetDebugUtilsObjectNameEXT.html>
     #[inline]
-    pub unsafe fn set_debug_utils_object_name_ext(
+    pub unsafe fn set_debug_utils_object_name(
         &self,
         device: Device,
         name_info: &DebugUtilsObjectNameInfoEXT<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.set_debug_utils_object_name_ext)(device, name_info);
+            let result = (self.set_debug_utils_object_name)(device, name_info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -832,13 +830,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetDebugUtilsObjectTagEXT.html>
     #[inline]
-    pub unsafe fn set_debug_utils_object_tag_ext(
+    pub unsafe fn set_debug_utils_object_tag(
         &self,
         device: Device,
         tag_info: &DebugUtilsObjectTagInfoEXT<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.set_debug_utils_object_tag_ext)(device, tag_info);
+            let result = (self.set_debug_utils_object_tag)(device, tag_info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -849,53 +847,53 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueBeginDebugUtilsLabelEXT.html>
     #[inline]
-    pub unsafe fn queue_begin_debug_utils_label_ext(
+    pub unsafe fn queue_begin_debug_utils_label(
         &self,
         queue: Queue,
         label_info: &DebugUtilsLabelEXT<'_>,
     ) {
-        unsafe { (self.queue_begin_debug_utils_label_ext)(queue, label_info) }
+        unsafe { (self.queue_begin_debug_utils_label)(queue, label_info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueEndDebugUtilsLabelEXT.html>
     #[inline]
-    pub unsafe fn queue_end_debug_utils_label_ext(&self, queue: Queue) {
-        unsafe { (self.queue_end_debug_utils_label_ext)(queue) }
+    pub unsafe fn queue_end_debug_utils_label(&self, queue: Queue) {
+        unsafe { (self.queue_end_debug_utils_label)(queue) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueInsertDebugUtilsLabelEXT.html>
     #[inline]
-    pub unsafe fn queue_insert_debug_utils_label_ext(
+    pub unsafe fn queue_insert_debug_utils_label(
         &self,
         queue: Queue,
         label_info: &DebugUtilsLabelEXT<'_>,
     ) {
-        unsafe { (self.queue_insert_debug_utils_label_ext)(queue, label_info) }
+        unsafe { (self.queue_insert_debug_utils_label)(queue, label_info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginDebugUtilsLabelEXT.html>
     #[inline]
-    pub unsafe fn cmd_begin_debug_utils_label_ext(
+    pub unsafe fn cmd_begin_debug_utils_label(
         &self,
         command_buffer: CommandBuffer,
         label_info: &DebugUtilsLabelEXT<'_>,
     ) {
-        unsafe { (self.cmd_begin_debug_utils_label_ext)(command_buffer, label_info) }
+        unsafe { (self.cmd_begin_debug_utils_label)(command_buffer, label_info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndDebugUtilsLabelEXT.html>
     #[inline]
-    pub unsafe fn cmd_end_debug_utils_label_ext(&self, command_buffer: CommandBuffer) {
-        unsafe { (self.cmd_end_debug_utils_label_ext)(command_buffer) }
+    pub unsafe fn cmd_end_debug_utils_label(&self, command_buffer: CommandBuffer) {
+        unsafe { (self.cmd_end_debug_utils_label)(command_buffer) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdInsertDebugUtilsLabelEXT.html>
     #[inline]
-    pub unsafe fn cmd_insert_debug_utils_label_ext(
+    pub unsafe fn cmd_insert_debug_utils_label(
         &self,
         command_buffer: CommandBuffer,
         label_info: &DebugUtilsLabelEXT<'_>,
     ) {
-        unsafe { (self.cmd_insert_debug_utils_label_ext)(command_buffer, label_info) }
+        unsafe { (self.cmd_insert_debug_utils_label)(command_buffer, label_info) }
     }
 }

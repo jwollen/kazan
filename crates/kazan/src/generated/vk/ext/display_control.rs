@@ -339,10 +339,10 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    display_power_control_ext: PFN_vkDisplayPowerControlEXT,
-    register_device_event_ext: PFN_vkRegisterDeviceEventEXT,
-    register_display_event_ext: PFN_vkRegisterDisplayEventEXT,
-    get_swapchain_counter_ext: PFN_vkGetSwapchainCounterEXT,
+    display_power_control: PFN_vkDisplayPowerControlEXT,
+    register_device_event: PFN_vkRegisterDeviceEventEXT,
+    register_display_event: PFN_vkRegisterDisplayEventEXT,
+    get_swapchain_counter: PFN_vkGetSwapchainCounterEXT,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -351,16 +351,16 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                display_power_control_ext: transmute(
+                display_power_control: transmute(
                     load(c"vkDisplayPowerControlEXT").ok_or(MissingEntryPointError)?,
                 ),
-                register_device_event_ext: transmute(
+                register_device_event: transmute(
                     load(c"vkRegisterDeviceEventEXT").ok_or(MissingEntryPointError)?,
                 ),
-                register_display_event_ext: transmute(
+                register_display_event: transmute(
                     load(c"vkRegisterDisplayEventEXT").ok_or(MissingEntryPointError)?,
                 ),
-                get_swapchain_counter_ext: transmute(
+                get_swapchain_counter: transmute(
                     load(c"vkGetSwapchainCounterEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -371,14 +371,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDisplayPowerControlEXT.html>
     #[inline]
-    pub unsafe fn display_power_control_ext(
+    pub unsafe fn display_power_control(
         &self,
         device: Device,
         display: DisplayKHR,
         display_power_info: &DisplayPowerInfoEXT<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.display_power_control_ext)(device, display, display_power_info);
+            let result = (self.display_power_control)(device, display, display_power_info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -389,7 +389,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkRegisterDeviceEventEXT.html>
     #[inline]
-    pub unsafe fn register_device_event_ext(
+    pub unsafe fn register_device_event(
         &self,
         device: Device,
         device_event_info: &DeviceEventInfoEXT<'_>,
@@ -397,7 +397,7 @@ impl DeviceFn {
     ) -> crate::Result<Fence> {
         unsafe {
             let mut fence = core::mem::MaybeUninit::uninit();
-            let result = (self.register_device_event_ext)(
+            let result = (self.register_device_event)(
                 device,
                 device_event_info,
                 allocator.to_raw_ptr(),
@@ -413,7 +413,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkRegisterDisplayEventEXT.html>
     #[inline]
-    pub unsafe fn register_display_event_ext(
+    pub unsafe fn register_display_event(
         &self,
         device: Device,
         display: DisplayKHR,
@@ -422,7 +422,7 @@ impl DeviceFn {
     ) -> crate::Result<Fence> {
         unsafe {
             let mut fence = core::mem::MaybeUninit::uninit();
-            let result = (self.register_display_event_ext)(
+            let result = (self.register_display_event)(
                 device,
                 display,
                 display_event_info,
@@ -439,7 +439,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSwapchainCounterEXT.html>
     #[inline]
-    pub unsafe fn get_swapchain_counter_ext(
+    pub unsafe fn get_swapchain_counter(
         &self,
         device: Device,
         swapchain: SwapchainKHR,
@@ -447,7 +447,7 @@ impl DeviceFn {
     ) -> crate::Result<u64> {
         unsafe {
             let mut counter_value = core::mem::MaybeUninit::uninit();
-            let result = (self.get_swapchain_counter_ext)(
+            let result = (self.get_swapchain_counter)(
                 device,
                 swapchain,
                 counter,

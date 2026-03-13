@@ -345,7 +345,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_set_fragment_shading_rate_enum_nv: PFN_vkCmdSetFragmentShadingRateEnumNV,
+    cmd_set_fragment_shading_rate_enum: PFN_vkCmdSetFragmentShadingRateEnumNV,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -354,7 +354,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_set_fragment_shading_rate_enum_nv: transmute(
+                cmd_set_fragment_shading_rate_enum: transmute(
                     load(c"vkCmdSetFragmentShadingRateEnumNV").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -365,14 +365,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetFragmentShadingRateEnumNV.html>
     #[inline]
-    pub unsafe fn cmd_set_fragment_shading_rate_enum_nv(
+    pub unsafe fn cmd_set_fragment_shading_rate_enum(
         &self,
         command_buffer: CommandBuffer,
         shading_rate: FragmentShadingRateNV,
         combiner_ops: &[FragmentShadingRateCombinerOpKHR; 2],
     ) {
         unsafe {
-            (self.cmd_set_fragment_shading_rate_enum_nv)(command_buffer, shading_rate, combiner_ops)
+            (self.cmd_set_fragment_shading_rate_enum)(command_buffer, shading_rate, combiner_ops)
         }
     }
 }

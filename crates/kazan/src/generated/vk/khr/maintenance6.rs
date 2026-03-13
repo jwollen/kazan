@@ -225,12 +225,12 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_bind_descriptor_sets2_khr: PFN_vkCmdBindDescriptorSets2,
-    cmd_push_constants2_khr: PFN_vkCmdPushConstants2,
-    cmd_push_descriptor_set2_khr: Option<PFN_vkCmdPushDescriptorSet2>,
-    cmd_push_descriptor_set_with_template2_khr: Option<PFN_vkCmdPushDescriptorSetWithTemplate2>,
-    cmd_set_descriptor_buffer_offsets2_ext: Option<PFN_vkCmdSetDescriptorBufferOffsets2EXT>,
-    cmd_bind_descriptor_buffer_embedded_samplers2_ext:
+    cmd_bind_descriptor_sets2: PFN_vkCmdBindDescriptorSets2,
+    cmd_push_constants2: PFN_vkCmdPushConstants2,
+    cmd_push_descriptor_set2: Option<PFN_vkCmdPushDescriptorSet2>,
+    cmd_push_descriptor_set_with_template2: Option<PFN_vkCmdPushDescriptorSetWithTemplate2>,
+    cmd_set_descriptor_buffer_offsets2: Option<PFN_vkCmdSetDescriptorBufferOffsets2EXT>,
+    cmd_bind_descriptor_buffer_embedded_samplers2:
         Option<PFN_vkCmdBindDescriptorBufferEmbeddedSamplers2EXT>,
 }
 
@@ -240,20 +240,20 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_bind_descriptor_sets2_khr: transmute(
+                cmd_bind_descriptor_sets2: transmute(
                     load(c"vkCmdBindDescriptorSets2KHR").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_push_constants2_khr: transmute(
+                cmd_push_constants2: transmute(
                     load(c"vkCmdPushConstants2KHR").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_push_descriptor_set2_khr: transmute(load(c"vkCmdPushDescriptorSet2KHR")),
-                cmd_push_descriptor_set_with_template2_khr: transmute(load(
+                cmd_push_descriptor_set2: transmute(load(c"vkCmdPushDescriptorSet2KHR")),
+                cmd_push_descriptor_set_with_template2: transmute(load(
                     c"vkCmdPushDescriptorSetWithTemplate2KHR",
                 )),
-                cmd_set_descriptor_buffer_offsets2_ext: transmute(load(
+                cmd_set_descriptor_buffer_offsets2: transmute(load(
                     c"vkCmdSetDescriptorBufferOffsets2EXT",
                 )),
-                cmd_bind_descriptor_buffer_embedded_samplers2_ext: transmute(load(
+                cmd_bind_descriptor_buffer_embedded_samplers2: transmute(load(
                     c"vkCmdBindDescriptorBufferEmbeddedSamplers2EXT",
                 )),
             })
@@ -264,45 +264,45 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindDescriptorSets2KHR.html>
     #[inline]
-    pub unsafe fn cmd_bind_descriptor_sets2_khr(
+    pub unsafe fn cmd_bind_descriptor_sets2(
         &self,
         command_buffer: CommandBuffer,
         bind_descriptor_sets_info: &BindDescriptorSetsInfo<'_>,
     ) {
-        unsafe { (self.cmd_bind_descriptor_sets2_khr)(command_buffer, bind_descriptor_sets_info) }
+        unsafe { (self.cmd_bind_descriptor_sets2)(command_buffer, bind_descriptor_sets_info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushConstants2KHR.html>
     #[inline]
-    pub unsafe fn cmd_push_constants2_khr(
+    pub unsafe fn cmd_push_constants2(
         &self,
         command_buffer: CommandBuffer,
         push_constants_info: &PushConstantsInfo<'_>,
     ) {
-        unsafe { (self.cmd_push_constants2_khr)(command_buffer, push_constants_info) }
+        unsafe { (self.cmd_push_constants2)(command_buffer, push_constants_info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushDescriptorSet2KHR.html>
     #[inline]
-    pub unsafe fn cmd_push_descriptor_set2_khr(
+    pub unsafe fn cmd_push_descriptor_set2(
         &self,
         command_buffer: CommandBuffer,
         push_descriptor_set_info: &PushDescriptorSetInfo<'_>,
     ) {
         unsafe {
-            (self.cmd_push_descriptor_set2_khr.unwrap())(command_buffer, push_descriptor_set_info)
+            (self.cmd_push_descriptor_set2.unwrap())(command_buffer, push_descriptor_set_info)
         }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushDescriptorSetWithTemplate2KHR.html>
     #[inline]
-    pub unsafe fn cmd_push_descriptor_set_with_template2_khr(
+    pub unsafe fn cmd_push_descriptor_set_with_template2(
         &self,
         command_buffer: CommandBuffer,
         push_descriptor_set_with_template_info: &PushDescriptorSetWithTemplateInfo<'_>,
     ) {
         unsafe {
-            (self.cmd_push_descriptor_set_with_template2_khr.unwrap())(
+            (self.cmd_push_descriptor_set_with_template2.unwrap())(
                 command_buffer,
                 push_descriptor_set_with_template_info,
             )
@@ -311,13 +311,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDescriptorBufferOffsets2EXT.html>
     #[inline]
-    pub unsafe fn cmd_set_descriptor_buffer_offsets2_ext(
+    pub unsafe fn cmd_set_descriptor_buffer_offsets2(
         &self,
         command_buffer: CommandBuffer,
         set_descriptor_buffer_offsets_info: &SetDescriptorBufferOffsetsInfoEXT<'_>,
     ) {
         unsafe {
-            (self.cmd_set_descriptor_buffer_offsets2_ext.unwrap())(
+            (self.cmd_set_descriptor_buffer_offsets2.unwrap())(
                 command_buffer,
                 set_descriptor_buffer_offsets_info,
             )
@@ -326,7 +326,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindDescriptorBufferEmbeddedSamplers2EXT.html>
     #[inline]
-    pub unsafe fn cmd_bind_descriptor_buffer_embedded_samplers2_ext(
+    pub unsafe fn cmd_bind_descriptor_buffer_embedded_samplers2(
         &self,
         command_buffer: CommandBuffer,
         bind_descriptor_buffer_embedded_samplers_info: &BindDescriptorBufferEmbeddedSamplersInfoEXT<
@@ -334,9 +334,7 @@ impl DeviceFn {
         >,
     ) {
         unsafe {
-            (self
-                .cmd_bind_descriptor_buffer_embedded_samplers2_ext
-                .unwrap())(
+            (self.cmd_bind_descriptor_buffer_embedded_samplers2.unwrap())(
                 command_buffer,
                 bind_descriptor_buffer_embedded_samplers_info,
             )

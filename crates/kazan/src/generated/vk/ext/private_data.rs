@@ -44,10 +44,10 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    create_private_data_slot_ext: PFN_vkCreatePrivateDataSlot,
-    destroy_private_data_slot_ext: PFN_vkDestroyPrivateDataSlot,
-    set_private_data_ext: PFN_vkSetPrivateData,
-    get_private_data_ext: PFN_vkGetPrivateData,
+    create_private_data_slot: PFN_vkCreatePrivateDataSlot,
+    destroy_private_data_slot: PFN_vkDestroyPrivateDataSlot,
+    set_private_data: PFN_vkSetPrivateData,
+    get_private_data: PFN_vkGetPrivateData,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -56,16 +56,16 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_private_data_slot_ext: transmute(
+                create_private_data_slot: transmute(
                     load(c"vkCreatePrivateDataSlotEXT").ok_or(MissingEntryPointError)?,
                 ),
-                destroy_private_data_slot_ext: transmute(
+                destroy_private_data_slot: transmute(
                     load(c"vkDestroyPrivateDataSlotEXT").ok_or(MissingEntryPointError)?,
                 ),
-                set_private_data_ext: transmute(
+                set_private_data: transmute(
                     load(c"vkSetPrivateDataEXT").ok_or(MissingEntryPointError)?,
                 ),
-                get_private_data_ext: transmute(
+                get_private_data: transmute(
                     load(c"vkGetPrivateDataEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -76,7 +76,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreatePrivateDataSlotEXT.html>
     #[inline]
-    pub unsafe fn create_private_data_slot_ext(
+    pub unsafe fn create_private_data_slot(
         &self,
         device: Device,
         create_info: &PrivateDataSlotCreateInfo<'_>,
@@ -84,7 +84,7 @@ impl DeviceFn {
     ) -> crate::Result<PrivateDataSlot> {
         unsafe {
             let mut private_data_slot = core::mem::MaybeUninit::uninit();
-            let result = (self.create_private_data_slot_ext)(
+            let result = (self.create_private_data_slot)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -100,20 +100,20 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyPrivateDataSlotEXT.html>
     #[inline]
-    pub unsafe fn destroy_private_data_slot_ext(
+    pub unsafe fn destroy_private_data_slot(
         &self,
         device: Device,
         private_data_slot: PrivateDataSlot,
         allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe {
-            (self.destroy_private_data_slot_ext)(device, private_data_slot, allocator.to_raw_ptr())
+            (self.destroy_private_data_slot)(device, private_data_slot, allocator.to_raw_ptr())
         }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkSetPrivateDataEXT.html>
     #[inline]
-    pub unsafe fn set_private_data_ext(
+    pub unsafe fn set_private_data(
         &self,
         device: Device,
         object_type: ObjectType,
@@ -122,7 +122,7 @@ impl DeviceFn {
         data: u64,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.set_private_data_ext)(
+            let result = (self.set_private_data)(
                 device,
                 object_type,
                 object_handle,
@@ -139,7 +139,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPrivateDataEXT.html>
     #[inline]
-    pub unsafe fn get_private_data_ext(
+    pub unsafe fn get_private_data(
         &self,
         device: Device,
         object_type: ObjectType,
@@ -148,7 +148,7 @@ impl DeviceFn {
     ) -> u64 {
         unsafe {
             let mut data = core::mem::MaybeUninit::uninit();
-            (self.get_private_data_ext)(
+            (self.get_private_data)(
                 device,
                 object_type,
                 object_handle,

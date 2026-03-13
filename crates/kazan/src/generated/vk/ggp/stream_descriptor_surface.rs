@@ -107,7 +107,7 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    create_stream_descriptor_surface_ggp: PFN_vkCreateStreamDescriptorSurfaceGGP,
+    create_stream_descriptor_surface: PFN_vkCreateStreamDescriptorSurfaceGGP,
 }
 
 impl LoadInstanceFn for InstanceFn {
@@ -116,7 +116,7 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_stream_descriptor_surface_ggp: transmute(
+                create_stream_descriptor_surface: transmute(
                     load(c"vkCreateStreamDescriptorSurfaceGGP").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -127,7 +127,7 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateStreamDescriptorSurfaceGGP.html>
     #[inline]
-    pub unsafe fn create_stream_descriptor_surface_ggp(
+    pub unsafe fn create_stream_descriptor_surface(
         &self,
         instance: Instance,
         create_info: &StreamDescriptorSurfaceCreateInfoGGP<'_>,
@@ -135,7 +135,7 @@ impl InstanceFn {
     ) -> crate::Result<SurfaceKHR> {
         unsafe {
             let mut surface = core::mem::MaybeUninit::uninit();
-            let result = (self.create_stream_descriptor_surface_ggp)(
+            let result = (self.create_stream_descriptor_surface)(
                 instance,
                 create_info,
                 allocator.to_raw_ptr(),

@@ -256,7 +256,7 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    get_physical_device_surface_present_modes2_ext: PFN_vkGetPhysicalDeviceSurfacePresentModes2EXT,
+    get_physical_device_surface_present_modes2: PFN_vkGetPhysicalDeviceSurfacePresentModes2EXT,
 }
 
 impl LoadInstanceFn for InstanceFn {
@@ -265,7 +265,7 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_physical_device_surface_present_modes2_ext: transmute(
+                get_physical_device_surface_present_modes2: transmute(
                     load(c"vkGetPhysicalDeviceSurfacePresentModes2EXT")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -277,7 +277,7 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSurfacePresentModes2EXT.html>
     #[inline]
-    pub unsafe fn get_physical_device_surface_present_modes2_ext<'a>(
+    pub unsafe fn get_physical_device_surface_present_modes2<'a>(
         &self,
         physical_device: PhysicalDevice,
         surface_info: &PhysicalDeviceSurfaceInfo2KHR<'a>,
@@ -285,7 +285,7 @@ impl InstanceFn {
     ) -> crate::Result<()> {
         unsafe {
             let call = |present_mode_count, present_modes| {
-                let result = (self.get_physical_device_surface_present_modes2_ext)(
+                let result = (self.get_physical_device_surface_present_modes2)(
                     physical_device,
                     surface_info,
                     present_mode_count,
@@ -311,10 +311,9 @@ impl InstanceFn {
 }
 
 pub struct DeviceFn {
-    acquire_full_screen_exclusive_mode_ext: PFN_vkAcquireFullScreenExclusiveModeEXT,
-    release_full_screen_exclusive_mode_ext: PFN_vkReleaseFullScreenExclusiveModeEXT,
-    get_device_group_surface_present_modes2_ext:
-        Option<PFN_vkGetDeviceGroupSurfacePresentModes2EXT>,
+    acquire_full_screen_exclusive_mode: PFN_vkAcquireFullScreenExclusiveModeEXT,
+    release_full_screen_exclusive_mode: PFN_vkReleaseFullScreenExclusiveModeEXT,
+    get_device_group_surface_present_modes2: Option<PFN_vkGetDeviceGroupSurfacePresentModes2EXT>,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -323,13 +322,13 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                acquire_full_screen_exclusive_mode_ext: transmute(
+                acquire_full_screen_exclusive_mode: transmute(
                     load(c"vkAcquireFullScreenExclusiveModeEXT").ok_or(MissingEntryPointError)?,
                 ),
-                release_full_screen_exclusive_mode_ext: transmute(
+                release_full_screen_exclusive_mode: transmute(
                     load(c"vkReleaseFullScreenExclusiveModeEXT").ok_or(MissingEntryPointError)?,
                 ),
-                get_device_group_surface_present_modes2_ext: transmute(load(
+                get_device_group_surface_present_modes2: transmute(load(
                     c"vkGetDeviceGroupSurfacePresentModes2EXT",
                 )),
             })
@@ -340,13 +339,13 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireFullScreenExclusiveModeEXT.html>
     #[inline]
-    pub unsafe fn acquire_full_screen_exclusive_mode_ext(
+    pub unsafe fn acquire_full_screen_exclusive_mode(
         &self,
         device: Device,
         swapchain: SwapchainKHR,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.acquire_full_screen_exclusive_mode_ext)(device, swapchain);
+            let result = (self.acquire_full_screen_exclusive_mode)(device, swapchain);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -357,13 +356,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkReleaseFullScreenExclusiveModeEXT.html>
     #[inline]
-    pub unsafe fn release_full_screen_exclusive_mode_ext(
+    pub unsafe fn release_full_screen_exclusive_mode(
         &self,
         device: Device,
         swapchain: SwapchainKHR,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.release_full_screen_exclusive_mode_ext)(device, swapchain);
+            let result = (self.release_full_screen_exclusive_mode)(device, swapchain);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -374,14 +373,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceGroupSurfacePresentModes2EXT.html>
     #[inline]
-    pub unsafe fn get_device_group_surface_present_modes2_ext(
+    pub unsafe fn get_device_group_surface_present_modes2(
         &self,
         device: Device,
         surface_info: &PhysicalDeviceSurfaceInfo2KHR<'_>,
     ) -> crate::Result<DeviceGroupPresentModeFlagsKHR> {
         unsafe {
             let mut modes = core::mem::MaybeUninit::uninit();
-            let result = (self.get_device_group_surface_present_modes2_ext.unwrap())(
+            let result = (self.get_device_group_surface_present_modes2.unwrap())(
                 device,
                 surface_info,
                 modes.as_mut_ptr(),

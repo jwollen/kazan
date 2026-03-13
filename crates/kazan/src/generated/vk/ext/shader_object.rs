@@ -475,64 +475,62 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    create_shaders_ext: PFN_vkCreateShadersEXT,
-    destroy_shader_ext: PFN_vkDestroyShaderEXT,
-    get_shader_binary_data_ext: PFN_vkGetShaderBinaryDataEXT,
-    cmd_bind_shaders_ext: PFN_vkCmdBindShadersEXT,
-    cmd_set_cull_mode_ext: PFN_vkCmdSetCullMode,
-    cmd_set_front_face_ext: PFN_vkCmdSetFrontFace,
-    cmd_set_primitive_topology_ext: PFN_vkCmdSetPrimitiveTopology,
-    cmd_set_viewport_with_count_ext: PFN_vkCmdSetViewportWithCount,
-    cmd_set_scissor_with_count_ext: PFN_vkCmdSetScissorWithCount,
-    cmd_bind_vertex_buffers2_ext: PFN_vkCmdBindVertexBuffers2,
-    cmd_set_depth_test_enable_ext: PFN_vkCmdSetDepthTestEnable,
-    cmd_set_depth_write_enable_ext: PFN_vkCmdSetDepthWriteEnable,
-    cmd_set_depth_compare_op_ext: PFN_vkCmdSetDepthCompareOp,
-    cmd_set_depth_bounds_test_enable_ext: PFN_vkCmdSetDepthBoundsTestEnable,
-    cmd_set_stencil_test_enable_ext: PFN_vkCmdSetStencilTestEnable,
-    cmd_set_stencil_op_ext: PFN_vkCmdSetStencilOp,
-    cmd_set_vertex_input_ext: PFN_vkCmdSetVertexInputEXT,
-    cmd_set_patch_control_points_ext: PFN_vkCmdSetPatchControlPointsEXT,
-    cmd_set_rasterizer_discard_enable_ext: PFN_vkCmdSetRasterizerDiscardEnable,
-    cmd_set_depth_bias_enable_ext: PFN_vkCmdSetDepthBiasEnable,
-    cmd_set_logic_op_ext: PFN_vkCmdSetLogicOpEXT,
-    cmd_set_primitive_restart_enable_ext: PFN_vkCmdSetPrimitiveRestartEnable,
-    cmd_set_tessellation_domain_origin_ext: PFN_vkCmdSetTessellationDomainOriginEXT,
-    cmd_set_depth_clamp_enable_ext: PFN_vkCmdSetDepthClampEnableEXT,
-    cmd_set_polygon_mode_ext: PFN_vkCmdSetPolygonModeEXT,
-    cmd_set_rasterization_samples_ext: PFN_vkCmdSetRasterizationSamplesEXT,
-    cmd_set_sample_mask_ext: PFN_vkCmdSetSampleMaskEXT,
-    cmd_set_alpha_to_coverage_enable_ext: PFN_vkCmdSetAlphaToCoverageEnableEXT,
-    cmd_set_alpha_to_one_enable_ext: PFN_vkCmdSetAlphaToOneEnableEXT,
-    cmd_set_logic_op_enable_ext: PFN_vkCmdSetLogicOpEnableEXT,
-    cmd_set_color_blend_enable_ext: PFN_vkCmdSetColorBlendEnableEXT,
-    cmd_set_color_blend_equation_ext: PFN_vkCmdSetColorBlendEquationEXT,
-    cmd_set_color_write_mask_ext: PFN_vkCmdSetColorWriteMaskEXT,
-    cmd_set_rasterization_stream_ext: Option<PFN_vkCmdSetRasterizationStreamEXT>,
-    cmd_set_conservative_rasterization_mode_ext:
-        Option<PFN_vkCmdSetConservativeRasterizationModeEXT>,
-    cmd_set_extra_primitive_overestimation_size_ext:
+    create_shaders: PFN_vkCreateShadersEXT,
+    destroy_shader: PFN_vkDestroyShaderEXT,
+    get_shader_binary_data: PFN_vkGetShaderBinaryDataEXT,
+    cmd_bind_shaders: PFN_vkCmdBindShadersEXT,
+    cmd_set_cull_mode: PFN_vkCmdSetCullMode,
+    cmd_set_front_face: PFN_vkCmdSetFrontFace,
+    cmd_set_primitive_topology: PFN_vkCmdSetPrimitiveTopology,
+    cmd_set_viewport_with_count: PFN_vkCmdSetViewportWithCount,
+    cmd_set_scissor_with_count: PFN_vkCmdSetScissorWithCount,
+    cmd_bind_vertex_buffers2: PFN_vkCmdBindVertexBuffers2,
+    cmd_set_depth_test_enable: PFN_vkCmdSetDepthTestEnable,
+    cmd_set_depth_write_enable: PFN_vkCmdSetDepthWriteEnable,
+    cmd_set_depth_compare_op: PFN_vkCmdSetDepthCompareOp,
+    cmd_set_depth_bounds_test_enable: PFN_vkCmdSetDepthBoundsTestEnable,
+    cmd_set_stencil_test_enable: PFN_vkCmdSetStencilTestEnable,
+    cmd_set_stencil_op: PFN_vkCmdSetStencilOp,
+    cmd_set_vertex_input: PFN_vkCmdSetVertexInputEXT,
+    cmd_set_patch_control_points: PFN_vkCmdSetPatchControlPointsEXT,
+    cmd_set_rasterizer_discard_enable: PFN_vkCmdSetRasterizerDiscardEnable,
+    cmd_set_depth_bias_enable: PFN_vkCmdSetDepthBiasEnable,
+    cmd_set_logic_op: PFN_vkCmdSetLogicOpEXT,
+    cmd_set_primitive_restart_enable: PFN_vkCmdSetPrimitiveRestartEnable,
+    cmd_set_tessellation_domain_origin: PFN_vkCmdSetTessellationDomainOriginEXT,
+    cmd_set_depth_clamp_enable: PFN_vkCmdSetDepthClampEnableEXT,
+    cmd_set_polygon_mode: PFN_vkCmdSetPolygonModeEXT,
+    cmd_set_rasterization_samples: PFN_vkCmdSetRasterizationSamplesEXT,
+    cmd_set_sample_mask: PFN_vkCmdSetSampleMaskEXT,
+    cmd_set_alpha_to_coverage_enable: PFN_vkCmdSetAlphaToCoverageEnableEXT,
+    cmd_set_alpha_to_one_enable: PFN_vkCmdSetAlphaToOneEnableEXT,
+    cmd_set_logic_op_enable: PFN_vkCmdSetLogicOpEnableEXT,
+    cmd_set_color_blend_enable: PFN_vkCmdSetColorBlendEnableEXT,
+    cmd_set_color_blend_equation: PFN_vkCmdSetColorBlendEquationEXT,
+    cmd_set_color_write_mask: PFN_vkCmdSetColorWriteMaskEXT,
+    cmd_set_rasterization_stream: Option<PFN_vkCmdSetRasterizationStreamEXT>,
+    cmd_set_conservative_rasterization_mode: Option<PFN_vkCmdSetConservativeRasterizationModeEXT>,
+    cmd_set_extra_primitive_overestimation_size:
         Option<PFN_vkCmdSetExtraPrimitiveOverestimationSizeEXT>,
-    cmd_set_depth_clip_enable_ext: Option<PFN_vkCmdSetDepthClipEnableEXT>,
-    cmd_set_sample_locations_enable_ext: Option<PFN_vkCmdSetSampleLocationsEnableEXT>,
-    cmd_set_color_blend_advanced_ext: Option<PFN_vkCmdSetColorBlendAdvancedEXT>,
-    cmd_set_provoking_vertex_mode_ext: Option<PFN_vkCmdSetProvokingVertexModeEXT>,
-    cmd_set_line_rasterization_mode_ext: Option<PFN_vkCmdSetLineRasterizationModeEXT>,
-    cmd_set_line_stipple_enable_ext: Option<PFN_vkCmdSetLineStippleEnableEXT>,
-    cmd_set_depth_clip_negative_one_to_one_ext: Option<PFN_vkCmdSetDepthClipNegativeOneToOneEXT>,
-    cmd_set_viewport_w_scaling_enable_nv: Option<PFN_vkCmdSetViewportWScalingEnableNV>,
-    cmd_set_viewport_swizzle_nv: Option<PFN_vkCmdSetViewportSwizzleNV>,
-    cmd_set_coverage_to_color_enable_nv: Option<PFN_vkCmdSetCoverageToColorEnableNV>,
-    cmd_set_coverage_to_color_location_nv: Option<PFN_vkCmdSetCoverageToColorLocationNV>,
-    cmd_set_coverage_modulation_mode_nv: Option<PFN_vkCmdSetCoverageModulationModeNV>,
-    cmd_set_coverage_modulation_table_enable_nv:
-        Option<PFN_vkCmdSetCoverageModulationTableEnableNV>,
-    cmd_set_coverage_modulation_table_nv: Option<PFN_vkCmdSetCoverageModulationTableNV>,
-    cmd_set_shading_rate_image_enable_nv: Option<PFN_vkCmdSetShadingRateImageEnableNV>,
-    cmd_set_representative_fragment_test_enable_nv:
+    cmd_set_depth_clip_enable: Option<PFN_vkCmdSetDepthClipEnableEXT>,
+    cmd_set_sample_locations_enable: Option<PFN_vkCmdSetSampleLocationsEnableEXT>,
+    cmd_set_color_blend_advanced: Option<PFN_vkCmdSetColorBlendAdvancedEXT>,
+    cmd_set_provoking_vertex_mode: Option<PFN_vkCmdSetProvokingVertexModeEXT>,
+    cmd_set_line_rasterization_mode: Option<PFN_vkCmdSetLineRasterizationModeEXT>,
+    cmd_set_line_stipple_enable: Option<PFN_vkCmdSetLineStippleEnableEXT>,
+    cmd_set_depth_clip_negative_one_to_one: Option<PFN_vkCmdSetDepthClipNegativeOneToOneEXT>,
+    cmd_set_viewport_w_scaling_enable: Option<PFN_vkCmdSetViewportWScalingEnableNV>,
+    cmd_set_viewport_swizzle: Option<PFN_vkCmdSetViewportSwizzleNV>,
+    cmd_set_coverage_to_color_enable: Option<PFN_vkCmdSetCoverageToColorEnableNV>,
+    cmd_set_coverage_to_color_location: Option<PFN_vkCmdSetCoverageToColorLocationNV>,
+    cmd_set_coverage_modulation_mode: Option<PFN_vkCmdSetCoverageModulationModeNV>,
+    cmd_set_coverage_modulation_table_enable: Option<PFN_vkCmdSetCoverageModulationTableEnableNV>,
+    cmd_set_coverage_modulation_table: Option<PFN_vkCmdSetCoverageModulationTableNV>,
+    cmd_set_shading_rate_image_enable: Option<PFN_vkCmdSetShadingRateImageEnableNV>,
+    cmd_set_representative_fragment_test_enable:
         Option<PFN_vkCmdSetRepresentativeFragmentTestEnableNV>,
-    cmd_set_coverage_reduction_mode_nv: Option<PFN_vkCmdSetCoverageReductionModeNV>,
-    cmd_set_depth_clamp_range_ext: Option<PFN_vkCmdSetDepthClampRangeEXT>,
+    cmd_set_coverage_reduction_mode: Option<PFN_vkCmdSetCoverageReductionModeNV>,
+    cmd_set_depth_clamp_range: Option<PFN_vkCmdSetDepthClampRangeEXT>,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -541,158 +539,154 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_shaders_ext: transmute(
+                create_shaders: transmute(
                     load(c"vkCreateShadersEXT").ok_or(MissingEntryPointError)?,
                 ),
-                destroy_shader_ext: transmute(
+                destroy_shader: transmute(
                     load(c"vkDestroyShaderEXT").ok_or(MissingEntryPointError)?,
                 ),
-                get_shader_binary_data_ext: transmute(
+                get_shader_binary_data: transmute(
                     load(c"vkGetShaderBinaryDataEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_bind_shaders_ext: transmute(
+                cmd_bind_shaders: transmute(
                     load(c"vkCmdBindShadersEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_cull_mode_ext: transmute(
+                cmd_set_cull_mode: transmute(
                     load(c"vkCmdSetCullModeEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_front_face_ext: transmute(
+                cmd_set_front_face: transmute(
                     load(c"vkCmdSetFrontFaceEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_primitive_topology_ext: transmute(
+                cmd_set_primitive_topology: transmute(
                     load(c"vkCmdSetPrimitiveTopologyEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_viewport_with_count_ext: transmute(
+                cmd_set_viewport_with_count: transmute(
                     load(c"vkCmdSetViewportWithCountEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_scissor_with_count_ext: transmute(
+                cmd_set_scissor_with_count: transmute(
                     load(c"vkCmdSetScissorWithCountEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_bind_vertex_buffers2_ext: transmute(
+                cmd_bind_vertex_buffers2: transmute(
                     load(c"vkCmdBindVertexBuffers2EXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_depth_test_enable_ext: transmute(
+                cmd_set_depth_test_enable: transmute(
                     load(c"vkCmdSetDepthTestEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_depth_write_enable_ext: transmute(
+                cmd_set_depth_write_enable: transmute(
                     load(c"vkCmdSetDepthWriteEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_depth_compare_op_ext: transmute(
+                cmd_set_depth_compare_op: transmute(
                     load(c"vkCmdSetDepthCompareOpEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_depth_bounds_test_enable_ext: transmute(
+                cmd_set_depth_bounds_test_enable: transmute(
                     load(c"vkCmdSetDepthBoundsTestEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_stencil_test_enable_ext: transmute(
+                cmd_set_stencil_test_enable: transmute(
                     load(c"vkCmdSetStencilTestEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_stencil_op_ext: transmute(
+                cmd_set_stencil_op: transmute(
                     load(c"vkCmdSetStencilOpEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_vertex_input_ext: transmute(
+                cmd_set_vertex_input: transmute(
                     load(c"vkCmdSetVertexInputEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_patch_control_points_ext: transmute(
+                cmd_set_patch_control_points: transmute(
                     load(c"vkCmdSetPatchControlPointsEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_rasterizer_discard_enable_ext: transmute(
+                cmd_set_rasterizer_discard_enable: transmute(
                     load(c"vkCmdSetRasterizerDiscardEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_depth_bias_enable_ext: transmute(
+                cmd_set_depth_bias_enable: transmute(
                     load(c"vkCmdSetDepthBiasEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_logic_op_ext: transmute(
+                cmd_set_logic_op: transmute(
                     load(c"vkCmdSetLogicOpEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_primitive_restart_enable_ext: transmute(
+                cmd_set_primitive_restart_enable: transmute(
                     load(c"vkCmdSetPrimitiveRestartEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_tessellation_domain_origin_ext: transmute(
+                cmd_set_tessellation_domain_origin: transmute(
                     load(c"vkCmdSetTessellationDomainOriginEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_depth_clamp_enable_ext: transmute(
+                cmd_set_depth_clamp_enable: transmute(
                     load(c"vkCmdSetDepthClampEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_polygon_mode_ext: transmute(
+                cmd_set_polygon_mode: transmute(
                     load(c"vkCmdSetPolygonModeEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_rasterization_samples_ext: transmute(
+                cmd_set_rasterization_samples: transmute(
                     load(c"vkCmdSetRasterizationSamplesEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_sample_mask_ext: transmute(
+                cmd_set_sample_mask: transmute(
                     load(c"vkCmdSetSampleMaskEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_alpha_to_coverage_enable_ext: transmute(
+                cmd_set_alpha_to_coverage_enable: transmute(
                     load(c"vkCmdSetAlphaToCoverageEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_alpha_to_one_enable_ext: transmute(
+                cmd_set_alpha_to_one_enable: transmute(
                     load(c"vkCmdSetAlphaToOneEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_logic_op_enable_ext: transmute(
+                cmd_set_logic_op_enable: transmute(
                     load(c"vkCmdSetLogicOpEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_color_blend_enable_ext: transmute(
+                cmd_set_color_blend_enable: transmute(
                     load(c"vkCmdSetColorBlendEnableEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_color_blend_equation_ext: transmute(
+                cmd_set_color_blend_equation: transmute(
                     load(c"vkCmdSetColorBlendEquationEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_color_write_mask_ext: transmute(
+                cmd_set_color_write_mask: transmute(
                     load(c"vkCmdSetColorWriteMaskEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_set_rasterization_stream_ext: transmute(load(
-                    c"vkCmdSetRasterizationStreamEXT",
-                )),
-                cmd_set_conservative_rasterization_mode_ext: transmute(load(
+                cmd_set_rasterization_stream: transmute(load(c"vkCmdSetRasterizationStreamEXT")),
+                cmd_set_conservative_rasterization_mode: transmute(load(
                     c"vkCmdSetConservativeRasterizationModeEXT",
                 )),
-                cmd_set_extra_primitive_overestimation_size_ext: transmute(load(
+                cmd_set_extra_primitive_overestimation_size: transmute(load(
                     c"vkCmdSetExtraPrimitiveOverestimationSizeEXT",
                 )),
-                cmd_set_depth_clip_enable_ext: transmute(load(c"vkCmdSetDepthClipEnableEXT")),
-                cmd_set_sample_locations_enable_ext: transmute(load(
+                cmd_set_depth_clip_enable: transmute(load(c"vkCmdSetDepthClipEnableEXT")),
+                cmd_set_sample_locations_enable: transmute(load(
                     c"vkCmdSetSampleLocationsEnableEXT",
                 )),
-                cmd_set_color_blend_advanced_ext: transmute(load(c"vkCmdSetColorBlendAdvancedEXT")),
-                cmd_set_provoking_vertex_mode_ext: transmute(load(
-                    c"vkCmdSetProvokingVertexModeEXT",
-                )),
-                cmd_set_line_rasterization_mode_ext: transmute(load(
+                cmd_set_color_blend_advanced: transmute(load(c"vkCmdSetColorBlendAdvancedEXT")),
+                cmd_set_provoking_vertex_mode: transmute(load(c"vkCmdSetProvokingVertexModeEXT")),
+                cmd_set_line_rasterization_mode: transmute(load(
                     c"vkCmdSetLineRasterizationModeEXT",
                 )),
-                cmd_set_line_stipple_enable_ext: transmute(load(c"vkCmdSetLineStippleEnableEXT")),
-                cmd_set_depth_clip_negative_one_to_one_ext: transmute(load(
+                cmd_set_line_stipple_enable: transmute(load(c"vkCmdSetLineStippleEnableEXT")),
+                cmd_set_depth_clip_negative_one_to_one: transmute(load(
                     c"vkCmdSetDepthClipNegativeOneToOneEXT",
                 )),
-                cmd_set_viewport_w_scaling_enable_nv: transmute(load(
+                cmd_set_viewport_w_scaling_enable: transmute(load(
                     c"vkCmdSetViewportWScalingEnableNV",
                 )),
-                cmd_set_viewport_swizzle_nv: transmute(load(c"vkCmdSetViewportSwizzleNV")),
-                cmd_set_coverage_to_color_enable_nv: transmute(load(
+                cmd_set_viewport_swizzle: transmute(load(c"vkCmdSetViewportSwizzleNV")),
+                cmd_set_coverage_to_color_enable: transmute(load(
                     c"vkCmdSetCoverageToColorEnableNV",
                 )),
-                cmd_set_coverage_to_color_location_nv: transmute(load(
+                cmd_set_coverage_to_color_location: transmute(load(
                     c"vkCmdSetCoverageToColorLocationNV",
                 )),
-                cmd_set_coverage_modulation_mode_nv: transmute(load(
+                cmd_set_coverage_modulation_mode: transmute(load(
                     c"vkCmdSetCoverageModulationModeNV",
                 )),
-                cmd_set_coverage_modulation_table_enable_nv: transmute(load(
+                cmd_set_coverage_modulation_table_enable: transmute(load(
                     c"vkCmdSetCoverageModulationTableEnableNV",
                 )),
-                cmd_set_coverage_modulation_table_nv: transmute(load(
+                cmd_set_coverage_modulation_table: transmute(load(
                     c"vkCmdSetCoverageModulationTableNV",
                 )),
-                cmd_set_shading_rate_image_enable_nv: transmute(load(
+                cmd_set_shading_rate_image_enable: transmute(load(
                     c"vkCmdSetShadingRateImageEnableNV",
                 )),
-                cmd_set_representative_fragment_test_enable_nv: transmute(load(
+                cmd_set_representative_fragment_test_enable: transmute(load(
                     c"vkCmdSetRepresentativeFragmentTestEnableNV",
                 )),
-                cmd_set_coverage_reduction_mode_nv: transmute(load(
+                cmd_set_coverage_reduction_mode: transmute(load(
                     c"vkCmdSetCoverageReductionModeNV",
                 )),
-                cmd_set_depth_clamp_range_ext: transmute(load(c"vkCmdSetDepthClampRangeEXT")),
+                cmd_set_depth_clamp_range: transmute(load(c"vkCmdSetDepthClampRangeEXT")),
             })
         }
     }
@@ -701,7 +695,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateShadersEXT.html>
     #[inline]
-    pub unsafe fn create_shaders_ext(
+    pub unsafe fn create_shaders(
         &self,
         device: Device,
         create_infos: &[ShaderCreateInfoEXT<'_>],
@@ -709,7 +703,7 @@ impl DeviceFn {
         shaders: &mut [ShaderEXT],
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.create_shaders_ext)(
+            let result = (self.create_shaders)(
                 device,
                 create_infos.len().try_into().unwrap(),
                 create_infos.as_ptr() as _,
@@ -726,18 +720,18 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyShaderEXT.html>
     #[inline]
-    pub unsafe fn destroy_shader_ext(
+    pub unsafe fn destroy_shader(
         &self,
         device: Device,
         shader: ShaderEXT,
         allocator: Option<&AllocationCallbacks<'_>>,
     ) {
-        unsafe { (self.destroy_shader_ext)(device, shader, allocator.to_raw_ptr()) }
+        unsafe { (self.destroy_shader)(device, shader, allocator.to_raw_ptr()) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetShaderBinaryDataEXT.html>
     #[inline]
-    pub unsafe fn get_shader_binary_data_ext(
+    pub unsafe fn get_shader_binary_data(
         &self,
         device: Device,
         shader: ShaderEXT,
@@ -745,8 +739,7 @@ impl DeviceFn {
     ) -> crate::Result<()> {
         unsafe {
             let call = |data_size, data| {
-                let result =
-                    (self.get_shader_binary_data_ext)(device, shader, data_size, data as _);
+                let result = (self.get_shader_binary_data)(device, shader, data_size, data as _);
 
                 match result {
                     VkResult::SUCCESS => Ok(()),
@@ -767,14 +760,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindShadersEXT.html>
     #[inline]
-    pub unsafe fn cmd_bind_shaders_ext(
+    pub unsafe fn cmd_bind_shaders(
         &self,
         command_buffer: CommandBuffer,
         stages: &[ShaderStageFlagBits],
         shaders: Option<&[ShaderEXT]>,
     ) {
         unsafe {
-            (self.cmd_bind_shaders_ext)(
+            (self.cmd_bind_shaders)(
                 command_buffer,
                 stages.len().try_into().unwrap(),
                 stages.as_ptr() as _,
@@ -785,43 +778,39 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCullModeEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_cull_mode_ext(
+    pub unsafe fn cmd_set_cull_mode(
         &self,
         command_buffer: CommandBuffer,
         cull_mode: CullModeFlags,
     ) {
-        unsafe { (self.cmd_set_cull_mode_ext)(command_buffer, cull_mode) }
+        unsafe { (self.cmd_set_cull_mode)(command_buffer, cull_mode) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetFrontFaceEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_front_face_ext(
-        &self,
-        command_buffer: CommandBuffer,
-        front_face: FrontFace,
-    ) {
-        unsafe { (self.cmd_set_front_face_ext)(command_buffer, front_face) }
+    pub unsafe fn cmd_set_front_face(&self, command_buffer: CommandBuffer, front_face: FrontFace) {
+        unsafe { (self.cmd_set_front_face)(command_buffer, front_face) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPrimitiveTopologyEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_primitive_topology_ext(
+    pub unsafe fn cmd_set_primitive_topology(
         &self,
         command_buffer: CommandBuffer,
         primitive_topology: PrimitiveTopology,
     ) {
-        unsafe { (self.cmd_set_primitive_topology_ext)(command_buffer, primitive_topology) }
+        unsafe { (self.cmd_set_primitive_topology)(command_buffer, primitive_topology) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetViewportWithCountEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_viewport_with_count_ext(
+    pub unsafe fn cmd_set_viewport_with_count(
         &self,
         command_buffer: CommandBuffer,
         viewports: &[Viewport],
     ) {
         unsafe {
-            (self.cmd_set_viewport_with_count_ext)(
+            (self.cmd_set_viewport_with_count)(
                 command_buffer,
                 viewports.len().try_into().unwrap(),
                 viewports.as_ptr() as _,
@@ -831,13 +820,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetScissorWithCountEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_scissor_with_count_ext(
+    pub unsafe fn cmd_set_scissor_with_count(
         &self,
         command_buffer: CommandBuffer,
         scissors: &[Rect2D],
     ) {
         unsafe {
-            (self.cmd_set_scissor_with_count_ext)(
+            (self.cmd_set_scissor_with_count)(
                 command_buffer,
                 scissors.len().try_into().unwrap(),
                 scissors.as_ptr() as _,
@@ -847,7 +836,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindVertexBuffers2EXT.html>
     #[inline]
-    pub unsafe fn cmd_bind_vertex_buffers2_ext(
+    pub unsafe fn cmd_bind_vertex_buffers2(
         &self,
         command_buffer: CommandBuffer,
         first_binding: u32,
@@ -857,7 +846,7 @@ impl DeviceFn {
         strides: Option<&[DeviceSize]>,
     ) {
         unsafe {
-            (self.cmd_bind_vertex_buffers2_ext)(
+            (self.cmd_bind_vertex_buffers2)(
                 command_buffer,
                 first_binding,
                 buffers.len().try_into().unwrap(),
@@ -871,64 +860,59 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthTestEnableEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_depth_test_enable_ext(
+    pub unsafe fn cmd_set_depth_test_enable(
         &self,
         command_buffer: CommandBuffer,
         depth_test_enable: bool,
     ) {
-        unsafe { (self.cmd_set_depth_test_enable_ext)(command_buffer, depth_test_enable.into()) }
+        unsafe { (self.cmd_set_depth_test_enable)(command_buffer, depth_test_enable.into()) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthWriteEnableEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_depth_write_enable_ext(
+    pub unsafe fn cmd_set_depth_write_enable(
         &self,
         command_buffer: CommandBuffer,
         depth_write_enable: bool,
     ) {
-        unsafe { (self.cmd_set_depth_write_enable_ext)(command_buffer, depth_write_enable.into()) }
+        unsafe { (self.cmd_set_depth_write_enable)(command_buffer, depth_write_enable.into()) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthCompareOpEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_depth_compare_op_ext(
+    pub unsafe fn cmd_set_depth_compare_op(
         &self,
         command_buffer: CommandBuffer,
         depth_compare_op: CompareOp,
     ) {
-        unsafe { (self.cmd_set_depth_compare_op_ext)(command_buffer, depth_compare_op) }
+        unsafe { (self.cmd_set_depth_compare_op)(command_buffer, depth_compare_op) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthBoundsTestEnableEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_depth_bounds_test_enable_ext(
+    pub unsafe fn cmd_set_depth_bounds_test_enable(
         &self,
         command_buffer: CommandBuffer,
         depth_bounds_test_enable: bool,
     ) {
         unsafe {
-            (self.cmd_set_depth_bounds_test_enable_ext)(
-                command_buffer,
-                depth_bounds_test_enable.into(),
-            )
+            (self.cmd_set_depth_bounds_test_enable)(command_buffer, depth_bounds_test_enable.into())
         }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetStencilTestEnableEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_stencil_test_enable_ext(
+    pub unsafe fn cmd_set_stencil_test_enable(
         &self,
         command_buffer: CommandBuffer,
         stencil_test_enable: bool,
     ) {
-        unsafe {
-            (self.cmd_set_stencil_test_enable_ext)(command_buffer, stencil_test_enable.into())
-        }
+        unsafe { (self.cmd_set_stencil_test_enable)(command_buffer, stencil_test_enable.into()) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetStencilOpEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_stencil_op_ext(
+    pub unsafe fn cmd_set_stencil_op(
         &self,
         command_buffer: CommandBuffer,
         face_mask: StencilFaceFlags,
@@ -938,7 +922,7 @@ impl DeviceFn {
         compare_op: CompareOp,
     ) {
         unsafe {
-            (self.cmd_set_stencil_op_ext)(
+            (self.cmd_set_stencil_op)(
                 command_buffer,
                 face_mask,
                 fail_op,
@@ -951,14 +935,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetVertexInputEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_vertex_input_ext(
+    pub unsafe fn cmd_set_vertex_input(
         &self,
         command_buffer: CommandBuffer,
         vertex_binding_descriptions: &[VertexInputBindingDescription2EXT<'_>],
         vertex_attribute_descriptions: &[VertexInputAttributeDescription2EXT<'_>],
     ) {
         unsafe {
-            (self.cmd_set_vertex_input_ext)(
+            (self.cmd_set_vertex_input)(
                 command_buffer,
                 vertex_binding_descriptions.len().try_into().unwrap(),
                 vertex_binding_descriptions.as_ptr() as _,
@@ -970,23 +954,23 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPatchControlPointsEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_patch_control_points_ext(
+    pub unsafe fn cmd_set_patch_control_points(
         &self,
         command_buffer: CommandBuffer,
         patch_control_points: u32,
     ) {
-        unsafe { (self.cmd_set_patch_control_points_ext)(command_buffer, patch_control_points) }
+        unsafe { (self.cmd_set_patch_control_points)(command_buffer, patch_control_points) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetRasterizerDiscardEnableEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_rasterizer_discard_enable_ext(
+    pub unsafe fn cmd_set_rasterizer_discard_enable(
         &self,
         command_buffer: CommandBuffer,
         rasterizer_discard_enable: bool,
     ) {
         unsafe {
-            (self.cmd_set_rasterizer_discard_enable_ext)(
+            (self.cmd_set_rasterizer_discard_enable)(
                 command_buffer,
                 rasterizer_discard_enable.into(),
             )
@@ -995,133 +979,125 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthBiasEnableEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_depth_bias_enable_ext(
+    pub unsafe fn cmd_set_depth_bias_enable(
         &self,
         command_buffer: CommandBuffer,
         depth_bias_enable: bool,
     ) {
-        unsafe { (self.cmd_set_depth_bias_enable_ext)(command_buffer, depth_bias_enable.into()) }
+        unsafe { (self.cmd_set_depth_bias_enable)(command_buffer, depth_bias_enable.into()) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLogicOpEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_logic_op_ext(&self, command_buffer: CommandBuffer, logic_op: LogicOp) {
-        unsafe { (self.cmd_set_logic_op_ext)(command_buffer, logic_op) }
+    pub unsafe fn cmd_set_logic_op(&self, command_buffer: CommandBuffer, logic_op: LogicOp) {
+        unsafe { (self.cmd_set_logic_op)(command_buffer, logic_op) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPrimitiveRestartEnableEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_primitive_restart_enable_ext(
+    pub unsafe fn cmd_set_primitive_restart_enable(
         &self,
         command_buffer: CommandBuffer,
         primitive_restart_enable: bool,
     ) {
         unsafe {
-            (self.cmd_set_primitive_restart_enable_ext)(
-                command_buffer,
-                primitive_restart_enable.into(),
-            )
+            (self.cmd_set_primitive_restart_enable)(command_buffer, primitive_restart_enable.into())
         }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetTessellationDomainOriginEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_tessellation_domain_origin_ext(
+    pub unsafe fn cmd_set_tessellation_domain_origin(
         &self,
         command_buffer: CommandBuffer,
         domain_origin: TessellationDomainOrigin,
     ) {
-        unsafe { (self.cmd_set_tessellation_domain_origin_ext)(command_buffer, domain_origin) }
+        unsafe { (self.cmd_set_tessellation_domain_origin)(command_buffer, domain_origin) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthClampEnableEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_depth_clamp_enable_ext(
+    pub unsafe fn cmd_set_depth_clamp_enable(
         &self,
         command_buffer: CommandBuffer,
         depth_clamp_enable: bool,
     ) {
-        unsafe { (self.cmd_set_depth_clamp_enable_ext)(command_buffer, depth_clamp_enable.into()) }
+        unsafe { (self.cmd_set_depth_clamp_enable)(command_buffer, depth_clamp_enable.into()) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetPolygonModeEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_polygon_mode_ext(
+    pub unsafe fn cmd_set_polygon_mode(
         &self,
         command_buffer: CommandBuffer,
         polygon_mode: PolygonMode,
     ) {
-        unsafe { (self.cmd_set_polygon_mode_ext)(command_buffer, polygon_mode) }
+        unsafe { (self.cmd_set_polygon_mode)(command_buffer, polygon_mode) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetRasterizationSamplesEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_rasterization_samples_ext(
+    pub unsafe fn cmd_set_rasterization_samples(
         &self,
         command_buffer: CommandBuffer,
         rasterization_samples: SampleCountFlagBits,
     ) {
-        unsafe { (self.cmd_set_rasterization_samples_ext)(command_buffer, rasterization_samples) }
+        unsafe { (self.cmd_set_rasterization_samples)(command_buffer, rasterization_samples) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetSampleMaskEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_sample_mask_ext(
+    pub unsafe fn cmd_set_sample_mask(
         &self,
         command_buffer: CommandBuffer,
         samples: SampleCountFlagBits,
         sample_mask: Option<&[SampleMask]>,
     ) {
-        unsafe { (self.cmd_set_sample_mask_ext)(command_buffer, samples, sample_mask.to_raw_ptr()) }
+        unsafe { (self.cmd_set_sample_mask)(command_buffer, samples, sample_mask.to_raw_ptr()) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetAlphaToCoverageEnableEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_alpha_to_coverage_enable_ext(
+    pub unsafe fn cmd_set_alpha_to_coverage_enable(
         &self,
         command_buffer: CommandBuffer,
         alpha_to_coverage_enable: bool,
     ) {
         unsafe {
-            (self.cmd_set_alpha_to_coverage_enable_ext)(
-                command_buffer,
-                alpha_to_coverage_enable.into(),
-            )
+            (self.cmd_set_alpha_to_coverage_enable)(command_buffer, alpha_to_coverage_enable.into())
         }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetAlphaToOneEnableEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_alpha_to_one_enable_ext(
+    pub unsafe fn cmd_set_alpha_to_one_enable(
         &self,
         command_buffer: CommandBuffer,
         alpha_to_one_enable: bool,
     ) {
-        unsafe {
-            (self.cmd_set_alpha_to_one_enable_ext)(command_buffer, alpha_to_one_enable.into())
-        }
+        unsafe { (self.cmd_set_alpha_to_one_enable)(command_buffer, alpha_to_one_enable.into()) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLogicOpEnableEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_logic_op_enable_ext(
+    pub unsafe fn cmd_set_logic_op_enable(
         &self,
         command_buffer: CommandBuffer,
         logic_op_enable: bool,
     ) {
-        unsafe { (self.cmd_set_logic_op_enable_ext)(command_buffer, logic_op_enable.into()) }
+        unsafe { (self.cmd_set_logic_op_enable)(command_buffer, logic_op_enable.into()) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetColorBlendEnableEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_color_blend_enable_ext(
+    pub unsafe fn cmd_set_color_blend_enable(
         &self,
         command_buffer: CommandBuffer,
         first_attachment: u32,
         color_blend_enables: &[Bool32],
     ) {
         unsafe {
-            (self.cmd_set_color_blend_enable_ext)(
+            (self.cmd_set_color_blend_enable)(
                 command_buffer,
                 first_attachment,
                 color_blend_enables.len().try_into().unwrap(),
@@ -1132,14 +1108,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetColorBlendEquationEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_color_blend_equation_ext(
+    pub unsafe fn cmd_set_color_blend_equation(
         &self,
         command_buffer: CommandBuffer,
         first_attachment: u32,
         color_blend_equations: &[ColorBlendEquationEXT],
     ) {
         unsafe {
-            (self.cmd_set_color_blend_equation_ext)(
+            (self.cmd_set_color_blend_equation)(
                 command_buffer,
                 first_attachment,
                 color_blend_equations.len().try_into().unwrap(),
@@ -1150,14 +1126,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetColorWriteMaskEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_color_write_mask_ext(
+    pub unsafe fn cmd_set_color_write_mask(
         &self,
         command_buffer: CommandBuffer,
         first_attachment: u32,
         color_write_masks: &[ColorComponentFlags],
     ) {
         unsafe {
-            (self.cmd_set_color_write_mask_ext)(
+            (self.cmd_set_color_write_mask)(
                 command_buffer,
                 first_attachment,
                 color_write_masks.len().try_into().unwrap(),
@@ -1168,25 +1144,25 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetRasterizationStreamEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_rasterization_stream_ext(
+    pub unsafe fn cmd_set_rasterization_stream(
         &self,
         command_buffer: CommandBuffer,
         rasterization_stream: u32,
     ) {
         unsafe {
-            (self.cmd_set_rasterization_stream_ext.unwrap())(command_buffer, rasterization_stream)
+            (self.cmd_set_rasterization_stream.unwrap())(command_buffer, rasterization_stream)
         }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetConservativeRasterizationModeEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_conservative_rasterization_mode_ext(
+    pub unsafe fn cmd_set_conservative_rasterization_mode(
         &self,
         command_buffer: CommandBuffer,
         conservative_rasterization_mode: ConservativeRasterizationModeEXT,
     ) {
         unsafe {
-            (self.cmd_set_conservative_rasterization_mode_ext.unwrap())(
+            (self.cmd_set_conservative_rasterization_mode.unwrap())(
                 command_buffer,
                 conservative_rasterization_mode,
             )
@@ -1195,39 +1171,40 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetExtraPrimitiveOverestimationSizeEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_extra_primitive_overestimation_size_ext(
+    pub unsafe fn cmd_set_extra_primitive_overestimation_size(
         &self,
         command_buffer: CommandBuffer,
         extra_primitive_overestimation_size: f32,
     ) {
         unsafe {
-            (self
-                .cmd_set_extra_primitive_overestimation_size_ext
-                .unwrap())(command_buffer, extra_primitive_overestimation_size)
+            (self.cmd_set_extra_primitive_overestimation_size.unwrap())(
+                command_buffer,
+                extra_primitive_overestimation_size,
+            )
         }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthClipEnableEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_depth_clip_enable_ext(
+    pub unsafe fn cmd_set_depth_clip_enable(
         &self,
         command_buffer: CommandBuffer,
         depth_clip_enable: bool,
     ) {
         unsafe {
-            (self.cmd_set_depth_clip_enable_ext.unwrap())(command_buffer, depth_clip_enable.into())
+            (self.cmd_set_depth_clip_enable.unwrap())(command_buffer, depth_clip_enable.into())
         }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetSampleLocationsEnableEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_sample_locations_enable_ext(
+    pub unsafe fn cmd_set_sample_locations_enable(
         &self,
         command_buffer: CommandBuffer,
         sample_locations_enable: bool,
     ) {
         unsafe {
-            (self.cmd_set_sample_locations_enable_ext.unwrap())(
+            (self.cmd_set_sample_locations_enable.unwrap())(
                 command_buffer,
                 sample_locations_enable.into(),
             )
@@ -1236,14 +1213,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetColorBlendAdvancedEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_color_blend_advanced_ext(
+    pub unsafe fn cmd_set_color_blend_advanced(
         &self,
         command_buffer: CommandBuffer,
         first_attachment: u32,
         color_blend_advanced: &[ColorBlendAdvancedEXT],
     ) {
         unsafe {
-            (self.cmd_set_color_blend_advanced_ext.unwrap())(
+            (self.cmd_set_color_blend_advanced.unwrap())(
                 command_buffer,
                 first_attachment,
                 color_blend_advanced.len().try_into().unwrap(),
@@ -1254,55 +1231,49 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetProvokingVertexModeEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_provoking_vertex_mode_ext(
+    pub unsafe fn cmd_set_provoking_vertex_mode(
         &self,
         command_buffer: CommandBuffer,
         provoking_vertex_mode: ProvokingVertexModeEXT,
     ) {
         unsafe {
-            (self.cmd_set_provoking_vertex_mode_ext.unwrap())(command_buffer, provoking_vertex_mode)
+            (self.cmd_set_provoking_vertex_mode.unwrap())(command_buffer, provoking_vertex_mode)
         }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLineRasterizationModeEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_line_rasterization_mode_ext(
+    pub unsafe fn cmd_set_line_rasterization_mode(
         &self,
         command_buffer: CommandBuffer,
         line_rasterization_mode: LineRasterizationModeEXT,
     ) {
         unsafe {
-            (self.cmd_set_line_rasterization_mode_ext.unwrap())(
-                command_buffer,
-                line_rasterization_mode,
-            )
+            (self.cmd_set_line_rasterization_mode.unwrap())(command_buffer, line_rasterization_mode)
         }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetLineStippleEnableEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_line_stipple_enable_ext(
+    pub unsafe fn cmd_set_line_stipple_enable(
         &self,
         command_buffer: CommandBuffer,
         stippled_line_enable: bool,
     ) {
         unsafe {
-            (self.cmd_set_line_stipple_enable_ext.unwrap())(
-                command_buffer,
-                stippled_line_enable.into(),
-            )
+            (self.cmd_set_line_stipple_enable.unwrap())(command_buffer, stippled_line_enable.into())
         }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthClipNegativeOneToOneEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_depth_clip_negative_one_to_one_ext(
+    pub unsafe fn cmd_set_depth_clip_negative_one_to_one(
         &self,
         command_buffer: CommandBuffer,
         negative_one_to_one: bool,
     ) {
         unsafe {
-            (self.cmd_set_depth_clip_negative_one_to_one_ext.unwrap())(
+            (self.cmd_set_depth_clip_negative_one_to_one.unwrap())(
                 command_buffer,
                 negative_one_to_one.into(),
             )
@@ -1311,13 +1282,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetViewportWScalingEnableNV.html>
     #[inline]
-    pub unsafe fn cmd_set_viewport_w_scaling_enable_nv(
+    pub unsafe fn cmd_set_viewport_w_scaling_enable(
         &self,
         command_buffer: CommandBuffer,
         viewport_w_scaling_enable: bool,
     ) {
         unsafe {
-            (self.cmd_set_viewport_w_scaling_enable_nv.unwrap())(
+            (self.cmd_set_viewport_w_scaling_enable.unwrap())(
                 command_buffer,
                 viewport_w_scaling_enable.into(),
             )
@@ -1326,14 +1297,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetViewportSwizzleNV.html>
     #[inline]
-    pub unsafe fn cmd_set_viewport_swizzle_nv(
+    pub unsafe fn cmd_set_viewport_swizzle(
         &self,
         command_buffer: CommandBuffer,
         first_viewport: u32,
         viewport_swizzles: &[ViewportSwizzleNV],
     ) {
         unsafe {
-            (self.cmd_set_viewport_swizzle_nv.unwrap())(
+            (self.cmd_set_viewport_swizzle.unwrap())(
                 command_buffer,
                 first_viewport,
                 viewport_swizzles.len().try_into().unwrap(),
@@ -1344,13 +1315,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoverageToColorEnableNV.html>
     #[inline]
-    pub unsafe fn cmd_set_coverage_to_color_enable_nv(
+    pub unsafe fn cmd_set_coverage_to_color_enable(
         &self,
         command_buffer: CommandBuffer,
         coverage_to_color_enable: bool,
     ) {
         unsafe {
-            (self.cmd_set_coverage_to_color_enable_nv.unwrap())(
+            (self.cmd_set_coverage_to_color_enable.unwrap())(
                 command_buffer,
                 coverage_to_color_enable.into(),
             )
@@ -1359,13 +1330,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoverageToColorLocationNV.html>
     #[inline]
-    pub unsafe fn cmd_set_coverage_to_color_location_nv(
+    pub unsafe fn cmd_set_coverage_to_color_location(
         &self,
         command_buffer: CommandBuffer,
         coverage_to_color_location: u32,
     ) {
         unsafe {
-            (self.cmd_set_coverage_to_color_location_nv.unwrap())(
+            (self.cmd_set_coverage_to_color_location.unwrap())(
                 command_buffer,
                 coverage_to_color_location,
             )
@@ -1374,13 +1345,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoverageModulationModeNV.html>
     #[inline]
-    pub unsafe fn cmd_set_coverage_modulation_mode_nv(
+    pub unsafe fn cmd_set_coverage_modulation_mode(
         &self,
         command_buffer: CommandBuffer,
         coverage_modulation_mode: CoverageModulationModeNV,
     ) {
         unsafe {
-            (self.cmd_set_coverage_modulation_mode_nv.unwrap())(
+            (self.cmd_set_coverage_modulation_mode.unwrap())(
                 command_buffer,
                 coverage_modulation_mode,
             )
@@ -1389,13 +1360,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoverageModulationTableEnableNV.html>
     #[inline]
-    pub unsafe fn cmd_set_coverage_modulation_table_enable_nv(
+    pub unsafe fn cmd_set_coverage_modulation_table_enable(
         &self,
         command_buffer: CommandBuffer,
         coverage_modulation_table_enable: bool,
     ) {
         unsafe {
-            (self.cmd_set_coverage_modulation_table_enable_nv.unwrap())(
+            (self.cmd_set_coverage_modulation_table_enable.unwrap())(
                 command_buffer,
                 coverage_modulation_table_enable.into(),
             )
@@ -1404,13 +1375,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoverageModulationTableNV.html>
     #[inline]
-    pub unsafe fn cmd_set_coverage_modulation_table_nv(
+    pub unsafe fn cmd_set_coverage_modulation_table(
         &self,
         command_buffer: CommandBuffer,
         coverage_modulation_table: &[f32],
     ) {
         unsafe {
-            (self.cmd_set_coverage_modulation_table_nv.unwrap())(
+            (self.cmd_set_coverage_modulation_table.unwrap())(
                 command_buffer,
                 coverage_modulation_table.len().try_into().unwrap(),
                 coverage_modulation_table.as_ptr() as _,
@@ -1420,13 +1391,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetShadingRateImageEnableNV.html>
     #[inline]
-    pub unsafe fn cmd_set_shading_rate_image_enable_nv(
+    pub unsafe fn cmd_set_shading_rate_image_enable(
         &self,
         command_buffer: CommandBuffer,
         shading_rate_image_enable: bool,
     ) {
         unsafe {
-            (self.cmd_set_shading_rate_image_enable_nv.unwrap())(
+            (self.cmd_set_shading_rate_image_enable.unwrap())(
                 command_buffer,
                 shading_rate_image_enable.into(),
             )
@@ -1435,13 +1406,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetRepresentativeFragmentTestEnableNV.html>
     #[inline]
-    pub unsafe fn cmd_set_representative_fragment_test_enable_nv(
+    pub unsafe fn cmd_set_representative_fragment_test_enable(
         &self,
         command_buffer: CommandBuffer,
         representative_fragment_test_enable: bool,
     ) {
         unsafe {
-            (self.cmd_set_representative_fragment_test_enable_nv.unwrap())(
+            (self.cmd_set_representative_fragment_test_enable.unwrap())(
                 command_buffer,
                 representative_fragment_test_enable.into(),
             )
@@ -1450,29 +1421,26 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCoverageReductionModeNV.html>
     #[inline]
-    pub unsafe fn cmd_set_coverage_reduction_mode_nv(
+    pub unsafe fn cmd_set_coverage_reduction_mode(
         &self,
         command_buffer: CommandBuffer,
         coverage_reduction_mode: CoverageReductionModeNV,
     ) {
         unsafe {
-            (self.cmd_set_coverage_reduction_mode_nv.unwrap())(
-                command_buffer,
-                coverage_reduction_mode,
-            )
+            (self.cmd_set_coverage_reduction_mode.unwrap())(command_buffer, coverage_reduction_mode)
         }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthClampRangeEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_depth_clamp_range_ext(
+    pub unsafe fn cmd_set_depth_clamp_range(
         &self,
         command_buffer: CommandBuffer,
         depth_clamp_mode: DepthClampModeEXT,
         depth_clamp_range: Option<&DepthClampRangeEXT>,
     ) {
         unsafe {
-            (self.cmd_set_depth_clamp_range_ext.unwrap())(
+            (self.cmd_set_depth_clamp_range.unwrap())(
                 command_buffer,
                 depth_clamp_mode,
                 depth_clamp_range.to_raw_ptr(),

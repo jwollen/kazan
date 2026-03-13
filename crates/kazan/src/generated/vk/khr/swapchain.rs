@@ -907,7 +907,7 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    get_physical_device_present_rectangles_khr: Option<PFN_vkGetPhysicalDevicePresentRectanglesKHR>,
+    get_physical_device_present_rectangles: Option<PFN_vkGetPhysicalDevicePresentRectanglesKHR>,
 }
 
 impl LoadInstanceFn for InstanceFn {
@@ -916,7 +916,7 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_physical_device_present_rectangles_khr: transmute(load(
+                get_physical_device_present_rectangles: transmute(load(
                     c"vkGetPhysicalDevicePresentRectanglesKHR",
                 )),
             })
@@ -927,7 +927,7 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDevicePresentRectanglesKHR.html>
     #[inline]
-    pub unsafe fn get_physical_device_present_rectangles_khr(
+    pub unsafe fn get_physical_device_present_rectangles(
         &self,
         physical_device: PhysicalDevice,
         surface: SurfaceKHR,
@@ -935,7 +935,7 @@ impl InstanceFn {
     ) -> crate::Result<()> {
         unsafe {
             let call = |rect_count, rects| {
-                let result = (self.get_physical_device_present_rectangles_khr.unwrap())(
+                let result = (self.get_physical_device_present_rectangles.unwrap())(
                     physical_device,
                     surface,
                     rect_count,
@@ -961,14 +961,14 @@ impl InstanceFn {
 }
 
 pub struct DeviceFn {
-    create_swapchain_khr: PFN_vkCreateSwapchainKHR,
-    destroy_swapchain_khr: PFN_vkDestroySwapchainKHR,
-    get_swapchain_images_khr: PFN_vkGetSwapchainImagesKHR,
-    acquire_next_image_khr: PFN_vkAcquireNextImageKHR,
-    queue_present_khr: PFN_vkQueuePresentKHR,
-    get_device_group_present_capabilities_khr: Option<PFN_vkGetDeviceGroupPresentCapabilitiesKHR>,
-    get_device_group_surface_present_modes_khr: Option<PFN_vkGetDeviceGroupSurfacePresentModesKHR>,
-    acquire_next_image2_khr: Option<PFN_vkAcquireNextImage2KHR>,
+    create_swapchain: PFN_vkCreateSwapchainKHR,
+    destroy_swapchain: PFN_vkDestroySwapchainKHR,
+    get_swapchain_images: PFN_vkGetSwapchainImagesKHR,
+    acquire_next_image: PFN_vkAcquireNextImageKHR,
+    queue_present: PFN_vkQueuePresentKHR,
+    get_device_group_present_capabilities: Option<PFN_vkGetDeviceGroupPresentCapabilitiesKHR>,
+    get_device_group_surface_present_modes: Option<PFN_vkGetDeviceGroupSurfacePresentModesKHR>,
+    acquire_next_image2: Option<PFN_vkAcquireNextImage2KHR>,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -977,28 +977,26 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_swapchain_khr: transmute(
+                create_swapchain: transmute(
                     load(c"vkCreateSwapchainKHR").ok_or(MissingEntryPointError)?,
                 ),
-                destroy_swapchain_khr: transmute(
+                destroy_swapchain: transmute(
                     load(c"vkDestroySwapchainKHR").ok_or(MissingEntryPointError)?,
                 ),
-                get_swapchain_images_khr: transmute(
+                get_swapchain_images: transmute(
                     load(c"vkGetSwapchainImagesKHR").ok_or(MissingEntryPointError)?,
                 ),
-                acquire_next_image_khr: transmute(
+                acquire_next_image: transmute(
                     load(c"vkAcquireNextImageKHR").ok_or(MissingEntryPointError)?,
                 ),
-                queue_present_khr: transmute(
-                    load(c"vkQueuePresentKHR").ok_or(MissingEntryPointError)?,
-                ),
-                get_device_group_present_capabilities_khr: transmute(load(
+                queue_present: transmute(load(c"vkQueuePresentKHR").ok_or(MissingEntryPointError)?),
+                get_device_group_present_capabilities: transmute(load(
                     c"vkGetDeviceGroupPresentCapabilitiesKHR",
                 )),
-                get_device_group_surface_present_modes_khr: transmute(load(
+                get_device_group_surface_present_modes: transmute(load(
                     c"vkGetDeviceGroupSurfacePresentModesKHR",
                 )),
-                acquire_next_image2_khr: transmute(load(c"vkAcquireNextImage2KHR")),
+                acquire_next_image2: transmute(load(c"vkAcquireNextImage2KHR")),
             })
         }
     }
@@ -1007,7 +1005,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSwapchainKHR.html>
     #[inline]
-    pub unsafe fn create_swapchain_khr(
+    pub unsafe fn create_swapchain(
         &self,
         device: Device,
         create_info: &SwapchainCreateInfoKHR<'_>,
@@ -1015,7 +1013,7 @@ impl DeviceFn {
     ) -> crate::Result<SwapchainKHR> {
         unsafe {
             let mut swapchain = core::mem::MaybeUninit::uninit();
-            let result = (self.create_swapchain_khr)(
+            let result = (self.create_swapchain)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -1031,18 +1029,18 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroySwapchainKHR.html>
     #[inline]
-    pub unsafe fn destroy_swapchain_khr(
+    pub unsafe fn destroy_swapchain(
         &self,
         device: Device,
         swapchain: SwapchainKHR,
         allocator: Option<&AllocationCallbacks<'_>>,
     ) {
-        unsafe { (self.destroy_swapchain_khr)(device, swapchain, allocator.to_raw_ptr()) }
+        unsafe { (self.destroy_swapchain)(device, swapchain, allocator.to_raw_ptr()) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSwapchainImagesKHR.html>
     #[inline]
-    pub unsafe fn get_swapchain_images_khr(
+    pub unsafe fn get_swapchain_images(
         &self,
         device: Device,
         swapchain: SwapchainKHR,
@@ -1050,7 +1048,7 @@ impl DeviceFn {
     ) -> crate::Result<()> {
         unsafe {
             let call = |swapchain_image_count, swapchain_images| {
-                let result = (self.get_swapchain_images_khr)(
+                let result = (self.get_swapchain_images)(
                     device,
                     swapchain,
                     swapchain_image_count,
@@ -1076,7 +1074,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireNextImageKHR.html>
     #[inline]
-    pub unsafe fn acquire_next_image_khr(
+    pub unsafe fn acquire_next_image(
         &self,
         device: Device,
         swapchain: SwapchainKHR,
@@ -1086,7 +1084,7 @@ impl DeviceFn {
     ) -> crate::Result<(u32, bool)> {
         unsafe {
             let mut image_index = core::mem::MaybeUninit::uninit();
-            let result = (self.acquire_next_image_khr)(
+            let result = (self.acquire_next_image)(
                 device,
                 swapchain,
                 timeout,
@@ -1105,13 +1103,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueuePresentKHR.html>
     #[inline]
-    pub unsafe fn queue_present_khr(
+    pub unsafe fn queue_present(
         &self,
         queue: Queue,
         present_info: &PresentInfoKHR<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.queue_present_khr)(queue, present_info);
+            let result = (self.queue_present)(queue, present_info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -1122,13 +1120,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceGroupPresentCapabilitiesKHR.html>
     #[inline]
-    pub unsafe fn get_device_group_present_capabilities_khr(
+    pub unsafe fn get_device_group_present_capabilities(
         &self,
         device: Device,
         device_group_present_capabilities: &mut DeviceGroupPresentCapabilitiesKHR<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_device_group_present_capabilities_khr.unwrap())(
+            let result = (self.get_device_group_present_capabilities.unwrap())(
                 device,
                 device_group_present_capabilities,
             );
@@ -1142,14 +1140,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceGroupSurfacePresentModesKHR.html>
     #[inline]
-    pub unsafe fn get_device_group_surface_present_modes_khr(
+    pub unsafe fn get_device_group_surface_present_modes(
         &self,
         device: Device,
         surface: SurfaceKHR,
     ) -> crate::Result<DeviceGroupPresentModeFlagsKHR> {
         unsafe {
             let mut modes = core::mem::MaybeUninit::uninit();
-            let result = (self.get_device_group_surface_present_modes_khr.unwrap())(
+            let result = (self.get_device_group_surface_present_modes.unwrap())(
                 device,
                 surface,
                 modes.as_mut_ptr(),
@@ -1164,18 +1162,15 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireNextImage2KHR.html>
     #[inline]
-    pub unsafe fn acquire_next_image2_khr(
+    pub unsafe fn acquire_next_image2(
         &self,
         device: Device,
         acquire_info: &AcquireNextImageInfoKHR<'_>,
     ) -> crate::Result<(u32, bool)> {
         unsafe {
             let mut image_index = core::mem::MaybeUninit::uninit();
-            let result = (self.acquire_next_image2_khr.unwrap())(
-                device,
-                acquire_info,
-                image_index.as_mut_ptr(),
-            );
+            let result =
+                (self.acquire_next_image2.unwrap())(device, acquire_info, image_index.as_mut_ptr());
 
             match result {
                 VkResult::SUCCESS => Ok((image_index.assume_init(), false)),

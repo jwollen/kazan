@@ -370,7 +370,7 @@ pub(super) mod ffi {
 }
 
 pub struct InstanceFn {
-    enumerate_physical_device_shader_instrumentation_metrics_arm:
+    enumerate_physical_device_shader_instrumentation_metrics:
         PFN_vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM,
 }
 
@@ -380,7 +380,7 @@ impl LoadInstanceFn for InstanceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                enumerate_physical_device_shader_instrumentation_metrics_arm: transmute(
+                enumerate_physical_device_shader_instrumentation_metrics: transmute(
                     load(c"vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -392,14 +392,14 @@ impl LoadInstanceFn for InstanceFn {
 impl InstanceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM.html>
     #[inline]
-    pub unsafe fn enumerate_physical_device_shader_instrumentation_metrics_arm<'a>(
+    pub unsafe fn enumerate_physical_device_shader_instrumentation_metrics<'a>(
         &self,
         physical_device: PhysicalDevice,
         mut descriptions: impl ExtendUninit<ShaderInstrumentationMetricDescriptionARM<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |description_count, descriptions| {
-                let result = (self.enumerate_physical_device_shader_instrumentation_metrics_arm)(
+                let result = (self.enumerate_physical_device_shader_instrumentation_metrics)(
                     physical_device,
                     description_count,
                     descriptions as _,
@@ -424,12 +424,12 @@ impl InstanceFn {
 }
 
 pub struct DeviceFn {
-    create_shader_instrumentation_arm: PFN_vkCreateShaderInstrumentationARM,
-    destroy_shader_instrumentation_arm: PFN_vkDestroyShaderInstrumentationARM,
-    cmd_begin_shader_instrumentation_arm: PFN_vkCmdBeginShaderInstrumentationARM,
-    cmd_end_shader_instrumentation_arm: PFN_vkCmdEndShaderInstrumentationARM,
-    get_shader_instrumentation_values_arm: PFN_vkGetShaderInstrumentationValuesARM,
-    clear_shader_instrumentation_metrics_arm: PFN_vkClearShaderInstrumentationMetricsARM,
+    create_shader_instrumentation: PFN_vkCreateShaderInstrumentationARM,
+    destroy_shader_instrumentation: PFN_vkDestroyShaderInstrumentationARM,
+    cmd_begin_shader_instrumentation: PFN_vkCmdBeginShaderInstrumentationARM,
+    cmd_end_shader_instrumentation: PFN_vkCmdEndShaderInstrumentationARM,
+    get_shader_instrumentation_values: PFN_vkGetShaderInstrumentationValuesARM,
+    clear_shader_instrumentation_metrics: PFN_vkClearShaderInstrumentationMetricsARM,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -438,22 +438,22 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                create_shader_instrumentation_arm: transmute(
+                create_shader_instrumentation: transmute(
                     load(c"vkCreateShaderInstrumentationARM").ok_or(MissingEntryPointError)?,
                 ),
-                destroy_shader_instrumentation_arm: transmute(
+                destroy_shader_instrumentation: transmute(
                     load(c"vkDestroyShaderInstrumentationARM").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_begin_shader_instrumentation_arm: transmute(
+                cmd_begin_shader_instrumentation: transmute(
                     load(c"vkCmdBeginShaderInstrumentationARM").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_end_shader_instrumentation_arm: transmute(
+                cmd_end_shader_instrumentation: transmute(
                     load(c"vkCmdEndShaderInstrumentationARM").ok_or(MissingEntryPointError)?,
                 ),
-                get_shader_instrumentation_values_arm: transmute(
+                get_shader_instrumentation_values: transmute(
                     load(c"vkGetShaderInstrumentationValuesARM").ok_or(MissingEntryPointError)?,
                 ),
-                clear_shader_instrumentation_metrics_arm: transmute(
+                clear_shader_instrumentation_metrics: transmute(
                     load(c"vkClearShaderInstrumentationMetricsARM")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -465,7 +465,7 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateShaderInstrumentationARM.html>
     #[inline]
-    pub unsafe fn create_shader_instrumentation_arm(
+    pub unsafe fn create_shader_instrumentation(
         &self,
         device: Device,
         create_info: &ShaderInstrumentationCreateInfoARM<'_>,
@@ -473,7 +473,7 @@ impl DeviceFn {
     ) -> crate::Result<ShaderInstrumentationARM> {
         unsafe {
             let mut instrumentation = core::mem::MaybeUninit::uninit();
-            let result = (self.create_shader_instrumentation_arm)(
+            let result = (self.create_shader_instrumentation)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -489,40 +489,36 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyShaderInstrumentationARM.html>
     #[inline]
-    pub unsafe fn destroy_shader_instrumentation_arm(
+    pub unsafe fn destroy_shader_instrumentation(
         &self,
         device: Device,
         instrumentation: ShaderInstrumentationARM,
         allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe {
-            (self.destroy_shader_instrumentation_arm)(
-                device,
-                instrumentation,
-                allocator.to_raw_ptr(),
-            )
+            (self.destroy_shader_instrumentation)(device, instrumentation, allocator.to_raw_ptr())
         }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginShaderInstrumentationARM.html>
     #[inline]
-    pub unsafe fn cmd_begin_shader_instrumentation_arm(
+    pub unsafe fn cmd_begin_shader_instrumentation(
         &self,
         command_buffer: CommandBuffer,
         instrumentation: ShaderInstrumentationARM,
     ) {
-        unsafe { (self.cmd_begin_shader_instrumentation_arm)(command_buffer, instrumentation) }
+        unsafe { (self.cmd_begin_shader_instrumentation)(command_buffer, instrumentation) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdEndShaderInstrumentationARM.html>
     #[inline]
-    pub unsafe fn cmd_end_shader_instrumentation_arm(&self, command_buffer: CommandBuffer) {
-        unsafe { (self.cmd_end_shader_instrumentation_arm)(command_buffer) }
+    pub unsafe fn cmd_end_shader_instrumentation(&self, command_buffer: CommandBuffer) {
+        unsafe { (self.cmd_end_shader_instrumentation)(command_buffer) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetShaderInstrumentationValuesARM.html>
     #[inline]
-    pub unsafe fn get_shader_instrumentation_values_arm(
+    pub unsafe fn get_shader_instrumentation_values(
         &self,
         device: Device,
         instrumentation: ShaderInstrumentationARM,
@@ -531,7 +527,7 @@ impl DeviceFn {
     ) -> crate::Result<u32> {
         unsafe {
             let mut metric_block_count = core::mem::MaybeUninit::uninit();
-            let result = (self.get_shader_instrumentation_values_arm)(
+            let result = (self.get_shader_instrumentation_values)(
                 device,
                 instrumentation,
                 metric_block_count.as_mut_ptr(),
@@ -548,11 +544,11 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkClearShaderInstrumentationMetricsARM.html>
     #[inline]
-    pub unsafe fn clear_shader_instrumentation_metrics_arm(
+    pub unsafe fn clear_shader_instrumentation_metrics(
         &self,
         device: Device,
         instrumentation: ShaderInstrumentationARM,
     ) {
-        unsafe { (self.clear_shader_instrumentation_metrics_arm)(device, instrumentation) }
+        unsafe { (self.clear_shader_instrumentation_metrics)(device, instrumentation) }
     }
 }

@@ -161,7 +161,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_set_compute_occupancy_priority_nv: PFN_vkCmdSetComputeOccupancyPriorityNV,
+    cmd_set_compute_occupancy_priority: PFN_vkCmdSetComputeOccupancyPriorityNV,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -170,7 +170,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_set_compute_occupancy_priority_nv: transmute(
+                cmd_set_compute_occupancy_priority: transmute(
                     load(c"vkCmdSetComputeOccupancyPriorityNV").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -181,11 +181,11 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetComputeOccupancyPriorityNV.html>
     #[inline]
-    pub unsafe fn cmd_set_compute_occupancy_priority_nv(
+    pub unsafe fn cmd_set_compute_occupancy_priority(
         &self,
         command_buffer: CommandBuffer,
         parameters: &ComputeOccupancyPriorityParametersNV<'_>,
     ) {
-        unsafe { (self.cmd_set_compute_occupancy_priority_nv)(command_buffer, parameters) }
+        unsafe { (self.cmd_set_compute_occupancy_priority)(command_buffer, parameters) }
     }
 }

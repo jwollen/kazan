@@ -171,10 +171,10 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_image_view_handle_nvx: PFN_vkGetImageViewHandleNVX,
-    get_image_view_handle64_nvx: PFN_vkGetImageViewHandle64NVX,
-    get_image_view_address_nvx: PFN_vkGetImageViewAddressNVX,
-    get_device_combined_image_sampler_index_nvx: PFN_vkGetDeviceCombinedImageSamplerIndexNVX,
+    get_image_view_handle: PFN_vkGetImageViewHandleNVX,
+    get_image_view_handle64: PFN_vkGetImageViewHandle64NVX,
+    get_image_view_address: PFN_vkGetImageViewAddressNVX,
+    get_device_combined_image_sampler_index: PFN_vkGetDeviceCombinedImageSamplerIndexNVX,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -183,16 +183,16 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_image_view_handle_nvx: transmute(
+                get_image_view_handle: transmute(
                     load(c"vkGetImageViewHandleNVX").ok_or(MissingEntryPointError)?,
                 ),
-                get_image_view_handle64_nvx: transmute(
+                get_image_view_handle64: transmute(
                     load(c"vkGetImageViewHandle64NVX").ok_or(MissingEntryPointError)?,
                 ),
-                get_image_view_address_nvx: transmute(
+                get_image_view_address: transmute(
                     load(c"vkGetImageViewAddressNVX").ok_or(MissingEntryPointError)?,
                 ),
-                get_device_combined_image_sampler_index_nvx: transmute(
+                get_device_combined_image_sampler_index: transmute(
                     load(c"vkGetDeviceCombinedImageSamplerIndexNVX")
                         .ok_or(MissingEntryPointError)?,
                 ),
@@ -204,34 +204,34 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageViewHandleNVX.html>
     #[inline]
-    pub unsafe fn get_image_view_handle_nvx(
+    pub unsafe fn get_image_view_handle(
         &self,
         device: Device,
         info: &ImageViewHandleInfoNVX<'_>,
     ) -> u32 {
-        unsafe { (self.get_image_view_handle_nvx)(device, info) }
+        unsafe { (self.get_image_view_handle)(device, info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageViewHandle64NVX.html>
     #[inline]
-    pub unsafe fn get_image_view_handle64_nvx(
+    pub unsafe fn get_image_view_handle64(
         &self,
         device: Device,
         info: &ImageViewHandleInfoNVX<'_>,
     ) -> u64 {
-        unsafe { (self.get_image_view_handle64_nvx)(device, info) }
+        unsafe { (self.get_image_view_handle64)(device, info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageViewAddressNVX.html>
     #[inline]
-    pub unsafe fn get_image_view_address_nvx(
+    pub unsafe fn get_image_view_address(
         &self,
         device: Device,
         image_view: ImageView,
         properties: &mut ImageViewAddressPropertiesNVX<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.get_image_view_address_nvx)(device, image_view, properties);
+            let result = (self.get_image_view_address)(device, image_view, properties);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -242,18 +242,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceCombinedImageSamplerIndexNVX.html>
     #[inline]
-    pub unsafe fn get_device_combined_image_sampler_index_nvx(
+    pub unsafe fn get_device_combined_image_sampler_index(
         &self,
         device: Device,
         image_view_index: u64,
         sampler_index: u64,
     ) -> u64 {
         unsafe {
-            (self.get_device_combined_image_sampler_index_nvx)(
-                device,
-                image_view_index,
-                sampler_index,
-            )
+            (self.get_device_combined_image_sampler_index)(device, image_view_index, sampler_index)
         }
     }
 }

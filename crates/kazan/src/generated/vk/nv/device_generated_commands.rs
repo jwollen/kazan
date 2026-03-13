@@ -1248,12 +1248,12 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    get_generated_commands_memory_requirements_nv: PFN_vkGetGeneratedCommandsMemoryRequirementsNV,
-    cmd_preprocess_generated_commands_nv: PFN_vkCmdPreprocessGeneratedCommandsNV,
-    cmd_execute_generated_commands_nv: PFN_vkCmdExecuteGeneratedCommandsNV,
-    cmd_bind_pipeline_shader_group_nv: PFN_vkCmdBindPipelineShaderGroupNV,
-    create_indirect_commands_layout_nv: PFN_vkCreateIndirectCommandsLayoutNV,
-    destroy_indirect_commands_layout_nv: PFN_vkDestroyIndirectCommandsLayoutNV,
+    get_generated_commands_memory_requirements: PFN_vkGetGeneratedCommandsMemoryRequirementsNV,
+    cmd_preprocess_generated_commands: PFN_vkCmdPreprocessGeneratedCommandsNV,
+    cmd_execute_generated_commands: PFN_vkCmdExecuteGeneratedCommandsNV,
+    cmd_bind_pipeline_shader_group: PFN_vkCmdBindPipelineShaderGroupNV,
+    create_indirect_commands_layout: PFN_vkCreateIndirectCommandsLayoutNV,
+    destroy_indirect_commands_layout: PFN_vkDestroyIndirectCommandsLayoutNV,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -1262,23 +1262,23 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                get_generated_commands_memory_requirements_nv: transmute(
+                get_generated_commands_memory_requirements: transmute(
                     load(c"vkGetGeneratedCommandsMemoryRequirementsNV")
                         .ok_or(MissingEntryPointError)?,
                 ),
-                cmd_preprocess_generated_commands_nv: transmute(
+                cmd_preprocess_generated_commands: transmute(
                     load(c"vkCmdPreprocessGeneratedCommandsNV").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_execute_generated_commands_nv: transmute(
+                cmd_execute_generated_commands: transmute(
                     load(c"vkCmdExecuteGeneratedCommandsNV").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_bind_pipeline_shader_group_nv: transmute(
+                cmd_bind_pipeline_shader_group: transmute(
                     load(c"vkCmdBindPipelineShaderGroupNV").ok_or(MissingEntryPointError)?,
                 ),
-                create_indirect_commands_layout_nv: transmute(
+                create_indirect_commands_layout: transmute(
                     load(c"vkCreateIndirectCommandsLayoutNV").ok_or(MissingEntryPointError)?,
                 ),
-                destroy_indirect_commands_layout_nv: transmute(
+                destroy_indirect_commands_layout: transmute(
                     load(c"vkDestroyIndirectCommandsLayoutNV").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -1289,39 +1289,37 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetGeneratedCommandsMemoryRequirementsNV.html>
     #[inline]
-    pub unsafe fn get_generated_commands_memory_requirements_nv(
+    pub unsafe fn get_generated_commands_memory_requirements(
         &self,
         device: Device,
         info: &GeneratedCommandsMemoryRequirementsInfoNV<'_>,
         memory_requirements: &mut MemoryRequirements2<'_>,
     ) {
         unsafe {
-            (self.get_generated_commands_memory_requirements_nv)(device, info, memory_requirements)
+            (self.get_generated_commands_memory_requirements)(device, info, memory_requirements)
         }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPreprocessGeneratedCommandsNV.html>
     #[inline]
-    pub unsafe fn cmd_preprocess_generated_commands_nv(
+    pub unsafe fn cmd_preprocess_generated_commands(
         &self,
         command_buffer: CommandBuffer,
         generated_commands_info: &GeneratedCommandsInfoNV<'_>,
     ) {
-        unsafe {
-            (self.cmd_preprocess_generated_commands_nv)(command_buffer, generated_commands_info)
-        }
+        unsafe { (self.cmd_preprocess_generated_commands)(command_buffer, generated_commands_info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdExecuteGeneratedCommandsNV.html>
     #[inline]
-    pub unsafe fn cmd_execute_generated_commands_nv(
+    pub unsafe fn cmd_execute_generated_commands(
         &self,
         command_buffer: CommandBuffer,
         is_preprocessed: bool,
         generated_commands_info: &GeneratedCommandsInfoNV<'_>,
     ) {
         unsafe {
-            (self.cmd_execute_generated_commands_nv)(
+            (self.cmd_execute_generated_commands)(
                 command_buffer,
                 is_preprocessed.into(),
                 generated_commands_info,
@@ -1331,7 +1329,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBindPipelineShaderGroupNV.html>
     #[inline]
-    pub unsafe fn cmd_bind_pipeline_shader_group_nv(
+    pub unsafe fn cmd_bind_pipeline_shader_group(
         &self,
         command_buffer: CommandBuffer,
         pipeline_bind_point: PipelineBindPoint,
@@ -1339,7 +1337,7 @@ impl DeviceFn {
         group_index: u32,
     ) {
         unsafe {
-            (self.cmd_bind_pipeline_shader_group_nv)(
+            (self.cmd_bind_pipeline_shader_group)(
                 command_buffer,
                 pipeline_bind_point,
                 pipeline,
@@ -1350,7 +1348,7 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateIndirectCommandsLayoutNV.html>
     #[inline]
-    pub unsafe fn create_indirect_commands_layout_nv(
+    pub unsafe fn create_indirect_commands_layout(
         &self,
         device: Device,
         create_info: &IndirectCommandsLayoutCreateInfoNV<'_>,
@@ -1358,7 +1356,7 @@ impl DeviceFn {
     ) -> crate::Result<IndirectCommandsLayoutNV> {
         unsafe {
             let mut indirect_commands_layout = core::mem::MaybeUninit::uninit();
-            let result = (self.create_indirect_commands_layout_nv)(
+            let result = (self.create_indirect_commands_layout)(
                 device,
                 create_info,
                 allocator.to_raw_ptr(),
@@ -1374,14 +1372,14 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDestroyIndirectCommandsLayoutNV.html>
     #[inline]
-    pub unsafe fn destroy_indirect_commands_layout_nv(
+    pub unsafe fn destroy_indirect_commands_layout(
         &self,
         device: Device,
         indirect_commands_layout: IndirectCommandsLayoutNV,
         allocator: Option<&AllocationCallbacks<'_>>,
     ) {
         unsafe {
-            (self.destroy_indirect_commands_layout_nv)(
+            (self.destroy_indirect_commands_layout)(
                 device,
                 indirect_commands_layout,
                 allocator.to_raw_ptr(),

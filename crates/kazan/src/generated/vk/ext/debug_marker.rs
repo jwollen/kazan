@@ -261,11 +261,11 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    debug_marker_set_object_tag_ext: PFN_vkDebugMarkerSetObjectTagEXT,
-    debug_marker_set_object_name_ext: PFN_vkDebugMarkerSetObjectNameEXT,
-    cmd_debug_marker_begin_ext: PFN_vkCmdDebugMarkerBeginEXT,
-    cmd_debug_marker_end_ext: PFN_vkCmdDebugMarkerEndEXT,
-    cmd_debug_marker_insert_ext: PFN_vkCmdDebugMarkerInsertEXT,
+    debug_marker_set_object_tag: PFN_vkDebugMarkerSetObjectTagEXT,
+    debug_marker_set_object_name: PFN_vkDebugMarkerSetObjectNameEXT,
+    cmd_debug_marker_begin: PFN_vkCmdDebugMarkerBeginEXT,
+    cmd_debug_marker_end: PFN_vkCmdDebugMarkerEndEXT,
+    cmd_debug_marker_insert: PFN_vkCmdDebugMarkerInsertEXT,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -274,19 +274,19 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                debug_marker_set_object_tag_ext: transmute(
+                debug_marker_set_object_tag: transmute(
                     load(c"vkDebugMarkerSetObjectTagEXT").ok_or(MissingEntryPointError)?,
                 ),
-                debug_marker_set_object_name_ext: transmute(
+                debug_marker_set_object_name: transmute(
                     load(c"vkDebugMarkerSetObjectNameEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_debug_marker_begin_ext: transmute(
+                cmd_debug_marker_begin: transmute(
                     load(c"vkCmdDebugMarkerBeginEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_debug_marker_end_ext: transmute(
+                cmd_debug_marker_end: transmute(
                     load(c"vkCmdDebugMarkerEndEXT").ok_or(MissingEntryPointError)?,
                 ),
-                cmd_debug_marker_insert_ext: transmute(
+                cmd_debug_marker_insert: transmute(
                     load(c"vkCmdDebugMarkerInsertEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -297,13 +297,13 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDebugMarkerSetObjectTagEXT.html>
     #[inline]
-    pub unsafe fn debug_marker_set_object_tag_ext(
+    pub unsafe fn debug_marker_set_object_tag(
         &self,
         device: Device,
         tag_info: &DebugMarkerObjectTagInfoEXT<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.debug_marker_set_object_tag_ext)(device, tag_info);
+            let result = (self.debug_marker_set_object_tag)(device, tag_info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -314,13 +314,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkDebugMarkerSetObjectNameEXT.html>
     #[inline]
-    pub unsafe fn debug_marker_set_object_name_ext(
+    pub unsafe fn debug_marker_set_object_name(
         &self,
         device: Device,
         name_info: &DebugMarkerObjectNameInfoEXT<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.debug_marker_set_object_name_ext)(device, name_info);
+            let result = (self.debug_marker_set_object_name)(device, name_info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -331,27 +331,27 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDebugMarkerBeginEXT.html>
     #[inline]
-    pub unsafe fn cmd_debug_marker_begin_ext(
+    pub unsafe fn cmd_debug_marker_begin(
         &self,
         command_buffer: CommandBuffer,
         marker_info: &DebugMarkerMarkerInfoEXT<'_>,
     ) {
-        unsafe { (self.cmd_debug_marker_begin_ext)(command_buffer, marker_info) }
+        unsafe { (self.cmd_debug_marker_begin)(command_buffer, marker_info) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDebugMarkerEndEXT.html>
     #[inline]
-    pub unsafe fn cmd_debug_marker_end_ext(&self, command_buffer: CommandBuffer) {
-        unsafe { (self.cmd_debug_marker_end_ext)(command_buffer) }
+    pub unsafe fn cmd_debug_marker_end(&self, command_buffer: CommandBuffer) {
+        unsafe { (self.cmd_debug_marker_end)(command_buffer) }
     }
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDebugMarkerInsertEXT.html>
     #[inline]
-    pub unsafe fn cmd_debug_marker_insert_ext(
+    pub unsafe fn cmd_debug_marker_insert(
         &self,
         command_buffer: CommandBuffer,
         marker_info: &DebugMarkerMarkerInfoEXT<'_>,
     ) {
-        unsafe { (self.cmd_debug_marker_insert_ext)(command_buffer, marker_info) }
+        unsafe { (self.cmd_debug_marker_insert)(command_buffer, marker_info) }
     }
 }

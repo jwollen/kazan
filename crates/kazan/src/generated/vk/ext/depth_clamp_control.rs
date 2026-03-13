@@ -207,7 +207,7 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    cmd_set_depth_clamp_range_ext: PFN_vkCmdSetDepthClampRangeEXT,
+    cmd_set_depth_clamp_range: PFN_vkCmdSetDepthClampRangeEXT,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -216,7 +216,7 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                cmd_set_depth_clamp_range_ext: transmute(
+                cmd_set_depth_clamp_range: transmute(
                     load(c"vkCmdSetDepthClampRangeEXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -227,14 +227,14 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDepthClampRangeEXT.html>
     #[inline]
-    pub unsafe fn cmd_set_depth_clamp_range_ext(
+    pub unsafe fn cmd_set_depth_clamp_range(
         &self,
         command_buffer: CommandBuffer,
         depth_clamp_mode: DepthClampModeEXT,
         depth_clamp_range: Option<&DepthClampRangeEXT>,
     ) {
         unsafe {
-            (self.cmd_set_depth_clamp_range_ext)(
+            (self.cmd_set_depth_clamp_range)(
                 command_buffer,
                 depth_clamp_mode,
                 depth_clamp_range.to_raw_ptr(),

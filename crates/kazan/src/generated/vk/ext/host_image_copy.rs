@@ -73,11 +73,11 @@ pub(super) mod ffi {
 }
 
 pub struct DeviceFn {
-    copy_memory_to_image_ext: PFN_vkCopyMemoryToImage,
-    copy_image_to_memory_ext: PFN_vkCopyImageToMemory,
-    copy_image_to_image_ext: PFN_vkCopyImageToImage,
-    transition_image_layout_ext: PFN_vkTransitionImageLayout,
-    get_image_subresource_layout2_ext: PFN_vkGetImageSubresourceLayout2,
+    copy_memory_to_image: PFN_vkCopyMemoryToImage,
+    copy_image_to_memory: PFN_vkCopyImageToMemory,
+    copy_image_to_image: PFN_vkCopyImageToImage,
+    transition_image_layout: PFN_vkTransitionImageLayout,
+    get_image_subresource_layout2: PFN_vkGetImageSubresourceLayout2,
 }
 
 impl LoadDeviceFn for DeviceFn {
@@ -86,19 +86,19 @@ impl LoadDeviceFn for DeviceFn {
     ) -> core::result::Result<Self, MissingEntryPointError> {
         unsafe {
             Ok(Self {
-                copy_memory_to_image_ext: transmute(
+                copy_memory_to_image: transmute(
                     load(c"vkCopyMemoryToImageEXT").ok_or(MissingEntryPointError)?,
                 ),
-                copy_image_to_memory_ext: transmute(
+                copy_image_to_memory: transmute(
                     load(c"vkCopyImageToMemoryEXT").ok_or(MissingEntryPointError)?,
                 ),
-                copy_image_to_image_ext: transmute(
+                copy_image_to_image: transmute(
                     load(c"vkCopyImageToImageEXT").ok_or(MissingEntryPointError)?,
                 ),
-                transition_image_layout_ext: transmute(
+                transition_image_layout: transmute(
                     load(c"vkTransitionImageLayoutEXT").ok_or(MissingEntryPointError)?,
                 ),
-                get_image_subresource_layout2_ext: transmute(
+                get_image_subresource_layout2: transmute(
                     load(c"vkGetImageSubresourceLayout2EXT").ok_or(MissingEntryPointError)?,
                 ),
             })
@@ -109,13 +109,13 @@ impl LoadDeviceFn for DeviceFn {
 impl DeviceFn {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyMemoryToImageEXT.html>
     #[inline]
-    pub unsafe fn copy_memory_to_image_ext(
+    pub unsafe fn copy_memory_to_image(
         &self,
         device: Device,
         copy_memory_to_image_info: &CopyMemoryToImageInfo<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.copy_memory_to_image_ext)(device, copy_memory_to_image_info);
+            let result = (self.copy_memory_to_image)(device, copy_memory_to_image_info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -126,13 +126,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyImageToMemoryEXT.html>
     #[inline]
-    pub unsafe fn copy_image_to_memory_ext(
+    pub unsafe fn copy_image_to_memory(
         &self,
         device: Device,
         copy_image_to_memory_info: &CopyImageToMemoryInfo<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.copy_image_to_memory_ext)(device, copy_image_to_memory_info);
+            let result = (self.copy_image_to_memory)(device, copy_image_to_memory_info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -143,13 +143,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyImageToImageEXT.html>
     #[inline]
-    pub unsafe fn copy_image_to_image_ext(
+    pub unsafe fn copy_image_to_image(
         &self,
         device: Device,
         copy_image_to_image_info: &CopyImageToImageInfo<'_>,
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.copy_image_to_image_ext)(device, copy_image_to_image_info);
+            let result = (self.copy_image_to_image)(device, copy_image_to_image_info);
 
             match result {
                 VkResult::SUCCESS => Ok(()),
@@ -160,13 +160,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkTransitionImageLayoutEXT.html>
     #[inline]
-    pub unsafe fn transition_image_layout_ext(
+    pub unsafe fn transition_image_layout(
         &self,
         device: Device,
         transitions: &[HostImageLayoutTransitionInfo<'_>],
     ) -> crate::Result<()> {
         unsafe {
-            let result = (self.transition_image_layout_ext)(
+            let result = (self.transition_image_layout)(
                 device,
                 transitions.len().try_into().unwrap(),
                 transitions.as_ptr() as _,
@@ -181,13 +181,13 @@ impl DeviceFn {
 
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageSubresourceLayout2EXT.html>
     #[inline]
-    pub unsafe fn get_image_subresource_layout2_ext(
+    pub unsafe fn get_image_subresource_layout2(
         &self,
         device: Device,
         image: Image,
         subresource: &ImageSubresource2<'_>,
         layout: &mut SubresourceLayout2<'_>,
     ) {
-        unsafe { (self.get_image_subresource_layout2_ext)(device, image, subresource, layout) }
+        unsafe { (self.get_image_subresource_layout2)(device, image, subresource, layout) }
     }
 }
