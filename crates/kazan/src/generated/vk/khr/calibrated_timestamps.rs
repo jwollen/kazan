@@ -216,6 +216,7 @@ impl DeviceFn {
     ) -> crate::Result<u64> {
         unsafe {
             let mut max_deviation = core::mem::MaybeUninit::uninit();
+            assert_eq!(timestamps.len(), timestamp_infos.len());
             let result = (self.get_calibrated_timestamps)(
                 device,
                 timestamp_infos.len().try_into().unwrap(),

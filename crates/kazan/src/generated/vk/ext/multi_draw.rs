@@ -239,7 +239,7 @@ impl DeviceFn {
     pub unsafe fn cmd_draw_multi(
         &self,
         command_buffer: CommandBuffer,
-        vertex_info: &[MultiDrawInfoEXT],
+        vertex_info: Option<SliceOrLen<'_, MultiDrawInfoEXT>>,
         instance_count: u32,
         first_instance: u32,
         stride: u32,
@@ -247,8 +247,12 @@ impl DeviceFn {
         unsafe {
             (self.cmd_draw_multi)(
                 command_buffer,
-                vertex_info.len().try_into().unwrap(),
-                vertex_info.as_ptr() as _,
+                vertex_info
+                    .as_ref()
+                    .map_or(0, SliceOrLen::len)
+                    .try_into()
+                    .unwrap(),
+                vertex_info.to_raw_ptr(),
                 instance_count,
                 first_instance,
                 stride,
@@ -261,7 +265,7 @@ impl DeviceFn {
     pub unsafe fn cmd_draw_multi_indexed(
         &self,
         command_buffer: CommandBuffer,
-        index_info: &[MultiDrawIndexedInfoEXT],
+        index_info: Option<SliceOrLen<'_, MultiDrawIndexedInfoEXT>>,
         instance_count: u32,
         first_instance: u32,
         stride: u32,
@@ -270,8 +274,12 @@ impl DeviceFn {
         unsafe {
             (self.cmd_draw_multi_indexed)(
                 command_buffer,
-                index_info.len().try_into().unwrap(),
-                index_info.as_ptr() as _,
+                index_info
+                    .as_ref()
+                    .map_or(0, SliceOrLen::len)
+                    .try_into()
+                    .unwrap(),
+                index_info.to_raw_ptr(),
                 instance_count,
                 first_instance,
                 stride,

@@ -475,6 +475,8 @@ impl DeviceFn {
         sizes: Option<&[DeviceSize]>,
     ) {
         unsafe {
+            assert_eq!(offsets.len(), buffers.len());
+            assert!(sizes.is_none_or(|s| s.len() == buffers.len()));
             (self.cmd_bind_transform_feedback_buffers)(
                 command_buffer,
                 first_binding,
@@ -492,15 +494,23 @@ impl DeviceFn {
         &self,
         command_buffer: CommandBuffer,
         first_counter_buffer: u32,
-        counter_buffers: &[Buffer],
+        counter_buffers: Option<SliceOrLen<'_, Buffer>>,
         counter_buffer_offsets: Option<&[DeviceSize]>,
     ) {
         unsafe {
+            assert!(
+                counter_buffer_offsets
+                    .is_none_or(|s| s.len() == counter_buffers.as_ref().map_or(0, SliceOrLen::len))
+            );
             (self.cmd_begin_transform_feedback)(
                 command_buffer,
                 first_counter_buffer,
-                counter_buffers.len().try_into().unwrap(),
-                counter_buffers.as_ptr() as _,
+                counter_buffers
+                    .as_ref()
+                    .map_or(0, SliceOrLen::len)
+                    .try_into()
+                    .unwrap(),
+                counter_buffers.to_raw_ptr(),
                 counter_buffer_offsets.to_raw_ptr(),
             )
         }
@@ -512,15 +522,23 @@ impl DeviceFn {
         &self,
         command_buffer: CommandBuffer,
         first_counter_buffer: u32,
-        counter_buffers: &[Buffer],
+        counter_buffers: Option<SliceOrLen<'_, Buffer>>,
         counter_buffer_offsets: Option<&[DeviceSize]>,
     ) {
         unsafe {
+            assert!(
+                counter_buffer_offsets
+                    .is_none_or(|s| s.len() == counter_buffers.as_ref().map_or(0, SliceOrLen::len))
+            );
             (self.cmd_end_transform_feedback)(
                 command_buffer,
                 first_counter_buffer,
-                counter_buffers.len().try_into().unwrap(),
-                counter_buffers.as_ptr() as _,
+                counter_buffers
+                    .as_ref()
+                    .map_or(0, SliceOrLen::len)
+                    .try_into()
+                    .unwrap(),
+                counter_buffers.to_raw_ptr(),
                 counter_buffer_offsets.to_raw_ptr(),
             )
         }

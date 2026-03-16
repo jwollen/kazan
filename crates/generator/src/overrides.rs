@@ -86,6 +86,33 @@ pub fn command_type_override(command_name: &str) -> CommandTypeOp {
     }
 }
 
+/// Confirms whether a noautovalidity command array parameter has a nullable pointer.
+///
+/// `noautovalidity` in vk.xml can mean either:
+/// - The pointer itself may be NULL (when count is optional)
+/// - Individual elements may be null handles (pointer always valid)
+///
+/// Since this is ambiguous, each case must be explicitly confirmed here.
+/// Panics on unknown parameters to force review when vk.xml is updated.
+pub fn noautovalidity_pointer_nullable(command_name: &str, param_name: &str) -> bool {
+    match (command_name, param_name) {
+        // Pointer nullable: count is optional, pointer ignored/null when count=0
+        ("vkCmdDrawMultiEXT", "pVertexInfo") => true,
+        ("vkCmdDrawMultiIndexedEXT", "pIndexInfo") => true,
+        ("vkCmdBindTransformFeedbackBuffersEXT", "pSizes") => true,
+        ("vkCmdBeginTransformFeedbackEXT", "pCounterBuffers") => true,
+        ("vkCmdEndTransformFeedbackEXT", "pCounterBuffers") => true,
+        // Element validity only: elements can be VK_NULL_HANDLE, pointer always valid
+        ("vkFreeDescriptorSets", "pDescriptorSets") => false,
+        ("vkFreeCommandBuffers", "pCommandBuffers") => false,
+        _ => panic!(
+            "Unconfirmed noautovalidity array command parameter: \
+             {command_name}::{param_name}. \
+             Add to overrides::noautovalidity_pointer_nullable()."
+        ),
+    }
+}
+
 /// Override which success codes mean "output is valid" for a command.
 ///
 /// By default, only `VK_SUCCESS` maps to `Ok`. Some commands write their output

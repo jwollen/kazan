@@ -899,6 +899,7 @@ impl DeviceFn {
         pipelines: &mut [Pipeline],
     ) -> crate::Result<()> {
         unsafe {
+            assert_eq!(pipelines.len(), create_infos.len());
             let result = (self.create_ray_tracing_pipelines)(
                 device,
                 deferred_operation,

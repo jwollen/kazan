@@ -703,6 +703,7 @@ impl DeviceFn {
         shaders: &mut [ShaderEXT],
     ) -> crate::Result<()> {
         unsafe {
+            assert_eq!(shaders.len(), create_infos.len());
             let result = (self.create_shaders)(
                 device,
                 create_infos.len().try_into().unwrap(),
@@ -767,6 +768,7 @@ impl DeviceFn {
         shaders: Option<&[ShaderEXT]>,
     ) {
         unsafe {
+            assert!(shaders.is_none_or(|s| s.len() == stages.len()));
             (self.cmd_bind_shaders)(
                 command_buffer,
                 stages.len().try_into().unwrap(),
@@ -846,6 +848,9 @@ impl DeviceFn {
         strides: Option<&[DeviceSize]>,
     ) {
         unsafe {
+            assert_eq!(offsets.len(), buffers.len());
+            assert!(sizes.is_none_or(|s| s.len() == buffers.len()));
+            assert!(strides.is_none_or(|s| s.len() == buffers.len()));
             (self.cmd_bind_vertex_buffers2)(
                 command_buffer,
                 first_binding,

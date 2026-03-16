@@ -7235,6 +7235,7 @@ impl DeviceFn {
         dependency_infos: &[DependencyInfo<'_>],
     ) {
         unsafe {
+            assert_eq!(dependency_infos.len(), events.len());
             (self.cmd_wait_events2)(
                 command_buffer,
                 events.len().try_into().unwrap(),
@@ -7350,6 +7351,9 @@ impl DeviceFn {
         strides: Option<&[DeviceSize]>,
     ) {
         unsafe {
+            assert_eq!(offsets.len(), buffers.len());
+            assert!(sizes.is_none_or(|s| s.len() == buffers.len()));
+            assert!(strides.is_none_or(|s| s.len() == buffers.len()));
             (self.cmd_bind_vertex_buffers2)(
                 command_buffer,
                 first_binding,

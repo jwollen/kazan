@@ -2392,6 +2392,7 @@ impl DeviceFn {
         descriptors: &[HostAddressRangeEXT<'_>],
     ) -> crate::Result<()> {
         unsafe {
+            assert_eq!(descriptors.len(), samplers.len());
             let result = (self.write_sampler_descriptors)(
                 device,
                 samplers.len().try_into().unwrap(),
@@ -2415,6 +2416,7 @@ impl DeviceFn {
         descriptors: &[HostAddressRangeEXT<'_>],
     ) -> crate::Result<()> {
         unsafe {
+            assert_eq!(descriptors.len(), resources.len());
             let result = (self.write_resource_descriptors)(
                 device,
                 resources.len().try_into().unwrap(),
@@ -2468,6 +2470,7 @@ impl DeviceFn {
         datas: &mut [HostAddressRangeEXT<'_>],
     ) -> crate::Result<()> {
         unsafe {
+            assert_eq!(datas.len(), images.len());
             let result = (self.get_image_opaque_capture_data)(
                 device,
                 images.len().try_into().unwrap(),
@@ -2521,6 +2524,7 @@ impl DeviceFn {
         datas: &mut [HostAddressRangeEXT<'_>],
     ) -> crate::Result<()> {
         unsafe {
+            assert_eq!(datas.len(), tensors.len());
             let result = (self.get_tensor_opaque_capture_data.unwrap())(
                 device,
                 tensors.len().try_into().unwrap(),

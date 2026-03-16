@@ -231,6 +231,9 @@ impl DeviceFn {
         strides: Option<&[DeviceSize]>,
     ) {
         unsafe {
+            assert_eq!(offsets.len(), buffers.len());
+            assert!(sizes.is_none_or(|s| s.len() == buffers.len()));
+            assert!(strides.is_none_or(|s| s.len() == buffers.len()));
             (self.cmd_bind_vertex_buffers2)(
                 command_buffer,
                 first_binding,

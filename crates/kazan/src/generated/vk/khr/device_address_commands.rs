@@ -1773,7 +1773,7 @@ impl DeviceFn {
         &self,
         command_buffer: CommandBuffer,
         first_binding: u32,
-        binding_infos: Option<&[BindTransformFeedbackBuffer2InfoEXT<'_>]>,
+        binding_infos: SliceOrLen<'_, BindTransformFeedbackBuffer2InfoEXT<'_>>,
     ) {
         unsafe {
             (self.cmd_bind_transform_feedback_buffers2.unwrap())(
@@ -1791,13 +1791,17 @@ impl DeviceFn {
         &self,
         command_buffer: CommandBuffer,
         first_counter_range: u32,
-        counter_infos: Option<&[BindTransformFeedbackBuffer2InfoEXT<'_>]>,
+        counter_infos: Option<SliceOrLen<'_, BindTransformFeedbackBuffer2InfoEXT<'_>>>,
     ) {
         unsafe {
             (self.cmd_begin_transform_feedback2.unwrap())(
                 command_buffer,
                 first_counter_range,
-                counter_infos.len().try_into().unwrap(),
+                counter_infos
+                    .as_ref()
+                    .map_or(0, SliceOrLen::len)
+                    .try_into()
+                    .unwrap(),
                 counter_infos.to_raw_ptr(),
             )
         }
@@ -1809,13 +1813,17 @@ impl DeviceFn {
         &self,
         command_buffer: CommandBuffer,
         first_counter_range: u32,
-        counter_infos: Option<&[BindTransformFeedbackBuffer2InfoEXT<'_>]>,
+        counter_infos: Option<SliceOrLen<'_, BindTransformFeedbackBuffer2InfoEXT<'_>>>,
     ) {
         unsafe {
             (self.cmd_end_transform_feedback2.unwrap())(
                 command_buffer,
                 first_counter_range,
-                counter_infos.len().try_into().unwrap(),
+                counter_infos
+                    .as_ref()
+                    .map_or(0, SliceOrLen::len)
+                    .try_into()
+                    .unwrap(),
                 counter_infos.to_raw_ptr(),
             )
         }

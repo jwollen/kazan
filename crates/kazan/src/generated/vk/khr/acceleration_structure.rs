@@ -2391,6 +2391,7 @@ impl DeviceFn {
         build_range_infos: &[*const AccelerationStructureBuildRangeInfoKHR],
     ) {
         unsafe {
+            assert_eq!(build_range_infos.len(), infos.len());
             (self.cmd_build_acceleration_structures)(
                 command_buffer,
                 infos.len().try_into().unwrap(),
@@ -2411,6 +2412,9 @@ impl DeviceFn {
         max_primitive_counts: &[*const u32],
     ) {
         unsafe {
+            assert_eq!(indirect_device_addresses.len(), infos.len());
+            assert_eq!(indirect_strides.len(), infos.len());
+            assert_eq!(max_primitive_counts.len(), infos.len());
             (self.cmd_build_acceleration_structures_indirect)(
                 command_buffer,
                 infos.len().try_into().unwrap(),
@@ -2432,6 +2436,7 @@ impl DeviceFn {
         build_range_infos: &[*const AccelerationStructureBuildRangeInfoKHR],
     ) -> crate::Result<()> {
         unsafe {
+            assert_eq!(build_range_infos.len(), infos.len());
             let result = (self.build_acceleration_structures)(
                 device,
                 deferred_operation,

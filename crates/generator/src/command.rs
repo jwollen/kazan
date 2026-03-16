@@ -41,6 +41,9 @@ struct WrapperCommandInfo<'a> {
     // Original signature
     params: Vec<ParamInfo<'a>>,
     is_fallible: bool,
+
+    // Length group analysis for array params
+    length_groups: Vec<LengthGroup>,
 }
 
 /// Info for the two-call enumeration pattern (vkEnumerate* / vkGet*).
@@ -71,9 +74,32 @@ struct ParamInfo<'a> {
     len: Option<LengthKind<'a>>,
     /// (caller_may_pass_null, output_length_may_be_zero) — from the XML `optional` attribute.
     optional: (bool, bool),
+    /// Effective pointer nullability (from optional or confirmed noautovalidity).
+    nullable: bool,
+    /// How this array parameter should be represented (only meaningful for array params).
+    array_param_kind: ArrayParamKind,
     is_output_param: bool,
     is_return_param: bool,
     is_output_opaque_param: bool,
+}
+
+/// How a nullable array parameter should be represented in the wrapper signature.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub(crate) enum ArrayParamKind {
+    /// Regular slice (required `&[T]` or optional `Option<&[T]>`).
+    Standard,
+    /// `SliceOrLen<'a, T>` — length meaningful even without data.
+    SliceOrLen,
+    /// `Option<SliceOrLen<'a, T>>` — None maps to count=0, ptr=null.
+    OptionSliceOrLen,
+}
+
+/// A group of array parameters sharing the same length/count parameter.
+struct LengthGroup {
+    count_param_index: usize,
+    count_optional: bool,
+    /// (param_index, nullable) for each array in the group.
+    arrays: Vec<(usize, bool)>,
 }
 
 /// Describes how to emit a single argument in the generated FFI call.
@@ -83,8 +109,16 @@ enum ArgEmitKind {
     Direct,
     /// Emit length from a slice param: `{slice_name}.len().try_into().unwrap()`
     LenFromSlice { slice_param_name: String },
+    /// Length param for a SliceOrLen array: emit `.len()`
+    LenFromSliceOrLen {
+        slice_or_len_param_name: String,
+        /// True when wrapper param is `Option<SliceOrLen<T>>`.
+        option_wrapped: bool,
+    },
     /// Slice/array param: `.as_ptr() as _` / `.as_mut_ptr() as _`, or optional `.to_raw_ptr()` / `.to_raw_mut_ptr()`
     SliceAsPtr { is_const: bool, optional: bool },
+    /// Array param typed as `SliceOrLen`: emit `.to_raw_ptr()`
+    SliceOrLenAsPtr,
     /// Return (output) param: `{name}.as_mut_ptr()`
     ReturnParamAsMutPtr,
     /// Optional pointer: `.to_raw_ptr()` / `.to_raw_mut_ptr()`
@@ -550,43 +584,147 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
         }
     }
 
-    for (param_index, param) in command.params.iter().enumerate() {
-        let name = normalize_param_name(param.c_decl.name);
+    // First pass: compute optional, nullable, classification for each param.
+    struct FirstPassInfo {
+        name: String,
+        optional: (bool, bool),
+        nullable: bool,
+        classification: ParamClassification,
+        is_enumeration_array: bool,
+    }
+    let first_pass: Vec<_> = command
+        .params
+        .iter()
+        .enumerate()
+        .map(|(param_index, param)| {
+            let name = normalize_param_name(param.c_decl.name);
+            let optional: (bool, bool) = (
+                param
+                    .optional
+                    .first()
+                    .and_then(|s| s.parse().ok())
+                    .unwrap_or_default(),
+                param
+                    .optional
+                    .get(1)
+                    .and_then(|s| s.parse().ok())
+                    .unwrap_or_default(),
+            );
 
-        let optional: (bool, bool) = (
-            param
-                .optional
-                .first()
-                .and_then(|s| s.parse().ok())
-                .unwrap_or_default(),
-            param
-                .optional
-                .get(1)
-                .and_then(|s| s.parse().ok())
-                .unwrap_or_default(),
-        );
+            // Compute effective nullability for array pointer params.
+            let nullable = if param.len.is_some() && matches!(&param.c_decl.ty, CType::Ptr { .. }) {
+                if optional.0 {
+                    true
+                } else if param.noautovalidity {
+                    overrides::noautovalidity_pointer_nullable(command.name, param.c_decl.name)
+                } else {
+                    false
+                }
+            } else {
+                optional.0
+            };
+
+            let classification = classify_param(
+                analysis,
+                param,
+                param_index,
+                &len_kinds,
+                &enumeration_info,
+                has_regular_return,
+            );
+
+            let is_enumeration_array = if let Some(enumeration_info) = &enumeration_info {
+                enumeration_info.array_param_indices.contains(&param_index)
+            } else {
+                false
+            };
+
+            FirstPassInfo {
+                name,
+                optional,
+                nullable,
+                classification,
+                is_enumeration_array,
+            }
+        })
+        .collect();
+
+    // Build length groups: group array params by their shared count param.
+    let mut length_groups: Vec<LengthGroup> = Vec::new();
+    for param_index in 0..command.params.len() {
+        if let Some(LengthKind::Param {
+            index: count_index, ..
+        }) = &len_kinds[param_index]
+        {
+            // Only consider input array params (not output/enumeration).
+            if first_pass[param_index].classification.is_output_param
+                || first_pass[param_index].classification.is_return_param
+                || first_pass[param_index].is_enumeration_array
+            {
+                continue;
+            }
+            if let Some(group) = length_groups
+                .iter_mut()
+                .find(|g| g.count_param_index == *count_index)
+            {
+                group
+                    .arrays
+                    .push((param_index, first_pass[param_index].nullable));
+            } else {
+                let count_optional: bool = command.params[*count_index]
+                    .optional
+                    .first()
+                    .and_then(|s| s.parse().ok())
+                    .unwrap_or_default();
+                length_groups.push(LengthGroup {
+                    count_param_index: *count_index,
+                    count_optional,
+                    arrays: vec![(param_index, first_pass[param_index].nullable)],
+                });
+            }
+        }
+    }
+
+    // Classify each array param kind based on its length group.
+    let mut array_param_kinds: Vec<ArrayParamKind> =
+        vec![ArrayParamKind::Standard; command.params.len()];
+    for group in &length_groups {
+        let has_required = group.arrays.iter().any(|(_, nullable)| !nullable);
+        let has_nullable = group.arrays.iter().any(|(_, nullable)| *nullable);
+        let all_nullable = !has_required;
+
+        if !has_nullable {
+            // Case A: all required — no change needed.
+            continue;
+        }
+
+        if !all_nullable {
+            // Case B: mixed required/nullable — nullable arrays stay as Option<&[T]> (Standard).
+            continue;
+        }
+
+        // All arrays nullable. Pick the first as the "primary" SliceOrLen array.
+        let (primary_index, _) = group.arrays[0];
+        if group.count_optional {
+            // Case D/F: count optional → Option<SliceOrLen<T>>
+            array_param_kinds[primary_index] = ArrayParamKind::OptionSliceOrLen;
+        } else {
+            // Case C/E: count required → SliceOrLen<T>
+            array_param_kinds[primary_index] = ArrayParamKind::SliceOrLen;
+        }
+        // Remaining nullable arrays in the group stay as Option<&[T]> (Standard).
+    }
+
+    // Second pass: build wrapper params and param infos.
+    for (param_index, param) in command.params.iter().enumerate() {
+        let fp = &first_pass[param_index];
 
         let is_implicit_length = len_kinds.iter().any(
             |len| matches!(len, Some(LengthKind::Param { index, .. }) if *index == param_index),
         );
 
-        let classification = classify_param(
-            analysis,
-            param,
-            param_index,
-            &len_kinds,
-            &enumeration_info,
-            has_regular_return,
-        );
-
-        let is_enumeration_array = if let Some(enumeration_info) = &enumeration_info {
-            enumeration_info.array_param_indices.contains(&param_index)
-        } else {
-            false
-        };
-
         if !is_implicit_length {
-            if classification.is_return_param {
+            if fp.classification.is_return_param {
                 return_params.push(param_index);
             } else {
                 let name = normalize_param_name(param.c_decl.name);
@@ -594,28 +732,32 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
                     analysis,
                     &param.c_decl.ty,
                     len_kinds[param_index].as_ref(),
-                    optional,
+                    fp.optional,
+                    fp.nullable,
                     lifetime_param,
-                    classification.is_output_param || classification.is_output_opaque_param,
+                    fp.classification.is_output_param || fp.classification.is_output_opaque_param,
+                    array_param_kinds[param_index],
                 );
 
                 wrapper_params.push(WrapperParamInfo {
                     name: name.clone(),
                     param_index,
                     ty,
-                    is_enumeration_array,
+                    is_enumeration_array: fp.is_enumeration_array,
                 });
             }
         }
 
         params.push(ParamInfo {
-            name,
+            name: fp.name.clone(),
             param,
             len: len_kinds[param_index].clone(),
-            optional,
-            is_output_param: classification.is_output_param,
-            is_return_param: classification.is_return_param,
-            is_output_opaque_param: classification.is_output_opaque_param,
+            optional: fp.optional,
+            nullable: fp.nullable,
+            array_param_kind: array_param_kinds[param_index],
+            is_output_param: fp.classification.is_output_param,
+            is_return_param: fp.classification.is_return_param,
+            is_output_opaque_param: fp.classification.is_output_opaque_param,
         });
     }
 
@@ -637,17 +779,21 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Wrappe
         params,
         is_fallible,
         lifetime_param,
+        length_groups,
     }
 }
 
 /// Convert a C parameter type into the Rust type string used in the safe wrapper signature.
+#[allow(clippy::too_many_arguments)]
 pub fn convert_param_type(
     analysis: &Analysis,
     ty: &CType,
     len: Option<&LengthKind<'_>>,
     optional: (bool, bool),
+    nullable: bool,
     lifetime_param: Option<&str>,
     is_output_param: bool,
+    array_param_kind: ArrayParamKind,
 ) -> String {
     use ctype_rust::CTypeCategory;
 
@@ -661,7 +807,7 @@ pub fn convert_param_type(
         match category {
             CTypeCategory::CharPointer { is_const } => {
                 let s = if is_const { "&CStr" } else { "&mut CStr" };
-                let s = if optional.0 {
+                let s = if nullable {
                     format!("Option<{s}>")
                 } else {
                     s.to_string()
@@ -679,7 +825,7 @@ pub fn convert_param_type(
                     return "impl ExtendUninit<u8>".to_string();
                 }
                 let s = if is_const { "&[u8]" } else { "&mut [u8]" };
-                let s = if optional.0 {
+                let s = if nullable {
                     format!("Option<{s}>")
                 } else {
                     s.to_string()
@@ -695,7 +841,7 @@ pub fn convert_param_type(
                 } else {
                     "&mut [*mut c_char]"
                 };
-                let s = if optional.0 {
+                let s = if nullable {
                     format!("Option<{s}>")
                 } else {
                     s.to_string()
@@ -713,11 +859,7 @@ pub fn convert_param_type(
                 } else {
                     format!("&mut [*mut {inner}]")
                 };
-                let s = if optional.0 {
-                    format!("Option<{s}>")
-                } else {
-                    s
-                };
+                let s = if nullable { format!("Option<{s}>") } else { s };
                 return s;
             }
             CTypeCategory::TypedPointer { is_const, pointee } => {
@@ -727,6 +869,24 @@ pub fn convert_param_type(
                 } else {
                     element_ty
                 };
+
+                // SliceOrLen variants for nullable array params with meaningful count.
+                match array_param_kind {
+                    ArrayParamKind::SliceOrLen => {
+                        let lt = lifetime_param
+                            .map(|l| format!("'{l}"))
+                            .unwrap_or_else(|| "'_".to_string());
+                        return format!("SliceOrLen<{lt}, {element_ty}>");
+                    }
+                    ArrayParamKind::OptionSliceOrLen => {
+                        let lt = lifetime_param
+                            .map(|l| format!("'{l}"))
+                            .unwrap_or_else(|| "'_".to_string());
+                        return format!("Option<SliceOrLen<{lt}, {element_ty}>>");
+                    }
+                    ArrayParamKind::Standard => {}
+                }
+
                 let slice_ty = if is_const {
                     format!("&[{element_ty}]")
                 } else {
@@ -736,7 +896,7 @@ pub fn convert_param_type(
                     }
                     format!("&mut [{element_ty}]")
                 };
-                let s = if optional.0 {
+                let s = if nullable {
                     format!("Option<{slice_ty}>")
                 } else {
                     slice_ty
@@ -1050,9 +1210,25 @@ fn arg_emit_kind(
             return ArgEmitKind::Direct; // length param that is a pointer: pass through (e.g. two-call pattern)
         }
         if let Some(array_param) = array_param_for_len {
-            return ArgEmitKind::LenFromSlice {
-                slice_param_name: array_param.name.clone(),
-            };
+            match array_param.array_param_kind {
+                ArrayParamKind::SliceOrLen => {
+                    return ArgEmitKind::LenFromSliceOrLen {
+                        slice_or_len_param_name: array_param.name.clone(),
+                        option_wrapped: false,
+                    };
+                }
+                ArrayParamKind::OptionSliceOrLen => {
+                    return ArgEmitKind::LenFromSliceOrLen {
+                        slice_or_len_param_name: array_param.name.clone(),
+                        option_wrapped: true,
+                    };
+                }
+                ArrayParamKind::Standard => {
+                    return ArgEmitKind::LenFromSlice {
+                        slice_param_name: array_param.name.clone(),
+                    };
+                }
+            }
         }
     }
 
@@ -1065,6 +1241,14 @@ fn arg_emit_kind(
     if let Some(len) = &param.len
         && !matches!(len, LengthKind::Literal(1))
     {
+        // SliceOrLen array params
+        match param.array_param_kind {
+            ArrayParamKind::SliceOrLen | ArrayParamKind::OptionSliceOrLen => {
+                return ArgEmitKind::SliceOrLenAsPtr;
+            }
+            ArrayParamKind::Standard => {}
+        }
+
         let is_const = match category {
             ctype_rust::CTypeCategory::TypedPointer { is_const, .. }
             | ctype_rust::CTypeCategory::CharPointer { is_const }
@@ -1073,7 +1257,7 @@ fn arg_emit_kind(
         };
         return ArgEmitKind::SliceAsPtr {
             is_const,
-            optional: param.optional.0,
+            optional: param.nullable,
         };
     }
 
@@ -1113,6 +1297,22 @@ fn emit_arg(file: &mut impl std::io::Write, param_name: &str, kind: ArgEmitKind)
         ArgEmitKind::LenFromSlice { slice_param_name } => {
             writeln!(file, "{slice_param_name}.len().try_into().unwrap(),")?;
         }
+        ArgEmitKind::LenFromSliceOrLen {
+            slice_or_len_param_name,
+            option_wrapped,
+        } => {
+            if option_wrapped {
+                writeln!(
+                    file,
+                    "{slice_or_len_param_name}.as_ref().map_or(0, SliceOrLen::len).try_into().unwrap(),"
+                )?;
+            } else {
+                writeln!(file, "{slice_or_len_param_name}.len().try_into().unwrap(),")?;
+            }
+        }
+        ArgEmitKind::SliceOrLenAsPtr => {
+            writeln!(file, "{param_name}.to_raw_ptr(),")?;
+        }
         ArgEmitKind::SliceAsPtr { is_const, optional } => {
             if optional {
                 if is_const {
@@ -1146,6 +1346,66 @@ fn emit_arg(file: &mut impl std::io::Write, param_name: &str, kind: ArgEmitKind)
     Ok(())
 }
 
+/// Emit assert! statements for multi-array length groups.
+fn write_length_assertions(
+    file: &mut impl std::io::Write,
+    wrapper: &WrapperCommandInfo,
+) -> Result<()> {
+    for group in &wrapper.length_groups {
+        if group.arrays.len() < 2 {
+            continue;
+        }
+
+        // Find the "primary" array — first required, or first SliceOrLen, or first in list.
+        let primary_index = group
+            .arrays
+            .iter()
+            .find(|(_, nullable)| !nullable)
+            .or_else(|| {
+                group.arrays.iter().find(|(idx, _)| {
+                    matches!(
+                        wrapper.params[*idx].array_param_kind,
+                        ArrayParamKind::SliceOrLen | ArrayParamKind::OptionSliceOrLen
+                    )
+                })
+            })
+            .map(|(idx, _)| *idx)
+            .unwrap_or(group.arrays[0].0);
+
+        let primary_name = &wrapper.params[primary_index].name;
+        let primary_nullable = wrapper.params[primary_index].nullable;
+        let primary_kind = wrapper.params[primary_index].array_param_kind;
+
+        // Build the expression for the primary array's length.
+        let primary_len_expr = match primary_kind {
+            ArrayParamKind::SliceOrLen => format!("{primary_name}.len()"),
+            ArrayParamKind::OptionSliceOrLen => {
+                format!("{primary_name}.as_ref().map_or(0, SliceOrLen::len)")
+            }
+            ArrayParamKind::Standard if primary_nullable => {
+                format!("{primary_name}.map_or(0, |s| s.len())")
+            }
+            ArrayParamKind::Standard => format!("{primary_name}.len()"),
+        };
+
+        for &(arr_index, arr_nullable) in &group.arrays {
+            if arr_index == primary_index {
+                continue;
+            }
+            let arr_name = &wrapper.params[arr_index].name;
+            if arr_nullable {
+                writeln!(
+                    file,
+                    "assert!({arr_name}.is_none_or(|s| s.len() == {primary_len_expr}));"
+                )?;
+            } else {
+                writeln!(file, "assert_eq!({arr_name}.len(), {primary_len_expr});")?;
+            }
+        }
+    }
+    Ok(())
+}
+
 fn write_fn_body(
     file: &mut impl std::io::Write,
     analysis: &Analysis,
@@ -1163,6 +1423,9 @@ fn write_fn_body(
             )?;
         }
     }
+
+    // Emit length assertions for multi-array groups before the FFI call.
+    write_length_assertions(file, wrapper)?;
 
     if wrapper.is_fallible {
         writeln!(file, "let result = ")?;

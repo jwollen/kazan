@@ -151,6 +151,58 @@ impl<T> RawMutPtr<T> for Option<&mut [T]> {
     }
 }
 
+/// An array parameter where the length is meaningful even without data.
+///
+/// Some Vulkan commands accept a count with a NULL pointer, meaning
+/// "N entries with default/null values." This enum lets callers express both:
+///
+/// ```ignore
+/// // "Bind 4 slots using default values"
+/// cmd(SliceOrLen::Len(4));
+/// // "Bind these specific entries"
+/// cmd(SliceOrLen::Slice(&entries));
+/// ```
+pub enum SliceOrLen<'a, T> {
+    /// A slice of values; the length is derived from the slice length.
+    Slice(&'a [T]),
+    /// Just a length with no data (NULL pointer — N default/null values).
+    Len(usize),
+}
+
+impl<T> SliceOrLen<'_, T> {
+    pub fn len(&self) -> usize {
+        match self {
+            SliceOrLen::Slice(s) => s.len(),
+            SliceOrLen::Len(n) => *n,
+        }
+    }
+
+    pub fn is_empty(&self) -> bool {
+        match self {
+            SliceOrLen::Slice(s) => s.is_empty(),
+            SliceOrLen::Len(n) => *n == 0,
+        }
+    }
+}
+
+impl<T> RawPtr<T> for SliceOrLen<'_, T> {
+    fn to_raw_ptr(self) -> *const T {
+        match self {
+            SliceOrLen::Slice(s) => s.as_ptr(),
+            SliceOrLen::Len(_) => ptr::null(),
+        }
+    }
+}
+
+impl<T> RawPtr<T> for Option<SliceOrLen<'_, T>> {
+    fn to_raw_ptr(self) -> *const T {
+        match self {
+            Some(soc) => soc.to_raw_ptr(),
+            None => ptr::null(),
+        }
+    }
+}
+
 pub trait Handle: Sized + Copy {
     const TYPE: vk::ObjectType;
     fn to_raw(self) -> u64;

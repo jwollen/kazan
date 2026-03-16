@@ -24238,6 +24238,7 @@ impl DeviceFn {
         pipelines: &mut [Pipeline],
     ) -> crate::Result<()> {
         unsafe {
+            assert_eq!(pipelines.len(), create_infos.len());
             let result = (self.create_compute_pipelines)(
                 device,
                 pipeline_cache,
@@ -24658,6 +24659,7 @@ impl DeviceFn {
         pipelines: &mut [Pipeline],
     ) -> crate::Result<()> {
         unsafe {
+            assert_eq!(pipelines.len(), create_infos.len());
             let result = (self.create_graphics_pipelines)(
                 device,
                 pipeline_cache,
@@ -24895,6 +24897,7 @@ impl DeviceFn {
         offsets: &[DeviceSize],
     ) {
         unsafe {
+            assert_eq!(offsets.len(), buffers.len());
             (self.cmd_bind_vertex_buffers)(
                 command_buffer,
                 first_binding,

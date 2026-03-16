@@ -133,6 +133,7 @@ impl DeviceFn {
         swapchains: &mut [SwapchainKHR],
     ) -> crate::Result<()> {
         unsafe {
+            assert_eq!(swapchains.len(), create_infos.len());
             let result = (self.create_shared_swapchains)(
                 device,
                 create_infos.len().try_into().unwrap(),

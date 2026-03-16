@@ -202,6 +202,7 @@ impl DeviceFn {
         metadata: &[HdrMetadataEXT<'_>],
     ) {
         unsafe {
+            assert_eq!(metadata.len(), swapchains.len());
             (self.set_hdr_metadata)(
                 device,
                 swapchains.len().try_into().unwrap(),

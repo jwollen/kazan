@@ -133,6 +133,7 @@ impl DeviceFn {
         dependency_infos: &[DependencyInfo<'_>],
     ) {
         unsafe {
+            assert_eq!(dependency_infos.len(), events.len());
             (self.cmd_wait_events2)(
                 command_buffer,
                 events.len().try_into().unwrap(),

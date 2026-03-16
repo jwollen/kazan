@@ -1624,6 +1624,7 @@ impl DeviceFn {
         offsets: &[DeviceSize],
     ) {
         unsafe {
+            assert_eq!(offsets.len(), buffer_indices.len());
             (self.cmd_set_descriptor_buffer_offsets)(
                 command_buffer,
                 pipeline_bind_point,
