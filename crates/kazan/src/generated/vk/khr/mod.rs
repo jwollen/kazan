@@ -15,6 +15,7 @@ pub mod deferred_host_operations;
 pub mod depth_clamp_zero_one;
 pub mod depth_stencil_resolve;
 pub mod descriptor_update_template;
+pub mod device_address_commands;
 pub mod device_group;
 pub mod device_group_creation;
 pub mod display;
@@ -158,6 +159,7 @@ pub(super) mod defs {
     pub use depth_clamp_zero_one::defs::*;
     pub use depth_stencil_resolve::defs::*;
     pub use descriptor_update_template::defs::*;
+    pub use device_address_commands::defs::*;
     pub use device_group::defs::*;
     pub use device_group_creation::defs::*;
     pub use display::defs::*;
@@ -294,6 +296,7 @@ pub(super) mod ffi {
     pub use super::depth_clamp_zero_one::ffi::*;
     pub use super::depth_stencil_resolve::ffi::*;
     pub use super::descriptor_update_template::ffi::*;
+    pub use super::device_address_commands::ffi::*;
     pub use super::device_group::ffi::*;
     pub use super::device_group_creation::ffi::*;
     pub use super::display::ffi::*;

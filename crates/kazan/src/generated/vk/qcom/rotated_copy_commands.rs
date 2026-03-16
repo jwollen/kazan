@@ -43,6 +43,7 @@ pub(super) mod defs {
 
     unsafe impl Extends<BufferImageCopy2<'_>> for CopyCommandTransformInfoQCOM<'_> {}
     unsafe impl Extends<ImageBlit2<'_>> for CopyCommandTransformInfoQCOM<'_> {}
+    unsafe impl Extends<DeviceMemoryImageCopyKHR<'_>> for CopyCommandTransformInfoQCOM<'_> {}
 
     impl Default for CopyCommandTransformInfoQCOM<'_> {
         fn default() -> Self {

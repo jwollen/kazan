@@ -11408,6 +11408,24 @@ pub(super) mod defs {
         pub const DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO_KHR: Self =
             Self::DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO;
 
+        // VK_KHR_device_address_commands
+        pub const DEVICE_MEMORY_COPY_KHR: Self = Self(1000318000);
+        pub const COPY_DEVICE_MEMORY_INFO_KHR: Self = Self(1000318001);
+        pub const DEVICE_MEMORY_IMAGE_COPY_KHR: Self = Self(1000318002);
+        pub const COPY_DEVICE_MEMORY_IMAGE_INFO_KHR: Self = Self(1000318003);
+        pub const MEMORY_RANGE_BARRIERS_INFO_KHR: Self = Self(1000318004);
+        pub const MEMORY_RANGE_BARRIER_KHR: Self = Self(1000318005);
+        pub const PHYSICAL_DEVICE_DEVICE_ADDRESS_COMMANDS_FEATURES_KHR: Self = Self(1000318006);
+        pub const BIND_INDEX_BUFFER_3_INFO_KHR: Self = Self(1000318007);
+        pub const BIND_VERTEX_BUFFER_3_INFO_KHR: Self = Self(1000318008);
+        pub const DRAW_INDIRECT_2_INFO_KHR: Self = Self(1000318009);
+        pub const DRAW_INDIRECT_COUNT_2_INFO_KHR: Self = Self(1000318010);
+        pub const DISPATCH_INDIRECT_2_INFO_KHR: Self = Self(1000318011);
+        pub const CONDITIONAL_RENDERING_BEGIN_INFO_2_EXT: Self = Self(1000318012);
+        pub const BIND_TRANSFORM_FEEDBACK_BUFFER_2_INFO_EXT: Self = Self(1000318013);
+        pub const MEMORY_MARKER_INFO_AMD: Self = Self(1000318014);
+        pub const ACCELERATION_STRUCTURE_CREATE_INFO_2_KHR: Self = Self(1000318015);
+
         // VK_KHR_device_group
         pub const DEVICE_GROUP_PRESENT_CAPABILITIES_KHR: Self = Self(1000060007);
         pub const IMAGE_SWAPCHAIN_CREATE_INFO_KHR: Self = Self(1000060008);
@@ -13996,6 +14014,32 @@ pub(super) mod defs {
                 }
                 Self::PHYSICAL_DEVICE_DEPTH_CLAMP_ZERO_ONE_FEATURES_KHR => {
                     Some("PHYSICAL_DEVICE_DEPTH_CLAMP_ZERO_ONE_FEATURES_KHR")
+                }
+                Self::DEVICE_MEMORY_COPY_KHR => Some("DEVICE_MEMORY_COPY_KHR"),
+                Self::COPY_DEVICE_MEMORY_INFO_KHR => Some("COPY_DEVICE_MEMORY_INFO_KHR"),
+                Self::DEVICE_MEMORY_IMAGE_COPY_KHR => Some("DEVICE_MEMORY_IMAGE_COPY_KHR"),
+                Self::COPY_DEVICE_MEMORY_IMAGE_INFO_KHR => {
+                    Some("COPY_DEVICE_MEMORY_IMAGE_INFO_KHR")
+                }
+                Self::MEMORY_RANGE_BARRIERS_INFO_KHR => Some("MEMORY_RANGE_BARRIERS_INFO_KHR"),
+                Self::MEMORY_RANGE_BARRIER_KHR => Some("MEMORY_RANGE_BARRIER_KHR"),
+                Self::PHYSICAL_DEVICE_DEVICE_ADDRESS_COMMANDS_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_DEVICE_ADDRESS_COMMANDS_FEATURES_KHR")
+                }
+                Self::BIND_INDEX_BUFFER_3_INFO_KHR => Some("BIND_INDEX_BUFFER_3_INFO_KHR"),
+                Self::BIND_VERTEX_BUFFER_3_INFO_KHR => Some("BIND_VERTEX_BUFFER_3_INFO_KHR"),
+                Self::DRAW_INDIRECT_2_INFO_KHR => Some("DRAW_INDIRECT_2_INFO_KHR"),
+                Self::DRAW_INDIRECT_COUNT_2_INFO_KHR => Some("DRAW_INDIRECT_COUNT_2_INFO_KHR"),
+                Self::DISPATCH_INDIRECT_2_INFO_KHR => Some("DISPATCH_INDIRECT_2_INFO_KHR"),
+                Self::CONDITIONAL_RENDERING_BEGIN_INFO_2_EXT => {
+                    Some("CONDITIONAL_RENDERING_BEGIN_INFO_2_EXT")
+                }
+                Self::BIND_TRANSFORM_FEEDBACK_BUFFER_2_INFO_EXT => {
+                    Some("BIND_TRANSFORM_FEEDBACK_BUFFER_2_INFO_EXT")
+                }
+                Self::MEMORY_MARKER_INFO_AMD => Some("MEMORY_MARKER_INFO_AMD"),
+                Self::ACCELERATION_STRUCTURE_CREATE_INFO_2_KHR => {
+                    Some("ACCELERATION_STRUCTURE_CREATE_INFO_2_KHR")
                 }
                 Self::DEVICE_GROUP_PRESENT_CAPABILITIES_KHR => {
                     Some("DEVICE_GROUP_PRESENT_CAPABILITIES_KHR")

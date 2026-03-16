@@ -1217,6 +1217,10 @@ pub(super) mod defs {
     }
     unsafe impl Extends<TensorCreateInfoARM<'_>> for OpaqueCaptureDescriptorDataCreateInfoEXT<'_> {}
     unsafe impl Extends<TensorViewCreateInfoARM<'_>> for OpaqueCaptureDescriptorDataCreateInfoEXT<'_> {}
+    unsafe impl Extends<AccelerationStructureCreateInfo2KHR<'_>>
+        for OpaqueCaptureDescriptorDataCreateInfoEXT<'_>
+    {
+    }
 
     impl Default for OpaqueCaptureDescriptorDataCreateInfoEXT<'_> {
         fn default() -> Self {
