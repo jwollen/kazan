@@ -23,7 +23,7 @@ jobs:
         run: |
           cd crates/generator/external/Vulkan-Headers
           git fetch --tags
-          LATEST=$(git tag --sort=-v:refname | grep '^v' | head -1)
+          LATEST=$(git tag --sort=-v:refname | grep '^v[0-9]' | head -1)
           git checkout "$LATEST"
           cd "$GITHUB_WORKSPACE"
           echo "version=$LATEST" >> "$GITHUB_OUTPUT"
