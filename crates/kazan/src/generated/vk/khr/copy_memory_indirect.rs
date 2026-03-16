@@ -15,37 +15,6 @@ pub(super) mod defs {
     use core::marker::PhantomData;
     use core::ptr;
 
-    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkStridedDeviceAddressRangeKHR.html>
-    #[repr(C)]
-    #[cfg_attr(feature = "debug", derive(Debug))]
-    #[derive(Copy, Clone, Default)]
-    #[must_use]
-    pub struct StridedDeviceAddressRangeKHR {
-        pub address: DeviceAddress,
-        pub size: DeviceSize,
-        pub stride: DeviceSize,
-    }
-
-    impl StridedDeviceAddressRangeKHR {
-        #[inline]
-        pub fn address(mut self, address: DeviceAddress) -> Self {
-            self.address = address;
-            self
-        }
-
-        #[inline]
-        pub fn size(mut self, size: DeviceSize) -> Self {
-            self.size = size;
-            self
-        }
-
-        #[inline]
-        pub fn stride(mut self, stride: DeviceSize) -> Self {
-            self.stride = stride;
-            self
-        }
-    }
-
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyMemoryIndirectCommandKHR.html>
     #[repr(C)]
     #[cfg_attr(feature = "debug", derive(Debug))]
@@ -477,7 +446,6 @@ pub(super) mod ffi {
     #![allow(non_camel_case_types)]
     use super::defs::*;
 
-    pub type VkStridedDeviceAddressRangeKHR = StridedDeviceAddressRangeKHR;
     pub type VkCopyMemoryIndirectCommandKHR = CopyMemoryIndirectCommandKHR;
     pub type VkCopyMemoryIndirectInfoKHR = CopyMemoryIndirectInfoKHR<'static>;
     pub type VkCopyMemoryToImageIndirectCommandKHR = CopyMemoryToImageIndirectCommandKHR;

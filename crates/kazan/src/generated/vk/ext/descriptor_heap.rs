@@ -15,6 +15,9 @@ pub(super) mod defs {
     use core::marker::PhantomData;
     use core::ptr;
 
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceAddressRangeEXT.html>
+    pub type DeviceAddressRangeEXT = DeviceAddressRangeKHR;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkHostAddressRangeEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -89,30 +92,6 @@ pub(super) mod defs {
         pub fn address(mut self, address: &'a [u8]) -> Self {
             self.size = address.len().try_into().unwrap();
             self.address = address.as_ptr() as _;
-            self
-        }
-    }
-
-    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceAddressRangeEXT.html>
-    #[repr(C)]
-    #[cfg_attr(feature = "debug", derive(Debug))]
-    #[derive(Copy, Clone, Default)]
-    #[must_use]
-    pub struct DeviceAddressRangeEXT {
-        pub address: DeviceAddress,
-        pub size: DeviceSize,
-    }
-
-    impl DeviceAddressRangeEXT {
-        #[inline]
-        pub fn address(mut self, address: DeviceAddress) -> Self {
-            self.address = address;
-            self
-        }
-
-        #[inline]
-        pub fn size(mut self, size: DeviceSize) -> Self {
-            self.size = size;
             self
         }
     }
@@ -2131,7 +2110,6 @@ pub(super) mod ffi {
 
     pub type VkHostAddressRangeEXT = HostAddressRangeEXT<'static>;
     pub type VkHostAddressRangeConstEXT = HostAddressRangeConstEXT<'static>;
-    pub type VkDeviceAddressRangeEXT = DeviceAddressRangeEXT;
     pub type VkTexelBufferDescriptorInfoEXT = TexelBufferDescriptorInfoEXT<'static>;
     pub type VkImageDescriptorInfoEXT = ImageDescriptorInfoEXT<'static>;
     pub type VkResourceDescriptorInfoEXT = ResourceDescriptorInfoEXT<'static>;
@@ -2171,6 +2149,7 @@ pub(super) mod ffi {
     pub type VkDescriptorMappingSourceEXT = DescriptorMappingSourceEXT;
     pub type VkSpirvResourceTypeFlagsEXT = SpirvResourceTypeFlagsEXT;
     pub type VkSpirvResourceTypeFlagBitsEXT = SpirvResourceTypeFlagBitsEXT;
+    pub type VkDeviceAddressRangeEXT = DeviceAddressRangeEXT;
     impl HostAddressRangeEXT<'_> {
         #[inline]
         pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkHostAddressRangeEXT {
