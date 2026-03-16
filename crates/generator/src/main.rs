@@ -226,7 +226,7 @@ fn generate_module(
     if let Module::Extension(extension) = module {
         writeln!(
             file,
-            "pub const EXTENSION_NAME: &CStr = c\"{}\";\n",
+            "pub const EXTENSION_NAME: &CStr = c\"{0}\";\n",
             extension.name
         )?;
     }

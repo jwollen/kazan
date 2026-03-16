@@ -1,929 +1,1417 @@
-pub(crate) const EXTENSION_COUNT: usize = 460;
-pub(crate) const EXTENSIONS: &[&core::ffi::CStr; EXTENSION_COUNT] = &[
-    c"VK_KHR_surface",
-    c"VK_KHR_swapchain",
-    c"VK_KHR_display",
-    c"VK_KHR_display_swapchain",
-    c"VK_KHR_xlib_surface",
-    c"VK_KHR_xcb_surface",
-    c"VK_KHR_wayland_surface",
-    c"VK_KHR_android_surface",
-    c"VK_KHR_win32_surface",
-    c"VK_EXT_debug_report",
-    c"VK_NV_glsl_shader",
-    c"VK_EXT_depth_range_unrestricted",
-    c"VK_KHR_sampler_mirror_clamp_to_edge",
-    c"VK_IMG_filter_cubic",
-    c"VK_AMD_rasterization_order",
-    c"VK_AMD_shader_trinary_minmax",
-    c"VK_AMD_shader_explicit_vertex_parameter",
-    c"VK_EXT_debug_marker",
-    c"VK_KHR_video_queue",
-    c"VK_KHR_video_decode_queue",
-    c"VK_AMD_gcn_shader",
-    c"VK_NV_dedicated_allocation",
-    c"VK_EXT_transform_feedback",
-    c"VK_NVX_binary_import",
-    c"VK_NVX_image_view_handle",
-    c"VK_AMD_draw_indirect_count",
-    c"VK_AMD_negative_viewport_height",
-    c"VK_AMD_gpu_shader_half_float",
-    c"VK_AMD_shader_ballot",
-    c"VK_KHR_video_encode_h264",
-    c"VK_KHR_video_encode_h265",
-    c"VK_KHR_video_decode_h264",
-    c"VK_AMD_texture_gather_bias_lod",
-    c"VK_AMD_shader_info",
-    c"VK_KHR_dynamic_rendering",
-    c"VK_AMD_shader_image_load_store_lod",
-    c"VK_GGP_stream_descriptor_surface",
-    c"VK_NV_corner_sampled_image",
-    c"VK_KHR_multiview",
-    c"VK_IMG_format_pvrtc",
-    c"VK_NV_external_memory_capabilities",
-    c"VK_NV_external_memory",
-    c"VK_NV_external_memory_win32",
-    c"VK_NV_win32_keyed_mutex",
-    c"VK_KHR_get_physical_device_properties2",
-    c"VK_KHR_device_group",
-    c"VK_EXT_validation_flags",
-    c"VK_NN_vi_surface",
-    c"VK_KHR_shader_draw_parameters",
-    c"VK_EXT_shader_subgroup_ballot",
-    c"VK_EXT_shader_subgroup_vote",
-    c"VK_EXT_texture_compression_astc_hdr",
-    c"VK_EXT_astc_decode_mode",
-    c"VK_EXT_pipeline_robustness",
-    c"VK_KHR_maintenance1",
-    c"VK_KHR_device_group_creation",
-    c"VK_KHR_external_memory_capabilities",
-    c"VK_KHR_external_memory",
-    c"VK_KHR_external_memory_win32",
-    c"VK_KHR_external_memory_fd",
-    c"VK_KHR_win32_keyed_mutex",
-    c"VK_KHR_external_semaphore_capabilities",
-    c"VK_KHR_external_semaphore",
-    c"VK_KHR_external_semaphore_win32",
-    c"VK_KHR_external_semaphore_fd",
-    c"VK_KHR_push_descriptor",
-    c"VK_EXT_conditional_rendering",
-    c"VK_KHR_shader_float16_int8",
-    c"VK_KHR_16bit_storage",
-    c"VK_KHR_incremental_present",
-    c"VK_KHR_descriptor_update_template",
-    c"VK_NV_clip_space_w_scaling",
-    c"VK_EXT_direct_mode_display",
-    c"VK_EXT_acquire_xlib_display",
-    c"VK_EXT_display_surface_counter",
-    c"VK_EXT_display_control",
-    c"VK_GOOGLE_display_timing",
-    c"VK_NV_sample_mask_override_coverage",
-    c"VK_NV_geometry_shader_passthrough",
-    c"VK_NV_viewport_array2",
-    c"VK_NVX_multiview_per_view_attributes",
-    c"VK_NV_viewport_swizzle",
-    c"VK_EXT_discard_rectangles",
-    c"VK_EXT_conservative_rasterization",
-    c"VK_EXT_depth_clip_enable",
-    c"VK_EXT_swapchain_colorspace",
-    c"VK_EXT_hdr_metadata",
-    c"VK_KHR_imageless_framebuffer",
-    c"VK_KHR_create_renderpass2",
-    c"VK_IMG_relaxed_line_rasterization",
-    c"VK_KHR_shared_presentable_image",
-    c"VK_KHR_external_fence_capabilities",
-    c"VK_KHR_external_fence",
-    c"VK_KHR_external_fence_win32",
-    c"VK_KHR_external_fence_fd",
-    c"VK_KHR_performance_query",
-    c"VK_KHR_maintenance2",
-    c"VK_KHR_get_surface_capabilities2",
-    c"VK_KHR_variable_pointers",
-    c"VK_KHR_get_display_properties2",
-    c"VK_MVK_ios_surface",
-    c"VK_MVK_macos_surface",
-    c"VK_EXT_external_memory_dma_buf",
-    c"VK_EXT_queue_family_foreign",
-    c"VK_KHR_dedicated_allocation",
-    c"VK_EXT_debug_utils",
-    c"VK_ANDROID_external_memory_android_hardware_buffer",
-    c"VK_EXT_sampler_filter_minmax",
-    c"VK_KHR_storage_buffer_storage_class",
-    c"VK_AMD_gpu_shader_int16",
-    c"VK_AMDX_shader_enqueue",
-    c"VK_EXT_descriptor_heap",
-    c"VK_AMD_mixed_attachment_samples",
-    c"VK_AMD_shader_fragment_mask",
-    c"VK_EXT_inline_uniform_block",
-    c"VK_EXT_shader_stencil_export",
-    c"VK_KHR_shader_bfloat16",
-    c"VK_EXT_sample_locations",
-    c"VK_KHR_relaxed_block_layout",
-    c"VK_KHR_get_memory_requirements2",
-    c"VK_KHR_image_format_list",
-    c"VK_EXT_blend_operation_advanced",
-    c"VK_NV_fragment_coverage_to_color",
-    c"VK_KHR_acceleration_structure",
-    c"VK_KHR_ray_tracing_pipeline",
-    c"VK_KHR_ray_query",
-    c"VK_NV_framebuffer_mixed_samples",
-    c"VK_NV_fill_rectangle",
-    c"VK_NV_shader_sm_builtins",
-    c"VK_EXT_post_depth_coverage",
-    c"VK_KHR_sampler_ycbcr_conversion",
-    c"VK_KHR_bind_memory2",
-    c"VK_EXT_image_drm_format_modifier",
-    c"VK_EXT_validation_cache",
-    c"VK_EXT_descriptor_indexing",
-    c"VK_EXT_shader_viewport_index_layer",
-    c"VK_KHR_portability_subset",
-    c"VK_NV_shading_rate_image",
-    c"VK_NV_ray_tracing",
-    c"VK_NV_representative_fragment_test",
-    c"VK_KHR_maintenance3",
-    c"VK_KHR_draw_indirect_count",
-    c"VK_EXT_filter_cubic",
-    c"VK_QCOM_render_pass_shader_resolve",
-    c"VK_QCOM_cooperative_matrix_conversion",
-    c"VK_EXT_global_priority",
-    c"VK_KHR_shader_subgroup_extended_types",
-    c"VK_KHR_8bit_storage",
-    c"VK_EXT_external_memory_host",
-    c"VK_AMD_buffer_marker",
-    c"VK_KHR_shader_atomic_int64",
-    c"VK_KHR_shader_clock",
-    c"VK_AMD_pipeline_compiler_control",
-    c"VK_EXT_calibrated_timestamps",
-    c"VK_AMD_shader_core_properties",
-    c"VK_KHR_video_decode_h265",
-    c"VK_KHR_global_priority",
-    c"VK_AMD_memory_overallocation_behavior",
-    c"VK_EXT_vertex_attribute_divisor",
-    c"VK_GGP_frame_token",
-    c"VK_EXT_pipeline_creation_feedback",
-    c"VK_KHR_driver_properties",
-    c"VK_KHR_shader_float_controls",
-    c"VK_NV_shader_subgroup_partitioned",
-    c"VK_KHR_depth_stencil_resolve",
-    c"VK_KHR_swapchain_mutable_format",
-    c"VK_NV_compute_shader_derivatives",
-    c"VK_NV_mesh_shader",
-    c"VK_NV_fragment_shader_barycentric",
-    c"VK_NV_shader_image_footprint",
-    c"VK_NV_scissor_exclusive",
-    c"VK_NV_device_diagnostic_checkpoints",
-    c"VK_KHR_timeline_semaphore",
-    c"VK_EXT_present_timing",
-    c"VK_INTEL_shader_integer_functions2",
-    c"VK_INTEL_performance_query",
-    c"VK_KHR_vulkan_memory_model",
-    c"VK_EXT_pci_bus_info",
-    c"VK_AMD_display_native_hdr",
-    c"VK_FUCHSIA_imagepipe_surface",
-    c"VK_KHR_shader_terminate_invocation",
-    c"VK_EXT_metal_surface",
-    c"VK_EXT_fragment_density_map",
-    c"VK_EXT_scalar_block_layout",
-    c"VK_GOOGLE_hlsl_functionality1",
-    c"VK_GOOGLE_decorate_string",
-    c"VK_EXT_subgroup_size_control",
-    c"VK_KHR_fragment_shading_rate",
-    c"VK_AMD_shader_core_properties2",
-    c"VK_AMD_device_coherent_memory",
-    c"VK_KHR_dynamic_rendering_local_read",
-    c"VK_EXT_shader_image_atomic_int64",
-    c"VK_KHR_shader_quad_control",
-    c"VK_KHR_spirv_1_4",
-    c"VK_EXT_memory_budget",
-    c"VK_EXT_memory_priority",
-    c"VK_KHR_surface_protected_capabilities",
-    c"VK_NV_dedicated_allocation_image_aliasing",
-    c"VK_KHR_separate_depth_stencil_layouts",
-    c"VK_EXT_buffer_device_address",
-    c"VK_EXT_tooling_info",
-    c"VK_EXT_separate_stencil_usage",
-    c"VK_EXT_validation_features",
-    c"VK_KHR_present_wait",
-    c"VK_NV_cooperative_matrix",
-    c"VK_NV_coverage_reduction_mode",
-    c"VK_EXT_fragment_shader_interlock",
-    c"VK_EXT_ycbcr_image_arrays",
-    c"VK_KHR_uniform_buffer_standard_layout",
-    c"VK_EXT_provoking_vertex",
-    c"VK_EXT_full_screen_exclusive",
-    c"VK_EXT_headless_surface",
-    c"VK_KHR_buffer_device_address",
-    c"VK_EXT_line_rasterization",
-    c"VK_EXT_shader_atomic_float",
-    c"VK_EXT_host_query_reset",
-    c"VK_EXT_index_type_uint8",
-    c"VK_EXT_extended_dynamic_state",
-    c"VK_KHR_deferred_host_operations",
-    c"VK_KHR_pipeline_executable_properties",
-    c"VK_EXT_host_image_copy",
-    c"VK_KHR_map_memory2",
-    c"VK_EXT_map_memory_placed",
-    c"VK_EXT_shader_atomic_float2",
-    c"VK_EXT_surface_maintenance1",
-    c"VK_EXT_swapchain_maintenance1",
-    c"VK_EXT_shader_demote_to_helper_invocation",
-    c"VK_NV_device_generated_commands",
-    c"VK_NV_inherited_viewport_scissor",
-    c"VK_KHR_shader_integer_dot_product",
-    c"VK_EXT_texel_buffer_alignment",
-    c"VK_QCOM_render_pass_transform",
-    c"VK_EXT_depth_bias_control",
-    c"VK_EXT_device_memory_report",
-    c"VK_EXT_acquire_drm_display",
-    c"VK_EXT_robustness2",
-    c"VK_EXT_custom_border_color",
-    c"VK_EXT_texture_compression_astc_3d",
-    c"VK_GOOGLE_user_type",
-    c"VK_KHR_pipeline_library",
-    c"VK_NV_present_barrier",
-    c"VK_KHR_shader_non_semantic_info",
-    c"VK_KHR_present_id",
-    c"VK_EXT_private_data",
-    c"VK_EXT_pipeline_creation_cache_control",
-    c"VK_KHR_video_encode_queue",
-    c"VK_NV_device_diagnostics_config",
-    c"VK_QCOM_render_pass_store_ops",
-    c"VK_NV_cuda_kernel_launch",
-    c"VK_QCOM_tile_shading",
-    c"VK_NV_low_latency",
-    c"VK_EXT_metal_objects",
-    c"VK_KHR_synchronization2",
-    c"VK_EXT_descriptor_buffer",
-    c"VK_KHR_device_address_commands",
-    c"VK_EXT_graphics_pipeline_library",
-    c"VK_AMD_shader_early_and_late_fragment_tests",
-    c"VK_KHR_fragment_shader_barycentric",
-    c"VK_KHR_shader_subgroup_uniform_control_flow",
-    c"VK_KHR_zero_initialize_workgroup_memory",
-    c"VK_NV_fragment_shading_rate_enums",
-    c"VK_NV_ray_tracing_motion_blur",
-    c"VK_EXT_mesh_shader",
-    c"VK_EXT_ycbcr_2plane_444_formats",
-    c"VK_EXT_fragment_density_map2",
-    c"VK_QCOM_rotated_copy_commands",
-    c"VK_EXT_image_robustness",
-    c"VK_KHR_workgroup_memory_explicit_layout",
-    c"VK_KHR_copy_commands2",
-    c"VK_EXT_image_compression_control",
-    c"VK_EXT_attachment_feedback_loop_layout",
-    c"VK_EXT_4444_formats",
-    c"VK_EXT_device_fault",
-    c"VK_ARM_rasterization_order_attachment_access",
-    c"VK_EXT_rgba10x6_formats",
-    c"VK_NV_acquire_winrt_display",
-    c"VK_EXT_directfb_surface",
-    c"VK_VALVE_mutable_descriptor_type",
-    c"VK_EXT_vertex_input_dynamic_state",
-    c"VK_EXT_physical_device_drm",
-    c"VK_EXT_device_address_binding_report",
-    c"VK_EXT_depth_clip_control",
-    c"VK_EXT_primitive_topology_list_restart",
-    c"VK_KHR_format_feature_flags2",
-    c"VK_EXT_present_mode_fifo_latest_ready",
-    c"VK_FUCHSIA_external_memory",
-    c"VK_FUCHSIA_external_semaphore",
-    c"VK_FUCHSIA_buffer_collection",
-    c"VK_HUAWEI_subpass_shading",
-    c"VK_HUAWEI_invocation_mask",
-    c"VK_NV_external_memory_rdma",
-    c"VK_EXT_pipeline_properties",
-    c"VK_EXT_frame_boundary",
-    c"VK_EXT_multisampled_render_to_single_sampled",
-    c"VK_EXT_extended_dynamic_state2",
-    c"VK_QNX_screen_surface",
-    c"VK_EXT_color_write_enable",
-    c"VK_EXT_primitives_generated_query",
-    c"VK_KHR_ray_tracing_maintenance1",
-    c"VK_KHR_shader_untyped_pointers",
-    c"VK_EXT_global_priority_query",
-    c"VK_VALVE_video_encode_rgb_conversion",
-    c"VK_EXT_image_view_min_lod",
-    c"VK_EXT_multi_draw",
-    c"VK_EXT_image_2d_view_of_3d",
-    c"VK_KHR_portability_enumeration",
-    c"VK_EXT_shader_tile_image",
-    c"VK_EXT_opacity_micromap",
-    c"VK_NV_displacement_micromap",
-    c"VK_EXT_load_store_op_none",
-    c"VK_HUAWEI_cluster_culling_shader",
-    c"VK_EXT_border_color_swizzle",
-    c"VK_EXT_pageable_device_local_memory",
-    c"VK_KHR_maintenance4",
-    c"VK_ARM_shader_core_properties",
-    c"VK_KHR_shader_subgroup_rotate",
-    c"VK_ARM_scheduling_controls",
-    c"VK_EXT_image_sliced_view_of_3d",
-    c"VK_VALVE_descriptor_set_host_mapping",
-    c"VK_EXT_depth_clamp_zero_one",
-    c"VK_EXT_non_seamless_cube_map",
-    c"VK_ARM_render_pass_striped",
-    c"VK_QCOM_fragment_density_map_offset",
-    c"VK_NV_copy_memory_indirect",
-    c"VK_NV_memory_decompression",
-    c"VK_NV_device_generated_commands_compute",
-    c"VK_NV_ray_tracing_linear_swept_spheres",
-    c"VK_NV_linear_color_attachment",
-    c"VK_GOOGLE_surfaceless_query",
-    c"VK_KHR_shader_maximal_reconvergence",
-    c"VK_EXT_image_compression_control_swapchain",
-    c"VK_QCOM_image_processing",
-    c"VK_EXT_nested_command_buffer",
-    c"VK_OHOS_external_memory",
-    c"VK_EXT_external_memory_acquire_unmodified",
-    c"VK_EXT_extended_dynamic_state3",
-    c"VK_EXT_subpass_merge_feedback",
-    c"VK_LUNARG_direct_driver_loading",
-    c"VK_ARM_tensors",
-    c"VK_EXT_shader_module_identifier",
-    c"VK_EXT_rasterization_order_attachment_access",
-    c"VK_NV_optical_flow",
-    c"VK_EXT_legacy_dithering",
-    c"VK_EXT_pipeline_protected_access",
-    c"VK_ANDROID_external_format_resolve",
-    c"VK_KHR_maintenance5",
-    c"VK_AMD_anti_lag",
-    c"VK_AMDX_dense_geometry_format",
-    c"VK_KHR_present_id2",
-    c"VK_KHR_present_wait2",
-    c"VK_KHR_ray_tracing_position_fetch",
-    c"VK_EXT_shader_object",
-    c"VK_KHR_pipeline_binary",
-    c"VK_QCOM_tile_properties",
-    c"VK_SEC_amigo_profiling",
-    c"VK_KHR_surface_maintenance1",
-    c"VK_KHR_swapchain_maintenance1",
-    c"VK_QCOM_multiview_per_view_viewports",
-    c"VK_NV_ray_tracing_invocation_reorder",
-    c"VK_NV_cooperative_vector",
-    c"VK_NV_extended_sparse_address_space",
-    c"VK_EXT_mutable_descriptor_type",
-    c"VK_EXT_legacy_vertex_attributes",
-    c"VK_EXT_layer_settings",
-    c"VK_ARM_shader_core_builtins",
-    c"VK_EXT_pipeline_library_group_handles",
-    c"VK_EXT_dynamic_rendering_unused_attachments",
-    c"VK_KHR_internally_synchronized_queues",
-    c"VK_NV_low_latency2",
-    c"VK_KHR_cooperative_matrix",
-    c"VK_ARM_data_graph",
-    c"VK_QCOM_multiview_per_view_render_areas",
-    c"VK_KHR_compute_shader_derivatives",
-    c"VK_KHR_video_decode_av1",
-    c"VK_KHR_video_encode_av1",
-    c"VK_KHR_video_decode_vp9",
-    c"VK_KHR_video_maintenance1",
-    c"VK_NV_per_stage_descriptor_set",
-    c"VK_QCOM_image_processing2",
-    c"VK_QCOM_filter_cubic_weights",
-    c"VK_QCOM_ycbcr_degamma",
-    c"VK_QCOM_filter_cubic_clamp",
-    c"VK_EXT_attachment_feedback_loop_dynamic_state",
-    c"VK_KHR_vertex_attribute_divisor",
-    c"VK_KHR_load_store_op_none",
-    c"VK_KHR_unified_image_layouts",
-    c"VK_KHR_shader_float_controls2",
-    c"VK_QNX_external_memory_screen_buffer",
-    c"VK_MSFT_layered_driver",
-    c"VK_KHR_index_type_uint8",
-    c"VK_KHR_line_rasterization",
-    c"VK_KHR_calibrated_timestamps",
-    c"VK_KHR_shader_expect_assume",
-    c"VK_KHR_maintenance6",
-    c"VK_NV_descriptor_pool_overallocation",
-    c"VK_QCOM_tile_memory_heap",
-    c"VK_KHR_copy_memory_indirect",
-    c"VK_EXT_memory_decompression",
-    c"VK_NV_display_stereo",
-    c"VK_KHR_video_encode_intra_refresh",
-    c"VK_KHR_video_encode_quantization_map",
-    c"VK_NV_raw_access_chains",
-    c"VK_NV_external_compute_queue",
-    c"VK_KHR_shader_relaxed_extended_instruction",
-    c"VK_NV_command_buffer_inheritance",
-    c"VK_KHR_maintenance7",
-    c"VK_NV_shader_atomic_float16_vector",
-    c"VK_EXT_shader_replicated_composites",
-    c"VK_EXT_shader_float8",
-    c"VK_NV_ray_tracing_validation",
-    c"VK_NV_cluster_acceleration_structure",
-    c"VK_NV_partitioned_acceleration_structure",
-    c"VK_EXT_device_generated_commands",
-    c"VK_KHR_maintenance8",
-    c"VK_MESA_image_alignment_control",
-    c"VK_KHR_shader_fma",
-    c"VK_NV_push_constant_bank",
-    c"VK_EXT_ray_tracing_invocation_reorder",
-    c"VK_EXT_depth_clamp_control",
-    c"VK_KHR_maintenance9",
-    c"VK_KHR_video_maintenance2",
-    c"VK_OHOS_surface",
-    c"VK_HUAWEI_hdr_vivid",
-    c"VK_NV_cooperative_matrix2",
-    c"VK_ARM_pipeline_opacity_micromap",
-    c"VK_EXT_external_memory_metal",
-    c"VK_KHR_depth_clamp_zero_one",
-    c"VK_ARM_performance_counters_by_region",
-    c"VK_ARM_shader_instrumentation",
-    c"VK_EXT_vertex_attribute_robustness",
-    c"VK_ARM_format_pack",
-    c"VK_VALVE_fragment_density_map_layered",
-    c"VK_KHR_robustness2",
-    c"VK_NV_present_metering",
-    c"VK_EXT_fragment_density_map_offset",
-    c"VK_EXT_zero_initialize_device_memory",
-    c"VK_KHR_present_mode_fifo_latest_ready",
-    c"VK_EXT_shader_64bit_indexing",
-    c"VK_EXT_custom_resolve",
-    c"VK_QCOM_data_graph_model",
-    c"VK_KHR_maintenance10",
-    c"VK_EXT_shader_long_vector",
-    c"VK_SEC_pipeline_cache_incremental_mode",
-    c"VK_EXT_shader_uniform_buffer_unsized_array",
-    c"VK_NV_compute_occupancy_priority",
-    c"VK_EXT_shader_subgroup_partitioned",
-    c"VK_SEC_ubm_surface",
-    c"VK_VALVE_shader_mixed_float_dot_product",
-    c"vulkan_video_codecs_common",
-    c"vulkan_video_codec_h264std",
-    c"vulkan_video_codec_h264std_decode",
-    c"vulkan_video_codec_h264std_encode",
-    c"vulkan_video_codec_h265std",
-    c"vulkan_video_codec_h265std_decode",
-    c"vulkan_video_codec_h265std_encode",
-    c"vulkan_video_codec_vp9std",
-    c"vulkan_video_codec_vp9std_decode",
-    c"vulkan_video_codec_av1std",
-    c"vulkan_video_codec_av1std_decode",
-    c"vulkan_video_codec_av1std_encode",
-];
+use crate::{define_extension_set, vk::*};
 
-pub(crate) fn extension_index(name: &core::ffi::CStr) -> Option<usize> {
-    match name.to_bytes() {
-        b"VK_KHR_surface" => Some(0),
-        b"VK_KHR_swapchain" => Some(1),
-        b"VK_KHR_display" => Some(2),
-        b"VK_KHR_display_swapchain" => Some(3),
-        b"VK_KHR_xlib_surface" => Some(4),
-        b"VK_KHR_xcb_surface" => Some(5),
-        b"VK_KHR_wayland_surface" => Some(6),
-        b"VK_KHR_android_surface" => Some(7),
-        b"VK_KHR_win32_surface" => Some(8),
-        b"VK_EXT_debug_report" => Some(9),
-        b"VK_NV_glsl_shader" => Some(10),
-        b"VK_EXT_depth_range_unrestricted" => Some(11),
-        b"VK_KHR_sampler_mirror_clamp_to_edge" => Some(12),
-        b"VK_IMG_filter_cubic" => Some(13),
-        b"VK_AMD_rasterization_order" => Some(14),
-        b"VK_AMD_shader_trinary_minmax" => Some(15),
-        b"VK_AMD_shader_explicit_vertex_parameter" => Some(16),
-        b"VK_EXT_debug_marker" => Some(17),
-        b"VK_KHR_video_queue" => Some(18),
-        b"VK_KHR_video_decode_queue" => Some(19),
-        b"VK_AMD_gcn_shader" => Some(20),
-        b"VK_NV_dedicated_allocation" => Some(21),
-        b"VK_EXT_transform_feedback" => Some(22),
-        b"VK_NVX_binary_import" => Some(23),
-        b"VK_NVX_image_view_handle" => Some(24),
-        b"VK_AMD_draw_indirect_count" => Some(25),
-        b"VK_AMD_negative_viewport_height" => Some(26),
-        b"VK_AMD_gpu_shader_half_float" => Some(27),
-        b"VK_AMD_shader_ballot" => Some(28),
-        b"VK_KHR_video_encode_h264" => Some(29),
-        b"VK_KHR_video_encode_h265" => Some(30),
-        b"VK_KHR_video_decode_h264" => Some(31),
-        b"VK_AMD_texture_gather_bias_lod" => Some(32),
-        b"VK_AMD_shader_info" => Some(33),
-        b"VK_KHR_dynamic_rendering" => Some(34),
-        b"VK_AMD_shader_image_load_store_lod" => Some(35),
-        b"VK_GGP_stream_descriptor_surface" => Some(36),
-        b"VK_NV_corner_sampled_image" => Some(37),
-        b"VK_KHR_multiview" => Some(38),
-        b"VK_IMG_format_pvrtc" => Some(39),
-        b"VK_NV_external_memory_capabilities" => Some(40),
-        b"VK_NV_external_memory" => Some(41),
-        b"VK_NV_external_memory_win32" => Some(42),
-        b"VK_NV_win32_keyed_mutex" => Some(43),
-        b"VK_KHR_get_physical_device_properties2" => Some(44),
-        b"VK_KHR_device_group" => Some(45),
-        b"VK_EXT_validation_flags" => Some(46),
-        b"VK_NN_vi_surface" => Some(47),
-        b"VK_KHR_shader_draw_parameters" => Some(48),
-        b"VK_EXT_shader_subgroup_ballot" => Some(49),
-        b"VK_EXT_shader_subgroup_vote" => Some(50),
-        b"VK_EXT_texture_compression_astc_hdr" => Some(51),
-        b"VK_EXT_astc_decode_mode" => Some(52),
-        b"VK_EXT_pipeline_robustness" => Some(53),
-        b"VK_KHR_maintenance1" => Some(54),
-        b"VK_KHR_device_group_creation" => Some(55),
-        b"VK_KHR_external_memory_capabilities" => Some(56),
-        b"VK_KHR_external_memory" => Some(57),
-        b"VK_KHR_external_memory_win32" => Some(58),
-        b"VK_KHR_external_memory_fd" => Some(59),
-        b"VK_KHR_win32_keyed_mutex" => Some(60),
-        b"VK_KHR_external_semaphore_capabilities" => Some(61),
-        b"VK_KHR_external_semaphore" => Some(62),
-        b"VK_KHR_external_semaphore_win32" => Some(63),
-        b"VK_KHR_external_semaphore_fd" => Some(64),
-        b"VK_KHR_push_descriptor" => Some(65),
-        b"VK_EXT_conditional_rendering" => Some(66),
-        b"VK_KHR_shader_float16_int8" => Some(67),
-        b"VK_KHR_16bit_storage" => Some(68),
-        b"VK_KHR_incremental_present" => Some(69),
-        b"VK_KHR_descriptor_update_template" => Some(70),
-        b"VK_NV_clip_space_w_scaling" => Some(71),
-        b"VK_EXT_direct_mode_display" => Some(72),
-        b"VK_EXT_acquire_xlib_display" => Some(73),
-        b"VK_EXT_display_surface_counter" => Some(74),
-        b"VK_EXT_display_control" => Some(75),
-        b"VK_GOOGLE_display_timing" => Some(76),
-        b"VK_NV_sample_mask_override_coverage" => Some(77),
-        b"VK_NV_geometry_shader_passthrough" => Some(78),
-        b"VK_NV_viewport_array2" => Some(79),
-        b"VK_NVX_multiview_per_view_attributes" => Some(80),
-        b"VK_NV_viewport_swizzle" => Some(81),
-        b"VK_EXT_discard_rectangles" => Some(82),
-        b"VK_EXT_conservative_rasterization" => Some(83),
-        b"VK_EXT_depth_clip_enable" => Some(84),
-        b"VK_EXT_swapchain_colorspace" => Some(85),
-        b"VK_EXT_hdr_metadata" => Some(86),
-        b"VK_KHR_imageless_framebuffer" => Some(87),
-        b"VK_KHR_create_renderpass2" => Some(88),
-        b"VK_IMG_relaxed_line_rasterization" => Some(89),
-        b"VK_KHR_shared_presentable_image" => Some(90),
-        b"VK_KHR_external_fence_capabilities" => Some(91),
-        b"VK_KHR_external_fence" => Some(92),
-        b"VK_KHR_external_fence_win32" => Some(93),
-        b"VK_KHR_external_fence_fd" => Some(94),
-        b"VK_KHR_performance_query" => Some(95),
-        b"VK_KHR_maintenance2" => Some(96),
-        b"VK_KHR_get_surface_capabilities2" => Some(97),
-        b"VK_KHR_variable_pointers" => Some(98),
-        b"VK_KHR_get_display_properties2" => Some(99),
-        b"VK_MVK_ios_surface" => Some(100),
-        b"VK_MVK_macos_surface" => Some(101),
-        b"VK_EXT_external_memory_dma_buf" => Some(102),
-        b"VK_EXT_queue_family_foreign" => Some(103),
-        b"VK_KHR_dedicated_allocation" => Some(104),
-        b"VK_EXT_debug_utils" => Some(105),
-        b"VK_ANDROID_external_memory_android_hardware_buffer" => Some(106),
-        b"VK_EXT_sampler_filter_minmax" => Some(107),
-        b"VK_KHR_storage_buffer_storage_class" => Some(108),
-        b"VK_AMD_gpu_shader_int16" => Some(109),
-        b"VK_AMDX_shader_enqueue" => Some(110),
-        b"VK_EXT_descriptor_heap" => Some(111),
-        b"VK_AMD_mixed_attachment_samples" => Some(112),
-        b"VK_AMD_shader_fragment_mask" => Some(113),
-        b"VK_EXT_inline_uniform_block" => Some(114),
-        b"VK_EXT_shader_stencil_export" => Some(115),
-        b"VK_KHR_shader_bfloat16" => Some(116),
-        b"VK_EXT_sample_locations" => Some(117),
-        b"VK_KHR_relaxed_block_layout" => Some(118),
-        b"VK_KHR_get_memory_requirements2" => Some(119),
-        b"VK_KHR_image_format_list" => Some(120),
-        b"VK_EXT_blend_operation_advanced" => Some(121),
-        b"VK_NV_fragment_coverage_to_color" => Some(122),
-        b"VK_KHR_acceleration_structure" => Some(123),
-        b"VK_KHR_ray_tracing_pipeline" => Some(124),
-        b"VK_KHR_ray_query" => Some(125),
-        b"VK_NV_framebuffer_mixed_samples" => Some(126),
-        b"VK_NV_fill_rectangle" => Some(127),
-        b"VK_NV_shader_sm_builtins" => Some(128),
-        b"VK_EXT_post_depth_coverage" => Some(129),
-        b"VK_KHR_sampler_ycbcr_conversion" => Some(130),
-        b"VK_KHR_bind_memory2" => Some(131),
-        b"VK_EXT_image_drm_format_modifier" => Some(132),
-        b"VK_EXT_validation_cache" => Some(133),
-        b"VK_EXT_descriptor_indexing" => Some(134),
-        b"VK_EXT_shader_viewport_index_layer" => Some(135),
-        b"VK_KHR_portability_subset" => Some(136),
-        b"VK_NV_shading_rate_image" => Some(137),
-        b"VK_NV_ray_tracing" => Some(138),
-        b"VK_NV_representative_fragment_test" => Some(139),
-        b"VK_KHR_maintenance3" => Some(140),
-        b"VK_KHR_draw_indirect_count" => Some(141),
-        b"VK_EXT_filter_cubic" => Some(142),
-        b"VK_QCOM_render_pass_shader_resolve" => Some(143),
-        b"VK_QCOM_cooperative_matrix_conversion" => Some(144),
-        b"VK_EXT_global_priority" => Some(145),
-        b"VK_KHR_shader_subgroup_extended_types" => Some(146),
-        b"VK_KHR_8bit_storage" => Some(147),
-        b"VK_EXT_external_memory_host" => Some(148),
-        b"VK_AMD_buffer_marker" => Some(149),
-        b"VK_KHR_shader_atomic_int64" => Some(150),
-        b"VK_KHR_shader_clock" => Some(151),
-        b"VK_AMD_pipeline_compiler_control" => Some(152),
-        b"VK_EXT_calibrated_timestamps" => Some(153),
-        b"VK_AMD_shader_core_properties" => Some(154),
-        b"VK_KHR_video_decode_h265" => Some(155),
-        b"VK_KHR_global_priority" => Some(156),
-        b"VK_AMD_memory_overallocation_behavior" => Some(157),
-        b"VK_EXT_vertex_attribute_divisor" => Some(158),
-        b"VK_GGP_frame_token" => Some(159),
-        b"VK_EXT_pipeline_creation_feedback" => Some(160),
-        b"VK_KHR_driver_properties" => Some(161),
-        b"VK_KHR_shader_float_controls" => Some(162),
-        b"VK_NV_shader_subgroup_partitioned" => Some(163),
-        b"VK_KHR_depth_stencil_resolve" => Some(164),
-        b"VK_KHR_swapchain_mutable_format" => Some(165),
-        b"VK_NV_compute_shader_derivatives" => Some(166),
-        b"VK_NV_mesh_shader" => Some(167),
-        b"VK_NV_fragment_shader_barycentric" => Some(168),
-        b"VK_NV_shader_image_footprint" => Some(169),
-        b"VK_NV_scissor_exclusive" => Some(170),
-        b"VK_NV_device_diagnostic_checkpoints" => Some(171),
-        b"VK_KHR_timeline_semaphore" => Some(172),
-        b"VK_EXT_present_timing" => Some(173),
-        b"VK_INTEL_shader_integer_functions2" => Some(174),
-        b"VK_INTEL_performance_query" => Some(175),
-        b"VK_KHR_vulkan_memory_model" => Some(176),
-        b"VK_EXT_pci_bus_info" => Some(177),
-        b"VK_AMD_display_native_hdr" => Some(178),
-        b"VK_FUCHSIA_imagepipe_surface" => Some(179),
-        b"VK_KHR_shader_terminate_invocation" => Some(180),
-        b"VK_EXT_metal_surface" => Some(181),
-        b"VK_EXT_fragment_density_map" => Some(182),
-        b"VK_EXT_scalar_block_layout" => Some(183),
-        b"VK_GOOGLE_hlsl_functionality1" => Some(184),
-        b"VK_GOOGLE_decorate_string" => Some(185),
-        b"VK_EXT_subgroup_size_control" => Some(186),
-        b"VK_KHR_fragment_shading_rate" => Some(187),
-        b"VK_AMD_shader_core_properties2" => Some(188),
-        b"VK_AMD_device_coherent_memory" => Some(189),
-        b"VK_KHR_dynamic_rendering_local_read" => Some(190),
-        b"VK_EXT_shader_image_atomic_int64" => Some(191),
-        b"VK_KHR_shader_quad_control" => Some(192),
-        b"VK_KHR_spirv_1_4" => Some(193),
-        b"VK_EXT_memory_budget" => Some(194),
-        b"VK_EXT_memory_priority" => Some(195),
-        b"VK_KHR_surface_protected_capabilities" => Some(196),
-        b"VK_NV_dedicated_allocation_image_aliasing" => Some(197),
-        b"VK_KHR_separate_depth_stencil_layouts" => Some(198),
-        b"VK_EXT_buffer_device_address" => Some(199),
-        b"VK_EXT_tooling_info" => Some(200),
-        b"VK_EXT_separate_stencil_usage" => Some(201),
-        b"VK_EXT_validation_features" => Some(202),
-        b"VK_KHR_present_wait" => Some(203),
-        b"VK_NV_cooperative_matrix" => Some(204),
-        b"VK_NV_coverage_reduction_mode" => Some(205),
-        b"VK_EXT_fragment_shader_interlock" => Some(206),
-        b"VK_EXT_ycbcr_image_arrays" => Some(207),
-        b"VK_KHR_uniform_buffer_standard_layout" => Some(208),
-        b"VK_EXT_provoking_vertex" => Some(209),
-        b"VK_EXT_full_screen_exclusive" => Some(210),
-        b"VK_EXT_headless_surface" => Some(211),
-        b"VK_KHR_buffer_device_address" => Some(212),
-        b"VK_EXT_line_rasterization" => Some(213),
-        b"VK_EXT_shader_atomic_float" => Some(214),
-        b"VK_EXT_host_query_reset" => Some(215),
-        b"VK_EXT_index_type_uint8" => Some(216),
-        b"VK_EXT_extended_dynamic_state" => Some(217),
-        b"VK_KHR_deferred_host_operations" => Some(218),
-        b"VK_KHR_pipeline_executable_properties" => Some(219),
-        b"VK_EXT_host_image_copy" => Some(220),
-        b"VK_KHR_map_memory2" => Some(221),
-        b"VK_EXT_map_memory_placed" => Some(222),
-        b"VK_EXT_shader_atomic_float2" => Some(223),
-        b"VK_EXT_surface_maintenance1" => Some(224),
-        b"VK_EXT_swapchain_maintenance1" => Some(225),
-        b"VK_EXT_shader_demote_to_helper_invocation" => Some(226),
-        b"VK_NV_device_generated_commands" => Some(227),
-        b"VK_NV_inherited_viewport_scissor" => Some(228),
-        b"VK_KHR_shader_integer_dot_product" => Some(229),
-        b"VK_EXT_texel_buffer_alignment" => Some(230),
-        b"VK_QCOM_render_pass_transform" => Some(231),
-        b"VK_EXT_depth_bias_control" => Some(232),
-        b"VK_EXT_device_memory_report" => Some(233),
-        b"VK_EXT_acquire_drm_display" => Some(234),
-        b"VK_EXT_robustness2" => Some(235),
-        b"VK_EXT_custom_border_color" => Some(236),
-        b"VK_EXT_texture_compression_astc_3d" => Some(237),
-        b"VK_GOOGLE_user_type" => Some(238),
-        b"VK_KHR_pipeline_library" => Some(239),
-        b"VK_NV_present_barrier" => Some(240),
-        b"VK_KHR_shader_non_semantic_info" => Some(241),
-        b"VK_KHR_present_id" => Some(242),
-        b"VK_EXT_private_data" => Some(243),
-        b"VK_EXT_pipeline_creation_cache_control" => Some(244),
-        b"VK_KHR_video_encode_queue" => Some(245),
-        b"VK_NV_device_diagnostics_config" => Some(246),
-        b"VK_QCOM_render_pass_store_ops" => Some(247),
-        b"VK_NV_cuda_kernel_launch" => Some(248),
-        b"VK_QCOM_tile_shading" => Some(249),
-        b"VK_NV_low_latency" => Some(250),
-        b"VK_EXT_metal_objects" => Some(251),
-        b"VK_KHR_synchronization2" => Some(252),
-        b"VK_EXT_descriptor_buffer" => Some(253),
-        b"VK_KHR_device_address_commands" => Some(254),
-        b"VK_EXT_graphics_pipeline_library" => Some(255),
-        b"VK_AMD_shader_early_and_late_fragment_tests" => Some(256),
-        b"VK_KHR_fragment_shader_barycentric" => Some(257),
-        b"VK_KHR_shader_subgroup_uniform_control_flow" => Some(258),
-        b"VK_KHR_zero_initialize_workgroup_memory" => Some(259),
-        b"VK_NV_fragment_shading_rate_enums" => Some(260),
-        b"VK_NV_ray_tracing_motion_blur" => Some(261),
-        b"VK_EXT_mesh_shader" => Some(262),
-        b"VK_EXT_ycbcr_2plane_444_formats" => Some(263),
-        b"VK_EXT_fragment_density_map2" => Some(264),
-        b"VK_QCOM_rotated_copy_commands" => Some(265),
-        b"VK_EXT_image_robustness" => Some(266),
-        b"VK_KHR_workgroup_memory_explicit_layout" => Some(267),
-        b"VK_KHR_copy_commands2" => Some(268),
-        b"VK_EXT_image_compression_control" => Some(269),
-        b"VK_EXT_attachment_feedback_loop_layout" => Some(270),
-        b"VK_EXT_4444_formats" => Some(271),
-        b"VK_EXT_device_fault" => Some(272),
-        b"VK_ARM_rasterization_order_attachment_access" => Some(273),
-        b"VK_EXT_rgba10x6_formats" => Some(274),
-        b"VK_NV_acquire_winrt_display" => Some(275),
-        b"VK_EXT_directfb_surface" => Some(276),
-        b"VK_VALVE_mutable_descriptor_type" => Some(277),
-        b"VK_EXT_vertex_input_dynamic_state" => Some(278),
-        b"VK_EXT_physical_device_drm" => Some(279),
-        b"VK_EXT_device_address_binding_report" => Some(280),
-        b"VK_EXT_depth_clip_control" => Some(281),
-        b"VK_EXT_primitive_topology_list_restart" => Some(282),
-        b"VK_KHR_format_feature_flags2" => Some(283),
-        b"VK_EXT_present_mode_fifo_latest_ready" => Some(284),
-        b"VK_FUCHSIA_external_memory" => Some(285),
-        b"VK_FUCHSIA_external_semaphore" => Some(286),
-        b"VK_FUCHSIA_buffer_collection" => Some(287),
-        b"VK_HUAWEI_subpass_shading" => Some(288),
-        b"VK_HUAWEI_invocation_mask" => Some(289),
-        b"VK_NV_external_memory_rdma" => Some(290),
-        b"VK_EXT_pipeline_properties" => Some(291),
-        b"VK_EXT_frame_boundary" => Some(292),
-        b"VK_EXT_multisampled_render_to_single_sampled" => Some(293),
-        b"VK_EXT_extended_dynamic_state2" => Some(294),
-        b"VK_QNX_screen_surface" => Some(295),
-        b"VK_EXT_color_write_enable" => Some(296),
-        b"VK_EXT_primitives_generated_query" => Some(297),
-        b"VK_KHR_ray_tracing_maintenance1" => Some(298),
-        b"VK_KHR_shader_untyped_pointers" => Some(299),
-        b"VK_EXT_global_priority_query" => Some(300),
-        b"VK_VALVE_video_encode_rgb_conversion" => Some(301),
-        b"VK_EXT_image_view_min_lod" => Some(302),
-        b"VK_EXT_multi_draw" => Some(303),
-        b"VK_EXT_image_2d_view_of_3d" => Some(304),
-        b"VK_KHR_portability_enumeration" => Some(305),
-        b"VK_EXT_shader_tile_image" => Some(306),
-        b"VK_EXT_opacity_micromap" => Some(307),
-        b"VK_NV_displacement_micromap" => Some(308),
-        b"VK_EXT_load_store_op_none" => Some(309),
-        b"VK_HUAWEI_cluster_culling_shader" => Some(310),
-        b"VK_EXT_border_color_swizzle" => Some(311),
-        b"VK_EXT_pageable_device_local_memory" => Some(312),
-        b"VK_KHR_maintenance4" => Some(313),
-        b"VK_ARM_shader_core_properties" => Some(314),
-        b"VK_KHR_shader_subgroup_rotate" => Some(315),
-        b"VK_ARM_scheduling_controls" => Some(316),
-        b"VK_EXT_image_sliced_view_of_3d" => Some(317),
-        b"VK_VALVE_descriptor_set_host_mapping" => Some(318),
-        b"VK_EXT_depth_clamp_zero_one" => Some(319),
-        b"VK_EXT_non_seamless_cube_map" => Some(320),
-        b"VK_ARM_render_pass_striped" => Some(321),
-        b"VK_QCOM_fragment_density_map_offset" => Some(322),
-        b"VK_NV_copy_memory_indirect" => Some(323),
-        b"VK_NV_memory_decompression" => Some(324),
-        b"VK_NV_device_generated_commands_compute" => Some(325),
-        b"VK_NV_ray_tracing_linear_swept_spheres" => Some(326),
-        b"VK_NV_linear_color_attachment" => Some(327),
-        b"VK_GOOGLE_surfaceless_query" => Some(328),
-        b"VK_KHR_shader_maximal_reconvergence" => Some(329),
-        b"VK_EXT_image_compression_control_swapchain" => Some(330),
-        b"VK_QCOM_image_processing" => Some(331),
-        b"VK_EXT_nested_command_buffer" => Some(332),
-        b"VK_OHOS_external_memory" => Some(333),
-        b"VK_EXT_external_memory_acquire_unmodified" => Some(334),
-        b"VK_EXT_extended_dynamic_state3" => Some(335),
-        b"VK_EXT_subpass_merge_feedback" => Some(336),
-        b"VK_LUNARG_direct_driver_loading" => Some(337),
-        b"VK_ARM_tensors" => Some(338),
-        b"VK_EXT_shader_module_identifier" => Some(339),
-        b"VK_EXT_rasterization_order_attachment_access" => Some(340),
-        b"VK_NV_optical_flow" => Some(341),
-        b"VK_EXT_legacy_dithering" => Some(342),
-        b"VK_EXT_pipeline_protected_access" => Some(343),
-        b"VK_ANDROID_external_format_resolve" => Some(344),
-        b"VK_KHR_maintenance5" => Some(345),
-        b"VK_AMD_anti_lag" => Some(346),
-        b"VK_AMDX_dense_geometry_format" => Some(347),
-        b"VK_KHR_present_id2" => Some(348),
-        b"VK_KHR_present_wait2" => Some(349),
-        b"VK_KHR_ray_tracing_position_fetch" => Some(350),
-        b"VK_EXT_shader_object" => Some(351),
-        b"VK_KHR_pipeline_binary" => Some(352),
-        b"VK_QCOM_tile_properties" => Some(353),
-        b"VK_SEC_amigo_profiling" => Some(354),
-        b"VK_KHR_surface_maintenance1" => Some(355),
-        b"VK_KHR_swapchain_maintenance1" => Some(356),
-        b"VK_QCOM_multiview_per_view_viewports" => Some(357),
-        b"VK_NV_ray_tracing_invocation_reorder" => Some(358),
-        b"VK_NV_cooperative_vector" => Some(359),
-        b"VK_NV_extended_sparse_address_space" => Some(360),
-        b"VK_EXT_mutable_descriptor_type" => Some(361),
-        b"VK_EXT_legacy_vertex_attributes" => Some(362),
-        b"VK_EXT_layer_settings" => Some(363),
-        b"VK_ARM_shader_core_builtins" => Some(364),
-        b"VK_EXT_pipeline_library_group_handles" => Some(365),
-        b"VK_EXT_dynamic_rendering_unused_attachments" => Some(366),
-        b"VK_KHR_internally_synchronized_queues" => Some(367),
-        b"VK_NV_low_latency2" => Some(368),
-        b"VK_KHR_cooperative_matrix" => Some(369),
-        b"VK_ARM_data_graph" => Some(370),
-        b"VK_QCOM_multiview_per_view_render_areas" => Some(371),
-        b"VK_KHR_compute_shader_derivatives" => Some(372),
-        b"VK_KHR_video_decode_av1" => Some(373),
-        b"VK_KHR_video_encode_av1" => Some(374),
-        b"VK_KHR_video_decode_vp9" => Some(375),
-        b"VK_KHR_video_maintenance1" => Some(376),
-        b"VK_NV_per_stage_descriptor_set" => Some(377),
-        b"VK_QCOM_image_processing2" => Some(378),
-        b"VK_QCOM_filter_cubic_weights" => Some(379),
-        b"VK_QCOM_ycbcr_degamma" => Some(380),
-        b"VK_QCOM_filter_cubic_clamp" => Some(381),
-        b"VK_EXT_attachment_feedback_loop_dynamic_state" => Some(382),
-        b"VK_KHR_vertex_attribute_divisor" => Some(383),
-        b"VK_KHR_load_store_op_none" => Some(384),
-        b"VK_KHR_unified_image_layouts" => Some(385),
-        b"VK_KHR_shader_float_controls2" => Some(386),
-        b"VK_QNX_external_memory_screen_buffer" => Some(387),
-        b"VK_MSFT_layered_driver" => Some(388),
-        b"VK_KHR_index_type_uint8" => Some(389),
-        b"VK_KHR_line_rasterization" => Some(390),
-        b"VK_KHR_calibrated_timestamps" => Some(391),
-        b"VK_KHR_shader_expect_assume" => Some(392),
-        b"VK_KHR_maintenance6" => Some(393),
-        b"VK_NV_descriptor_pool_overallocation" => Some(394),
-        b"VK_QCOM_tile_memory_heap" => Some(395),
-        b"VK_KHR_copy_memory_indirect" => Some(396),
-        b"VK_EXT_memory_decompression" => Some(397),
-        b"VK_NV_display_stereo" => Some(398),
-        b"VK_KHR_video_encode_intra_refresh" => Some(399),
-        b"VK_KHR_video_encode_quantization_map" => Some(400),
-        b"VK_NV_raw_access_chains" => Some(401),
-        b"VK_NV_external_compute_queue" => Some(402),
-        b"VK_KHR_shader_relaxed_extended_instruction" => Some(403),
-        b"VK_NV_command_buffer_inheritance" => Some(404),
-        b"VK_KHR_maintenance7" => Some(405),
-        b"VK_NV_shader_atomic_float16_vector" => Some(406),
-        b"VK_EXT_shader_replicated_composites" => Some(407),
-        b"VK_EXT_shader_float8" => Some(408),
-        b"VK_NV_ray_tracing_validation" => Some(409),
-        b"VK_NV_cluster_acceleration_structure" => Some(410),
-        b"VK_NV_partitioned_acceleration_structure" => Some(411),
-        b"VK_EXT_device_generated_commands" => Some(412),
-        b"VK_KHR_maintenance8" => Some(413),
-        b"VK_MESA_image_alignment_control" => Some(414),
-        b"VK_KHR_shader_fma" => Some(415),
-        b"VK_NV_push_constant_bank" => Some(416),
-        b"VK_EXT_ray_tracing_invocation_reorder" => Some(417),
-        b"VK_EXT_depth_clamp_control" => Some(418),
-        b"VK_KHR_maintenance9" => Some(419),
-        b"VK_KHR_video_maintenance2" => Some(420),
-        b"VK_OHOS_surface" => Some(421),
-        b"VK_HUAWEI_hdr_vivid" => Some(422),
-        b"VK_NV_cooperative_matrix2" => Some(423),
-        b"VK_ARM_pipeline_opacity_micromap" => Some(424),
-        b"VK_EXT_external_memory_metal" => Some(425),
-        b"VK_KHR_depth_clamp_zero_one" => Some(426),
-        b"VK_ARM_performance_counters_by_region" => Some(427),
-        b"VK_ARM_shader_instrumentation" => Some(428),
-        b"VK_EXT_vertex_attribute_robustness" => Some(429),
-        b"VK_ARM_format_pack" => Some(430),
-        b"VK_VALVE_fragment_density_map_layered" => Some(431),
-        b"VK_KHR_robustness2" => Some(432),
-        b"VK_NV_present_metering" => Some(433),
-        b"VK_EXT_fragment_density_map_offset" => Some(434),
-        b"VK_EXT_zero_initialize_device_memory" => Some(435),
-        b"VK_KHR_present_mode_fifo_latest_ready" => Some(436),
-        b"VK_EXT_shader_64bit_indexing" => Some(437),
-        b"VK_EXT_custom_resolve" => Some(438),
-        b"VK_QCOM_data_graph_model" => Some(439),
-        b"VK_KHR_maintenance10" => Some(440),
-        b"VK_EXT_shader_long_vector" => Some(441),
-        b"VK_SEC_pipeline_cache_incremental_mode" => Some(442),
-        b"VK_EXT_shader_uniform_buffer_unsized_array" => Some(443),
-        b"VK_NV_compute_occupancy_priority" => Some(444),
-        b"VK_EXT_shader_subgroup_partitioned" => Some(445),
-        b"VK_SEC_ubm_surface" => Some(446),
-        b"VK_VALVE_shader_mixed_float_dot_product" => Some(447),
-        b"vulkan_video_codecs_common" => Some(448),
-        b"vulkan_video_codec_h264std" => Some(449),
-        b"vulkan_video_codec_h264std_decode" => Some(450),
-        b"vulkan_video_codec_h264std_encode" => Some(451),
-        b"vulkan_video_codec_h265std" => Some(452),
-        b"vulkan_video_codec_h265std_decode" => Some(453),
-        b"vulkan_video_codec_h265std_encode" => Some(454),
-        b"vulkan_video_codec_vp9std" => Some(455),
-        b"vulkan_video_codec_vp9std_decode" => Some(456),
-        b"vulkan_video_codec_av1std" => Some(457),
-        b"vulkan_video_codec_av1std_decode" => Some(458),
-        b"vulkan_video_codec_av1std_encode" => Some(459),
-        _ => None,
-    }
-}
+define_extension_set!(
+    InstanceExtensionSet,
+    [
+        (khr_surface, khr::surface::EXTENSION_NAME),
+        (khr_display, khr::display::EXTENSION_NAME),
+        (khr_xlib_surface, khr::xlib_surface::EXTENSION_NAME),
+        (khr_xcb_surface, khr::xcb_surface::EXTENSION_NAME),
+        (khr_wayland_surface, khr::wayland_surface::EXTENSION_NAME),
+        (khr_android_surface, khr::android_surface::EXTENSION_NAME),
+        (khr_win32_surface, khr::win32_surface::EXTENSION_NAME),
+        (ext_debug_report, ext::debug_report::EXTENSION_NAME),
+        (
+            ggp_stream_descriptor_surface,
+            ggp::stream_descriptor_surface::EXTENSION_NAME
+        ),
+        (
+            nv_external_memory_capabilities,
+            nv::external_memory_capabilities::EXTENSION_NAME
+        ),
+        (
+            khr_get_physical_device_properties2,
+            khr::get_physical_device_properties2::EXTENSION_NAME
+        ),
+        (ext_validation_flags, ext::validation_flags::EXTENSION_NAME),
+        (nn_vi_surface, nn::vi_surface::EXTENSION_NAME),
+        (
+            khr_device_group_creation,
+            khr::device_group_creation::EXTENSION_NAME
+        ),
+        (
+            khr_external_memory_capabilities,
+            khr::external_memory_capabilities::EXTENSION_NAME
+        ),
+        (
+            khr_external_semaphore_capabilities,
+            khr::external_semaphore_capabilities::EXTENSION_NAME
+        ),
+        (
+            ext_direct_mode_display,
+            ext::direct_mode_display::EXTENSION_NAME
+        ),
+        (
+            ext_acquire_xlib_display,
+            ext::acquire_xlib_display::EXTENSION_NAME
+        ),
+        (
+            ext_display_surface_counter,
+            ext::display_surface_counter::EXTENSION_NAME
+        ),
+        (
+            ext_swapchain_colorspace,
+            ext::swapchain_colorspace::EXTENSION_NAME
+        ),
+        (
+            khr_external_fence_capabilities,
+            khr::external_fence_capabilities::EXTENSION_NAME
+        ),
+        (
+            khr_get_surface_capabilities2,
+            khr::get_surface_capabilities2::EXTENSION_NAME
+        ),
+        (
+            khr_get_display_properties2,
+            khr::get_display_properties2::EXTENSION_NAME
+        ),
+        (mvk_ios_surface, mvk::ios_surface::EXTENSION_NAME),
+        (mvk_macos_surface, mvk::macos_surface::EXTENSION_NAME),
+        (ext_debug_utils, ext::debug_utils::EXTENSION_NAME),
+        (
+            fuchsia_imagepipe_surface,
+            fuchsia::imagepipe_surface::EXTENSION_NAME
+        ),
+        (ext_metal_surface, ext::metal_surface::EXTENSION_NAME),
+        (
+            khr_surface_protected_capabilities,
+            khr::surface_protected_capabilities::EXTENSION_NAME
+        ),
+        (
+            ext_validation_features,
+            ext::validation_features::EXTENSION_NAME
+        ),
+        (ext_headless_surface, ext::headless_surface::EXTENSION_NAME),
+        (
+            ext_surface_maintenance1,
+            ext::surface_maintenance1::EXTENSION_NAME
+        ),
+        (
+            ext_acquire_drm_display,
+            ext::acquire_drm_display::EXTENSION_NAME
+        ),
+        (ext_directfb_surface, ext::directfb_surface::EXTENSION_NAME),
+        (qnx_screen_surface, qnx::screen_surface::EXTENSION_NAME),
+        (
+            khr_portability_enumeration,
+            khr::portability_enumeration::EXTENSION_NAME
+        ),
+        (
+            google_surfaceless_query,
+            google::surfaceless_query::EXTENSION_NAME
+        ),
+        (
+            lunarg_direct_driver_loading,
+            lunarg::direct_driver_loading::EXTENSION_NAME
+        ),
+        (
+            khr_surface_maintenance1,
+            khr::surface_maintenance1::EXTENSION_NAME
+        ),
+        (ext_layer_settings, ext::layer_settings::EXTENSION_NAME),
+        (nv_display_stereo, nv::display_stereo::EXTENSION_NAME),
+        (ohos_surface, ohos::surface::EXTENSION_NAME),
+        (sec_ubm_surface, sec::ubm_surface::EXTENSION_NAME),
+    ]
+);
+
+define_extension_set!(
+    DeviceExtensionSet,
+    [
+        (khr_swapchain, khr::swapchain::EXTENSION_NAME),
+        (
+            khr_display_swapchain,
+            khr::display_swapchain::EXTENSION_NAME
+        ),
+        (nv_glsl_shader, nv::glsl_shader::EXTENSION_NAME),
+        (
+            ext_depth_range_unrestricted,
+            ext::depth_range_unrestricted::EXTENSION_NAME
+        ),
+        (
+            khr_sampler_mirror_clamp_to_edge,
+            khr::sampler_mirror_clamp_to_edge::EXTENSION_NAME
+        ),
+        (img_filter_cubic, img::filter_cubic::EXTENSION_NAME),
+        (
+            amd_rasterization_order,
+            amd::rasterization_order::EXTENSION_NAME
+        ),
+        (
+            amd_shader_trinary_minmax,
+            amd::shader_trinary_minmax::EXTENSION_NAME
+        ),
+        (
+            amd_shader_explicit_vertex_parameter,
+            amd::shader_explicit_vertex_parameter::EXTENSION_NAME
+        ),
+        (ext_debug_marker, ext::debug_marker::EXTENSION_NAME),
+        (khr_video_queue, khr::video_queue::EXTENSION_NAME),
+        (
+            khr_video_decode_queue,
+            khr::video_decode_queue::EXTENSION_NAME
+        ),
+        (amd_gcn_shader, amd::gcn_shader::EXTENSION_NAME),
+        (
+            nv_dedicated_allocation,
+            nv::dedicated_allocation::EXTENSION_NAME
+        ),
+        (
+            ext_transform_feedback,
+            ext::transform_feedback::EXTENSION_NAME
+        ),
+        (nvx_binary_import, nvx::binary_import::EXTENSION_NAME),
+        (
+            nvx_image_view_handle,
+            nvx::image_view_handle::EXTENSION_NAME
+        ),
+        (
+            amd_draw_indirect_count,
+            amd::draw_indirect_count::EXTENSION_NAME
+        ),
+        (
+            amd_negative_viewport_height,
+            amd::negative_viewport_height::EXTENSION_NAME
+        ),
+        (
+            amd_gpu_shader_half_float,
+            amd::gpu_shader_half_float::EXTENSION_NAME
+        ),
+        (amd_shader_ballot, amd::shader_ballot::EXTENSION_NAME),
+        (
+            khr_video_encode_h264,
+            khr::video_encode_h264::EXTENSION_NAME
+        ),
+        (
+            khr_video_encode_h265,
+            khr::video_encode_h265::EXTENSION_NAME
+        ),
+        (
+            khr_video_decode_h264,
+            khr::video_decode_h264::EXTENSION_NAME
+        ),
+        (
+            amd_texture_gather_bias_lod,
+            amd::texture_gather_bias_lod::EXTENSION_NAME
+        ),
+        (amd_shader_info, amd::shader_info::EXTENSION_NAME),
+        (
+            khr_dynamic_rendering,
+            khr::dynamic_rendering::EXTENSION_NAME
+        ),
+        (
+            amd_shader_image_load_store_lod,
+            amd::shader_image_load_store_lod::EXTENSION_NAME
+        ),
+        (
+            nv_corner_sampled_image,
+            nv::corner_sampled_image::EXTENSION_NAME
+        ),
+        (khr_multiview, khr::multiview::EXTENSION_NAME),
+        (img_format_pvrtc, img::format_pvrtc::EXTENSION_NAME),
+        (nv_external_memory, nv::external_memory::EXTENSION_NAME),
+        (
+            nv_external_memory_win32,
+            nv::external_memory_win32::EXTENSION_NAME
+        ),
+        (nv_win32_keyed_mutex, nv::win32_keyed_mutex::EXTENSION_NAME),
+        (khr_device_group, khr::device_group::EXTENSION_NAME),
+        (
+            khr_shader_draw_parameters,
+            khr::shader_draw_parameters::EXTENSION_NAME
+        ),
+        (
+            ext_shader_subgroup_ballot,
+            ext::shader_subgroup_ballot::EXTENSION_NAME
+        ),
+        (
+            ext_shader_subgroup_vote,
+            ext::shader_subgroup_vote::EXTENSION_NAME
+        ),
+        (
+            ext_texture_compression_astc_hdr,
+            ext::texture_compression_astc_hdr::EXTENSION_NAME
+        ),
+        (ext_astc_decode_mode, ext::astc_decode_mode::EXTENSION_NAME),
+        (
+            ext_pipeline_robustness,
+            ext::pipeline_robustness::EXTENSION_NAME
+        ),
+        (khr_maintenance1, khr::maintenance1::EXTENSION_NAME),
+        (khr_external_memory, khr::external_memory::EXTENSION_NAME),
+        (
+            khr_external_memory_win32,
+            khr::external_memory_win32::EXTENSION_NAME
+        ),
+        (
+            khr_external_memory_fd,
+            khr::external_memory_fd::EXTENSION_NAME
+        ),
+        (
+            khr_win32_keyed_mutex,
+            khr::win32_keyed_mutex::EXTENSION_NAME
+        ),
+        (
+            khr_external_semaphore,
+            khr::external_semaphore::EXTENSION_NAME
+        ),
+        (
+            khr_external_semaphore_win32,
+            khr::external_semaphore_win32::EXTENSION_NAME
+        ),
+        (
+            khr_external_semaphore_fd,
+            khr::external_semaphore_fd::EXTENSION_NAME
+        ),
+        (khr_push_descriptor, khr::push_descriptor::EXTENSION_NAME),
+        (
+            ext_conditional_rendering,
+            ext::conditional_rendering::EXTENSION_NAME
+        ),
+        (
+            khr_shader_float16_int8,
+            khr::shader_float16_int8::EXTENSION_NAME
+        ),
+        (khr__16bit_storage, khr::_16bit_storage::EXTENSION_NAME),
+        (
+            khr_incremental_present,
+            khr::incremental_present::EXTENSION_NAME
+        ),
+        (
+            khr_descriptor_update_template,
+            khr::descriptor_update_template::EXTENSION_NAME
+        ),
+        (
+            nv_clip_space_w_scaling,
+            nv::clip_space_w_scaling::EXTENSION_NAME
+        ),
+        (ext_display_control, ext::display_control::EXTENSION_NAME),
+        (
+            google_display_timing,
+            google::display_timing::EXTENSION_NAME
+        ),
+        (
+            nv_sample_mask_override_coverage,
+            nv::sample_mask_override_coverage::EXTENSION_NAME
+        ),
+        (
+            nv_geometry_shader_passthrough,
+            nv::geometry_shader_passthrough::EXTENSION_NAME
+        ),
+        (nv_viewport_array2, nv::viewport_array2::EXTENSION_NAME),
+        (
+            nvx_multiview_per_view_attributes,
+            nvx::multiview_per_view_attributes::EXTENSION_NAME
+        ),
+        (nv_viewport_swizzle, nv::viewport_swizzle::EXTENSION_NAME),
+        (
+            ext_discard_rectangles,
+            ext::discard_rectangles::EXTENSION_NAME
+        ),
+        (
+            ext_conservative_rasterization,
+            ext::conservative_rasterization::EXTENSION_NAME
+        ),
+        (
+            ext_depth_clip_enable,
+            ext::depth_clip_enable::EXTENSION_NAME
+        ),
+        (ext_hdr_metadata, ext::hdr_metadata::EXTENSION_NAME),
+        (
+            khr_imageless_framebuffer,
+            khr::imageless_framebuffer::EXTENSION_NAME
+        ),
+        (
+            khr_create_renderpass2,
+            khr::create_renderpass2::EXTENSION_NAME
+        ),
+        (
+            img_relaxed_line_rasterization,
+            img::relaxed_line_rasterization::EXTENSION_NAME
+        ),
+        (
+            khr_shared_presentable_image,
+            khr::shared_presentable_image::EXTENSION_NAME
+        ),
+        (khr_external_fence, khr::external_fence::EXTENSION_NAME),
+        (
+            khr_external_fence_win32,
+            khr::external_fence_win32::EXTENSION_NAME
+        ),
+        (
+            khr_external_fence_fd,
+            khr::external_fence_fd::EXTENSION_NAME
+        ),
+        (
+            khr_performance_query,
+            khr::performance_query::EXTENSION_NAME
+        ),
+        (khr_maintenance2, khr::maintenance2::EXTENSION_NAME),
+        (
+            khr_variable_pointers,
+            khr::variable_pointers::EXTENSION_NAME
+        ),
+        (
+            ext_external_memory_dma_buf,
+            ext::external_memory_dma_buf::EXTENSION_NAME
+        ),
+        (
+            ext_queue_family_foreign,
+            ext::queue_family_foreign::EXTENSION_NAME
+        ),
+        (
+            khr_dedicated_allocation,
+            khr::dedicated_allocation::EXTENSION_NAME
+        ),
+        (
+            android_external_memory_android_hardware_buffer,
+            android::external_memory_android_hardware_buffer::EXTENSION_NAME
+        ),
+        (
+            ext_sampler_filter_minmax,
+            ext::sampler_filter_minmax::EXTENSION_NAME
+        ),
+        (
+            khr_storage_buffer_storage_class,
+            khr::storage_buffer_storage_class::EXTENSION_NAME
+        ),
+        (amd_gpu_shader_int16, amd::gpu_shader_int16::EXTENSION_NAME),
+        #[cfg(feature = "provisional")]
+        (amdx_shader_enqueue, amdx::shader_enqueue::EXTENSION_NAME),
+        (ext_descriptor_heap, ext::descriptor_heap::EXTENSION_NAME),
+        (
+            amd_mixed_attachment_samples,
+            amd::mixed_attachment_samples::EXTENSION_NAME
+        ),
+        (
+            amd_shader_fragment_mask,
+            amd::shader_fragment_mask::EXTENSION_NAME
+        ),
+        (
+            ext_inline_uniform_block,
+            ext::inline_uniform_block::EXTENSION_NAME
+        ),
+        (
+            ext_shader_stencil_export,
+            ext::shader_stencil_export::EXTENSION_NAME
+        ),
+        (khr_shader_bfloat16, khr::shader_bfloat16::EXTENSION_NAME),
+        (ext_sample_locations, ext::sample_locations::EXTENSION_NAME),
+        (
+            khr_relaxed_block_layout,
+            khr::relaxed_block_layout::EXTENSION_NAME
+        ),
+        (
+            khr_get_memory_requirements2,
+            khr::get_memory_requirements2::EXTENSION_NAME
+        ),
+        (
+            khr_image_format_list,
+            khr::image_format_list::EXTENSION_NAME
+        ),
+        (
+            ext_blend_operation_advanced,
+            ext::blend_operation_advanced::EXTENSION_NAME
+        ),
+        (
+            nv_fragment_coverage_to_color,
+            nv::fragment_coverage_to_color::EXTENSION_NAME
+        ),
+        (
+            khr_acceleration_structure,
+            khr::acceleration_structure::EXTENSION_NAME
+        ),
+        (
+            khr_ray_tracing_pipeline,
+            khr::ray_tracing_pipeline::EXTENSION_NAME
+        ),
+        (khr_ray_query, khr::ray_query::EXTENSION_NAME),
+        (
+            nv_framebuffer_mixed_samples,
+            nv::framebuffer_mixed_samples::EXTENSION_NAME
+        ),
+        (nv_fill_rectangle, nv::fill_rectangle::EXTENSION_NAME),
+        (
+            nv_shader_sm_builtins,
+            nv::shader_sm_builtins::EXTENSION_NAME
+        ),
+        (
+            ext_post_depth_coverage,
+            ext::post_depth_coverage::EXTENSION_NAME
+        ),
+        (
+            khr_sampler_ycbcr_conversion,
+            khr::sampler_ycbcr_conversion::EXTENSION_NAME
+        ),
+        (khr_bind_memory2, khr::bind_memory2::EXTENSION_NAME),
+        (
+            ext_image_drm_format_modifier,
+            ext::image_drm_format_modifier::EXTENSION_NAME
+        ),
+        (ext_validation_cache, ext::validation_cache::EXTENSION_NAME),
+        (
+            ext_descriptor_indexing,
+            ext::descriptor_indexing::EXTENSION_NAME
+        ),
+        (
+            ext_shader_viewport_index_layer,
+            ext::shader_viewport_index_layer::EXTENSION_NAME
+        ),
+        #[cfg(feature = "provisional")]
+        (
+            khr_portability_subset,
+            khr::portability_subset::EXTENSION_NAME
+        ),
+        (
+            nv_shading_rate_image,
+            nv::shading_rate_image::EXTENSION_NAME
+        ),
+        (nv_ray_tracing, nv::ray_tracing::EXTENSION_NAME),
+        (
+            nv_representative_fragment_test,
+            nv::representative_fragment_test::EXTENSION_NAME
+        ),
+        (khr_maintenance3, khr::maintenance3::EXTENSION_NAME),
+        (
+            khr_draw_indirect_count,
+            khr::draw_indirect_count::EXTENSION_NAME
+        ),
+        (ext_filter_cubic, ext::filter_cubic::EXTENSION_NAME),
+        (
+            qcom_render_pass_shader_resolve,
+            qcom::render_pass_shader_resolve::EXTENSION_NAME
+        ),
+        (
+            qcom_cooperative_matrix_conversion,
+            qcom::cooperative_matrix_conversion::EXTENSION_NAME
+        ),
+        (ext_global_priority, ext::global_priority::EXTENSION_NAME),
+        (
+            khr_shader_subgroup_extended_types,
+            khr::shader_subgroup_extended_types::EXTENSION_NAME
+        ),
+        (khr__8bit_storage, khr::_8bit_storage::EXTENSION_NAME),
+        (
+            ext_external_memory_host,
+            ext::external_memory_host::EXTENSION_NAME
+        ),
+        (amd_buffer_marker, amd::buffer_marker::EXTENSION_NAME),
+        (
+            khr_shader_atomic_int64,
+            khr::shader_atomic_int64::EXTENSION_NAME
+        ),
+        (khr_shader_clock, khr::shader_clock::EXTENSION_NAME),
+        (
+            amd_pipeline_compiler_control,
+            amd::pipeline_compiler_control::EXTENSION_NAME
+        ),
+        (
+            ext_calibrated_timestamps,
+            ext::calibrated_timestamps::EXTENSION_NAME
+        ),
+        (
+            amd_shader_core_properties,
+            amd::shader_core_properties::EXTENSION_NAME
+        ),
+        (
+            khr_video_decode_h265,
+            khr::video_decode_h265::EXTENSION_NAME
+        ),
+        (khr_global_priority, khr::global_priority::EXTENSION_NAME),
+        (
+            amd_memory_overallocation_behavior,
+            amd::memory_overallocation_behavior::EXTENSION_NAME
+        ),
+        (
+            ext_vertex_attribute_divisor,
+            ext::vertex_attribute_divisor::EXTENSION_NAME
+        ),
+        (ggp_frame_token, ggp::frame_token::EXTENSION_NAME),
+        (
+            ext_pipeline_creation_feedback,
+            ext::pipeline_creation_feedback::EXTENSION_NAME
+        ),
+        (
+            khr_driver_properties,
+            khr::driver_properties::EXTENSION_NAME
+        ),
+        (
+            khr_shader_float_controls,
+            khr::shader_float_controls::EXTENSION_NAME
+        ),
+        (
+            nv_shader_subgroup_partitioned,
+            nv::shader_subgroup_partitioned::EXTENSION_NAME
+        ),
+        (
+            khr_depth_stencil_resolve,
+            khr::depth_stencil_resolve::EXTENSION_NAME
+        ),
+        (
+            khr_swapchain_mutable_format,
+            khr::swapchain_mutable_format::EXTENSION_NAME
+        ),
+        (
+            nv_compute_shader_derivatives,
+            nv::compute_shader_derivatives::EXTENSION_NAME
+        ),
+        (nv_mesh_shader, nv::mesh_shader::EXTENSION_NAME),
+        (
+            nv_fragment_shader_barycentric,
+            nv::fragment_shader_barycentric::EXTENSION_NAME
+        ),
+        (
+            nv_shader_image_footprint,
+            nv::shader_image_footprint::EXTENSION_NAME
+        ),
+        (nv_scissor_exclusive, nv::scissor_exclusive::EXTENSION_NAME),
+        (
+            nv_device_diagnostic_checkpoints,
+            nv::device_diagnostic_checkpoints::EXTENSION_NAME
+        ),
+        (
+            khr_timeline_semaphore,
+            khr::timeline_semaphore::EXTENSION_NAME
+        ),
+        (ext_present_timing, ext::present_timing::EXTENSION_NAME),
+        (
+            intel_shader_integer_functions2,
+            intel::shader_integer_functions2::EXTENSION_NAME
+        ),
+        (
+            intel_performance_query,
+            intel::performance_query::EXTENSION_NAME
+        ),
+        (
+            khr_vulkan_memory_model,
+            khr::vulkan_memory_model::EXTENSION_NAME
+        ),
+        (ext_pci_bus_info, ext::pci_bus_info::EXTENSION_NAME),
+        (
+            amd_display_native_hdr,
+            amd::display_native_hdr::EXTENSION_NAME
+        ),
+        (
+            khr_shader_terminate_invocation,
+            khr::shader_terminate_invocation::EXTENSION_NAME
+        ),
+        (
+            ext_fragment_density_map,
+            ext::fragment_density_map::EXTENSION_NAME
+        ),
+        (
+            ext_scalar_block_layout,
+            ext::scalar_block_layout::EXTENSION_NAME
+        ),
+        (
+            google_hlsl_functionality1,
+            google::hlsl_functionality1::EXTENSION_NAME
+        ),
+        (
+            google_decorate_string,
+            google::decorate_string::EXTENSION_NAME
+        ),
+        (
+            ext_subgroup_size_control,
+            ext::subgroup_size_control::EXTENSION_NAME
+        ),
+        (
+            khr_fragment_shading_rate,
+            khr::fragment_shading_rate::EXTENSION_NAME
+        ),
+        (
+            amd_shader_core_properties2,
+            amd::shader_core_properties2::EXTENSION_NAME
+        ),
+        (
+            amd_device_coherent_memory,
+            amd::device_coherent_memory::EXTENSION_NAME
+        ),
+        (
+            khr_dynamic_rendering_local_read,
+            khr::dynamic_rendering_local_read::EXTENSION_NAME
+        ),
+        (
+            ext_shader_image_atomic_int64,
+            ext::shader_image_atomic_int64::EXTENSION_NAME
+        ),
+        (
+            khr_shader_quad_control,
+            khr::shader_quad_control::EXTENSION_NAME
+        ),
+        (khr_spirv_1_4, khr::spirv_1_4::EXTENSION_NAME),
+        (ext_memory_budget, ext::memory_budget::EXTENSION_NAME),
+        (ext_memory_priority, ext::memory_priority::EXTENSION_NAME),
+        (
+            nv_dedicated_allocation_image_aliasing,
+            nv::dedicated_allocation_image_aliasing::EXTENSION_NAME
+        ),
+        (
+            khr_separate_depth_stencil_layouts,
+            khr::separate_depth_stencil_layouts::EXTENSION_NAME
+        ),
+        (
+            ext_buffer_device_address,
+            ext::buffer_device_address::EXTENSION_NAME
+        ),
+        (ext_tooling_info, ext::tooling_info::EXTENSION_NAME),
+        (
+            ext_separate_stencil_usage,
+            ext::separate_stencil_usage::EXTENSION_NAME
+        ),
+        (khr_present_wait, khr::present_wait::EXTENSION_NAME),
+        (
+            nv_cooperative_matrix,
+            nv::cooperative_matrix::EXTENSION_NAME
+        ),
+        (
+            nv_coverage_reduction_mode,
+            nv::coverage_reduction_mode::EXTENSION_NAME
+        ),
+        (
+            ext_fragment_shader_interlock,
+            ext::fragment_shader_interlock::EXTENSION_NAME
+        ),
+        (
+            ext_ycbcr_image_arrays,
+            ext::ycbcr_image_arrays::EXTENSION_NAME
+        ),
+        (
+            khr_uniform_buffer_standard_layout,
+            khr::uniform_buffer_standard_layout::EXTENSION_NAME
+        ),
+        (ext_provoking_vertex, ext::provoking_vertex::EXTENSION_NAME),
+        (
+            ext_full_screen_exclusive,
+            ext::full_screen_exclusive::EXTENSION_NAME
+        ),
+        (
+            khr_buffer_device_address,
+            khr::buffer_device_address::EXTENSION_NAME
+        ),
+        (
+            ext_line_rasterization,
+            ext::line_rasterization::EXTENSION_NAME
+        ),
+        (
+            ext_shader_atomic_float,
+            ext::shader_atomic_float::EXTENSION_NAME
+        ),
+        (ext_host_query_reset, ext::host_query_reset::EXTENSION_NAME),
+        (ext_index_type_uint8, ext::index_type_uint8::EXTENSION_NAME),
+        (
+            ext_extended_dynamic_state,
+            ext::extended_dynamic_state::EXTENSION_NAME
+        ),
+        (
+            khr_deferred_host_operations,
+            khr::deferred_host_operations::EXTENSION_NAME
+        ),
+        (
+            khr_pipeline_executable_properties,
+            khr::pipeline_executable_properties::EXTENSION_NAME
+        ),
+        (ext_host_image_copy, ext::host_image_copy::EXTENSION_NAME),
+        (khr_map_memory2, khr::map_memory2::EXTENSION_NAME),
+        (
+            ext_map_memory_placed,
+            ext::map_memory_placed::EXTENSION_NAME
+        ),
+        (
+            ext_shader_atomic_float2,
+            ext::shader_atomic_float2::EXTENSION_NAME
+        ),
+        (
+            ext_swapchain_maintenance1,
+            ext::swapchain_maintenance1::EXTENSION_NAME
+        ),
+        (
+            ext_shader_demote_to_helper_invocation,
+            ext::shader_demote_to_helper_invocation::EXTENSION_NAME
+        ),
+        (
+            nv_device_generated_commands,
+            nv::device_generated_commands::EXTENSION_NAME
+        ),
+        (
+            nv_inherited_viewport_scissor,
+            nv::inherited_viewport_scissor::EXTENSION_NAME
+        ),
+        (
+            khr_shader_integer_dot_product,
+            khr::shader_integer_dot_product::EXTENSION_NAME
+        ),
+        (
+            ext_texel_buffer_alignment,
+            ext::texel_buffer_alignment::EXTENSION_NAME
+        ),
+        (
+            qcom_render_pass_transform,
+            qcom::render_pass_transform::EXTENSION_NAME
+        ),
+        (
+            ext_depth_bias_control,
+            ext::depth_bias_control::EXTENSION_NAME
+        ),
+        (
+            ext_device_memory_report,
+            ext::device_memory_report::EXTENSION_NAME
+        ),
+        (ext_robustness2, ext::robustness2::EXTENSION_NAME),
+        (
+            ext_custom_border_color,
+            ext::custom_border_color::EXTENSION_NAME
+        ),
+        (
+            ext_texture_compression_astc_3d,
+            ext::texture_compression_astc_3d::EXTENSION_NAME
+        ),
+        (google_user_type, google::user_type::EXTENSION_NAME),
+        (khr_pipeline_library, khr::pipeline_library::EXTENSION_NAME),
+        (nv_present_barrier, nv::present_barrier::EXTENSION_NAME),
+        (
+            khr_shader_non_semantic_info,
+            khr::shader_non_semantic_info::EXTENSION_NAME
+        ),
+        (khr_present_id, khr::present_id::EXTENSION_NAME),
+        (ext_private_data, ext::private_data::EXTENSION_NAME),
+        (
+            ext_pipeline_creation_cache_control,
+            ext::pipeline_creation_cache_control::EXTENSION_NAME
+        ),
+        (
+            khr_video_encode_queue,
+            khr::video_encode_queue::EXTENSION_NAME
+        ),
+        (
+            nv_device_diagnostics_config,
+            nv::device_diagnostics_config::EXTENSION_NAME
+        ),
+        (
+            qcom_render_pass_store_ops,
+            qcom::render_pass_store_ops::EXTENSION_NAME
+        ),
+        #[cfg(feature = "provisional")]
+        (
+            nv_cuda_kernel_launch,
+            nv::cuda_kernel_launch::EXTENSION_NAME
+        ),
+        (qcom_tile_shading, qcom::tile_shading::EXTENSION_NAME),
+        (nv_low_latency, nv::low_latency::EXTENSION_NAME),
+        (ext_metal_objects, ext::metal_objects::EXTENSION_NAME),
+        (khr_synchronization2, khr::synchronization2::EXTENSION_NAME),
+        (
+            ext_descriptor_buffer,
+            ext::descriptor_buffer::EXTENSION_NAME
+        ),
+        (
+            khr_device_address_commands,
+            khr::device_address_commands::EXTENSION_NAME
+        ),
+        (
+            ext_graphics_pipeline_library,
+            ext::graphics_pipeline_library::EXTENSION_NAME
+        ),
+        (
+            amd_shader_early_and_late_fragment_tests,
+            amd::shader_early_and_late_fragment_tests::EXTENSION_NAME
+        ),
+        (
+            khr_fragment_shader_barycentric,
+            khr::fragment_shader_barycentric::EXTENSION_NAME
+        ),
+        (
+            khr_shader_subgroup_uniform_control_flow,
+            khr::shader_subgroup_uniform_control_flow::EXTENSION_NAME
+        ),
+        (
+            khr_zero_initialize_workgroup_memory,
+            khr::zero_initialize_workgroup_memory::EXTENSION_NAME
+        ),
+        (
+            nv_fragment_shading_rate_enums,
+            nv::fragment_shading_rate_enums::EXTENSION_NAME
+        ),
+        (
+            nv_ray_tracing_motion_blur,
+            nv::ray_tracing_motion_blur::EXTENSION_NAME
+        ),
+        (ext_mesh_shader, ext::mesh_shader::EXTENSION_NAME),
+        (
+            ext_ycbcr_2plane_444_formats,
+            ext::ycbcr_2plane_444_formats::EXTENSION_NAME
+        ),
+        (
+            ext_fragment_density_map2,
+            ext::fragment_density_map2::EXTENSION_NAME
+        ),
+        (
+            qcom_rotated_copy_commands,
+            qcom::rotated_copy_commands::EXTENSION_NAME
+        ),
+        (ext_image_robustness, ext::image_robustness::EXTENSION_NAME),
+        (
+            khr_workgroup_memory_explicit_layout,
+            khr::workgroup_memory_explicit_layout::EXTENSION_NAME
+        ),
+        (khr_copy_commands2, khr::copy_commands2::EXTENSION_NAME),
+        (
+            ext_image_compression_control,
+            ext::image_compression_control::EXTENSION_NAME
+        ),
+        (
+            ext_attachment_feedback_loop_layout,
+            ext::attachment_feedback_loop_layout::EXTENSION_NAME
+        ),
+        (ext__4444_formats, ext::_4444_formats::EXTENSION_NAME),
+        (ext_device_fault, ext::device_fault::EXTENSION_NAME),
+        (
+            arm_rasterization_order_attachment_access,
+            arm::rasterization_order_attachment_access::EXTENSION_NAME
+        ),
+        (ext_rgba10x6_formats, ext::rgba10x6_formats::EXTENSION_NAME),
+        (
+            nv_acquire_winrt_display,
+            nv::acquire_winrt_display::EXTENSION_NAME
+        ),
+        (
+            valve_mutable_descriptor_type,
+            valve::mutable_descriptor_type::EXTENSION_NAME
+        ),
+        (
+            ext_vertex_input_dynamic_state,
+            ext::vertex_input_dynamic_state::EXTENSION_NAME
+        ),
+        (
+            ext_physical_device_drm,
+            ext::physical_device_drm::EXTENSION_NAME
+        ),
+        (
+            ext_device_address_binding_report,
+            ext::device_address_binding_report::EXTENSION_NAME
+        ),
+        (
+            ext_depth_clip_control,
+            ext::depth_clip_control::EXTENSION_NAME
+        ),
+        (
+            ext_primitive_topology_list_restart,
+            ext::primitive_topology_list_restart::EXTENSION_NAME
+        ),
+        (
+            khr_format_feature_flags2,
+            khr::format_feature_flags2::EXTENSION_NAME
+        ),
+        (
+            ext_present_mode_fifo_latest_ready,
+            ext::present_mode_fifo_latest_ready::EXTENSION_NAME
+        ),
+        (
+            fuchsia_external_memory,
+            fuchsia::external_memory::EXTENSION_NAME
+        ),
+        (
+            fuchsia_external_semaphore,
+            fuchsia::external_semaphore::EXTENSION_NAME
+        ),
+        (
+            fuchsia_buffer_collection,
+            fuchsia::buffer_collection::EXTENSION_NAME
+        ),
+        (
+            huawei_subpass_shading,
+            huawei::subpass_shading::EXTENSION_NAME
+        ),
+        (
+            huawei_invocation_mask,
+            huawei::invocation_mask::EXTENSION_NAME
+        ),
+        (
+            nv_external_memory_rdma,
+            nv::external_memory_rdma::EXTENSION_NAME
+        ),
+        (
+            ext_pipeline_properties,
+            ext::pipeline_properties::EXTENSION_NAME
+        ),
+        (ext_frame_boundary, ext::frame_boundary::EXTENSION_NAME),
+        (
+            ext_multisampled_render_to_single_sampled,
+            ext::multisampled_render_to_single_sampled::EXTENSION_NAME
+        ),
+        (
+            ext_extended_dynamic_state2,
+            ext::extended_dynamic_state2::EXTENSION_NAME
+        ),
+        (
+            ext_color_write_enable,
+            ext::color_write_enable::EXTENSION_NAME
+        ),
+        (
+            ext_primitives_generated_query,
+            ext::primitives_generated_query::EXTENSION_NAME
+        ),
+        (
+            khr_ray_tracing_maintenance1,
+            khr::ray_tracing_maintenance1::EXTENSION_NAME
+        ),
+        (
+            khr_shader_untyped_pointers,
+            khr::shader_untyped_pointers::EXTENSION_NAME
+        ),
+        (
+            ext_global_priority_query,
+            ext::global_priority_query::EXTENSION_NAME
+        ),
+        (
+            valve_video_encode_rgb_conversion,
+            valve::video_encode_rgb_conversion::EXTENSION_NAME
+        ),
+        (
+            ext_image_view_min_lod,
+            ext::image_view_min_lod::EXTENSION_NAME
+        ),
+        (ext_multi_draw, ext::multi_draw::EXTENSION_NAME),
+        (
+            ext_image_2d_view_of_3d,
+            ext::image_2d_view_of_3d::EXTENSION_NAME
+        ),
+        (
+            ext_shader_tile_image,
+            ext::shader_tile_image::EXTENSION_NAME
+        ),
+        (ext_opacity_micromap, ext::opacity_micromap::EXTENSION_NAME),
+        #[cfg(feature = "provisional")]
+        (
+            nv_displacement_micromap,
+            nv::displacement_micromap::EXTENSION_NAME
+        ),
+        (
+            ext_load_store_op_none,
+            ext::load_store_op_none::EXTENSION_NAME
+        ),
+        (
+            huawei_cluster_culling_shader,
+            huawei::cluster_culling_shader::EXTENSION_NAME
+        ),
+        (
+            ext_border_color_swizzle,
+            ext::border_color_swizzle::EXTENSION_NAME
+        ),
+        (
+            ext_pageable_device_local_memory,
+            ext::pageable_device_local_memory::EXTENSION_NAME
+        ),
+        (khr_maintenance4, khr::maintenance4::EXTENSION_NAME),
+        (
+            arm_shader_core_properties,
+            arm::shader_core_properties::EXTENSION_NAME
+        ),
+        (
+            khr_shader_subgroup_rotate,
+            khr::shader_subgroup_rotate::EXTENSION_NAME
+        ),
+        (
+            arm_scheduling_controls,
+            arm::scheduling_controls::EXTENSION_NAME
+        ),
+        (
+            ext_image_sliced_view_of_3d,
+            ext::image_sliced_view_of_3d::EXTENSION_NAME
+        ),
+        (
+            valve_descriptor_set_host_mapping,
+            valve::descriptor_set_host_mapping::EXTENSION_NAME
+        ),
+        (
+            ext_depth_clamp_zero_one,
+            ext::depth_clamp_zero_one::EXTENSION_NAME
+        ),
+        (
+            ext_non_seamless_cube_map,
+            ext::non_seamless_cube_map::EXTENSION_NAME
+        ),
+        (
+            arm_render_pass_striped,
+            arm::render_pass_striped::EXTENSION_NAME
+        ),
+        (
+            qcom_fragment_density_map_offset,
+            qcom::fragment_density_map_offset::EXTENSION_NAME
+        ),
+        (
+            nv_copy_memory_indirect,
+            nv::copy_memory_indirect::EXTENSION_NAME
+        ),
+        (
+            nv_memory_decompression,
+            nv::memory_decompression::EXTENSION_NAME
+        ),
+        (
+            nv_device_generated_commands_compute,
+            nv::device_generated_commands_compute::EXTENSION_NAME
+        ),
+        (
+            nv_ray_tracing_linear_swept_spheres,
+            nv::ray_tracing_linear_swept_spheres::EXTENSION_NAME
+        ),
+        (
+            nv_linear_color_attachment,
+            nv::linear_color_attachment::EXTENSION_NAME
+        ),
+        (
+            khr_shader_maximal_reconvergence,
+            khr::shader_maximal_reconvergence::EXTENSION_NAME
+        ),
+        (
+            ext_image_compression_control_swapchain,
+            ext::image_compression_control_swapchain::EXTENSION_NAME
+        ),
+        (
+            qcom_image_processing,
+            qcom::image_processing::EXTENSION_NAME
+        ),
+        (
+            ext_nested_command_buffer,
+            ext::nested_command_buffer::EXTENSION_NAME
+        ),
+        (ohos_external_memory, ohos::external_memory::EXTENSION_NAME),
+        (
+            ext_external_memory_acquire_unmodified,
+            ext::external_memory_acquire_unmodified::EXTENSION_NAME
+        ),
+        (
+            ext_extended_dynamic_state3,
+            ext::extended_dynamic_state3::EXTENSION_NAME
+        ),
+        (
+            ext_subpass_merge_feedback,
+            ext::subpass_merge_feedback::EXTENSION_NAME
+        ),
+        (arm_tensors, arm::tensors::EXTENSION_NAME),
+        (
+            ext_shader_module_identifier,
+            ext::shader_module_identifier::EXTENSION_NAME
+        ),
+        (
+            ext_rasterization_order_attachment_access,
+            ext::rasterization_order_attachment_access::EXTENSION_NAME
+        ),
+        (nv_optical_flow, nv::optical_flow::EXTENSION_NAME),
+        (ext_legacy_dithering, ext::legacy_dithering::EXTENSION_NAME),
+        (
+            ext_pipeline_protected_access,
+            ext::pipeline_protected_access::EXTENSION_NAME
+        ),
+        (
+            android_external_format_resolve,
+            android::external_format_resolve::EXTENSION_NAME
+        ),
+        (khr_maintenance5, khr::maintenance5::EXTENSION_NAME),
+        (amd_anti_lag, amd::anti_lag::EXTENSION_NAME),
+        #[cfg(feature = "provisional")]
+        (
+            amdx_dense_geometry_format,
+            amdx::dense_geometry_format::EXTENSION_NAME
+        ),
+        (khr_present_id2, khr::present_id2::EXTENSION_NAME),
+        (khr_present_wait2, khr::present_wait2::EXTENSION_NAME),
+        (
+            khr_ray_tracing_position_fetch,
+            khr::ray_tracing_position_fetch::EXTENSION_NAME
+        ),
+        (ext_shader_object, ext::shader_object::EXTENSION_NAME),
+        (khr_pipeline_binary, khr::pipeline_binary::EXTENSION_NAME),
+        (qcom_tile_properties, qcom::tile_properties::EXTENSION_NAME),
+        (sec_amigo_profiling, sec::amigo_profiling::EXTENSION_NAME),
+        (
+            khr_swapchain_maintenance1,
+            khr::swapchain_maintenance1::EXTENSION_NAME
+        ),
+        (
+            qcom_multiview_per_view_viewports,
+            qcom::multiview_per_view_viewports::EXTENSION_NAME
+        ),
+        (
+            nv_ray_tracing_invocation_reorder,
+            nv::ray_tracing_invocation_reorder::EXTENSION_NAME
+        ),
+        (
+            nv_cooperative_vector,
+            nv::cooperative_vector::EXTENSION_NAME
+        ),
+        (
+            nv_extended_sparse_address_space,
+            nv::extended_sparse_address_space::EXTENSION_NAME
+        ),
+        (
+            ext_mutable_descriptor_type,
+            ext::mutable_descriptor_type::EXTENSION_NAME
+        ),
+        (
+            ext_legacy_vertex_attributes,
+            ext::legacy_vertex_attributes::EXTENSION_NAME
+        ),
+        (
+            arm_shader_core_builtins,
+            arm::shader_core_builtins::EXTENSION_NAME
+        ),
+        (
+            ext_pipeline_library_group_handles,
+            ext::pipeline_library_group_handles::EXTENSION_NAME
+        ),
+        (
+            ext_dynamic_rendering_unused_attachments,
+            ext::dynamic_rendering_unused_attachments::EXTENSION_NAME
+        ),
+        (
+            khr_internally_synchronized_queues,
+            khr::internally_synchronized_queues::EXTENSION_NAME
+        ),
+        (nv_low_latency2, nv::low_latency2::EXTENSION_NAME),
+        (
+            khr_cooperative_matrix,
+            khr::cooperative_matrix::EXTENSION_NAME
+        ),
+        (arm_data_graph, arm::data_graph::EXTENSION_NAME),
+        (
+            qcom_multiview_per_view_render_areas,
+            qcom::multiview_per_view_render_areas::EXTENSION_NAME
+        ),
+        (
+            khr_compute_shader_derivatives,
+            khr::compute_shader_derivatives::EXTENSION_NAME
+        ),
+        (khr_video_decode_av1, khr::video_decode_av1::EXTENSION_NAME),
+        (khr_video_encode_av1, khr::video_encode_av1::EXTENSION_NAME),
+        (khr_video_decode_vp9, khr::video_decode_vp9::EXTENSION_NAME),
+        (
+            khr_video_maintenance1,
+            khr::video_maintenance1::EXTENSION_NAME
+        ),
+        (
+            nv_per_stage_descriptor_set,
+            nv::per_stage_descriptor_set::EXTENSION_NAME
+        ),
+        (
+            qcom_image_processing2,
+            qcom::image_processing2::EXTENSION_NAME
+        ),
+        (
+            qcom_filter_cubic_weights,
+            qcom::filter_cubic_weights::EXTENSION_NAME
+        ),
+        (qcom_ycbcr_degamma, qcom::ycbcr_degamma::EXTENSION_NAME),
+        (
+            qcom_filter_cubic_clamp,
+            qcom::filter_cubic_clamp::EXTENSION_NAME
+        ),
+        (
+            ext_attachment_feedback_loop_dynamic_state,
+            ext::attachment_feedback_loop_dynamic_state::EXTENSION_NAME
+        ),
+        (
+            khr_vertex_attribute_divisor,
+            khr::vertex_attribute_divisor::EXTENSION_NAME
+        ),
+        (
+            khr_load_store_op_none,
+            khr::load_store_op_none::EXTENSION_NAME
+        ),
+        (
+            khr_unified_image_layouts,
+            khr::unified_image_layouts::EXTENSION_NAME
+        ),
+        (
+            khr_shader_float_controls2,
+            khr::shader_float_controls2::EXTENSION_NAME
+        ),
+        (
+            qnx_external_memory_screen_buffer,
+            qnx::external_memory_screen_buffer::EXTENSION_NAME
+        ),
+        (msft_layered_driver, msft::layered_driver::EXTENSION_NAME),
+        (khr_index_type_uint8, khr::index_type_uint8::EXTENSION_NAME),
+        (
+            khr_line_rasterization,
+            khr::line_rasterization::EXTENSION_NAME
+        ),
+        (
+            khr_calibrated_timestamps,
+            khr::calibrated_timestamps::EXTENSION_NAME
+        ),
+        (
+            khr_shader_expect_assume,
+            khr::shader_expect_assume::EXTENSION_NAME
+        ),
+        (khr_maintenance6, khr::maintenance6::EXTENSION_NAME),
+        (
+            nv_descriptor_pool_overallocation,
+            nv::descriptor_pool_overallocation::EXTENSION_NAME
+        ),
+        (
+            qcom_tile_memory_heap,
+            qcom::tile_memory_heap::EXTENSION_NAME
+        ),
+        (
+            khr_copy_memory_indirect,
+            khr::copy_memory_indirect::EXTENSION_NAME
+        ),
+        (
+            ext_memory_decompression,
+            ext::memory_decompression::EXTENSION_NAME
+        ),
+        (
+            khr_video_encode_intra_refresh,
+            khr::video_encode_intra_refresh::EXTENSION_NAME
+        ),
+        (
+            khr_video_encode_quantization_map,
+            khr::video_encode_quantization_map::EXTENSION_NAME
+        ),
+        (nv_raw_access_chains, nv::raw_access_chains::EXTENSION_NAME),
+        (
+            nv_external_compute_queue,
+            nv::external_compute_queue::EXTENSION_NAME
+        ),
+        (
+            khr_shader_relaxed_extended_instruction,
+            khr::shader_relaxed_extended_instruction::EXTENSION_NAME
+        ),
+        (
+            nv_command_buffer_inheritance,
+            nv::command_buffer_inheritance::EXTENSION_NAME
+        ),
+        (khr_maintenance7, khr::maintenance7::EXTENSION_NAME),
+        (
+            nv_shader_atomic_float16_vector,
+            nv::shader_atomic_float16_vector::EXTENSION_NAME
+        ),
+        (
+            ext_shader_replicated_composites,
+            ext::shader_replicated_composites::EXTENSION_NAME
+        ),
+        (ext_shader_float8, ext::shader_float8::EXTENSION_NAME),
+        (
+            nv_ray_tracing_validation,
+            nv::ray_tracing_validation::EXTENSION_NAME
+        ),
+        (
+            nv_cluster_acceleration_structure,
+            nv::cluster_acceleration_structure::EXTENSION_NAME
+        ),
+        (
+            nv_partitioned_acceleration_structure,
+            nv::partitioned_acceleration_structure::EXTENSION_NAME
+        ),
+        (
+            ext_device_generated_commands,
+            ext::device_generated_commands::EXTENSION_NAME
+        ),
+        (khr_maintenance8, khr::maintenance8::EXTENSION_NAME),
+        (
+            mesa_image_alignment_control,
+            mesa::image_alignment_control::EXTENSION_NAME
+        ),
+        (khr_shader_fma, khr::shader_fma::EXTENSION_NAME),
+        (
+            nv_push_constant_bank,
+            nv::push_constant_bank::EXTENSION_NAME
+        ),
+        (
+            ext_ray_tracing_invocation_reorder,
+            ext::ray_tracing_invocation_reorder::EXTENSION_NAME
+        ),
+        (
+            ext_depth_clamp_control,
+            ext::depth_clamp_control::EXTENSION_NAME
+        ),
+        (khr_maintenance9, khr::maintenance9::EXTENSION_NAME),
+        (
+            khr_video_maintenance2,
+            khr::video_maintenance2::EXTENSION_NAME
+        ),
+        (huawei_hdr_vivid, huawei::hdr_vivid::EXTENSION_NAME),
+        (
+            nv_cooperative_matrix2,
+            nv::cooperative_matrix2::EXTENSION_NAME
+        ),
+        (
+            arm_pipeline_opacity_micromap,
+            arm::pipeline_opacity_micromap::EXTENSION_NAME
+        ),
+        (
+            ext_external_memory_metal,
+            ext::external_memory_metal::EXTENSION_NAME
+        ),
+        (
+            khr_depth_clamp_zero_one,
+            khr::depth_clamp_zero_one::EXTENSION_NAME
+        ),
+        (
+            arm_performance_counters_by_region,
+            arm::performance_counters_by_region::EXTENSION_NAME
+        ),
+        (
+            arm_shader_instrumentation,
+            arm::shader_instrumentation::EXTENSION_NAME
+        ),
+        (
+            ext_vertex_attribute_robustness,
+            ext::vertex_attribute_robustness::EXTENSION_NAME
+        ),
+        (arm_format_pack, arm::format_pack::EXTENSION_NAME),
+        (
+            valve_fragment_density_map_layered,
+            valve::fragment_density_map_layered::EXTENSION_NAME
+        ),
+        (khr_robustness2, khr::robustness2::EXTENSION_NAME),
+        (nv_present_metering, nv::present_metering::EXTENSION_NAME),
+        (
+            ext_fragment_density_map_offset,
+            ext::fragment_density_map_offset::EXTENSION_NAME
+        ),
+        (
+            ext_zero_initialize_device_memory,
+            ext::zero_initialize_device_memory::EXTENSION_NAME
+        ),
+        (
+            khr_present_mode_fifo_latest_ready,
+            khr::present_mode_fifo_latest_ready::EXTENSION_NAME
+        ),
+        (
+            ext_shader_64bit_indexing,
+            ext::shader_64bit_indexing::EXTENSION_NAME
+        ),
+        (ext_custom_resolve, ext::custom_resolve::EXTENSION_NAME),
+        (
+            qcom_data_graph_model,
+            qcom::data_graph_model::EXTENSION_NAME
+        ),
+        (khr_maintenance10, khr::maintenance10::EXTENSION_NAME),
+        (
+            ext_shader_long_vector,
+            ext::shader_long_vector::EXTENSION_NAME
+        ),
+        (
+            sec_pipeline_cache_incremental_mode,
+            sec::pipeline_cache_incremental_mode::EXTENSION_NAME
+        ),
+        (
+            ext_shader_uniform_buffer_unsized_array,
+            ext::shader_uniform_buffer_unsized_array::EXTENSION_NAME
+        ),
+        (
+            nv_compute_occupancy_priority,
+            nv::compute_occupancy_priority::EXTENSION_NAME
+        ),
+        (
+            ext_shader_subgroup_partitioned,
+            ext::shader_subgroup_partitioned::EXTENSION_NAME
+        ),
+        (
+            valve_shader_mixed_float_dot_product,
+            valve::shader_mixed_float_dot_product::EXTENSION_NAME
+        ),
+    ]
+);

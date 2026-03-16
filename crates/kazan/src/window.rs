@@ -1,13 +1,13 @@
 //! Interop between kazan and [`raw_window_handle`].
 //!
 //! Provides [`InstanceFn`] to load platform-specific surface creation function pointers and
-//! create [`vk::SurfaceKHR`] handles, and [`enumerate_required_extensions()`] to query which
+//! create [`vk::SurfaceKHR`] handles, and [`required_extensions()`] to query which
 //! instance extensions are needed.
 
-use core::ffi::{CStr, c_char};
+use core::ffi::CStr;
 use raw_window_handle::{RawDisplayHandle, RawWindowHandle};
 
-use crate::{LoadInstanceFn as _, vk};
+use crate::{InstanceExtensionSet, LoadInstanceFn as _, vk};
 
 /// Loaded platform-specific surface creation function pointers.
 ///
@@ -438,20 +438,17 @@ impl InstanceFn {
 
 /// Returns all surface-related instance extensions valid on this platform.
 ///
-/// Unlike [`enumerate_required_extensions()`], this does not require a display handle —
+/// Unlike [`required_extensions()`], this does not require a display handle —
 /// it returns the union of all platform-possible surface extensions so that callers can
 /// enable them all up front.
 ///
-/// The returned extensions always include `VK_KHR_surface`.
-pub fn enumerate_desired_extensions() -> &'static [*const c_char] {
+/// The returned set always includes `VK_KHR_surface`.
+pub fn desired_extensions() -> InstanceExtensionSet {
+    let mut set = InstanceExtensionSet::empty();
+    let _ = set.insert(vk::khr::surface::EXTENSION_NAME);
+
     #[cfg(target_os = "windows")]
-    {
-        const EXTS: [*const c_char; 2] = [
-            vk::khr::surface::EXTENSION_NAME.as_ptr(),
-            vk::khr::win32_surface::EXTENSION_NAME.as_ptr(),
-        ];
-        &EXTS
-    }
+    let _ = set.insert(vk::khr::win32_surface::EXTENSION_NAME);
 
     #[cfg(all(
         not(target_env = "ohos"),
@@ -464,59 +461,36 @@ pub fn enumerate_desired_extensions() -> &'static [*const c_char] {
         ),
     ))]
     {
-        const EXTS: [*const c_char; 4] = [
-            vk::khr::surface::EXTENSION_NAME.as_ptr(),
-            vk::khr::wayland_surface::EXTENSION_NAME.as_ptr(),
-            vk::khr::xlib_surface::EXTENSION_NAME.as_ptr(),
-            vk::khr::xcb_surface::EXTENSION_NAME.as_ptr(),
-        ];
-        &EXTS
+        let _ = set.insert(vk::khr::wayland_surface::EXTENSION_NAME);
+        let _ = set.insert(vk::khr::xlib_surface::EXTENSION_NAME);
+        let _ = set.insert(vk::khr::xcb_surface::EXTENSION_NAME);
     }
 
     #[cfg(target_os = "android")]
-    {
-        const EXTS: [*const c_char; 2] = [
-            vk::khr::surface::EXTENSION_NAME.as_ptr(),
-            vk::khr::android_surface::EXTENSION_NAME.as_ptr(),
-        ];
-        &EXTS
-    }
+    let _ = set.insert(vk::khr::android_surface::EXTENSION_NAME);
 
     #[cfg(target_env = "ohos")]
-    {
-        const EXTS: [*const c_char; 2] = [
-            vk::khr::surface::EXTENSION_NAME.as_ptr(),
-            vk::ohos::surface::EXTENSION_NAME.as_ptr(),
-        ];
-        &EXTS
-    }
+    let _ = set.insert(vk::ohos::surface::EXTENSION_NAME);
 
     #[cfg(any(target_os = "macos", target_os = "ios"))]
-    {
-        const EXTS: [*const c_char; 2] = [
-            vk::khr::surface::EXTENSION_NAME.as_ptr(),
-            vk::ext::metal_surface::EXTENSION_NAME.as_ptr(),
-        ];
-        &EXTS
-    }
+    let _ = set.insert(vk::ext::metal_surface::EXTENSION_NAME);
+
+    set
 }
 
 /// Query the required instance extensions for creating a surface from a display handle.
 ///
-/// The returned extensions include all extension dependencies (i.e. `VK_KHR_surface` is always
-/// included).
-pub fn enumerate_required_extensions(
+/// The returned set always includes `VK_KHR_surface` plus the platform-specific surface
+/// extension matching the given display handle.
+pub fn required_extensions(
     display_handle: RawDisplayHandle,
-) -> crate::Result<&'static [*const c_char]> {
-    let extensions = match display_handle {
+) -> crate::Result<InstanceExtensionSet> {
+    let mut set = InstanceExtensionSet::empty();
+    let _ = set.insert(vk::khr::surface::EXTENSION_NAME);
+
+    let ext = match display_handle {
         #[cfg(target_os = "windows")]
-        RawDisplayHandle::Windows(_) => {
-            const EXTS: [*const c_char; 2] = [
-                vk::khr::surface::EXTENSION_NAME.as_ptr(),
-                vk::khr::win32_surface::EXTENSION_NAME.as_ptr(),
-            ];
-            &EXTS[..]
-        }
+        RawDisplayHandle::Windows(_) => vk::khr::win32_surface::EXTENSION_NAME,
 
         #[cfg(all(
             not(target_env = "ohos"),
@@ -528,13 +502,7 @@ pub fn enumerate_required_extensions(
                 target_os = "openbsd",
             ),
         ))]
-        RawDisplayHandle::Wayland(_) => {
-            const EXTS: [*const c_char; 2] = [
-                vk::khr::surface::EXTENSION_NAME.as_ptr(),
-                vk::khr::wayland_surface::EXTENSION_NAME.as_ptr(),
-            ];
-            &EXTS[..]
-        }
+        RawDisplayHandle::Wayland(_) => vk::khr::wayland_surface::EXTENSION_NAME,
 
         #[cfg(all(
             not(target_env = "ohos"),
@@ -546,13 +514,7 @@ pub fn enumerate_required_extensions(
                 target_os = "openbsd",
             ),
         ))]
-        RawDisplayHandle::Xlib(_) => {
-            const EXTS: [*const c_char; 2] = [
-                vk::khr::surface::EXTENSION_NAME.as_ptr(),
-                vk::khr::xlib_surface::EXTENSION_NAME.as_ptr(),
-            ];
-            &EXTS[..]
-        }
+        RawDisplayHandle::Xlib(_) => vk::khr::xlib_surface::EXTENSION_NAME,
 
         #[cfg(all(
             not(target_env = "ohos"),
@@ -564,43 +526,22 @@ pub fn enumerate_required_extensions(
                 target_os = "openbsd",
             ),
         ))]
-        RawDisplayHandle::Xcb(_) => {
-            const EXTS: [*const c_char; 2] = [
-                vk::khr::surface::EXTENSION_NAME.as_ptr(),
-                vk::khr::xcb_surface::EXTENSION_NAME.as_ptr(),
-            ];
-            &EXTS[..]
-        }
+        RawDisplayHandle::Xcb(_) => vk::khr::xcb_surface::EXTENSION_NAME,
 
         #[cfg(target_os = "android")]
-        RawDisplayHandle::Android(_) => {
-            const EXTS: [*const c_char; 2] = [
-                vk::khr::surface::EXTENSION_NAME.as_ptr(),
-                vk::khr::android_surface::EXTENSION_NAME.as_ptr(),
-            ];
-            &EXTS[..]
-        }
+        RawDisplayHandle::Android(_) => vk::khr::android_surface::EXTENSION_NAME,
 
         #[cfg(target_env = "ohos")]
-        RawDisplayHandle::Ohos(_) => {
-            const EXTS: [*const c_char; 2] = [
-                vk::khr::surface::EXTENSION_NAME.as_ptr(),
-                vk::ohos::surface::EXTENSION_NAME.as_ptr(),
-            ];
-            &EXTS[..]
-        }
+        RawDisplayHandle::Ohos(_) => vk::ohos::surface::EXTENSION_NAME,
 
         #[cfg(any(target_os = "macos", target_os = "ios"))]
         RawDisplayHandle::AppKit(_) | RawDisplayHandle::UiKit(_) => {
-            const EXTS: [*const c_char; 2] = [
-                vk::khr::surface::EXTENSION_NAME.as_ptr(),
-                vk::ext::metal_surface::EXTENSION_NAME.as_ptr(),
-            ];
-            &EXTS[..]
+            vk::ext::metal_surface::EXTENSION_NAME
         }
 
         _ => return Err(vk::Result::ERROR_EXTENSION_NOT_PRESENT),
     };
 
-    Ok(extensions)
+    let _ = set.insert(ext);
+    Ok(set)
 }

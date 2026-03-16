@@ -36,7 +36,8 @@ mod chain;
 pub use chain::*;
 
 mod extensions;
-pub use extensions::{ExtensionSet, UnknownExtensionError};
+pub use extensions::UnknownExtensionError;
+pub use generated::extensions::{DeviceExtensionSet, InstanceExtensionSet};
 
 pub(crate) mod macros;
 

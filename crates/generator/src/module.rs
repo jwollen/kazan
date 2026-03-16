@@ -113,32 +113,39 @@ fn get_extension_name(extension: &xml::Extension) -> ModuleName {
 }
 
 pub fn generate_extension_set_file(registry: &xml::Registry, generated_dir: &Path) -> Result<()> {
-    let extensions: Vec<&str> = registry.extensions.iter().map(|ext| ext.name).collect();
-    let count = extensions.len();
-
     let path = generated_dir.join("extensions.rs");
     let mut file = File::create(&path)?;
 
-    writeln!(
-        file,
-        "pub(crate) const EXTENSION_COUNT: usize = {count};
-pub(crate) const EXTENSIONS: &[&core::ffi::CStr; EXTENSION_COUNT] = &["
-    )?;
+    writeln!(file, "use crate::{{define_extension_set, vk::*}};\n")?;
+    write_extension_set(&mut file, "InstanceExtensionSet", registry, "instance")?;
+    write_extension_set(&mut file, "DeviceExtensionSet", registry, "device")?;
 
-    for name in &extensions {
-        writeln!(file, "    c\"{name}\",")?;
+    Ok(())
+}
+
+fn write_extension_set(
+    file: &mut File,
+    name: &str,
+    registry: &xml::Registry,
+    ty: &str,
+) -> Result<()> {
+    writeln!(file, "define_extension_set!({name}, [")?;
+    for ext in &registry.extensions {
+        if ext.ty == Some(ty) {
+            let mod_name = get_extension_name(ext);
+            let (mod_path, ident) = match &mod_name.vendor {
+                Some(vendor) => (
+                    format!("{vendor}::{}", mod_name.name),
+                    format!("{vendor}_{}", mod_name.name),
+                ),
+                None => (mod_name.name.clone(), mod_name.name.clone()),
+            };
+            if ext.provisional {
+                writeln!(file, "    #[cfg(feature = \"provisional\")]")?;
+            }
+            writeln!(file, "    ({ident}, {mod_path}::EXTENSION_NAME),")?;
+        }
     }
-
-    writeln!(file, "];\n")?;
-
-    writeln!(
-        file,
-        "pub(crate) fn extension_index(name: &core::ffi::CStr) -> Option<usize> {{
-    match name.to_bytes() {{"
-    )?;
-    for (i, name) in extensions.iter().enumerate() {
-        writeln!(file, "        b\"{name}\" => Some({i}),")?;
-    }
-    writeln!(file, "        _ => None,\n    }}\n}}")?;
+    writeln!(file, "]);\n")?;
     Ok(())
 }

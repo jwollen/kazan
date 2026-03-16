@@ -247,8 +247,9 @@ impl ExampleBase {
                 .collect();
 
             let display_handle = window.display_handle()?.as_raw();
+            let required = kazan::window::required_extensions(display_handle)?;
             let mut extension_names: Vec<*const c_char> =
-                kazan::window::enumerate_required_extensions(display_handle)?.to_vec();
+                required.names().map(|n| n.as_ptr()).collect();
             extension_names.push(debug_utils::EXTENSION_NAME.as_ptr());
 
             #[cfg(any(target_os = "macos", target_os = "ios"))]
