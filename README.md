@@ -9,7 +9,7 @@ Vulkan bindings for Rust, generated from the official [Vulkan-Headers](https://g
 
 ## Modules
 
-- **`kazan::*`** --helper types and traits (`Handle`, `ApiVersion`, `ArrayCStr`, `ExtensionSet`, `RawPtr`, `TaggedStructure`, `Extends`, etc.)
+- **`kazan::*`** -- helper types and traits (`Handle`, `ApiVersion`, `ArrayCStr`, `InstanceExtensionSet`, `DeviceExtensionSet`, `RawPtr`, `TaggedStructure`, `Extends`, etc.)
 - **`vk`** -- all Vulkan types, constants, and function pointer types, re-exported flat
   - **`vk::vk1_0`**, **`vk::vk1_1`**, ... - items grouped by API version
   - **`vk::khr`**, **`vk::ext`**, **`vk::nv`**, ... - items grouped by vendor
@@ -27,11 +27,11 @@ Each API version and extension defines its own `EntryFn`, `InstanceFn`, and/or `
   - `vk::vk1_1::EntryFn` -- `enumerate_instance_version`
 - **`InstanceFn`** -- loaded via `vk::vk1_0::EntryFn`
   - `vk::vk1_0::InstanceFn` -- `enumerate_physical_devices`, `create_device`, `get_device_proc_addr`, ...
-  - `vk::khr::surface::InstanceFn` -- `get_physical_device_surface_support_khr`, `destroy_surface_khr`, ...
-  - `vk::ext::debug_utils::InstanceFn` -- `create_debug_utils_messenger_ext`, ...
+  - `vk::khr::surface::InstanceFn` -- `get_physical_device_surface_support`, `destroy_surface`, ...
+  - `vk::ext::debug_utils::InstanceFn` -- `create_debug_utils_messenger`, ...
 - **`DeviceFn`** -- loaded via `vk::vk1_0::InstanceFn`
   - `vk::vk1_0::DeviceFn` -- `create_image`, `cmd_draw`, `queue_submit`, ...
-  - `vk::khr::swapchain::DeviceFn` -- `create_swapchain_khr`, `acquire_next_image_khr`, ...
+  - `vk::khr::swapchain::DeviceFn` -- `create_swapchain`, `acquire_next_image`, ...
 
 `Entry` bootstraps the loading chain: it holds `StaticFn` (`vkGetInstanceProcAddr`), `vk1_0::EntryFn`, and optionally `vk1_1::EntryFn`.
 
@@ -45,24 +45,23 @@ let entry = unsafe { Entry::load()? };
 
 // Create an instance with surface extensions for the current platform.
 let display_handle = window.display_handle()?.as_raw();
-let extension_names = kazan::window::enumerate_required_extensions(display_handle)?;
+let required = kazan::window::required_extensions(display_handle)?;
+let extension_names: Vec<*const c_char> = required.names().map(|n| n.as_ptr()).collect();
 let app_info = vk::ApplicationInfo::default()
     .application_name(c"MyApp")
     .api_version(vk1_0::API_VERSION);
 let create_info = vk::InstanceCreateInfo::default()
     .application_info(&app_info)
-    .enabled_extension_names(extension_names);
+    .enabled_extension_names(&extension_names);
 let instance = entry.vk1_0.create_instance(&create_info, None)?;
 
 // Load instance function tables.
 let instance_fn = unsafe { vk1_0::InstanceFn::load(&entry, instance)? };
 
 // Create a surface via the platform-agnostic window module.
-let surface_factory = unsafe {
-    kazan::window::SurfaceFactory::new(&entry, instance, display_handle)?
-};
+let window_fn = kazan::window::InstanceFn::load(&entry, instance);
 let window_handle = window.window_handle()?.as_raw();
-let surface = unsafe { surface_factory.create_surface(instance, window_handle, None)? };
+let surface = unsafe { window_fn.create_surface(instance, display_handle, window_handle, None)? };
 
 // Create a device and load device function tables.
 let device = unsafe {
