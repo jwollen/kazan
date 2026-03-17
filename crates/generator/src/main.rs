@@ -157,12 +157,14 @@ fn generate(analysis: &analysis::Analysis, root: &Path) -> Result<()> {
         writeln!(mod_file, "}}")?;
     }
 
-    std::process::Command::new("rustfmt")
-        .arg(output_dir.join("mod.rs"))
-        .arg("--edition=2024")
+    module::generate_extension_set_file(registry, &generated_dir)?;
+
+    std::process::Command::new("cargo")
+        .arg("fmt")
+        .arg("--")
+        .arg(root.join("crates/kazan/src/generated.rs"))
         .output()?;
 
-    module::generate_extension_set_file(registry, &generated_dir)?;
     Ok(())
 }
 
