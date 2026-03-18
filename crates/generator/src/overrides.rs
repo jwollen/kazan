@@ -2,7 +2,7 @@ use std::io::Write;
 
 use anyhow::Result;
 
-use crate::handle::CommandType;
+use crate::analysis::CommandType;
 
 /// Write a hand-crafted command wrapper override, returning `true` if one exists.
 ///
@@ -17,6 +17,7 @@ pub fn write_command_override(
 }
 
 /// How to represent the success code in the return type when there are multiple ok codes.
+#[allow(dead_code)]
 pub enum SuccessCodeRepr {
     /// Return the raw `VkResult` so the caller can match on it.
     RawResult,

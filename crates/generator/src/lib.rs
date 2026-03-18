@@ -237,7 +237,7 @@ fn generate_module(
         emit::handle::generate_handles(&mut file, &items.handles)?;
 
         emit::generate_type_aliases(&mut file, analysis, &items.type_aliases)?;
-        
+
         emit::func_pointer::generate_command_aliases(&mut file, &items.command_aliases)?;
 
         emit::structure::generate_structs(&mut file, analysis, &items.structs)?;

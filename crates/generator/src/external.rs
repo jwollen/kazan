@@ -1,16 +1,4 @@
-use std::{
-    fs::{self, File},
-    io::Write,
-    path::Path,
-};
-
-use anyhow::Result;
-
-use crate::{
-    analysis::Analysis,
-    cdecl::{CBaseType, CType},
-    ctype_to_rust_type,
-};
+use crate::cdecl::{CBaseType, CType};
 
 /// Shorthand: build a `CType::Base` from a C type name.
 const fn ctype(base: &str) -> CType<'_> {
@@ -39,32 +27,9 @@ impl CType<'_> {
     const HANDLE: CType<'static> = ctype("HANDLE");
 }
 
-pub fn generate_external_type_file(analysis: &Analysis, generated_dir: &Path) -> Result<()> {
-    fs::create_dir_all(generated_dir)?;
-    let path = generated_dir.join("external.rs");
-    let mut file = File::create(&path)?;
-    writeln!(
-        file,
-        "#![allow(non_camel_case_types)]
-use core::ffi::{{c_int, c_uint, c_ulong, c_void}};
-"
-    )?;
-
-    let external_types = external_types();
-    for (name, ty) in &external_types {
-        let rust_ty = ctype_to_rust_type(analysis, ty, None);
-        writeln!(file, "pub type {name} = {rust_ty};")?;
-    }
-    Ok(())
-}
-
 pub type ExternalTypes = Vec<(&'static str, CType<'static>)>;
 
 /// Canonical list of platform / external types referenced by vk.xml.
-///
-/// Each entry maps a C type name to the underlying C type it aliases.
-/// Every external `<type>` in vk.xml that is *not* a primitive (void, uint32_t, …)
-/// must appear here; [`Analysis::new`] asserts this at generator startup.
 pub fn external_types() -> ExternalTypes {
     [
         // X11 / Xlib

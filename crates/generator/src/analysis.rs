@@ -1,19 +1,11 @@
 use std::{
-    collections::{BTreeMap, HashMap, HashSet},
+    collections::{BTreeMap, HashMap, HashSet, VecDeque},
     fs,
     path::Path,
 };
 use tracing::{debug, error_span};
 
-use crate::{
-    cdecl::CType,
-    ctype_rust,
-    enums::ReqEnumData,
-    external,
-    handle::{HandleCommandTypes, collect_handle_command_types},
-    module::Module,
-    xml,
-};
+use crate::{cdecl::CType, ctype, external, module::Module, xml};
 
 /// Holds the analysis results for easy querying.
 pub struct Analysis {
@@ -180,7 +172,7 @@ impl Analysis {
 
     /// Like [`Self::is_opaque_type_name`], but extracts the base name from a `CType`.
     pub fn is_opaque_type(&self, ty: &CType) -> bool {
-        ctype_rust::base_name(ty).is_some_and(|name| self.opaque_types.contains(name))
+        ctype::base_name(ty).is_some_and(|name| self.opaque_types.contains(name))
     }
 
     /// Returns true if the named type is a struct with an `sType` member (i.e. extensible via pNext).
@@ -806,4 +798,150 @@ fn compute_module_items(registry: &xml::Registry) -> Vec<ModuleItems<'_>> {
             }
         })
         .collect()
+}
+
+// ── Handle command types ────────────────────────────────────────────────────
+
+pub type HandleCommandTypes = HashMap<&'static str, CommandType>;
+
+#[derive(Copy, Clone, Debug, Eq, PartialEq)]
+pub enum CommandType {
+    Entry,
+    Instance,
+    Device,
+}
+
+pub fn collect_handle_command_types(registry: &xml::Registry) -> HandleCommandTypes {
+    let mut handle_command_types = HashMap::new();
+    let mut pending_handles: VecDeque<_> = registry.handles.iter().collect();
+
+    while let Some(handle) = pending_handles.pop_front() {
+        if handle.name == "VkInstance" {
+            handle_command_types.insert(handle.name, CommandType::Instance);
+        } else if handle.name == "VkDevice" {
+            handle_command_types.insert(handle.name, CommandType::Device);
+        } else {
+            let parent = handle.parent.unwrap();
+            if let Some(parent_command_type) = handle_command_types.get(parent) {
+                handle_command_types.insert(handle.name, *parent_command_type);
+            } else {
+                pending_handles.push_back(handle);
+            }
+        }
+    }
+
+    handle_command_types
+}
+
+// ── Enum extension contribution data ────────────────────────────────────────
+
+pub struct ContribVariant {
+    pub name: &'static str,
+    pub value: i32,
+    pub comment: Option<&'static str>,
+}
+
+pub struct ContribValue {
+    pub name: &'static str,
+    pub literal_value: &'static str,
+    pub comment: Option<&'static str>,
+}
+
+pub struct ContribAlias {
+    pub name: &'static str,
+    pub target: &'static str,
+}
+
+pub struct ContribBitpos {
+    pub name: &'static str,
+    pub bitpos: u8,
+    pub comment: Option<&'static str>,
+}
+
+#[derive(Default)]
+pub struct ModuleEnumContributions {
+    pub variants: Vec<ContribVariant>,
+    pub values: Vec<ContribValue>,
+    pub aliases: Vec<ContribAlias>,
+    pub bitpositions: Vec<ContribBitpos>,
+}
+
+#[derive(Default)]
+pub struct ReqEnumData {
+    map: BTreeMap<&'static str, BTreeMap<String, ModuleEnumContributions>>,
+}
+
+impl ReqEnumData {
+    fn contributions(
+        &mut self,
+        extends: &'static str,
+        module: &str,
+    ) -> &mut ModuleEnumContributions {
+        self.map
+            .entry(extends)
+            .or_default()
+            .entry(module.to_string())
+            .or_default()
+    }
+
+    pub fn get(&self, enum_name: &str) -> Option<&BTreeMap<String, ModuleEnumContributions>> {
+        self.map.get(enum_name)
+    }
+
+    pub fn from_registry(registry: &xml::Registry) -> Self {
+        let mut data = Self::default();
+
+        for module in Module::from_registry(registry) {
+            let ext_number = module.ext_number();
+            let module_name = module.display_name();
+            for req in module.requires() {
+                for variant in &req.enum_variants {
+                    let value = get_enum_value(ext_number, variant);
+                    data.contributions(variant.extends, &module_name)
+                        .variants
+                        .push(ContribVariant {
+                            name: variant.name,
+                            value,
+                            comment: variant.comment,
+                        });
+                }
+                for bitpos in &req.bitpositions {
+                    data.contributions(bitpos.extends, &module_name)
+                        .bitpositions
+                        .push(ContribBitpos {
+                            name: bitpos.name,
+                            bitpos: bitpos.bitpos,
+                            comment: bitpos.comment,
+                        });
+                }
+                for alias in &req.enum_aliases {
+                    if let Some(extends) = alias.extends {
+                        data.contributions(extends, &module_name)
+                            .aliases
+                            .push(ContribAlias {
+                                name: alias.name,
+                                target: alias.alias,
+                            });
+                    }
+                }
+                for value in &req.enum_values {
+                    data.contributions(value.extends, &module_name)
+                        .values
+                        .push(ContribValue {
+                            name: value.name,
+                            literal_value: value.value,
+                            comment: value.comment,
+                        });
+                }
+            }
+        }
+
+        data
+    }
+}
+
+fn get_enum_value(ext_number: Option<u32>, variant: &xml::RequireEnumVariant) -> i32 {
+    let ext_number = variant.extnumber.or(ext_number).unwrap() as i32;
+    let value = 1_000_000_000i32 + (ext_number - 1) * 1000 + variant.offset as i32;
+    if variant.negative { -value } else { value }
 }
