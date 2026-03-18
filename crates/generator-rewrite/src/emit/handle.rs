@@ -4,7 +4,7 @@ use std::io::Write;
 
 use anyhow::Result;
 
-use crate::{model::handle::HandleDef, xml};
+use crate::{doc_url, model::handle::HandleDef, xml};
 
 pub fn generate_handles(file: &mut impl Write, handles: &[&xml::Handle]) -> Result<()> {
     for handle in handles {
@@ -19,7 +19,10 @@ pub fn emit_handle(file: &mut impl Write, h: &HandleDef) -> Result<()> {
     writeln!(
         file,
         "{}!({}, {}, doc = \"<{}>\");",
-        h.macro_name, h.name, h.obj_type, h.doc_url
+        h.macro_name,
+        h.name,
+        h.obj_type,
+        doc_url(h.c_name)
     )?;
     Ok(())
 }

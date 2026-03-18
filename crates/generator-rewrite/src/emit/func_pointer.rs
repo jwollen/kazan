@@ -49,7 +49,7 @@ pub fn generate_command_aliases(
 }
 
 fn emit_func_pointer(file: &mut impl Write, fp: &FuncPointerDef) -> Result<()> {
-    write_doc_link(file, &fp.c_name)?;
+    write_doc_link(file, fp.c_name)?;
     writeln!(
         file,
         "pub type {}{} = unsafe extern \"system\" fn(",

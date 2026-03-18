@@ -23,7 +23,7 @@ fn emit_union(file: &mut impl Write, u: &mu::UnionDef) -> Result<()> {
     let lifetime_spec = if u.has_lifetime { "<'a>" } else { "" };
     let lifetime_spec_anon = if u.has_lifetime { "<'_>" } else { "" };
 
-    write_doc_link(file, &u.c_name)?;
+    write_doc_link(file, u.c_name)?;
     writeln!(
         file,
         "#[repr(C)]

@@ -63,7 +63,7 @@ pub fn build_struct(analysis: &Analysis, struct_ty: &xml::Structure) -> StructDe
                 }
                 fields.push(StructField {
                     name: group.backing_name.clone(),
-                    ty: RustType::named(&group.backing_ty),
+                    ty: RustType::named(group.backing_ty.clone()),
                 });
                 field_member_refs.push(member);
                 field_type_strings.push(group.backing_ty.clone());
@@ -93,7 +93,7 @@ pub fn build_struct(analysis: &Analysis, struct_ty: &xml::Structure) -> StructDe
                             backing_field: backing_member_index,
                             offset: field.offset,
                             width: field.width,
-                            param_ty: RustType::named(&field.setter_ty),
+                            param_ty: RustType::named(field.setter_ty.clone()),
                             extract,
                         },
                     });
@@ -171,7 +171,7 @@ pub fn build_struct(analysis: &Analysis, struct_ty: &xml::Structure) -> StructDe
                 let ty_str = ctype_to_rust_type(analysis, &member.c_decl.ty, lifetime_param);
                 fields.push(StructField {
                     name: name.clone(),
-                    ty: RustType::named(&ty_str),
+                    ty: RustType::named(ty_str.clone()),
                 });
                 field_member_refs.push(member);
                 field_type_strings.push(ty_str);
@@ -221,7 +221,7 @@ pub fn build_struct(analysis: &Analysis, struct_ty: &xml::Structure) -> StructDe
 
         fields.push(StructField {
             name: name.clone(),
-            ty: RustType::named(&field_ty_str),
+            ty: RustType::named(field_ty_str.clone()),
         });
         field_member_refs.push(member);
         field_type_strings.push(ty_str);
@@ -273,7 +273,7 @@ pub fn build_struct(analysis: &Analysis, struct_ty: &xml::Structure) -> StructDe
     // Struct kind.
     let kind = match stype_suffix {
         Some(suffix) => StructKind::Extensible {
-            stype_suffix: suffix.to_string(),
+            stype_suffix: suffix,
         },
         None => StructKind::Plain,
     };
@@ -282,14 +282,13 @@ pub fn build_struct(analysis: &Analysis, struct_ty: &xml::Structure) -> StructDe
     let mut trait_impls = Vec::new();
     if let Some(suffix) = stype_suffix {
         trait_impls.push(TraitImpl::TaggedStructure {
-            stype_suffix: suffix.to_string(),
+            stype_suffix: suffix,
         });
     }
     for extends in &struct_ty.structextends {
-        let rust_ty = ctype::base_ctype_to_rust_str(extends).to_string();
         let provisional = analysis.is_provisional_type(extends);
         trait_impls.push(TraitImpl::Extends {
-            target: rust_ty,
+            target: ctype::base_ctype_to_rust_str(extends),
             provisional,
         });
     }
@@ -324,7 +323,7 @@ pub fn build_struct(analysis: &Analysis, struct_ty: &xml::Structure) -> StructDe
 
     StructDef {
         name,
-        c_name: struct_ty.name.to_string(),
+        c_name: struct_ty.name,
         kind,
         fields,
         has_lifetime: type_info.lifetime_param,

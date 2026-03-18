@@ -29,7 +29,7 @@ pub struct DispatchEntry {
     /// PFN type name (e.g. `PFN_vkCreateInstance`).
     pub pfn_type: String,
     /// C entry point (e.g. `vkCreateInstance`).
-    pub c_entry_point: String,
+    pub c_entry_point: &'static str,
     /// True when the entry point may be absent at runtime (conditional extension).
     pub conditional: bool,
     /// The wrapper function for this entry.
@@ -40,7 +40,7 @@ pub struct DispatchEntry {
 #[derive(Debug, Clone)]
 pub struct CommandWrapper {
     pub name: String,
-    pub c_name: String,
+    pub c_name: &'static str,
     pub lifetime_param: Option<String>,
     pub params: Vec<WrapperParam>,
     pub return_type: CommandReturn,
@@ -166,7 +166,7 @@ pub enum ResultHandling {
     ReturnDirect { bool_convert: bool },
     /// Match on VkResult, map ok codes.
     MatchResult {
-        ok_codes: Vec<String>,
+        ok_codes: Vec<&'static str>,
         output_expr: Option<String>,
         expose_status: bool,
     },
@@ -188,7 +188,7 @@ pub struct EnumerationCall {
     /// Whether the command returns VkResult.
     pub is_fallible: bool,
     /// Success codes accepted by the enumeration closure (e.g. SUCCESS, INCOMPLETE).
-    pub closure_ok_codes: Vec<String>,
+    pub closure_ok_codes: Vec<&'static str>,
     /// Whether extra output params that are optional get `None` in the first (length-query) call.
     pub extra_optional_flags: Vec<bool>,
 }

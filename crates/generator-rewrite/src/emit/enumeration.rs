@@ -51,7 +51,7 @@ pub fn emit_enum(
 ) -> Result<()> {
     let name = &def.name;
 
-    write_doc_link(file, &def.c_name)?;
+    write_doc_link(file, def.c_name)?;
     writeln!(
         file,
         "#[repr(transparent)]
@@ -63,7 +63,7 @@ pub fn emit_enum(
     writeln!(file, "impl {name} {{")?;
 
     for v in &def.base_variants {
-        write_doc_comment(file, v.comment.as_deref())?;
+        write_doc_comment(file, v.comment)?;
         writeln!(file, "pub const {}: Self = Self({});", v.name, v.value)?;
     }
     writeln!(file)?;
@@ -73,7 +73,7 @@ pub fn emit_enum(
         for v in &group.variants {
             entries.push(format!(
                 "{}pub const {}: Self = Self({});",
-                format_doc_comment(v.comment.as_deref()),
+                format_doc_comment(v.comment),
                 v.name,
                 v.value
             ));
@@ -118,7 +118,7 @@ pub fn emit_bitmask(file: &mut impl Write, def: &BitmaskDef) -> Result<()> {
     let flags_name = &def.flags_name;
     let base_type = &def.base_type;
 
-    write_doc_link(file, &def.flags_c_name)?;
+    write_doc_link(file, def.flags_c_name)?;
     writeln!(
         file,
         "#[repr(transparent)]
@@ -162,7 +162,7 @@ fn emit_flags_constants(file: &mut impl Write, flags_name: &str, fb: &FlagBitsDe
             writeln!(file, "impl {flags_name} {{")?;
             has_values = true;
         }
-        write_doc_comment(file, v.comment.as_deref())?;
+        write_doc_comment(file, v.comment)?;
         writeln!(file, "pub const {}: Self = Self({});", v.name, v.value)?;
     }
 
@@ -171,7 +171,7 @@ fn emit_flags_constants(file: &mut impl Write, flags_name: &str, fb: &FlagBitsDe
         for v in &mv.values {
             entries.push(format!(
                 "{}pub const {}: Self = Self({});",
-                format_doc_comment(v.comment.as_deref()),
+                format_doc_comment(v.comment),
                 v.name,
                 v.value
             ));
@@ -239,7 +239,7 @@ fn emit_flags_debug(
 fn emit_flagbits_constants(file: &mut impl Write, fb: &FlagBitsDef) -> Result<()> {
     let bitmask_name = &fb.name;
 
-    write_doc_link(file, &fb.c_name)?;
+    write_doc_link(file, fb.c_name)?;
     writeln!(
         file,
         "#[repr(transparent)]
@@ -254,7 +254,7 @@ fn emit_flagbits_constants(file: &mut impl Write, fb: &FlagBitsDef) -> Result<()
 
     for b in &fb.base_bits {
         if visited.insert(b.name.clone()) {
-            write_doc_comment(file, b.comment.as_deref())?;
+            write_doc_comment(file, b.comment)?;
             writeln!(
                 file,
                 "pub const {}: Self = Self(1 << {});",
@@ -275,7 +275,7 @@ fn emit_flagbits_constants(file: &mut impl Write, fb: &FlagBitsDef) -> Result<()
             if visited.insert(b.name.clone()) {
                 entries.push(format!(
                     "{}pub const {}: Self = Self(1 << {});",
-                    format_doc_comment(b.comment.as_deref()),
+                    format_doc_comment(b.comment),
                     b.name,
                     b.bitpos
                 ));

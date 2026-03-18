@@ -4,11 +4,13 @@
 //! `resolve_ctype` (raw C-layout conversion), and `LengthKind` / `get_len_kind`
 //! for classifying Vulkan `len` attributes.
 
+use std::borrow::Cow;
+
 use crate::{
     analysis::Analysis,
     cdecl::{self, CArrayLen, CType},
     r#ctype::{self, CTypeCategory},
-    model::rust_type::RustType,
+    model::rust_type::{RustPrimitiveType, RustType},
     normalize_const_name, xml,
 };
 
@@ -168,13 +170,21 @@ pub(crate) fn convert_type(analysis: &Analysis, ty: &CType, role: &TypeRole) -> 
 ///
 /// Mirrors `ctype::type_name_with_lifetime` but returns structured `RustType`.
 fn resolve_base_type(analysis: &Analysis, name: &str, lifetime: Option<&str>) -> RustType {
-    let type_info = analysis.get_base_type_info(name);
     let rust_name = ctype::base_ctype_to_rust_str(name);
+    // Fast path: primitives avoid allocation entirely.
+    if let Some(prim) = RustPrimitiveType::parse(rust_name) {
+        return RustType::Primitive(prim);
+    }
+    let type_info = analysis.get_base_type_info(name);
     match type_info {
-        Some(info) if info.lifetime_param => {
-            RustType::named_with_lifetime(rust_name, lifetime.unwrap_or("_"))
-        }
-        _ => RustType::named(rust_name),
+        Some(info) if info.lifetime_param => RustType::named_with_lifetime(
+            rust_name.to_string(),
+            lifetime.unwrap_or("_").to_string(),
+        ),
+        _ => RustType::Named {
+            name: Cow::Owned(rust_name.to_string()),
+            lifetime: None,
+        },
     }
 }
 
@@ -213,7 +223,7 @@ pub(crate) fn resolve_ctype(analysis: &Analysis, ty: &CType, lifetime: Option<&s
                 };
                 RustType::Array {
                     element: Box::new(element_ty),
-                    len: len_str,
+                    len: len_str.into(),
                 }
             }
         }
@@ -299,7 +309,7 @@ fn convert_command_param(analysis: &Analysis, ty: &CType, role: &TypeRole) -> Ru
         }
         _ => {
             if ctype::is_bool32(ty) {
-                return RustType::Bool;
+                return RustType::Primitive(RustPrimitiveType::Bool);
             }
             resolve_ctype(analysis, ty, *lifetime)
         }
@@ -351,25 +361,25 @@ fn convert_command_param_with_length(
         CTypeCategory::TypedPointer { is_const, pointee } => {
             let mut element = resolve_ctype(analysis, pointee, lifetime);
             // c_void → u8 for slice elements
-            if matches!(&element, RustType::Named { name, .. } if name == "c_void") {
+            if element.is_named("c_void") {
                 element = RustType::named("u8");
             }
 
             // SliceOrLen variants for nullable array params with meaningful count.
             match array_kind {
                 ArrayParamKind::SliceOrLen => {
-                    let lt = lifetime
-                        .map(|l| l.to_string())
-                        .unwrap_or_else(|| "_".to_string());
+                    let lt: Cow<'static, str> = lifetime
+                        .map(|l| Cow::Owned(l.to_string()))
+                        .unwrap_or(Cow::Borrowed("_"));
                     return RustType::SliceOrLen {
                         lifetime: Some(lt),
                         element: Box::new(element),
                     };
                 }
                 ArrayParamKind::OptionSliceOrLen => {
-                    let lt = lifetime
-                        .map(|l| l.to_string())
-                        .unwrap_or_else(|| "_".to_string());
+                    let lt: Cow<'static, str> = lifetime
+                        .map(|l| Cow::Owned(l.to_string()))
+                        .unwrap_or(Cow::Borrowed("_"));
                     return RustType::SliceOrLen {
                         lifetime: Some(lt),
                         element: Box::new(element),
@@ -447,7 +457,7 @@ fn convert_setter_param(analysis: &Analysis, ty: &CType, role: &TypeRole) -> Rus
         }
         _ => {
             if ctype::is_bool32(ty) {
-                return RustType::Bool;
+                return RustType::Primitive(RustPrimitiveType::Bool);
             }
             resolve_ctype(analysis, ty, *lifetime)
         }
@@ -525,11 +535,11 @@ fn convert_setter_param_with_length(
                 },
             );
             // Bool32 array elements must stay as Bool32, not bool (different memory layout).
-            if matches!(&element, RustType::Bool) {
+            if element.is_bool() {
                 element = RustType::named("Bool32");
             }
             // c_void → u8 for slice elements.
-            if matches!(&element, RustType::Named { name, .. } if name == "c_void") {
+            if element.is_named("c_void") {
                 element = RustType::named("u8");
             }
             element.into_slice(Some("a".into()), !is_const)

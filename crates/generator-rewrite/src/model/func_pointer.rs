@@ -6,7 +6,7 @@ use crate::{analysis::Analysis, build::type_conv, normalize_name, normalize_ty_n
 /// Model for a `type [PFN_]Foo = unsafe extern "system" fn(...)` function pointer typedef.
 #[derive(Debug, Clone)]
 pub struct FuncPointerDef {
-    pub c_name: String,
+    pub c_name: &'static str,
     /// Prefix for the generated type name (e.g. `"PFN_"` for commands, `""` for typedefs).
     pub prefix: &'static str,
     pub params: Vec<FuncPointerParam>,
@@ -23,8 +23,8 @@ pub struct FuncPointerParam {
 /// Model for a command alias (e.g. `pub type PFN_vkFoo = PFN_vkBar;`).
 #[derive(Debug, Clone)]
 pub struct CommandAliasDef {
-    pub name: String,
-    pub target: String,
+    pub name: &'static str,
+    pub target: &'static str,
 }
 
 // ── Builders ────────────────────────────────────────────────────────────────
@@ -46,7 +46,7 @@ pub fn build_func_pointer_typedef(analysis: &Analysis, fp: &xml::FuncPointer) ->
         .map(|rt| type_conv::resolve_ctype(analysis, rt, None));
 
     FuncPointerDef {
-        c_name: fp.name.to_string(),
+        c_name: fp.name,
         prefix: "",
         params,
         return_type,
@@ -70,7 +70,7 @@ pub fn build_command_func_pointer(analysis: &Analysis, command: &xml::Command) -
         .map(|rt| type_conv::resolve_ctype(analysis, rt, None));
 
     FuncPointerDef {
-        c_name: command.name.to_string(),
+        c_name: command.name,
         prefix: "PFN_",
         params,
         return_type,
@@ -80,7 +80,7 @@ pub fn build_command_func_pointer(analysis: &Analysis, command: &xml::Command) -
 /// Build a `CommandAliasDef` from a raw XML alias.
 pub fn build_command_alias(alias: &xml::Alias) -> CommandAliasDef {
     CommandAliasDef {
-        name: normalize_ty_name(alias.name).to_string(),
-        target: normalize_ty_name(alias.alias).to_string(),
+        name: normalize_ty_name(alias.name),
+        target: normalize_ty_name(alias.alias),
     }
 }

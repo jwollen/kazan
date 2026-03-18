@@ -1,17 +1,113 @@
+use std::borrow::Cow;
+use std::fmt;
+
+/// Well-known primitive and common types that appear frequently in the generated output.
+///
+/// Using an enum avoids allocating a `String` for each occurrence.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum RustPrimitiveType {
+    Bool,
+    U8,
+    I8,
+    U16,
+    I16,
+    U32,
+    I32,
+    U64,
+    I64,
+    F32,
+    F64,
+    USize,
+    ISize,
+    CVoid,
+    CChar,
+    CInt,
+    CUint,
+    CUlong,
+    Bool32,
+    CStr,
+    VkResult,
+}
+
+impl RustPrimitiveType {
+    /// Try to convert a type name string to a `RustPrimitiveType`.
+    pub fn parse(s: &str) -> Option<Self> {
+        Some(match s {
+            "bool" => Self::Bool,
+            "u8" => Self::U8,
+            "i8" => Self::I8,
+            "u16" => Self::U16,
+            "i16" => Self::I16,
+            "u32" => Self::U32,
+            "i32" => Self::I32,
+            "u64" => Self::U64,
+            "i64" => Self::I64,
+            "f32" => Self::F32,
+            "f64" => Self::F64,
+            "usize" => Self::USize,
+            "isize" => Self::ISize,
+            "c_void" => Self::CVoid,
+            "c_char" => Self::CChar,
+            "c_int" => Self::CInt,
+            "c_uint" => Self::CUint,
+            "c_ulong" => Self::CUlong,
+            "Bool32" => Self::Bool32,
+            "CStr" => Self::CStr,
+            "VkResult" => Self::VkResult,
+            _ => return None,
+        })
+    }
+
+    /// The Rust token string for this primitive.
+    pub fn as_str(self) -> &'static str {
+        match self {
+            Self::Bool => "bool",
+            Self::U8 => "u8",
+            Self::I8 => "i8",
+            Self::U16 => "u16",
+            Self::I16 => "i16",
+            Self::U32 => "u32",
+            Self::I32 => "i32",
+            Self::U64 => "u64",
+            Self::I64 => "i64",
+            Self::F32 => "f32",
+            Self::F64 => "f64",
+            Self::USize => "usize",
+            Self::ISize => "isize",
+            Self::CVoid => "c_void",
+            Self::CChar => "c_char",
+            Self::CInt => "c_int",
+            Self::CUint => "c_uint",
+            Self::CUlong => "c_ulong",
+            Self::Bool32 => "Bool32",
+            Self::CStr => "CStr",
+            Self::VkResult => "VkResult",
+        }
+    }
+}
+
+impl fmt::Display for RustPrimitiveType {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.write_str(self.as_str())
+    }
+}
+
 /// Strongly typed representation of every Rust type the generator can produce.
 ///
 /// This replaces all ad-hoc `format!("&[{ty}]")` / `format!("Option<{s}>")` patterns
 /// with a single inspectable data structure that owns the full type tree.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum RustType {
-    /// Named type: `u32`, `Foo`, `c_void`, `Bool32`, etc.
+    /// Well-known primitive type (avoids allocation).
+    Primitive(RustPrimitiveType),
+    /// Named type with optional lifetime: `Foo`, `Foo<'a>`.
     Named {
-        name: String,
-        lifetime: Option<String>,
+        name: Cow<'static, str>,
+        lifetime: Option<Cow<'static, str>>,
     },
     /// `&T` or `&mut T`.
     Ref {
-        lifetime: Option<String>,
+        lifetime: Option<Cow<'static, str>>,
         mutable: bool,
         inner: Box<RustType>,
     },
@@ -19,25 +115,26 @@ pub enum RustType {
     RawPtr { mutable: bool, inner: Box<RustType> },
     /// `&[T]` or `&mut [T]`.
     Slice {
-        lifetime: Option<String>,
+        lifetime: Option<Cow<'static, str>>,
         mutable: bool,
         element: Box<RustType>,
     },
     /// `[T; N]`.
-    Array { element: Box<RustType>, len: String },
+    Array {
+        element: Box<RustType>,
+        len: Cow<'static, str>,
+    },
     /// `Option<T>`.
     Option(Box<RustType>),
     /// `(A, B, ...)`.
     Tuple(Vec<RustType>),
     /// `SliceOrLen<'a, T>`.
     SliceOrLen {
-        lifetime: Option<String>,
+        lifetime: Option<Cow<'static, str>>,
         element: Box<RustType>,
     },
     /// `impl ExtendUninit<T>`.
     ImplExtendUninit(Box<RustType>),
-    /// Semantic `bool` (not Bool32).
-    Bool,
     /// `()`.
     Unit,
 }
@@ -46,9 +143,10 @@ impl RustType {
     /// Render this type to its Rust source representation.
     pub fn to_tokens(&self) -> String {
         match self {
+            RustType::Primitive(p) => p.as_str().to_string(),
             RustType::Named { name, lifetime } => match lifetime {
                 Some(lt) => format!("{name}<'{lt}>"),
-                None => name.clone(),
+                None => name.to_string(),
             },
             RustType::Ref {
                 lifetime,
@@ -112,7 +210,6 @@ impl RustType {
                 let inner = inner.to_tokens();
                 format!("impl ExtendUninit<{inner}>")
             }
-            RustType::Bool => "bool".to_string(),
             RustType::Unit => "()".to_string(),
         }
     }
@@ -123,7 +220,7 @@ impl RustType {
     }
 
     /// Convert to a slice type `&[T]` or `&mut [T]`.
-    pub fn into_slice(self, lifetime: Option<String>, mutable: bool) -> Self {
+    pub fn into_slice(self, lifetime: Option<Cow<'static, str>>, mutable: bool) -> Self {
         RustType::Slice {
             lifetime,
             mutable,
@@ -132,7 +229,7 @@ impl RustType {
     }
 
     /// Convert to a reference type `&T` or `&mut T`.
-    pub fn into_ref(self, lifetime: Option<String>, mutable: bool) -> Self {
+    pub fn into_ref(self, lifetime: Option<Cow<'static, str>>, mutable: bool) -> Self {
         RustType::Ref {
             lifetime,
             mutable,
@@ -151,6 +248,7 @@ impl RustType {
     /// Returns true if this type (or any nested type) contains a lifetime parameter.
     pub fn has_lifetime(&self) -> bool {
         match self {
+            RustType::Primitive(_) | RustType::Unit => false,
             RustType::Named { lifetime, .. } => lifetime.is_some(),
             RustType::Ref {
                 lifetime, inner, ..
@@ -166,24 +264,45 @@ impl RustType {
                 lifetime, element, ..
             } => lifetime.is_some() || element.has_lifetime(),
             RustType::ImplExtendUninit(inner) => inner.has_lifetime(),
-            RustType::Bool | RustType::Unit => false,
         }
     }
 
-    /// Create a named type with no lifetime.
-    pub fn named(name: impl Into<String>) -> Self {
-        RustType::Named {
-            name: name.into(),
-            lifetime: None,
+    /// Create a type from a name string. If the name matches a known primitive,
+    /// returns `Primitive`; otherwise returns `Named`.
+    pub fn named(name: impl Into<Cow<'static, str>>) -> Self {
+        let name = name.into();
+        match RustPrimitiveType::parse(&name) {
+            Some(p) => RustType::Primitive(p),
+            None => RustType::Named {
+                name,
+                lifetime: None,
+            },
         }
     }
 
     /// Create a named type with a lifetime.
-    pub fn named_with_lifetime(name: impl Into<String>, lifetime: impl Into<String>) -> Self {
+    pub fn named_with_lifetime(
+        name: impl Into<Cow<'static, str>>,
+        lifetime: impl Into<Cow<'static, str>>,
+    ) -> Self {
         RustType::Named {
             name: name.into(),
             lifetime: Some(lifetime.into()),
         }
+    }
+
+    /// Check if this is a primitive or named type matching the given name string.
+    pub fn is_named(&self, expected: &str) -> bool {
+        match self {
+            RustType::Primitive(p) => p.as_str() == expected,
+            RustType::Named { name, .. } => &**name == expected,
+            _ => false,
+        }
+    }
+
+    /// Check if this is a `Primitive(Bool)`.
+    pub fn is_bool(&self) -> bool {
+        matches!(self, RustType::Primitive(RustPrimitiveType::Bool))
     }
 }
 
@@ -194,6 +313,27 @@ mod tests {
     #[test]
     fn named_simple() {
         assert_eq!(RustType::named("u32").to_tokens(), "u32");
+    }
+
+    #[test]
+    fn named_resolves_to_primitive() {
+        assert!(matches!(
+            RustType::named("u32"),
+            RustType::Primitive(RustPrimitiveType::U32)
+        ));
+        assert!(matches!(
+            RustType::named("bool"),
+            RustType::Primitive(RustPrimitiveType::Bool)
+        ));
+        assert!(matches!(
+            RustType::named("c_void"),
+            RustType::Primitive(RustPrimitiveType::CVoid)
+        ));
+    }
+
+    #[test]
+    fn named_custom_stays_named() {
+        assert!(matches!(RustType::named("MyType"), RustType::Named { .. }));
     }
 
     #[test]
@@ -283,7 +423,10 @@ mod tests {
 
     #[test]
     fn tuple_two() {
-        let ty = RustType::Tuple(vec![RustType::named("u32"), RustType::Bool]);
+        let ty = RustType::Tuple(vec![
+            RustType::named("u32"),
+            RustType::Primitive(RustPrimitiveType::Bool),
+        ]);
         assert_eq!(ty.to_tokens(), "(u32, bool)");
     }
 
@@ -313,7 +456,12 @@ mod tests {
 
     #[test]
     fn bool_type() {
-        assert_eq!(RustType::Bool.to_tokens(), "bool");
+        assert_eq!(
+            RustType::Primitive(RustPrimitiveType::Bool).to_tokens(),
+            "bool"
+        );
+        // Also via named():
+        assert_eq!(RustType::named("bool").to_tokens(), "bool");
     }
 
     #[test]
@@ -323,7 +471,6 @@ mod tests {
 
     #[test]
     fn nested_option_ref_slice() {
-        // Option<&'a [Foo]>
         let ty = RustType::named("Foo")
             .into_slice(Some("a".into()), false)
             .optional();
@@ -347,23 +494,33 @@ mod tests {
 
     #[test]
     fn has_lifetime_nested() {
-        // Option<Foo<'a>> has a lifetime
         let ty = RustType::named_with_lifetime("Foo", "a").optional();
         assert!(ty.has_lifetime());
 
-        // Option<Foo> does not
         let ty = RustType::named("Foo").optional();
         assert!(!ty.has_lifetime());
     }
 
     #[test]
     fn has_lifetime_raw_ptr() {
-        // *const Foo<'a>
         let ty = RustType::named_with_lifetime("Foo", "a").into_raw_ptr(false);
         assert!(ty.has_lifetime());
 
-        // *const Foo
         let ty = RustType::named("Foo").into_raw_ptr(false);
         assert!(!ty.has_lifetime());
+    }
+
+    #[test]
+    fn is_named_works() {
+        assert!(RustType::named("c_void").is_named("c_void"));
+        assert!(RustType::named("Foo").is_named("Foo"));
+        assert!(!RustType::named("Foo").is_named("Bar"));
+    }
+
+    #[test]
+    fn is_bool_works() {
+        assert!(RustType::named("bool").is_bool());
+        assert!(RustType::Primitive(RustPrimitiveType::Bool).is_bool());
+        assert!(!RustType::named("u32").is_bool());
     }
 }

@@ -54,7 +54,7 @@ pub fn emit_basetype(file: &mut impl Write, b: &BasetypeDef) -> Result<()> {
 }
 
 pub fn emit_type_alias(file: &mut impl Write, a: &TypeAliasDef) -> Result<()> {
-    write_doc_link(file, &a.c_name)?;
+    write_doc_link(file, a.c_name)?;
     writeln!(file, "pub type {} = {};", a.name, a.target)?;
     Ok(())
 }

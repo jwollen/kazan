@@ -1,6 +1,6 @@
 use crate::build::type_conv::{self, ArrayParamKind, LengthKind, TypeRole};
 use crate::model::command::*;
-use crate::model::rust_type::RustType;
+use crate::model::rust_type::{RustPrimitiveType, RustType};
 use crate::{
     analysis::{Analysis, CommandType},
     cdecl::CType,
@@ -12,7 +12,7 @@ use crate::{
 /// Resolved command info for internal use during building.
 struct CommandInfo<'a> {
     command: &'a xml::Command,
-    required_name: &'a str,
+    required_name: &'static str,
     conditionally_required: bool,
 }
 
@@ -295,7 +295,7 @@ fn build_wrapper_return<'a>(
                     unreachable!()
                 };
                 let ty = if ctype::is_bool32(pointee) {
-                    RustType::Bool
+                    RustType::Primitive(RustPrimitiveType::Bool)
                 } else {
                     type_conv::resolve_ctype(analysis, pointee, None)
                 };
@@ -311,7 +311,7 @@ fn build_wrapper_return<'a>(
         let ret_ty = command.return_type.as_ref().unwrap();
         WrapperReturnKind::CommandReturnValue {
             ty: if ctype::is_bool32(ret_ty) {
-                RustType::Bool
+                RustType::Primitive(RustPrimitiveType::Bool)
             } else {
                 type_conv::resolve_ctype(analysis, ret_ty, None)
             },
@@ -755,7 +755,7 @@ fn build_command_return(wrapper: &AnalyzedCommand, info: &CommandInfo) -> Comman
                 .iter()
                 .map(|p| OutputParam {
                     name: p.name.clone(),
-                    bool_convert: matches!(&p.ty, RustType::Bool),
+                    bool_convert: p.ty.is_bool(),
                     ty: p.ty.clone(),
                 })
                 .collect();
@@ -768,7 +768,7 @@ fn build_command_return(wrapper: &AnalyzedCommand, info: &CommandInfo) -> Comman
             let ok = ok_codes_override.as_ref().unwrap();
             let status_type = match ok.repr {
                 overrides::SuccessCodeRepr::RawResult => RustType::named("VkResult"),
-                overrides::SuccessCodeRepr::Bool => RustType::Bool,
+                overrides::SuccessCodeRepr::Bool => RustType::Primitive(RustPrimitiveType::Bool),
             };
             CommandReturn::FallibleMultiSuccess {
                 inner: Box::new(inner_return),
@@ -812,7 +812,7 @@ fn build_result_handling(
                     let expr = match params.as_slice() {
                         [param] => {
                             let init = format!("{}.assume_init()", param.name);
-                            if matches!(&param.ty, RustType::Bool) {
+                            if param.ty.is_bool() {
                                 format!("{init} != 0")
                             } else {
                                 init
@@ -824,7 +824,7 @@ fn build_result_handling(
                                 .iter()
                                 .map(|param| {
                                     let init = format!("{}.assume_init()", param.name);
-                                    if matches!(&param.ty, RustType::Bool) {
+                                    if param.ty.is_bool() {
                                         format!("{init} != 0")
                                     } else {
                                         init
@@ -840,7 +840,7 @@ fn build_result_handling(
             };
 
             return ResultHandling::MatchResult {
-                ok_codes: codes.iter().map(|s| s.to_string()).collect(),
+                ok_codes: codes.to_vec(),
                 output_expr,
                 expose_status: expose_success_code,
             };
@@ -849,7 +849,7 @@ fn build_result_handling(
         return ResultHandling::OutputParams;
     }
 
-    if matches!(&wrapper.wrapper_return, WrapperReturnKind::CommandReturnValue { ty } if matches!(ty, RustType::Bool))
+    if matches!(&wrapper.wrapper_return, WrapperReturnKind::CommandReturnValue { ty } if ty.is_bool())
     {
         if wrapper.is_fallible {
             // Shouldn't happen: bool return + fallible doesn't make sense
@@ -860,7 +860,7 @@ fn build_result_handling(
                 .map(|o| o.codes)
                 .unwrap_or(default_codes);
             return ResultHandling::MatchResult {
-                ok_codes: codes.iter().map(|s| s.to_string()).collect(),
+                ok_codes: codes.to_vec(),
                 output_expr: None,
                 expose_status: false,
             };
@@ -884,7 +884,7 @@ fn build_result_handling(
                 .is_some_and(|o| o.codes.len() > 1);
 
         return ResultHandling::MatchResult {
-            ok_codes: codes.iter().map(|s| s.to_string()).collect(),
+            ok_codes: codes.to_vec(),
             output_expr: None,
             expose_status: expose_success_code,
         };
@@ -959,12 +959,7 @@ fn build_command_body(
 
         let inner_call = build_ffi_call(wrapper, info, analysis, true);
 
-        let closure_ok_codes: Vec<String> = wrapper
-            .command
-            .success_codes
-            .iter()
-            .map(|s| s.to_string())
-            .collect();
+        let closure_ok_codes: Vec<&'static str> = wrapper.command.success_codes.clone();
 
         CommandBody::Enumeration(EnumerationCall {
             len_param,
@@ -1007,7 +1002,7 @@ fn build_wrapper(
 
     CommandWrapper {
         name: wrapper.name.clone(),
-        c_name: info.required_name.to_string(),
+        c_name: info.required_name,
         lifetime_param: wrapper.lifetime_param.map(|s| s.to_string()),
         params,
         return_type,
@@ -1034,11 +1029,11 @@ fn build_dispatch_entry(analysis: &Analysis, info: &CommandInfo) -> DispatchEntr
         return DispatchEntry {
             field_name: name.clone(),
             pfn_type,
-            c_entry_point: info.required_name.to_string(),
+            c_entry_point: info.required_name,
             conditional: info.conditionally_required,
             wrapper: CommandWrapper {
                 name,
-                c_name: info.required_name.to_string(),
+                c_name: info.required_name,
                 lifetime_param: None,
                 params: vec![],
                 return_type: CommandReturn::Void,
@@ -1056,7 +1051,7 @@ fn build_dispatch_entry(analysis: &Analysis, info: &CommandInfo) -> DispatchEntr
     DispatchEntry {
         field_name,
         pfn_type,
-        c_entry_point: info.required_name.to_string(),
+        c_entry_point: info.required_name,
         conditional: info.conditionally_required,
         wrapper: cmd_wrapper,
     }

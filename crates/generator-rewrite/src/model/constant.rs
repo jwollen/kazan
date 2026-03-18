@@ -11,22 +11,22 @@ use crate::{
 /// Model for a generated API constant (e.g. `pub const MAX_FOO: u32 = 42;`).
 #[derive(Debug, Clone)]
 pub struct ApiConstantDef {
-    pub name: String,
-    pub ty: String,
-    pub value: String,
+    pub name: &'static str,
+    pub ty: &'static str,
+    pub value: Cow<'static, str>,
 }
 
 /// Model for a basetype alias (e.g. `pub type Flags = u32;`).
 #[derive(Debug, Clone)]
 pub struct BasetypeDef {
-    pub name: String,
-    pub target: String,
+    pub name: &'static str,
+    pub target: &'static str,
 }
 
 /// Model for a type alias (e.g. `pub type Foo<'a> = Bar<'a>;`).
 #[derive(Debug, Clone)]
 pub struct TypeAliasDef {
-    pub c_name: String,
+    pub c_name: &'static str,
     pub name: String,
     pub target: String,
 }
@@ -35,28 +35,28 @@ pub struct TypeAliasDef {
 
 pub fn build_api_constant(constant: &xml::Constant) -> ApiConstantDef {
     ApiConstantDef {
-        name: normalize_const_name(constant.name).to_string(),
-        ty: base_ctype_to_rust_str(constant.ty).to_string(),
-        value: convert_c_expr(constant.value).into_owned(),
+        name: normalize_const_name(constant.name),
+        ty: base_ctype_to_rust_str(constant.ty),
+        value: convert_c_expr(constant.value),
     }
 }
 
 pub fn build_basetype(basetype: &xml::BaseType) -> BasetypeDef {
     BasetypeDef {
-        name: normalize_ty_name(basetype.name).to_string(),
-        target: base_ctype_to_rust_str(basetype.ty.unwrap_or("*const c_void")).to_string(),
+        name: normalize_ty_name(basetype.name),
+        target: base_ctype_to_rust_str(basetype.ty.unwrap_or("*const c_void")),
     }
 }
 
 pub fn build_type_alias(analysis: &Analysis, alias: &xml::Alias) -> TypeAliasDef {
     TypeAliasDef {
-        c_name: alias.name.to_string(),
+        c_name: alias.name,
         name: type_name_with_lifetime(analysis, alias.name, Some("a")),
         target: type_name_with_lifetime(analysis, alias.alias, Some("a")),
     }
 }
 
-fn convert_c_expr<'a>(expr: &'a str) -> Cow<'a, str> {
+fn convert_c_expr(expr: &'static str) -> Cow<'static, str> {
     let expr = expr
         .strip_prefix('(')
         .and_then(|expr| expr.strip_suffix(')'))

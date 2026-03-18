@@ -17,7 +17,7 @@ pub struct FfiModuleDef {
 /// A single FFI type alias.
 #[derive(Debug, Clone)]
 pub struct FfiAlias {
-    pub c_name: String,
+    pub c_name: &'static str,
     pub rhs: String,
 }
 
@@ -27,7 +27,7 @@ pub struct FfiLifetimeImpl {
     /// Qualified Rust name (e.g. `super::defs::Foo` or `Foo`).
     pub qualified_name: String,
     /// The C type name used in the return type.
-    pub c_name: String,
+    pub c_name: &'static str,
 }
 
 // ── Builder ─────────────────────────────────────────────────────────────────
@@ -56,7 +56,7 @@ pub fn build_ffi_module(analysis: &Analysis, items: &ModuleItems<'_>) -> FfiModu
         let rust_name = normalize_ty_name(ty.name);
         if rust_name != ty.name {
             aliases.push(FfiAlias {
-                c_name: ty.name.to_string(),
+                c_name: ty.name,
                 rhs: rust_name.to_string(),
             });
         }
@@ -67,7 +67,7 @@ pub fn build_ffi_module(analysis: &Analysis, items: &ModuleItems<'_>) -> FfiModu
         let rust_name = normalize_ty_name(ty.name);
         let rhs = ffi_rhs(ty.name, rust_name, None);
         aliases.push(FfiAlias {
-            c_name: ty.name.to_string(),
+            c_name: ty.name,
             rhs,
         });
     }
@@ -83,7 +83,7 @@ pub fn build_ffi_module(analysis: &Analysis, items: &ModuleItems<'_>) -> FfiModu
         };
         let rhs = ffi_rhs(ty.name, rust_name, lt);
         aliases.push(FfiAlias {
-            c_name: ty.name.to_string(),
+            c_name: ty.name,
             rhs,
         });
     }
@@ -99,7 +99,7 @@ pub fn build_ffi_module(analysis: &Analysis, items: &ModuleItems<'_>) -> FfiModu
         };
         let rhs = ffi_rhs(ty.name, rust_name, lt);
         aliases.push(FfiAlias {
-            c_name: ty.name.to_string(),
+            c_name: ty.name,
             rhs,
         });
     }
@@ -113,7 +113,7 @@ pub fn build_ffi_module(analysis: &Analysis, items: &ModuleItems<'_>) -> FfiModu
         };
         let rhs = ffi_rhs(ty.name, rust_name, None);
         aliases.push(FfiAlias {
-            c_name: ty.name.to_string(),
+            c_name: ty.name,
             rhs,
         });
     }
@@ -123,7 +123,7 @@ pub fn build_ffi_module(analysis: &Analysis, items: &ModuleItems<'_>) -> FfiModu
         let rust_name = normalize_ty_name(ty.name);
         let rhs = ffi_rhs(ty.name, rust_name, None);
         aliases.push(FfiAlias {
-            c_name: ty.name.to_string(),
+            c_name: ty.name,
             rhs,
         });
 
@@ -133,7 +133,7 @@ pub fn build_ffi_module(analysis: &Analysis, items: &ModuleItems<'_>) -> FfiModu
             let rust_bitmask_name = normalize_ty_name(bitmask_name);
             let rhs = ffi_rhs(bitmask_name, rust_bitmask_name, None);
             aliases.push(FfiAlias {
-                c_name: bitmask_name.to_string(),
+                c_name: bitmask_name,
                 rhs,
             });
         }
@@ -148,7 +148,7 @@ pub fn build_ffi_module(analysis: &Analysis, items: &ModuleItems<'_>) -> FfiModu
             .map(|_| "static");
         let rhs = ffi_rhs(alias.name, rust_name, lt);
         aliases.push(FfiAlias {
-            c_name: alias.name.to_string(),
+            c_name: alias.name,
             rhs,
         });
     }
@@ -165,7 +165,7 @@ pub fn build_ffi_module(analysis: &Analysis, items: &ModuleItems<'_>) -> FfiModu
             };
             lifetime_impls.push(FfiLifetimeImpl {
                 qualified_name: qualified,
-                c_name: ty_name.to_string(),
+                c_name: ty_name,
             });
         }
     }

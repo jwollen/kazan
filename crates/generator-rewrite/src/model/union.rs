@@ -6,8 +6,8 @@ use crate::{analysis::Analysis, build::type_conv, normalize_name, normalize_ty_n
 /// Model for a generated Rust union definition.
 #[derive(Debug, Clone)]
 pub struct UnionDef {
-    pub name: String,
-    pub c_name: String,
+    pub name: &'static str,
+    pub c_name: &'static str,
     pub fields: Vec<UnionField>,
     pub has_lifetime: bool,
 }
@@ -24,7 +24,7 @@ pub struct UnionField {
 /// Build a `UnionDef` model from a raw XML union definition.
 pub fn build_union(analysis: &Analysis, union_ty: &xml::Structure) -> UnionDef {
     let type_info = analysis.get_base_type_info(union_ty.name).unwrap();
-    let name = normalize_ty_name(union_ty.name).to_string();
+    let name = normalize_ty_name(union_ty.name);
 
     let fields = union_ty
         .members
@@ -40,7 +40,7 @@ pub fn build_union(analysis: &Analysis, union_ty: &xml::Structure) -> UnionDef {
 
     UnionDef {
         name,
-        c_name: union_ty.name.to_string(),
+        c_name: union_ty.name,
         fields,
         has_lifetime: type_info.lifetime_param,
     }

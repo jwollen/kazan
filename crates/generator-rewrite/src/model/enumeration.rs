@@ -15,7 +15,7 @@ use crate::{
 #[derive(Debug, Clone)]
 pub struct EnumDef {
     pub name: String,
-    pub c_name: String,
+    pub c_name: &'static str,
     /// Base variants defined in the enum itself.
     pub base_variants: Vec<EnumVariant>,
     /// Variants and aliases contributed by extensions/versions.
@@ -27,7 +27,7 @@ pub struct EnumDef {
 pub struct EnumVariant {
     pub name: String,
     pub value: String,
-    pub comment: Option<String>,
+    pub comment: Option<&'static str>,
 }
 
 /// An alias for an enum variant.
@@ -58,9 +58,9 @@ pub struct EnumDebugVariant {
 /// Model for a bitmask type (VkFooFlags + optional VkFooFlagBits).
 #[derive(Debug, Clone)]
 pub struct BitmaskDef {
-    pub flags_name: String,
-    pub flags_c_name: String,
-    pub base_type: String,
+    pub flags_name: &'static str,
+    pub flags_c_name: &'static str,
+    pub base_type: &'static str,
     /// None if no FlagBits enum is associated.
     pub flagbits: Option<FlagBitsDef>,
 }
@@ -68,8 +68,8 @@ pub struct BitmaskDef {
 /// Model for the FlagBits portion of a bitmask.
 #[derive(Debug, Clone)]
 pub struct FlagBitsDef {
-    pub name: String,
-    pub c_name: String,
+    pub name: &'static str,
+    pub c_name: &'static str,
     pub bitwidth: u8,
     /// Base bits defined in the bitmask itself.
     pub base_bits: Vec<BitmaskBit>,
@@ -90,7 +90,7 @@ pub struct FlagBitsDef {
 pub struct BitmaskBit {
     pub name: String,
     pub bitpos: u8,
-    pub comment: Option<String>,
+    pub comment: Option<&'static str>,
 }
 
 /// An alias for a bitmask bit.
@@ -104,8 +104,8 @@ pub struct BitmaskAlias {
 #[derive(Debug, Clone)]
 pub struct BitmaskValue {
     pub name: String,
-    pub value: String,
-    pub comment: Option<String>,
+    pub value: &'static str,
+    pub comment: Option<&'static str>,
 }
 
 /// Module contributions to a bitmask type.
@@ -161,7 +161,7 @@ pub fn build_enum(analysis: &Analysis, ty: &xml::Enum) -> (EnumDef, Vec<EnumDebu
             EnumVariant {
                 name: vname,
                 value: bit.value.to_string(),
-                comment: bit.comment.map(|s| s.to_string()),
+                comment: bit.comment,
             }
         })
         .collect();
@@ -180,7 +180,7 @@ pub fn build_enum(analysis: &Analysis, ty: &xml::Enum) -> (EnumDef, Vec<EnumDebu
                     variants.push(EnumVariant {
                         name: vname.clone(),
                         value: v.value.to_string(),
-                        comment: v.comment.map(|s| s.to_string()),
+                        comment: v.comment,
                     });
                     debug_variants.push(EnumDebugVariant {
                         name: vname,
@@ -194,7 +194,7 @@ pub fn build_enum(analysis: &Analysis, ty: &xml::Enum) -> (EnumDef, Vec<EnumDebu
                     variants.push(EnumVariant {
                         name: vname.clone(),
                         value: v.literal_value.to_string(),
-                        comment: v.comment.map(|s| s.to_string()),
+                        comment: v.comment,
                     });
                     debug_variants.push(EnumDebugVariant {
                         name: vname,
@@ -224,7 +224,7 @@ pub fn build_enum(analysis: &Analysis, ty: &xml::Enum) -> (EnumDef, Vec<EnumDebu
 
     let def = EnumDef {
         name,
-        c_name: ty.name.to_string(),
+        c_name: ty.name,
         base_variants,
         module_groups,
     };
@@ -240,14 +240,14 @@ pub fn build_bitmask(
     bitmask: Option<&xml::BitMask>,
     req: &ReqEnumData,
 ) -> BitmaskDef {
-    let flags_name = normalize_ty_name(ty.name).to_string();
-    let base_type = base_ctype_to_rust_str(ty.ty).to_string();
+    let flags_name = normalize_ty_name(ty.name);
+    let base_type = base_ctype_to_rust_str(ty.ty);
 
     let flagbits = bitmask.map(|bitmask| build_flagbits(analysis, bitmask, req));
 
     BitmaskDef {
         flags_name,
-        flags_c_name: ty.name.to_string(),
+        flags_c_name: ty.name,
         base_type,
         flagbits,
     }
@@ -255,7 +255,7 @@ pub fn build_bitmask(
 
 fn build_flagbits(analysis: &Analysis, bitmask: &xml::BitMask, req: &ReqEnumData) -> FlagBitsDef {
     let tags = &analysis.registry().tags;
-    let bitmask_name = normalize_ty_name(bitmask.name).to_string();
+    let bitmask_name = normalize_ty_name(bitmask.name);
 
     let value_prefix = {
         let prefix = strip_vendor_suffix(bitmask.name, tags)
@@ -271,7 +271,7 @@ fn build_flagbits(analysis: &Analysis, bitmask: &xml::BitMask, req: &ReqEnumData
         .map(|bit| BitmaskBit {
             name: normalize_bit_name(bit.name, Some(value_prefix.as_str())),
             bitpos: bit.bitpos,
-            comment: bit.comment.map(|s| s.to_string()),
+            comment: bit.comment,
         })
         .collect();
     base_bits.sort_by_key(|b| b.bitpos);
@@ -316,8 +316,8 @@ fn build_flagbits(analysis: &Analysis, bitmask: &xml::BitMask, req: &ReqEnumData
             let vname = strip_vendor_suffix(vname, tags);
             BitmaskValue {
                 name: vname.to_string(),
-                value: value.value.to_string(),
-                comment: value.comment.map(|s| s.to_string()),
+                value: value.value,
+                comment: value.comment,
             }
         })
         .collect();
@@ -336,7 +336,7 @@ fn build_flagbits(analysis: &Analysis, bitmask: &xml::BitMask, req: &ReqEnumData
                 .map(|bp| BitmaskBit {
                     name: normalize_bit_name(bp.name, Some(value_prefix.as_str())),
                     bitpos: bp.bitpos,
-                    comment: bp.comment.map(|s| s.to_string()),
+                    comment: bp.comment,
                 })
                 .collect();
             bits.sort_by_key(|b| b.bitpos);
@@ -362,8 +362,8 @@ fn build_flagbits(analysis: &Analysis, bitmask: &xml::BitMask, req: &ReqEnumData
                 .iter()
                 .map(|v| BitmaskValue {
                     name: normalize_bit_name(v.name, Some(value_prefix.as_str())),
-                    value: v.literal_value.to_string(),
-                    comment: v.comment.map(|s| s.to_string()),
+                    value: v.literal_value,
+                    comment: v.comment,
                 })
                 .collect();
 
@@ -381,7 +381,7 @@ fn build_flagbits(analysis: &Analysis, bitmask: &xml::BitMask, req: &ReqEnumData
 
     FlagBitsDef {
         name: bitmask_name,
-        c_name: bitmask.name.to_string(),
+        c_name: bitmask.name,
         bitwidth: bitmask.bitwidth.unwrap_or(32),
         base_bits,
         base_aliases,

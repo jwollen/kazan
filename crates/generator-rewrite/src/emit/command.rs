@@ -90,7 +90,7 @@ fn emit_dispatch_struct(file: &mut impl Write, ds: &mc::DispatchStruct) -> Resul
 
 fn emit_command_wrapper(file: &mut impl Write, wrapper: &mc::CommandWrapper) -> Result<()> {
     // Doc link.
-    write_doc_link(file, &wrapper.c_name)?;
+    write_doc_link(file, wrapper.c_name)?;
 
     // Signature.
     let lifetime = wrapper

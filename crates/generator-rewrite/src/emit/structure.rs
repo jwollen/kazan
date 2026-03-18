@@ -51,7 +51,7 @@ fn emit_struct_definition(
 ) -> Result<()> {
     let derives_str = s.derives.join(", ");
 
-    write_doc_link(file, &s.c_name)?;
+    write_doc_link(file, s.c_name)?;
     writeln!(file, "#[repr(C)]")?;
     if trivial_debug {
         writeln!(file, "#[cfg_attr(feature = \"debug\", derive(Debug))]")?;

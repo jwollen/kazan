@@ -4,7 +4,7 @@ use super::rust_type::RustType;
 #[derive(Debug, Clone)]
 pub struct StructDef {
     pub name: String,
-    pub c_name: String,
+    pub c_name: &'static str,
     pub kind: StructKind,
     pub fields: Vec<StructField>,
     pub has_lifetime: bool,
@@ -18,7 +18,7 @@ pub struct StructDef {
 /// Whether the struct is extensible (has sType/pNext) or plain.
 #[derive(Debug, Clone)]
 pub enum StructKind {
-    Extensible { stype_suffix: String },
+    Extensible { stype_suffix: &'static str },
     Plain,
 }
 
@@ -110,8 +110,13 @@ pub enum ArrayAssignment {
 /// A trait impl to generate for the struct.
 #[derive(Debug, Clone)]
 pub enum TraitImpl {
-    TaggedStructure { stype_suffix: String },
-    Extends { target: String, provisional: bool },
+    TaggedStructure {
+        stype_suffix: &'static str,
+    },
+    Extends {
+        target: &'static str,
+        provisional: bool,
+    },
 }
 
 /// The Default impl for the struct.
