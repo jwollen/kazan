@@ -230,13 +230,14 @@ fn generate_module(
                 "
         )?;
 
-        emit::constant::generate_api_constants(&mut file, &items.api_constants)?;
+        emit::generate_api_constants(&mut file, &items.api_constants)?;
 
-        emit::constant::generate_basetypes(&mut file, &items.basetypes)?;
+        emit::generate_basetypes(&mut file, &items.basetypes)?;
 
         emit::handle::generate_handles(&mut file, &items.handles)?;
 
-        emit::constant::generate_type_aliases(&mut file, analysis, &items.type_aliases)?;
+        emit::generate_type_aliases(&mut file, analysis, &items.type_aliases)?;
+        
         emit::func_pointer::generate_command_aliases(&mut file, &items.command_aliases)?;
 
         emit::structure::generate_structs(&mut file, analysis, &items.structs)?;
