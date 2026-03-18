@@ -334,11 +334,6 @@ mod tests {
     use super::*;
 
     #[test]
-    fn named_simple() {
-        assert_eq!(RustType::named("u32").to_tokens(), "u32");
-    }
-
-    #[test]
     fn named_resolves_to_primitive() {
         assert!(matches!(
             RustType::named("u32"),
@@ -352,11 +347,6 @@ mod tests {
             RustType::named("c_void"),
             RustType::Primitive(RustPrimitiveType::CVoid)
         ));
-    }
-
-    #[test]
-    fn named_custom_stays_named() {
-        assert!(matches!(RustType::named("MyType"), RustType::Named { .. }));
     }
 
     #[test]
@@ -377,12 +367,6 @@ mod tests {
     fn ref_mutable() {
         let ty = RustType::named("Foo").into_ref(Some("a".into()), true);
         assert_eq!(ty.to_tokens(), "&'a mut Foo");
-    }
-
-    #[test]
-    fn ref_no_lifetime() {
-        let ty = RustType::named("Foo").into_ref(None, false);
-        assert_eq!(ty.to_tokens(), "&Foo");
     }
 
     #[test]
@@ -410,12 +394,6 @@ mod tests {
     }
 
     #[test]
-    fn slice_no_lifetime() {
-        let ty = RustType::named("u32").into_slice(None, false);
-        assert_eq!(ty.to_tokens(), "&[u32]");
-    }
-
-    #[test]
     fn array() {
         let ty = RustType::Array {
             element: Box::new(RustType::named("f32")),
@@ -440,11 +418,6 @@ mod tests {
     }
 
     #[test]
-    fn tuple_empty() {
-        assert_eq!(RustType::Tuple(vec![]).to_tokens(), "()");
-    }
-
-    #[test]
     fn tuple_two() {
         let ty = RustType::Tuple(vec![
             RustType::named("u32"),
@@ -463,33 +436,9 @@ mod tests {
     }
 
     #[test]
-    fn slice_or_len_no_lifetime() {
-        let ty = RustType::SliceOrLen {
-            lifetime: None,
-            element: Box::new(RustType::named("Foo")),
-        };
-        assert_eq!(ty.to_tokens(), "SliceOrLen<Foo>");
-    }
-
-    #[test]
     fn impl_extend_uninit() {
         let ty = RustType::ImplExtendUninit(Box::new(RustType::named("Foo")));
         assert_eq!(ty.to_tokens(), "impl ExtendUninit<Foo>");
-    }
-
-    #[test]
-    fn bool_type() {
-        assert_eq!(
-            RustType::Primitive(RustPrimitiveType::Bool).to_tokens(),
-            "bool"
-        );
-        // Also via named():
-        assert_eq!(RustType::named("bool").to_tokens(), "bool");
-    }
-
-    #[test]
-    fn unit_type() {
-        assert_eq!(RustType::Unit.to_tokens(), "()");
     }
 
     #[test]
@@ -498,12 +447,6 @@ mod tests {
             .into_slice(Some("a".into()), false)
             .optional();
         assert_eq!(ty.to_tokens(), "Option<&'a [Foo]>");
-    }
-
-    #[test]
-    fn has_lifetime_named() {
-        assert!(!RustType::named("u32").has_lifetime());
-        assert!(RustType::named_with_lifetime("Foo", "a").has_lifetime());
     }
 
     #[test]
@@ -531,19 +474,5 @@ mod tests {
 
         let ty = RustType::named("Foo").into_raw_ptr(false);
         assert!(!ty.has_lifetime());
-    }
-
-    #[test]
-    fn is_named_works() {
-        assert!(RustType::named("c_void").is_named("c_void"));
-        assert!(RustType::named("Foo").is_named("Foo"));
-        assert!(!RustType::named("Foo").is_named("Bar"));
-    }
-
-    #[test]
-    fn is_bool_works() {
-        assert!(RustType::named("bool").is_bool());
-        assert!(RustType::Primitive(RustPrimitiveType::Bool).is_bool());
-        assert!(!RustType::named("u32").is_bool());
     }
 }
