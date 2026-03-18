@@ -279,13 +279,11 @@ fn convert_command_param(analysis: &Analysis, ty: &CType, role: &TypeRole) -> Ru
         }
         CTypeCategory::CharPointer { is_const } => {
             let rt = if is_const {
-                RustType::named("c_char").into_raw_ptr(false)
+                RustType::C_CHAR.into_raw_ptr(false)
             } else if *is_output {
-                RustType::named("c_char")
-                    .into_raw_ptr(true)
-                    .into_ref(None, true)
+                RustType::C_CHAR.into_raw_ptr(true).into_ref(None, true)
             } else {
-                RustType::named("c_char").into_raw_ptr(true)
+                RustType::C_CHAR.into_raw_ptr(true)
             };
             if optional.0 { rt.optional() } else { rt }
         }
@@ -309,7 +307,7 @@ fn convert_command_param(analysis: &Analysis, ty: &CType, role: &TypeRole) -> Ru
         }
         _ => {
             if ctype::is_bool32(ty) {
-                return RustType::Primitive(RustPrimitiveType::Bool);
+                return RustType::BOOL;
             }
             resolve_ctype(analysis, ty, *lifetime)
         }
@@ -327,7 +325,7 @@ fn convert_command_param_with_length(
     let category = CTypeCategory::from_ctype(ty, analysis);
     match category {
         CTypeCategory::CharPointer { is_const } => {
-            let rt = RustType::named("CStr").into_ref(None, !is_const);
+            let rt = RustType::CSTR.into_ref(None, !is_const);
             if nullable { rt.optional() } else { rt }
         }
         CTypeCategory::OpaquePointer {
@@ -336,16 +334,16 @@ fn convert_command_param_with_length(
         } => {
             // Writable void* with length-from-pointer (two-call pattern) → ExtendUninit<u8>
             if !is_const && matches!(len.and_then(LengthKind::len_ctype), Some(CType::Ptr { .. })) {
-                return RustType::ImplExtendUninit(Box::new(RustType::named("u8")));
+                return RustType::ImplExtendUninit(Box::new(RustType::U8));
             }
-            let rt = RustType::named("u8").into_slice(None, !is_const);
+            let rt = RustType::U8.into_slice(None, !is_const);
             if nullable { rt.optional() } else { rt }
         }
         CTypeCategory::OpaquePointer {
             pointee_name: "char",
             is_const,
         } => {
-            let element = RustType::named("c_char").into_raw_ptr(!is_const);
+            let element = RustType::C_CHAR.into_raw_ptr(!is_const);
             let rt = element.into_slice(None, !is_const);
             if nullable { rt.optional() } else { rt }
         }
@@ -362,7 +360,7 @@ fn convert_command_param_with_length(
             let mut element = resolve_ctype(analysis, pointee, lifetime);
             // c_void → u8 for slice elements
             if element.is_named("c_void") {
-                element = RustType::named("u8");
+                element = RustType::U8;
             }
 
             // SliceOrLen variants for nullable array params with meaningful count.
@@ -435,9 +433,9 @@ fn convert_setter_param(analysis: &Analysis, ty: &CType, role: &TypeRole) -> Rus
         }
         CTypeCategory::CharPointer { is_const } => {
             if is_const {
-                RustType::named("c_char").into_raw_ptr(false)
+                RustType::C_CHAR.into_raw_ptr(false)
             } else {
-                RustType::named("c_char").into_raw_ptr(true)
+                RustType::C_CHAR.into_raw_ptr(true)
             }
         }
         CTypeCategory::TypedPointer { is_const, pointee } => {
@@ -457,7 +455,7 @@ fn convert_setter_param(analysis: &Analysis, ty: &CType, role: &TypeRole) -> Rus
         }
         _ => {
             if ctype::is_bool32(ty) {
-                return RustType::Primitive(RustPrimitiveType::Bool);
+                return RustType::BOOL;
             }
             resolve_ctype(analysis, ty, *lifetime)
         }
@@ -474,19 +472,19 @@ fn convert_setter_param_with_length(
     let category = CTypeCategory::from_ctype(ty, analysis);
     match category {
         CTypeCategory::CharPointer { is_const } => {
-            RustType::named("CStr").into_ref(Some("a".into()), !is_const)
+            RustType::CSTR.into_ref(Some("a".into()), !is_const)
         }
         CTypeCategory::OpaquePointer {
             pointee_name: "char",
             is_const,
         } => {
-            let element = RustType::named("c_char").into_raw_ptr(!is_const);
+            let element = RustType::C_CHAR.into_raw_ptr(!is_const);
             element.into_slice(Some("a".into()), !is_const)
         }
         CTypeCategory::OpaquePointer {
             pointee_name: "void",
             is_const,
-        } => RustType::named("u8").into_slice(Some("a".into()), !is_const),
+        } => RustType::U8.into_slice(Some("a".into()), !is_const),
         CTypeCategory::OpaquePointer {
             pointee_name,
             is_const,
@@ -536,11 +534,11 @@ fn convert_setter_param_with_length(
             );
             // Bool32 array elements must stay as Bool32, not bool (different memory layout).
             if element.is_bool() {
-                element = RustType::named("Bool32");
+                element = RustType::BOOL32;
             }
             // c_void → u8 for slice elements.
             if element.is_named("c_void") {
-                element = RustType::named("u8");
+                element = RustType::U8;
             }
             element.into_slice(Some("a".into()), !is_const)
         }

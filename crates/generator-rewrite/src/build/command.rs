@@ -1,6 +1,6 @@
 use crate::build::type_conv::{self, ArrayParamKind, LengthKind, TypeRole};
 use crate::model::command::*;
-use crate::model::rust_type::{RustPrimitiveType, RustType};
+use crate::model::rust_type::RustType;
 use crate::{
     analysis::{Analysis, CommandType},
     cdecl::CType,
@@ -295,7 +295,7 @@ fn build_wrapper_return<'a>(
                     unreachable!()
                 };
                 let ty = if ctype::is_bool32(pointee) {
-                    RustType::Primitive(RustPrimitiveType::Bool)
+                    RustType::BOOL
                 } else {
                     type_conv::resolve_ctype(analysis, pointee, None)
                 };
@@ -311,7 +311,7 @@ fn build_wrapper_return<'a>(
         let ret_ty = command.return_type.as_ref().unwrap();
         WrapperReturnKind::CommandReturnValue {
             ty: if ctype::is_bool32(ret_ty) {
-                RustType::Primitive(RustPrimitiveType::Bool)
+                RustType::BOOL
             } else {
                 type_conv::resolve_ctype(analysis, ret_ty, None)
             },
@@ -767,8 +767,8 @@ fn build_command_return(wrapper: &AnalyzedCommand, info: &CommandInfo) -> Comman
         if has_multiple_ok_codes {
             let ok = ok_codes_override.as_ref().unwrap();
             let status_type = match ok.repr {
-                overrides::SuccessCodeRepr::RawResult => RustType::named("VkResult"),
-                overrides::SuccessCodeRepr::Bool => RustType::Primitive(RustPrimitiveType::Bool),
+                overrides::SuccessCodeRepr::RawResult => RustType::VK_RESULT,
+                overrides::SuccessCodeRepr::Bool => RustType::BOOL,
             };
             CommandReturn::FallibleMultiSuccess {
                 inner: Box::new(inner_return),

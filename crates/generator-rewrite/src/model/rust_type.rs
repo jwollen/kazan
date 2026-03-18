@@ -140,6 +140,29 @@ pub enum RustType {
 }
 
 impl RustType {
+    // Shorthand constants for commonly used primitive types.
+    pub const BOOL: Self = Self::Primitive(RustPrimitiveType::Bool);
+    pub const U8: Self = Self::Primitive(RustPrimitiveType::U8);
+    pub const I8: Self = Self::Primitive(RustPrimitiveType::I8);
+    pub const U16: Self = Self::Primitive(RustPrimitiveType::U16);
+    pub const I16: Self = Self::Primitive(RustPrimitiveType::I16);
+    pub const U32: Self = Self::Primitive(RustPrimitiveType::U32);
+    pub const I32: Self = Self::Primitive(RustPrimitiveType::I32);
+    pub const U64: Self = Self::Primitive(RustPrimitiveType::U64);
+    pub const I64: Self = Self::Primitive(RustPrimitiveType::I64);
+    pub const F32: Self = Self::Primitive(RustPrimitiveType::F32);
+    pub const F64: Self = Self::Primitive(RustPrimitiveType::F64);
+    pub const USIZE: Self = Self::Primitive(RustPrimitiveType::USize);
+    pub const ISIZE: Self = Self::Primitive(RustPrimitiveType::ISize);
+    pub const C_VOID: Self = Self::Primitive(RustPrimitiveType::CVoid);
+    pub const C_CHAR: Self = Self::Primitive(RustPrimitiveType::CChar);
+    pub const C_INT: Self = Self::Primitive(RustPrimitiveType::CInt);
+    pub const C_UINT: Self = Self::Primitive(RustPrimitiveType::CUint);
+    pub const C_ULONG: Self = Self::Primitive(RustPrimitiveType::CUlong);
+    pub const BOOL32: Self = Self::Primitive(RustPrimitiveType::Bool32);
+    pub const CSTR: Self = Self::Primitive(RustPrimitiveType::CStr);
+    pub const VK_RESULT: Self = Self::Primitive(RustPrimitiveType::VkResult);
+
     /// Render this type to its Rust source representation.
     pub fn to_tokens(&self) -> String {
         match self {

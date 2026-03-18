@@ -145,7 +145,7 @@ pub fn build_struct(analysis: &Analysis, struct_ty: &xml::Structure) -> StructDe
                         param: SetterParam {
                             name: param_name,
                             field_index: analyzed_index,
-                            ty: RustType::named("&'a CStr"),
+                            ty: RustType::CSTR.into_ref(Some("a".into()), false),
                             optional: false,
                             array_assign: None,
                         },
@@ -160,7 +160,7 @@ pub fn build_struct(analysis: &Analysis, struct_ty: &xml::Structure) -> StructDe
                         param: SetterParam {
                             name: param_name,
                             field_index: analyzed_index,
-                            ty: RustType::named("&CStr"),
+                            ty: RustType::CSTR.into_ref(None, false),
                             optional: false,
                             array_assign: None,
                         },
