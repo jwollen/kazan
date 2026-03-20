@@ -420,17 +420,7 @@ fn convert_setter_param(analysis: &Analysis, ty: &CType, role: &TypeRole) -> Rus
 
     let category = CTypeCategory::from_ctype(ty, analysis);
     match category {
-        CTypeCategory::OpaquePointer {
-            is_const,
-            pointee_name,
-        } => {
-            let inner = resolve_base_type(analysis, pointee_name, *lifetime);
-            if is_const {
-                inner.into_raw_ptr(false)
-            } else {
-                inner.into_raw_ptr(true)
-            }
-        }
+        CTypeCategory::OpaquePointer { .. } => resolve_ctype(analysis, ty, *lifetime),
         CTypeCategory::CharPointer { is_const } => {
             if is_const {
                 RustType::C_CHAR.into_raw_ptr(false)

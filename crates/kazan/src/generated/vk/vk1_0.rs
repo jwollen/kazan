@@ -1019,7 +1019,10 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn enabled_layer_names_ptrs(mut self, enabled_layer_names_ptrs: *const c_char) -> Self {
+        pub fn enabled_layer_names_ptrs(
+            mut self,
+            enabled_layer_names_ptrs: *const *const c_char,
+        ) -> Self {
             self.pp_enabled_layer_names = enabled_layer_names_ptrs;
             self
         }
