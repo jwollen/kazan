@@ -628,9 +628,14 @@ define_extension_set!(
             amd::device_coherent_memory::EXTENSION_NAME
         ),
         (
+            khr_shader_constant_data,
+            khr::shader_constant_data::EXTENSION_NAME
+        ),
+        (
             khr_dynamic_rendering_local_read,
             khr::dynamic_rendering_local_read::EXTENSION_NAME
         ),
+        (khr_shader_abort, khr::shader_abort::EXTENSION_NAME),
         (
             ext_shader_image_atomic_int64,
             ext::shader_image_atomic_int64::EXTENSION_NAME
@@ -1308,6 +1313,7 @@ define_extension_set!(
             ext_device_generated_commands,
             ext::device_generated_commands::EXTENSION_NAME
         ),
+        (khr_device_fault, khr::device_fault::EXTENSION_NAME),
         (khr_maintenance8, khr::maintenance8::EXTENSION_NAME),
         (
             mesa_image_alignment_control,

@@ -1013,9 +1013,14 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn enabled_layer_names(mut self, enabled_layer_names: &'a [*const c_char]) -> Self {
-            self.enabled_layer_count = enabled_layer_names.len().try_into().unwrap();
-            self.pp_enabled_layer_names = enabled_layer_names.as_ptr() as _;
+        pub fn enabled_layer_count(mut self, enabled_layer_count: u32) -> Self {
+            self.enabled_layer_count = enabled_layer_count;
+            self
+        }
+
+        #[inline]
+        pub fn enabled_layer_names_ptrs(mut self, enabled_layer_names_ptrs: *const c_char) -> Self {
+            self.pp_enabled_layer_names = enabled_layer_names_ptrs;
             self
         }
 
@@ -11426,6 +11431,12 @@ pub(super) mod defs {
         pub const MEMORY_MARKER_INFO_AMD: Self = Self(1000318014);
         pub const ACCELERATION_STRUCTURE_CREATE_INFO_2_KHR: Self = Self(1000318015);
 
+        // VK_KHR_device_fault
+        pub const PHYSICAL_DEVICE_FAULT_FEATURES_KHR: Self = Self(1000573000);
+        pub const PHYSICAL_DEVICE_FAULT_PROPERTIES_KHR: Self = Self(1000573001);
+        pub const DEVICE_FAULT_INFO_KHR: Self = Self(1000573002);
+        pub const DEVICE_FAULT_DEBUG_INFO_KHR: Self = Self(1000573003);
+
         // VK_KHR_device_group
         pub const DEVICE_GROUP_PRESENT_CAPABILITIES_KHR: Self = Self(1000060007);
         pub const IMAGE_SWAPCHAIN_CREATE_INFO_KHR: Self = Self(1000060008);
@@ -11826,6 +11837,11 @@ pub(super) mod defs {
         pub const ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT_KHR: Self =
             Self::ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT;
 
+        // VK_KHR_shader_abort
+        pub const PHYSICAL_DEVICE_SHADER_ABORT_FEATURES_KHR: Self = Self(1000233000);
+        pub const DEVICE_FAULT_SHADER_ABORT_MESSAGE_INFO_KHR: Self = Self(1000233001);
+        pub const PHYSICAL_DEVICE_SHADER_ABORT_PROPERTIES_KHR: Self = Self(1000233002);
+
         // VK_KHR_shader_atomic_int64
         pub const PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES_KHR: Self =
             Self::PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES;
@@ -11835,6 +11851,9 @@ pub(super) mod defs {
 
         // VK_KHR_shader_clock
         pub const PHYSICAL_DEVICE_SHADER_CLOCK_FEATURES_KHR: Self = Self(1000181000);
+
+        // VK_KHR_shader_constant_data
+        pub const PHYSICAL_DEVICE_SHADER_CONSTANT_DATA_FEATURES_KHR: Self = Self(1000231000);
 
         // VK_KHR_shader_expect_assume
         pub const PHYSICAL_DEVICE_SHADER_EXPECT_ASSUME_FEATURES_KHR: Self =
@@ -14041,6 +14060,14 @@ pub(super) mod defs {
                 Self::ACCELERATION_STRUCTURE_CREATE_INFO_2_KHR => {
                     Some("ACCELERATION_STRUCTURE_CREATE_INFO_2_KHR")
                 }
+                Self::PHYSICAL_DEVICE_FAULT_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_FAULT_FEATURES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_FAULT_PROPERTIES_KHR => {
+                    Some("PHYSICAL_DEVICE_FAULT_PROPERTIES_KHR")
+                }
+                Self::DEVICE_FAULT_INFO_KHR => Some("DEVICE_FAULT_INFO_KHR"),
+                Self::DEVICE_FAULT_DEBUG_INFO_KHR => Some("DEVICE_FAULT_DEBUG_INFO_KHR"),
                 Self::DEVICE_GROUP_PRESENT_CAPABILITIES_KHR => {
                     Some("DEVICE_GROUP_PRESENT_CAPABILITIES_KHR")
                 }
@@ -14287,11 +14314,23 @@ pub(super) mod defs {
                 Self::PHYSICAL_DEVICE_ROBUSTNESS_2_PROPERTIES_KHR => {
                     Some("PHYSICAL_DEVICE_ROBUSTNESS_2_PROPERTIES_KHR")
                 }
+                Self::PHYSICAL_DEVICE_SHADER_ABORT_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_SHADER_ABORT_FEATURES_KHR")
+                }
+                Self::DEVICE_FAULT_SHADER_ABORT_MESSAGE_INFO_KHR => {
+                    Some("DEVICE_FAULT_SHADER_ABORT_MESSAGE_INFO_KHR")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_ABORT_PROPERTIES_KHR => {
+                    Some("PHYSICAL_DEVICE_SHADER_ABORT_PROPERTIES_KHR")
+                }
                 Self::PHYSICAL_DEVICE_SHADER_BFLOAT16_FEATURES_KHR => {
                     Some("PHYSICAL_DEVICE_SHADER_BFLOAT16_FEATURES_KHR")
                 }
                 Self::PHYSICAL_DEVICE_SHADER_CLOCK_FEATURES_KHR => {
                     Some("PHYSICAL_DEVICE_SHADER_CLOCK_FEATURES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_CONSTANT_DATA_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_SHADER_CONSTANT_DATA_FEATURES_KHR")
                 }
                 Self::PHYSICAL_DEVICE_SHADER_FMA_FEATURES_KHR => {
                     Some("PHYSICAL_DEVICE_SHADER_FMA_FEATURES_KHR")
