@@ -114,6 +114,54 @@ pub fn noautovalidity_pointer_nullable(command_name: &str, param_name: &str) -> 
     }
 }
 
+/// Deprecated struct member override.
+///
+/// When a struct member has `deprecated` in vk.xml, the spec may freely change its other
+/// attributes (`len`, `optional`, etc.) in future updates. To prevent those changes from
+/// silently altering the generated API, every deprecated member must be explicitly listed here.
+///
+/// Returns `Some(reason)` to allow the deprecated member (the reason must match the XML's
+/// `deprecated` value). Returns `None` (the default) to reject it, which causes a panic
+/// during generation so new cases are caught immediately.
+pub fn allow_deprecated_member(struct_name: &str, member_name: &str) -> Option<&'static str> {
+    match (struct_name, member_name) {
+        // Device layers were deprecated in Vulkan 1.0.13 and fully unused since 1.4.347.
+        // Setters are preserved for backward compatibility with older drivers.
+        ("VkDeviceCreateInfo", "enabledLayerCount" | "ppEnabledLayerNames") => Some("unused"),
+        _ => None,
+    }
+}
+
+/// Override a struct member's `len` attribute.
+///
+/// When the spec removes or changes `len` on a (typically deprecated) member, this override
+/// restores it so the generated setter signature stays stable.
+///
+/// Returns `Some(slice)` to replace the member's `len`, or `None` to use the XML value as-is.
+pub fn member_len_override(struct_name: &str, member_name: &str) -> Option<Vec<&'static str>> {
+    match (struct_name, member_name) {
+        // len was removed in 1.4.347 when deprecated changed from "ignored" to "unused".
+        ("VkDeviceCreateInfo", "ppEnabledLayerNames") => {
+            Some(vec!["enabledLayerCount", "null-terminated"])
+        }
+        _ => None,
+    }
+}
+
+/// Override a struct member's `optional` attribute.
+///
+/// When the spec removes or changes `optional` on a (typically deprecated) member, this
+/// override restores it so the generated setter signature stays stable.
+///
+/// Returns `Some(slice)` to replace the member's `optional`, or `None` to use the XML value.
+pub fn member_optional_override(struct_name: &str, member_name: &str) -> Option<Vec<&'static str>> {
+    match (struct_name, member_name) {
+        // optional was removed in 1.4.347 when deprecated changed from "ignored" to "unused".
+        ("VkDeviceCreateInfo", "enabledLayerCount") => Some(vec!["true"]),
+        _ => None,
+    }
+}
+
 /// Override which success codes mean "output is valid" for a command.
 ///
 /// By default, only `VK_SUCCESS` maps to `Ok`. Some commands write their output

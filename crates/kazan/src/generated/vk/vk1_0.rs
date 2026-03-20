@@ -1013,17 +1013,9 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn enabled_layer_count(mut self, enabled_layer_count: u32) -> Self {
-            self.enabled_layer_count = enabled_layer_count;
-            self
-        }
-
-        #[inline]
-        pub fn enabled_layer_names_ptrs(
-            mut self,
-            enabled_layer_names_ptrs: *const *const c_char,
-        ) -> Self {
-            self.pp_enabled_layer_names = enabled_layer_names_ptrs;
+        pub fn enabled_layer_names(mut self, enabled_layer_names: &'a [*const c_char]) -> Self {
+            self.enabled_layer_count = enabled_layer_names.len().try_into().unwrap();
+            self.pp_enabled_layer_names = enabled_layer_names.as_ptr() as _;
             self
         }
 

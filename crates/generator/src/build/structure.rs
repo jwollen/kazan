@@ -16,13 +16,41 @@ pub fn build_struct(analysis: &Analysis, struct_ty: &xml::Structure) -> StructDe
     let type_info = analysis.get_base_type_info(struct_ty.name).unwrap();
     let lifetime_param = Some("a");
 
-    let len_kinds: Vec<Vec<_>> = struct_ty
-        .members
+    // Validate deprecated members and apply len/optional overrides.
+    // Deprecated members must be explicitly allowed in overrides to prevent spec
+    // attribute churn from silently changing the generated API.
+    let mut effective_len: Vec<Vec<&str>> = Vec::with_capacity(struct_ty.members.len());
+    let mut effective_optional: Vec<Vec<&str>> = Vec::with_capacity(struct_ty.members.len());
+    for member in &struct_ty.members {
+        if let Some(dep) = member.deprecated {
+            let allowed = overrides::allow_deprecated_member(struct_ty.name, member.c_decl.name);
+            match allowed {
+                Some(reason) if reason == dep => {}
+                Some(reason) => panic!(
+                    "Deprecated member {}::{} has deprecated=\"{dep}\" but override \
+                     expects \"{reason}\". Update overrides::allow_deprecated_member().",
+                    struct_ty.name, member.c_decl.name,
+                ),
+                None => panic!(
+                    "Deprecated member {}::{} (deprecated=\"{dep}\") has no override. \
+                     Add to overrides::allow_deprecated_member().",
+                    struct_ty.name, member.c_decl.name,
+                ),
+            }
+        }
+
+        let len = overrides::member_len_override(struct_ty.name, member.c_decl.name)
+            .unwrap_or_else(|| member.len.clone());
+        let optional = overrides::member_optional_override(struct_ty.name, member.c_decl.name)
+            .unwrap_or_else(|| member.optional.clone());
+        effective_len.push(len);
+        effective_optional.push(optional);
+    }
+
+    let len_kinds: Vec<Vec<_>> = effective_len
         .iter()
-        .map(|member| {
-            member
-                .len
-                .iter()
+        .map(|len| {
+            len.iter()
                 .map(|len| type_conv::get_len_kind(analysis, &struct_ty.members, len))
                 .collect()
         })
@@ -177,7 +205,11 @@ pub fn build_struct(analysis: &Analysis, struct_ty: &xml::Structure) -> StructDe
                 field_type_strings.push(ty_str);
 
                 // Debug field.
-                debug_fields.push(debug_field_for_member(analysis, member));
+                debug_fields.push(debug_field_for_member(
+                    analysis,
+                    member,
+                    &effective_len[member_index],
+                ));
                 continue; // skip general setter logic
             }
         }
@@ -189,6 +221,7 @@ pub fn build_struct(analysis: &Analysis, struct_ty: &xml::Structure) -> StructDe
                 analysis,
                 struct_ty,
                 &len_kinds,
+                &effective_optional,
                 member_index,
                 lifetime_param,
             );
@@ -199,6 +232,7 @@ pub fn build_struct(analysis: &Analysis, struct_ty: &xml::Structure) -> StructDe
                 member,
                 member_index,
                 &param_name,
+                &effective_optional[member_index],
                 array_param_groups,
                 lifetime_param,
             );
@@ -227,7 +261,11 @@ pub fn build_struct(analysis: &Analysis, struct_ty: &xml::Structure) -> StructDe
         field_type_strings.push(ty_str);
 
         // Debug field.
-        debug_fields.push(debug_field_for_member(analysis, member));
+        debug_fields.push(debug_field_for_member(
+            analysis,
+            member,
+            &effective_len[member_index],
+        ));
     }
 
     // Remap XML member indices in setters to analyzed member indices.
@@ -462,11 +500,15 @@ fn collect_bitfield_groups<'a>(
     groups
 }
 
-fn debug_field_for_member(analysis: &Analysis, member: &xml::StructureMember) -> DebugField {
+fn debug_field_for_member(
+    analysis: &Analysis,
+    member: &xml::StructureMember,
+    len: &[&str],
+) -> DebugField {
     let field_name = normalize_name(member.c_decl.name);
     let category = CTypeCategory::from_ctype(&member.c_decl.ty, analysis);
     match &category {
-        CTypeCategory::CharPointer { .. } if member.len.contains(&"null-terminated") => {
+        CTypeCategory::CharPointer { .. } if len.contains(&"null-terminated") => {
             DebugField::CStrPtr(field_name)
         }
         CTypeCategory::FuncPointer => DebugField::FuncPointer(field_name),
@@ -526,6 +568,7 @@ fn collect_array_params(
     analysis: &Analysis,
     struct_ty: &xml::Structure,
     len_kinds: &[Vec<LengthKind<'_>>],
+    effective_optional: &[Vec<&str>],
     len_member_index: usize,
     lifetime_param: Option<&str>,
 ) -> Vec<(SetterParam, bool)> {
@@ -536,8 +579,7 @@ fn collect_array_params(
         if let Some(LengthKind::Param { index, .. }) = len
             && *index == len_member_index
         {
-            let optional: Vec<_> = array_member
-                .optional
+            let optional: Vec<_> = effective_optional[array_member_index]
                 .iter()
                 .map(|s| s.parse::<bool>().unwrap())
                 .collect();
@@ -615,6 +657,7 @@ fn build_setters_for_length_member(
     member: &xml::StructureMember,
     member_index: usize,
     param_name: &str,
+    member_optional: &[&str],
     array_param_groups: Vec<Vec<SetterParam>>,
     lifetime_param: Option<&str>,
 ) -> Vec<Setter> {
@@ -630,8 +673,7 @@ fn build_setters_for_length_member(
         };
 
         let kind = if array_params.is_empty() {
-            let optional: Vec<_> = member
-                .optional
+            let optional: Vec<_> = member_optional
                 .iter()
                 .map(|s| s.parse::<bool>().unwrap())
                 .collect();

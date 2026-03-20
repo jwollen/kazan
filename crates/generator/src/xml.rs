@@ -491,6 +491,7 @@ pub struct StructureMember {
     pub altlen: Option<&'static str>,
     pub optional: Vec<&'static str>,
     pub noautovalidity: bool,
+    pub deprecated: Option<&'static str>,
 }
 
 impl StructureMember {
@@ -502,6 +503,7 @@ impl StructureMember {
             altlen: attribute(node, "altlen"),
             optional: attribute_comma_separated(node, "optional"),
             noautovalidity: attribute(node, "noautovalidity") == Some("true"),
+            deprecated: attribute(node, "deprecated"),
         }
     }
 }
