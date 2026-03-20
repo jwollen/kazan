@@ -15,6 +15,18 @@ pub(super) mod defs {
     use core::marker::PhantomData;
     use core::ptr;
 
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceFaultVendorBinaryHeaderVersionEXT.html>
+    pub type DeviceFaultVendorBinaryHeaderVersionEXT = DeviceFaultVendorBinaryHeaderVersionKHR;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceFaultAddressTypeEXT.html>
+    pub type DeviceFaultAddressTypeEXT = DeviceFaultAddressTypeKHR;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceFaultAddressInfoEXT.html>
+    pub type DeviceFaultAddressInfoEXT = DeviceFaultAddressInfoKHR;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceFaultVendorInfoEXT.html>
+    pub type DeviceFaultVendorInfoEXT = DeviceFaultVendorInfoKHR;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceFaultVendorBinaryHeaderVersionOneEXT.html>
+    pub type DeviceFaultVendorBinaryHeaderVersionOneEXT =
+        DeviceFaultVendorBinaryHeaderVersionOneKHR;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFaultFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -71,91 +83,6 @@ pub(super) mod defs {
         #[inline]
         pub fn device_fault_vendor_binary(mut self, device_fault_vendor_binary: bool) -> Self {
             self.device_fault_vendor_binary = device_fault_vendor_binary.into();
-            self
-        }
-    }
-
-    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceFaultAddressInfoEXT.html>
-    #[repr(C)]
-    #[cfg_attr(feature = "debug", derive(Debug))]
-    #[derive(Copy, Clone, Default)]
-    #[must_use]
-    pub struct DeviceFaultAddressInfoEXT {
-        pub address_type: DeviceFaultAddressTypeEXT,
-        pub reported_address: DeviceAddress,
-        pub address_precision: DeviceSize,
-    }
-
-    impl DeviceFaultAddressInfoEXT {
-        #[inline]
-        pub fn address_type(mut self, address_type: DeviceFaultAddressTypeEXT) -> Self {
-            self.address_type = address_type;
-            self
-        }
-
-        #[inline]
-        pub fn reported_address(mut self, reported_address: DeviceAddress) -> Self {
-            self.reported_address = reported_address;
-            self
-        }
-
-        #[inline]
-        pub fn address_precision(mut self, address_precision: DeviceSize) -> Self {
-            self.address_precision = address_precision;
-            self
-        }
-    }
-
-    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceFaultVendorInfoEXT.html>
-    #[repr(C)]
-    #[derive(Copy, Clone)]
-    #[must_use]
-    pub struct DeviceFaultVendorInfoEXT {
-        pub description: ArrayCStr<{ MAX_DESCRIPTION_SIZE as usize }>,
-        pub vendor_fault_code: u64,
-        pub vendor_fault_data: u64,
-    }
-
-    #[cfg(feature = "debug")]
-    impl fmt::Debug for DeviceFaultVendorInfoEXT {
-        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-            f.debug_struct("DeviceFaultVendorInfoEXT")
-                .field("description", &self.description)
-                .field("vendor_fault_code", &self.vendor_fault_code)
-                .field("vendor_fault_data", &self.vendor_fault_data)
-                .finish()
-        }
-    }
-
-    impl Default for DeviceFaultVendorInfoEXT {
-        fn default() -> Self {
-            Self {
-                description: Default::default(),
-                vendor_fault_code: Default::default(),
-                vendor_fault_data: Default::default(),
-            }
-        }
-    }
-
-    impl DeviceFaultVendorInfoEXT {
-        #[inline]
-        pub fn description(
-            mut self,
-            description: &CStr,
-        ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
-            self.description.write_c_str(description)?;
-            Ok(self)
-        }
-
-        #[inline]
-        pub fn vendor_fault_code(mut self, vendor_fault_code: u64) -> Self {
-            self.vendor_fault_code = vendor_fault_code;
-            self
-        }
-
-        #[inline]
-        pub fn vendor_fault_data(mut self, vendor_fault_data: u64) -> Self {
-            self.vendor_fault_data = vendor_fault_data;
             self
         }
     }
@@ -231,8 +158,8 @@ pub(super) mod defs {
         pub s_type: StructureType,
         pub p_next: *mut c_void,
         pub description: ArrayCStr<{ MAX_DESCRIPTION_SIZE as usize }>,
-        pub p_address_infos: *mut DeviceFaultAddressInfoEXT,
-        pub p_vendor_infos: *mut DeviceFaultVendorInfoEXT,
+        pub p_address_infos: *mut DeviceFaultAddressInfoKHR,
+        pub p_vendor_infos: *mut DeviceFaultVendorInfoKHR,
         pub p_vendor_binary_data: *mut c_void,
         pub _marker: PhantomData<&'a ()>,
     }
@@ -280,13 +207,13 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn address_infos(mut self, address_infos: &'a mut DeviceFaultAddressInfoEXT) -> Self {
+        pub fn address_infos(mut self, address_infos: &'a mut DeviceFaultAddressInfoKHR) -> Self {
             self.p_address_infos = address_infos;
             self
         }
 
         #[inline]
-        pub fn vendor_infos(mut self, vendor_infos: &'a mut DeviceFaultVendorInfoEXT) -> Self {
+        pub fn vendor_infos(mut self, vendor_infos: &'a mut DeviceFaultVendorInfoKHR) -> Self {
             self.p_vendor_infos = vendor_infos;
             self
         }
@@ -295,176 +222,6 @@ pub(super) mod defs {
         pub fn vendor_binary_data(mut self, vendor_binary_data: *mut c_void) -> Self {
             self.p_vendor_binary_data = vendor_binary_data;
             self
-        }
-    }
-
-    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceFaultVendorBinaryHeaderVersionOneEXT.html>
-    #[repr(C)]
-    #[cfg_attr(feature = "debug", derive(Debug))]
-    #[derive(Copy, Clone)]
-    #[must_use]
-    pub struct DeviceFaultVendorBinaryHeaderVersionOneEXT {
-        pub header_size: u32,
-        pub header_version: DeviceFaultVendorBinaryHeaderVersionEXT,
-        pub vendor_id: u32,
-        pub device_id: u32,
-        pub driver_version: u32,
-        pub pipeline_cache_uuid: [u8; UUID_SIZE as usize],
-        pub application_name_offset: u32,
-        pub application_version: u32,
-        pub engine_name_offset: u32,
-        pub engine_version: u32,
-        pub api_version: ApiVersion,
-    }
-
-    impl Default for DeviceFaultVendorBinaryHeaderVersionOneEXT {
-        fn default() -> Self {
-            Self {
-                header_size: Default::default(),
-                header_version: Default::default(),
-                vendor_id: Default::default(),
-                device_id: Default::default(),
-                driver_version: Default::default(),
-                pipeline_cache_uuid: [Default::default(); _],
-                application_name_offset: Default::default(),
-                application_version: Default::default(),
-                engine_name_offset: Default::default(),
-                engine_version: Default::default(),
-                api_version: Default::default(),
-            }
-        }
-    }
-
-    impl DeviceFaultVendorBinaryHeaderVersionOneEXT {
-        #[inline]
-        pub fn header_size(mut self, header_size: u32) -> Self {
-            self.header_size = header_size;
-            self
-        }
-
-        #[inline]
-        pub fn header_version(
-            mut self,
-            header_version: DeviceFaultVendorBinaryHeaderVersionEXT,
-        ) -> Self {
-            self.header_version = header_version;
-            self
-        }
-
-        #[inline]
-        pub fn vendor_id(mut self, vendor_id: u32) -> Self {
-            self.vendor_id = vendor_id;
-            self
-        }
-
-        #[inline]
-        pub fn device_id(mut self, device_id: u32) -> Self {
-            self.device_id = device_id;
-            self
-        }
-
-        #[inline]
-        pub fn driver_version(mut self, driver_version: u32) -> Self {
-            self.driver_version = driver_version;
-            self
-        }
-
-        #[inline]
-        pub fn pipeline_cache_uuid(
-            mut self,
-            pipeline_cache_uuid: [u8; UUID_SIZE as usize],
-        ) -> Self {
-            self.pipeline_cache_uuid = pipeline_cache_uuid;
-            self
-        }
-
-        #[inline]
-        pub fn application_name_offset(mut self, application_name_offset: u32) -> Self {
-            self.application_name_offset = application_name_offset;
-            self
-        }
-
-        #[inline]
-        pub fn application_version(mut self, application_version: u32) -> Self {
-            self.application_version = application_version;
-            self
-        }
-
-        #[inline]
-        pub fn engine_name_offset(mut self, engine_name_offset: u32) -> Self {
-            self.engine_name_offset = engine_name_offset;
-            self
-        }
-
-        #[inline]
-        pub fn engine_version(mut self, engine_version: u32) -> Self {
-            self.engine_version = engine_version;
-            self
-        }
-
-        #[inline]
-        pub fn api_version(mut self, api_version: ApiVersion) -> Self {
-            self.api_version = api_version;
-            self
-        }
-    }
-
-    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceFaultAddressTypeEXT.html>
-    #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub struct DeviceFaultAddressTypeEXT(i32);
-
-    impl DeviceFaultAddressTypeEXT {
-        /// Currently unused
-        pub const NONE_EXT: Self = Self(0);
-        pub const READ_INVALID_EXT: Self = Self(1);
-        pub const WRITE_INVALID_EXT: Self = Self(2);
-        pub const EXECUTE_INVALID_EXT: Self = Self(3);
-        pub const INSTRUCTION_POINTER_UNKNOWN_EXT: Self = Self(4);
-        pub const INSTRUCTION_POINTER_INVALID_EXT: Self = Self(5);
-        pub const INSTRUCTION_POINTER_FAULT_EXT: Self = Self(6);
-    }
-
-    impl fmt::Debug for DeviceFaultAddressTypeEXT {
-        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-            let name = match *self {
-                Self::NONE_EXT => Some("NONE_EXT"),
-                Self::READ_INVALID_EXT => Some("READ_INVALID_EXT"),
-                Self::WRITE_INVALID_EXT => Some("WRITE_INVALID_EXT"),
-                Self::EXECUTE_INVALID_EXT => Some("EXECUTE_INVALID_EXT"),
-                Self::INSTRUCTION_POINTER_UNKNOWN_EXT => Some("INSTRUCTION_POINTER_UNKNOWN_EXT"),
-                Self::INSTRUCTION_POINTER_INVALID_EXT => Some("INSTRUCTION_POINTER_INVALID_EXT"),
-                Self::INSTRUCTION_POINTER_FAULT_EXT => Some("INSTRUCTION_POINTER_FAULT_EXT"),
-                _ => None,
-            };
-            if let Some(name) = name {
-                f.write_str(name)
-            } else {
-                self.0.fmt(f)
-            }
-        }
-    }
-
-    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceFaultVendorBinaryHeaderVersionEXT.html>
-    #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub struct DeviceFaultVendorBinaryHeaderVersionEXT(i32);
-
-    impl DeviceFaultVendorBinaryHeaderVersionEXT {
-        pub const ONE_EXT: Self = Self(1);
-    }
-
-    impl fmt::Debug for DeviceFaultVendorBinaryHeaderVersionEXT {
-        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-            let name = match *self {
-                Self::ONE_EXT => Some("ONE_EXT"),
-                _ => None,
-            };
-            if let Some(name) = name {
-                f.write_str(name)
-            } else {
-                self.0.fmt(f)
-            }
         }
     }
 
@@ -482,14 +239,14 @@ pub(super) mod ffi {
     use super::defs::*;
 
     pub type VkPhysicalDeviceFaultFeaturesEXT = PhysicalDeviceFaultFeaturesEXT<'static>;
-    pub type VkDeviceFaultAddressInfoEXT = DeviceFaultAddressInfoEXT;
-    pub type VkDeviceFaultVendorInfoEXT = DeviceFaultVendorInfoEXT;
     pub type VkDeviceFaultCountsEXT = DeviceFaultCountsEXT<'static>;
     pub type VkDeviceFaultInfoEXT = DeviceFaultInfoEXT<'static>;
+    pub type VkDeviceFaultVendorBinaryHeaderVersionEXT = DeviceFaultVendorBinaryHeaderVersionEXT;
+    pub type VkDeviceFaultAddressTypeEXT = DeviceFaultAddressTypeEXT;
+    pub type VkDeviceFaultAddressInfoEXT = DeviceFaultAddressInfoEXT;
+    pub type VkDeviceFaultVendorInfoEXT = DeviceFaultVendorInfoEXT;
     pub type VkDeviceFaultVendorBinaryHeaderVersionOneEXT =
         DeviceFaultVendorBinaryHeaderVersionOneEXT;
-    pub type VkDeviceFaultAddressTypeEXT = DeviceFaultAddressTypeEXT;
-    pub type VkDeviceFaultVendorBinaryHeaderVersionEXT = DeviceFaultVendorBinaryHeaderVersionEXT;
     impl PhysicalDeviceFaultFeaturesEXT<'_> {
         #[inline]
         pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkPhysicalDeviceFaultFeaturesEXT {
