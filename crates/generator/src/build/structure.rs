@@ -651,6 +651,7 @@ fn group_array_params(array_params: Vec<(SetterParam, bool)>) -> Vec<Vec<SetterP
     }
 }
 
+#[allow(clippy::too_many_arguments)]
 fn build_setters_for_length_member(
     analysis: &Analysis,
     struct_ty: &xml::Structure,
