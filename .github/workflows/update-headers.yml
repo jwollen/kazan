@@ -1,6 +1,6 @@
 on:
   schedule:
-    - cron: "0 6 * * 6" # Every Saturday at 06:00 UTC
+    - cron: "0 21 * * 5" # Every Friday at 21:00 UTC
   workflow_dispatch:
 
 name: Update Vulkan-Headers
