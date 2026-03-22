@@ -49,6 +49,7 @@ jobs:
         if: steps.diff.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v7
         with:
+          token: ${{ secrets.UPDATE_PAT }}
           branch: update
           commit-message: "Update Vulkan-Headers to ${{ steps.update.outputs.version }}"
           title: "Update Vulkan-Headers to ${{ steps.update.outputs.version }}"
