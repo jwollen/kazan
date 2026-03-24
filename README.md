@@ -9,8 +9,8 @@ Vulkan bindings for Rust, generated from the official [Vulkan-Headers](https://g
 
 ## Modules
 
-- **`kazan::*`** -- helper types and traits (`Handle`, `ApiVersion`, `ArrayCStr`, `InstanceExtensionSet`, `DeviceExtensionSet`, `RawPtr`, `TaggedStructure`, `Extends`, etc.)
-- **`vk`** -- all Vulkan types, constants, and function pointer types, re-exported flat
+- **`kazan::*`** -- helper types and traits (`ArrayCStr`, `InstanceExtensionSet`, `DeviceExtensionSet`, `EnumerateInto`, `RawPtr`, `SliceOrLen`, etc.)
+- **`vk`** -- all Vulkan types, constants, function pointer types, and Vulkan-specific traits (`Handle`, `ApiVersion`, `TaggedStructure`, `Extends`, etc.), re-exported flat
   - **`vk::vk1_0`**, **`vk::vk1_1`**, ... - items grouped by API version
   - **`vk::khr`**, **`vk::ext`**, **`vk::nv`**, ... - items grouped by vendor
   - **`vk::khr::swapchain`**, **`vk::ext::debug_utils`**, ... - individual extensions

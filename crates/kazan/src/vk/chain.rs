@@ -1,4 +1,4 @@
-use crate::vk::{BaseOutStructure, StructureType};
+use super::{BaseOutStructure, StructureType};
 
 /// Structures implementing this trait are layout-compatible with `BaseInStructure` and
 /// [`BaseOutStructure`]. Such structures have an `s_type` field indicating its type, which must
@@ -147,7 +147,7 @@ pub(crate) unsafe fn ptr_chain_iter<'a, T: TaggedStructure<'a>>(
 macro_rules! match_out_struct {
     (match $p:ident { $($bind:ident @ $ty:path => $body:block $(,)?)+ $(_ => $any:block $(,)?)? }) => {
         match core::ptr::addr_of!((*$p).s_type).read() {
-            $(<$ty as $crate::TaggedStructure>::STRUCTURE_TYPE => {
+            $(<$ty as $crate::vk::TaggedStructure>::STRUCTURE_TYPE => {
                 let $bind = $p
                     .cast::<$ty>()
                     .as_mut()
@@ -186,7 +186,7 @@ macro_rules! match_out_struct {
 macro_rules! match_in_struct {
     (match $p:ident { $($bind:ident @ $ty:path => $body:block $(,)?)+ $(_ => $any:block $(,)?)? }) => {
         match core::ptr::addr_of!((*$p).s_type).read() {
-            $(<$ty as $crate::TaggedStructure>::STRUCTURE_TYPE => {
+            $(<$ty as $crate::vk::TaggedStructure>::STRUCTURE_TYPE => {
                 let $bind = $p
                     .cast::<$ty>()
                     .as_ref()
@@ -200,8 +200,7 @@ macro_rules! match_in_struct {
 
 #[cfg(test)]
 mod tests {
-    use crate::TaggedStructure as _;
-    use crate::vk;
+    use crate::vk::{self, TaggedStructure as _};
 
     #[test]
     fn test_ptr_chains() {

@@ -1,5 +1,5 @@
 use kazan::vk;
-use kazan::TaggedStructure as _;
+use kazan::vk::TaggedStructure as _;
 
 fn main() {
     // chain.rs holds a positive version of this test, demonstrating that `api` can be adequately

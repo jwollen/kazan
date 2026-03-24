@@ -26,14 +26,8 @@ pub use vk::ffi;
 mod generated;
 pub use generated::external::*;
 
-mod version;
-pub use version::ApiVersion;
-
 mod array_cstr;
 pub use array_cstr::ArrayCStr;
-
-mod chain;
-pub use chain::*;
 
 mod extensions;
 pub use extensions::UnknownExtensionError;
@@ -53,7 +47,6 @@ pub use util::read_spv;
 
 use core::{
     ffi::{CStr, c_char},
-    fmt,
     mem::MaybeUninit,
     ptr,
 };
@@ -204,71 +197,7 @@ impl<T> RawPtr<T> for Option<SliceOrLen<'_, T>> {
     }
 }
 
-pub trait Handle: Sized + Copy {
-    const TYPE: vk::ObjectType;
-    fn to_raw(self) -> u64;
-    fn from_raw(_: u64) -> Self;
-
-    /// Returns whether the handle is a `NULL` value.
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// # use kazan::{Handle, vk::Instance};
-    /// let instance = Instance::null();
-    /// assert!(instance.is_null());
-    /// ```
-    fn is_null(self) -> bool {
-        self.to_raw() == 0
-    }
-}
-
 pub use loading::{Entry, LoadDeviceFn, LoadInstanceFn, MissingEntryPointError, StaticFn};
-
-/// Helper for Debug-formatting bitflag types. Prints known flags by name,
-/// separated by `|`, and appends any remaining unknown bits as hex.
-pub fn debug_flags<F: Into<u64> + Copy>(
-    f: &mut fmt::Formatter<'_>,
-    known: &[(F, &str)],
-    value: F,
-) -> fmt::Result {
-    let mut first = true;
-    let mut remaining: u64 = value.into();
-    for &(bit, name) in known {
-        let bit: u64 = bit.into();
-        if bit != 0 && remaining & bit == bit {
-            if !first {
-                f.write_str(" | ")?;
-            }
-            f.write_str(name)?;
-            first = false;
-            remaining &= !bit;
-        }
-    }
-    if remaining != 0 {
-        if !first {
-            f.write_str(" | ")?;
-        }
-        write!(f, "{remaining:#x}")?;
-    } else if first {
-        f.write_str("(empty)")?;
-    }
-    Ok(())
-}
-
-/// Converts a possibly-null `*const c_char` to `Option<&CStr>`.
-///
-/// # Safety
-/// If non-null, the pointer must point to a valid nul-terminated C string.
-#[cfg(feature = "debug")]
-#[inline]
-pub(crate) unsafe fn as_c_str<'a>(ptr: *const c_char) -> Option<&'a CStr> {
-    if ptr.is_null() {
-        None
-    } else {
-        Some(unsafe { CStr::from_ptr(ptr) })
-    }
-}
 
 #[derive(Debug)]
 pub struct CStrTooLargeForStaticArray {
