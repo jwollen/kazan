@@ -281,7 +281,7 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         surface_info: &PhysicalDeviceSurfaceInfo2KHR<'a>,
-        mut present_modes: impl ExtendUninit<PresentModeKHR>,
+        mut present_modes: impl EnumerateInto<PresentModeKHR>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |present_mode_count, present_modes| {

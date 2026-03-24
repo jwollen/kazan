@@ -395,7 +395,7 @@ impl InstanceFn {
     pub unsafe fn enumerate_physical_device_shader_instrumentation_metrics<'a>(
         &self,
         physical_device: PhysicalDevice,
-        mut descriptions: impl ExtendUninit<ShaderInstrumentationMetricDescriptionARM<'a>>,
+        mut descriptions: impl EnumerateInto<ShaderInstrumentationMetricDescriptionARM<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |description_count, descriptions| {

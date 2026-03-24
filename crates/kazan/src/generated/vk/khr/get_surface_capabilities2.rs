@@ -250,7 +250,7 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         surface_info: &PhysicalDeviceSurfaceInfo2KHR<'a>,
-        mut surface_formats: impl ExtendUninit<SurfaceFormat2KHR<'a>>,
+        mut surface_formats: impl EnumerateInto<SurfaceFormat2KHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |surface_format_count, surface_formats| {

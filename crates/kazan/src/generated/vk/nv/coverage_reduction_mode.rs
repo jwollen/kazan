@@ -315,7 +315,7 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_supported_framebuffer_mixed_samples_combinations<'a>(
         &self,
         physical_device: PhysicalDevice,
-        mut combinations: impl ExtendUninit<FramebufferMixedSamplesCombinationNV<'a>>,
+        mut combinations: impl EnumerateInto<FramebufferMixedSamplesCombinationNV<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |combination_count, combinations| {

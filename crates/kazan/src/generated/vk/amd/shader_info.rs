@@ -208,7 +208,7 @@ impl DeviceFn {
         pipeline: Pipeline,
         shader_stage: ShaderStageFlagBits,
         info_type: ShaderInfoTypeAMD,
-        mut info: impl ExtendUninit<u8>,
+        mut info: impl EnumerateInto<u8>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |info_size, info| {

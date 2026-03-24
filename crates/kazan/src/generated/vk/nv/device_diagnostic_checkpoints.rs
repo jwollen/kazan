@@ -324,7 +324,7 @@ impl DeviceFn {
     pub unsafe fn get_queue_checkpoint_data<'a>(
         &self,
         queue: Queue,
-        mut checkpoint_data: impl ExtendUninit<CheckpointDataNV<'a>>,
+        mut checkpoint_data: impl EnumerateInto<CheckpointDataNV<'a>>,
     ) {
         unsafe {
             let call = |checkpoint_data_count, checkpoint_data| {
@@ -345,7 +345,7 @@ impl DeviceFn {
     pub unsafe fn get_queue_checkpoint_data2<'a>(
         &self,
         queue: Queue,
-        mut checkpoint_data: impl ExtendUninit<CheckpointData2NV<'a>>,
+        mut checkpoint_data: impl EnumerateInto<CheckpointData2NV<'a>>,
     ) {
         unsafe {
             let call = |checkpoint_data_count, checkpoint_data| {

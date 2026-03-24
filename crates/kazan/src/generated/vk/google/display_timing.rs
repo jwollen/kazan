@@ -235,7 +235,7 @@ impl DeviceFn {
         &self,
         device: Device,
         swapchain: SwapchainKHR,
-        mut presentation_timings: impl ExtendUninit<PastPresentationTimingGOOGLE>,
+        mut presentation_timings: impl EnumerateInto<PastPresentationTimingGOOGLE>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |presentation_timing_count, presentation_timings| {

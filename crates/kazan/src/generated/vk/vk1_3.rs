@@ -6802,7 +6802,7 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_tool_properties<'a>(
         &self,
         physical_device: PhysicalDevice,
-        mut tool_properties: impl ExtendUninit<PhysicalDeviceToolProperties<'a>>,
+        mut tool_properties: impl EnumerateInto<PhysicalDeviceToolProperties<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |tool_count, tool_properties| {
@@ -7180,7 +7180,7 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &DeviceImageMemoryRequirements<'a>,
-        mut sparse_memory_requirements: impl ExtendUninit<SparseImageMemoryRequirements2<'a>>,
+        mut sparse_memory_requirements: impl EnumerateInto<SparseImageMemoryRequirements2<'a>>,
     ) {
         unsafe {
             let call = |sparse_memory_requirement_count, sparse_memory_requirements| {

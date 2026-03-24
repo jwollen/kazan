@@ -931,7 +931,7 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         surface: SurfaceKHR,
-        mut rects: impl ExtendUninit<Rect2D>,
+        mut rects: impl EnumerateInto<Rect2D>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |rect_count, rects| {
@@ -1044,7 +1044,7 @@ impl DeviceFn {
         &self,
         device: Device,
         swapchain: SwapchainKHR,
-        mut swapchain_images: impl ExtendUninit<Image>,
+        mut swapchain_images: impl EnumerateInto<Image>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |swapchain_image_count, swapchain_images| {

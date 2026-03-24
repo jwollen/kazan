@@ -530,7 +530,7 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_cooperative_vector_properties<'a>(
         &self,
         physical_device: PhysicalDevice,
-        mut properties: impl ExtendUninit<CooperativeVectorPropertiesNV<'a>>,
+        mut properties: impl EnumerateInto<CooperativeVectorPropertiesNV<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |property_count, properties| {

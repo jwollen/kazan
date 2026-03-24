@@ -195,7 +195,7 @@ impl DeviceFn {
         &self,
         device: Device,
         framebuffer: Framebuffer,
-        mut properties: impl ExtendUninit<TilePropertiesQCOM<'a>>,
+        mut properties: impl EnumerateInto<TilePropertiesQCOM<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |properties_count, properties| {

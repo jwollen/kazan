@@ -1883,7 +1883,9 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         queue_family_index: u32,
-        mut queue_family_data_graph_properties: impl ExtendUninit<QueueFamilyDataGraphPropertiesARM<'a>>,
+        mut queue_family_data_graph_properties: impl EnumerateInto<
+            QueueFamilyDataGraphPropertiesARM<'a>,
+        >,
     ) -> crate::Result<()> {
         unsafe {
             let call = |queue_family_data_graph_property_count,
@@ -2054,7 +2056,7 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &DataGraphPipelineSessionBindPointRequirementsInfoARM<'a>,
-        mut bind_point_requirements: impl ExtendUninit<
+        mut bind_point_requirements: impl EnumerateInto<
             DataGraphPipelineSessionBindPointRequirementARM<'a>,
         >,
     ) -> crate::Result<()> {
@@ -2152,7 +2154,7 @@ impl DeviceFn {
         &self,
         device: Device,
         pipeline_info: &DataGraphPipelineInfoARM<'a>,
-        mut properties: impl ExtendUninit<DataGraphPipelinePropertyARM>,
+        mut properties: impl EnumerateInto<DataGraphPipelinePropertyARM>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |properties_count, properties| {

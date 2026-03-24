@@ -175,7 +175,7 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_queue_family_properties2<'a>(
         &self,
         physical_device: PhysicalDevice,
-        mut queue_family_properties: impl ExtendUninit<QueueFamilyProperties2<'a>>,
+        mut queue_family_properties: impl EnumerateInto<QueueFamilyProperties2<'a>>,
     ) {
         unsafe {
             let call = |queue_family_property_count, queue_family_properties| {
@@ -211,7 +211,7 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         format_info: &PhysicalDeviceSparseImageFormatInfo2<'a>,
-        mut properties: impl ExtendUninit<SparseImageFormatProperties2<'a>>,
+        mut properties: impl EnumerateInto<SparseImageFormatProperties2<'a>>,
     ) {
         unsafe {
             let call = |property_count, properties| {

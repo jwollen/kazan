@@ -457,8 +457,8 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         queue_family_index: u32,
-        mut counters: impl ExtendUninit<PerformanceCounterARM<'a>>,
-        mut counter_descriptions: impl ExtendUninit<PerformanceCounterDescriptionARM<'a>>,
+        mut counters: impl EnumerateInto<PerformanceCounterARM<'a>>,
+        mut counter_descriptions: impl EnumerateInto<PerformanceCounterDescriptionARM<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |counter_count, counters, counter_descriptions| {

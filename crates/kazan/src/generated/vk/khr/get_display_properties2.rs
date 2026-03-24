@@ -365,7 +365,7 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_display_properties2<'a>(
         &self,
         physical_device: PhysicalDevice,
-        mut properties: impl ExtendUninit<DisplayProperties2KHR<'a>>,
+        mut properties: impl EnumerateInto<DisplayProperties2KHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |property_count, properties| {
@@ -397,7 +397,7 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_display_plane_properties2<'a>(
         &self,
         physical_device: PhysicalDevice,
-        mut properties: impl ExtendUninit<DisplayPlaneProperties2KHR<'a>>,
+        mut properties: impl EnumerateInto<DisplayPlaneProperties2KHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |property_count, properties| {
@@ -430,7 +430,7 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         display: DisplayKHR,
-        mut properties: impl ExtendUninit<DisplayModeProperties2KHR<'a>>,
+        mut properties: impl EnumerateInto<DisplayModeProperties2KHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |property_count, properties| {

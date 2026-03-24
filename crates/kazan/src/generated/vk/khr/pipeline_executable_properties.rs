@@ -579,7 +579,7 @@ impl DeviceFn {
         &self,
         device: Device,
         pipeline_info: &PipelineInfoKHR<'a>,
-        mut properties: impl ExtendUninit<PipelineExecutablePropertiesKHR<'a>>,
+        mut properties: impl EnumerateInto<PipelineExecutablePropertiesKHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |executable_count, properties| {
@@ -613,7 +613,7 @@ impl DeviceFn {
         &self,
         device: Device,
         executable_info: &PipelineExecutableInfoKHR<'a>,
-        mut statistics: impl ExtendUninit<PipelineExecutableStatisticKHR<'a>>,
+        mut statistics: impl EnumerateInto<PipelineExecutableStatisticKHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |statistic_count, statistics| {
@@ -647,7 +647,9 @@ impl DeviceFn {
         &self,
         device: Device,
         executable_info: &PipelineExecutableInfoKHR<'a>,
-        mut internal_representations: impl ExtendUninit<PipelineExecutableInternalRepresentationKHR<'a>>,
+        mut internal_representations: impl EnumerateInto<
+            PipelineExecutableInternalRepresentationKHR<'a>,
+        >,
     ) -> crate::Result<()> {
         unsafe {
             let call = |internal_representation_count, internal_representations| {

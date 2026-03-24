@@ -533,7 +533,7 @@ impl DeviceFn {
         &self,
         device: Device,
         module: CudaModuleNV,
-        mut cache_data: impl ExtendUninit<u8>,
+        mut cache_data: impl EnumerateInto<u8>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |cache_size, cache_data| {

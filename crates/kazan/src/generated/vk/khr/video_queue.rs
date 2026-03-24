@@ -1972,7 +1972,7 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         video_format_info: &PhysicalDeviceVideoFormatInfoKHR<'a>,
-        mut video_format_properties: impl ExtendUninit<VideoFormatPropertiesKHR<'a>>,
+        mut video_format_properties: impl EnumerateInto<VideoFormatPropertiesKHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |video_format_property_count, video_format_properties| {
@@ -2098,7 +2098,7 @@ impl DeviceFn {
         &self,
         device: Device,
         video_session: VideoSessionKHR,
-        mut memory_requirements: impl ExtendUninit<VideoSessionMemoryRequirementsKHR<'a>>,
+        mut memory_requirements: impl EnumerateInto<VideoSessionMemoryRequirementsKHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |memory_requirements_count, memory_requirements| {

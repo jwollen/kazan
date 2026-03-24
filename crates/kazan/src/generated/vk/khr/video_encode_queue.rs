@@ -1417,7 +1417,7 @@ impl DeviceFn {
         device: Device,
         video_session_parameters_info: &VideoEncodeSessionParametersGetInfoKHR<'a>,
         feedback_info: Option<&mut VideoEncodeSessionParametersFeedbackInfoKHR<'a>>,
-        mut data: impl ExtendUninit<u8>,
+        mut data: impl EnumerateInto<u8>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |data_size,

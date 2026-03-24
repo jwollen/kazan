@@ -22177,7 +22177,7 @@ impl EntryFn {
     pub unsafe fn enumerate_instance_extension_properties(
         &self,
         layer_name: Option<&CStr>,
-        mut properties: impl ExtendUninit<ExtensionProperties>,
+        mut properties: impl EnumerateInto<ExtensionProperties>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |property_count, properties| {
@@ -22208,7 +22208,7 @@ impl EntryFn {
     #[inline]
     pub unsafe fn enumerate_instance_layer_properties(
         &self,
-        mut properties: impl ExtendUninit<LayerProperties>,
+        mut properties: impl EnumerateInto<LayerProperties>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |property_count, properties| {
@@ -22317,7 +22317,7 @@ impl InstanceFn {
     pub unsafe fn enumerate_physical_devices(
         &self,
         instance: Instance,
-        mut physical_devices: impl ExtendUninit<PhysicalDevice>,
+        mut physical_devices: impl EnumerateInto<PhysicalDevice>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |physical_device_count, physical_devices| {
@@ -22423,7 +22423,7 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_queue_family_properties(
         &self,
         physical_device: PhysicalDevice,
-        mut queue_family_properties: impl ExtendUninit<QueueFamilyProperties>,
+        mut queue_family_properties: impl EnumerateInto<QueueFamilyProperties>,
     ) {
         unsafe {
             let call = |queue_family_property_count, queue_family_properties| {
@@ -22495,7 +22495,7 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         layer_name: Option<&CStr>,
-        mut properties: impl ExtendUninit<ExtensionProperties>,
+        mut properties: impl EnumerateInto<ExtensionProperties>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |property_count, properties| {
@@ -22528,7 +22528,7 @@ impl InstanceFn {
     pub unsafe fn enumerate_device_layer_properties(
         &self,
         physical_device: PhysicalDevice,
-        mut properties: impl ExtendUninit<LayerProperties>,
+        mut properties: impl EnumerateInto<LayerProperties>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |property_count, properties| {
@@ -22565,7 +22565,7 @@ impl InstanceFn {
         samples: SampleCountFlagBits,
         usage: ImageUsageFlags,
         tiling: ImageTiling,
-        mut properties: impl ExtendUninit<SparseImageFormatProperties>,
+        mut properties: impl EnumerateInto<SparseImageFormatProperties>,
     ) {
         unsafe {
             let call = |property_count, properties| {
@@ -23292,7 +23292,7 @@ impl DeviceFn {
         &self,
         device: Device,
         image: Image,
-        mut sparse_memory_requirements: impl ExtendUninit<SparseImageMemoryRequirements>,
+        mut sparse_memory_requirements: impl EnumerateInto<SparseImageMemoryRequirements>,
     ) {
         unsafe {
             let call = |sparse_memory_requirement_count, sparse_memory_requirements| {
@@ -24214,7 +24214,7 @@ impl DeviceFn {
         &self,
         device: Device,
         pipeline_cache: PipelineCache,
-        mut data: impl ExtendUninit<u8>,
+        mut data: impl EnumerateInto<u8>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |data_size, data| {

@@ -133,8 +133,8 @@ pub enum RustType {
         lifetime: Option<Cow<'static, str>>,
         element: Box<RustType>,
     },
-    /// `impl ExtendUninit<T>`.
-    ImplExtendUninit(Box<RustType>),
+    /// `impl EnumerateInto<T>`.
+    ImplEnumerateInto(Box<RustType>),
     /// `()`.
     Unit,
 }
@@ -229,9 +229,9 @@ impl RustType {
                 let element = element.to_tokens();
                 format!("SliceOrLen<{lt}{element}>")
             }
-            RustType::ImplExtendUninit(inner) => {
+            RustType::ImplEnumerateInto(inner) => {
                 let inner = inner.to_tokens();
-                format!("impl ExtendUninit<{inner}>")
+                format!("impl EnumerateInto<{inner}>")
             }
             RustType::Unit => "()".to_string(),
         }
@@ -286,7 +286,7 @@ impl RustType {
             RustType::SliceOrLen {
                 lifetime, element, ..
             } => lifetime.is_some() || element.has_lifetime(),
-            RustType::ImplExtendUninit(inner) => inner.has_lifetime(),
+            RustType::ImplEnumerateInto(inner) => inner.has_lifetime(),
         }
     }
 
@@ -437,8 +437,8 @@ mod tests {
 
     #[test]
     fn impl_extend_uninit() {
-        let ty = RustType::ImplExtendUninit(Box::new(RustType::named("Foo")));
-        assert_eq!(ty.to_tokens(), "impl ExtendUninit<Foo>");
+        let ty = RustType::ImplEnumerateInto(Box::new(RustType::named("Foo")));
+        assert_eq!(ty.to_tokens(), "impl EnumerateInto<Foo>");
     }
 
     #[test]

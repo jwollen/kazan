@@ -79,7 +79,7 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         surface: SurfaceKHR,
-        mut rects: impl ExtendUninit<Rect2D>,
+        mut rects: impl EnumerateInto<Rect2D>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |rect_count, rects| {

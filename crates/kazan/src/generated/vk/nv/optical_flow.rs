@@ -989,7 +989,7 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         optical_flow_image_format_info: &OpticalFlowImageFormatInfoNV<'a>,
-        mut image_format_properties: impl ExtendUninit<OpticalFlowImageFormatPropertiesNV<'a>>,
+        mut image_format_properties: impl EnumerateInto<OpticalFlowImageFormatPropertiesNV<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |format_count, image_format_properties| {

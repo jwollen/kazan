@@ -316,7 +316,7 @@ impl DeviceFn {
         &self,
         device: Device,
         validation_cache: ValidationCacheEXT,
-        mut data: impl ExtendUninit<u8>,
+        mut data: impl EnumerateInto<u8>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |data_size, data| {

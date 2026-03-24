@@ -437,7 +437,7 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         surface: SurfaceKHR,
-        mut surface_formats: impl ExtendUninit<SurfaceFormatKHR>,
+        mut surface_formats: impl EnumerateInto<SurfaceFormatKHR>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |surface_format_count, surface_formats| {
@@ -471,7 +471,7 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         surface: SurfaceKHR,
-        mut present_modes: impl ExtendUninit<PresentModeKHR>,
+        mut present_modes: impl EnumerateInto<PresentModeKHR>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |present_mode_count, present_modes| {

@@ -712,7 +712,7 @@ impl DeviceFn {
         &self,
         device: Device,
         timeout: u64,
-        mut fault_info: impl ExtendUninit<DeviceFaultInfoKHR<'a>>,
+        mut fault_info: impl EnumerateInto<DeviceFaultInfoKHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |fault_counts, fault_info| {

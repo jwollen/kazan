@@ -797,7 +797,7 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_fragment_shading_rates<'a>(
         &self,
         physical_device: PhysicalDevice,
-        mut fragment_shading_rates: impl ExtendUninit<PhysicalDeviceFragmentShadingRateKHR<'a>>,
+        mut fragment_shading_rates: impl EnumerateInto<PhysicalDeviceFragmentShadingRateKHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |fragment_shading_rate_count, fragment_shading_rates| {

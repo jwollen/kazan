@@ -437,7 +437,7 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_cooperative_matrix_properties<'a>(
         &self,
         physical_device: PhysicalDevice,
-        mut properties: impl ExtendUninit<CooperativeMatrixPropertiesKHR<'a>>,
+        mut properties: impl EnumerateInto<CooperativeMatrixPropertiesKHR<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |property_count, properties| {

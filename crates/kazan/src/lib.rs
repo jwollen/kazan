@@ -58,7 +58,7 @@ use core::{
     ptr,
 };
 
-pub trait ExtendUninit<T> {
+pub trait EnumerateInto<T> {
     /// Reserves capacity and returns the spare capacity as uninitialised memory.
     ///
     /// # Safety
@@ -72,7 +72,7 @@ pub trait ExtendUninit<T> {
     unsafe fn set_len(&mut self, len: usize);
 }
 
-impl<T> ExtendUninit<T> for Vec<T> {
+impl<T> EnumerateInto<T> for Vec<T> {
     unsafe fn reserve(&mut self, capacity: usize) -> &mut [MaybeUninit<T>] {
         self.reserve(capacity.saturating_sub(self.capacity()));
         self.spare_capacity_mut()
@@ -85,13 +85,13 @@ impl<T> ExtendUninit<T> for Vec<T> {
     }
 }
 
-impl<T> ExtendUninit<T> for &mut Vec<T> {
+impl<T> EnumerateInto<T> for &mut Vec<T> {
     unsafe fn reserve(&mut self, capacity: usize) -> &mut [MaybeUninit<T>] {
-        unsafe { ExtendUninit::reserve(*self, capacity) }
+        unsafe { EnumerateInto::reserve(*self, capacity) }
     }
 
     unsafe fn set_len(&mut self, len: usize) {
-        unsafe { ExtendUninit::set_len(*self, len) }
+        unsafe { EnumerateInto::set_len(*self, len) }
     }
 }
 

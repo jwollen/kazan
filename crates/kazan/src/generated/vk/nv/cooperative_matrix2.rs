@@ -454,7 +454,7 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_cooperative_matrix_flexible_dimensions_properties<'a>(
         &self,
         physical_device: PhysicalDevice,
-        mut properties: impl ExtendUninit<CooperativeMatrixFlexibleDimensionsPropertiesNV<'a>>,
+        mut properties: impl EnumerateInto<CooperativeMatrixFlexibleDimensionsPropertiesNV<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |property_count, properties| {

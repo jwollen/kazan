@@ -908,7 +908,7 @@ impl DeviceFn {
         device: Device,
         info: &PipelineBinaryDataInfoKHR<'a>,
         pipeline_binary_key: &mut PipelineBinaryKeyKHR<'a>,
-        mut pipeline_binary_data: impl ExtendUninit<u8>,
+        mut pipeline_binary_data: impl EnumerateInto<u8>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |pipeline_binary_data_size,

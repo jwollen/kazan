@@ -99,7 +99,7 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &ImageSparseMemoryRequirementsInfo2<'a>,
-        mut sparse_memory_requirements: impl ExtendUninit<SparseImageMemoryRequirements2<'a>>,
+        mut sparse_memory_requirements: impl EnumerateInto<SparseImageMemoryRequirements2<'a>>,
     ) {
         unsafe {
             let call = |sparse_memory_requirement_count, sparse_memory_requirements| {

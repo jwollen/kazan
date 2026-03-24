@@ -55,7 +55,7 @@ impl InstanceFn {
     pub unsafe fn enumerate_physical_device_groups<'a>(
         &self,
         instance: Instance,
-        mut physical_device_group_properties: impl ExtendUninit<PhysicalDeviceGroupProperties<'a>>,
+        mut physical_device_group_properties: impl EnumerateInto<PhysicalDeviceGroupProperties<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |physical_device_group_count, physical_device_group_properties| {

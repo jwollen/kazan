@@ -59,7 +59,7 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_calibrateable_time_domains(
         &self,
         physical_device: PhysicalDevice,
-        mut time_domains: impl ExtendUninit<TimeDomainKHR>,
+        mut time_domains: impl EnumerateInto<TimeDomainKHR>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |time_domain_count, time_domains| {

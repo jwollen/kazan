@@ -736,7 +736,7 @@ impl DeviceFn {
         &self,
         device: Device,
         shader: ShaderEXT,
-        mut data: impl ExtendUninit<u8>,
+        mut data: impl EnumerateInto<u8>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |data_size, data| {

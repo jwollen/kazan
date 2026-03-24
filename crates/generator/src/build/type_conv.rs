@@ -332,9 +332,9 @@ fn convert_command_param_with_length(
             pointee_name: "void",
             is_const,
         } => {
-            // Writable void* with length-from-pointer (two-call pattern) → ExtendUninit<u8>
+            // Writable void* with length-from-pointer (two-call pattern) → EnumerateInto<u8>
             if !is_const && matches!(len.and_then(LengthKind::len_ctype), Some(CType::Ptr { .. })) {
-                return RustType::ImplExtendUninit(Box::new(RustType::U8));
+                return RustType::ImplEnumerateInto(Box::new(RustType::U8));
             }
             let rt = RustType::U8.into_slice(None, !is_const);
             if nullable { rt.optional() } else { rt }
@@ -388,9 +388,9 @@ fn convert_command_param_with_length(
             }
 
             if !is_const {
-                // Writable pointer with pointer-length → ExtendUninit
+                // Writable pointer with pointer-length → EnumerateInto
                 if matches!(len.and_then(LengthKind::len_ctype), Some(CType::Ptr { .. })) {
-                    return RustType::ImplExtendUninit(Box::new(element));
+                    return RustType::ImplEnumerateInto(Box::new(element));
                 }
             }
             let rt = element.into_slice(None, !is_const);

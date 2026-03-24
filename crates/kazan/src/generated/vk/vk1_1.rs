@@ -5702,7 +5702,7 @@ impl InstanceFn {
     pub unsafe fn enumerate_physical_device_groups<'a>(
         &self,
         instance: Instance,
-        mut physical_device_group_properties: impl ExtendUninit<PhysicalDeviceGroupProperties<'a>>,
+        mut physical_device_group_properties: impl EnumerateInto<PhysicalDeviceGroupProperties<'a>>,
     ) -> crate::Result<()> {
         unsafe {
             let call = |physical_device_group_count, physical_device_group_properties| {
@@ -5800,7 +5800,7 @@ impl InstanceFn {
     pub unsafe fn get_physical_device_queue_family_properties2<'a>(
         &self,
         physical_device: PhysicalDevice,
-        mut queue_family_properties: impl ExtendUninit<QueueFamilyProperties2<'a>>,
+        mut queue_family_properties: impl EnumerateInto<QueueFamilyProperties2<'a>>,
     ) {
         unsafe {
             let call = |queue_family_property_count, queue_family_properties| {
@@ -5836,7 +5836,7 @@ impl InstanceFn {
         &self,
         physical_device: PhysicalDevice,
         format_info: &PhysicalDeviceSparseImageFormatInfo2<'a>,
-        mut properties: impl ExtendUninit<SparseImageFormatProperties2<'a>>,
+        mut properties: impl EnumerateInto<SparseImageFormatProperties2<'a>>,
     ) {
         unsafe {
             let call = |property_count, properties| {
@@ -6086,7 +6086,7 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &ImageSparseMemoryRequirementsInfo2<'a>,
-        mut sparse_memory_requirements: impl ExtendUninit<SparseImageMemoryRequirements2<'a>>,
+        mut sparse_memory_requirements: impl EnumerateInto<SparseImageMemoryRequirements2<'a>>,
     ) {
         unsafe {
             let call = |sparse_memory_requirement_count, sparse_memory_requirements| {
