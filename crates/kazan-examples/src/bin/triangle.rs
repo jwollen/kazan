@@ -1,12 +1,12 @@
 #![warn(unused_qualifications)]
 
-use kazan::util::Align;
 use kazan::vk;
 use kazan_examples::*;
 use std::default::Default;
 use std::error::Error;
 use std::io::Cursor;
 use std::mem;
+use std::slice;
 
 #[derive(Clone, Debug, Copy)]
 struct Vertex {
@@ -59,7 +59,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
         let renderpass_create_info = vk::RenderPassCreateInfo::default()
             .attachments(&renderpass_attachments)
-            .subpasses(std::slice::from_ref(&subpass))
+            .subpasses(slice::from_ref(&subpass))
             .dependencies(&dependencies);
 
         let renderpass = base
@@ -124,11 +124,8 @@ fn main() -> Result<(), Box<dyn Error>> {
                 vk::MemoryMapFlags::empty(),
             )
             .unwrap();
-        let mut index_slice = Align::new(
-            index_ptr,
-            align_of::<u32>() as u64,
-            index_buffer_memory_req.size,
-        );
+        let index_slice =
+            slice::from_raw_parts_mut(index_ptr.cast::<u32>(), index_buffer_data.len());
         index_slice.copy_from_slice(&index_buffer_data);
         base.device_fn
             .unmap_memory(base.device, index_buffer_memory);
@@ -196,12 +193,8 @@ fn main() -> Result<(), Box<dyn Error>> {
             )
             .unwrap();
 
-        let mut vert_align = Align::new(
-            vert_ptr,
-            align_of::<Vertex>() as u64,
-            vertex_input_buffer_memory_req.size,
-        );
-        vert_align.copy_from_slice(&vertices);
+        let vert_slice = slice::from_raw_parts_mut(vert_ptr.cast::<Vertex>(), vertices.len());
+        vert_slice.copy_from_slice(&vertices);
         base.device_fn
             .unmap_memory(base.device, vertex_input_buffer_memory);
         base.device_fn

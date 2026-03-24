@@ -4,8 +4,8 @@ use std::default::Default;
 use std::error::Error;
 use std::io::Cursor;
 use std::mem;
+use std::slice;
 
-use kazan::util::Align;
 use kazan::vk;
 use kazan_examples::*;
 
@@ -69,7 +69,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
         let renderpass_create_info = vk::RenderPassCreateInfo::default()
             .attachments(&renderpass_attachments)
-            .subpasses(std::slice::from_ref(&subpass))
+            .subpasses(slice::from_ref(&subpass))
             .dependencies(&dependencies);
 
         let renderpass = base
@@ -133,11 +133,8 @@ fn main() -> Result<(), Box<dyn Error>> {
                 vk::MemoryMapFlags::empty(),
             )
             .unwrap();
-        let mut index_slice = Align::new(
-            index_ptr,
-            align_of::<u32>() as u64,
-            index_buffer_memory_req.size,
-        );
+        let index_slice =
+            slice::from_raw_parts_mut(index_ptr.cast::<u32>(), index_buffer_data.len());
         index_slice.copy_from_slice(&index_buffer_data);
         base.device_fn
             .unmap_memory(base.device, index_buffer_memory);
@@ -203,12 +200,8 @@ fn main() -> Result<(), Box<dyn Error>> {
                 vk::MemoryMapFlags::empty(),
             )
             .unwrap();
-        let mut slice = Align::new(
-            vert_ptr,
-            align_of::<Vertex>() as u64,
-            vertex_input_buffer_memory_req.size,
-        );
-        slice.copy_from_slice(&vertices);
+        let vert_slice = slice::from_raw_parts_mut(vert_ptr.cast::<Vertex>(), vertices.len());
+        vert_slice.copy_from_slice(&vertices);
         base.device_fn
             .unmap_memory(base.device, vertex_input_buffer_memory);
         base.device_fn
@@ -265,12 +258,8 @@ fn main() -> Result<(), Box<dyn Error>> {
                 vk::MemoryMapFlags::empty(),
             )
             .unwrap();
-        let mut uniform_aligned_slice = Align::new(
-            uniform_ptr,
-            align_of::<Vector3>() as u64,
-            uniform_color_buffer_memory_req.size,
-        );
-        uniform_aligned_slice.copy_from_slice(&[uniform_color_buffer_data]);
+        let uniform_slice = slice::from_raw_parts_mut(uniform_ptr.cast::<Vector3>(), 1);
+        uniform_slice.copy_from_slice(&[uniform_color_buffer_data]);
         base.device_fn
             .unmap_memory(base.device, uniform_color_buffer_memory);
         base.device_fn
@@ -327,11 +316,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                 vk::MemoryMapFlags::empty(),
             )
             .unwrap();
-        let mut image_slice = Align::new(
-            image_ptr,
-            align_of::<u8>() as u64,
-            image_buffer_memory_req.size,
-        );
+        let image_slice = slice::from_raw_parts_mut(image_ptr.cast::<u8>(), image_data.len());
         image_slice.copy_from_slice(&image_data);
         base.device_fn
             .unmap_memory(base.device, image_buffer_memory);
