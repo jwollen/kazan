@@ -1,3 +1,4 @@
+#[doc(hidden)]
 #[macro_export]
 macro_rules! vk_bitflags_wrapped {
     ($ name : ident , $ flag_type : ty) => {
@@ -150,6 +151,7 @@ macro_rules! vk_bitflags_wrapped {
         }
     };
 }
+#[doc(hidden)]
 #[macro_export]
 macro_rules! handle_nondispatchable {
     ($ name : ident , $ ty : ident) => {
@@ -186,6 +188,7 @@ macro_rules! handle_nondispatchable {
         }
     };
 }
+#[doc(hidden)]
 #[macro_export]
 macro_rules! define_handle {
     ($ name : ident , $ ty : ident) => {

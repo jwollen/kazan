@@ -1,3 +1,8 @@
+//! Vulkan types, constants, and function pointer tables.
+//!
+//! All generated items are re-exported flat from this module. Hand-written support traits
+//! ([`Handle`], [`TaggedStructure`], [`Extends`], [`ApiVersion`]) live here as well.
+
 pub use crate::generated::vk::*;
 
 mod chain;
@@ -11,9 +16,13 @@ use core::{
     fmt,
 };
 
+/// Base trait for all Vulkan handle types (both dispatchable and non-dispatchable).
 pub trait Handle: Sized + Copy {
+    /// The [`ObjectType`] variant corresponding to this handle.
     const TYPE: ObjectType;
+    /// Converts the handle to its raw `u64` representation.
     fn to_raw(self) -> u64;
+    /// Creates a handle from a raw `u64` value.
     fn from_raw(_: u64) -> Self;
 
     /// Returns whether the handle is a `NULL` value.

@@ -1,8 +1,9 @@
 //! Interop between kazan and [`raw_window_handle`].
 //!
-//! Provides [`InstanceFn`] to load platform-specific surface creation function pointers and
-//! create [`vk::SurfaceKHR`] handles, and [`required_extensions()`] to query which
-//! instance extensions are needed.
+//! Provides [`InstanceFn`](crate::window::InstanceFn) to load platform-specific surface creation
+//! function pointers and create [`vk::SurfaceKHR`] handles, and
+//! [`required_extensions()`](crate::window::required_extensions) to query which instance extensions
+//! are needed.
 
 use core::ffi::CStr;
 use raw_window_handle::{RawDisplayHandle, RawWindowHandle};

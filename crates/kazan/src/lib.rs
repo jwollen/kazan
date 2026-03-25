@@ -1,3 +1,34 @@
+//! Vulkan bindings for Rust, generated from the official
+//! [Vulkan-Headers](https://github.com/KhronosGroup/Vulkan-Headers) `vk.xml` registry.
+//!
+//! # Modules
+//!
+//! - [`vk`] -- all Vulkan types, constants, function pointer types, and Vulkan-specific traits
+//!   ([`Handle`](vk::Handle), [`ApiVersion`](vk::ApiVersion), [`TaggedStructure`](vk::TaggedStructure),
+//!   [`Extends`](vk::Extends), etc.), re-exported flat.
+//!   - [`vk::vk1_0`], [`vk::vk1_1`], ... -- items grouped by API version.
+//!   - [`vk::khr`], [`vk::ext`], [`vk::nv`], ... -- items grouped by vendor / individual extension.
+//! - [`util`] -- SPIR-V decoding ([`read_spv`]).
+//! - [`window`] -- platform surface creation via `raw-window-handle` (requires `window` feature).
+//!
+//! # Function tables
+//!
+//! Each API version and extension defines its own `InstanceFn` / `DeviceFn` struct. Load them
+//! with the [`LoadInstanceFn`] and [`LoadDeviceFn`] traits. [`Entry`] bootstraps the loading
+//! chain.
+//!
+//! # Quick start
+//!
+//! ```ignore
+//! use kazan::{Entry, LoadDeviceFn as _, LoadInstanceFn as _, vk::{self, vk1_0}};
+//!
+//! let entry = unsafe { Entry::load()? };
+//! let instance = entry.vk1_0.create_instance(&create_info, None)?;
+//! let instance_fn = unsafe { vk1_0::InstanceFn::load(&entry, instance)? };
+//! let device = unsafe { instance_fn.create_device(physical_device, &device_create_info, None)? };
+//! let device_fn = unsafe { vk1_0::DeviceFn::load(&instance_fn, device)? };
+//! ```
+
 pub mod vk;
 
 #[cfg(feature = "ffi")]
@@ -37,9 +68,11 @@ pub(crate) mod macros;
 
 mod loading;
 
+/// Platform surface creation via `raw-window-handle`.
 #[cfg(feature = "window")]
 pub mod window;
 
+/// Utility functions (SPIR-V decoding).
 pub mod util;
 
 #[cfg(feature = "std")]
@@ -51,6 +84,10 @@ use core::{
     ptr,
 };
 
+/// Output buffer for Vulkan two-call enumerate commands.
+///
+/// The Vulkan enumerate pattern calls a command once to get the count, then again to fill a
+/// buffer. Implementors of this trait provide the backing storage.
 pub trait EnumerateInto<T> {
     /// Reserves capacity and returns the spare capacity as uninitialised memory.
     ///
@@ -88,7 +125,9 @@ impl<T> EnumerateInto<T> for &mut Vec<T> {
     }
 }
 
+/// Converts an optional reference to a raw const pointer, returning null for `None`.
 pub trait RawPtr<T> {
+    /// Returns a raw const pointer, or null if the value is absent.
     fn to_raw_ptr(self) -> *const T;
 }
 
@@ -119,8 +158,9 @@ impl RawPtr<c_char> for Option<&CStr> {
     }
 }
 
+/// Converts an optional mutable reference to a raw mutable pointer, returning null for `None`.
 pub trait RawMutPtr<T> {
-    /// Converts to a raw mutable pointer, returning null for `None`.
+    /// Returns a raw mutable pointer, or null if the value is absent.
     ///
     /// # Safety
     /// The caller must ensure the pointer is not used after the referent is dropped.
@@ -159,11 +199,12 @@ impl<T> RawMutPtr<T> for Option<&mut [T]> {
 pub enum SliceOrLen<'a, T> {
     /// A slice of values; the length is derived from the slice length.
     Slice(&'a [T]),
-    /// Just a length with no data (NULL pointer — N default/null values).
+    /// Just a length with no data (NULL pointer -- N default/null values).
     Len(usize),
 }
 
 impl<T> SliceOrLen<'_, T> {
+    /// Returns the number of elements (slice length or bare count).
     pub fn len(&self) -> usize {
         match self {
             SliceOrLen::Slice(s) => s.len(),
@@ -171,6 +212,7 @@ impl<T> SliceOrLen<'_, T> {
         }
     }
 
+    /// Returns `true` if the length is zero.
     pub fn is_empty(&self) -> bool {
         match self {
             SliceOrLen::Slice(s) => s.is_empty(),
@@ -199,6 +241,7 @@ impl<T> RawPtr<T> for Option<SliceOrLen<'_, T>> {
 
 pub use loading::{Entry, LoadDeviceFn, LoadInstanceFn, MissingEntryPointError, StaticFn};
 
+/// Error returned when a `CStr` is too large for a fixed-size `c_char` array.
 #[derive(Debug)]
 pub struct CStrTooLargeForStaticArray {
     pub static_array_size: usize,
@@ -217,6 +260,7 @@ impl core::fmt::Display for CStrTooLargeForStaticArray {
     }
 }
 
+/// Convenience alias for `Result<T, vk::Result>`.
 pub type Result<T> = core::result::Result<T, vk::Result>;
 
 /// Set a bitfield region within an integer, with a range check on the value.

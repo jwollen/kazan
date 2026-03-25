@@ -9,36 +9,43 @@ use core::fmt;
 pub struct ApiVersion(u32);
 
 impl ApiVersion {
+    /// Packs variant, major, minor, and patch into a single `u32`.
     #[inline]
     pub const fn new(variant: u32, major: u32, minor: u32, patch: u32) -> Self {
         Self((variant << 29) | (major << 22) | (minor << 12) | patch)
     }
 
+    /// Returns the variant (bits 31-29).
     #[inline]
     pub const fn variant(self) -> u32 {
         self.0 >> 29
     }
 
+    /// Returns the major version (bits 28-22).
     #[inline]
     pub const fn major(self) -> u32 {
         (self.0 >> 22) & 0x7F
     }
 
+    /// Returns the minor version (bits 21-12).
     #[inline]
     pub const fn minor(self) -> u32 {
         (self.0 >> 12) & 0x3FF
     }
 
+    /// Returns the patch version (bits 11-0).
     #[inline]
     pub const fn patch(self) -> u32 {
         self.0 & 0xFFF
     }
 
+    /// Creates an `ApiVersion` from a raw packed `u32`.
     #[inline]
     pub const fn from_raw(raw: u32) -> Self {
         Self(raw)
     }
 
+    /// Returns the raw packed `u32`.
     #[inline]
     pub const fn to_raw(self) -> u32 {
         self.0
