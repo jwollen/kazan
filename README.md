@@ -1,11 +1,19 @@
 # Kazan
 
+[![crates.io](https://img.shields.io/crates/v/kazan.svg)](https://crates.io/crates/kazan)
+[![docs.rs](https://docs.rs/kazan/badge.svg)](https://docs.rs/kazan)
 [![CI](https://github.com/jwollen/kazan/actions/workflows/ci.yml/badge.svg)](https://github.com/jwollen/kazan/actions/workflows/ci.yml)
 [![MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE-MIT)
 [![Apache 2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE-APACHE)
 [![MSRV](https://img.shields.io/badge/MSRV-1.89%2B-%23dea584.svg)](https://blog.rust-lang.org/)
 
 Vulkan bindings for Rust, generated from the official [Vulkan-Headers](https://github.com/KhronosGroup/Vulkan-Headers) `vk.xml` registry.
+
+## Why Kazan?
+
+- **Supports all Vulkan versions and extensions**
+- **Fully generated wrappers**
+- **Per-extension dispatch tables**
 
 ## Modules
 

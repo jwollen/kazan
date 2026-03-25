@@ -1,0 +1,46 @@
+on:
+  push:
+    branches: [main]
+
+name: Release
+
+jobs:
+  release:
+    name: Publish to crates.io
+    runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Check if version is already published
+        id: check
+        run: |
+          VERSION=$(sed -n 's/^version = "\([^"]*\)"/\1/p' Cargo.toml | head -1)
+          TAG="${VERSION%%+*}"
+          if git tag -l "$TAG" | grep -q .; then
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+            echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+            echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish kazan
+        if: steps.check.outputs.publish == 'true'
+        run: cargo publish -p kazan
+
+      - name: Create GitHub release
+        if: steps.check.outputs.publish == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git tag "${{ steps.check.outputs.tag }}"
+          git push origin "${{ steps.check.outputs.tag }}"
+          gh release create "${{ steps.check.outputs.tag }}" \
+            --title "${{ steps.check.outputs.tag }}" \
+            --generate-notes

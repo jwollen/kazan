@@ -5,6 +5,17 @@ authors.workspace = true
 license.workspace = true
 edition.workspace = true
 rust-version.workspace = true
+description = "Vulkan bindings for Rust"
+repository = "https://github.com/jwollen/kazan"
+readme = "../../README.md"
+keywords = ["gamedev", "graphics", "vulkan", "bindings"]
+categories = [
+    "api-bindings",
+    "external-ffi-bindings",
+    "game-development",
+    "graphics",
+    "rendering::graphics-api",
+]
 
 [features]
 default = ["debug", "loaded", "std", "provisional", "ffi", "window"]
@@ -22,3 +33,6 @@ raw-window-handle = { version = "0.6", optional = true }
 
 [dev-dependencies]
 trybuild = "1.0"
+
+[package.metadata.docs.rs]
+all-features = true
