@@ -1,3 +1,5 @@
+#![cfg_attr(docsrs, feature(doc_cfg))]
+
 //! Vulkan bindings for Rust, generated from the official
 //! [Vulkan-Headers](https://github.com/KhronosGroup/Vulkan-Headers) `vk.xml` registry.
 //!
