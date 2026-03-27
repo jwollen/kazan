@@ -1,5 +1,3 @@
-use core::slice;
-
 #[cfg(feature = "std")]
 use std::io;
 
@@ -42,7 +40,7 @@ pub fn read_spv<R: io::Read + io::Seek>(x: &mut R) -> io::Result<Vec<u32>> {
     // reading uninitialized memory.
     let mut result = vec![0u32; words];
     x.read_exact(unsafe {
-        slice::from_raw_parts_mut(result.as_mut_ptr().cast::<u8>(), words * 4)
+        core::slice::from_raw_parts_mut(result.as_mut_ptr().cast::<u8>(), words * 4)
     })?;
     const MAGIC_NUMBER: u32 = 0x0723_0203;
     if !result.is_empty() && result[0] == MAGIC_NUMBER.swap_bytes() {

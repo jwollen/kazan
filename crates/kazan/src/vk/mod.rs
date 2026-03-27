@@ -11,10 +11,9 @@ pub use chain::*;
 mod version;
 pub use version::ApiVersion;
 
-use core::{
-    ffi::{CStr, c_char},
-    fmt,
-};
+#[cfg(feature = "debug")]
+use core::ffi::{CStr, c_char};
+use core::fmt;
 
 /// Base trait for all Vulkan handle types (both dispatchable and non-dispatchable).
 pub trait Handle: Sized + Copy {
