@@ -21,7 +21,7 @@ jobs:
         id: check
         run: |
           VERSION=$(sed -n 's/^version = "\([^"]*\)"/\1/p' Cargo.toml | head -1)
-          TAG="${VERSION%%+*}"
+          TAG="$VERSION"
           if git tag -l "$TAG" | grep -q .; then
             echo "publish=false" >> "$GITHUB_OUTPUT"
           else
