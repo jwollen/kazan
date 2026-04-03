@@ -1,4 +1,5 @@
 pub mod data_graph;
+pub mod data_graph_instruction_set_tosa;
 pub mod format_pack;
 pub mod performance_counters_by_region;
 pub mod pipeline_opacity_micromap;
@@ -12,6 +13,7 @@ pub mod tensors;
 pub(super) mod defs {
     use super::*;
     pub use data_graph::defs::*;
+    pub use data_graph_instruction_set_tosa::defs::*;
     pub use format_pack::defs::*;
     pub use performance_counters_by_region::defs::*;
     pub use pipeline_opacity_micromap::defs::*;
@@ -26,6 +28,7 @@ pub(super) mod defs {
 #[cfg(feature = "ffi")]
 pub(super) mod ffi {
     pub use super::data_graph::ffi::*;
+    pub use super::data_graph_instruction_set_tosa::ffi::*;
     pub use super::format_pack::ffi::*;
     pub use super::performance_counters_by_region::ffi::*;
     pub use super::pipeline_opacity_micromap::ffi::*;

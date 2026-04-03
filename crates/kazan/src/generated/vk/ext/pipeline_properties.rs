@@ -127,7 +127,7 @@ pub(super) mod defs {
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelinePropertiesEXT.html>
     pub type PFN_vkGetPipelinePropertiesEXT = unsafe extern "system" fn(
         device: Device,
-        p_pipeline_info: *const PipelineInfoEXT<'_>,
+        p_pipeline_info: *const PipelineInfoKHR<'_>,
         p_pipeline_properties: *mut BaseOutStructure<'_>,
     ) -> vk::Result;
 }
@@ -181,7 +181,7 @@ impl DeviceFn {
     pub unsafe fn get_pipeline_properties(
         &self,
         device: Device,
-        pipeline_info: &PipelineInfoEXT<'_>,
+        pipeline_info: &PipelineInfoKHR<'_>,
         pipeline_properties: &mut BaseOutStructure<'_>,
     ) -> crate::Result<()> {
         unsafe {

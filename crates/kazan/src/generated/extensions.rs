@@ -796,6 +796,7 @@ define_extension_set!(
             qcom_render_pass_store_ops,
             qcom::render_pass_store_ops::EXTENSION_NAME
         ),
+        (qcom_queue_perf_hint, qcom::queue_perf_hint::EXTENSION_NAME),
         #[cfg(feature = "provisional")]
         (
             nv_cuda_kernel_launch,
@@ -1180,6 +1181,10 @@ define_extension_set!(
         ),
         (arm_data_graph, arm::data_graph::EXTENSION_NAME),
         (
+            arm_data_graph_instruction_set_tosa,
+            arm::data_graph_instruction_set_tosa::EXTENSION_NAME
+        ),
+        (
             qcom_multiview_per_view_render_areas,
             qcom::multiview_per_view_render_areas::EXTENSION_NAME
         ),
@@ -1418,6 +1423,10 @@ define_extension_set!(
         (
             valve_shader_mixed_float_dot_product,
             valve::shader_mixed_float_dot_product::EXTENSION_NAME
+        ),
+        (
+            ext_primitive_restart_index,
+            ext::primitive_restart_index::EXTENSION_NAME
         ),
     ]
 );

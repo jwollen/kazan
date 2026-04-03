@@ -554,7 +554,7 @@ pub(super) mod defs {
         pub s_type: StructureType,
         pub p_next: *const c_void,
         pub ty: AccelerationStructureTypeNV,
-        pub flags: BuildAccelerationStructureFlagsNV,
+        pub flags: BuildAccelerationStructureFlagsKHR,
         pub instance_count: u32,
         pub geometry_count: u32,
         pub p_geometries: *const GeometryNV<'a>,
@@ -603,7 +603,7 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn flags(mut self, flags: BuildAccelerationStructureFlagsNV) -> Self {
+        pub fn flags(mut self, flags: BuildAccelerationStructureFlagsKHR) -> Self {
             self.flags = flags;
             self
         }
@@ -1040,7 +1040,7 @@ pub(super) mod defs {
     pub type PFN_vkGetAccelerationStructureMemoryRequirementsNV = unsafe extern "system" fn(
         device: Device,
         p_info: *const AccelerationStructureMemoryRequirementsInfoNV<'_>,
-        p_memory_requirements: *mut MemoryRequirements2KHR<'_>,
+        p_memory_requirements: *mut MemoryRequirements2<'_>,
     );
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkBindAccelerationStructureMemoryNV.html>
     pub type PFN_vkBindAccelerationStructureMemoryNV = unsafe extern "system" fn(
@@ -1332,7 +1332,7 @@ impl DeviceFn {
         &self,
         device: Device,
         info: &AccelerationStructureMemoryRequirementsInfoNV<'_>,
-        memory_requirements: &mut MemoryRequirements2KHR<'_>,
+        memory_requirements: &mut MemoryRequirements2<'_>,
     ) {
         unsafe {
             (self.get_acceleration_structure_memory_requirements)(device, info, memory_requirements)

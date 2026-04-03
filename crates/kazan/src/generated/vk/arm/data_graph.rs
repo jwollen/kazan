@@ -368,7 +368,7 @@ pub(super) mod defs {
     pub struct DataGraphPipelineCreateInfoARM<'a> {
         pub s_type: StructureType,
         pub p_next: *const c_void,
-        pub flags: PipelineCreateFlags2KHR,
+        pub flags: PipelineCreateFlags2,
         pub layout: PipelineLayout,
         pub resource_info_count: u32,
         pub p_resource_infos: *const DataGraphPipelineResourceInfoARM<'a>,
@@ -409,7 +409,7 @@ pub(super) mod defs {
 
     impl<'a> DataGraphPipelineCreateInfoARM<'a> {
         #[inline]
-        pub fn flags(mut self, flags: PipelineCreateFlags2KHR) -> Self {
+        pub fn flags(mut self, flags: PipelineCreateFlags2) -> Self {
             self.flags = flags;
             self
         }

@@ -839,17 +839,12 @@ pub(super) mod defs {
 
     impl<'a> TensorDependencyInfoARM<'a> {
         #[inline]
-        pub fn tensor_memory_barrier_count(mut self, tensor_memory_barrier_count: u32) -> Self {
-            self.tensor_memory_barrier_count = tensor_memory_barrier_count;
-            self
-        }
-
-        #[inline]
         pub fn tensor_memory_barriers(
             mut self,
-            tensor_memory_barriers: &'a TensorMemoryBarrierARM<'a>,
+            tensor_memory_barriers: &'a [TensorMemoryBarrierARM<'_>],
         ) -> Self {
-            self.p_tensor_memory_barriers = tensor_memory_barriers;
+            self.tensor_memory_barrier_count = tensor_memory_barriers.len().try_into().unwrap();
+            self.p_tensor_memory_barriers = tensor_memory_barriers.as_ptr() as _;
             self
         }
     }
