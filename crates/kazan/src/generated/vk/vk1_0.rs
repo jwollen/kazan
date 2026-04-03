@@ -10490,6 +10490,9 @@ pub(super) mod defs {
         pub const DATA_GRAPH_PIPELINE_CONSTANT_TENSOR_SEMI_STRUCTURED_SPARSITY_INFO_ARM: Self =
             Self(1000507015);
 
+        // VK_ARM_data_graph_instruction_set_tosa
+        pub const QUEUE_FAMILY_DATA_GRAPH_TOSA_PROPERTIES_ARM: Self = Self(1000508000);
+
         // VK_ARM_format_pack
         pub const PHYSICAL_DEVICE_FORMAT_PACK_FEATURES_ARM: Self = Self(1000609000);
 
@@ -10521,6 +10524,9 @@ pub(super) mod defs {
         pub const DEVICE_QUEUE_SHADER_CORE_CONTROL_CREATE_INFO_ARM: Self = Self(1000417000);
         pub const PHYSICAL_DEVICE_SCHEDULING_CONTROLS_FEATURES_ARM: Self = Self(1000417001);
         pub const PHYSICAL_DEVICE_SCHEDULING_CONTROLS_PROPERTIES_ARM: Self = Self(1000417002);
+        pub const DISPATCH_PARAMETERS_ARM: Self = Self(1000417003);
+        pub const PHYSICAL_DEVICE_SCHEDULING_CONTROLS_DISPATCH_PARAMETERS_PROPERTIES_ARM: Self =
+            Self(1000417004);
 
         // VK_ARM_shader_core_builtins
         pub const PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_FEATURES_ARM: Self = Self(1000497000);
@@ -11042,6 +11048,9 @@ pub(super) mod defs {
         pub const PAST_PRESENTATION_TIMING_EXT: Self = Self(1000208007);
         pub const PRESENT_TIMING_SURFACE_CAPABILITIES_EXT: Self = Self(1000208008);
         pub const SWAPCHAIN_CALIBRATED_TIMESTAMP_INFO_EXT: Self = Self(1000208009);
+
+        // VK_EXT_primitive_restart_index
+        pub const PHYSICAL_DEVICE_PRIMITIVE_RESTART_INDEX_FEATURES_EXT: Self = Self(1000678000);
 
         // VK_EXT_primitive_topology_list_restart
         pub const PHYSICAL_DEVICE_PRIMITIVE_TOPOLOGY_LIST_RESTART_FEATURES_EXT: Self =
@@ -12533,6 +12542,11 @@ pub(super) mod defs {
         pub const PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_VIEWPORTS_FEATURES_QCOM: Self =
             Self(1000488000);
 
+        // VK_QCOM_queue_perf_hint
+        pub const PERF_HINT_INFO_QCOM: Self = Self(1000302000);
+        pub const PHYSICAL_DEVICE_QUEUE_PERF_HINT_FEATURES_QCOM: Self = Self(1000302001);
+        pub const PHYSICAL_DEVICE_QUEUE_PERF_HINT_PROPERTIES_QCOM: Self = Self(1000302002);
+
         // VK_QCOM_render_pass_transform
         pub const COMMAND_BUFFER_INHERITANCE_RENDER_PASS_TRANSFORM_INFO_QCOM: Self =
             Self(1000282000);
@@ -13070,6 +13084,9 @@ pub(super) mod defs {
                 Self::DATA_GRAPH_PIPELINE_CONSTANT_TENSOR_SEMI_STRUCTURED_SPARSITY_INFO_ARM => {
                     Some("DATA_GRAPH_PIPELINE_CONSTANT_TENSOR_SEMI_STRUCTURED_SPARSITY_INFO_ARM")
                 }
+                Self::QUEUE_FAMILY_DATA_GRAPH_TOSA_PROPERTIES_ARM => {
+                    Some("QUEUE_FAMILY_DATA_GRAPH_TOSA_PROPERTIES_ARM")
+                }
                 Self::PHYSICAL_DEVICE_FORMAT_PACK_FEATURES_ARM => {
                     Some("PHYSICAL_DEVICE_FORMAT_PACK_FEATURES_ARM")
                 }
@@ -13110,6 +13127,10 @@ pub(super) mod defs {
                 }
                 Self::PHYSICAL_DEVICE_SCHEDULING_CONTROLS_PROPERTIES_ARM => {
                     Some("PHYSICAL_DEVICE_SCHEDULING_CONTROLS_PROPERTIES_ARM")
+                }
+                Self::DISPATCH_PARAMETERS_ARM => Some("DISPATCH_PARAMETERS_ARM"),
+                Self::PHYSICAL_DEVICE_SCHEDULING_CONTROLS_DISPATCH_PARAMETERS_PROPERTIES_ARM => {
+                    Some("PHYSICAL_DEVICE_SCHEDULING_CONTROLS_DISPATCH_PARAMETERS_PROPERTIES_ARM")
                 }
                 Self::PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_FEATURES_ARM => {
                     Some("PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_FEATURES_ARM")
@@ -13713,6 +13734,9 @@ pub(super) mod defs {
                 }
                 Self::SWAPCHAIN_CALIBRATED_TIMESTAMP_INFO_EXT => {
                     Some("SWAPCHAIN_CALIBRATED_TIMESTAMP_INFO_EXT")
+                }
+                Self::PHYSICAL_DEVICE_PRIMITIVE_RESTART_INDEX_FEATURES_EXT => {
+                    Some("PHYSICAL_DEVICE_PRIMITIVE_RESTART_INDEX_FEATURES_EXT")
                 }
                 Self::PHYSICAL_DEVICE_PRIMITIVE_TOPOLOGY_LIST_RESTART_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_PRIMITIVE_TOPOLOGY_LIST_RESTART_FEATURES_EXT")
@@ -15187,6 +15211,13 @@ pub(super) mod defs {
                 }
                 Self::PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_VIEWPORTS_FEATURES_QCOM => {
                     Some("PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_VIEWPORTS_FEATURES_QCOM")
+                }
+                Self::PERF_HINT_INFO_QCOM => Some("PERF_HINT_INFO_QCOM"),
+                Self::PHYSICAL_DEVICE_QUEUE_PERF_HINT_FEATURES_QCOM => {
+                    Some("PHYSICAL_DEVICE_QUEUE_PERF_HINT_FEATURES_QCOM")
+                }
+                Self::PHYSICAL_DEVICE_QUEUE_PERF_HINT_PROPERTIES_QCOM => {
+                    Some("PHYSICAL_DEVICE_QUEUE_PERF_HINT_PROPERTIES_QCOM")
                 }
                 Self::COMMAND_BUFFER_INHERITANCE_RENDER_PASS_TRANSFORM_INFO_QCOM => {
                     Some("COMMAND_BUFFER_INHERITANCE_RENDER_PASS_TRANSFORM_INFO_QCOM")

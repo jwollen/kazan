@@ -95,6 +95,7 @@ pub mod pipeline_robustness;
 pub mod post_depth_coverage;
 pub mod present_mode_fifo_latest_ready;
 pub mod present_timing;
+pub mod primitive_restart_index;
 pub mod primitive_topology_list_restart;
 pub mod primitives_generated_query;
 pub mod private_data;
@@ -239,6 +240,7 @@ pub(super) mod defs {
     pub use pipeline_robustness::defs::*;
     pub use present_mode_fifo_latest_ready::defs::*;
     pub use present_timing::defs::*;
+    pub use primitive_restart_index::defs::*;
     pub use primitive_topology_list_restart::defs::*;
     pub use primitives_generated_query::defs::*;
     pub use private_data::defs::*;
@@ -376,6 +378,7 @@ pub(super) mod ffi {
     pub use super::pipeline_robustness::ffi::*;
     pub use super::present_mode_fifo_latest_ready::ffi::*;
     pub use super::present_timing::ffi::*;
+    pub use super::primitive_restart_index::ffi::*;
     pub use super::primitive_topology_list_restart::ffi::*;
     pub use super::primitives_generated_query::ffi::*;
     pub use super::private_data::ffi::*;

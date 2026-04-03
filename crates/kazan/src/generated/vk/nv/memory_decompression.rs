@@ -34,7 +34,7 @@ pub(super) mod defs {
         pub dst_address: DeviceAddress,
         pub compressed_size: DeviceSize,
         pub decompressed_size: DeviceSize,
-        pub decompression_method: MemoryDecompressionMethodFlagsNV,
+        pub decompression_method: MemoryDecompressionMethodFlagsEXT,
     }
 
     impl DecompressMemoryRegionNV {
@@ -65,7 +65,7 @@ pub(super) mod defs {
         #[inline]
         pub fn decompression_method(
             mut self,
-            decompression_method: MemoryDecompressionMethodFlagsNV,
+            decompression_method: MemoryDecompressionMethodFlagsEXT,
         ) -> Self {
             self.decompression_method = decompression_method;
             self

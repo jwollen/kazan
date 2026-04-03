@@ -482,89 +482,6 @@ pub(super) mod defs {
         }
     }
 
-    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceTransformFlagsKHR.html>
-    #[repr(transparent)]
-    #[derive(Copy, Clone, PartialEq, Eq, Hash)]
-    pub struct SurfaceTransformFlagsKHR(Flags);
-    vk_bitflags_wrapped!(SurfaceTransformFlagsKHR, Flags, SurfaceTransformFlagBitsKHR);
-
-    impl fmt::Debug for SurfaceTransformFlagsKHR {
-        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-            const KNOWN: &[(Flags, &str)] = &[
-                (SurfaceTransformFlagBitsKHR::IDENTITY_KHR.0, "IDENTITY_KHR"),
-                (
-                    SurfaceTransformFlagBitsKHR::ROTATE_90_KHR.0,
-                    "ROTATE_90_KHR",
-                ),
-                (
-                    SurfaceTransformFlagBitsKHR::ROTATE_180_KHR.0,
-                    "ROTATE_180_KHR",
-                ),
-                (
-                    SurfaceTransformFlagBitsKHR::ROTATE_270_KHR.0,
-                    "ROTATE_270_KHR",
-                ),
-                (
-                    SurfaceTransformFlagBitsKHR::HORIZONTAL_MIRROR_KHR.0,
-                    "HORIZONTAL_MIRROR_KHR",
-                ),
-                (
-                    SurfaceTransformFlagBitsKHR::HORIZONTAL_MIRROR_ROTATE_90_KHR.0,
-                    "HORIZONTAL_MIRROR_ROTATE_90_KHR",
-                ),
-                (
-                    SurfaceTransformFlagBitsKHR::HORIZONTAL_MIRROR_ROTATE_180_KHR.0,
-                    "HORIZONTAL_MIRROR_ROTATE_180_KHR",
-                ),
-                (
-                    SurfaceTransformFlagBitsKHR::HORIZONTAL_MIRROR_ROTATE_270_KHR.0,
-                    "HORIZONTAL_MIRROR_ROTATE_270_KHR",
-                ),
-                (SurfaceTransformFlagBitsKHR::INHERIT_KHR.0, "INHERIT_KHR"),
-            ];
-            debug_flags(f, KNOWN, self.0)
-        }
-    }
-
-    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceTransformFlagBitsKHR.html>
-    #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
-    pub struct SurfaceTransformFlagBitsKHR(u32);
-
-    impl SurfaceTransformFlagBitsKHR {
-        pub const IDENTITY_KHR: Self = Self(1 << 0);
-        pub const ROTATE_90_KHR: Self = Self(1 << 1);
-        pub const ROTATE_180_KHR: Self = Self(1 << 2);
-        pub const ROTATE_270_KHR: Self = Self(1 << 3);
-        pub const HORIZONTAL_MIRROR_KHR: Self = Self(1 << 4);
-        pub const HORIZONTAL_MIRROR_ROTATE_90_KHR: Self = Self(1 << 5);
-        pub const HORIZONTAL_MIRROR_ROTATE_180_KHR: Self = Self(1 << 6);
-        pub const HORIZONTAL_MIRROR_ROTATE_270_KHR: Self = Self(1 << 7);
-        pub const INHERIT_KHR: Self = Self(1 << 8);
-    }
-
-    impl fmt::Debug for SurfaceTransformFlagBitsKHR {
-        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-            let name = match *self {
-                Self::IDENTITY_KHR => Some("IDENTITY_KHR"),
-                Self::ROTATE_90_KHR => Some("ROTATE_90_KHR"),
-                Self::ROTATE_180_KHR => Some("ROTATE_180_KHR"),
-                Self::ROTATE_270_KHR => Some("ROTATE_270_KHR"),
-                Self::HORIZONTAL_MIRROR_KHR => Some("HORIZONTAL_MIRROR_KHR"),
-                Self::HORIZONTAL_MIRROR_ROTATE_90_KHR => Some("HORIZONTAL_MIRROR_ROTATE_90_KHR"),
-                Self::HORIZONTAL_MIRROR_ROTATE_180_KHR => Some("HORIZONTAL_MIRROR_ROTATE_180_KHR"),
-                Self::HORIZONTAL_MIRROR_ROTATE_270_KHR => Some("HORIZONTAL_MIRROR_ROTATE_270_KHR"),
-                Self::INHERIT_KHR => Some("INHERIT_KHR"),
-                _ => None,
-            };
-            if let Some(name) = name {
-                f.write_str(name)
-            } else {
-                self.0.fmt(f)
-            }
-        }
-    }
-
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayModeCreateFlagsKHR.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -658,8 +575,6 @@ pub(super) mod ffi {
     pub type VkDisplaySurfaceCreateInfoKHR = DisplaySurfaceCreateInfoKHR<'static>;
     pub type VkDisplayPlaneAlphaFlagsKHR = DisplayPlaneAlphaFlagsKHR;
     pub type VkDisplayPlaneAlphaFlagBitsKHR = DisplayPlaneAlphaFlagBitsKHR;
-    pub type VkSurfaceTransformFlagsKHR = SurfaceTransformFlagsKHR;
-    pub type VkSurfaceTransformFlagBitsKHR = SurfaceTransformFlagBitsKHR;
     pub type VkDisplayModeCreateFlagsKHR = DisplayModeCreateFlagsKHR;
     pub type VkDisplaySurfaceCreateFlagsKHR = DisplaySurfaceCreateFlagsKHR;
     impl DisplayPropertiesKHR<'_> {

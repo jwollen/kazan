@@ -7,6 +7,7 @@ pub mod image_processing;
 pub mod image_processing2;
 pub mod multiview_per_view_render_areas;
 pub mod multiview_per_view_viewports;
+pub mod queue_perf_hint;
 pub mod render_pass_shader_resolve;
 pub mod render_pass_store_ops;
 pub mod render_pass_transform;
@@ -26,6 +27,7 @@ pub(super) mod defs {
     pub use image_processing2::defs::*;
     pub use multiview_per_view_render_areas::defs::*;
     pub use multiview_per_view_viewports::defs::*;
+    pub use queue_perf_hint::defs::*;
     pub use render_pass_transform::defs::*;
     pub use rotated_copy_commands::defs::*;
     pub use tile_memory_heap::defs::*;
@@ -44,6 +46,7 @@ pub(super) mod ffi {
     pub use super::image_processing2::ffi::*;
     pub use super::multiview_per_view_render_areas::ffi::*;
     pub use super::multiview_per_view_viewports::ffi::*;
+    pub use super::queue_perf_hint::ffi::*;
     pub use super::render_pass_transform::ffi::*;
     pub use super::rotated_copy_commands::ffi::*;
     pub use super::tile_memory_heap::ffi::*;

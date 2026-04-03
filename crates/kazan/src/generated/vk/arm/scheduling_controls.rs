@@ -170,6 +170,163 @@ pub(super) mod defs {
         }
     }
 
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM.html>
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    #[must_use]
+    pub struct PhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM<'a> {
+        pub s_type: StructureType,
+        pub p_next: *mut c_void,
+        pub scheduling_controls_max_warps_count: u32,
+        pub scheduling_controls_max_queued_batches_count: u32,
+        pub scheduling_controls_max_work_group_batch_size: u32,
+        pub _marker: PhantomData<&'a ()>,
+    }
+
+    #[cfg(feature = "debug")]
+    impl fmt::Debug for PhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("PhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field(
+                    "scheduling_controls_max_warps_count",
+                    &self.scheduling_controls_max_warps_count,
+                )
+                .field(
+                    "scheduling_controls_max_queued_batches_count",
+                    &self.scheduling_controls_max_queued_batches_count,
+                )
+                .field(
+                    "scheduling_controls_max_work_group_batch_size",
+                    &self.scheduling_controls_max_work_group_batch_size,
+                )
+                .finish()
+        }
+    }
+
+    unsafe impl<'a> TaggedStructure<'a>
+        for PhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM<'a>
+    {
+        const STRUCTURE_TYPE: StructureType =
+            StructureType::PHYSICAL_DEVICE_SCHEDULING_CONTROLS_DISPATCH_PARAMETERS_PROPERTIES_ARM;
+    }
+
+    unsafe impl Extends<PhysicalDeviceProperties2<'_>>
+        for PhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM<'_>
+    {
+    }
+
+    impl Default for PhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM<'_> {
+        fn default() -> Self {
+            Self {
+                s_type: Self::STRUCTURE_TYPE,
+                p_next: ptr::null_mut(),
+                scheduling_controls_max_warps_count: Default::default(),
+                scheduling_controls_max_queued_batches_count: Default::default(),
+                scheduling_controls_max_work_group_batch_size: Default::default(),
+                _marker: PhantomData,
+            }
+        }
+    }
+
+    impl<'a> PhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM<'a> {
+        #[inline]
+        pub fn scheduling_controls_max_warps_count(
+            mut self,
+            scheduling_controls_max_warps_count: u32,
+        ) -> Self {
+            self.scheduling_controls_max_warps_count = scheduling_controls_max_warps_count;
+            self
+        }
+
+        #[inline]
+        pub fn scheduling_controls_max_queued_batches_count(
+            mut self,
+            scheduling_controls_max_queued_batches_count: u32,
+        ) -> Self {
+            self.scheduling_controls_max_queued_batches_count =
+                scheduling_controls_max_queued_batches_count;
+            self
+        }
+
+        #[inline]
+        pub fn scheduling_controls_max_work_group_batch_size(
+            mut self,
+            scheduling_controls_max_work_group_batch_size: u32,
+        ) -> Self {
+            self.scheduling_controls_max_work_group_batch_size =
+                scheduling_controls_max_work_group_batch_size;
+            self
+        }
+    }
+
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkDispatchParametersARM.html>
+    #[repr(C)]
+    #[derive(Copy, Clone)]
+    #[must_use]
+    pub struct DispatchParametersARM<'a> {
+        pub s_type: StructureType,
+        pub p_next: *mut c_void,
+        pub work_group_batch_size: u32,
+        pub max_queued_work_group_batches: u32,
+        pub max_warps_per_shader_core: u32,
+        pub _marker: PhantomData<&'a ()>,
+    }
+
+    #[cfg(feature = "debug")]
+    impl fmt::Debug for DispatchParametersARM<'_> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            f.debug_struct("DispatchParametersARM")
+                .field("s_type", &self.s_type)
+                .field("p_next", &self.p_next)
+                .field("work_group_batch_size", &self.work_group_batch_size)
+                .field(
+                    "max_queued_work_group_batches",
+                    &self.max_queued_work_group_batches,
+                )
+                .field("max_warps_per_shader_core", &self.max_warps_per_shader_core)
+                .finish()
+        }
+    }
+
+    unsafe impl<'a> TaggedStructure<'a> for DispatchParametersARM<'a> {
+        const STRUCTURE_TYPE: StructureType = StructureType::DISPATCH_PARAMETERS_ARM;
+    }
+
+    impl Default for DispatchParametersARM<'_> {
+        fn default() -> Self {
+            Self {
+                s_type: Self::STRUCTURE_TYPE,
+                p_next: ptr::null_mut(),
+                work_group_batch_size: Default::default(),
+                max_queued_work_group_batches: Default::default(),
+                max_warps_per_shader_core: Default::default(),
+                _marker: PhantomData,
+            }
+        }
+    }
+
+    impl<'a> DispatchParametersARM<'a> {
+        #[inline]
+        pub fn work_group_batch_size(mut self, work_group_batch_size: u32) -> Self {
+            self.work_group_batch_size = work_group_batch_size;
+            self
+        }
+
+        #[inline]
+        pub fn max_queued_work_group_batches(mut self, max_queued_work_group_batches: u32) -> Self {
+            self.max_queued_work_group_batches = max_queued_work_group_batches;
+            self
+        }
+
+        #[inline]
+        pub fn max_warps_per_shader_core(mut self, max_warps_per_shader_core: u32) -> Self {
+            self.max_warps_per_shader_core = max_warps_per_shader_core;
+            self
+        }
+    }
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSchedulingControlsFlagsARM.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -182,10 +339,16 @@ pub(super) mod defs {
 
     impl fmt::Debug for PhysicalDeviceSchedulingControlsFlagsARM {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-            const KNOWN: &[(Flags64, &str)] = &[(
-                PhysicalDeviceSchedulingControlsFlagBitsARM::SHADER_CORE_COUNT_ARM.0,
-                "SHADER_CORE_COUNT_ARM",
-            )];
+            const KNOWN: &[(Flags64, &str)] = &[
+                (
+                    PhysicalDeviceSchedulingControlsFlagBitsARM::SHADER_CORE_COUNT_ARM.0,
+                    "SHADER_CORE_COUNT_ARM",
+                ),
+                (
+                    PhysicalDeviceSchedulingControlsFlagBitsARM::DISPATCH_PARAMETERS_ARM.0,
+                    "DISPATCH_PARAMETERS_ARM",
+                ),
+            ];
             debug_flags(f, KNOWN, self.0)
         }
     }
@@ -197,12 +360,14 @@ pub(super) mod defs {
 
     impl PhysicalDeviceSchedulingControlsFlagBitsARM {
         pub const SHADER_CORE_COUNT_ARM: Self = Self(1 << 0);
+        pub const DISPATCH_PARAMETERS_ARM: Self = Self(1 << 1);
     }
 
     impl fmt::Debug for PhysicalDeviceSchedulingControlsFlagBitsARM {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
                 Self::SHADER_CORE_COUNT_ARM => Some("SHADER_CORE_COUNT_ARM"),
+                Self::DISPATCH_PARAMETERS_ARM => Some("DISPATCH_PARAMETERS_ARM"),
                 _ => None,
             };
             if let Some(name) = name {
@@ -212,6 +377,12 @@ pub(super) mod defs {
             }
         }
     }
+
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDispatchParametersARM.html>
+    pub type PFN_vkCmdSetDispatchParametersARM = unsafe extern "system" fn(
+        command_buffer: CommandBuffer,
+        p_dispatch_parameters: *const DispatchParametersARM<'_>,
+    );
 }
 
 #[cfg(feature = "ffi")]
@@ -225,6 +396,9 @@ pub(super) mod ffi {
         PhysicalDeviceSchedulingControlsFeaturesARM<'static>;
     pub type VkPhysicalDeviceSchedulingControlsPropertiesARM =
         PhysicalDeviceSchedulingControlsPropertiesARM<'static>;
+    pub type VkPhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM =
+        PhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM<'static>;
+    pub type VkDispatchParametersARM = DispatchParametersARM<'static>;
     pub type VkPhysicalDeviceSchedulingControlsFlagsARM = PhysicalDeviceSchedulingControlsFlagsARM;
     pub type VkPhysicalDeviceSchedulingControlsFlagBitsARM =
         PhysicalDeviceSchedulingControlsFlagBitsARM;
@@ -249,5 +423,49 @@ pub(super) mod ffi {
         ) -> &VkPhysicalDeviceSchedulingControlsPropertiesARM {
             unsafe { core::mem::transmute(self) }
         }
+    }
+    impl PhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(
+            &self,
+        ) -> &VkPhysicalDeviceSchedulingControlsDispatchParametersPropertiesARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl DispatchParametersARM<'_> {
+        #[inline]
+        pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkDispatchParametersARM {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+}
+
+pub struct DeviceFn {
+    cmd_set_dispatch_parameters: PFN_vkCmdSetDispatchParametersARM,
+}
+
+impl LoadDeviceFn for DeviceFn {
+    unsafe fn load_with(
+        load: impl Fn(&CStr) -> Option<PFN_vkVoidFunction>,
+    ) -> core::result::Result<Self, MissingEntryPointError> {
+        unsafe {
+            Ok(Self {
+                cmd_set_dispatch_parameters: transmute(
+                    load(c"vkCmdSetDispatchParametersARM").ok_or(MissingEntryPointError)?,
+                ),
+            })
+        }
+    }
+}
+
+impl DeviceFn {
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetDispatchParametersARM.html>
+    #[inline]
+    pub unsafe fn cmd_set_dispatch_parameters(
+        &self,
+        command_buffer: CommandBuffer,
+        dispatch_parameters: &DispatchParametersARM<'_>,
+    ) {
+        unsafe { (self.cmd_set_dispatch_parameters)(command_buffer, dispatch_parameters) }
     }
 }
