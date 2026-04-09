@@ -1,6 +1,16 @@
 Changelog
 ---
 
+## 0.3.0+1.4.139
+
+### Added
+
+- Added `VK_ARM_data_graph_optical_flow`
+
+### Changed
+
+- Changed `DeviceFaultShaderAbortMessageInfoKHR::message_data()` signature due to spec correction
+
 ## 0.2.0+1.4.138
 
 ### Added
