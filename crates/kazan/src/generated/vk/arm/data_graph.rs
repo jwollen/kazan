@@ -1373,12 +1373,16 @@ pub(super) mod defs {
 
     impl DataGraphPipelineSessionBindPointARM {
         pub const TRANSIENT_ARM: Self = Self(0);
+
+        // VK_ARM_data_graph_optical_flow
+        pub const OPTICAL_FLOW_CACHE_ARM: Self = Self(1000631001);
     }
 
     impl fmt::Debug for DataGraphPipelineSessionBindPointARM {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
                 Self::TRANSIENT_ARM => Some("TRANSIENT_ARM"),
+                Self::OPTICAL_FLOW_CACHE_ARM => Some("OPTICAL_FLOW_CACHE_ARM"),
                 _ => None,
             };
             if let Some(name) = name {
@@ -1474,6 +1478,9 @@ pub(super) mod defs {
     impl PhysicalDeviceDataGraphOperationTypeARM {
         pub const SPIRV_EXTENDED_INSTRUCTION_SET_ARM: Self = Self(0);
 
+        // VK_ARM_data_graph_optical_flow
+        pub const OPTICAL_FLOW_ARM: Self = Self(1000631000);
+
         // VK_QCOM_data_graph_model
         pub const NEURAL_MODEL_QCOM: Self = Self(1000629000);
         pub const BUILTIN_MODEL_QCOM: Self = Self(1000629001);
@@ -1485,6 +1492,7 @@ pub(super) mod defs {
                 Self::SPIRV_EXTENDED_INSTRUCTION_SET_ARM => {
                     Some("SPIRV_EXTENDED_INSTRUCTION_SET_ARM")
                 }
+                Self::OPTICAL_FLOW_ARM => Some("OPTICAL_FLOW_ARM"),
                 Self::NEURAL_MODEL_QCOM => Some("NEURAL_MODEL_QCOM"),
                 Self::BUILTIN_MODEL_QCOM => Some("BUILTIN_MODEL_QCOM"),
                 _ => None,
@@ -1509,10 +1517,16 @@ pub(super) mod defs {
 
     impl fmt::Debug for DataGraphPipelineSessionCreateFlagsARM {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-            const KNOWN: &[(Flags64, &str)] = &[(
-                DataGraphPipelineSessionCreateFlagBitsARM::PROTECTED_ARM.0,
-                "PROTECTED_ARM",
-            )];
+            const KNOWN: &[(Flags64, &str)] = &[
+                (
+                    DataGraphPipelineSessionCreateFlagBitsARM::PROTECTED_ARM.0,
+                    "PROTECTED_ARM",
+                ),
+                (
+                    DataGraphPipelineSessionCreateFlagBitsARM::OPTICAL_FLOW_CACHE_ARM.0,
+                    "OPTICAL_FLOW_CACHE_ARM",
+                ),
+            ];
             debug_flags(f, KNOWN, self.0)
         }
     }
@@ -1524,12 +1538,15 @@ pub(super) mod defs {
 
     impl DataGraphPipelineSessionCreateFlagBitsARM {
         pub const PROTECTED_ARM: Self = Self(1 << 0);
+        // VK_ARM_data_graph_optical_flow
+        pub const OPTICAL_FLOW_CACHE_ARM: Self = Self(1 << 1);
     }
 
     impl fmt::Debug for DataGraphPipelineSessionCreateFlagBitsARM {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
                 Self::PROTECTED_ARM => Some("PROTECTED_ARM"),
+                Self::OPTICAL_FLOW_CACHE_ARM => Some("OPTICAL_FLOW_CACHE_ARM"),
                 _ => None,
             };
             if let Some(name) = name {

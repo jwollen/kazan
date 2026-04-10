@@ -10493,6 +10493,17 @@ pub(super) mod defs {
         // VK_ARM_data_graph_instruction_set_tosa
         pub const QUEUE_FAMILY_DATA_GRAPH_TOSA_PROPERTIES_ARM: Self = Self(1000508000);
 
+        // VK_ARM_data_graph_optical_flow
+        pub const PHYSICAL_DEVICE_DATA_GRAPH_OPTICAL_FLOW_FEATURES_ARM: Self = Self(1000631000);
+        pub const QUEUE_FAMILY_DATA_GRAPH_OPTICAL_FLOW_PROPERTIES_ARM: Self = Self(1000631001);
+        pub const DATA_GRAPH_OPTICAL_FLOW_IMAGE_FORMAT_INFO_ARM: Self = Self(1000631003);
+        pub const DATA_GRAPH_OPTICAL_FLOW_IMAGE_FORMAT_PROPERTIES_ARM: Self = Self(1000631004);
+        pub const DATA_GRAPH_PIPELINE_OPTICAL_FLOW_DISPATCH_INFO_ARM: Self = Self(1000631005);
+        pub const DATA_GRAPH_PIPELINE_OPTICAL_FLOW_CREATE_INFO_ARM: Self = Self(1000631002);
+        pub const DATA_GRAPH_PIPELINE_RESOURCE_INFO_IMAGE_LAYOUT_ARM: Self = Self(1000631006);
+        pub const DATA_GRAPH_PIPELINE_SINGLE_NODE_CREATE_INFO_ARM: Self = Self(1000631007);
+        pub const DATA_GRAPH_PIPELINE_SINGLE_NODE_CONNECTION_ARM: Self = Self(1000631008);
+
         // VK_ARM_format_pack
         pub const PHYSICAL_DEVICE_FORMAT_PACK_FEATURES_ARM: Self = Self(1000609000);
 
@@ -13086,6 +13097,33 @@ pub(super) mod defs {
                 }
                 Self::QUEUE_FAMILY_DATA_GRAPH_TOSA_PROPERTIES_ARM => {
                     Some("QUEUE_FAMILY_DATA_GRAPH_TOSA_PROPERTIES_ARM")
+                }
+                Self::PHYSICAL_DEVICE_DATA_GRAPH_OPTICAL_FLOW_FEATURES_ARM => {
+                    Some("PHYSICAL_DEVICE_DATA_GRAPH_OPTICAL_FLOW_FEATURES_ARM")
+                }
+                Self::QUEUE_FAMILY_DATA_GRAPH_OPTICAL_FLOW_PROPERTIES_ARM => {
+                    Some("QUEUE_FAMILY_DATA_GRAPH_OPTICAL_FLOW_PROPERTIES_ARM")
+                }
+                Self::DATA_GRAPH_OPTICAL_FLOW_IMAGE_FORMAT_INFO_ARM => {
+                    Some("DATA_GRAPH_OPTICAL_FLOW_IMAGE_FORMAT_INFO_ARM")
+                }
+                Self::DATA_GRAPH_OPTICAL_FLOW_IMAGE_FORMAT_PROPERTIES_ARM => {
+                    Some("DATA_GRAPH_OPTICAL_FLOW_IMAGE_FORMAT_PROPERTIES_ARM")
+                }
+                Self::DATA_GRAPH_PIPELINE_OPTICAL_FLOW_DISPATCH_INFO_ARM => {
+                    Some("DATA_GRAPH_PIPELINE_OPTICAL_FLOW_DISPATCH_INFO_ARM")
+                }
+                Self::DATA_GRAPH_PIPELINE_OPTICAL_FLOW_CREATE_INFO_ARM => {
+                    Some("DATA_GRAPH_PIPELINE_OPTICAL_FLOW_CREATE_INFO_ARM")
+                }
+                Self::DATA_GRAPH_PIPELINE_RESOURCE_INFO_IMAGE_LAYOUT_ARM => {
+                    Some("DATA_GRAPH_PIPELINE_RESOURCE_INFO_IMAGE_LAYOUT_ARM")
+                }
+                Self::DATA_GRAPH_PIPELINE_SINGLE_NODE_CREATE_INFO_ARM => {
+                    Some("DATA_GRAPH_PIPELINE_SINGLE_NODE_CREATE_INFO_ARM")
+                }
+                Self::DATA_GRAPH_PIPELINE_SINGLE_NODE_CONNECTION_ARM => {
+                    Some("DATA_GRAPH_PIPELINE_SINGLE_NODE_CONNECTION_ARM")
                 }
                 Self::PHYSICAL_DEVICE_FORMAT_PACK_FEATURES_ARM => {
                     Some("PHYSICAL_DEVICE_FORMAT_PACK_FEATURES_ARM")

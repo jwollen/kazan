@@ -1401,6 +1401,10 @@ define_extension_set!(
         ),
         (khr_maintenance10, khr::maintenance10::EXTENSION_NAME),
         (
+            arm_data_graph_optical_flow,
+            arm::data_graph_optical_flow::EXTENSION_NAME
+        ),
+        (
             ext_shader_long_vector,
             ext::shader_long_vector::EXTENSION_NAME
         ),
