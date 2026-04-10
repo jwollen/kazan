@@ -160,14 +160,9 @@ pub(super) mod defs {
 
     impl<'a> DeviceFaultShaderAbortMessageInfoKHR<'a> {
         #[inline]
-        pub fn message_data_size(mut self, message_data_size: u64) -> Self {
-            self.message_data_size = message_data_size;
-            self
-        }
-
-        #[inline]
-        pub fn message_data(mut self, message_data: *mut c_void) -> Self {
-            self.p_message_data = message_data;
+        pub fn message_data(mut self, message_data: &'a mut [u8]) -> Self {
+            self.message_data_size = message_data.len().try_into().unwrap();
+            self.p_message_data = message_data.as_mut_ptr() as _;
             self
         }
     }

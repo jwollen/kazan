@@ -5679,6 +5679,9 @@ _marker: PhantomData
                 (FormatFeatureFlagBits2::STORAGE_WRITE_WITHOUT_FORMAT.0, "STORAGE_WRITE_WITHOUT_FORMAT"),
                 (FormatFeatureFlagBits2::SAMPLED_IMAGE_DEPTH_COMPARISON.0, "SAMPLED_IMAGE_DEPTH_COMPARISON"),
                 (FormatFeatureFlagBits2::TENSOR_DATA_GRAPH_ARM.0, "TENSOR_DATA_GRAPH_ARM"),
+                (FormatFeatureFlagBits2::DATA_GRAPH_OPTICAL_FLOW_IMAGE_ARM.0, "DATA_GRAPH_OPTICAL_FLOW_IMAGE_ARM"),
+                (FormatFeatureFlagBits2::DATA_GRAPH_OPTICAL_FLOW_VECTOR_ARM.0, "DATA_GRAPH_OPTICAL_FLOW_VECTOR_ARM"),
+                (FormatFeatureFlagBits2::DATA_GRAPH_OPTICAL_FLOW_COST_ARM.0, "DATA_GRAPH_OPTICAL_FLOW_COST_ARM"),
                 (FormatFeatureFlagBits2::TENSOR_SHADER_ARM.0, "TENSOR_SHADER_ARM"),
                 (FormatFeatureFlagBits2::TENSOR_IMAGE_ALIASING_ARM.0, "TENSOR_IMAGE_ALIASING_ARM"),
                 (FormatFeatureFlagBits2::FRAGMENT_DENSITY_MAP_EXT.0, "FRAGMENT_DENSITY_MAP_EXT"),
@@ -5748,6 +5751,11 @@ _marker: PhantomData
         pub const SAMPLED_IMAGE_DEPTH_COMPARISON: Self = Self(1 << 33);
         // VK_ARM_data_graph
         pub const TENSOR_DATA_GRAPH_ARM: Self = Self(1 << 48);
+
+        // VK_ARM_data_graph_optical_flow
+        pub const DATA_GRAPH_OPTICAL_FLOW_IMAGE_ARM: Self = Self(1 << 56);
+        pub const DATA_GRAPH_OPTICAL_FLOW_VECTOR_ARM: Self = Self(1 << 57);
+        pub const DATA_GRAPH_OPTICAL_FLOW_COST_ARM: Self = Self(1 << 58);
 
         // VK_ARM_tensors
         pub const TENSOR_SHADER_ARM: Self = Self(1 << 39);
@@ -5883,6 +5891,13 @@ _marker: PhantomData
                 Self::STORAGE_WRITE_WITHOUT_FORMAT => Some("STORAGE_WRITE_WITHOUT_FORMAT"),
                 Self::SAMPLED_IMAGE_DEPTH_COMPARISON => Some("SAMPLED_IMAGE_DEPTH_COMPARISON"),
                 Self::TENSOR_DATA_GRAPH_ARM => Some("TENSOR_DATA_GRAPH_ARM"),
+                Self::DATA_GRAPH_OPTICAL_FLOW_IMAGE_ARM => {
+                    Some("DATA_GRAPH_OPTICAL_FLOW_IMAGE_ARM")
+                }
+                Self::DATA_GRAPH_OPTICAL_FLOW_VECTOR_ARM => {
+                    Some("DATA_GRAPH_OPTICAL_FLOW_VECTOR_ARM")
+                }
+                Self::DATA_GRAPH_OPTICAL_FLOW_COST_ARM => Some("DATA_GRAPH_OPTICAL_FLOW_COST_ARM"),
                 Self::TENSOR_SHADER_ARM => Some("TENSOR_SHADER_ARM"),
                 Self::TENSOR_IMAGE_ALIASING_ARM => Some("TENSOR_IMAGE_ALIASING_ARM"),
                 Self::FRAGMENT_DENSITY_MAP_EXT => Some("FRAGMENT_DENSITY_MAP_EXT"),
