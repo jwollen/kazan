@@ -1374,6 +1374,9 @@ pub(super) mod defs {
     impl DataGraphPipelineSessionBindPointARM {
         pub const TRANSIENT_ARM: Self = Self(0);
 
+        // VK_ARM_data_graph_neural_accelerator_statistics
+        pub const NEURAL_ACCELERATOR_STATISTICS_ARM: Self = Self(1000676000);
+
         // VK_ARM_data_graph_optical_flow
         pub const OPTICAL_FLOW_CACHE_ARM: Self = Self(1000631001);
     }
@@ -1382,6 +1385,9 @@ pub(super) mod defs {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
                 Self::TRANSIENT_ARM => Some("TRANSIENT_ARM"),
+                Self::NEURAL_ACCELERATOR_STATISTICS_ARM => {
+                    Some("NEURAL_ACCELERATOR_STATISTICS_ARM")
+                }
                 Self::OPTICAL_FLOW_CACHE_ARM => Some("OPTICAL_FLOW_CACHE_ARM"),
                 _ => None,
             };
@@ -1424,6 +1430,10 @@ pub(super) mod defs {
     impl DataGraphPipelinePropertyARM {
         pub const CREATION_LOG_ARM: Self = Self(0);
         pub const IDENTIFIER_ARM: Self = Self(1);
+
+        // VK_ARM_data_graph_neural_accelerator_statistics
+        pub const NEURAL_ACCELERATOR_DEBUG_DATABASE_ARM: Self = Self(1000676000);
+        pub const NEURAL_ACCELERATOR_STATISTICS_INFO_ARM: Self = Self(1000676001);
     }
 
     impl fmt::Debug for DataGraphPipelinePropertyARM {
@@ -1431,6 +1441,12 @@ pub(super) mod defs {
             let name = match *self {
                 Self::CREATION_LOG_ARM => Some("CREATION_LOG_ARM"),
                 Self::IDENTIFIER_ARM => Some("IDENTIFIER_ARM"),
+                Self::NEURAL_ACCELERATOR_DEBUG_DATABASE_ARM => {
+                    Some("NEURAL_ACCELERATOR_DEBUG_DATABASE_ARM")
+                }
+                Self::NEURAL_ACCELERATOR_STATISTICS_INFO_ARM => {
+                    Some("NEURAL_ACCELERATOR_STATISTICS_INFO_ARM")
+                }
                 _ => None,
             };
             if let Some(name) = name {

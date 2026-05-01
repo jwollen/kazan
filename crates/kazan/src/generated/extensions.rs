@@ -1420,6 +1420,7 @@ define_extension_set!(
             nv_compute_occupancy_priority,
             nv::compute_occupancy_priority::EXTENSION_NAME
         ),
+        (khr_maintenance11, khr::maintenance11::EXTENSION_NAME),
         (
             ext_shader_subgroup_partitioned,
             ext::shader_subgroup_partitioned::EXTENSION_NAME
@@ -1427,6 +1428,11 @@ define_extension_set!(
         (
             valve_shader_mixed_float_dot_product,
             valve::shader_mixed_float_dot_product::EXTENSION_NAME
+        ),
+        (sec_throttle_hint, sec::throttle_hint::EXTENSION_NAME),
+        (
+            arm_data_graph_neural_accelerator_statistics,
+            arm::data_graph_neural_accelerator_statistics::EXTENSION_NAME
         ),
         (
             ext_primitive_restart_index,
