@@ -54,6 +54,7 @@ pub mod line_rasterization;
 pub mod load_store_op_none;
 pub mod maintenance1;
 pub mod maintenance10;
+pub mod maintenance11;
 pub mod maintenance2;
 pub mod maintenance3;
 pub mod maintenance4;
@@ -208,6 +209,7 @@ pub(super) mod defs {
     pub use maintenance8::defs::*;
     pub use maintenance9::defs::*;
     pub use maintenance10::defs::*;
+    pub use maintenance11::defs::*;
     pub use map_memory2::defs::*;
     pub use multiview::defs::*;
     pub use performance_query::defs::*;
@@ -347,6 +349,7 @@ pub(super) mod ffi {
     pub use super::maintenance8::ffi::*;
     pub use super::maintenance9::ffi::*;
     pub use super::maintenance10::ffi::*;
+    pub use super::maintenance11::ffi::*;
     pub use super::map_memory2::ffi::*;
     pub use super::multiview::ffi::*;
     pub use super::performance_query::ffi::*;

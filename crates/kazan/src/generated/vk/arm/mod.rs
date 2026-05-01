@@ -1,5 +1,6 @@
 pub mod data_graph;
 pub mod data_graph_instruction_set_tosa;
+pub mod data_graph_neural_accelerator_statistics;
 pub mod data_graph_optical_flow;
 pub mod format_pack;
 pub mod performance_counters_by_region;
@@ -15,6 +16,7 @@ pub(super) mod defs {
     use super::*;
     pub use data_graph::defs::*;
     pub use data_graph_instruction_set_tosa::defs::*;
+    pub use data_graph_neural_accelerator_statistics::defs::*;
     pub use data_graph_optical_flow::defs::*;
     pub use format_pack::defs::*;
     pub use performance_counters_by_region::defs::*;
@@ -31,6 +33,7 @@ pub(super) mod defs {
 pub(super) mod ffi {
     pub use super::data_graph::ffi::*;
     pub use super::data_graph_instruction_set_tosa::ffi::*;
+    pub use super::data_graph_neural_accelerator_statistics::ffi::*;
     pub use super::data_graph_optical_flow::ffi::*;
     pub use super::format_pack::ffi::*;
     pub use super::performance_counters_by_region::ffi::*;

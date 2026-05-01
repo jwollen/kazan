@@ -10493,6 +10493,13 @@ pub(super) mod defs {
         // VK_ARM_data_graph_instruction_set_tosa
         pub const QUEUE_FAMILY_DATA_GRAPH_TOSA_PROPERTIES_ARM: Self = Self(1000508000);
 
+        // VK_ARM_data_graph_neural_accelerator_statistics
+        pub const DATA_GRAPH_PIPELINE_NEURAL_STATISTICS_CREATE_INFO_ARM: Self = Self(1000676000);
+        pub const DATA_GRAPH_PIPELINE_SESSION_NEURAL_STATISTICS_CREATE_INFO_ARM: Self =
+            Self(1000676001);
+        pub const PHYSICAL_DEVICE_DATA_GRAPH_NEURAL_ACCELERATOR_STATISTICS_FEATURES_ARM: Self =
+            Self(1000676002);
+
         // VK_ARM_data_graph_optical_flow
         pub const PHYSICAL_DEVICE_DATA_GRAPH_OPTICAL_FLOW_FEATURES_ARM: Self = Self(1000631000);
         pub const QUEUE_FAMILY_DATA_GRAPH_OPTICAL_FLOW_PROPERTIES_ARM: Self = Self(1000631001);
@@ -11668,6 +11675,11 @@ pub(super) mod defs {
         pub const RENDERING_END_INFO_KHR: Self = Self(1000619003);
         pub const RESOLVE_IMAGE_MODE_INFO_KHR: Self = Self(1000630004);
 
+        // VK_KHR_maintenance11
+        pub const PHYSICAL_DEVICE_MAINTENANCE_11_FEATURES_KHR: Self = Self(1000657000);
+        pub const QUEUE_FAMILY_OPTIMAL_IMAGE_TRANSFER_GRANULARITY_PROPERTIES_KHR: Self =
+            Self(1000657001);
+
         // VK_KHR_maintenance2
         pub const PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES_KHR: Self =
             Self::PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES;
@@ -12608,6 +12620,10 @@ pub(super) mod defs {
         pub const PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC: Self =
             Self(1000637000);
 
+        // VK_SEC_throttle_hint
+        pub const PHYSICAL_DEVICE_THROTTLE_HINT_FEATURES_SEC: Self = Self(1000674000);
+        pub const THROTTLE_HINT_SUBMIT_INFO_SEC: Self = Self(1000674001);
+
         // VK_SEC_ubm_surface
         pub const UBM_SURFACE_CREATE_INFO_SEC: Self = Self(1000664000);
 
@@ -13097,6 +13113,15 @@ pub(super) mod defs {
                 }
                 Self::QUEUE_FAMILY_DATA_GRAPH_TOSA_PROPERTIES_ARM => {
                     Some("QUEUE_FAMILY_DATA_GRAPH_TOSA_PROPERTIES_ARM")
+                }
+                Self::DATA_GRAPH_PIPELINE_NEURAL_STATISTICS_CREATE_INFO_ARM => {
+                    Some("DATA_GRAPH_PIPELINE_NEURAL_STATISTICS_CREATE_INFO_ARM")
+                }
+                Self::DATA_GRAPH_PIPELINE_SESSION_NEURAL_STATISTICS_CREATE_INFO_ARM => {
+                    Some("DATA_GRAPH_PIPELINE_SESSION_NEURAL_STATISTICS_CREATE_INFO_ARM")
+                }
+                Self::PHYSICAL_DEVICE_DATA_GRAPH_NEURAL_ACCELERATOR_STATISTICS_FEATURES_ARM => {
+                    Some("PHYSICAL_DEVICE_DATA_GRAPH_NEURAL_ACCELERATOR_STATISTICS_FEATURES_ARM")
                 }
                 Self::PHYSICAL_DEVICE_DATA_GRAPH_OPTICAL_FLOW_FEATURES_ARM => {
                     Some("PHYSICAL_DEVICE_DATA_GRAPH_OPTICAL_FLOW_FEATURES_ARM")
@@ -14223,6 +14248,12 @@ pub(super) mod defs {
                 }
                 Self::RENDERING_END_INFO_KHR => Some("RENDERING_END_INFO_KHR"),
                 Self::RESOLVE_IMAGE_MODE_INFO_KHR => Some("RESOLVE_IMAGE_MODE_INFO_KHR"),
+                Self::PHYSICAL_DEVICE_MAINTENANCE_11_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_MAINTENANCE_11_FEATURES_KHR")
+                }
+                Self::QUEUE_FAMILY_OPTIMAL_IMAGE_TRANSFER_GRANULARITY_PROPERTIES_KHR => {
+                    Some("QUEUE_FAMILY_OPTIMAL_IMAGE_TRANSFER_GRANULARITY_PROPERTIES_KHR")
+                }
                 Self::SET_DESCRIPTOR_BUFFER_OFFSETS_INFO_EXT => {
                     Some("SET_DESCRIPTOR_BUFFER_OFFSETS_INFO_EXT")
                 }
@@ -15312,6 +15343,10 @@ pub(super) mod defs {
                 Self::PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC => {
                     Some("PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC")
                 }
+                Self::PHYSICAL_DEVICE_THROTTLE_HINT_FEATURES_SEC => {
+                    Some("PHYSICAL_DEVICE_THROTTLE_HINT_FEATURES_SEC")
+                }
+                Self::THROTTLE_HINT_SUBMIT_INFO_SEC => Some("THROTTLE_HINT_SUBMIT_INFO_SEC"),
                 Self::UBM_SURFACE_CREATE_INFO_SEC => Some("UBM_SURFACE_CREATE_INFO_SEC"),
                 Self::PHYSICAL_DEVICE_DESCRIPTOR_SET_HOST_MAPPING_FEATURES_VALVE => {
                     Some("PHYSICAL_DEVICE_DESCRIPTOR_SET_HOST_MAPPING_FEATURES_VALVE")
@@ -16789,10 +16824,16 @@ pub(super) mod defs {
 
     impl fmt::Debug for PipelineLayoutCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-            const KNOWN: &[(Flags, &str)] = &[(
-                PipelineLayoutCreateFlagBits::INDEPENDENT_SETS_EXT.0,
-                "INDEPENDENT_SETS_EXT",
-            )];
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    PipelineLayoutCreateFlagBits::INDEPENDENT_SETS_EXT.0,
+                    "INDEPENDENT_SETS_EXT",
+                ),
+                (
+                    PipelineLayoutCreateFlagBits::NO_TASK_SHADER_KHR.0,
+                    "NO_TASK_SHADER_KHR",
+                ),
+            ];
             debug_flags(f, KNOWN, self.0)
         }
     }
@@ -16805,12 +16846,16 @@ pub(super) mod defs {
     impl PipelineLayoutCreateFlagBits {
         // VK_EXT_graphics_pipeline_library
         pub const INDEPENDENT_SETS_EXT: Self = Self(1 << 1);
+
+        // VK_KHR_maintenance11
+        pub const NO_TASK_SHADER_KHR: Self = Self(1 << 2);
     }
 
     impl fmt::Debug for PipelineLayoutCreateFlagBits {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
                 Self::INDEPENDENT_SETS_EXT => Some("INDEPENDENT_SETS_EXT"),
+                Self::NO_TASK_SHADER_KHR => Some("NO_TASK_SHADER_KHR"),
                 _ => None,
             };
             if let Some(name) = name {
@@ -18447,6 +18492,10 @@ pub(super) mod defs {
                     "SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_EXT",
                 ),
                 (
+                    ImageCreateFlagBits::ALIAS_SINGLE_LAYER_DESCRIPTOR_KHR.0,
+                    "ALIAS_SINGLE_LAYER_DESCRIPTOR_KHR",
+                ),
+                (
                     ImageCreateFlagBits::VIDEO_PROFILE_INDEPENDENT_KHR.0,
                     "VIDEO_PROFILE_INDEPENDENT_KHR",
                 ),
@@ -18523,6 +18572,9 @@ pub(super) mod defs {
         // VK_KHR_maintenance1
         pub const _2D_ARRAY_COMPATIBLE_KHR: Self = Self::_2D_ARRAY_COMPATIBLE;
 
+        // VK_KHR_maintenance11
+        pub const ALIAS_SINGLE_LAYER_DESCRIPTOR_KHR: Self = Self(1 << 22);
+
         // VK_KHR_maintenance2
         pub const BLOCK_TEXEL_VIEW_COMPATIBLE_KHR: Self = Self::BLOCK_TEXEL_VIEW_COMPATIBLE;
         pub const EXTENDED_USAGE_KHR: Self = Self::EXTENDED_USAGE;
@@ -18571,6 +18623,9 @@ pub(super) mod defs {
                 }
                 Self::SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_EXT => {
                     Some("SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_EXT")
+                }
+                Self::ALIAS_SINGLE_LAYER_DESCRIPTOR_KHR => {
+                    Some("ALIAS_SINGLE_LAYER_DESCRIPTOR_KHR")
                 }
                 Self::VIDEO_PROFILE_INDEPENDENT_KHR => Some("VIDEO_PROFILE_INDEPENDENT_KHR"),
                 Self::CORNER_SAMPLED_NV => Some("CORNER_SAMPLED_NV"),
