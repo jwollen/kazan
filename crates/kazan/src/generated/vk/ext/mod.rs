@@ -119,6 +119,7 @@ pub mod shader_long_vector;
 pub mod shader_module_identifier;
 pub mod shader_object;
 pub mod shader_replicated_composites;
+pub mod shader_split_barrier;
 pub mod shader_stencil_export;
 pub mod shader_subgroup_ballot;
 pub mod shader_subgroup_partitioned;
@@ -264,6 +265,7 @@ pub(super) mod defs {
     pub use shader_module_identifier::defs::*;
     pub use shader_object::defs::*;
     pub use shader_replicated_composites::defs::*;
+    pub use shader_split_barrier::defs::*;
     pub use shader_subgroup_partitioned::defs::*;
     pub use shader_tile_image::defs::*;
     pub use shader_uniform_buffer_unsized_array::defs::*;
@@ -401,6 +403,7 @@ pub(super) mod ffi {
     pub use super::shader_module_identifier::ffi::*;
     pub use super::shader_object::ffi::*;
     pub use super::shader_replicated_composites::ffi::*;
+    pub use super::shader_split_barrier::ffi::*;
     pub use super::shader_subgroup_partitioned::ffi::*;
     pub use super::shader_tile_image::ffi::*;
     pub use super::shader_uniform_buffer_unsized_array::ffi::*;

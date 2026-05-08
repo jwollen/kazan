@@ -341,6 +341,14 @@ pub(super) mod defs {
                     ShaderCreateFlagBitsEXT::FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT.0,
                     "FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT",
                 ),
+                (
+                    ShaderCreateFlagBitsEXT::INDEPENDENT_SETS_KHR.0,
+                    "INDEPENDENT_SETS_KHR",
+                ),
+                (
+                    ShaderCreateFlagBitsEXT::OPACITY_MICROMAP_DISALLOW_MIXED_SPECIAL_INDEX_EXT.0,
+                    "OPACITY_MICROMAP_DISALLOW_MIXED_SPECIAL_INDEX_EXT",
+                ),
             ];
             debug_flags(f, KNOWN, self.0)
         }
@@ -372,6 +380,12 @@ pub(super) mod defs {
         pub const DISPATCH_BASE_EXT: Self = Self(1 << 4);
         pub const FRAGMENT_SHADING_RATE_ATTACHMENT_EXT: Self = Self(1 << 5);
         pub const FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT: Self = Self(1 << 6);
+
+        // VK_KHR_maintenance11
+        pub const INDEPENDENT_SETS_KHR: Self = Self(1 << 18);
+
+        // VK_KHR_opacity_micromap
+        pub const OPACITY_MICROMAP_DISALLOW_MIXED_SPECIAL_INDEX_EXT: Self = Self(1 << 12);
     }
 
     impl fmt::Debug for ShaderCreateFlagBitsEXT {
@@ -391,6 +405,10 @@ pub(super) mod defs {
                 }
                 Self::FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT => {
                     Some("FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT")
+                }
+                Self::INDEPENDENT_SETS_KHR => Some("INDEPENDENT_SETS_KHR"),
+                Self::OPACITY_MICROMAP_DISALLOW_MIXED_SPECIAL_INDEX_EXT => {
+                    Some("OPACITY_MICROMAP_DISALLOW_MIXED_SPECIAL_INDEX_EXT")
                 }
                 _ => None,
             };

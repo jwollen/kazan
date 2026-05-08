@@ -8731,6 +8731,9 @@ pub(super) mod defs {
 
         // VK_NV_ray_tracing
         pub const ACCELERATION_STRUCTURE_COMPACTED_SIZE_NV: Self = Self(1000165000);
+
+        // VK_QCOM_elapsed_timer_query
+        pub const TIME_ELAPSED_QCOM: Self = Self(1000173000);
     }
 
     impl fmt::Debug for QueryType {
@@ -8761,6 +8764,7 @@ pub(super) mod defs {
                 Self::ACCELERATION_STRUCTURE_COMPACTED_SIZE_NV => {
                     Some("ACCELERATION_STRUCTURE_COMPACTED_SIZE_NV")
                 }
+                Self::TIME_ELAPSED_QCOM => Some("TIME_ELAPSED_QCOM"),
                 _ => None,
             };
             if let Some(name) = name {
@@ -10424,6 +10428,15 @@ pub(super) mod defs {
         pub const DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD: Self = Self(1000213000);
         pub const SWAPCHAIN_DISPLAY_NATIVE_HDR_CREATE_INFO_AMD: Self = Self(1000213001);
 
+        // VK_AMD_gpa_interface
+        pub const PHYSICAL_DEVICE_GPA_FEATURES_AMD: Self = Self(1000133000);
+        pub const PHYSICAL_DEVICE_GPA_PROPERTIES_AMD: Self = Self(1000133001);
+        pub const GPA_SAMPLE_BEGIN_INFO_AMD: Self = Self(1000133002);
+        pub const GPA_SESSION_CREATE_INFO_AMD: Self = Self(1000133003);
+        pub const GPA_DEVICE_CLOCK_MODE_INFO_AMD: Self = Self(1000133004);
+        pub const PHYSICAL_DEVICE_GPA_PROPERTIES_2_AMD: Self = Self(1000133005);
+        pub const GPA_DEVICE_GET_CLOCK_INFO_AMD: Self = Self(1000133006);
+
         // VK_AMD_memory_overallocation_behavior
         pub const DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD: Self = Self(1000189000);
 
@@ -10492,6 +10505,13 @@ pub(super) mod defs {
 
         // VK_ARM_data_graph_instruction_set_tosa
         pub const QUEUE_FAMILY_DATA_GRAPH_TOSA_PROPERTIES_ARM: Self = Self(1000508000);
+
+        // VK_ARM_data_graph_neural_accelerator_statistics
+        pub const DATA_GRAPH_PIPELINE_NEURAL_STATISTICS_CREATE_INFO_ARM: Self = Self(1000676000);
+        pub const DATA_GRAPH_PIPELINE_SESSION_NEURAL_STATISTICS_CREATE_INFO_ARM: Self =
+            Self(1000676001);
+        pub const PHYSICAL_DEVICE_DATA_GRAPH_NEURAL_ACCELERATOR_STATISTICS_FEATURES_ARM: Self =
+            Self(1000676002);
 
         // VK_ARM_data_graph_optical_flow
         pub const PHYSICAL_DEVICE_DATA_GRAPH_OPTICAL_FLOW_FEATURES_ARM: Self = Self(1000631000);
@@ -11163,6 +11183,10 @@ pub(super) mod defs {
         pub const PHYSICAL_DEVICE_SHADER_REPLICATED_COMPOSITES_FEATURES_EXT: Self =
             Self(1000564000);
 
+        // VK_EXT_shader_split_barrier
+        pub const PHYSICAL_DEVICE_SHADER_SPLIT_BARRIER_FEATURES_EXT: Self = Self(1000305000);
+        pub const PHYSICAL_DEVICE_SHADER_SPLIT_BARRIER_PROPERTIES_EXT: Self = Self(1000305001);
+
         // VK_EXT_shader_subgroup_partitioned
         pub const PHYSICAL_DEVICE_SHADER_SUBGROUP_PARTITIONED_FEATURES_EXT: Self = Self(1000662000);
 
@@ -11668,6 +11692,11 @@ pub(super) mod defs {
         pub const RENDERING_END_INFO_KHR: Self = Self(1000619003);
         pub const RESOLVE_IMAGE_MODE_INFO_KHR: Self = Self(1000630004);
 
+        // VK_KHR_maintenance11
+        pub const PHYSICAL_DEVICE_MAINTENANCE_11_FEATURES_KHR: Self = Self(1000657000);
+        pub const QUEUE_FAMILY_OPTIMAL_IMAGE_TRANSFER_GRANULARITY_PROPERTIES_KHR: Self =
+            Self(1000657001);
+
         // VK_KHR_maintenance2
         pub const PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES_KHR: Self =
             Self::PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES;
@@ -11747,6 +11776,12 @@ pub(super) mod defs {
             Self::PHYSICAL_DEVICE_MULTIVIEW_FEATURES;
         pub const PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES_KHR: Self =
             Self::PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES;
+
+        // VK_KHR_opacity_micromap
+        pub const PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_KHR: Self = Self(1000623000);
+        pub const PHYSICAL_DEVICE_OPACITY_MICROMAP_PROPERTIES_KHR: Self = Self(1000623001);
+        pub const ACCELERATION_STRUCTURE_GEOMETRY_MICROMAP_DATA_KHR: Self = Self(1000623002);
+        pub const ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_KHR: Self = Self(1000623003);
 
         // VK_KHR_performance_query
         pub const PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR: Self = Self(1000116000);
@@ -12517,6 +12552,9 @@ pub(super) mod defs {
         pub const PHYSICAL_DEVICE_DATA_GRAPH_MODEL_FEATURES_QCOM: Self = Self(1000629000);
         pub const DATA_GRAPH_PIPELINE_BUILTIN_MODEL_CREATE_INFO_QCOM: Self = Self(1000629001);
 
+        // VK_QCOM_elapsed_timer_query
+        pub const PHYSICAL_DEVICE_ELAPSED_TIMER_QUERY_FEATURES_QCOM: Self = Self(1000173000);
+
         // VK_QCOM_filter_cubic_clamp
         pub const PHYSICAL_DEVICE_CUBIC_CLAMP_FEATURES_QCOM: Self = Self(1000521000);
 
@@ -12543,6 +12581,9 @@ pub(super) mod defs {
         pub const PHYSICAL_DEVICE_IMAGE_PROCESSING_2_PROPERTIES_QCOM: Self = Self(1000518001);
         pub const SAMPLER_BLOCK_MATCH_WINDOW_CREATE_INFO_QCOM: Self = Self(1000518002);
 
+        // VK_QCOM_image_processing3
+        pub const PHYSICAL_DEVICE_IMAGE_PROCESSING_3_FEATURES_QCOM: Self = Self(1000303000);
+
         // VK_QCOM_multiview_per_view_render_areas
         pub const PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_RENDER_AREAS_FEATURES_QCOM: Self =
             Self(1000510000);
@@ -12565,6 +12606,12 @@ pub(super) mod defs {
 
         // VK_QCOM_rotated_copy_commands
         pub const COPY_COMMAND_TRANSFORM_INFO_QCOM: Self = Self(1000333000);
+
+        // VK_QCOM_shader_multiple_wait_queues
+        pub const PHYSICAL_DEVICE_SHADER_MULTIPLE_WAIT_QUEUES_FEATURES_QCOM: Self =
+            Self(1000304000);
+        pub const PHYSICAL_DEVICE_SHADER_MULTIPLE_WAIT_QUEUES_PROPERTIES_QCOM: Self =
+            Self(1000304001);
 
         // VK_QCOM_tile_memory_heap
         pub const PHYSICAL_DEVICE_TILE_MEMORY_HEAP_FEATURES_QCOM: Self = Self(1000547000);
@@ -12607,6 +12654,10 @@ pub(super) mod defs {
         // VK_SEC_pipeline_cache_incremental_mode
         pub const PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC: Self =
             Self(1000637000);
+
+        // VK_SEC_throttle_hint
+        pub const PHYSICAL_DEVICE_THROTTLE_HINT_FEATURES_SEC: Self = Self(1000674000);
+        pub const THROTTLE_HINT_SUBMIT_INFO_SEC: Self = Self(1000674001);
 
         // VK_SEC_ubm_surface
         pub const UBM_SURFACE_CREATE_INFO_SEC: Self = Self(1000664000);
@@ -12989,6 +13040,17 @@ pub(super) mod defs {
                 Self::SWAPCHAIN_DISPLAY_NATIVE_HDR_CREATE_INFO_AMD => {
                     Some("SWAPCHAIN_DISPLAY_NATIVE_HDR_CREATE_INFO_AMD")
                 }
+                Self::PHYSICAL_DEVICE_GPA_FEATURES_AMD => Some("PHYSICAL_DEVICE_GPA_FEATURES_AMD"),
+                Self::PHYSICAL_DEVICE_GPA_PROPERTIES_AMD => {
+                    Some("PHYSICAL_DEVICE_GPA_PROPERTIES_AMD")
+                }
+                Self::GPA_SAMPLE_BEGIN_INFO_AMD => Some("GPA_SAMPLE_BEGIN_INFO_AMD"),
+                Self::GPA_SESSION_CREATE_INFO_AMD => Some("GPA_SESSION_CREATE_INFO_AMD"),
+                Self::GPA_DEVICE_CLOCK_MODE_INFO_AMD => Some("GPA_DEVICE_CLOCK_MODE_INFO_AMD"),
+                Self::PHYSICAL_DEVICE_GPA_PROPERTIES_2_AMD => {
+                    Some("PHYSICAL_DEVICE_GPA_PROPERTIES_2_AMD")
+                }
+                Self::GPA_DEVICE_GET_CLOCK_INFO_AMD => Some("GPA_DEVICE_GET_CLOCK_INFO_AMD"),
                 Self::DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD => {
                     Some("DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD")
                 }
@@ -13097,6 +13159,15 @@ pub(super) mod defs {
                 }
                 Self::QUEUE_FAMILY_DATA_GRAPH_TOSA_PROPERTIES_ARM => {
                     Some("QUEUE_FAMILY_DATA_GRAPH_TOSA_PROPERTIES_ARM")
+                }
+                Self::DATA_GRAPH_PIPELINE_NEURAL_STATISTICS_CREATE_INFO_ARM => {
+                    Some("DATA_GRAPH_PIPELINE_NEURAL_STATISTICS_CREATE_INFO_ARM")
+                }
+                Self::DATA_GRAPH_PIPELINE_SESSION_NEURAL_STATISTICS_CREATE_INFO_ARM => {
+                    Some("DATA_GRAPH_PIPELINE_SESSION_NEURAL_STATISTICS_CREATE_INFO_ARM")
+                }
+                Self::PHYSICAL_DEVICE_DATA_GRAPH_NEURAL_ACCELERATOR_STATISTICS_FEATURES_ARM => {
+                    Some("PHYSICAL_DEVICE_DATA_GRAPH_NEURAL_ACCELERATOR_STATISTICS_FEATURES_ARM")
                 }
                 Self::PHYSICAL_DEVICE_DATA_GRAPH_OPTICAL_FLOW_FEATURES_ARM => {
                     Some("PHYSICAL_DEVICE_DATA_GRAPH_OPTICAL_FLOW_FEATURES_ARM")
@@ -13861,6 +13932,12 @@ pub(super) mod defs {
                 Self::PHYSICAL_DEVICE_SHADER_REPLICATED_COMPOSITES_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_SHADER_REPLICATED_COMPOSITES_FEATURES_EXT")
                 }
+                Self::PHYSICAL_DEVICE_SHADER_SPLIT_BARRIER_FEATURES_EXT => {
+                    Some("PHYSICAL_DEVICE_SHADER_SPLIT_BARRIER_FEATURES_EXT")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_SPLIT_BARRIER_PROPERTIES_EXT => {
+                    Some("PHYSICAL_DEVICE_SHADER_SPLIT_BARRIER_PROPERTIES_EXT")
+                }
                 Self::PHYSICAL_DEVICE_SHADER_SUBGROUP_PARTITIONED_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_SHADER_SUBGROUP_PARTITIONED_FEATURES_EXT")
                 }
@@ -14223,6 +14300,12 @@ pub(super) mod defs {
                 }
                 Self::RENDERING_END_INFO_KHR => Some("RENDERING_END_INFO_KHR"),
                 Self::RESOLVE_IMAGE_MODE_INFO_KHR => Some("RESOLVE_IMAGE_MODE_INFO_KHR"),
+                Self::PHYSICAL_DEVICE_MAINTENANCE_11_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_MAINTENANCE_11_FEATURES_KHR")
+                }
+                Self::QUEUE_FAMILY_OPTIMAL_IMAGE_TRANSFER_GRANULARITY_PROPERTIES_KHR => {
+                    Some("QUEUE_FAMILY_OPTIMAL_IMAGE_TRANSFER_GRANULARITY_PROPERTIES_KHR")
+                }
                 Self::SET_DESCRIPTOR_BUFFER_OFFSETS_INFO_EXT => {
                     Some("SET_DESCRIPTOR_BUFFER_OFFSETS_INFO_EXT")
                 }
@@ -14258,6 +14341,18 @@ pub(super) mod defs {
                 }
                 Self::QUEUE_FAMILY_OWNERSHIP_TRANSFER_PROPERTIES_KHR => {
                     Some("QUEUE_FAMILY_OWNERSHIP_TRANSFER_PROPERTIES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_KHR")
+                }
+                Self::PHYSICAL_DEVICE_OPACITY_MICROMAP_PROPERTIES_KHR => {
+                    Some("PHYSICAL_DEVICE_OPACITY_MICROMAP_PROPERTIES_KHR")
+                }
+                Self::ACCELERATION_STRUCTURE_GEOMETRY_MICROMAP_DATA_KHR => {
+                    Some("ACCELERATION_STRUCTURE_GEOMETRY_MICROMAP_DATA_KHR")
+                }
+                Self::ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_KHR => {
+                    Some("ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_KHR")
                 }
                 Self::PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR => {
                     Some("PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR")
@@ -15211,6 +15306,9 @@ pub(super) mod defs {
                 Self::DATA_GRAPH_PIPELINE_BUILTIN_MODEL_CREATE_INFO_QCOM => {
                     Some("DATA_GRAPH_PIPELINE_BUILTIN_MODEL_CREATE_INFO_QCOM")
                 }
+                Self::PHYSICAL_DEVICE_ELAPSED_TIMER_QUERY_FEATURES_QCOM => {
+                    Some("PHYSICAL_DEVICE_ELAPSED_TIMER_QUERY_FEATURES_QCOM")
+                }
                 Self::PHYSICAL_DEVICE_CUBIC_CLAMP_FEATURES_QCOM => {
                     Some("PHYSICAL_DEVICE_CUBIC_CLAMP_FEATURES_QCOM")
                 }
@@ -15241,6 +15339,9 @@ pub(super) mod defs {
                 Self::SAMPLER_BLOCK_MATCH_WINDOW_CREATE_INFO_QCOM => {
                     Some("SAMPLER_BLOCK_MATCH_WINDOW_CREATE_INFO_QCOM")
                 }
+                Self::PHYSICAL_DEVICE_IMAGE_PROCESSING_3_FEATURES_QCOM => {
+                    Some("PHYSICAL_DEVICE_IMAGE_PROCESSING_3_FEATURES_QCOM")
+                }
                 Self::PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_RENDER_AREAS_FEATURES_QCOM => {
                     Some("PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_RENDER_AREAS_FEATURES_QCOM")
                 }
@@ -15264,6 +15365,12 @@ pub(super) mod defs {
                     Some("RENDER_PASS_TRANSFORM_BEGIN_INFO_QCOM")
                 }
                 Self::COPY_COMMAND_TRANSFORM_INFO_QCOM => Some("COPY_COMMAND_TRANSFORM_INFO_QCOM"),
+                Self::PHYSICAL_DEVICE_SHADER_MULTIPLE_WAIT_QUEUES_FEATURES_QCOM => {
+                    Some("PHYSICAL_DEVICE_SHADER_MULTIPLE_WAIT_QUEUES_FEATURES_QCOM")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_MULTIPLE_WAIT_QUEUES_PROPERTIES_QCOM => {
+                    Some("PHYSICAL_DEVICE_SHADER_MULTIPLE_WAIT_QUEUES_PROPERTIES_QCOM")
+                }
                 Self::PHYSICAL_DEVICE_TILE_MEMORY_HEAP_FEATURES_QCOM => {
                     Some("PHYSICAL_DEVICE_TILE_MEMORY_HEAP_FEATURES_QCOM")
                 }
@@ -15312,6 +15419,10 @@ pub(super) mod defs {
                 Self::PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC => {
                     Some("PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC")
                 }
+                Self::PHYSICAL_DEVICE_THROTTLE_HINT_FEATURES_SEC => {
+                    Some("PHYSICAL_DEVICE_THROTTLE_HINT_FEATURES_SEC")
+                }
+                Self::THROTTLE_HINT_SUBMIT_INFO_SEC => Some("THROTTLE_HINT_SUBMIT_INFO_SEC"),
                 Self::UBM_SURFACE_CREATE_INFO_SEC => Some("UBM_SURFACE_CREATE_INFO_SEC"),
                 Self::PHYSICAL_DEVICE_DESCRIPTOR_SET_HOST_MAPPING_FEATURES_VALVE => {
                     Some("PHYSICAL_DEVICE_DESCRIPTOR_SET_HOST_MAPPING_FEATURES_VALVE")
@@ -16360,6 +16471,9 @@ pub(super) mod defs {
         pub const FRAMEBUFFER: Self = Self(24);
         pub const COMMAND_POOL: Self = Self(25);
 
+        // VK_AMD_gpa_interface
+        pub const GPA_SESSION_AMD: Self = Self(1000133000);
+
         // VK_ARM_data_graph
         pub const DATA_GRAPH_PIPELINE_SESSION_ARM: Self = Self(1000507000);
 
@@ -16489,6 +16603,7 @@ pub(super) mod defs {
                 Self::DESCRIPTOR_SET => Some("DESCRIPTOR_SET"),
                 Self::FRAMEBUFFER => Some("FRAMEBUFFER"),
                 Self::COMMAND_POOL => Some("COMMAND_POOL"),
+                Self::GPA_SESSION_AMD => Some("GPA_SESSION_AMD"),
                 Self::DATA_GRAPH_PIPELINE_SESSION_ARM => Some("DATA_GRAPH_PIPELINE_SESSION_ARM"),
                 Self::SHADER_INSTRUMENTATION_ARM => Some("SHADER_INSTRUMENTATION_ARM"),
                 Self::TENSOR_ARM => Some("TENSOR_ARM"),
@@ -16789,10 +16904,16 @@ pub(super) mod defs {
 
     impl fmt::Debug for PipelineLayoutCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-            const KNOWN: &[(Flags, &str)] = &[(
-                PipelineLayoutCreateFlagBits::INDEPENDENT_SETS_EXT.0,
-                "INDEPENDENT_SETS_EXT",
-            )];
+            const KNOWN: &[(Flags, &str)] = &[
+                (
+                    PipelineLayoutCreateFlagBits::INDEPENDENT_SETS_EXT.0,
+                    "INDEPENDENT_SETS_EXT",
+                ),
+                (
+                    PipelineLayoutCreateFlagBits::NO_TASK_SHADER_KHR.0,
+                    "NO_TASK_SHADER_KHR",
+                ),
+            ];
             debug_flags(f, KNOWN, self.0)
         }
     }
@@ -16805,12 +16926,16 @@ pub(super) mod defs {
     impl PipelineLayoutCreateFlagBits {
         // VK_EXT_graphics_pipeline_library
         pub const INDEPENDENT_SETS_EXT: Self = Self(1 << 1);
+
+        // VK_KHR_maintenance11
+        pub const NO_TASK_SHADER_KHR: Self = Self(1 << 2);
     }
 
     impl fmt::Debug for PipelineLayoutCreateFlagBits {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
                 Self::INDEPENDENT_SETS_EXT => Some("INDEPENDENT_SETS_EXT"),
+                Self::NO_TASK_SHADER_KHR => Some("NO_TASK_SHADER_KHR"),
                 _ => None,
             };
             if let Some(name) = name {
@@ -18447,6 +18572,10 @@ pub(super) mod defs {
                     "SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_EXT",
                 ),
                 (
+                    ImageCreateFlagBits::ALIAS_SINGLE_LAYER_DESCRIPTOR_KHR.0,
+                    "ALIAS_SINGLE_LAYER_DESCRIPTOR_KHR",
+                ),
+                (
                     ImageCreateFlagBits::VIDEO_PROFILE_INDEPENDENT_KHR.0,
                     "VIDEO_PROFILE_INDEPENDENT_KHR",
                 ),
@@ -18523,6 +18652,9 @@ pub(super) mod defs {
         // VK_KHR_maintenance1
         pub const _2D_ARRAY_COMPATIBLE_KHR: Self = Self::_2D_ARRAY_COMPATIBLE;
 
+        // VK_KHR_maintenance11
+        pub const ALIAS_SINGLE_LAYER_DESCRIPTOR_KHR: Self = Self(1 << 22);
+
         // VK_KHR_maintenance2
         pub const BLOCK_TEXEL_VIEW_COMPATIBLE_KHR: Self = Self::BLOCK_TEXEL_VIEW_COMPATIBLE;
         pub const EXTENDED_USAGE_KHR: Self = Self::EXTENDED_USAGE;
@@ -18571,6 +18703,9 @@ pub(super) mod defs {
                 }
                 Self::SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_EXT => {
                     Some("SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_EXT")
+                }
+                Self::ALIAS_SINGLE_LAYER_DESCRIPTOR_KHR => {
+                    Some("ALIAS_SINGLE_LAYER_DESCRIPTOR_KHR")
                 }
                 Self::VIDEO_PROFILE_INDEPENDENT_KHR => Some("VIDEO_PROFILE_INDEPENDENT_KHR"),
                 Self::CORNER_SAMPLED_NV => Some("CORNER_SAMPLED_NV"),
@@ -18696,12 +18831,12 @@ pub(super) mod defs {
                     "RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT",
                 ),
                 (
-                    PipelineCreateFlagBits::RAY_TRACING_OPACITY_MICROMAP_EXT.0,
-                    "RAY_TRACING_OPACITY_MICROMAP_EXT",
-                ),
-                (
                     PipelineCreateFlagBits::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0,
                     "RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR",
+                ),
+                (
+                    PipelineCreateFlagBits::RAY_TRACING_OPACITY_MICROMAP_KHR.0,
+                    "RAY_TRACING_OPACITY_MICROMAP_KHR",
                 ),
                 (
                     PipelineCreateFlagBits::CAPTURE_STATISTICS_KHR.0,
@@ -18809,7 +18944,7 @@ pub(super) mod defs {
         pub const RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT: Self = Self(1 << 23);
 
         // VK_EXT_opacity_micromap
-        pub const RAY_TRACING_OPACITY_MICROMAP_EXT: Self = Self(1 << 24);
+        pub const RAY_TRACING_OPACITY_MICROMAP_EXT: Self = Self::RAY_TRACING_OPACITY_MICROMAP_KHR;
 
         // VK_EXT_pipeline_creation_cache_control
         pub const FAIL_ON_PIPELINE_COMPILE_REQUIRED_EXT: Self =
@@ -18828,6 +18963,9 @@ pub(super) mod defs {
         pub const RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self = Self(1 << 21);
         pub const PIPELINE_RASTERIZATION_STATE_CREATE_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self =
             Self::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR;
+
+        // VK_KHR_opacity_micromap
+        pub const RAY_TRACING_OPACITY_MICROMAP_KHR: Self = Self(1 << 24);
 
         // VK_KHR_pipeline_executable_properties
         pub const CAPTURE_STATISTICS_KHR: Self = Self(1 << 6);
@@ -18891,10 +19029,10 @@ pub(super) mod defs {
                 Self::RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT => {
                     Some("RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT")
                 }
-                Self::RAY_TRACING_OPACITY_MICROMAP_EXT => Some("RAY_TRACING_OPACITY_MICROMAP_EXT"),
                 Self::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR => {
                     Some("RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR")
                 }
+                Self::RAY_TRACING_OPACITY_MICROMAP_KHR => Some("RAY_TRACING_OPACITY_MICROMAP_KHR"),
                 Self::CAPTURE_STATISTICS_KHR => Some("CAPTURE_STATISTICS_KHR"),
                 Self::CAPTURE_INTERNAL_REPRESENTATIONS_KHR => {
                     Some("CAPTURE_INTERNAL_REPRESENTATIONS_KHR")

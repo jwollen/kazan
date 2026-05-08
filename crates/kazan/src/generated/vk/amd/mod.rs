@@ -4,6 +4,7 @@ pub mod device_coherent_memory;
 pub mod display_native_hdr;
 pub mod draw_indirect_count;
 pub mod gcn_shader;
+pub mod gpa_interface;
 pub mod gpu_shader_half_float;
 pub mod gpu_shader_int16;
 pub mod memory_overallocation_behavior;
@@ -28,6 +29,7 @@ pub(super) mod defs {
     pub use device_coherent_memory::defs::*;
     pub use display_native_hdr::defs::*;
     pub use draw_indirect_count::defs::*;
+    pub use gpa_interface::defs::*;
     pub use memory_overallocation_behavior::defs::*;
     pub use mixed_attachment_samples::defs::*;
     pub use pipeline_compiler_control::defs::*;
@@ -43,6 +45,7 @@ pub(super) mod ffi {
     pub use super::anti_lag::ffi::*;
     pub use super::device_coherent_memory::ffi::*;
     pub use super::display_native_hdr::ffi::*;
+    pub use super::gpa_interface::ffi::*;
     pub use super::memory_overallocation_behavior::ffi::*;
     pub use super::mixed_attachment_samples::ffi::*;
     pub use super::pipeline_compiler_control::ffi::*;

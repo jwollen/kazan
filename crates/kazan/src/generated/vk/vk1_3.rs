@@ -5707,6 +5707,7 @@ _marker: PhantomData
                 (FormatFeatureFlagBits2::WEIGHT_SAMPLED_IMAGE_QCOM.0, "WEIGHT_SAMPLED_IMAGE_QCOM"),
                 (FormatFeatureFlagBits2::BLOCK_MATCHING_QCOM.0, "BLOCK_MATCHING_QCOM"),
                 (FormatFeatureFlagBits2::BOX_FILTER_SAMPLED_QCOM.0, "BOX_FILTER_SAMPLED_QCOM"),
+                (FormatFeatureFlagBits2::BLOCK_MATCHING_SXD_QCOM.0, "BLOCK_MATCHING_SXD_QCOM"),
                 (FormatFeatureFlagBits2::SAMPLED_IMAGE_FILTER_CUBIC.0, "SAMPLED_IMAGE_FILTER_CUBIC"),
                 (FormatFeatureFlagBits2::HOST_IMAGE_TRANSFER.0, "HOST_IMAGE_TRANSFER"),
             ];
@@ -5845,6 +5846,9 @@ _marker: PhantomData
         pub const BLOCK_MATCHING_QCOM: Self = Self(1 << 36);
         pub const BOX_FILTER_SAMPLED_QCOM: Self = Self(1 << 37);
 
+        // VK_QCOM_image_processing3
+        pub const BLOCK_MATCHING_SXD_QCOM: Self = Self(1 << 44);
+
         // VK_VERSION_1_3
         /// This is an interaction with EXT_filter_cubic, though not tagged that way
         pub const SAMPLED_IMAGE_FILTER_CUBIC: Self = Self(1 << 13);
@@ -5935,6 +5939,7 @@ _marker: PhantomData
                 Self::WEIGHT_SAMPLED_IMAGE_QCOM => Some("WEIGHT_SAMPLED_IMAGE_QCOM"),
                 Self::BLOCK_MATCHING_QCOM => Some("BLOCK_MATCHING_QCOM"),
                 Self::BOX_FILTER_SAMPLED_QCOM => Some("BOX_FILTER_SAMPLED_QCOM"),
+                Self::BLOCK_MATCHING_SXD_QCOM => Some("BLOCK_MATCHING_SXD_QCOM"),
                 Self::SAMPLED_IMAGE_FILTER_CUBIC => Some("SAMPLED_IMAGE_FILTER_CUBIC"),
                 Self::HOST_IMAGE_TRANSFER => Some("HOST_IMAGE_TRANSFER"),
                 _ => None,
