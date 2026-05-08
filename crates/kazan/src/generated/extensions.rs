@@ -376,6 +376,7 @@ define_extension_set!(
             khr::storage_buffer_storage_class::EXTENSION_NAME
         ),
         (amd_gpu_shader_int16, amd::gpu_shader_int16::EXTENSION_NAME),
+        (amd_gpa_interface, amd::gpa_interface::EXTENSION_NAME),
         #[cfg(feature = "provisional")]
         (amdx_shader_enqueue, amdx::shader_enqueue::EXTENSION_NAME),
         (ext_descriptor_heap, ext::descriptor_heap::EXTENSION_NAME),
@@ -484,6 +485,10 @@ define_extension_set!(
         (
             qcom_cooperative_matrix_conversion,
             qcom::cooperative_matrix_conversion::EXTENSION_NAME
+        ),
+        (
+            qcom_elapsed_timer_query,
+            qcom::elapsed_timer_query::EXTENSION_NAME
         ),
         (ext_global_priority, ext::global_priority::EXTENSION_NAME),
         (
@@ -797,6 +802,18 @@ define_extension_set!(
             qcom::render_pass_store_ops::EXTENSION_NAME
         ),
         (qcom_queue_perf_hint, qcom::queue_perf_hint::EXTENSION_NAME),
+        (
+            qcom_image_processing3,
+            qcom::image_processing3::EXTENSION_NAME
+        ),
+        (
+            qcom_shader_multiple_wait_queues,
+            qcom::shader_multiple_wait_queues::EXTENSION_NAME
+        ),
+        (
+            ext_shader_split_barrier,
+            ext::shader_split_barrier::EXTENSION_NAME
+        ),
         #[cfg(feature = "provisional")]
         (
             nv_cuda_kernel_launch,
@@ -1390,6 +1407,7 @@ define_extension_set!(
             khr_present_mode_fifo_latest_ready,
             khr::present_mode_fifo_latest_ready::EXTENSION_NAME
         ),
+        (khr_opacity_micromap, khr::opacity_micromap::EXTENSION_NAME),
         (
             ext_shader_64bit_indexing,
             ext::shader_64bit_indexing::EXTENSION_NAME
@@ -1420,6 +1438,7 @@ define_extension_set!(
             nv_compute_occupancy_priority,
             nv::compute_occupancy_priority::EXTENSION_NAME
         ),
+        (khr_maintenance11, khr::maintenance11::EXTENSION_NAME),
         (
             ext_shader_subgroup_partitioned,
             ext::shader_subgroup_partitioned::EXTENSION_NAME
@@ -1427,6 +1446,11 @@ define_extension_set!(
         (
             valve_shader_mixed_float_dot_product,
             valve::shader_mixed_float_dot_product::EXTENSION_NAME
+        ),
+        (sec_throttle_hint, sec::throttle_hint::EXTENSION_NAME),
+        (
+            arm_data_graph_neural_accelerator_statistics,
+            arm::data_graph_neural_accelerator_statistics::EXTENSION_NAME
         ),
         (
             ext_primitive_restart_index,

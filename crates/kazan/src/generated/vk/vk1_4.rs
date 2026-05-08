@@ -4185,10 +4185,6 @@ pub(super) mod defs {
                     "RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT",
                 ),
                 (
-                    PipelineCreateFlagBits2::RAY_TRACING_OPACITY_MICROMAP_EXT.0,
-                    "RAY_TRACING_OPACITY_MICROMAP_EXT",
-                ),
-                (
                     PipelineCreateFlagBits2::COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT.0,
                     "COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT",
                 ),
@@ -4203,6 +4199,14 @@ pub(super) mod defs {
                 (
                     PipelineCreateFlagBits2::DESCRIPTOR_BUFFER_EXT.0,
                     "DESCRIPTOR_BUFFER_EXT",
+                ),
+                (
+                    PipelineCreateFlagBits2::RAY_TRACING_OPACITY_MICROMAP_KHR.0,
+                    "RAY_TRACING_OPACITY_MICROMAP_KHR",
+                ),
+                (
+                    PipelineCreateFlagBits2::OPACITY_MICROMAP_DISALLOW_MIXED_SPECIAL_INDEX_KHR.0,
+                    "OPACITY_MICROMAP_DISALLOW_MIXED_SPECIAL_INDEX_KHR",
                 ),
                 (
                     PipelineCreateFlagBits2::CAPTURE_DATA_KHR.0,
@@ -4256,6 +4260,9 @@ pub(super) mod defs {
         // VK_EXT_legacy_dithering
         pub const ENABLE_LEGACY_DITHERING_EXT: Self = Self(1 << 34);
 
+        // VK_EXT_opacity_micromap
+        pub const RAY_TRACING_OPACITY_MICROMAP_EXT: Self = Self::RAY_TRACING_OPACITY_MICROMAP_KHR;
+
         // VK_EXT_shader_64bit_indexing
         pub const _64_INDEXING_EXT: Self = Self(1 << 43);
 
@@ -4277,7 +4284,6 @@ pub(super) mod defs {
         pub const RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR: Self = Self(1 << 21);
         pub const RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT: Self = Self(1 << 22);
         pub const RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT: Self = Self(1 << 23);
-        pub const RAY_TRACING_OPACITY_MICROMAP_EXT: Self = Self(1 << 24);
         pub const COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT: Self = Self(1 << 25);
         pub const DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT: Self = Self(1 << 26);
         pub const RAY_TRACING_DISPLACEMENT_MICROMAP_NV: Self = Self(1 << 28);
@@ -4292,6 +4298,10 @@ pub(super) mod defs {
         pub const EARLY_RETURN_ON_FAILURE_KHR: Self = Self::EARLY_RETURN_ON_FAILURE;
         pub const NO_PROTECTED_ACCESS_EXT: Self = Self::NO_PROTECTED_ACCESS;
         pub const PROTECTED_ACCESS_ONLY_EXT: Self = Self::PROTECTED_ACCESS_ONLY;
+
+        // VK_KHR_opacity_micromap
+        pub const RAY_TRACING_OPACITY_MICROMAP_KHR: Self = Self(1 << 24);
+        pub const OPACITY_MICROMAP_DISALLOW_MIXED_SPECIAL_INDEX_KHR: Self = Self(1 << 41);
 
         // VK_KHR_pipeline_binary
         pub const CAPTURE_DATA_KHR: Self = Self(1 << 31);
@@ -4364,7 +4374,6 @@ pub(super) mod defs {
                 Self::RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT => {
                     Some("RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT")
                 }
-                Self::RAY_TRACING_OPACITY_MICROMAP_EXT => Some("RAY_TRACING_OPACITY_MICROMAP_EXT"),
                 Self::COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT => {
                     Some("COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT")
                 }
@@ -4375,6 +4384,10 @@ pub(super) mod defs {
                     Some("RAY_TRACING_DISPLACEMENT_MICROMAP_NV")
                 }
                 Self::DESCRIPTOR_BUFFER_EXT => Some("DESCRIPTOR_BUFFER_EXT"),
+                Self::RAY_TRACING_OPACITY_MICROMAP_KHR => Some("RAY_TRACING_OPACITY_MICROMAP_KHR"),
+                Self::OPACITY_MICROMAP_DISALLOW_MIXED_SPECIAL_INDEX_KHR => {
+                    Some("OPACITY_MICROMAP_DISALLOW_MIXED_SPECIAL_INDEX_KHR")
+                }
                 Self::CAPTURE_DATA_KHR => Some("CAPTURE_DATA_KHR"),
                 Self::RAY_TRACING_ALLOW_SPHERES_AND_LINEAR_SWEPT_SPHERES_NV => {
                     Some("RAY_TRACING_ALLOW_SPHERES_AND_LINEAR_SWEPT_SPHERES_NV")
@@ -4441,6 +4454,14 @@ pub(super) mod defs {
                     "MEMORY_DECOMPRESSION_EXT",
                 ),
                 (
+                    BufferUsageFlagBits2::MICROMAP_BUILD_INPUT_READ_ONLY_EXT.0,
+                    "MICROMAP_BUILD_INPUT_READ_ONLY_EXT",
+                ),
+                (
+                    BufferUsageFlagBits2::MICROMAP_STORAGE_EXT.0,
+                    "MICROMAP_STORAGE_EXT",
+                ),
+                (
                     BufferUsageFlagBits2::CONDITIONAL_RENDERING_EXT.0,
                     "CONDITIONAL_RENDERING_EXT",
                 ),
@@ -4487,14 +4508,6 @@ pub(super) mod defs {
                 (
                     BufferUsageFlagBits2::RESOURCE_DESCRIPTOR_BUFFER_EXT.0,
                     "RESOURCE_DESCRIPTOR_BUFFER_EXT",
-                ),
-                (
-                    BufferUsageFlagBits2::MICROMAP_BUILD_INPUT_READ_ONLY_EXT.0,
-                    "MICROMAP_BUILD_INPUT_READ_ONLY_EXT",
-                ),
-                (
-                    BufferUsageFlagBits2::MICROMAP_STORAGE_EXT.0,
-                    "MICROMAP_STORAGE_EXT",
                 ),
                 (
                     BufferUsageFlagBits2::PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT.0,
@@ -4545,6 +4558,10 @@ pub(super) mod defs {
         // VK_EXT_memory_decompression
         pub const MEMORY_DECOMPRESSION_EXT: Self = Self(1 << 32);
 
+        // VK_EXT_opacity_micromap
+        pub const MICROMAP_BUILD_INPUT_READ_ONLY_EXT: Self = Self(1 << 23);
+        pub const MICROMAP_STORAGE_EXT: Self = Self(1 << 24);
+
         // VK_KHR_maintenance5
         pub const CONDITIONAL_RENDERING_EXT: Self = Self(1 << 9);
         pub const SHADER_BINDING_TABLE_KHR: Self = Self(1 << 10);
@@ -4558,8 +4575,6 @@ pub(super) mod defs {
         pub const ACCELERATION_STRUCTURE_STORAGE_KHR: Self = Self(1 << 20);
         pub const SAMPLER_DESCRIPTOR_BUFFER_EXT: Self = Self(1 << 21);
         pub const RESOURCE_DESCRIPTOR_BUFFER_EXT: Self = Self(1 << 22);
-        pub const MICROMAP_BUILD_INPUT_READ_ONLY_EXT: Self = Self(1 << 23);
-        pub const MICROMAP_STORAGE_EXT: Self = Self(1 << 24);
         pub const PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT: Self = Self(1 << 26);
         pub const TRANSFER_SRC_KHR: Self = Self::TRANSFER_SRC;
         pub const TRANSFER_DST_KHR: Self = Self::TRANSFER_DST;
@@ -4602,6 +4617,10 @@ pub(super) mod defs {
                 Self::DESCRIPTOR_HEAP_EXT => Some("DESCRIPTOR_HEAP_EXT"),
                 Self::PREPROCESS_BUFFER_EXT => Some("PREPROCESS_BUFFER_EXT"),
                 Self::MEMORY_DECOMPRESSION_EXT => Some("MEMORY_DECOMPRESSION_EXT"),
+                Self::MICROMAP_BUILD_INPUT_READ_ONLY_EXT => {
+                    Some("MICROMAP_BUILD_INPUT_READ_ONLY_EXT")
+                }
+                Self::MICROMAP_STORAGE_EXT => Some("MICROMAP_STORAGE_EXT"),
                 Self::CONDITIONAL_RENDERING_EXT => Some("CONDITIONAL_RENDERING_EXT"),
                 Self::SHADER_BINDING_TABLE_KHR => Some("SHADER_BINDING_TABLE_KHR"),
                 Self::TRANSFORM_FEEDBACK_BUFFER_EXT => Some("TRANSFORM_FEEDBACK_BUFFER_EXT"),
@@ -4620,10 +4639,6 @@ pub(super) mod defs {
                 }
                 Self::SAMPLER_DESCRIPTOR_BUFFER_EXT => Some("SAMPLER_DESCRIPTOR_BUFFER_EXT"),
                 Self::RESOURCE_DESCRIPTOR_BUFFER_EXT => Some("RESOURCE_DESCRIPTOR_BUFFER_EXT"),
-                Self::MICROMAP_BUILD_INPUT_READ_ONLY_EXT => {
-                    Some("MICROMAP_BUILD_INPUT_READ_ONLY_EXT")
-                }
-                Self::MICROMAP_STORAGE_EXT => Some("MICROMAP_STORAGE_EXT"),
                 Self::PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT => {
                     Some("PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_EXT")
                 }

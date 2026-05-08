@@ -1512,6 +1512,9 @@ pub(super) mod defs {
         pub const BOTTOM_LEVEL_KHR: Self = Self(1);
         pub const GENERIC_KHR: Self = Self(2);
 
+        // VK_KHR_opacity_micromap
+        pub const OPACITY_MICROMAP_KHR: Self = Self(1000623000);
+
         // VK_NV_ray_tracing
         pub const TOP_LEVEL_NV: Self = Self::TOP_LEVEL_KHR;
         pub const BOTTOM_LEVEL_NV: Self = Self::BOTTOM_LEVEL_KHR;
@@ -1523,6 +1526,7 @@ pub(super) mod defs {
                 Self::TOP_LEVEL_KHR => Some("TOP_LEVEL_KHR"),
                 Self::BOTTOM_LEVEL_KHR => Some("BOTTOM_LEVEL_KHR"),
                 Self::GENERIC_KHR => Some("GENERIC_KHR"),
+                Self::OPACITY_MICROMAP_KHR => Some("OPACITY_MICROMAP_KHR"),
                 _ => None,
             };
             if let Some(name) = name {
@@ -1547,6 +1551,9 @@ pub(super) mod defs {
         #[cfg(feature = "provisional")]
         pub const DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX: Self = Self(1000478000);
 
+        // VK_KHR_opacity_micromap
+        pub const MICROMAP_KHR: Self = Self(1000623000);
+
         // VK_NV_ray_tracing
         pub const TRIANGLES_NV: Self = Self::TRIANGLES_KHR;
         pub const AABBS_NV: Self = Self::AABBS_KHR;
@@ -1566,6 +1573,7 @@ pub(super) mod defs {
                 Self::DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX => {
                     Some("DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX")
                 }
+                Self::MICROMAP_KHR => Some("MICROMAP_KHR"),
                 Self::SPHERES_NV => Some("SPHERES_NV"),
                 Self::LINEAR_SWEPT_SPHERES_NV => Some("LINEAR_SWEPT_SPHERES_NV"),
                 _ => None,
@@ -1706,12 +1714,12 @@ pub(super) mod defs {
                     "FORCE_NO_OPAQUE_KHR",
                 ),
                 (
-                    GeometryInstanceFlagBitsKHR::FORCE_OPACITY_MICROMAP_2_STATE_EXT.0,
-                    "FORCE_OPACITY_MICROMAP_2_STATE_EXT",
+                    GeometryInstanceFlagBitsKHR::FORCE_OPACITY_MICROMAP_2_STATE_KHR.0,
+                    "FORCE_OPACITY_MICROMAP_2_STATE_KHR",
                 ),
                 (
-                    GeometryInstanceFlagBitsKHR::DISABLE_OPACITY_MICROMAPS_EXT.0,
-                    "DISABLE_OPACITY_MICROMAPS_EXT",
+                    GeometryInstanceFlagBitsKHR::DISABLE_OPACITY_MICROMAPS_KHR.0,
+                    "DISABLE_OPACITY_MICROMAPS_KHR",
                 ),
             ];
             debug_flags(f, KNOWN, self.0)
@@ -1730,8 +1738,13 @@ pub(super) mod defs {
         pub const FORCE_NO_OPAQUE_KHR: Self = Self(1 << 3);
         pub const TRIANGLE_FRONT_COUNTERCLOCKWISE_KHR: Self = Self::TRIANGLE_FLIP_FACING_KHR;
         // VK_EXT_opacity_micromap
-        pub const FORCE_OPACITY_MICROMAP_2_STATE_EXT: Self = Self(1 << 4);
-        pub const DISABLE_OPACITY_MICROMAPS_EXT: Self = Self(1 << 5);
+        pub const FORCE_OPACITY_MICROMAP_2_STATE_EXT: Self =
+            Self::FORCE_OPACITY_MICROMAP_2_STATE_KHR;
+        pub const DISABLE_OPACITY_MICROMAPS_EXT: Self = Self::DISABLE_OPACITY_MICROMAPS_KHR;
+
+        // VK_KHR_opacity_micromap
+        pub const FORCE_OPACITY_MICROMAP_2_STATE_KHR: Self = Self(1 << 4);
+        pub const DISABLE_OPACITY_MICROMAPS_KHR: Self = Self(1 << 5);
 
         // VK_NV_ray_tracing
         pub const TRIANGLE_CULL_DISABLE_NV: Self = Self::TRIANGLE_FACING_CULL_DISABLE_KHR;
@@ -1746,10 +1759,10 @@ pub(super) mod defs {
                 Self::TRIANGLE_FLIP_FACING_KHR => Some("TRIANGLE_FLIP_FACING_KHR"),
                 Self::FORCE_OPAQUE_KHR => Some("FORCE_OPAQUE_KHR"),
                 Self::FORCE_NO_OPAQUE_KHR => Some("FORCE_NO_OPAQUE_KHR"),
-                Self::FORCE_OPACITY_MICROMAP_2_STATE_EXT => {
-                    Some("FORCE_OPACITY_MICROMAP_2_STATE_EXT")
+                Self::FORCE_OPACITY_MICROMAP_2_STATE_KHR => {
+                    Some("FORCE_OPACITY_MICROMAP_2_STATE_KHR")
                 }
-                Self::DISABLE_OPACITY_MICROMAPS_EXT => Some("DISABLE_OPACITY_MICROMAPS_EXT"),
+                Self::DISABLE_OPACITY_MICROMAPS_KHR => Some("DISABLE_OPACITY_MICROMAPS_KHR"),
                 _ => None,
             };
             if let Some(name) = name {
@@ -1794,16 +1807,20 @@ pub(super) mod defs {
                     "LOW_MEMORY_KHR",
                 ),
                 (
-                    BuildAccelerationStructureFlagBitsKHR::ALLOW_OPACITY_MICROMAP_UPDATE_EXT.0,
-                    "ALLOW_OPACITY_MICROMAP_UPDATE_EXT",
-                ),
-                (
-                    BuildAccelerationStructureFlagBitsKHR::ALLOW_DISABLE_OPACITY_MICROMAPS_EXT.0,
-                    "ALLOW_DISABLE_OPACITY_MICROMAPS_EXT",
-                ),
-                (
                     BuildAccelerationStructureFlagBitsKHR::ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT.0,
                     "ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT",
+                ),
+                (
+                    BuildAccelerationStructureFlagBitsKHR::ALLOW_OPACITY_MICROMAP_UPDATE_KHR.0,
+                    "ALLOW_OPACITY_MICROMAP_UPDATE_KHR",
+                ),
+                (
+                    BuildAccelerationStructureFlagBitsKHR::ALLOW_DISABLE_OPACITY_MICROMAPS_KHR.0,
+                    "ALLOW_DISABLE_OPACITY_MICROMAPS_KHR",
+                ),
+                (
+                    BuildAccelerationStructureFlagBitsKHR::MICROMAP_LOSSY_KHR.0,
+                    "MICROMAP_LOSSY_KHR",
                 ),
                 (
                     BuildAccelerationStructureFlagBitsKHR::ALLOW_DATA_ACCESS_KHR.0,
@@ -1839,9 +1856,15 @@ pub(super) mod defs {
         pub const PREFER_FAST_BUILD_KHR: Self = Self(1 << 3);
         pub const LOW_MEMORY_KHR: Self = Self(1 << 4);
         // VK_EXT_opacity_micromap
-        pub const ALLOW_OPACITY_MICROMAP_UPDATE_EXT: Self = Self(1 << 6);
-        pub const ALLOW_DISABLE_OPACITY_MICROMAPS_EXT: Self = Self(1 << 7);
         pub const ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT: Self = Self(1 << 8);
+        pub const ALLOW_OPACITY_MICROMAP_UPDATE_EXT: Self = Self::ALLOW_OPACITY_MICROMAP_UPDATE_KHR;
+        pub const ALLOW_DISABLE_OPACITY_MICROMAPS_EXT: Self =
+            Self::ALLOW_DISABLE_OPACITY_MICROMAPS_KHR;
+
+        // VK_KHR_opacity_micromap
+        pub const ALLOW_OPACITY_MICROMAP_UPDATE_KHR: Self = Self(1 << 6);
+        pub const ALLOW_DISABLE_OPACITY_MICROMAPS_KHR: Self = Self(1 << 7);
+        pub const MICROMAP_LOSSY_KHR: Self = Self(1 << 10);
 
         // VK_KHR_ray_tracing_position_fetch
         pub const ALLOW_DATA_ACCESS_KHR: Self = Self(1 << 11);
@@ -1872,15 +1895,16 @@ pub(super) mod defs {
                 Self::PREFER_FAST_TRACE_KHR => Some("PREFER_FAST_TRACE_KHR"),
                 Self::PREFER_FAST_BUILD_KHR => Some("PREFER_FAST_BUILD_KHR"),
                 Self::LOW_MEMORY_KHR => Some("LOW_MEMORY_KHR"),
-                Self::ALLOW_OPACITY_MICROMAP_UPDATE_EXT => {
-                    Some("ALLOW_OPACITY_MICROMAP_UPDATE_EXT")
-                }
-                Self::ALLOW_DISABLE_OPACITY_MICROMAPS_EXT => {
-                    Some("ALLOW_DISABLE_OPACITY_MICROMAPS_EXT")
-                }
                 Self::ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT => {
                     Some("ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT")
                 }
+                Self::ALLOW_OPACITY_MICROMAP_UPDATE_KHR => {
+                    Some("ALLOW_OPACITY_MICROMAP_UPDATE_KHR")
+                }
+                Self::ALLOW_DISABLE_OPACITY_MICROMAPS_KHR => {
+                    Some("ALLOW_DISABLE_OPACITY_MICROMAPS_KHR")
+                }
+                Self::MICROMAP_LOSSY_KHR => Some("MICROMAP_LOSSY_KHR"),
                 Self::ALLOW_DATA_ACCESS_KHR => Some("ALLOW_DATA_ACCESS_KHR"),
                 Self::ALLOW_CLUSTER_OPACITY_MICROMAPS_NV => {
                     Some("ALLOW_CLUSTER_OPACITY_MICROMAPS_NV")

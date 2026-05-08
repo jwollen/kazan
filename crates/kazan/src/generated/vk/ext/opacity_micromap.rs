@@ -21,6 +21,13 @@ pub(super) mod defs {
         doc = "<https://registry.khronos.org/vulkan/specs/latest/man/html/VkMicromapEXT.html>"
     );
 
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpacityMicromapFormatEXT.html>
+    pub type OpacityMicromapFormatEXT = OpacityMicromapFormatKHR;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpacityMicromapSpecialIndexEXT.html>
+    pub type OpacityMicromapSpecialIndexEXT = OpacityMicromapSpecialIndexKHR;
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMicromapTriangleEXT.html>
+    pub type MicromapTriangleEXT = MicromapTriangleKHR;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMicromapBuildInfoEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -570,37 +577,6 @@ pub(super) mod defs {
         }
     }
 
-    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkMicromapTriangleEXT.html>
-    #[repr(C)]
-    #[cfg_attr(feature = "debug", derive(Debug))]
-    #[derive(Copy, Clone, Default)]
-    #[must_use]
-    pub struct MicromapTriangleEXT {
-        pub data_offset: u32,
-        pub subdivision_level: u16,
-        pub format: u16,
-    }
-
-    impl MicromapTriangleEXT {
-        #[inline]
-        pub fn data_offset(mut self, data_offset: u32) -> Self {
-            self.data_offset = data_offset;
-            self
-        }
-
-        #[inline]
-        pub fn subdivision_level(mut self, subdivision_level: u16) -> Self {
-            self.subdivision_level = subdivision_level;
-            self
-        }
-
-        #[inline]
-        pub fn format(mut self, format: u16) -> Self {
-            self.format = format;
-            self
-        }
-    }
-
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceOpacityMicromapFeaturesEXT.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -942,66 +918,6 @@ pub(super) mod defs {
         }
     }
 
-    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpacityMicromapFormatEXT.html>
-    #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub struct OpacityMicromapFormatEXT(i32);
-
-    impl OpacityMicromapFormatEXT {
-        pub const _2_STATE_EXT: Self = Self(1);
-        pub const _4_STATE_EXT: Self = Self(2);
-    }
-
-    impl fmt::Debug for OpacityMicromapFormatEXT {
-        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-            let name = match *self {
-                Self::_2_STATE_EXT => Some("_2_STATE_EXT"),
-                Self::_4_STATE_EXT => Some("_4_STATE_EXT"),
-                _ => None,
-            };
-            if let Some(name) = name {
-                f.write_str(name)
-            } else {
-                self.0.fmt(f)
-            }
-        }
-    }
-
-    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpacityMicromapSpecialIndexEXT.html>
-    #[repr(transparent)]
-    #[derive(Copy, Clone, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub struct OpacityMicromapSpecialIndexEXT(i32);
-
-    impl OpacityMicromapSpecialIndexEXT {
-        pub const FULLY_TRANSPARENT_EXT: Self = Self(-1);
-        pub const FULLY_OPAQUE_EXT: Self = Self(-2);
-        pub const FULLY_UNKNOWN_TRANSPARENT_EXT: Self = Self(-3);
-        pub const FULLY_UNKNOWN_OPAQUE_EXT: Self = Self(-4);
-
-        // VK_NV_cluster_acceleration_structure
-        pub const CLUSTER_GEOMETRY_DISABLE_OPACITY_MICROMAP_NV: Self = Self(-5);
-    }
-
-    impl fmt::Debug for OpacityMicromapSpecialIndexEXT {
-        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-            let name = match *self {
-                Self::FULLY_TRANSPARENT_EXT => Some("FULLY_TRANSPARENT_EXT"),
-                Self::FULLY_OPAQUE_EXT => Some("FULLY_OPAQUE_EXT"),
-                Self::FULLY_UNKNOWN_TRANSPARENT_EXT => Some("FULLY_UNKNOWN_TRANSPARENT_EXT"),
-                Self::FULLY_UNKNOWN_OPAQUE_EXT => Some("FULLY_UNKNOWN_OPAQUE_EXT"),
-                Self::CLUSTER_GEOMETRY_DISABLE_OPACITY_MICROMAP_NV => {
-                    Some("CLUSTER_GEOMETRY_DISABLE_OPACITY_MICROMAP_NV")
-                }
-                _ => None,
-            };
-            if let Some(name) = name {
-                f.write_str(name)
-            } else {
-                self.0.fmt(f)
-            }
-        }
-    }
-
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkBuildMicromapFlagsEXT.html>
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
@@ -1203,7 +1119,6 @@ pub(super) mod ffi {
     pub type VkCopyMemoryToMicromapInfoEXT = CopyMemoryToMicromapInfoEXT<'static>;
     pub type VkMicromapBuildSizesInfoEXT = MicromapBuildSizesInfoEXT<'static>;
     pub type VkMicromapUsageEXT = MicromapUsageEXT;
-    pub type VkMicromapTriangleEXT = MicromapTriangleEXT;
     pub type VkPhysicalDeviceOpacityMicromapFeaturesEXT =
         PhysicalDeviceOpacityMicromapFeaturesEXT<'static>;
     pub type VkPhysicalDeviceOpacityMicromapPropertiesEXT =
@@ -1213,12 +1128,13 @@ pub(super) mod ffi {
     pub type VkMicromapTypeEXT = MicromapTypeEXT;
     pub type VkCopyMicromapModeEXT = CopyMicromapModeEXT;
     pub type VkBuildMicromapModeEXT = BuildMicromapModeEXT;
-    pub type VkOpacityMicromapFormatEXT = OpacityMicromapFormatEXT;
-    pub type VkOpacityMicromapSpecialIndexEXT = OpacityMicromapSpecialIndexEXT;
     pub type VkBuildMicromapFlagsEXT = BuildMicromapFlagsEXT;
     pub type VkBuildMicromapFlagBitsEXT = BuildMicromapFlagBitsEXT;
     pub type VkMicromapCreateFlagsEXT = MicromapCreateFlagsEXT;
     pub type VkMicromapCreateFlagBitsEXT = MicromapCreateFlagBitsEXT;
+    pub type VkOpacityMicromapFormatEXT = OpacityMicromapFormatEXT;
+    pub type VkOpacityMicromapSpecialIndexEXT = OpacityMicromapSpecialIndexEXT;
+    pub type VkMicromapTriangleEXT = MicromapTriangleEXT;
     impl MicromapBuildInfoEXT<'_> {
         #[inline]
         pub unsafe fn drop_lifetime_for_ffi(&self) -> &VkMicromapBuildInfoEXT {
