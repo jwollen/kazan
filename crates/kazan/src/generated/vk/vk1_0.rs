@@ -12271,6 +12271,10 @@ pub(super) mod defs {
         pub const COOPERATIVE_MATRIX_FLEXIBLE_DIMENSIONS_PROPERTIES_NV: Self = Self(1000593001);
         pub const PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_PROPERTIES_NV: Self = Self(1000593002);
 
+        // VK_NV_cooperative_matrix_decode_vector
+        pub const PHYSICAL_DEVICE_COOPERATIVE_MATRIX_DECODE_VECTOR_FEATURES_NV: Self =
+            Self(1000689000);
+
         // VK_NV_cooperative_vector
         pub const PHYSICAL_DEVICE_COOPERATIVE_VECTOR_FEATURES_NV: Self = Self(1000491000);
         pub const PHYSICAL_DEVICE_COOPERATIVE_VECTOR_PROPERTIES_NV: Self = Self(1000491001);
@@ -14937,6 +14941,9 @@ pub(super) mod defs {
                 }
                 Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_PROPERTIES_NV => {
                     Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_PROPERTIES_NV")
+                }
+                Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_DECODE_VECTOR_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_DECODE_VECTOR_FEATURES_NV")
                 }
                 Self::PHYSICAL_DEVICE_COOPERATIVE_VECTOR_FEATURES_NV => {
                     Some("PHYSICAL_DEVICE_COOPERATIVE_VECTOR_FEATURES_NV")

@@ -1456,5 +1456,9 @@ define_extension_set!(
             ext_primitive_restart_index,
             ext::primitive_restart_index::EXTENSION_NAME
         ),
+        (
+            nv_cooperative_matrix_decode_vector,
+            nv::cooperative_matrix_decode_vector::EXTENSION_NAME
+        ),
     ]
 );
