@@ -6,6 +6,7 @@ pub mod compute_occupancy_priority;
 pub mod compute_shader_derivatives;
 pub mod cooperative_matrix;
 pub mod cooperative_matrix2;
+pub mod cooperative_matrix_decode_vector;
 pub mod cooperative_vector;
 pub mod copy_memory_indirect;
 pub mod corner_sampled_image;
@@ -71,6 +72,7 @@ pub(super) mod defs {
     pub use compute_occupancy_priority::defs::*;
     pub use compute_shader_derivatives::defs::*;
     pub use cooperative_matrix::defs::*;
+    pub use cooperative_matrix_decode_vector::defs::*;
     pub use cooperative_matrix2::defs::*;
     pub use cooperative_vector::defs::*;
     pub use copy_memory_indirect::defs::*;
@@ -133,6 +135,7 @@ pub(super) mod ffi {
     pub use super::compute_occupancy_priority::ffi::*;
     pub use super::compute_shader_derivatives::ffi::*;
     pub use super::cooperative_matrix::ffi::*;
+    pub use super::cooperative_matrix_decode_vector::ffi::*;
     pub use super::cooperative_matrix2::ffi::*;
     pub use super::cooperative_vector::ffi::*;
     pub use super::copy_memory_indirect::ffi::*;

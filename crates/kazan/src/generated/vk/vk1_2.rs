@@ -5846,6 +5846,8 @@ pub(super) mod defs {
         pub const VULKAN_SC_EMULATION_ON_VULKAN: Self = Self(27);
         /// Mesa open source project
         pub const MESA_KOSMICKRISP: Self = Self(28);
+        /// Mesa open source project
+        pub const MESA_GFXSTREAM: Self = Self(29);
 
         // VK_KHR_driver_properties
         pub const AMD_PROPRIETARY_KHR: Self = Self::AMD_PROPRIETARY;
@@ -5893,6 +5895,7 @@ pub(super) mod defs {
                 Self::MESA_HONEYKRISP => Some("MESA_HONEYKRISP"),
                 Self::VULKAN_SC_EMULATION_ON_VULKAN => Some("VULKAN_SC_EMULATION_ON_VULKAN"),
                 Self::MESA_KOSMICKRISP => Some("MESA_KOSMICKRISP"),
+                Self::MESA_GFXSTREAM => Some("MESA_GFXSTREAM"),
                 _ => None,
             };
             if let Some(name) = name {
