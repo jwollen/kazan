@@ -25,6 +25,7 @@ pub mod draw_indirect_count;
 pub mod driver_properties;
 pub mod dynamic_rendering;
 pub mod dynamic_rendering_local_read;
+pub mod extended_flags;
 pub mod external_fence;
 pub mod external_fence_capabilities;
 pub mod external_fence_fd;
@@ -129,6 +130,7 @@ pub mod video_decode_h265;
 pub mod video_decode_queue;
 pub mod video_decode_vp9;
 pub mod video_encode_av1;
+pub mod video_encode_feedback2;
 pub mod video_encode_h264;
 pub mod video_encode_h265;
 pub mod video_encode_intra_refresh;
@@ -174,6 +176,7 @@ pub(super) mod defs {
     pub use driver_properties::defs::*;
     pub use dynamic_rendering::defs::*;
     pub use dynamic_rendering_local_read::defs::*;
+    pub use extended_flags::defs::*;
     pub use external_fence::defs::*;
     pub use external_fence_capabilities::defs::*;
     pub use external_fence_fd::defs::*;
@@ -270,6 +273,7 @@ pub(super) mod defs {
     pub use video_decode_queue::defs::*;
     pub use video_decode_vp9::defs::*;
     pub use video_encode_av1::defs::*;
+    pub use video_encode_feedback2::defs::*;
     pub use video_encode_h264::defs::*;
     pub use video_encode_h265::defs::*;
     pub use video_encode_intra_refresh::defs::*;
@@ -315,6 +319,7 @@ pub(super) mod ffi {
     pub use super::driver_properties::ffi::*;
     pub use super::dynamic_rendering::ffi::*;
     pub use super::dynamic_rendering_local_read::ffi::*;
+    pub use super::extended_flags::ffi::*;
     pub use super::external_fence::ffi::*;
     pub use super::external_fence_capabilities::ffi::*;
     pub use super::external_fence_fd::ffi::*;
@@ -411,6 +416,7 @@ pub(super) mod ffi {
     pub use super::video_decode_queue::ffi::*;
     pub use super::video_decode_vp9::ffi::*;
     pub use super::video_encode_av1::ffi::*;
+    pub use super::video_encode_feedback2::ffi::*;
     pub use super::video_encode_h264::ffi::*;
     pub use super::video_encode_h265::ffi::*;
     pub use super::video_encode_intra_refresh::ffi::*;

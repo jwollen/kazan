@@ -1115,6 +1115,34 @@ pub(super) mod defs {
                     VideoEncodeFeedbackFlagBitsKHR::BITSTREAM_HAS_OVERRIDES_KHR.0,
                     "BITSTREAM_HAS_OVERRIDES_KHR",
                 ),
+                (
+                    VideoEncodeFeedbackFlagBitsKHR::AVERAGE_QUANTIZATION_KHR.0,
+                    "AVERAGE_QUANTIZATION_KHR",
+                ),
+                (
+                    VideoEncodeFeedbackFlagBitsKHR::MIN_QUANTIZATION_KHR.0,
+                    "MIN_QUANTIZATION_KHR",
+                ),
+                (
+                    VideoEncodeFeedbackFlagBitsKHR::MAX_QUANTIZATION_KHR.0,
+                    "MAX_QUANTIZATION_KHR",
+                ),
+                (
+                    VideoEncodeFeedbackFlagBitsKHR::INTRA_PIXELS_KHR.0,
+                    "INTRA_PIXELS_KHR",
+                ),
+                (
+                    VideoEncodeFeedbackFlagBitsKHR::INTER_PIXELS_KHR.0,
+                    "INTER_PIXELS_KHR",
+                ),
+                (
+                    VideoEncodeFeedbackFlagBitsKHR::SKIPPED_PIXELS_KHR.0,
+                    "SKIPPED_PIXELS_KHR",
+                ),
+                (
+                    VideoEncodeFeedbackFlagBitsKHR::PICTURE_PARTITION_COUNT_KHR.0,
+                    "PICTURE_PARTITION_COUNT_KHR",
+                ),
             ];
             debug_flags(f, KNOWN, self.0)
         }
@@ -1129,6 +1157,14 @@ pub(super) mod defs {
         pub const BITSTREAM_BUFFER_OFFSET_KHR: Self = Self(1 << 0);
         pub const BITSTREAM_BYTES_WRITTEN_KHR: Self = Self(1 << 1);
         pub const BITSTREAM_HAS_OVERRIDES_KHR: Self = Self(1 << 2);
+        // VK_KHR_video_encode_feedback2
+        pub const AVERAGE_QUANTIZATION_KHR: Self = Self(1 << 3);
+        pub const MIN_QUANTIZATION_KHR: Self = Self(1 << 4);
+        pub const MAX_QUANTIZATION_KHR: Self = Self(1 << 5);
+        pub const INTRA_PIXELS_KHR: Self = Self(1 << 6);
+        pub const INTER_PIXELS_KHR: Self = Self(1 << 7);
+        pub const SKIPPED_PIXELS_KHR: Self = Self(1 << 8);
+        pub const PICTURE_PARTITION_COUNT_KHR: Self = Self(1 << 9);
     }
 
     impl fmt::Debug for VideoEncodeFeedbackFlagBitsKHR {
@@ -1137,6 +1173,13 @@ pub(super) mod defs {
                 Self::BITSTREAM_BUFFER_OFFSET_KHR => Some("BITSTREAM_BUFFER_OFFSET_KHR"),
                 Self::BITSTREAM_BYTES_WRITTEN_KHR => Some("BITSTREAM_BYTES_WRITTEN_KHR"),
                 Self::BITSTREAM_HAS_OVERRIDES_KHR => Some("BITSTREAM_HAS_OVERRIDES_KHR"),
+                Self::AVERAGE_QUANTIZATION_KHR => Some("AVERAGE_QUANTIZATION_KHR"),
+                Self::MIN_QUANTIZATION_KHR => Some("MIN_QUANTIZATION_KHR"),
+                Self::MAX_QUANTIZATION_KHR => Some("MAX_QUANTIZATION_KHR"),
+                Self::INTRA_PIXELS_KHR => Some("INTRA_PIXELS_KHR"),
+                Self::INTER_PIXELS_KHR => Some("INTER_PIXELS_KHR"),
+                Self::SKIPPED_PIXELS_KHR => Some("SKIPPED_PIXELS_KHR"),
+                Self::PICTURE_PARTITION_COUNT_KHR => Some("PICTURE_PARTITION_COUNT_KHR"),
                 _ => None,
             };
             if let Some(name) = name {

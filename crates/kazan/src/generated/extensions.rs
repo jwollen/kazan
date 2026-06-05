@@ -1369,6 +1369,10 @@ define_extension_set!(
             arm::pipeline_opacity_micromap::EXTENSION_NAME
         ),
         (
+            khr_video_encode_feedback2,
+            khr::video_encode_feedback2::EXTENSION_NAME
+        ),
+        (
             ext_external_memory_metal,
             ext::external_memory_metal::EXTENSION_NAME
         ),
@@ -1395,6 +1399,10 @@ define_extension_set!(
         ),
         (khr_robustness2, khr::robustness2::EXTENSION_NAME),
         (nv_present_metering, nv::present_metering::EXTENSION_NAME),
+        (
+            ext_multisampled_render_to_swapchain,
+            ext::multisampled_render_to_swapchain::EXTENSION_NAME
+        ),
         (
             ext_fragment_density_map_offset,
             ext::fragment_density_map_offset::EXTENSION_NAME
@@ -1443,6 +1451,7 @@ define_extension_set!(
             ext_shader_subgroup_partitioned,
             ext::shader_subgroup_partitioned::EXTENSION_NAME
         ),
+        (khr_extended_flags, khr::extended_flags::EXTENSION_NAME),
         (
             valve_shader_mixed_float_dot_product,
             valve::shader_mixed_float_dot_product::EXTENSION_NAME

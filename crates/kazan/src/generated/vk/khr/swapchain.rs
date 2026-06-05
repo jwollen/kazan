@@ -630,6 +630,10 @@ pub(super) mod defs {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags, &str)] = &[
                 (
+                    SwapchainCreateFlagBitsKHR::MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_EXT.0,
+                    "MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_EXT",
+                ),
+                (
                     SwapchainCreateFlagBitsKHR::PRESENT_TIMING_EXT.0,
                     "PRESENT_TIMING_EXT",
                 ),
@@ -665,6 +669,9 @@ pub(super) mod defs {
     pub struct SwapchainCreateFlagBitsKHR(u32);
 
     impl SwapchainCreateFlagBitsKHR {
+        // VK_EXT_multisampled_render_to_swapchain
+        pub const MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_EXT: Self = Self(1 << 8);
+
         // VK_EXT_present_timing
         pub const PRESENT_TIMING_EXT: Self = Self(1 << 9);
 
@@ -697,6 +704,9 @@ pub(super) mod defs {
     impl fmt::Debug for SwapchainCreateFlagBitsKHR {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
+                Self::MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_EXT => {
+                    Some("MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_EXT")
+                }
                 Self::PRESENT_TIMING_EXT => Some("PRESENT_TIMING_EXT"),
                 Self::SPLIT_INSTANCE_BIND_REGIONS_KHR => Some("SPLIT_INSTANCE_BIND_REGIONS_KHR"),
                 Self::PRESENT_ID_2_KHR => Some("PRESENT_ID_2_KHR"),
