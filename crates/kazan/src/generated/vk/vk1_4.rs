@@ -4266,7 +4266,7 @@ pub(super) mod defs {
         // VK_EXT_shader_64bit_indexing
         pub const _64_INDEXING_EXT: Self = Self(1 << 43);
 
-        // VK_KHR_maintenance5
+        // VK_KHR_extended_flags
         pub const DEFER_COMPILE_NV: Self = Self(1 << 5);
         pub const CAPTURE_STATISTICS_KHR: Self = Self(1 << 6);
         pub const CAPTURE_INTERNAL_REPRESENTATIONS_KHR: Self = Self(1 << 7);
@@ -4296,6 +4296,8 @@ pub(super) mod defs {
         pub const FAIL_ON_PIPELINE_COMPILE_REQUIRED_KHR: Self =
             Self::FAIL_ON_PIPELINE_COMPILE_REQUIRED;
         pub const EARLY_RETURN_ON_FAILURE_KHR: Self = Self::EARLY_RETURN_ON_FAILURE;
+
+        // VK_KHR_maintenance5
         pub const NO_PROTECTED_ACCESS_EXT: Self = Self::NO_PROTECTED_ACCESS;
         pub const PROTECTED_ACCESS_ONLY_EXT: Self = Self::PROTECTED_ACCESS_ONLY;
 
@@ -4562,7 +4564,7 @@ pub(super) mod defs {
         pub const MICROMAP_BUILD_INPUT_READ_ONLY_EXT: Self = Self(1 << 23);
         pub const MICROMAP_STORAGE_EXT: Self = Self(1 << 24);
 
-        // VK_KHR_maintenance5
+        // VK_KHR_extended_flags
         pub const CONDITIONAL_RENDERING_EXT: Self = Self(1 << 9);
         pub const SHADER_BINDING_TABLE_KHR: Self = Self(1 << 10);
         pub const TRANSFORM_FEEDBACK_BUFFER_EXT: Self = Self(1 << 11);
@@ -4585,8 +4587,10 @@ pub(super) mod defs {
         pub const INDEX_BUFFER_KHR: Self = Self::INDEX_BUFFER;
         pub const VERTEX_BUFFER_KHR: Self = Self::VERTEX_BUFFER;
         pub const INDIRECT_BUFFER_KHR: Self = Self::INDIRECT_BUFFER;
-        pub const RAY_TRACING_NV: Self = Self::SHADER_BINDING_TABLE_KHR;
         pub const SHADER_DEVICE_ADDRESS_KHR: Self = Self::SHADER_DEVICE_ADDRESS;
+
+        // VK_KHR_maintenance5
+        pub const RAY_TRACING_NV: Self = Self::SHADER_BINDING_TABLE_KHR;
 
         // VK_QCOM_tile_memory_heap
         pub const TILE_MEMORY_QCOM: Self = Self(1 << 27);

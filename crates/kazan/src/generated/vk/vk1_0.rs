@@ -11003,6 +11003,11 @@ pub(super) mod defs {
         pub const SUBPASS_RESOLVE_PERFORMANCE_QUERY_EXT: Self = Self(1000376001);
         pub const MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_INFO_EXT: Self = Self(1000376002);
 
+        // VK_EXT_multisampled_render_to_swapchain
+        pub const PHYSICAL_DEVICE_MULTISAMPLED_RENDER_TO_SWAPCHAIN_FEATURES_EXT: Self =
+            Self(1000616000);
+        pub const SWAPCHAIN_FLAGS_SURFACE_CAPABILITIES_EXT: Self = Self(1000616001);
+
         // VK_EXT_mutable_descriptor_type
         pub const PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT: Self = Self(1000351000);
         pub const MUTABLE_DESCRIPTOR_TYPE_CREATE_INFO_EXT: Self = Self(1000351002);
@@ -11528,6 +11533,19 @@ pub(super) mod defs {
         pub const RENDERING_INPUT_ATTACHMENT_INDEX_INFO_KHR: Self =
             Self::RENDERING_INPUT_ATTACHMENT_INDEX_INFO;
 
+        // VK_KHR_extended_flags
+        pub const FORMAT_PROPERTIES_4_KHR: Self = Self(1000668000);
+        pub const IMAGE_CREATE_FLAGS_2_CREATE_INFO_KHR: Self = Self(1000668001);
+        pub const IMAGE_USAGE_FLAGS_2_CREATE_INFO_KHR: Self = Self(1000668002);
+        pub const IMAGE_VIEW_USAGE_2_CREATE_INFO_KHR: Self = Self(1000668003);
+        pub const PHYSICAL_DEVICE_EXTENDED_FLAGS_FEATURES_KHR: Self = Self(1000668004);
+        pub const IMAGE_STENCIL_USAGE_2_CREATE_INFO_KHR: Self = Self(1000668005);
+        pub const SHARED_PRESENT_SURFACE_CAPABILITIES_2_KHR: Self = Self(1000668006);
+        pub const PIPELINE_CREATE_FLAGS_2_CREATE_INFO_KHR: Self =
+            Self::PIPELINE_CREATE_FLAGS_2_CREATE_INFO;
+        pub const BUFFER_USAGE_FLAGS_2_CREATE_INFO_KHR: Self =
+            Self::BUFFER_USAGE_FLAGS_2_CREATE_INFO;
+
         // VK_KHR_external_fence
         pub const EXPORT_FENCE_CREATE_INFO_KHR: Self = Self::EXPORT_FENCE_CREATE_INFO;
 
@@ -11730,10 +11748,6 @@ pub(super) mod defs {
         pub const DEVICE_IMAGE_SUBRESOURCE_INFO_KHR: Self = Self::DEVICE_IMAGE_SUBRESOURCE_INFO;
         pub const SUBRESOURCE_LAYOUT_2_KHR: Self = Self::SUBRESOURCE_LAYOUT_2;
         pub const IMAGE_SUBRESOURCE_2_KHR: Self = Self::IMAGE_SUBRESOURCE_2;
-        pub const PIPELINE_CREATE_FLAGS_2_CREATE_INFO_KHR: Self =
-            Self::PIPELINE_CREATE_FLAGS_2_CREATE_INFO;
-        pub const BUFFER_USAGE_FLAGS_2_CREATE_INFO_KHR: Self =
-            Self::BUFFER_USAGE_FLAGS_2_CREATE_INFO;
 
         // VK_KHR_maintenance6
         pub const SET_DESCRIPTOR_BUFFER_OFFSETS_INFO_EXT: Self = Self(1000545007);
@@ -12074,6 +12088,12 @@ pub(super) mod defs {
         pub const VIDEO_ENCODE_AV1_QUALITY_LEVEL_PROPERTIES_KHR: Self = Self(1000513008);
         pub const VIDEO_ENCODE_AV1_SESSION_CREATE_INFO_KHR: Self = Self(1000513009);
         pub const VIDEO_ENCODE_AV1_GOP_REMAINING_FRAME_INFO_KHR: Self = Self(1000513010);
+
+        // VK_KHR_video_encode_feedback2
+        pub const PHYSICAL_DEVICE_VIDEO_ENCODE_FEEDBACK_2_FEATURES_KHR: Self = Self(1000598000);
+        pub const VIDEO_ENCODE_FEEDBACK_2_CAPABILITIES_KHR: Self = Self(1000598001);
+        pub const QUERY_POOL_VIDEO_ENCODE_PER_PARTITION_FEEDBACK_CREATE_INFO_KHR: Self =
+            Self(1000598002);
 
         // VK_KHR_video_encode_h264
         pub const VIDEO_ENCODE_H264_CAPABILITIES_KHR: Self = Self(1000038000);
@@ -13777,6 +13797,12 @@ pub(super) mod defs {
                 Self::MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_INFO_EXT => {
                     Some("MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_INFO_EXT")
                 }
+                Self::PHYSICAL_DEVICE_MULTISAMPLED_RENDER_TO_SWAPCHAIN_FEATURES_EXT => {
+                    Some("PHYSICAL_DEVICE_MULTISAMPLED_RENDER_TO_SWAPCHAIN_FEATURES_EXT")
+                }
+                Self::SWAPCHAIN_FLAGS_SURFACE_CAPABILITIES_EXT => {
+                    Some("SWAPCHAIN_FLAGS_SURFACE_CAPABILITIES_EXT")
+                }
                 Self::PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT")
                 }
@@ -14221,6 +14247,25 @@ pub(super) mod defs {
                 Self::DISPLAY_MODE_CREATE_INFO_KHR => Some("DISPLAY_MODE_CREATE_INFO_KHR"),
                 Self::DISPLAY_SURFACE_CREATE_INFO_KHR => Some("DISPLAY_SURFACE_CREATE_INFO_KHR"),
                 Self::DISPLAY_PRESENT_INFO_KHR => Some("DISPLAY_PRESENT_INFO_KHR"),
+                Self::FORMAT_PROPERTIES_4_KHR => Some("FORMAT_PROPERTIES_4_KHR"),
+                Self::IMAGE_CREATE_FLAGS_2_CREATE_INFO_KHR => {
+                    Some("IMAGE_CREATE_FLAGS_2_CREATE_INFO_KHR")
+                }
+                Self::IMAGE_USAGE_FLAGS_2_CREATE_INFO_KHR => {
+                    Some("IMAGE_USAGE_FLAGS_2_CREATE_INFO_KHR")
+                }
+                Self::IMAGE_VIEW_USAGE_2_CREATE_INFO_KHR => {
+                    Some("IMAGE_VIEW_USAGE_2_CREATE_INFO_KHR")
+                }
+                Self::PHYSICAL_DEVICE_EXTENDED_FLAGS_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_EXTENDED_FLAGS_FEATURES_KHR")
+                }
+                Self::IMAGE_STENCIL_USAGE_2_CREATE_INFO_KHR => {
+                    Some("IMAGE_STENCIL_USAGE_2_CREATE_INFO_KHR")
+                }
+                Self::SHARED_PRESENT_SURFACE_CAPABILITIES_2_KHR => {
+                    Some("SHARED_PRESENT_SURFACE_CAPABILITIES_2_KHR")
+                }
                 Self::IMPORT_FENCE_FD_INFO_KHR => Some("IMPORT_FENCE_FD_INFO_KHR"),
                 Self::FENCE_GET_FD_INFO_KHR => Some("FENCE_GET_FD_INFO_KHR"),
                 Self::IMPORT_FENCE_WIN32_HANDLE_INFO_KHR => {
@@ -14639,6 +14684,15 @@ pub(super) mod defs {
                 }
                 Self::VIDEO_ENCODE_AV1_GOP_REMAINING_FRAME_INFO_KHR => {
                     Some("VIDEO_ENCODE_AV1_GOP_REMAINING_FRAME_INFO_KHR")
+                }
+                Self::PHYSICAL_DEVICE_VIDEO_ENCODE_FEEDBACK_2_FEATURES_KHR => {
+                    Some("PHYSICAL_DEVICE_VIDEO_ENCODE_FEEDBACK_2_FEATURES_KHR")
+                }
+                Self::VIDEO_ENCODE_FEEDBACK_2_CAPABILITIES_KHR => {
+                    Some("VIDEO_ENCODE_FEEDBACK_2_CAPABILITIES_KHR")
+                }
+                Self::QUERY_POOL_VIDEO_ENCODE_PER_PARTITION_FEEDBACK_CREATE_INFO_KHR => {
+                    Some("QUERY_POOL_VIDEO_ENCODE_PER_PARTITION_FEEDBACK_CREATE_INFO_KHR")
                 }
                 Self::VIDEO_ENCODE_H264_CAPABILITIES_KHR => {
                     Some("VIDEO_ENCODE_H264_CAPABILITIES_KHR")

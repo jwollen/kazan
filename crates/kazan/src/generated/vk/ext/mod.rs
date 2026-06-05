@@ -79,6 +79,7 @@ pub mod metal_objects;
 pub mod metal_surface;
 pub mod multi_draw;
 pub mod multisampled_render_to_single_sampled;
+pub mod multisampled_render_to_swapchain;
 pub mod mutable_descriptor_type;
 pub mod nested_command_buffer;
 pub mod non_seamless_cube_map;
@@ -226,6 +227,7 @@ pub(super) mod defs {
     pub use metal_surface::defs::*;
     pub use multi_draw::defs::*;
     pub use multisampled_render_to_single_sampled::defs::*;
+    pub use multisampled_render_to_swapchain::defs::*;
     pub use mutable_descriptor_type::defs::*;
     pub use nested_command_buffer::defs::*;
     pub use non_seamless_cube_map::defs::*;
@@ -365,6 +367,7 @@ pub(super) mod ffi {
     pub use super::metal_surface::ffi::*;
     pub use super::multi_draw::ffi::*;
     pub use super::multisampled_render_to_single_sampled::ffi::*;
+    pub use super::multisampled_render_to_swapchain::ffi::*;
     pub use super::mutable_descriptor_type::ffi::*;
     pub use super::nested_command_buffer::ffi::*;
     pub use super::non_seamless_cube_map::ffi::*;
