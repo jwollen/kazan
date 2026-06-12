@@ -1372,6 +1372,7 @@ define_extension_set!(
             khr_video_encode_feedback2,
             khr::video_encode_feedback2::EXTENSION_NAME
         ),
+        (img_filter_linear_2d, img::filter_linear_2d::EXTENSION_NAME),
         (
             ext_external_memory_metal,
             ext::external_memory_metal::EXTENSION_NAME

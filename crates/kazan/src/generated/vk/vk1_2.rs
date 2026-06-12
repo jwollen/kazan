@@ -5848,6 +5848,8 @@ pub(super) mod defs {
         pub const MESA_KOSMICKRISP: Self = Self(28);
         /// Mesa open source project
         pub const MESA_GFXSTREAM: Self = Self(29);
+        /// Ape open source project
+        pub const APE_SOFT: Self = Self(30);
 
         // VK_KHR_driver_properties
         pub const AMD_PROPRIETARY_KHR: Self = Self::AMD_PROPRIETARY;
@@ -5896,6 +5898,7 @@ pub(super) mod defs {
                 Self::VULKAN_SC_EMULATION_ON_VULKAN => Some("VULKAN_SC_EMULATION_ON_VULKAN"),
                 Self::MESA_KOSMICKRISP => Some("MESA_KOSMICKRISP"),
                 Self::MESA_GFXSTREAM => Some("MESA_GFXSTREAM"),
+                Self::APE_SOFT => Some("APE_SOFT"),
                 _ => None,
             };
             if let Some(name) = name {
