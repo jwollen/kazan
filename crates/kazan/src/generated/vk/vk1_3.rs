@@ -5685,6 +5685,7 @@ _marker: PhantomData
                 (FormatFeatureFlagBits2::TENSOR_SHADER_ARM.0, "TENSOR_SHADER_ARM"),
                 (FormatFeatureFlagBits2::TENSOR_IMAGE_ALIASING_ARM.0, "TENSOR_IMAGE_ALIASING_ARM"),
                 (FormatFeatureFlagBits2::FRAGMENT_DENSITY_MAP_EXT.0, "FRAGMENT_DENSITY_MAP_EXT"),
+                (FormatFeatureFlagBits2::SAMPLED_IMAGE_FILTER_LINEAR_2D_IMG.0, "SAMPLED_IMAGE_FILTER_LINEAR_2D_IMG"),
                 (FormatFeatureFlagBits2::ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR.0, "ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR"),
                 (FormatFeatureFlagBits2::COPY_IMAGE_INDIRECT_DST_KHR.0, "COPY_IMAGE_INDIRECT_DST_KHR"),
                 (FormatFeatureFlagBits2::FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0, "FRAGMENT_SHADING_RATE_ATTACHMENT_KHR"),
@@ -5767,6 +5768,9 @@ _marker: PhantomData
 
         // VK_EXT_host_image_copy
         pub const HOST_IMAGE_TRANSFER_EXT: Self = Self::HOST_IMAGE_TRANSFER;
+
+        // VK_IMG_filter_linear_2d
+        pub const SAMPLED_IMAGE_FILTER_LINEAR_2D_IMG: Self = Self(1 << 45);
 
         // VK_KHR_acceleration_structure
         pub const ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR: Self = Self(1 << 29);
@@ -5905,6 +5909,9 @@ _marker: PhantomData
                 Self::TENSOR_SHADER_ARM => Some("TENSOR_SHADER_ARM"),
                 Self::TENSOR_IMAGE_ALIASING_ARM => Some("TENSOR_IMAGE_ALIASING_ARM"),
                 Self::FRAGMENT_DENSITY_MAP_EXT => Some("FRAGMENT_DENSITY_MAP_EXT"),
+                Self::SAMPLED_IMAGE_FILTER_LINEAR_2D_IMG => {
+                    Some("SAMPLED_IMAGE_FILTER_LINEAR_2D_IMG")
+                }
                 Self::ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR => {
                     Some("ACCELERATION_STRUCTURE_VERTEX_BUFFER_KHR")
                 }

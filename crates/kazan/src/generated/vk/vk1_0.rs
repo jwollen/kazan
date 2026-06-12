@@ -16732,6 +16732,8 @@ pub(super) mod defs {
         pub const POCL: Self = Self(0x10006);
         /// Mobileye vendor ID
         pub const MOBILEYE: Self = Self(0x10007);
+        /// Ape vendor ID
+        pub const APE: Self = Self(0x10008);
     }
 
     impl fmt::Debug for VendorId {
@@ -16745,6 +16747,7 @@ pub(super) mod defs {
                 Self::MESA => Some("MESA"),
                 Self::POCL => Some("POCL"),
                 Self::MOBILEYE => Some("MOBILEYE"),
+                Self::APE => Some("APE"),
                 _ => None,
             };
             if let Some(name) = name {
