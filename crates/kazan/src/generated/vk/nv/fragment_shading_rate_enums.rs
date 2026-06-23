@@ -233,6 +233,15 @@ pub(super) mod defs {
     pub struct FragmentShadingRateNV(i32);
 
     impl FragmentShadingRateNV {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const _1_INVOCATION_PER_PIXEL_NV: Self = Self(0);
         pub const _1_INVOCATION_PER_1X2_PIXELS_NV: Self = Self(1);
         pub const _1_INVOCATION_PER_2X1_PIXELS_NV: Self = Self(4);
@@ -278,6 +287,15 @@ pub(super) mod defs {
     pub struct FragmentShadingRateTypeNV(i32);
 
     impl FragmentShadingRateTypeNV {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const FRAGMENT_SIZE_NV: Self = Self(0);
         pub const ENUMS_NV: Self = Self(1);
     }

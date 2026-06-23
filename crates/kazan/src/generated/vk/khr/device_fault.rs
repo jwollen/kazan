@@ -496,6 +496,15 @@ pub(super) mod defs {
     pub struct DeviceFaultAddressTypeKHR(i32);
 
     impl DeviceFaultAddressTypeKHR {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         /// Currently unused
         pub const NONE_KHR: Self = Self(0);
         pub const READ_INVALID_KHR: Self = Self(1);
@@ -541,6 +550,15 @@ pub(super) mod defs {
     pub struct DeviceFaultVendorBinaryHeaderVersionKHR(i32);
 
     impl DeviceFaultVendorBinaryHeaderVersionKHR {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const ONE_KHR: Self = Self(1);
     }
 

@@ -203,6 +203,15 @@ pub(super) mod defs {
     pub struct DisplayPowerStateEXT(i32);
 
     impl DisplayPowerStateEXT {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const OFF_EXT: Self = Self(0);
         pub const SUSPEND_EXT: Self = Self(1);
         pub const ON_EXT: Self = Self(2);
@@ -230,6 +239,15 @@ pub(super) mod defs {
     pub struct DeviceEventTypeEXT(i32);
 
     impl DeviceEventTypeEXT {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const DISPLAY_HOTPLUG_EXT: Self = Self(0);
     }
 
@@ -253,6 +271,15 @@ pub(super) mod defs {
     pub struct DisplayEventTypeEXT(i32);
 
     impl DisplayEventTypeEXT {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const FIRST_PIXEL_OUT_EXT: Self = Self(0);
     }
 

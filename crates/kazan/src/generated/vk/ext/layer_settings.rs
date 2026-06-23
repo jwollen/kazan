@@ -138,6 +138,15 @@ pub(super) mod defs {
     pub struct LayerSettingTypeEXT(i32);
 
     impl LayerSettingTypeEXT {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const BOOL32_EXT: Self = Self(0);
         pub const INT32_EXT: Self = Self(1);
         pub const INT64_EXT: Self = Self(2);

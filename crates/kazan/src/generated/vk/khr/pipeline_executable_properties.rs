@@ -438,6 +438,15 @@ pub(super) mod defs {
     pub struct PipelineExecutableStatisticFormatKHR(i32);
 
     impl PipelineExecutableStatisticFormatKHR {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const BOOL32_KHR: Self = Self(0);
         pub const INT64_KHR: Self = Self(1);
         pub const UINT64_KHR: Self = Self(2);

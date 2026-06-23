@@ -649,6 +649,15 @@ pub(super) mod defs {
     pub struct PartitionedAccelerationStructureOpTypeNV(i32);
 
     impl PartitionedAccelerationStructureOpTypeNV {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const WRITE_INSTANCE_NV: Self = Self(0);
         pub const UPDATE_INSTANCE_NV: Self = Self(1);
         pub const WRITE_PARTITION_TRANSLATION_NV: Self = Self(2);

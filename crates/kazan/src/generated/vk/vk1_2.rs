@@ -5725,6 +5725,15 @@ pub(super) mod defs {
     pub struct SemaphoreType(i32);
 
     impl SemaphoreType {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const BINARY: Self = Self(0);
         pub const TIMELINE: Self = Self(1);
 
@@ -5754,6 +5763,15 @@ pub(super) mod defs {
     pub struct SamplerReductionMode(i32);
 
     impl SamplerReductionMode {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const WEIGHTED_AVERAGE: Self = Self(0);
         pub const MIN: Self = Self(1);
         pub const MAX: Self = Self(2);
@@ -5790,6 +5808,15 @@ pub(super) mod defs {
     pub struct DriverId(i32);
 
     impl DriverId {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         /// Advanced Micro Devices, Inc.
         pub const AMD_PROPRIETARY: Self = Self(1);
         /// Advanced Micro Devices, Inc.
@@ -5915,6 +5942,15 @@ pub(super) mod defs {
     pub struct ShaderFloatControlsIndependence(i32);
 
     impl ShaderFloatControlsIndependence {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const _32_BIT_ONLY: Self = Self(0);
         pub const ALL: Self = Self(1);
         pub const NONE: Self = Self(2);

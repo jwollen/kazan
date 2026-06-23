@@ -139,6 +139,15 @@ pub(super) mod defs {
     pub struct ShaderInfoTypeAMD(i32);
 
     impl ShaderInfoTypeAMD {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const STATISTICS_AMD: Self = Self(0);
         pub const BINARY_AMD: Self = Self(1);
         pub const DISASSEMBLY_AMD: Self = Self(2);

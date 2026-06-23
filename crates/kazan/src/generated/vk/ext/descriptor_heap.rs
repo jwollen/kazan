@@ -1901,6 +1901,15 @@ pub(super) mod defs {
     pub struct DescriptorMappingSourceEXT(i32);
 
     impl DescriptorMappingSourceEXT {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const HEAP_WITH_CONSTANT_OFFSET_EXT: Self = Self(0);
         pub const HEAP_WITH_PUSH_INDEX_EXT: Self = Self(1);
         pub const HEAP_WITH_INDIRECT_INDEX_EXT: Self = Self(2);

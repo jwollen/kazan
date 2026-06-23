@@ -3868,6 +3868,15 @@ pub(super) mod defs {
     pub struct QueueGlobalPriority(i32);
 
     impl QueueGlobalPriority {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const LOW: Self = Self(128);
         pub const MEDIUM: Self = Self(256);
         pub const HIGH: Self = Self(512);
@@ -3909,6 +3918,15 @@ pub(super) mod defs {
     pub struct LineRasterizationMode(i32);
 
     impl LineRasterizationMode {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const DEFAULT: Self = Self(0);
         pub const RECTANGULAR: Self = Self(1);
         pub const BRESENHAM: Self = Self(2);
@@ -3950,6 +3968,15 @@ pub(super) mod defs {
     pub struct PipelineRobustnessBufferBehavior(i32);
 
     impl PipelineRobustnessBufferBehavior {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const DEVICE_DEFAULT: Self = Self(0);
         pub const DISABLED: Self = Self(1);
         pub const ROBUST_BUFFER_ACCESS: Self = Self(2);
@@ -3985,6 +4012,15 @@ pub(super) mod defs {
     pub struct PipelineRobustnessImageBehavior(i32);
 
     impl PipelineRobustnessImageBehavior {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const DEVICE_DEFAULT: Self = Self(0);
         pub const DISABLED: Self = Self(1);
         pub const ROBUST_IMAGE_ACCESS: Self = Self(2);

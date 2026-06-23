@@ -175,6 +175,15 @@ pub(super) mod defs {
     pub struct PerfHintTypeQCOM(i32);
 
     impl PerfHintTypeQCOM {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const DEFAULT_QCOM: Self = Self(0);
         pub const FREQUENCY_MIN_QCOM: Self = Self(1);
         pub const FREQUENCY_MAX_QCOM: Self = Self(2);

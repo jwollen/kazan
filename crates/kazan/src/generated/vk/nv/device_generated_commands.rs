@@ -985,6 +985,15 @@ pub(super) mod defs {
     pub struct IndirectCommandsTokenTypeNV(i32);
 
     impl IndirectCommandsTokenTypeNV {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const SHADER_GROUP_NV: Self = Self(0);
         pub const STATE_FLAGS_NV: Self = Self(1);
         pub const INDEX_BUFFER_NV: Self = Self(2);

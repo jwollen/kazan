@@ -1211,6 +1211,15 @@ pub(super) mod defs {
     pub struct ClusterAccelerationStructureTypeNV(i32);
 
     impl ClusterAccelerationStructureTypeNV {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const CLUSTERS_BOTTOM_LEVEL_NV: Self = Self(0);
         pub const TRIANGLE_CLUSTER_NV: Self = Self(1);
         pub const TRIANGLE_CLUSTER_TEMPLATE_NV: Self = Self(2);
@@ -1238,6 +1247,15 @@ pub(super) mod defs {
     pub struct ClusterAccelerationStructureOpTypeNV(i32);
 
     impl ClusterAccelerationStructureOpTypeNV {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const MOVE_OBJECTS_NV: Self = Self(0);
         pub const BUILD_CLUSTERS_BOTTOM_LEVEL_NV: Self = Self(1);
         pub const BUILD_TRIANGLE_CLUSTER_NV: Self = Self(2);
@@ -1273,6 +1291,15 @@ pub(super) mod defs {
     pub struct ClusterAccelerationStructureOpModeNV(i32);
 
     impl ClusterAccelerationStructureOpModeNV {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const IMPLICIT_DESTINATIONS_NV: Self = Self(0);
         pub const EXPLICIT_DESTINATIONS_NV: Self = Self(1);
         pub const COMPUTE_SIZES_NV: Self = Self(2);

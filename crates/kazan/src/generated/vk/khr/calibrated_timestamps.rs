@@ -66,6 +66,15 @@ pub(super) mod defs {
     pub struct TimeDomainKHR(i32);
 
     impl TimeDomainKHR {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const DEVICE_KHR: Self = Self(0);
         pub const CLOCK_MONOTONIC_KHR: Self = Self(1);
         pub const CLOCK_MONOTONIC_RAW_KHR: Self = Self(2);

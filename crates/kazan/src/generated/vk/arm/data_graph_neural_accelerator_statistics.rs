@@ -187,6 +187,15 @@ pub(super) mod defs {
     pub struct NeuralAcceleratorStatisticsModeARM(i32);
 
     impl NeuralAcceleratorStatisticsModeARM {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const DISABLED_ARM: Self = Self(0);
         pub const STATISTICS0_ARM: Self = Self(1);
         pub const STATISTICS1_ARM: Self = Self(2);

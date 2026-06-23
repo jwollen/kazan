@@ -424,6 +424,15 @@ pub(super) mod defs {
     pub struct PhysicalDeviceLayeredApiKHR(i32);
 
     impl PhysicalDeviceLayeredApiKHR {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const VULKAN_KHR: Self = Self(0);
         pub const D3D12_KHR: Self = Self(1);
         pub const METAL_KHR: Self = Self(2);

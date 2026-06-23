@@ -72,6 +72,15 @@ pub(super) mod defs {
     pub struct LayeredDriverUnderlyingApiMSFT(i32);
 
     impl LayeredDriverUnderlyingApiMSFT {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const NONE_MSFT: Self = Self(0);
         pub const D3D12_MSFT: Self = Self(1);
     }

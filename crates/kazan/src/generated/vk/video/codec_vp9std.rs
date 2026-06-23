@@ -310,6 +310,15 @@ pub(super) mod defs {
     pub struct StdVideoVP9Profile(i32);
 
     impl StdVideoVP9Profile {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const _0: Self = Self(0);
         pub const _1: Self = Self(1);
         pub const _2: Self = Self(2);
@@ -341,6 +350,15 @@ pub(super) mod defs {
     pub struct StdVideoVP9Level(i32);
 
     impl StdVideoVP9Level {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const _1_0: Self = Self(0);
         pub const _1_1: Self = Self(1);
         pub const _2_0: Self = Self(2);
@@ -392,6 +410,15 @@ pub(super) mod defs {
     pub struct StdVideoVP9FrameType(i32);
 
     impl StdVideoVP9FrameType {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const KEY: Self = Self(0);
         pub const NON_KEY: Self = Self(1);
         pub const INVALID: Self = Self(0x7FFFFFFF);
@@ -419,6 +446,15 @@ pub(super) mod defs {
     pub struct StdVideoVP9ReferenceName(i32);
 
     impl StdVideoVP9ReferenceName {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const INTRA_FRAME: Self = Self(0);
         pub const LAST_FRAME: Self = Self(1);
         pub const GOLDEN_FRAME: Self = Self(2);
@@ -450,6 +486,15 @@ pub(super) mod defs {
     pub struct StdVideoVP9InterpolationFilter(i32);
 
     impl StdVideoVP9InterpolationFilter {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const EIGHTTAP: Self = Self(0);
         pub const EIGHTTAP_SMOOTH: Self = Self(1);
         pub const EIGHTTAP_SHARP: Self = Self(2);
@@ -483,6 +528,15 @@ pub(super) mod defs {
     pub struct StdVideoVP9ColorSpace(i32);
 
     impl StdVideoVP9ColorSpace {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const UNKNOWN: Self = Self(0);
         pub const BT_601: Self = Self(1);
         pub const BT_709: Self = Self(2);

@@ -349,6 +349,15 @@ pub(super) mod defs {
     pub struct RayTracingLssIndexingModeNV(i32);
 
     impl RayTracingLssIndexingModeNV {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const LIST_NV: Self = Self(0);
         pub const SUCCESSIVE_NV: Self = Self(1);
     }
@@ -374,6 +383,15 @@ pub(super) mod defs {
     pub struct RayTracingLssPrimitiveEndCapsModeNV(i32);
 
     impl RayTracingLssPrimitiveEndCapsModeNV {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const NONE_NV: Self = Self(0);
         pub const CHAINED_NV: Self = Self(1);
     }

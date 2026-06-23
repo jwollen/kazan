@@ -700,6 +700,15 @@ pub(super) mod defs {
     pub struct GpaPerfBlockAMD(i32);
 
     impl GpaPerfBlockAMD {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const CPF_AMD: Self = Self(0);
         pub const IA_AMD: Self = Self(1);
         pub const VGT_AMD: Self = Self(2);
@@ -835,6 +844,15 @@ pub(super) mod defs {
     pub struct GpaSampleTypeAMD(i32);
 
     impl GpaSampleTypeAMD {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const CUMULATIVE_AMD: Self = Self(0);
         pub const TRACE_AMD: Self = Self(1);
         pub const TIMING_AMD: Self = Self(2);
@@ -862,6 +880,15 @@ pub(super) mod defs {
     pub struct GpaDeviceClockModeAMD(i32);
 
     impl GpaDeviceClockModeAMD {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const DEFAULT_AMD: Self = Self(0);
         pub const QUERY_AMD: Self = Self(1);
         pub const PROFILING_AMD: Self = Self(2);

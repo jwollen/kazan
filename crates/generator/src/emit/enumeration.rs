@@ -61,6 +61,18 @@ pub fn emit_enum(
     writeln!(file)?;
 
     writeln!(file, "impl {name} {{")?;
+    writeln!(
+        file,
+        "#[inline]
+        pub const fn from_raw(x: i32) -> Self {{
+            Self(x)
+        }}
+        #[inline]
+        pub const fn as_raw(self) -> i32 {{
+            self.0
+        }}"
+    )?;
+    writeln!(file)?;
 
     for v in &def.base_variants {
         write_doc_comment(file, v.comment)?;

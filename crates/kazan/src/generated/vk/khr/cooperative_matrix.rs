@@ -263,6 +263,15 @@ pub(super) mod defs {
     pub struct ScopeKHR(i32);
 
     impl ScopeKHR {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const DEVICE_KHR: Self = Self(1);
         pub const WORKGROUP_KHR: Self = Self(2);
         pub const SUBGROUP_KHR: Self = Self(3);
@@ -298,6 +307,15 @@ pub(super) mod defs {
     pub struct ComponentTypeKHR(i32);
 
     impl ComponentTypeKHR {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const FLOAT16_KHR: Self = Self(0);
         pub const FLOAT32_KHR: Self = Self(1);
         pub const FLOAT64_KHR: Self = Self(2);

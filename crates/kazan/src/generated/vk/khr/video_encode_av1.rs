@@ -1342,6 +1342,15 @@ pub(super) mod defs {
     pub struct VideoEncodeAV1PredictionModeKHR(i32);
 
     impl VideoEncodeAV1PredictionModeKHR {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const INTRA_ONLY_KHR: Self = Self(0);
         pub const SINGLE_REFERENCE_KHR: Self = Self(1);
         pub const UNIDIRECTIONAL_COMPOUND_KHR: Self = Self(2);
@@ -1371,6 +1380,15 @@ pub(super) mod defs {
     pub struct VideoEncodeAV1RateControlGroupKHR(i32);
 
     impl VideoEncodeAV1RateControlGroupKHR {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const INTRA_KHR: Self = Self(0);
         pub const PREDICTIVE_KHR: Self = Self(1);
         pub const BIPREDICTIVE_KHR: Self = Self(2);
