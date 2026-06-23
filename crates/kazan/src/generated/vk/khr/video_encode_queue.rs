@@ -822,6 +822,15 @@ pub(super) mod defs {
     pub struct VideoEncodeTuningModeKHR(i32);
 
     impl VideoEncodeTuningModeKHR {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const DEFAULT_KHR: Self = Self(0);
         pub const HIGH_QUALITY_KHR: Self = Self(1);
         pub const LOW_LATENCY_KHR: Self = Self(2);

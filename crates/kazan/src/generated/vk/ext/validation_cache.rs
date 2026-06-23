@@ -138,6 +138,15 @@ pub(super) mod defs {
     pub struct ValidationCacheHeaderVersionEXT(i32);
 
     impl ValidationCacheHeaderVersionEXT {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const ONE_EXT: Self = Self(1);
     }
 

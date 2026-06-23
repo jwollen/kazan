@@ -141,6 +141,15 @@ pub(super) mod defs {
     pub struct DirectDriverLoadingModeLUNARG(i32);
 
     impl DirectDriverLoadingModeLUNARG {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const EXCLUSIVE_LUNARG: Self = Self(0);
         pub const INCLUSIVE_LUNARG: Self = Self(1);
     }

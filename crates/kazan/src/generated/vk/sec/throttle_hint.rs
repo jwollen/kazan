@@ -117,6 +117,15 @@ pub(super) mod defs {
     pub struct ThrottleHintTypeSEC(i32);
 
     impl ThrottleHintTypeSEC {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const DEFAULT_SEC: Self = Self(0);
         pub const LOW_SEC: Self = Self(1);
         pub const HIGH_SEC: Self = Self(2);

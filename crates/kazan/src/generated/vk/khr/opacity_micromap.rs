@@ -419,6 +419,15 @@ pub(super) mod defs {
     pub struct OpacityMicromapFormatKHR(i32);
 
     impl OpacityMicromapFormatKHR {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const _2_STATE_KHR: Self = Self(1);
         pub const _4_STATE_KHR: Self = Self(2);
 
@@ -448,6 +457,15 @@ pub(super) mod defs {
     pub struct OpacityMicromapSpecialIndexKHR(i32);
 
     impl OpacityMicromapSpecialIndexKHR {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const FULLY_TRANSPARENT_KHR: Self = Self(-1);
         pub const FULLY_OPAQUE_KHR: Self = Self(-2);
         pub const FULLY_UNKNOWN_TRANSPARENT_KHR: Self = Self(-3);
@@ -489,6 +507,15 @@ pub(super) mod defs {
     pub struct AccelerationStructureSerializedBlockTypeKHR(i32);
 
     impl AccelerationStructureSerializedBlockTypeKHR {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const OPACITY_MICROMAP_KHR: Self = Self(0);
     }
 

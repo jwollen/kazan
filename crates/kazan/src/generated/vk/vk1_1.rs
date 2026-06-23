@@ -3944,6 +3944,15 @@ pub(super) mod defs {
     pub struct DescriptorUpdateTemplateType(i32);
 
     impl DescriptorUpdateTemplateType {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         /// Create descriptor update template for descriptor set updates
         pub const DESCRIPTOR_SET: Self = Self(0);
 
@@ -3976,6 +3985,15 @@ pub(super) mod defs {
     pub struct PointClippingBehavior(i32);
 
     impl PointClippingBehavior {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const ALL_CLIP_PLANES: Self = Self(0);
         pub const USER_CLIP_PLANES_ONLY: Self = Self(1);
 
@@ -4005,6 +4023,15 @@ pub(super) mod defs {
     pub struct TessellationDomainOrigin(i32);
 
     impl TessellationDomainOrigin {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const UPPER_LEFT: Self = Self(0);
         pub const LOWER_LEFT: Self = Self(1);
 
@@ -4034,6 +4061,15 @@ pub(super) mod defs {
     pub struct SamplerYcbcrModelConversion(i32);
 
     impl SamplerYcbcrModelConversion {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const RGB_IDENTITY: Self = Self(0);
         /// just range expansion
         pub const YCBCR_IDENTITY: Self = Self(1);
@@ -4076,6 +4112,15 @@ pub(super) mod defs {
     pub struct SamplerYcbcrRange(i32);
 
     impl SamplerYcbcrRange {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         /// Luma 0..1 maps to 0..255, chroma -0.5..0.5 to 1..255 (clamped)
         pub const ITU_FULL: Self = Self(0);
         /// Luma 0..1 maps to 16..235, chroma -0.5..0.5 to 16..240
@@ -4107,6 +4152,15 @@ pub(super) mod defs {
     pub struct ChromaLocation(i32);
 
     impl ChromaLocation {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const COSITED_EVEN: Self = Self(0);
         pub const MIDPOINT: Self = Self(1);
 

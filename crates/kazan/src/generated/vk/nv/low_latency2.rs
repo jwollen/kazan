@@ -603,6 +603,15 @@ pub(super) mod defs {
     pub struct LatencyMarkerNV(i32);
 
     impl LatencyMarkerNV {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const SIMULATION_START_NV: Self = Self(0);
         pub const SIMULATION_END_NV: Self = Self(1);
         pub const RENDERSUBMIT_START_NV: Self = Self(2);
@@ -650,6 +659,15 @@ pub(super) mod defs {
     pub struct OutOfBandQueueTypeNV(i32);
 
     impl OutOfBandQueueTypeNV {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const RENDER_NV: Self = Self(0);
         pub const PRESENT_NV: Self = Self(1);
     }

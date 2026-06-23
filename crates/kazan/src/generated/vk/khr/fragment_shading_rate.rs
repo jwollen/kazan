@@ -670,6 +670,15 @@ pub(super) mod defs {
     pub struct FragmentShadingRateCombinerOpKHR(i32);
 
     impl FragmentShadingRateCombinerOpKHR {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const KEEP_KHR: Self = Self(0);
         pub const REPLACE_KHR: Self = Self(1);
         pub const MIN_KHR: Self = Self(2);

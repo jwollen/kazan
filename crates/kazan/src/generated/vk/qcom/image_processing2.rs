@@ -184,6 +184,15 @@ pub(super) mod defs {
     pub struct BlockMatchWindowCompareModeQCOM(i32);
 
     impl BlockMatchWindowCompareModeQCOM {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const MIN_QCOM: Self = Self(0);
         pub const MAX_QCOM: Self = Self(1);
     }

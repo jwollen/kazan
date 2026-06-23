@@ -164,6 +164,15 @@ pub(super) mod defs {
     pub struct CubicFilterWeightsQCOM(i32);
 
     impl CubicFilterWeightsQCOM {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const CATMULL_ROM_QCOM: Self = Self(0);
         pub const ZERO_TANGENT_CARDINAL_QCOM: Self = Self(1);
         pub const B_SPLINE_QCOM: Self = Self(2);

@@ -115,6 +115,15 @@ pub(super) mod defs {
     pub struct DisplaySurfaceStereoTypeNV(i32);
 
     impl DisplaySurfaceStereoTypeNV {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const NONE_NV: Self = Self(0);
         pub const ONBOARD_DIN_NV: Self = Self(1);
         pub const HDMI_3D_NV: Self = Self(2);

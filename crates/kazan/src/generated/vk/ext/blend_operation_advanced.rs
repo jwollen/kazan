@@ -282,6 +282,15 @@ pub(super) mod defs {
     pub struct BlendOverlapEXT(i32);
 
     impl BlendOverlapEXT {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const UNCORRELATED_EXT: Self = Self(0);
         pub const DISJOINT_EXT: Self = Self(1);
         pub const CONJOINT_EXT: Self = Self(2);

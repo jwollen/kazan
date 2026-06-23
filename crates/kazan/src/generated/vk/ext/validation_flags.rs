@@ -82,6 +82,15 @@ pub(super) mod defs {
     pub struct ValidationCheckEXT(i32);
 
     impl ValidationCheckEXT {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const ALL_EXT: Self = Self(0);
         pub const SHADERS_EXT: Self = Self(1);
     }

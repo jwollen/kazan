@@ -421,6 +421,15 @@ pub(super) mod defs {
     pub struct CooperativeVectorMatrixLayoutNV(i32);
 
     impl CooperativeVectorMatrixLayoutNV {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const ROW_MAJOR_NV: Self = Self(0);
         pub const COLUMN_MAJOR_NV: Self = Self(1);
         pub const INFERENCING_OPTIMAL_NV: Self = Self(2);

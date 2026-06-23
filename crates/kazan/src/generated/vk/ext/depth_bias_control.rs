@@ -233,6 +233,15 @@ pub(super) mod defs {
     pub struct DepthBiasRepresentationEXT(i32);
 
     impl DepthBiasRepresentationEXT {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const LEAST_REPRESENTABLE_VALUE_FORMAT_EXT: Self = Self(0);
         pub const LEAST_REPRESENTABLE_VALUE_FORCE_UNORM_EXT: Self = Self(1);
         pub const FLOAT_EXT: Self = Self(2);

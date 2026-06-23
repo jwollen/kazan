@@ -137,6 +137,15 @@ pub(super) mod defs {
     pub struct PresentModeKHR(i32);
 
     impl PresentModeKHR {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const IMMEDIATE_KHR: Self = Self(0);
         pub const MAILBOX_KHR: Self = Self(1);
         pub const FIFO_KHR: Self = Self(2);
@@ -179,6 +188,15 @@ pub(super) mod defs {
     pub struct ColorSpaceKHR(i32);
 
     impl ColorSpaceKHR {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const SRGB_NONLINEAR_KHR: Self = Self(0);
 
         // VK_AMD_display_native_hdr

@@ -189,6 +189,15 @@ pub(super) mod defs {
     pub struct AntiLagModeAMD(i32);
 
     impl AntiLagModeAMD {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const DRIVER_CONTROL_AMD: Self = Self(0);
         pub const ON_AMD: Self = Self(1);
         pub const OFF_AMD: Self = Self(2);
@@ -216,6 +225,15 @@ pub(super) mod defs {
     pub struct AntiLagStageAMD(i32);
 
     impl AntiLagStageAMD {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const INPUT_AMD: Self = Self(0);
         pub const PRESENT_AMD: Self = Self(1);
     }

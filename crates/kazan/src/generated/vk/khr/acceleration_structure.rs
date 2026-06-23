@@ -1448,6 +1448,15 @@ pub(super) mod defs {
     pub struct CopyAccelerationStructureModeKHR(i32);
 
     impl CopyAccelerationStructureModeKHR {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const CLONE_KHR: Self = Self(0);
         pub const COMPACT_KHR: Self = Self(1);
 
@@ -1483,6 +1492,15 @@ pub(super) mod defs {
     pub struct BuildAccelerationStructureModeKHR(i32);
 
     impl BuildAccelerationStructureModeKHR {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const BUILD_KHR: Self = Self(0);
         pub const UPDATE_KHR: Self = Self(1);
     }
@@ -1508,6 +1526,15 @@ pub(super) mod defs {
     pub struct AccelerationStructureTypeKHR(i32);
 
     impl AccelerationStructureTypeKHR {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const TOP_LEVEL_KHR: Self = Self(0);
         pub const BOTTOM_LEVEL_KHR: Self = Self(1);
         pub const GENERIC_KHR: Self = Self(2);
@@ -1543,6 +1570,15 @@ pub(super) mod defs {
     pub struct GeometryTypeKHR(i32);
 
     impl GeometryTypeKHR {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const TRIANGLES_KHR: Self = Self(0);
         pub const AABBS_KHR: Self = Self(1);
         pub const INSTANCES_KHR: Self = Self(2);
@@ -1592,6 +1628,15 @@ pub(super) mod defs {
     pub struct AccelerationStructureBuildTypeKHR(i32);
 
     impl AccelerationStructureBuildTypeKHR {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const HOST_KHR: Self = Self(0);
         pub const DEVICE_KHR: Self = Self(1);
         pub const HOST_OR_DEVICE_KHR: Self = Self(2);
@@ -1619,6 +1664,15 @@ pub(super) mod defs {
     pub struct AccelerationStructureCompatibilityKHR(i32);
 
     impl AccelerationStructureCompatibilityKHR {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const COMPATIBLE_KHR: Self = Self(0);
         pub const INCOMPATIBLE_KHR: Self = Self(1);
     }

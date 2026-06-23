@@ -107,6 +107,15 @@ pub(super) mod defs {
     pub struct ValidationFeatureEnableEXT(i32);
 
     impl ValidationFeatureEnableEXT {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const GPU_ASSISTED_EXT: Self = Self(0);
         pub const GPU_ASSISTED_RESERVE_BINDING_SLOT_EXT: Self = Self(1);
         pub const BEST_PRACTICES_EXT: Self = Self(2);
@@ -140,6 +149,15 @@ pub(super) mod defs {
     pub struct ValidationFeatureDisableEXT(i32);
 
     impl ValidationFeatureDisableEXT {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const ALL_EXT: Self = Self(0);
         pub const SHADERS_EXT: Self = Self(1);
         pub const THREAD_SAFETY_EXT: Self = Self(2);

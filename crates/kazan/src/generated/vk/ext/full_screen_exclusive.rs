@@ -178,6 +178,15 @@ pub(super) mod defs {
     pub struct FullScreenExclusiveEXT(i32);
 
     impl FullScreenExclusiveEXT {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const DEFAULT_EXT: Self = Self(0);
         pub const ALLOWED_EXT: Self = Self(1);
         pub const DISALLOWED_EXT: Self = Self(2);

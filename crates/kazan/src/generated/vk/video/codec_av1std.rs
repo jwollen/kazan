@@ -1323,6 +1323,15 @@ pub(super) mod defs {
     pub struct StdVideoAV1Profile(i32);
 
     impl StdVideoAV1Profile {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const MAIN: Self = Self(0);
         pub const HIGH: Self = Self(1);
         pub const PROFESSIONAL: Self = Self(2);
@@ -1352,6 +1361,15 @@ pub(super) mod defs {
     pub struct StdVideoAV1Level(i32);
 
     impl StdVideoAV1Level {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const _2_0: Self = Self(0);
         pub const _2_1: Self = Self(1);
         pub const _2_2: Self = Self(2);
@@ -1423,6 +1441,15 @@ pub(super) mod defs {
     pub struct StdVideoAV1FrameType(i32);
 
     impl StdVideoAV1FrameType {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const KEY: Self = Self(0);
         pub const INTER: Self = Self(1);
         pub const INTRA_ONLY: Self = Self(2);
@@ -1454,6 +1481,15 @@ pub(super) mod defs {
     pub struct StdVideoAV1ReferenceName(i32);
 
     impl StdVideoAV1ReferenceName {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const INTRA_FRAME: Self = Self(0);
         pub const LAST_FRAME: Self = Self(1);
         pub const LAST2_FRAME: Self = Self(2);
@@ -1493,6 +1529,15 @@ pub(super) mod defs {
     pub struct StdVideoAV1InterpolationFilter(i32);
 
     impl StdVideoAV1InterpolationFilter {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const EIGHTTAP: Self = Self(0);
         pub const EIGHTTAP_SMOOTH: Self = Self(1);
         pub const EIGHTTAP_SHARP: Self = Self(2);
@@ -1526,6 +1571,15 @@ pub(super) mod defs {
     pub struct StdVideoAV1TxMode(i32);
 
     impl StdVideoAV1TxMode {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const ONLY_4X4: Self = Self(0);
         pub const LARGEST: Self = Self(1);
         pub const SELECT: Self = Self(2);
@@ -1555,6 +1609,15 @@ pub(super) mod defs {
     pub struct StdVideoAV1FrameRestorationType(i32);
 
     impl StdVideoAV1FrameRestorationType {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const NONE: Self = Self(0);
         pub const WIENER: Self = Self(1);
         pub const SGRPROJ: Self = Self(2);
@@ -1586,6 +1649,15 @@ pub(super) mod defs {
     pub struct StdVideoAV1ColorPrimaries(i32);
 
     impl StdVideoAV1ColorPrimaries {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const BT_709: Self = Self(1);
         pub const UNSPECIFIED: Self = Self(2);
         pub const BT_470_M: Self = Self(4);
@@ -1633,6 +1705,15 @@ pub(super) mod defs {
     pub struct StdVideoAV1TransferCharacteristics(i32);
 
     impl StdVideoAV1TransferCharacteristics {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const RESERVED_0: Self = Self(0);
         pub const BT_709: Self = Self(1);
         pub const UNSPECIFIED: Self = Self(2);
@@ -1694,6 +1775,15 @@ pub(super) mod defs {
     pub struct StdVideoAV1MatrixCoefficients(i32);
 
     impl StdVideoAV1MatrixCoefficients {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const IDENTITY: Self = Self(0);
         pub const BT_709: Self = Self(1);
         pub const UNSPECIFIED: Self = Self(2);
@@ -1747,6 +1837,15 @@ pub(super) mod defs {
     pub struct StdVideoAV1ChromaSamplePosition(i32);
 
     impl StdVideoAV1ChromaSamplePosition {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const UNKNOWN: Self = Self(0);
         pub const VERTICAL: Self = Self(1);
         pub const COLOCATED: Self = Self(2);

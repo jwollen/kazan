@@ -843,6 +843,15 @@ pub(super) mod defs {
     pub struct MicromapTypeEXT(i32);
 
     impl MicromapTypeEXT {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const OPACITY_MICROMAP_EXT: Self = Self(0);
 
         // VK_NV_displacement_micromap
@@ -872,6 +881,15 @@ pub(super) mod defs {
     pub struct CopyMicromapModeEXT(i32);
 
     impl CopyMicromapModeEXT {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const CLONE_EXT: Self = Self(0);
         pub const SERIALIZE_EXT: Self = Self(1);
         pub const DESERIALIZE_EXT: Self = Self(2);
@@ -901,6 +919,15 @@ pub(super) mod defs {
     pub struct BuildMicromapModeEXT(i32);
 
     impl BuildMicromapModeEXT {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const BUILD_EXT: Self = Self(0);
     }
 

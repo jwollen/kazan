@@ -235,6 +235,15 @@ pub(super) mod defs {
     pub struct StdVideoDecodeH264FieldOrderCount(i32);
 
     impl StdVideoDecodeH264FieldOrderCount {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const TOP: Self = Self(0);
         pub const BOTTOM: Self = Self(1);
         pub const INVALID: Self = Self(0x7FFFFFFF);

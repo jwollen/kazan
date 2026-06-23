@@ -1108,6 +1108,15 @@ pub(super) mod defs {
     pub struct StdVideoH264ChromaFormatIdc(i32);
 
     impl StdVideoH264ChromaFormatIdc {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const MONOCHROME: Self = Self(0);
         pub const _420: Self = Self(1);
         pub const _422: Self = Self(2);
@@ -1139,6 +1148,15 @@ pub(super) mod defs {
     pub struct StdVideoH264ProfileIdc(i32);
 
     impl StdVideoH264ProfileIdc {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         /// Only constrained baseline is supported
         pub const BASELINE: Self = Self(66);
         pub const MAIN: Self = Self(77);
@@ -1171,6 +1189,15 @@ pub(super) mod defs {
     pub struct StdVideoH264LevelIdc(i32);
 
     impl StdVideoH264LevelIdc {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const _1_0: Self = Self(0);
         pub const _1_1: Self = Self(1);
         pub const _1_2: Self = Self(2);
@@ -1232,6 +1259,15 @@ pub(super) mod defs {
     pub struct StdVideoH264PocType(i32);
 
     impl StdVideoH264PocType {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const _0: Self = Self(0);
         pub const _1: Self = Self(1);
         pub const _2: Self = Self(2);
@@ -1261,6 +1297,15 @@ pub(super) mod defs {
     pub struct StdVideoH264AspectRatioIdc(i32);
 
     impl StdVideoH264AspectRatioIdc {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const UNSPECIFIED: Self = Self(0);
         pub const SQUARE: Self = Self(1);
         pub const _12_11: Self = Self(2);
@@ -1320,6 +1365,15 @@ pub(super) mod defs {
     pub struct StdVideoH264WeightedBipredIdc(i32);
 
     impl StdVideoH264WeightedBipredIdc {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const DEFAULT: Self = Self(0);
         pub const EXPLICIT: Self = Self(1);
         pub const IMPLICIT: Self = Self(2);
@@ -1349,6 +1403,15 @@ pub(super) mod defs {
     pub struct StdVideoH264ModificationOfPicNumsIdc(i32);
 
     impl StdVideoH264ModificationOfPicNumsIdc {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const SHORT_TERM_SUBTRACT: Self = Self(0);
         pub const SHORT_TERM_ADD: Self = Self(1);
         pub const LONG_TERM: Self = Self(2);
@@ -1380,6 +1443,15 @@ pub(super) mod defs {
     pub struct StdVideoH264MemMgmtControlOp(i32);
 
     impl StdVideoH264MemMgmtControlOp {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const END: Self = Self(0);
         pub const UNMARK_SHORT_TERM: Self = Self(1);
         pub const UNMARK_LONG_TERM: Self = Self(2);
@@ -1417,6 +1489,15 @@ pub(super) mod defs {
     pub struct StdVideoH264CabacInitIdc(i32);
 
     impl StdVideoH264CabacInitIdc {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const _0: Self = Self(0);
         pub const _1: Self = Self(1);
         pub const _2: Self = Self(2);
@@ -1446,6 +1527,15 @@ pub(super) mod defs {
     pub struct StdVideoH264DisableDeblockingFilterIdc(i32);
 
     impl StdVideoH264DisableDeblockingFilterIdc {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const DISABLED: Self = Self(0);
         pub const ENABLED: Self = Self(1);
         pub const PARTIAL: Self = Self(2);
@@ -1475,6 +1565,15 @@ pub(super) mod defs {
     pub struct StdVideoH264SliceType(i32);
 
     impl StdVideoH264SliceType {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const P: Self = Self(0);
         pub const B: Self = Self(1);
         pub const I: Self = Self(2);
@@ -1504,6 +1603,15 @@ pub(super) mod defs {
     pub struct StdVideoH264PictureType(i32);
 
     impl StdVideoH264PictureType {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const P: Self = Self(0);
         pub const B: Self = Self(1);
         pub const I: Self = Self(2);
@@ -1535,6 +1643,15 @@ pub(super) mod defs {
     pub struct StdVideoH264NonVclNaluType(i32);
 
     impl StdVideoH264NonVclNaluType {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const SPS: Self = Self(0);
         pub const PPS: Self = Self(1);
         pub const AUD: Self = Self(2);

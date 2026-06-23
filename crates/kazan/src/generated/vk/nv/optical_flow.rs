@@ -570,6 +570,15 @@ pub(super) mod defs {
     pub struct OpticalFlowPerformanceLevelNV(i32);
 
     impl OpticalFlowPerformanceLevelNV {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const UNKNOWN_NV: Self = Self(0);
         pub const SLOW_NV: Self = Self(1);
         pub const MEDIUM_NV: Self = Self(2);
@@ -599,6 +608,15 @@ pub(super) mod defs {
     pub struct OpticalFlowSessionBindingPointNV(i32);
 
     impl OpticalFlowSessionBindingPointNV {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const UNKNOWN_NV: Self = Self(0);
         pub const INPUT_NV: Self = Self(1);
         pub const REFERENCE_NV: Self = Self(2);

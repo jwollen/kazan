@@ -184,6 +184,15 @@ pub(super) mod defs {
     pub struct CompressedTriangleFormatAMDX(i32);
 
     impl CompressedTriangleFormatAMDX {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const DGF1_AMDX: Self = Self(0);
     }
 

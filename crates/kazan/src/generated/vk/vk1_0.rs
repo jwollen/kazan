@@ -8229,6 +8229,15 @@ pub(super) mod defs {
     pub struct ImageLayout(i32);
 
     impl ImageLayout {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         /// Implicit layout an image is when its contents are undefined due to various reasons (e.g. right after creation)
         pub const UNDEFINED: Self = Self(0);
         /// General layout when image can be used for any kind of access
@@ -8384,6 +8393,15 @@ pub(super) mod defs {
     pub struct AttachmentLoadOp(i32);
 
     impl AttachmentLoadOp {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const LOAD: Self = Self(0);
         pub const CLEAR: Self = Self(1);
         pub const DONT_CARE: Self = Self(2);
@@ -8421,6 +8439,15 @@ pub(super) mod defs {
     pub struct AttachmentStoreOp(i32);
 
     impl AttachmentStoreOp {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const STORE: Self = Self(0);
         pub const DONT_CARE: Self = Self(1);
 
@@ -8459,6 +8486,15 @@ pub(super) mod defs {
     pub struct ImageType(i32);
 
     impl ImageType {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const _1D: Self = Self(0);
         pub const _2D: Self = Self(1);
         pub const _3D: Self = Self(2);
@@ -8486,6 +8522,15 @@ pub(super) mod defs {
     pub struct ImageTiling(i32);
 
     impl ImageTiling {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const OPTIMAL: Self = Self(0);
         pub const LINEAR: Self = Self(1);
 
@@ -8515,6 +8560,15 @@ pub(super) mod defs {
     pub struct ImageViewType(i32);
 
     impl ImageViewType {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const _1D: Self = Self(0);
         pub const _2D: Self = Self(1);
         pub const _3D: Self = Self(2);
@@ -8550,6 +8604,15 @@ pub(super) mod defs {
     pub struct CommandBufferLevel(i32);
 
     impl CommandBufferLevel {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const PRIMARY: Self = Self(0);
         pub const SECONDARY: Self = Self(1);
     }
@@ -8575,6 +8638,15 @@ pub(super) mod defs {
     pub struct ComponentSwizzle(i32);
 
     impl ComponentSwizzle {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const IDENTITY: Self = Self(0);
         pub const ZERO: Self = Self(1);
         pub const ONE: Self = Self(2);
@@ -8610,6 +8682,15 @@ pub(super) mod defs {
     pub struct DescriptorType(i32);
 
     impl DescriptorType {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const SAMPLER: Self = Self(0);
         pub const COMBINED_IMAGE_SAMPLER: Self = Self(1);
         pub const SAMPLED_IMAGE: Self = Self(2);
@@ -8691,6 +8772,15 @@ pub(super) mod defs {
     pub struct QueryType(i32);
 
     impl QueryType {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const OCCLUSION: Self = Self(0);
         pub const PIPELINE_STATISTICS: Self = Self(1);
         pub const TIMESTAMP: Self = Self(2);
@@ -8781,6 +8871,15 @@ pub(super) mod defs {
     pub struct BorderColor(i32);
 
     impl BorderColor {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const FLOAT_TRANSPARENT_BLACK: Self = Self(0);
         pub const INT_TRANSPARENT_BLACK: Self = Self(1);
         pub const FLOAT_OPAQUE_BLACK: Self = Self(2);
@@ -8820,6 +8919,15 @@ pub(super) mod defs {
     pub struct PipelineBindPoint(i32);
 
     impl PipelineBindPoint {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const GRAPHICS: Self = Self(0);
         pub const COMPUTE: Self = Self(1);
 
@@ -8866,6 +8974,15 @@ pub(super) mod defs {
     pub struct PipelineCacheHeaderVersion(i32);
 
     impl PipelineCacheHeaderVersion {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const ONE: Self = Self(1);
 
         // VK_QCOM_data_graph_model
@@ -8893,6 +9010,15 @@ pub(super) mod defs {
     pub struct PrimitiveTopology(i32);
 
     impl PrimitiveTopology {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const POINT_LIST: Self = Self(0);
         pub const LINE_LIST: Self = Self(1);
         pub const LINE_STRIP: Self = Self(2);
@@ -8936,6 +9062,15 @@ pub(super) mod defs {
     pub struct SharingMode(i32);
 
     impl SharingMode {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const EXCLUSIVE: Self = Self(0);
         pub const CONCURRENT: Self = Self(1);
     }
@@ -8961,6 +9096,15 @@ pub(super) mod defs {
     pub struct IndexType(i32);
 
     impl IndexType {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const UINT16: Self = Self(0);
         pub const UINT32: Self = Self(1);
 
@@ -9003,6 +9147,15 @@ pub(super) mod defs {
     pub struct Filter(i32);
 
     impl Filter {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const NEAREST: Self = Self(0);
         pub const LINEAR: Self = Self(1);
 
@@ -9035,6 +9188,15 @@ pub(super) mod defs {
     pub struct SamplerMipmapMode(i32);
 
     impl SamplerMipmapMode {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         /// Choose nearest mip level
         pub const NEAREST: Self = Self(0);
         /// Linear filter between mip levels
@@ -9062,6 +9224,15 @@ pub(super) mod defs {
     pub struct SamplerAddressMode(i32);
 
     impl SamplerAddressMode {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const REPEAT: Self = Self(0);
         pub const MIRRORED_REPEAT: Self = Self(1);
         pub const CLAMP_TO_EDGE: Self = Self(2);
@@ -9096,6 +9267,15 @@ pub(super) mod defs {
     pub struct CompareOp(i32);
 
     impl CompareOp {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const NEVER: Self = Self(0);
         pub const LESS: Self = Self(1);
         pub const EQUAL: Self = Self(2);
@@ -9133,6 +9313,15 @@ pub(super) mod defs {
     pub struct PolygonMode(i32);
 
     impl PolygonMode {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const FILL: Self = Self(0);
         pub const LINE: Self = Self(1);
         pub const POINT: Self = Self(2);
@@ -9164,6 +9353,15 @@ pub(super) mod defs {
     pub struct FrontFace(i32);
 
     impl FrontFace {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const COUNTER_CLOCKWISE: Self = Self(0);
         pub const CLOCKWISE: Self = Self(1);
     }
@@ -9189,6 +9387,15 @@ pub(super) mod defs {
     pub struct BlendFactor(i32);
 
     impl BlendFactor {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const ZERO: Self = Self(0);
         pub const ONE: Self = Self(1);
         pub const SRC_COLOR: Self = Self(2);
@@ -9248,6 +9455,15 @@ pub(super) mod defs {
     pub struct BlendOp(i32);
 
     impl BlendOp {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const ADD: Self = Self(0);
         pub const SUBTRACT: Self = Self(1);
         pub const REVERSE_SUBTRACT: Self = Self(2);
@@ -9373,6 +9589,15 @@ pub(super) mod defs {
     pub struct StencilOp(i32);
 
     impl StencilOp {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const KEEP: Self = Self(0);
         pub const ZERO: Self = Self(1);
         pub const REPLACE: Self = Self(2);
@@ -9410,6 +9635,15 @@ pub(super) mod defs {
     pub struct LogicOp(i32);
 
     impl LogicOp {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const CLEAR: Self = Self(0);
         pub const AND: Self = Self(1);
         pub const AND_REVERSE: Self = Self(2);
@@ -9463,6 +9697,15 @@ pub(super) mod defs {
     pub struct InternalAllocationType(i32);
 
     impl InternalAllocationType {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const EXECUTABLE: Self = Self(0);
     }
 
@@ -9486,6 +9729,15 @@ pub(super) mod defs {
     pub struct SystemAllocationScope(i32);
 
     impl SystemAllocationScope {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const COMMAND: Self = Self(0);
         pub const OBJECT: Self = Self(1);
         pub const CACHE: Self = Self(2);
@@ -9517,6 +9769,15 @@ pub(super) mod defs {
     pub struct PhysicalDeviceType(i32);
 
     impl PhysicalDeviceType {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const OTHER: Self = Self(0);
         pub const INTEGRATED_GPU: Self = Self(1);
         pub const DISCRETE_GPU: Self = Self(2);
@@ -9548,6 +9809,15 @@ pub(super) mod defs {
     pub struct VertexInputRate(i32);
 
     impl VertexInputRate {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const VERTEX: Self = Self(0);
         pub const INSTANCE: Self = Self(1);
     }
@@ -9573,6 +9843,15 @@ pub(super) mod defs {
     pub struct Format(i32);
 
     impl Format {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const UNDEFINED: Self = Self(0);
         pub const R4G4_UNORM_PACK8: Self = Self(1);
         pub const R4G4B4A4_UNORM_PACK16: Self = Self(2);
@@ -10345,6 +10624,15 @@ pub(super) mod defs {
     pub struct StructureType(i32);
 
     impl StructureType {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const APPLICATION_INFO: Self = Self(0);
         pub const INSTANCE_CREATE_INFO: Self = Self(1);
         pub const DEVICE_QUEUE_CREATE_INFO: Self = Self(2);
@@ -16007,6 +16295,15 @@ pub(super) mod defs {
     pub struct SubpassContents(i32);
 
     impl SubpassContents {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const INLINE: Self = Self(0);
         pub const SECONDARY_COMMAND_BUFFERS: Self = Self(1);
 
@@ -16042,6 +16339,15 @@ pub(super) mod defs {
     pub struct Result(i32);
 
     impl Result {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         /// Command completed successfully
         pub const SUCCESS: Self = Self(0);
         /// A fence or query has not yet completed
@@ -16271,6 +16577,15 @@ pub(super) mod defs {
     pub struct DynamicState(i32);
 
     impl DynamicState {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const VIEWPORT: Self = Self(0);
         pub const SCISSOR: Self = Self(1);
         pub const LINE_WIDTH: Self = Self(2);
@@ -16505,6 +16820,15 @@ pub(super) mod defs {
     pub struct ObjectType(i32);
 
     impl ObjectType {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const UNKNOWN: Self = Self(0);
         pub const INSTANCE: Self = Self(1);
         pub const PHYSICAL_DEVICE: Self = Self(2);
@@ -16716,6 +17040,15 @@ pub(super) mod defs {
     pub struct VendorId(i32);
 
     impl VendorId {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         /// Khronos vendor ID
         pub const KHRONOS: Self = Self(0x10000);
         /// Vivante vendor ID

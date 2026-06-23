@@ -642,6 +642,15 @@ pub(super) mod defs {
     pub struct RayTracingShaderGroupTypeKHR(i32);
 
     impl RayTracingShaderGroupTypeKHR {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const GENERAL_KHR: Self = Self(0);
         pub const TRIANGLES_HIT_GROUP_KHR: Self = Self(1);
         pub const PROCEDURAL_HIT_GROUP_KHR: Self = Self(2);
@@ -674,6 +683,15 @@ pub(super) mod defs {
     pub struct ShaderGroupShaderKHR(i32);
 
     impl ShaderGroupShaderKHR {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const GENERAL_KHR: Self = Self(0);
         pub const CLOSEST_HIT_KHR: Self = Self(1);
         pub const ANY_HIT_KHR: Self = Self(2);

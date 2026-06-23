@@ -1372,6 +1372,15 @@ pub(super) mod defs {
     pub struct DataGraphPipelineSessionBindPointARM(i32);
 
     impl DataGraphPipelineSessionBindPointARM {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const TRANSIENT_ARM: Self = Self(0);
 
         // VK_ARM_data_graph_neural_accelerator_statistics
@@ -1405,6 +1414,15 @@ pub(super) mod defs {
     pub struct DataGraphPipelineSessionBindPointTypeARM(i32);
 
     impl DataGraphPipelineSessionBindPointTypeARM {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const MEMORY_ARM: Self = Self(0);
     }
 
@@ -1428,6 +1446,15 @@ pub(super) mod defs {
     pub struct DataGraphPipelinePropertyARM(i32);
 
     impl DataGraphPipelinePropertyARM {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const CREATION_LOG_ARM: Self = Self(0);
         pub const IDENTIFIER_ARM: Self = Self(1);
 
@@ -1463,6 +1490,15 @@ pub(super) mod defs {
     pub struct PhysicalDeviceDataGraphProcessingEngineTypeARM(i32);
 
     impl PhysicalDeviceDataGraphProcessingEngineTypeARM {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const DEFAULT_ARM: Self = Self(0);
 
         // VK_QCOM_data_graph_model
@@ -1492,6 +1528,15 @@ pub(super) mod defs {
     pub struct PhysicalDeviceDataGraphOperationTypeARM(i32);
 
     impl PhysicalDeviceDataGraphOperationTypeARM {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const SPIRV_EXTENDED_INSTRUCTION_SET_ARM: Self = Self(0);
 
         // VK_ARM_data_graph_optical_flow

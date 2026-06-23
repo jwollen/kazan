@@ -663,6 +663,15 @@ pub(super) mod defs {
     pub struct DataGraphOpticalFlowPerformanceLevelARM(i32);
 
     impl DataGraphOpticalFlowPerformanceLevelARM {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const UNKNOWN_ARM: Self = Self(0);
         pub const SLOW_ARM: Self = Self(1);
         pub const MEDIUM_ARM: Self = Self(2);
@@ -692,6 +701,15 @@ pub(super) mod defs {
     pub struct DataGraphPipelineNodeConnectionTypeARM(i32);
 
     impl DataGraphPipelineNodeConnectionTypeARM {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         // VK_ARM_data_graph_optical_flow
         pub const OPTICAL_FLOW_INPUT_ARM: Self = Self(1000631000);
         pub const OPTICAL_FLOW_REFERENCE_ARM: Self = Self(1000631001);
@@ -724,6 +742,15 @@ pub(super) mod defs {
     pub struct DataGraphPipelineNodeTypeARM(i32);
 
     impl DataGraphPipelineNodeTypeARM {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         // VK_ARM_data_graph_optical_flow
         pub const OPTICAL_FLOW_ARM: Self = Self(1000631000);
     }

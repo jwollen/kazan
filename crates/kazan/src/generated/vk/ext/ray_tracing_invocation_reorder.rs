@@ -155,6 +155,15 @@ pub(super) mod defs {
     pub struct RayTracingInvocationReorderModeEXT(i32);
 
     impl RayTracingInvocationReorderModeEXT {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const NONE_EXT: Self = Self(0);
         pub const REORDER_EXT: Self = Self(1);
 

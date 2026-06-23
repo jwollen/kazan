@@ -157,6 +157,15 @@ pub(super) mod defs {
     pub struct DepthClampModeEXT(i32);
 
     impl DepthClampModeEXT {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const VIEWPORT_RANGE_EXT: Self = Self(0);
         pub const USER_DEFINED_RANGE_EXT: Self = Self(1);
     }

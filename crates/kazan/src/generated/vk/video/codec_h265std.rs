@@ -2921,6 +2921,15 @@ pub(super) mod defs {
     pub struct StdVideoH265ChromaFormatIdc(i32);
 
     impl StdVideoH265ChromaFormatIdc {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const MONOCHROME: Self = Self(0);
         pub const _420: Self = Self(1);
         pub const _422: Self = Self(2);
@@ -2952,6 +2961,15 @@ pub(super) mod defs {
     pub struct StdVideoH265ProfileIdc(i32);
 
     impl StdVideoH265ProfileIdc {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const MAIN: Self = Self(1);
         pub const MAIN_10: Self = Self(2);
         pub const MAIN_STILL_PICTURE: Self = Self(3);
@@ -2985,6 +3003,15 @@ pub(super) mod defs {
     pub struct StdVideoH265LevelIdc(i32);
 
     impl StdVideoH265LevelIdc {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const _1_0: Self = Self(0);
         pub const _2_0: Self = Self(1);
         pub const _2_1: Self = Self(2);
@@ -3034,6 +3061,15 @@ pub(super) mod defs {
     pub struct StdVideoH265SliceType(i32);
 
     impl StdVideoH265SliceType {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const B: Self = Self(0);
         pub const P: Self = Self(1);
         pub const I: Self = Self(2);
@@ -3063,6 +3099,15 @@ pub(super) mod defs {
     pub struct StdVideoH265PictureType(i32);
 
     impl StdVideoH265PictureType {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const P: Self = Self(0);
         pub const B: Self = Self(1);
         pub const I: Self = Self(2);
@@ -3094,6 +3139,15 @@ pub(super) mod defs {
     pub struct StdVideoH265AspectRatioIdc(i32);
 
     impl StdVideoH265AspectRatioIdc {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const UNSPECIFIED: Self = Self(0);
         pub const SQUARE: Self = Self(1);
         pub const _12_11: Self = Self(2);

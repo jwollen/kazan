@@ -489,6 +489,15 @@ pub(super) mod defs {
     pub struct PerformanceCounterScopeKHR(i32);
 
     impl PerformanceCounterScopeKHR {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const COMMAND_BUFFER_KHR: Self = Self(0);
         pub const RENDER_PASS_KHR: Self = Self(1);
         pub const COMMAND_KHR: Self = Self(2);
@@ -516,6 +525,15 @@ pub(super) mod defs {
     pub struct PerformanceCounterUnitKHR(i32);
 
     impl PerformanceCounterUnitKHR {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const GENERIC_KHR: Self = Self(0);
         pub const PERCENTAGE_KHR: Self = Self(1);
         pub const NANOSECONDS_KHR: Self = Self(2);
@@ -559,6 +577,15 @@ pub(super) mod defs {
     pub struct PerformanceCounterStorageKHR(i32);
 
     impl PerformanceCounterStorageKHR {
+        #[inline]
+        pub const fn from_raw(x: i32) -> Self {
+            Self(x)
+        }
+        #[inline]
+        pub const fn as_raw(self) -> i32 {
+            self.0
+        }
+
         pub const INT32_KHR: Self = Self(0);
         pub const INT64_KHR: Self = Self(1);
         pub const UINT32_KHR: Self = Self(2);
