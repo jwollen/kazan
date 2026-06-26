@@ -1710,6 +1710,13 @@ pub(super) mod defs {
 
         pub const OPTIMAL_ARM: Self = Self(0);
         pub const LINEAR_ARM: Self = Self(1);
+
+        // VK_ARM_tensor_controls
+        pub const BRICK_16_WIDE_ARM: Self = Self(1000565000);
+        pub const BRICK_8_WIDE_ARM: Self = Self(1000565001);
+        pub const BRICK_4_WIDE_ARM: Self = Self(1000565002);
+        pub const BLOCK_U_INTERLEAVED_ARM: Self = Self(1000565003);
+        pub const BLOCK_U_INTERLEAVED_64K_ARM: Self = Self(1000565004);
     }
 
     impl fmt::Debug for TensorTilingARM {
@@ -1717,6 +1724,11 @@ pub(super) mod defs {
             let name = match *self {
                 Self::OPTIMAL_ARM => Some("OPTIMAL_ARM"),
                 Self::LINEAR_ARM => Some("LINEAR_ARM"),
+                Self::BRICK_16_WIDE_ARM => Some("BRICK_16_WIDE_ARM"),
+                Self::BRICK_8_WIDE_ARM => Some("BRICK_8_WIDE_ARM"),
+                Self::BRICK_4_WIDE_ARM => Some("BRICK_4_WIDE_ARM"),
+                Self::BLOCK_U_INTERLEAVED_ARM => Some("BLOCK_U_INTERLEAVED_ARM"),
+                Self::BLOCK_U_INTERLEAVED_64K_ARM => Some("BLOCK_U_INTERLEAVED_64K_ARM"),
                 _ => None,
             };
             if let Some(name) = name {

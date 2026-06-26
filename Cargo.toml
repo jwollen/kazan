@@ -3,7 +3,7 @@ resolver = "3"
 members = ["crates/*"]
 
 [workspace.package]
-version = "0.3.4+1.4.354"
+version = "0.3.5+1.4.355"
 authors = ["Jörg Wollenschläger <joerg.wollenschlaeger@gmail.com>"]
 license = "MIT OR Apache-2.0"
 edition = "2024"

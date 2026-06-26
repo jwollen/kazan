@@ -10860,6 +10860,10 @@ pub(super) mod defs {
         pub const SHADER_INSTRUMENTATION_CREATE_INFO_ARM: Self = Self(1000607002);
         pub const SHADER_INSTRUMENTATION_METRIC_DESCRIPTION_ARM: Self = Self(1000607003);
 
+        // VK_ARM_tensor_controls
+        pub const TENSOR_EXPLICIT_TILING_FORMAT_PROPERTIES_ARM: Self = Self(1000565000);
+        pub const TENSOR_ROLLING_BACKING_CREATE_INFO_ARM: Self = Self(1000565001);
+
         // VK_ARM_tensors
         pub const TENSOR_CREATE_INFO_ARM: Self = Self(1000460000);
         pub const TENSOR_VIEW_CREATE_INFO_ARM: Self = Self(1000460001);
@@ -13573,6 +13577,12 @@ pub(super) mod defs {
                 }
                 Self::SHADER_INSTRUMENTATION_METRIC_DESCRIPTION_ARM => {
                     Some("SHADER_INSTRUMENTATION_METRIC_DESCRIPTION_ARM")
+                }
+                Self::TENSOR_EXPLICIT_TILING_FORMAT_PROPERTIES_ARM => {
+                    Some("TENSOR_EXPLICIT_TILING_FORMAT_PROPERTIES_ARM")
+                }
+                Self::TENSOR_ROLLING_BACKING_CREATE_INFO_ARM => {
+                    Some("TENSOR_ROLLING_BACKING_CREATE_INFO_ARM")
                 }
                 Self::TENSOR_CREATE_INFO_ARM => Some("TENSOR_CREATE_INFO_ARM"),
                 Self::TENSOR_VIEW_CREATE_INFO_ARM => Some("TENSOR_VIEW_CREATE_INFO_ARM"),
