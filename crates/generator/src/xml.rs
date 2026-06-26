@@ -65,7 +65,6 @@ impl CDecl<'static> {
                     CTok::lex_into(text(), &mut c_tokens).unwrap();
                 }
                 NodeType::Element => {
-                    assert_eq!(child.attributes().len(), 0);
                     let text = || {
                         assert_eq!(child.children().count(), 1);
                         text()
