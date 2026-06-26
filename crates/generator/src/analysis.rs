@@ -5,7 +5,12 @@ use std::{
 };
 use tracing::{debug, error_span};
 
-use crate::{cdecl::CType, ctype, external, module::Module, xml};
+use crate::{
+    cdecl::{CArrayLen, CType},
+    ctype, external,
+    module::Module,
+    xml,
+};
 
 /// Holds the analysis results for easy querying.
 pub struct Analysis {
@@ -670,6 +675,33 @@ fn compute_module_items(registry: &xml::Registry) -> Vec<ModuleItems<'_>> {
         };
 
         for require in module.requires() {
+            // Named array-length constants used in required struct/union members not explicitly listed in <require> blocks.
+            // Fixed possibly missing <require> of VK_MAX_TENSOR_CREATE_INFO_ROLLING_BACKING_WRAP_COUNT_ARM.
+            let struct_array_const_names = require.types.iter().flat_map(|t| {
+                registry
+                    .structs
+                    .iter()
+                    .chain(registry.unions.iter())
+                    .find(|s| s.name == t.name)
+                    .into_iter()
+                    .flat_map(|s| s.members.iter())
+                    .filter_map(|m| {
+                        if let CType::Array {
+                            len: CArrayLen::Named(name),
+                            ..
+                        } = &m.c_decl.ty
+                        {
+                            if registry.constants.iter().any(|c| c.name == *name) {
+                                Some(*name)
+                            } else {
+                                None
+                            }
+                        } else {
+                            None
+                        }
+                    })
+            });
+
             let item_names = require
                 .types
                 .iter()
@@ -687,7 +719,8 @@ fn compute_module_items(registry: &xml::Registry) -> Vec<ModuleItems<'_>> {
                     } else {
                         None
                     }
-                }));
+                }))
+                .chain(struct_array_const_names);
 
             for name in item_names {
                 first_requirer.entry(name).or_insert(index);
@@ -715,16 +748,20 @@ fn compute_module_items(registry: &xml::Registry) -> Vec<ModuleItems<'_>> {
         .map(|(module, owned)| {
             let requires = module.requires();
 
-            let api_constants = requires
+            // Explicitly required constants in require-block order (preserves original ordering).
+            let mut seen: HashSet<&str> = HashSet::new();
+            let mut api_constants: Vec<xml::Constant> = requires
                 .iter()
                 .flat_map(|req| &req.constants)
                 .filter(|c| owned.contains(c.name))
                 .filter_map(|constant| {
+                    if !seen.insert(constant.name) {
+                        return None;
+                    }
                     let global = registry
                         .constants
                         .iter()
                         .find(|api_constant| api_constant.name == constant.name);
-
                     if let Some(global) = global {
                         Some(global.clone())
                     } else if let (Some(ty), Some(value)) = (constant.ty, constant.value) {
@@ -738,6 +775,16 @@ fn compute_module_items(registry: &xml::Registry) -> Vec<ModuleItems<'_>> {
                     }
                 })
                 .collect();
+
+            // Append constants that landed in `owned` via struct-member array-length scanning
+            // but were never explicitly listed in a <require> block.
+            api_constants.extend(
+                registry
+                    .constants
+                    .iter()
+                    .filter(|c| owned.contains(c.name) && !seen.contains(c.name))
+                    .cloned(),
+            );
 
             ModuleItems {
                 api_constants,
