@@ -15,6 +15,8 @@ pub(super) mod defs {
     use core::marker::PhantomData;
     use core::ptr;
 
+    pub const MAX_TENSOR_CREATE_INFO_ROLLING_BACKING_WRAP_COUNT_ARM: u32 = 4;
+
     /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorExplicitTilingFormatPropertiesARM.html>
     #[repr(C)]
     #[derive(Copy, Clone)]
