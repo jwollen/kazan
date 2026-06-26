@@ -1318,6 +1318,7 @@ define_extension_set!(
             ext_shader_replicated_composites,
             ext::shader_replicated_composites::EXTENSION_NAME
         ),
+        (arm_tensor_controls, arm::tensor_controls::EXTENSION_NAME),
         (ext_shader_float8, ext::shader_float8::EXTENSION_NAME),
         (
             nv_ray_tracing_validation,

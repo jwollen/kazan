@@ -11,6 +11,7 @@ pub mod scheduling_controls;
 pub mod shader_core_builtins;
 pub mod shader_core_properties;
 pub mod shader_instrumentation;
+pub mod tensor_controls;
 pub mod tensors;
 pub(super) mod defs {
     use super::*;
@@ -27,6 +28,7 @@ pub(super) mod defs {
     pub use shader_core_builtins::defs::*;
     pub use shader_core_properties::defs::*;
     pub use shader_instrumentation::defs::*;
+    pub use tensor_controls::defs::*;
     pub use tensors::defs::*;
 }
 #[cfg(feature = "ffi")]
@@ -44,5 +46,6 @@ pub(super) mod ffi {
     pub use super::shader_core_builtins::ffi::*;
     pub use super::shader_core_properties::ffi::*;
     pub use super::shader_instrumentation::ffi::*;
+    pub use super::tensor_controls::ffi::*;
     pub use super::tensors::ffi::*;
 }
