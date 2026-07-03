@@ -332,6 +332,13 @@ pub(super) mod defs {
         pub const FLOAT8_E4M3_EXT: Self = Self(1000491002);
         pub const FLOAT8_E5M2_EXT: Self = Self(1000491003);
 
+        // VK_EXT_shader_ocp_microscaling_types
+        pub const FLOAT6_E2M3_EXT: Self = Self(1000672000);
+        pub const FLOAT6_E3M2_EXT: Self = Self(1000672001);
+        pub const FLOAT4_E2M1_EXT: Self = Self(1000672002);
+        pub const FLOAT8_UNSIGNED_E8M0_EXT: Self = Self(1000672003);
+        pub const MXINT8_EXT: Self = Self(1000672004);
+
         // VK_KHR_shader_bfloat16
         pub const BFLOAT16_KHR: Self = Self(1000141000);
 
@@ -371,6 +378,11 @@ pub(super) mod defs {
                 Self::UINT64_KHR => Some("UINT64_KHR"),
                 Self::FLOAT8_E4M3_EXT => Some("FLOAT8_E4M3_EXT"),
                 Self::FLOAT8_E5M2_EXT => Some("FLOAT8_E5M2_EXT"),
+                Self::FLOAT6_E2M3_EXT => Some("FLOAT6_E2M3_EXT"),
+                Self::FLOAT6_E3M2_EXT => Some("FLOAT6_E3M2_EXT"),
+                Self::FLOAT4_E2M1_EXT => Some("FLOAT4_E2M1_EXT"),
+                Self::FLOAT8_UNSIGNED_E8M0_EXT => Some("FLOAT8_UNSIGNED_E8M0_EXT"),
+                Self::MXINT8_EXT => Some("MXINT8_EXT"),
                 Self::BFLOAT16_KHR => Some("BFLOAT16_KHR"),
                 Self::SINT8_PACKED_NV => Some("SINT8_PACKED_NV"),
                 Self::UINT8_PACKED_NV => Some("UINT8_PACKED_NV"),

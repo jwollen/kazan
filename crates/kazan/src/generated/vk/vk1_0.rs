@@ -11476,6 +11476,10 @@ pub(super) mod defs {
         pub const SHADER_REQUIRED_SUBGROUP_SIZE_CREATE_INFO_EXT: Self =
             Self::PIPELINE_SHADER_STAGE_REQUIRED_SUBGROUP_SIZE_CREATE_INFO;
 
+        // VK_EXT_shader_ocp_microscaling_types
+        pub const PHYSICAL_DEVICE_SHADER_OCP_MICROSCALING_TYPES_FEATURES_EXT: Self =
+            Self(1000672000);
+
         // VK_EXT_shader_replicated_composites
         pub const PHYSICAL_DEVICE_SHADER_REPLICATED_COMPOSITES_FEATURES_EXT: Self =
             Self(1000564000);
@@ -14256,6 +14260,9 @@ pub(super) mod defs {
                 }
                 Self::VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT => {
                     Some("VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT")
+                }
+                Self::PHYSICAL_DEVICE_SHADER_OCP_MICROSCALING_TYPES_FEATURES_EXT => {
+                    Some("PHYSICAL_DEVICE_SHADER_OCP_MICROSCALING_TYPES_FEATURES_EXT")
                 }
                 Self::PHYSICAL_DEVICE_SHADER_REPLICATED_COMPOSITES_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_SHADER_REPLICATED_COMPOSITES_FEATURES_EXT")
