@@ -1455,6 +1455,10 @@ define_extension_set!(
         ),
         (khr_extended_flags, khr::extended_flags::EXTENSION_NAME),
         (
+            ext_shader_ocp_microscaling_types,
+            ext::shader_ocp_microscaling_types::EXTENSION_NAME
+        ),
+        (
             valve_shader_mixed_float_dot_product,
             valve::shader_mixed_float_dot_product::EXTENSION_NAME
         ),
