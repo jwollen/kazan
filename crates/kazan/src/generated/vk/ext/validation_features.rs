@@ -62,6 +62,10 @@ pub(super) mod defs {
     unsafe impl Extends<InstanceCreateInfo<'_>> for ValidationFeaturesEXT<'_> {}
     unsafe impl Extends<ShaderModuleCreateInfo<'_>> for ValidationFeaturesEXT<'_> {}
     unsafe impl Extends<ShaderCreateInfoEXT<'_>> for ValidationFeaturesEXT<'_> {}
+    unsafe impl Extends<PipelineShaderStageCreateInfo<'_>> for ValidationFeaturesEXT<'_> {}
+    unsafe impl Extends<GraphicsPipelineCreateInfo<'_>> for ValidationFeaturesEXT<'_> {}
+    unsafe impl Extends<ComputePipelineCreateInfo<'_>> for ValidationFeaturesEXT<'_> {}
+    unsafe impl Extends<RayTracingPipelineCreateInfoKHR<'_>> for ValidationFeaturesEXT<'_> {}
 
     impl Default for ValidationFeaturesEXT<'_> {
         fn default() -> Self {

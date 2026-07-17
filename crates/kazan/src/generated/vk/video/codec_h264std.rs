@@ -1161,6 +1161,10 @@ pub(super) mod defs {
         pub const BASELINE: Self = Self(66);
         pub const MAIN: Self = Self(77);
         pub const HIGH: Self = Self(100);
+        /// Annex A.2.5 High 10 profile (profile_idc 100 or 110)
+        pub const HIGH_10: Self = Self(110);
+        /// Annex A.2.6 High 4:2:2 profile (profile_idc 100, 110, or 122)
+        pub const HIGH_422: Self = Self(122);
         pub const HIGH_444_PREDICTIVE: Self = Self(244);
         pub const INVALID: Self = Self(0x7FFFFFFF);
     }
@@ -1171,6 +1175,8 @@ pub(super) mod defs {
                 Self::BASELINE => Some("BASELINE"),
                 Self::MAIN => Some("MAIN"),
                 Self::HIGH => Some("HIGH"),
+                Self::HIGH_10 => Some("HIGH_10"),
+                Self::HIGH_422 => Some("HIGH_422"),
                 Self::HIGH_444_PREDICTIVE => Some("HIGH_444_PREDICTIVE"),
                 Self::INVALID => Some("INVALID"),
                 _ => None,
