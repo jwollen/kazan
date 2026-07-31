@@ -62,6 +62,7 @@ pub mod image_compression_control_swapchain;
 pub mod image_drm_format_modifier;
 pub mod image_robustness;
 pub mod image_sliced_view_of_3d;
+pub mod image_tiling_control;
 pub mod image_view_min_lod;
 pub mod index_type_uint8;
 pub mod inline_uniform_block;
@@ -212,6 +213,7 @@ pub(super) mod defs {
     pub use image_drm_format_modifier::defs::*;
     pub use image_robustness::defs::*;
     pub use image_sliced_view_of_3d::defs::*;
+    pub use image_tiling_control::defs::*;
     pub use image_view_min_lod::defs::*;
     pub use index_type_uint8::defs::*;
     pub use inline_uniform_block::defs::*;
@@ -353,6 +355,7 @@ pub(super) mod ffi {
     pub use super::image_drm_format_modifier::ffi::*;
     pub use super::image_robustness::ffi::*;
     pub use super::image_sliced_view_of_3d::ffi::*;
+    pub use super::image_tiling_control::ffi::*;
     pub use super::image_view_min_lod::ffi::*;
     pub use super::index_type_uint8::ffi::*;
     pub use super::inline_uniform_block::ffi::*;

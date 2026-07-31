@@ -11211,6 +11211,10 @@ pub(super) mod defs {
         pub const PHYSICAL_DEVICE_IMAGE_SLICED_VIEW_OF_3D_FEATURES_EXT: Self = Self(1000418000);
         pub const IMAGE_VIEW_SLICED_CREATE_INFO_EXT: Self = Self(1000418001);
 
+        // VK_EXT_image_tiling_control
+        pub const PHYSICAL_DEVICE_IMAGE_TILING_CONTROL_FEATURES_EXT: Self = Self(1000687000);
+        pub const IMAGE_TILING_CONTROL_CREATE_INFO_EXT: Self = Self(1000687001);
+
         // VK_EXT_image_view_min_lod
         pub const PHYSICAL_DEVICE_IMAGE_VIEW_MIN_LOD_FEATURES_EXT: Self = Self(1000391000);
         pub const IMAGE_VIEW_MIN_LOD_CREATE_INFO_EXT: Self = Self(1000391001);
@@ -14017,6 +14021,12 @@ pub(super) mod defs {
                 }
                 Self::IMAGE_VIEW_SLICED_CREATE_INFO_EXT => {
                     Some("IMAGE_VIEW_SLICED_CREATE_INFO_EXT")
+                }
+                Self::PHYSICAL_DEVICE_IMAGE_TILING_CONTROL_FEATURES_EXT => {
+                    Some("PHYSICAL_DEVICE_IMAGE_TILING_CONTROL_FEATURES_EXT")
+                }
+                Self::IMAGE_TILING_CONTROL_CREATE_INFO_EXT => {
+                    Some("IMAGE_TILING_CONTROL_CREATE_INFO_EXT")
                 }
                 Self::PHYSICAL_DEVICE_IMAGE_VIEW_MIN_LOD_FEATURES_EXT => {
                     Some("PHYSICAL_DEVICE_IMAGE_VIEW_MIN_LOD_FEATURES_EXT")
