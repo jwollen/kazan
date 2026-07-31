@@ -1472,6 +1472,10 @@ define_extension_set!(
             ext::primitive_restart_index::EXTENSION_NAME
         ),
         (
+            ext_image_tiling_control,
+            ext::image_tiling_control::EXTENSION_NAME
+        ),
+        (
             nv_cooperative_matrix_decode_vector,
             nv::cooperative_matrix_decode_vector::EXTENSION_NAME
         ),
