@@ -10940,6 +10940,12 @@ pub(super) mod defs {
         pub const PIPELINE_RASTERIZATION_CONSERVATIVE_STATE_CREATE_INFO_EXT: Self =
             Self(1000101001);
 
+        // VK_EXT_cooperative_matrix_maintenance1
+        pub const PHYSICAL_DEVICE_COOPERATIVE_MATRIX_MAINTENANCE_1_FEATURES_EXT: Self =
+            Self(1000659000);
+        pub const PHYSICAL_DEVICE_COOPERATIVE_MATRIX_INFO_2_EXT: Self = Self(1000659001);
+        pub const COOPERATIVE_MATRIX_PROPERTIES_2_EXT: Self = Self(1000659002);
+
         // VK_EXT_custom_border_color
         pub const SAMPLER_CUSTOM_BORDER_COLOR_CREATE_INFO_EXT: Self = Self(1000287000);
         pub const PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_PROPERTIES_EXT: Self = Self(1000287001);
@@ -13692,6 +13698,15 @@ pub(super) mod defs {
                 }
                 Self::PIPELINE_RASTERIZATION_CONSERVATIVE_STATE_CREATE_INFO_EXT => {
                     Some("PIPELINE_RASTERIZATION_CONSERVATIVE_STATE_CREATE_INFO_EXT")
+                }
+                Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_MAINTENANCE_1_FEATURES_EXT => {
+                    Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_MAINTENANCE_1_FEATURES_EXT")
+                }
+                Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_INFO_2_EXT => {
+                    Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_INFO_2_EXT")
+                }
+                Self::COOPERATIVE_MATRIX_PROPERTIES_2_EXT => {
+                    Some("COOPERATIVE_MATRIX_PROPERTIES_2_EXT")
                 }
                 Self::SAMPLER_CUSTOM_BORDER_COLOR_CREATE_INFO_EXT => {
                     Some("SAMPLER_CUSTOM_BORDER_COLOR_CREATE_INFO_EXT")

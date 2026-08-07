@@ -5877,6 +5877,8 @@ pub(super) mod defs {
         pub const MESA_GFXSTREAM: Self = Self(29);
         /// Ape open source project
         pub const APE_SOFT: Self = Self(30);
+        /// Reserved for undisclosed driver project
+        pub const RESERVED_31: Self = Self(31);
 
         // VK_KHR_driver_properties
         pub const AMD_PROPRIETARY_KHR: Self = Self::AMD_PROPRIETARY;
@@ -5926,6 +5928,7 @@ pub(super) mod defs {
                 Self::MESA_KOSMICKRISP => Some("MESA_KOSMICKRISP"),
                 Self::MESA_GFXSTREAM => Some("MESA_GFXSTREAM"),
                 Self::APE_SOFT => Some("APE_SOFT"),
+                Self::RESERVED_31 => Some("RESERVED_31"),
                 _ => None,
             };
             if let Some(name) = name {
