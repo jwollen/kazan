@@ -1450,6 +1450,10 @@ define_extension_set!(
         ),
         (khr_maintenance11, khr::maintenance11::EXTENSION_NAME),
         (
+            ext_cooperative_matrix_maintenance1,
+            ext::cooperative_matrix_maintenance1::EXTENSION_NAME
+        ),
+        (
             ext_shader_subgroup_partitioned,
             ext::shader_subgroup_partitioned::EXTENSION_NAME
         ),

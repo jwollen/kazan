@@ -11,6 +11,7 @@ pub mod calibrated_timestamps;
 pub mod color_write_enable;
 pub mod conditional_rendering;
 pub mod conservative_rasterization;
+pub mod cooperative_matrix_maintenance1;
 pub mod custom_border_color;
 pub mod custom_resolve;
 pub mod debug_marker;
@@ -164,6 +165,7 @@ pub(super) mod defs {
     pub use color_write_enable::defs::*;
     pub use conditional_rendering::defs::*;
     pub use conservative_rasterization::defs::*;
+    pub use cooperative_matrix_maintenance1::defs::*;
     pub use custom_border_color::defs::*;
     pub use custom_resolve::defs::*;
     pub use debug_marker::defs::*;
@@ -307,6 +309,7 @@ pub(super) mod ffi {
     pub use super::color_write_enable::ffi::*;
     pub use super::conditional_rendering::ffi::*;
     pub use super::conservative_rasterization::ffi::*;
+    pub use super::cooperative_matrix_maintenance1::ffi::*;
     pub use super::custom_border_color::ffi::*;
     pub use super::custom_resolve::ffi::*;
     pub use super::debug_marker::ffi::*;
