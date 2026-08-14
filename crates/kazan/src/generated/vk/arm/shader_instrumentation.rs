@@ -522,7 +522,7 @@ impl DeviceFn {
         &self,
         device: Device,
         instrumentation: ShaderInstrumentationARM,
-        metric_values: *mut c_void,
+        metric_values: Option<*mut c_void>,
         flags: ShaderInstrumentationValuesFlagsARM,
     ) -> crate::Result<u32> {
         unsafe {
@@ -531,7 +531,7 @@ impl DeviceFn {
                 device,
                 instrumentation,
                 metric_block_count.as_mut_ptr(),
-                metric_values,
+                metric_values.to_raw_mut_ptr(),
                 flags,
             );
 

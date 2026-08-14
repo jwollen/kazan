@@ -260,17 +260,17 @@ impl DeviceFn {
         &self,
         device: Device,
         renderpass: RenderPass,
-        max_workgroup_size: &mut Extent2D,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<Extent2D> {
         unsafe {
+            let mut max_workgroup_size = core::mem::MaybeUninit::uninit();
             let result = (self.get_device_subpass_shading_max_workgroup_size)(
                 device,
                 renderpass,
-                max_workgroup_size,
+                max_workgroup_size.as_mut_ptr(),
             );
 
             match result {
-                VkResult::SUCCESS => Ok(()),
+                VkResult::SUCCESS => Ok(max_workgroup_size.assume_init()),
                 err => Err(err),
             }
         }
