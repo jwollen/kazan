@@ -146,6 +146,7 @@ pub(crate) enum TypeRole<'a> {
         nullable: bool,
         lifetime: Option<&'a str>,
         is_output: bool,
+        is_array: bool,
         array_kind: ArrayParamKind,
     },
     /// Struct setter parameter.
@@ -240,15 +241,17 @@ fn convert_command_param(analysis: &Analysis, ty: &CType, role: &TypeRole) -> Ru
         nullable,
         lifetime,
         is_output,
+        is_array,
         array_kind,
     } = role
     else {
         unreachable!()
     };
 
-    let has_non_literal_len = len
-        .map(|l| !matches!(l, LengthKind::Literal(1)))
-        .unwrap_or(false);
+    let has_non_literal_len = *is_array
+        || len
+            .map(|l| !matches!(l, LengthKind::Literal(1)))
+            .unwrap_or(false);
 
     if has_non_literal_len {
         return convert_command_param_with_length(

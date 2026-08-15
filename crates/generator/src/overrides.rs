@@ -16,6 +16,22 @@ pub fn write_command_override(
     Ok(false)
 }
 
+/// Returns true for command parameters that are both read and written by Vulkan.
+pub fn command_param_is_inout(command_name: &str, param_name: &str) -> bool {
+    matches!(
+        (command_name, param_name),
+        ("vkGetShaderInstrumentationValuesARM", "pMetricBlockCount")
+    )
+}
+
+/// Returns true for command parameters that are arrays despite having no registry length.
+pub fn command_param_is_array(command_name: &str, param_name: &str) -> bool {
+    matches!(
+        (command_name, param_name),
+        ("vkGetShaderInstrumentationValuesARM", "pMetricValues")
+    )
+}
+
 /// How to represent the success code in the return type when there are multiple ok codes.
 #[allow(dead_code)]
 pub enum SuccessCodeRepr {

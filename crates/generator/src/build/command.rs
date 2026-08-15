@@ -212,12 +212,14 @@ fn compute_enumeration_info(
 /// Classify a single command parameter's output/return characteristics.
 fn classify_param(
     analysis: &Analysis,
+    command_name: &str,
     param: &xml::CommandParam,
     param_index: usize,
     len_kinds: &[Option<LengthKind<'_>>],
     _enumeration_info: &Option<EnumerationInfo>,
     has_regular_return: bool,
 ) -> ParamClassification {
+    let is_inout = overrides::command_param_is_inout(command_name, param.c_decl.name);
     let optional_0: bool = param
         .optional
         .first()
@@ -269,6 +271,7 @@ fn classify_param(
         && !is_implicit_length
         && !has_regular_return
         && !is_extensible_output
+        && !is_inout
         && !optional_0;
 
     ParamClassification {
@@ -397,6 +400,7 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Analyz
 
             let classification = classify_param(
                 analysis,
+                command.name,
                 param,
                 param_index,
                 &len_kinds,
@@ -503,6 +507,10 @@ fn analyze_command<'a>(analysis: &'a Analysis, info: &CommandInfo<'a>) -> Analyz
                         lifetime: lifetime_param,
                         is_output: fp.classification.is_output_param
                             || fp.classification.is_output_opaque_param,
+                        is_array: overrides::command_param_is_array(
+                            command.name,
+                            param.c_decl.name,
+                        ),
                         array_kind: array_param_kinds[param_index],
                     },
                 );
@@ -616,8 +624,11 @@ fn arg_emit_kind(
         };
     }
 
-    if let Some(len) = &param.len
-        && !matches!(len, LengthKind::Literal(1))
+    if overrides::command_param_is_array(wrapper.command.name, param.param.c_decl.name)
+        || param
+            .len
+            .as_ref()
+            .is_some_and(|len| !matches!(len, LengthKind::Literal(1)))
     {
         match param.array_param_kind {
             ArrayParamKind::SliceOrLen | ArrayParamKind::OptionSliceOrLen => {
@@ -638,6 +649,13 @@ fn arg_emit_kind(
             param: param_name.clone(),
             is_const,
             optional: param.nullable,
+            untyped: matches!(
+                category,
+                ctype::CTypeCategory::OpaquePointer {
+                    pointee_name: "void",
+                    ..
+                }
+            ),
         };
     }
 
