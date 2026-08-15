@@ -450,12 +450,14 @@ fn emit_ffi_arg(file: &mut impl Write, arg: &mc::FfiArg) -> Result<()> {
             param,
             is_const,
             optional,
+            untyped,
         } => {
             if *optional {
+                let cast = if *untyped { " as _" } else { "" };
                 if *is_const {
-                    writeln!(file, "{param}.to_raw_ptr(),")?;
+                    writeln!(file, "{param}.to_raw_ptr(){cast},")?;
                 } else {
-                    writeln!(file, "{param}.to_raw_mut_ptr(),")?;
+                    writeln!(file, "{param}.to_raw_mut_ptr(){cast},")?;
                 }
             } else if *is_const {
                 writeln!(file, "{param}.as_ptr() as _,")?;

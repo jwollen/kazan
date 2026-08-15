@@ -127,6 +127,7 @@ pub enum FfiArg {
         param: String,
         is_const: bool,
         optional: bool,
+        untyped: bool,
     },
     /// Pass SliceOrLen as pointer.
     SliceOrLenAsPtr { param: String },

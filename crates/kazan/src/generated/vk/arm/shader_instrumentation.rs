@@ -522,21 +522,21 @@ impl DeviceFn {
         &self,
         device: Device,
         instrumentation: ShaderInstrumentationARM,
-        metric_values: Option<*mut c_void>,
+        metric_block_count: &mut u32,
+        metric_values: Option<&mut [u8]>,
         flags: ShaderInstrumentationValuesFlagsARM,
-    ) -> crate::Result<u32> {
+    ) -> crate::Result<()> {
         unsafe {
-            let mut metric_block_count = core::mem::MaybeUninit::uninit();
             let result = (self.get_shader_instrumentation_values)(
                 device,
                 instrumentation,
-                metric_block_count.as_mut_ptr(),
-                metric_values.to_raw_mut_ptr(),
+                metric_block_count,
+                metric_values.to_raw_mut_ptr() as _,
                 flags,
             );
 
             match result {
-                VkResult::SUCCESS => Ok(metric_block_count.assume_init()),
+                VkResult::SUCCESS => Ok(()),
                 err => Err(err),
             }
         }
