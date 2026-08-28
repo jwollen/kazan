@@ -1483,5 +1483,9 @@ define_extension_set!(
             nv_cooperative_matrix_decode_vector,
             nv::cooperative_matrix_decode_vector::EXTENSION_NAME
         ),
+        (
+            nv_private_data_base_handle,
+            nv::private_data_base_handle::EXTENSION_NAME
+        ),
     ]
 );

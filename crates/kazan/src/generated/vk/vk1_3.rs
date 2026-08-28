@@ -4905,11 +4905,43 @@ _marker: PhantomData
     #[repr(transparent)]
     #[derive(Copy, Clone, PartialEq, Eq, Hash)]
     pub struct PrivateDataSlotCreateFlags(Flags);
-    vk_bitflags_wrapped!(PrivateDataSlotCreateFlags, Flags);
+    vk_bitflags_wrapped!(
+        PrivateDataSlotCreateFlags,
+        Flags,
+        PrivateDataSlotCreateFlagBits
+    );
 
     impl fmt::Debug for PrivateDataSlotCreateFlags {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-            debug_flags(f, &[], self.0)
+            const KNOWN: &[(Flags, &str)] = &[(
+                PrivateDataSlotCreateFlagBits::BASE_OBJECT_HANDLE_NV.0,
+                "BASE_OBJECT_HANDLE_NV",
+            )];
+            debug_flags(f, KNOWN, self.0)
+        }
+    }
+
+    /// <https://registry.khronos.org/vulkan/specs/latest/man/html/VkPrivateDataSlotCreateFlagBits.html>
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Default, PartialEq, Eq, Hash)]
+    pub struct PrivateDataSlotCreateFlagBits(u32);
+
+    impl PrivateDataSlotCreateFlagBits {
+        // VK_NV_private_data_base_handle
+        pub const BASE_OBJECT_HANDLE_NV: Self = Self(1 << 0);
+    }
+
+    impl fmt::Debug for PrivateDataSlotCreateFlagBits {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let name = match *self {
+                Self::BASE_OBJECT_HANDLE_NV => Some("BASE_OBJECT_HANDLE_NV"),
+                _ => None,
+            };
+            if let Some(name) = name {
+                f.write_str(name)
+            } else {
+                self.0.fmt(f)
+            }
         }
     }
 
@@ -6453,6 +6485,7 @@ pub(super) mod ffi {
     pub type VkCommandBufferInheritanceRenderingInfo =
         CommandBufferInheritanceRenderingInfo<'static>;
     pub type VkPrivateDataSlotCreateFlags = PrivateDataSlotCreateFlags;
+    pub type VkPrivateDataSlotCreateFlagBits = PrivateDataSlotCreateFlagBits;
     pub type VkPipelineCreationFeedbackFlags = PipelineCreationFeedbackFlags;
     pub type VkPipelineCreationFeedbackFlagBits = PipelineCreationFeedbackFlagBits;
     pub type VkAccessFlags2 = AccessFlags2;

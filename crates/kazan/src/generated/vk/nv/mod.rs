@@ -45,6 +45,7 @@ pub mod partitioned_acceleration_structure;
 pub mod per_stage_descriptor_set;
 pub mod present_barrier;
 pub mod present_metering;
+pub mod private_data_base_handle;
 pub mod push_constant_bank;
 pub mod raw_access_chains;
 pub mod ray_tracing;
@@ -111,6 +112,7 @@ pub(super) mod defs {
     pub use per_stage_descriptor_set::defs::*;
     pub use present_barrier::defs::*;
     pub use present_metering::defs::*;
+    pub use private_data_base_handle::defs::*;
     pub use push_constant_bank::defs::*;
     pub use raw_access_chains::defs::*;
     pub use ray_tracing::defs::*;
@@ -174,6 +176,7 @@ pub(super) mod ffi {
     pub use super::per_stage_descriptor_set::ffi::*;
     pub use super::present_barrier::ffi::*;
     pub use super::present_metering::ffi::*;
+    pub use super::private_data_base_handle::ffi::*;
     pub use super::push_constant_bank::ffi::*;
     pub use super::raw_access_chains::ffi::*;
     pub use super::ray_tracing::ffi::*;

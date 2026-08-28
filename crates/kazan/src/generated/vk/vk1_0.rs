@@ -12788,6 +12788,9 @@ pub(super) mod defs {
         pub const SET_PRESENT_CONFIG_NV: Self = Self(1000613000);
         pub const PHYSICAL_DEVICE_PRESENT_METERING_FEATURES_NV: Self = Self(1000613001);
 
+        // VK_NV_private_data_base_handle
+        pub const PHYSICAL_DEVICE_PRIVATE_DATA_BASE_HANDLE_FEATURES_NV: Self = Self(1000707000);
+
         // VK_NV_push_constant_bank
         pub const PUSH_CONSTANT_BANK_INFO_NV: Self = Self(1000580000);
         pub const PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_FEATURES_NV: Self = Self(1000580001);
@@ -15572,6 +15575,9 @@ pub(super) mod defs {
                 Self::SET_PRESENT_CONFIG_NV => Some("SET_PRESENT_CONFIG_NV"),
                 Self::PHYSICAL_DEVICE_PRESENT_METERING_FEATURES_NV => {
                     Some("PHYSICAL_DEVICE_PRESENT_METERING_FEATURES_NV")
+                }
+                Self::PHYSICAL_DEVICE_PRIVATE_DATA_BASE_HANDLE_FEATURES_NV => {
+                    Some("PHYSICAL_DEVICE_PRIVATE_DATA_BASE_HANDLE_FEATURES_NV")
                 }
                 Self::PUSH_CONSTANT_BANK_INFO_NV => Some("PUSH_CONSTANT_BANK_INFO_NV"),
                 Self::PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_FEATURES_NV => {
