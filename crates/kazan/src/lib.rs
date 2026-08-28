@@ -241,6 +241,8 @@ impl<T> RawPtr<T> for Option<SliceOrLen<'_, T>> {
     }
 }
 
+#[cfg(feature = "loaded")]
+pub use loading::LoadingError;
 pub use loading::{Entry, LoadDeviceFn, LoadInstanceFn, MissingEntryPointError, StaticFn};
 
 /// Error returned when a `CStr` is too large for a fixed-size `c_char` array.
