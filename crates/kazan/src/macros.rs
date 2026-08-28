@@ -86,7 +86,7 @@ macro_rules! vk_bitflags_wrapped {
         impl From<$bits> for $name {
             #[inline]
             fn from(bit: $bits) -> Self {
-                Self(bit.0)
+                Self::from_bit(bit)
             }
         }
         impl $name {
@@ -94,6 +94,10 @@ macro_rules! vk_bitflags_wrapped {
             #[inline]
             pub const fn contains_bit(self, bit: $bits) -> bool {
                 self.0 & bit.0 == bit.0
+            }
+            #[inline]
+            const fn from_bit(bit: $bits) -> Self {
+                Self(bit.0)
             }
         }
         impl ::core::ops::BitOr<$bits> for $name {
@@ -133,6 +137,20 @@ macro_rules! vk_bitflags_wrapped {
             #[inline]
             fn sub_assign(&mut self, rhs: $bits) {
                 self.0 &= !rhs.0;
+            }
+        }
+        impl $bits {
+            #[inline]
+            pub const fn from_raw(x: $flag_type) -> Self {
+                Self(x)
+            }
+            #[inline]
+            pub const fn as_raw(self) -> $flag_type {
+                self.0
+            }
+            #[inline]
+            pub const fn to_flags(self) -> $name {
+                $name::from_bit(self)
             }
         }
         impl ::core::ops::BitOr<$bits> for $bits {
