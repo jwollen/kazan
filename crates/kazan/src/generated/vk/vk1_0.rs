@@ -11353,7 +11353,7 @@ pub(super) mod defs {
 
         // VK_EXT_pipeline_library_group_handles
         pub const PHYSICAL_DEVICE_PIPELINE_LIBRARY_GROUP_HANDLES_FEATURES_EXT: Self =
-            Self(1000498000);
+            Self::PHYSICAL_DEVICE_PIPELINE_LIBRARY_GROUP_HANDLES_FEATURES_KHR;
 
         // VK_EXT_pipeline_properties
         pub const PIPELINE_PROPERTIES_IDENTIFIER_EXT: Self = Self(1000372000);
@@ -12135,6 +12135,10 @@ pub(super) mod defs {
 
         // VK_KHR_pipeline_library
         pub const PIPELINE_LIBRARY_CREATE_INFO_KHR: Self = Self(1000290000);
+
+        // VK_KHR_pipeline_library_group_handles
+        pub const PHYSICAL_DEVICE_PIPELINE_LIBRARY_GROUP_HANDLES_FEATURES_KHR: Self =
+            Self(1000498000);
 
         // VK_KHR_portability_subset
         #[cfg(feature = "provisional")]
@@ -12995,6 +12999,13 @@ pub(super) mod defs {
         // VK_SEC_ubm_surface
         pub const UBM_SURFACE_CREATE_INFO_SEC: Self = Self(1000664000);
 
+        // VK_VALVE_buffer_device_address_allocation_alignment
+        pub const PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_ALLOCATION_ALIGNMENT_FEATURES_VALVE: Self =
+            Self(1000709000);
+        pub const PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_ALLOCATION_ALIGNMENT_PROPERTIES_VALVE:
+            Self = Self(1000709001);
+        pub const BUFFER_DEVICE_ADDRESS_ALIGNMENT_ALLOCATE_INFO_VALVE: Self = Self(1000709002);
+
         // VK_VALVE_descriptor_set_host_mapping
         pub const PHYSICAL_DEVICE_DESCRIPTOR_SET_HOST_MAPPING_FEATURES_VALVE: Self =
             Self(1000420000);
@@ -13260,3075 +13271,1284 @@ pub(super) mod defs {
     impl fmt::Debug for StructureType {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             let name = match *self {
-                Self::APPLICATION_INFO => Some("APPLICATION_INFO"),
-                Self::INSTANCE_CREATE_INFO => Some("INSTANCE_CREATE_INFO"),
-                Self::DEVICE_QUEUE_CREATE_INFO => Some("DEVICE_QUEUE_CREATE_INFO"),
-                Self::DEVICE_CREATE_INFO => Some("DEVICE_CREATE_INFO"),
-                Self::SUBMIT_INFO => Some("SUBMIT_INFO"),
-                Self::MEMORY_ALLOCATE_INFO => Some("MEMORY_ALLOCATE_INFO"),
-                Self::MAPPED_MEMORY_RANGE => Some("MAPPED_MEMORY_RANGE"),
-                Self::BIND_SPARSE_INFO => Some("BIND_SPARSE_INFO"),
-                Self::FENCE_CREATE_INFO => Some("FENCE_CREATE_INFO"),
-                Self::SEMAPHORE_CREATE_INFO => Some("SEMAPHORE_CREATE_INFO"),
-                Self::EVENT_CREATE_INFO => Some("EVENT_CREATE_INFO"),
-                Self::QUERY_POOL_CREATE_INFO => Some("QUERY_POOL_CREATE_INFO"),
-                Self::BUFFER_CREATE_INFO => Some("BUFFER_CREATE_INFO"),
-                Self::BUFFER_VIEW_CREATE_INFO => Some("BUFFER_VIEW_CREATE_INFO"),
-                Self::IMAGE_CREATE_INFO => Some("IMAGE_CREATE_INFO"),
-                Self::IMAGE_VIEW_CREATE_INFO => Some("IMAGE_VIEW_CREATE_INFO"),
-                Self::SHADER_MODULE_CREATE_INFO => Some("SHADER_MODULE_CREATE_INFO"),
-                Self::PIPELINE_CACHE_CREATE_INFO => Some("PIPELINE_CACHE_CREATE_INFO"),
-                Self::PIPELINE_SHADER_STAGE_CREATE_INFO => {
-                    Some("PIPELINE_SHADER_STAGE_CREATE_INFO")
-                }
-                Self::PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO => {
-                    Some("PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO")
-                }
-                Self::PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO => {
-                    Some("PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO")
-                }
-                Self::PIPELINE_TESSELLATION_STATE_CREATE_INFO => {
-                    Some("PIPELINE_TESSELLATION_STATE_CREATE_INFO")
-                }
-                Self::PIPELINE_VIEWPORT_STATE_CREATE_INFO => {
-                    Some("PIPELINE_VIEWPORT_STATE_CREATE_INFO")
-                }
-                Self::PIPELINE_RASTERIZATION_STATE_CREATE_INFO => {
-                    Some("PIPELINE_RASTERIZATION_STATE_CREATE_INFO")
-                }
-                Self::PIPELINE_MULTISAMPLE_STATE_CREATE_INFO => {
-                    Some("PIPELINE_MULTISAMPLE_STATE_CREATE_INFO")
-                }
-                Self::PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO => {
-                    Some("PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO")
-                }
-                Self::PIPELINE_COLOR_BLEND_STATE_CREATE_INFO => {
-                    Some("PIPELINE_COLOR_BLEND_STATE_CREATE_INFO")
-                }
-                Self::PIPELINE_DYNAMIC_STATE_CREATE_INFO => {
-                    Some("PIPELINE_DYNAMIC_STATE_CREATE_INFO")
-                }
-                Self::GRAPHICS_PIPELINE_CREATE_INFO => Some("GRAPHICS_PIPELINE_CREATE_INFO"),
-                Self::COMPUTE_PIPELINE_CREATE_INFO => Some("COMPUTE_PIPELINE_CREATE_INFO"),
-                Self::PIPELINE_LAYOUT_CREATE_INFO => Some("PIPELINE_LAYOUT_CREATE_INFO"),
-                Self::SAMPLER_CREATE_INFO => Some("SAMPLER_CREATE_INFO"),
-                Self::DESCRIPTOR_SET_LAYOUT_CREATE_INFO => {
-                    Some("DESCRIPTOR_SET_LAYOUT_CREATE_INFO")
-                }
-                Self::DESCRIPTOR_POOL_CREATE_INFO => Some("DESCRIPTOR_POOL_CREATE_INFO"),
-                Self::DESCRIPTOR_SET_ALLOCATE_INFO => Some("DESCRIPTOR_SET_ALLOCATE_INFO"),
-                Self::WRITE_DESCRIPTOR_SET => Some("WRITE_DESCRIPTOR_SET"),
-                Self::COPY_DESCRIPTOR_SET => Some("COPY_DESCRIPTOR_SET"),
-                Self::FRAMEBUFFER_CREATE_INFO => Some("FRAMEBUFFER_CREATE_INFO"),
-                Self::RENDER_PASS_CREATE_INFO => Some("RENDER_PASS_CREATE_INFO"),
-                Self::COMMAND_POOL_CREATE_INFO => Some("COMMAND_POOL_CREATE_INFO"),
-                Self::COMMAND_BUFFER_ALLOCATE_INFO => Some("COMMAND_BUFFER_ALLOCATE_INFO"),
-                Self::COMMAND_BUFFER_INHERITANCE_INFO => Some("COMMAND_BUFFER_INHERITANCE_INFO"),
-                Self::COMMAND_BUFFER_BEGIN_INFO => Some("COMMAND_BUFFER_BEGIN_INFO"),
-                Self::RENDER_PASS_BEGIN_INFO => Some("RENDER_PASS_BEGIN_INFO"),
-                Self::BUFFER_MEMORY_BARRIER => Some("BUFFER_MEMORY_BARRIER"),
-                Self::IMAGE_MEMORY_BARRIER => Some("IMAGE_MEMORY_BARRIER"),
-                Self::MEMORY_BARRIER => Some("MEMORY_BARRIER"),
-                Self::LOADER_INSTANCE_CREATE_INFO => Some("LOADER_INSTANCE_CREATE_INFO"),
-                Self::LOADER_DEVICE_CREATE_INFO => Some("LOADER_DEVICE_CREATE_INFO"),
-                #[cfg(feature = "provisional")]
-                Self::PHYSICAL_DEVICE_DENSE_GEOMETRY_FORMAT_FEATURES_AMDX => {
-                    Some("PHYSICAL_DEVICE_DENSE_GEOMETRY_FORMAT_FEATURES_AMDX")
-                }
-                #[cfg(feature = "provisional")]
-                Self::ACCELERATION_STRUCTURE_DENSE_GEOMETRY_FORMAT_TRIANGLES_DATA_AMDX => {
-                    Some("ACCELERATION_STRUCTURE_DENSE_GEOMETRY_FORMAT_TRIANGLES_DATA_AMDX")
-                }
-                #[cfg(feature = "provisional")]
-                Self::PHYSICAL_DEVICE_SHADER_ENQUEUE_FEATURES_AMDX => {
-                    Some("PHYSICAL_DEVICE_SHADER_ENQUEUE_FEATURES_AMDX")
-                }
-                #[cfg(feature = "provisional")]
-                Self::PHYSICAL_DEVICE_SHADER_ENQUEUE_PROPERTIES_AMDX => {
-                    Some("PHYSICAL_DEVICE_SHADER_ENQUEUE_PROPERTIES_AMDX")
-                }
-                #[cfg(feature = "provisional")]
-                Self::EXECUTION_GRAPH_PIPELINE_SCRATCH_SIZE_AMDX => {
-                    Some("EXECUTION_GRAPH_PIPELINE_SCRATCH_SIZE_AMDX")
-                }
-                #[cfg(feature = "provisional")]
-                Self::EXECUTION_GRAPH_PIPELINE_CREATE_INFO_AMDX => {
-                    Some("EXECUTION_GRAPH_PIPELINE_CREATE_INFO_AMDX")
-                }
-                #[cfg(feature = "provisional")]
-                Self::PIPELINE_SHADER_STAGE_NODE_CREATE_INFO_AMDX => {
-                    Some("PIPELINE_SHADER_STAGE_NODE_CREATE_INFO_AMDX")
-                }
-                Self::PHYSICAL_DEVICE_ANTI_LAG_FEATURES_AMD => {
-                    Some("PHYSICAL_DEVICE_ANTI_LAG_FEATURES_AMD")
-                }
-                Self::ANTI_LAG_DATA_AMD => Some("ANTI_LAG_DATA_AMD"),
-                Self::ANTI_LAG_PRESENTATION_INFO_AMD => Some("ANTI_LAG_PRESENTATION_INFO_AMD"),
-                Self::PHYSICAL_DEVICE_COHERENT_MEMORY_FEATURES_AMD => {
-                    Some("PHYSICAL_DEVICE_COHERENT_MEMORY_FEATURES_AMD")
-                }
-                Self::DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD => {
-                    Some("DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD")
-                }
-                Self::SWAPCHAIN_DISPLAY_NATIVE_HDR_CREATE_INFO_AMD => {
-                    Some("SWAPCHAIN_DISPLAY_NATIVE_HDR_CREATE_INFO_AMD")
-                }
-                Self::PHYSICAL_DEVICE_GPA_FEATURES_AMD => Some("PHYSICAL_DEVICE_GPA_FEATURES_AMD"),
-                Self::PHYSICAL_DEVICE_GPA_PROPERTIES_AMD => {
-                    Some("PHYSICAL_DEVICE_GPA_PROPERTIES_AMD")
-                }
-                Self::GPA_SAMPLE_BEGIN_INFO_AMD => Some("GPA_SAMPLE_BEGIN_INFO_AMD"),
-                Self::GPA_SESSION_CREATE_INFO_AMD => Some("GPA_SESSION_CREATE_INFO_AMD"),
-                Self::GPA_DEVICE_CLOCK_MODE_INFO_AMD => Some("GPA_DEVICE_CLOCK_MODE_INFO_AMD"),
-                Self::PHYSICAL_DEVICE_GPA_PROPERTIES_2_AMD => {
-                    Some("PHYSICAL_DEVICE_GPA_PROPERTIES_2_AMD")
-                }
-                Self::GPA_DEVICE_GET_CLOCK_INFO_AMD => Some("GPA_DEVICE_GET_CLOCK_INFO_AMD"),
-                Self::DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD => {
-                    Some("DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD")
-                }
-                Self::ATTACHMENT_SAMPLE_COUNT_INFO_AMD => Some("ATTACHMENT_SAMPLE_COUNT_INFO_AMD"),
-                Self::PIPELINE_COMPILER_CONTROL_CREATE_INFO_AMD => {
-                    Some("PIPELINE_COMPILER_CONTROL_CREATE_INFO_AMD")
-                }
-                Self::PIPELINE_RASTERIZATION_STATE_RASTERIZATION_ORDER_AMD => {
-                    Some("PIPELINE_RASTERIZATION_STATE_RASTERIZATION_ORDER_AMD")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_AMD => {
-                    Some("PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_AMD")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_2_AMD => {
-                    Some("PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_2_AMD")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_EARLY_AND_LATE_FRAGMENT_TESTS_FEATURES_AMD => {
-                    Some("PHYSICAL_DEVICE_SHADER_EARLY_AND_LATE_FRAGMENT_TESTS_FEATURES_AMD")
-                }
-                Self::TEXTURE_LOD_GATHER_FORMAT_PROPERTIES_AMD => {
-                    Some("TEXTURE_LOD_GATHER_FORMAT_PROPERTIES_AMD")
-                }
-                Self::PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_FEATURES_ANDROID => {
-                    Some("PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_FEATURES_ANDROID")
-                }
-                Self::PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_PROPERTIES_ANDROID => {
-                    Some("PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_PROPERTIES_ANDROID")
-                }
-                Self::ANDROID_HARDWARE_BUFFER_FORMAT_RESOLVE_PROPERTIES_ANDROID => {
-                    Some("ANDROID_HARDWARE_BUFFER_FORMAT_RESOLVE_PROPERTIES_ANDROID")
-                }
-                Self::ANDROID_HARDWARE_BUFFER_USAGE_ANDROID => {
-                    Some("ANDROID_HARDWARE_BUFFER_USAGE_ANDROID")
-                }
-                Self::ANDROID_HARDWARE_BUFFER_PROPERTIES_ANDROID => {
-                    Some("ANDROID_HARDWARE_BUFFER_PROPERTIES_ANDROID")
-                }
-                Self::ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_ANDROID => {
-                    Some("ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_ANDROID")
-                }
-                Self::IMPORT_ANDROID_HARDWARE_BUFFER_INFO_ANDROID => {
-                    Some("IMPORT_ANDROID_HARDWARE_BUFFER_INFO_ANDROID")
-                }
-                Self::MEMORY_GET_ANDROID_HARDWARE_BUFFER_INFO_ANDROID => {
-                    Some("MEMORY_GET_ANDROID_HARDWARE_BUFFER_INFO_ANDROID")
-                }
-                Self::EXTERNAL_FORMAT_ANDROID => Some("EXTERNAL_FORMAT_ANDROID"),
-                Self::ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_2_ANDROID => {
-                    Some("ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_2_ANDROID")
-                }
-                Self::DATA_GRAPH_PIPELINE_CREATE_INFO_ARM => {
-                    Some("DATA_GRAPH_PIPELINE_CREATE_INFO_ARM")
-                }
-                Self::DATA_GRAPH_PIPELINE_SESSION_CREATE_INFO_ARM => {
-                    Some("DATA_GRAPH_PIPELINE_SESSION_CREATE_INFO_ARM")
-                }
-                Self::DATA_GRAPH_PIPELINE_RESOURCE_INFO_ARM => {
-                    Some("DATA_GRAPH_PIPELINE_RESOURCE_INFO_ARM")
-                }
-                Self::DATA_GRAPH_PIPELINE_CONSTANT_ARM => Some("DATA_GRAPH_PIPELINE_CONSTANT_ARM"),
-                Self::DATA_GRAPH_PIPELINE_SESSION_MEMORY_REQUIREMENTS_INFO_ARM => {
-                    Some("DATA_GRAPH_PIPELINE_SESSION_MEMORY_REQUIREMENTS_INFO_ARM")
-                }
-                Self::BIND_DATA_GRAPH_PIPELINE_SESSION_MEMORY_INFO_ARM => {
-                    Some("BIND_DATA_GRAPH_PIPELINE_SESSION_MEMORY_INFO_ARM")
-                }
-                Self::PHYSICAL_DEVICE_DATA_GRAPH_FEATURES_ARM => {
-                    Some("PHYSICAL_DEVICE_DATA_GRAPH_FEATURES_ARM")
-                }
-                Self::DATA_GRAPH_PIPELINE_SHADER_MODULE_CREATE_INFO_ARM => {
-                    Some("DATA_GRAPH_PIPELINE_SHADER_MODULE_CREATE_INFO_ARM")
-                }
-                Self::DATA_GRAPH_PIPELINE_PROPERTY_QUERY_RESULT_ARM => {
-                    Some("DATA_GRAPH_PIPELINE_PROPERTY_QUERY_RESULT_ARM")
-                }
-                Self::DATA_GRAPH_PIPELINE_INFO_ARM => Some("DATA_GRAPH_PIPELINE_INFO_ARM"),
-                Self::DATA_GRAPH_PIPELINE_COMPILER_CONTROL_CREATE_INFO_ARM => {
-                    Some("DATA_GRAPH_PIPELINE_COMPILER_CONTROL_CREATE_INFO_ARM")
-                }
-                Self::DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENTS_INFO_ARM => {
-                    Some("DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENTS_INFO_ARM")
-                }
-                Self::DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENT_ARM => {
-                    Some("DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENT_ARM")
-                }
-                Self::DATA_GRAPH_PIPELINE_IDENTIFIER_CREATE_INFO_ARM => {
-                    Some("DATA_GRAPH_PIPELINE_IDENTIFIER_CREATE_INFO_ARM")
-                }
-                Self::DATA_GRAPH_PIPELINE_DISPATCH_INFO_ARM => {
-                    Some("DATA_GRAPH_PIPELINE_DISPATCH_INFO_ARM")
-                }
-                Self::DATA_GRAPH_PROCESSING_ENGINE_CREATE_INFO_ARM => {
-                    Some("DATA_GRAPH_PROCESSING_ENGINE_CREATE_INFO_ARM")
-                }
-                Self::QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_PROPERTIES_ARM => {
-                    Some("QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_PROPERTIES_ARM")
-                }
-                Self::QUEUE_FAMILY_DATA_GRAPH_PROPERTIES_ARM => {
-                    Some("QUEUE_FAMILY_DATA_GRAPH_PROPERTIES_ARM")
-                }
-                Self::PHYSICAL_DEVICE_QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_INFO_ARM => {
-                    Some("PHYSICAL_DEVICE_QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_INFO_ARM")
-                }
-                Self::DATA_GRAPH_PIPELINE_CONSTANT_TENSOR_SEMI_STRUCTURED_SPARSITY_INFO_ARM => {
-                    Some("DATA_GRAPH_PIPELINE_CONSTANT_TENSOR_SEMI_STRUCTURED_SPARSITY_INFO_ARM")
-                }
-                Self::QUEUE_FAMILY_DATA_GRAPH_TOSA_PROPERTIES_ARM => {
-                    Some("QUEUE_FAMILY_DATA_GRAPH_TOSA_PROPERTIES_ARM")
-                }
-                Self::DATA_GRAPH_PIPELINE_NEURAL_STATISTICS_CREATE_INFO_ARM => {
-                    Some("DATA_GRAPH_PIPELINE_NEURAL_STATISTICS_CREATE_INFO_ARM")
-                }
-                Self::DATA_GRAPH_PIPELINE_SESSION_NEURAL_STATISTICS_CREATE_INFO_ARM => {
-                    Some("DATA_GRAPH_PIPELINE_SESSION_NEURAL_STATISTICS_CREATE_INFO_ARM")
-                }
-                Self::PHYSICAL_DEVICE_DATA_GRAPH_NEURAL_ACCELERATOR_STATISTICS_FEATURES_ARM => {
-                    Some("PHYSICAL_DEVICE_DATA_GRAPH_NEURAL_ACCELERATOR_STATISTICS_FEATURES_ARM")
-                }
-                Self::PHYSICAL_DEVICE_DATA_GRAPH_OPTICAL_FLOW_FEATURES_ARM => {
-                    Some("PHYSICAL_DEVICE_DATA_GRAPH_OPTICAL_FLOW_FEATURES_ARM")
-                }
-                Self::QUEUE_FAMILY_DATA_GRAPH_OPTICAL_FLOW_PROPERTIES_ARM => {
-                    Some("QUEUE_FAMILY_DATA_GRAPH_OPTICAL_FLOW_PROPERTIES_ARM")
-                }
-                Self::DATA_GRAPH_OPTICAL_FLOW_IMAGE_FORMAT_INFO_ARM => {
-                    Some("DATA_GRAPH_OPTICAL_FLOW_IMAGE_FORMAT_INFO_ARM")
-                }
-                Self::DATA_GRAPH_OPTICAL_FLOW_IMAGE_FORMAT_PROPERTIES_ARM => {
-                    Some("DATA_GRAPH_OPTICAL_FLOW_IMAGE_FORMAT_PROPERTIES_ARM")
-                }
-                Self::DATA_GRAPH_PIPELINE_OPTICAL_FLOW_DISPATCH_INFO_ARM => {
-                    Some("DATA_GRAPH_PIPELINE_OPTICAL_FLOW_DISPATCH_INFO_ARM")
-                }
-                Self::DATA_GRAPH_PIPELINE_OPTICAL_FLOW_CREATE_INFO_ARM => {
-                    Some("DATA_GRAPH_PIPELINE_OPTICAL_FLOW_CREATE_INFO_ARM")
-                }
-                Self::DATA_GRAPH_PIPELINE_RESOURCE_INFO_IMAGE_LAYOUT_ARM => {
-                    Some("DATA_GRAPH_PIPELINE_RESOURCE_INFO_IMAGE_LAYOUT_ARM")
-                }
-                Self::DATA_GRAPH_PIPELINE_SINGLE_NODE_CREATE_INFO_ARM => {
-                    Some("DATA_GRAPH_PIPELINE_SINGLE_NODE_CREATE_INFO_ARM")
-                }
-                Self::DATA_GRAPH_PIPELINE_SINGLE_NODE_CONNECTION_ARM => {
-                    Some("DATA_GRAPH_PIPELINE_SINGLE_NODE_CONNECTION_ARM")
-                }
-                Self::PHYSICAL_DEVICE_FORMAT_PACK_FEATURES_ARM => {
-                    Some("PHYSICAL_DEVICE_FORMAT_PACK_FEATURES_ARM")
-                }
-                Self::PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_FEATURES_ARM => {
-                    Some("PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_FEATURES_ARM")
-                }
-                Self::PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_PROPERTIES_ARM => {
-                    Some("PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_PROPERTIES_ARM")
-                }
-                Self::PERFORMANCE_COUNTER_ARM => Some("PERFORMANCE_COUNTER_ARM"),
-                Self::PERFORMANCE_COUNTER_DESCRIPTION_ARM => {
-                    Some("PERFORMANCE_COUNTER_DESCRIPTION_ARM")
-                }
-                Self::RENDER_PASS_PERFORMANCE_COUNTERS_BY_REGION_BEGIN_INFO_ARM => {
-                    Some("RENDER_PASS_PERFORMANCE_COUNTERS_BY_REGION_BEGIN_INFO_ARM")
-                }
-                Self::PHYSICAL_DEVICE_PIPELINE_OPACITY_MICROMAP_FEATURES_ARM => {
-                    Some("PHYSICAL_DEVICE_PIPELINE_OPACITY_MICROMAP_FEATURES_ARM")
-                }
-                Self::PHYSICAL_DEVICE_RENDER_PASS_STRIPED_FEATURES_ARM => {
-                    Some("PHYSICAL_DEVICE_RENDER_PASS_STRIPED_FEATURES_ARM")
-                }
-                Self::PHYSICAL_DEVICE_RENDER_PASS_STRIPED_PROPERTIES_ARM => {
-                    Some("PHYSICAL_DEVICE_RENDER_PASS_STRIPED_PROPERTIES_ARM")
-                }
-                Self::RENDER_PASS_STRIPE_BEGIN_INFO_ARM => {
-                    Some("RENDER_PASS_STRIPE_BEGIN_INFO_ARM")
-                }
-                Self::RENDER_PASS_STRIPE_INFO_ARM => Some("RENDER_PASS_STRIPE_INFO_ARM"),
-                Self::RENDER_PASS_STRIPE_SUBMIT_INFO_ARM => {
-                    Some("RENDER_PASS_STRIPE_SUBMIT_INFO_ARM")
-                }
-                Self::DEVICE_QUEUE_SHADER_CORE_CONTROL_CREATE_INFO_ARM => {
-                    Some("DEVICE_QUEUE_SHADER_CORE_CONTROL_CREATE_INFO_ARM")
-                }
-                Self::PHYSICAL_DEVICE_SCHEDULING_CONTROLS_FEATURES_ARM => {
-                    Some("PHYSICAL_DEVICE_SCHEDULING_CONTROLS_FEATURES_ARM")
-                }
-                Self::PHYSICAL_DEVICE_SCHEDULING_CONTROLS_PROPERTIES_ARM => {
-                    Some("PHYSICAL_DEVICE_SCHEDULING_CONTROLS_PROPERTIES_ARM")
-                }
-                Self::DISPATCH_PARAMETERS_ARM => Some("DISPATCH_PARAMETERS_ARM"),
-                Self::PHYSICAL_DEVICE_SCHEDULING_CONTROLS_DISPATCH_PARAMETERS_PROPERTIES_ARM => {
-                    Some("PHYSICAL_DEVICE_SCHEDULING_CONTROLS_DISPATCH_PARAMETERS_PROPERTIES_ARM")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_FEATURES_ARM => {
-                    Some("PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_FEATURES_ARM")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_PROPERTIES_ARM => {
-                    Some("PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_PROPERTIES_ARM")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_ARM => {
-                    Some("PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_ARM")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_INSTRUMENTATION_FEATURES_ARM => {
-                    Some("PHYSICAL_DEVICE_SHADER_INSTRUMENTATION_FEATURES_ARM")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_INSTRUMENTATION_PROPERTIES_ARM => {
-                    Some("PHYSICAL_DEVICE_SHADER_INSTRUMENTATION_PROPERTIES_ARM")
-                }
-                Self::SHADER_INSTRUMENTATION_CREATE_INFO_ARM => {
-                    Some("SHADER_INSTRUMENTATION_CREATE_INFO_ARM")
-                }
-                Self::SHADER_INSTRUMENTATION_METRIC_DESCRIPTION_ARM => {
-                    Some("SHADER_INSTRUMENTATION_METRIC_DESCRIPTION_ARM")
-                }
-                Self::TENSOR_EXPLICIT_TILING_FORMAT_PROPERTIES_ARM => {
-                    Some("TENSOR_EXPLICIT_TILING_FORMAT_PROPERTIES_ARM")
-                }
-                Self::TENSOR_ROLLING_BACKING_CREATE_INFO_ARM => {
-                    Some("TENSOR_ROLLING_BACKING_CREATE_INFO_ARM")
-                }
-                Self::TENSOR_CREATE_INFO_ARM => Some("TENSOR_CREATE_INFO_ARM"),
-                Self::TENSOR_VIEW_CREATE_INFO_ARM => Some("TENSOR_VIEW_CREATE_INFO_ARM"),
-                Self::BIND_TENSOR_MEMORY_INFO_ARM => Some("BIND_TENSOR_MEMORY_INFO_ARM"),
-                Self::WRITE_DESCRIPTOR_SET_TENSOR_ARM => Some("WRITE_DESCRIPTOR_SET_TENSOR_ARM"),
-                Self::PHYSICAL_DEVICE_TENSOR_PROPERTIES_ARM => {
-                    Some("PHYSICAL_DEVICE_TENSOR_PROPERTIES_ARM")
-                }
-                Self::TENSOR_FORMAT_PROPERTIES_ARM => Some("TENSOR_FORMAT_PROPERTIES_ARM"),
-                Self::TENSOR_DESCRIPTION_ARM => Some("TENSOR_DESCRIPTION_ARM"),
-                Self::TENSOR_MEMORY_REQUIREMENTS_INFO_ARM => {
-                    Some("TENSOR_MEMORY_REQUIREMENTS_INFO_ARM")
-                }
-                Self::TENSOR_MEMORY_BARRIER_ARM => Some("TENSOR_MEMORY_BARRIER_ARM"),
-                Self::PHYSICAL_DEVICE_TENSOR_FEATURES_ARM => {
-                    Some("PHYSICAL_DEVICE_TENSOR_FEATURES_ARM")
-                }
-                Self::DEVICE_TENSOR_MEMORY_REQUIREMENTS_ARM => {
-                    Some("DEVICE_TENSOR_MEMORY_REQUIREMENTS_ARM")
-                }
-                Self::COPY_TENSOR_INFO_ARM => Some("COPY_TENSOR_INFO_ARM"),
-                Self::TENSOR_COPY_ARM => Some("TENSOR_COPY_ARM"),
-                Self::TENSOR_DEPENDENCY_INFO_ARM => Some("TENSOR_DEPENDENCY_INFO_ARM"),
-                Self::MEMORY_DEDICATED_ALLOCATE_INFO_TENSOR_ARM => {
-                    Some("MEMORY_DEDICATED_ALLOCATE_INFO_TENSOR_ARM")
-                }
-                Self::PHYSICAL_DEVICE_EXTERNAL_TENSOR_INFO_ARM => {
-                    Some("PHYSICAL_DEVICE_EXTERNAL_TENSOR_INFO_ARM")
-                }
-                Self::EXTERNAL_TENSOR_PROPERTIES_ARM => Some("EXTERNAL_TENSOR_PROPERTIES_ARM"),
-                Self::EXTERNAL_MEMORY_TENSOR_CREATE_INFO_ARM => {
-                    Some("EXTERNAL_MEMORY_TENSOR_CREATE_INFO_ARM")
-                }
-                Self::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_FEATURES_ARM => {
-                    Some("PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_FEATURES_ARM")
-                }
-                Self::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_PROPERTIES_ARM => {
-                    Some("PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_PROPERTIES_ARM")
-                }
-                Self::DESCRIPTOR_GET_TENSOR_INFO_ARM => Some("DESCRIPTOR_GET_TENSOR_INFO_ARM"),
-                Self::TENSOR_CAPTURE_DESCRIPTOR_DATA_INFO_ARM => {
-                    Some("TENSOR_CAPTURE_DESCRIPTOR_DATA_INFO_ARM")
-                }
-                Self::TENSOR_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_ARM => {
-                    Some("TENSOR_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_ARM")
-                }
-                Self::FRAME_BOUNDARY_TENSORS_ARM => Some("FRAME_BOUNDARY_TENSORS_ARM"),
-                Self::PHYSICAL_DEVICE_4444_FORMATS_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_4444_FORMATS_FEATURES_EXT")
-                }
-                Self::IMAGE_VIEW_ASTC_DECODE_MODE_EXT => Some("IMAGE_VIEW_ASTC_DECODE_MODE_EXT"),
-                Self::PHYSICAL_DEVICE_ASTC_DECODE_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_ASTC_DECODE_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_DYNAMIC_STATE_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_DYNAMIC_STATE_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_LAYOUT_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_LAYOUT_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_PROPERTIES_EXT")
-                }
-                Self::PIPELINE_COLOR_BLEND_ADVANCED_STATE_CREATE_INFO_EXT => {
-                    Some("PIPELINE_COLOR_BLEND_ADVANCED_STATE_CREATE_INFO_EXT")
-                }
-                Self::PHYSICAL_DEVICE_BORDER_COLOR_SWIZZLE_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_BORDER_COLOR_SWIZZLE_FEATURES_EXT")
-                }
-                Self::SAMPLER_BORDER_COLOR_COMPONENT_MAPPING_CREATE_INFO_EXT => {
-                    Some("SAMPLER_BORDER_COLOR_COMPONENT_MAPPING_CREATE_INFO_EXT")
-                }
-                Self::PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES_EXT")
-                }
-                Self::BUFFER_DEVICE_ADDRESS_CREATE_INFO_EXT => {
-                    Some("BUFFER_DEVICE_ADDRESS_CREATE_INFO_EXT")
-                }
-                Self::PHYSICAL_DEVICE_COLOR_WRITE_ENABLE_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_COLOR_WRITE_ENABLE_FEATURES_EXT")
-                }
-                Self::PIPELINE_COLOR_WRITE_CREATE_INFO_EXT => {
-                    Some("PIPELINE_COLOR_WRITE_CREATE_INFO_EXT")
-                }
-                Self::COMMAND_BUFFER_INHERITANCE_CONDITIONAL_RENDERING_INFO_EXT => {
-                    Some("COMMAND_BUFFER_INHERITANCE_CONDITIONAL_RENDERING_INFO_EXT")
-                }
-                Self::PHYSICAL_DEVICE_CONDITIONAL_RENDERING_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_CONDITIONAL_RENDERING_FEATURES_EXT")
-                }
-                Self::CONDITIONAL_RENDERING_BEGIN_INFO_EXT => {
-                    Some("CONDITIONAL_RENDERING_BEGIN_INFO_EXT")
-                }
-                Self::PHYSICAL_DEVICE_CONSERVATIVE_RASTERIZATION_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_CONSERVATIVE_RASTERIZATION_PROPERTIES_EXT")
-                }
-                Self::PIPELINE_RASTERIZATION_CONSERVATIVE_STATE_CREATE_INFO_EXT => {
-                    Some("PIPELINE_RASTERIZATION_CONSERVATIVE_STATE_CREATE_INFO_EXT")
-                }
-                Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_MAINTENANCE_1_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_MAINTENANCE_1_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_INFO_2_EXT => {
-                    Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_INFO_2_EXT")
-                }
-                Self::COOPERATIVE_MATRIX_PROPERTIES_2_EXT => {
-                    Some("COOPERATIVE_MATRIX_PROPERTIES_2_EXT")
-                }
-                Self::SAMPLER_CUSTOM_BORDER_COLOR_CREATE_INFO_EXT => {
-                    Some("SAMPLER_CUSTOM_BORDER_COLOR_CREATE_INFO_EXT")
-                }
-                Self::PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_PROPERTIES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_CUSTOM_RESOLVE_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_CUSTOM_RESOLVE_FEATURES_EXT")
-                }
-                Self::BEGIN_CUSTOM_RESOLVE_INFO_EXT => Some("BEGIN_CUSTOM_RESOLVE_INFO_EXT"),
-                Self::CUSTOM_RESOLVE_CREATE_INFO_EXT => Some("CUSTOM_RESOLVE_CREATE_INFO_EXT"),
-                Self::DEBUG_MARKER_OBJECT_NAME_INFO_EXT => {
-                    Some("DEBUG_MARKER_OBJECT_NAME_INFO_EXT")
-                }
-                Self::DEBUG_MARKER_OBJECT_TAG_INFO_EXT => Some("DEBUG_MARKER_OBJECT_TAG_INFO_EXT"),
-                Self::DEBUG_MARKER_MARKER_INFO_EXT => Some("DEBUG_MARKER_MARKER_INFO_EXT"),
-                Self::DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT => {
-                    Some("DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT")
-                }
-                Self::DEBUG_UTILS_OBJECT_NAME_INFO_EXT => Some("DEBUG_UTILS_OBJECT_NAME_INFO_EXT"),
-                Self::DEBUG_UTILS_OBJECT_TAG_INFO_EXT => Some("DEBUG_UTILS_OBJECT_TAG_INFO_EXT"),
-                Self::DEBUG_UTILS_LABEL_EXT => Some("DEBUG_UTILS_LABEL_EXT"),
-                Self::DEBUG_UTILS_MESSENGER_CALLBACK_DATA_EXT => {
-                    Some("DEBUG_UTILS_MESSENGER_CALLBACK_DATA_EXT")
-                }
-                Self::DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT => {
-                    Some("DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT")
-                }
-                Self::PHYSICAL_DEVICE_DEPTH_BIAS_CONTROL_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_DEPTH_BIAS_CONTROL_FEATURES_EXT")
-                }
-                Self::DEPTH_BIAS_INFO_EXT => Some("DEPTH_BIAS_INFO_EXT"),
-                Self::DEPTH_BIAS_REPRESENTATION_INFO_EXT => {
-                    Some("DEPTH_BIAS_REPRESENTATION_INFO_EXT")
-                }
-                Self::PHYSICAL_DEVICE_DEPTH_CLAMP_CONTROL_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_DEPTH_CLAMP_CONTROL_FEATURES_EXT")
-                }
-                Self::PIPELINE_VIEWPORT_DEPTH_CLAMP_CONTROL_CREATE_INFO_EXT => {
-                    Some("PIPELINE_VIEWPORT_DEPTH_CLAMP_CONTROL_CREATE_INFO_EXT")
-                }
-                Self::PHYSICAL_DEVICE_DEPTH_CLIP_CONTROL_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_DEPTH_CLIP_CONTROL_FEATURES_EXT")
-                }
-                Self::PIPELINE_VIEWPORT_DEPTH_CLIP_CONTROL_CREATE_INFO_EXT => {
-                    Some("PIPELINE_VIEWPORT_DEPTH_CLIP_CONTROL_CREATE_INFO_EXT")
-                }
-                Self::PHYSICAL_DEVICE_DEPTH_CLIP_ENABLE_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_DEPTH_CLIP_ENABLE_FEATURES_EXT")
-                }
-                Self::PIPELINE_RASTERIZATION_DEPTH_CLIP_STATE_CREATE_INFO_EXT => {
-                    Some("PIPELINE_RASTERIZATION_DEPTH_CLIP_STATE_CREATE_INFO_EXT")
-                }
-                Self::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_PROPERTIES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_DENSITY_MAP_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_DENSITY_MAP_PROPERTIES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_FEATURES_EXT")
-                }
-                Self::DESCRIPTOR_ADDRESS_INFO_EXT => Some("DESCRIPTOR_ADDRESS_INFO_EXT"),
-                Self::DESCRIPTOR_GET_INFO_EXT => Some("DESCRIPTOR_GET_INFO_EXT"),
-                Self::BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT => {
-                    Some("BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT")
-                }
-                Self::IMAGE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT => {
-                    Some("IMAGE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT")
-                }
-                Self::IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT => {
-                    Some("IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT")
-                }
-                Self::SAMPLER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT => {
-                    Some("SAMPLER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT")
-                }
-                Self::OPAQUE_CAPTURE_DESCRIPTOR_DATA_CREATE_INFO_EXT => {
-                    Some("OPAQUE_CAPTURE_DESCRIPTOR_DATA_CREATE_INFO_EXT")
-                }
-                Self::DESCRIPTOR_BUFFER_BINDING_INFO_EXT => {
-                    Some("DESCRIPTOR_BUFFER_BINDING_INFO_EXT")
-                }
-                Self::DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT => {
-                    Some("DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT")
-                }
-                Self::ACCELERATION_STRUCTURE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT => {
-                    Some("ACCELERATION_STRUCTURE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT")
-                }
-                Self::TEXEL_BUFFER_DESCRIPTOR_INFO_EXT => Some("TEXEL_BUFFER_DESCRIPTOR_INFO_EXT"),
-                Self::IMAGE_DESCRIPTOR_INFO_EXT => Some("IMAGE_DESCRIPTOR_INFO_EXT"),
-                Self::RESOURCE_DESCRIPTOR_INFO_EXT => Some("RESOURCE_DESCRIPTOR_INFO_EXT"),
-                Self::BIND_HEAP_INFO_EXT => Some("BIND_HEAP_INFO_EXT"),
-                Self::PUSH_DATA_INFO_EXT => Some("PUSH_DATA_INFO_EXT"),
-                Self::DESCRIPTOR_SET_AND_BINDING_MAPPING_EXT => {
-                    Some("DESCRIPTOR_SET_AND_BINDING_MAPPING_EXT")
-                }
-                Self::SHADER_DESCRIPTOR_SET_AND_BINDING_MAPPING_INFO_EXT => {
-                    Some("SHADER_DESCRIPTOR_SET_AND_BINDING_MAPPING_INFO_EXT")
-                }
-                Self::OPAQUE_CAPTURE_DATA_CREATE_INFO_EXT => {
-                    Some("OPAQUE_CAPTURE_DATA_CREATE_INFO_EXT")
-                }
-                Self::PHYSICAL_DEVICE_DESCRIPTOR_HEAP_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_DESCRIPTOR_HEAP_PROPERTIES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_DESCRIPTOR_HEAP_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_DESCRIPTOR_HEAP_FEATURES_EXT")
-                }
-                Self::COMMAND_BUFFER_INHERITANCE_DESCRIPTOR_HEAP_INFO_EXT => {
-                    Some("COMMAND_BUFFER_INHERITANCE_DESCRIPTOR_HEAP_INFO_EXT")
-                }
-                Self::SAMPLER_CUSTOM_BORDER_COLOR_INDEX_CREATE_INFO_EXT => {
-                    Some("SAMPLER_CUSTOM_BORDER_COLOR_INDEX_CREATE_INFO_EXT")
-                }
-                Self::INDIRECT_COMMANDS_LAYOUT_PUSH_DATA_TOKEN_NV => {
-                    Some("INDIRECT_COMMANDS_LAYOUT_PUSH_DATA_TOKEN_NV")
-                }
-                Self::SUBSAMPLED_IMAGE_FORMAT_PROPERTIES_EXT => {
-                    Some("SUBSAMPLED_IMAGE_FORMAT_PROPERTIES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_DESCRIPTOR_HEAP_TENSOR_PROPERTIES_ARM => {
-                    Some("PHYSICAL_DEVICE_DESCRIPTOR_HEAP_TENSOR_PROPERTIES_ARM")
-                }
-                Self::PHYSICAL_DEVICE_ADDRESS_BINDING_REPORT_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_ADDRESS_BINDING_REPORT_FEATURES_EXT")
-                }
-                Self::DEVICE_ADDRESS_BINDING_CALLBACK_DATA_EXT => {
-                    Some("DEVICE_ADDRESS_BINDING_CALLBACK_DATA_EXT")
-                }
-                Self::PHYSICAL_DEVICE_FAULT_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_FAULT_FEATURES_EXT")
-                }
-                Self::DEVICE_FAULT_COUNTS_EXT => Some("DEVICE_FAULT_COUNTS_EXT"),
-                Self::DEVICE_FAULT_INFO_EXT => Some("DEVICE_FAULT_INFO_EXT"),
-                Self::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_EXT")
-                }
-                Self::GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_EXT => {
-                    Some("GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_EXT")
-                }
-                Self::INDIRECT_EXECUTION_SET_CREATE_INFO_EXT => {
-                    Some("INDIRECT_EXECUTION_SET_CREATE_INFO_EXT")
-                }
-                Self::GENERATED_COMMANDS_INFO_EXT => Some("GENERATED_COMMANDS_INFO_EXT"),
-                Self::INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_EXT => {
-                    Some("INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_EXT")
-                }
-                Self::INDIRECT_COMMANDS_LAYOUT_TOKEN_EXT => {
-                    Some("INDIRECT_COMMANDS_LAYOUT_TOKEN_EXT")
-                }
-                Self::WRITE_INDIRECT_EXECUTION_SET_PIPELINE_EXT => {
-                    Some("WRITE_INDIRECT_EXECUTION_SET_PIPELINE_EXT")
-                }
-                Self::WRITE_INDIRECT_EXECUTION_SET_SHADER_EXT => {
-                    Some("WRITE_INDIRECT_EXECUTION_SET_SHADER_EXT")
-                }
-                Self::INDIRECT_EXECUTION_SET_PIPELINE_INFO_EXT => {
-                    Some("INDIRECT_EXECUTION_SET_PIPELINE_INFO_EXT")
-                }
-                Self::INDIRECT_EXECUTION_SET_SHADER_INFO_EXT => {
-                    Some("INDIRECT_EXECUTION_SET_SHADER_INFO_EXT")
-                }
-                Self::INDIRECT_EXECUTION_SET_SHADER_LAYOUT_INFO_EXT => {
-                    Some("INDIRECT_EXECUTION_SET_SHADER_LAYOUT_INFO_EXT")
-                }
-                Self::GENERATED_COMMANDS_PIPELINE_INFO_EXT => {
-                    Some("GENERATED_COMMANDS_PIPELINE_INFO_EXT")
-                }
-                Self::GENERATED_COMMANDS_SHADER_INFO_EXT => {
-                    Some("GENERATED_COMMANDS_SHADER_INFO_EXT")
-                }
-                Self::PHYSICAL_DEVICE_DEVICE_MEMORY_REPORT_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_DEVICE_MEMORY_REPORT_FEATURES_EXT")
-                }
-                Self::DEVICE_DEVICE_MEMORY_REPORT_CREATE_INFO_EXT => {
-                    Some("DEVICE_DEVICE_MEMORY_REPORT_CREATE_INFO_EXT")
-                }
-                Self::DEVICE_MEMORY_REPORT_CALLBACK_DATA_EXT => {
-                    Some("DEVICE_MEMORY_REPORT_CALLBACK_DATA_EXT")
-                }
-                Self::DIRECTFB_SURFACE_CREATE_INFO_EXT => Some("DIRECTFB_SURFACE_CREATE_INFO_EXT"),
-                Self::PHYSICAL_DEVICE_DISCARD_RECTANGLE_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_DISCARD_RECTANGLE_PROPERTIES_EXT")
-                }
-                Self::PIPELINE_DISCARD_RECTANGLE_STATE_CREATE_INFO_EXT => {
-                    Some("PIPELINE_DISCARD_RECTANGLE_STATE_CREATE_INFO_EXT")
-                }
-                Self::DISPLAY_POWER_INFO_EXT => Some("DISPLAY_POWER_INFO_EXT"),
-                Self::DEVICE_EVENT_INFO_EXT => Some("DEVICE_EVENT_INFO_EXT"),
-                Self::DISPLAY_EVENT_INFO_EXT => Some("DISPLAY_EVENT_INFO_EXT"),
-                Self::SWAPCHAIN_COUNTER_CREATE_INFO_EXT => {
-                    Some("SWAPCHAIN_COUNTER_CREATE_INFO_EXT")
-                }
-                Self::SURFACE_CAPABILITIES_2_EXT => Some("SURFACE_CAPABILITIES_2_EXT"),
-                Self::PHYSICAL_DEVICE_DYNAMIC_RENDERING_UNUSED_ATTACHMENTS_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_DYNAMIC_RENDERING_UNUSED_ATTACHMENTS_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_2_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_2_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_PROPERTIES_EXT")
-                }
-                Self::EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT => {
-                    Some("EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT")
-                }
-                Self::IMPORT_MEMORY_HOST_POINTER_INFO_EXT => {
-                    Some("IMPORT_MEMORY_HOST_POINTER_INFO_EXT")
-                }
-                Self::MEMORY_HOST_POINTER_PROPERTIES_EXT => {
-                    Some("MEMORY_HOST_POINTER_PROPERTIES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_EXTERNAL_MEMORY_HOST_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_EXTERNAL_MEMORY_HOST_PROPERTIES_EXT")
-                }
-                Self::IMPORT_MEMORY_METAL_HANDLE_INFO_EXT => {
-                    Some("IMPORT_MEMORY_METAL_HANDLE_INFO_EXT")
-                }
-                Self::MEMORY_METAL_HANDLE_PROPERTIES_EXT => {
-                    Some("MEMORY_METAL_HANDLE_PROPERTIES_EXT")
-                }
-                Self::MEMORY_GET_METAL_HANDLE_INFO_EXT => Some("MEMORY_GET_METAL_HANDLE_INFO_EXT"),
-                Self::PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT => {
-                    Some("PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT")
-                }
-                Self::FILTER_CUBIC_IMAGE_VIEW_IMAGE_FORMAT_PROPERTIES_EXT => {
-                    Some("FILTER_CUBIC_IMAGE_VIEW_IMAGE_FORMAT_PROPERTIES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_PROPERTIES_EXT")
-                }
-                Self::RENDER_PASS_FRAGMENT_DENSITY_MAP_CREATE_INFO_EXT => {
-                    Some("RENDER_PASS_FRAGMENT_DENSITY_MAP_CREATE_INFO_EXT")
-                }
-                Self::RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_INFO_EXT => {
-                    Some("RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_INFO_EXT")
-                }
-                Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_2_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_2_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_2_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_2_PROPERTIES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_EXT")
-                }
-                Self::RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT => {
-                    Some("RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT")
-                }
-                Self::PHYSICAL_DEVICE_FRAGMENT_SHADER_INTERLOCK_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_FRAGMENT_SHADER_INTERLOCK_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_FRAME_BOUNDARY_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_FRAME_BOUNDARY_FEATURES_EXT")
-                }
-                Self::FRAME_BOUNDARY_EXT => Some("FRAME_BOUNDARY_EXT"),
-                Self::SURFACE_FULL_SCREEN_EXCLUSIVE_INFO_EXT => {
-                    Some("SURFACE_FULL_SCREEN_EXCLUSIVE_INFO_EXT")
-                }
-                Self::SURFACE_CAPABILITIES_FULL_SCREEN_EXCLUSIVE_EXT => {
-                    Some("SURFACE_CAPABILITIES_FULL_SCREEN_EXCLUSIVE_EXT")
-                }
-                Self::SURFACE_FULL_SCREEN_EXCLUSIVE_WIN32_INFO_EXT => {
-                    Some("SURFACE_FULL_SCREEN_EXCLUSIVE_WIN32_INFO_EXT")
-                }
-                Self::PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_PROPERTIES_EXT")
-                }
-                Self::GRAPHICS_PIPELINE_LIBRARY_CREATE_INFO_EXT => {
-                    Some("GRAPHICS_PIPELINE_LIBRARY_CREATE_INFO_EXT")
-                }
-                Self::HDR_METADATA_EXT => Some("HDR_METADATA_EXT"),
-                Self::HEADLESS_SURFACE_CREATE_INFO_EXT => Some("HEADLESS_SURFACE_CREATE_INFO_EXT"),
-                Self::PHYSICAL_DEVICE_IMAGE_2D_VIEW_OF_3D_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_IMAGE_2D_VIEW_OF_3D_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_FEATURES_EXT")
-                }
-                Self::IMAGE_COMPRESSION_CONTROL_EXT => Some("IMAGE_COMPRESSION_CONTROL_EXT"),
-                Self::IMAGE_COMPRESSION_PROPERTIES_EXT => Some("IMAGE_COMPRESSION_PROPERTIES_EXT"),
-                Self::PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_SWAPCHAIN_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_SWAPCHAIN_FEATURES_EXT")
-                }
-                Self::DRM_FORMAT_MODIFIER_PROPERTIES_LIST_EXT => {
-                    Some("DRM_FORMAT_MODIFIER_PROPERTIES_LIST_EXT")
-                }
-                Self::PHYSICAL_DEVICE_IMAGE_DRM_FORMAT_MODIFIER_INFO_EXT => {
-                    Some("PHYSICAL_DEVICE_IMAGE_DRM_FORMAT_MODIFIER_INFO_EXT")
-                }
-                Self::IMAGE_DRM_FORMAT_MODIFIER_LIST_CREATE_INFO_EXT => {
-                    Some("IMAGE_DRM_FORMAT_MODIFIER_LIST_CREATE_INFO_EXT")
-                }
-                Self::IMAGE_DRM_FORMAT_MODIFIER_EXPLICIT_CREATE_INFO_EXT => {
-                    Some("IMAGE_DRM_FORMAT_MODIFIER_EXPLICIT_CREATE_INFO_EXT")
-                }
-                Self::IMAGE_DRM_FORMAT_MODIFIER_PROPERTIES_EXT => {
-                    Some("IMAGE_DRM_FORMAT_MODIFIER_PROPERTIES_EXT")
-                }
-                Self::DRM_FORMAT_MODIFIER_PROPERTIES_LIST_2_EXT => {
-                    Some("DRM_FORMAT_MODIFIER_PROPERTIES_LIST_2_EXT")
-                }
-                Self::PHYSICAL_DEVICE_IMAGE_SLICED_VIEW_OF_3D_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_IMAGE_SLICED_VIEW_OF_3D_FEATURES_EXT")
-                }
-                Self::IMAGE_VIEW_SLICED_CREATE_INFO_EXT => {
-                    Some("IMAGE_VIEW_SLICED_CREATE_INFO_EXT")
-                }
-                Self::PHYSICAL_DEVICE_IMAGE_TILING_CONTROL_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_IMAGE_TILING_CONTROL_FEATURES_EXT")
-                }
-                Self::IMAGE_TILING_CONTROL_CREATE_INFO_EXT => {
-                    Some("IMAGE_TILING_CONTROL_CREATE_INFO_EXT")
-                }
-                Self::PHYSICAL_DEVICE_IMAGE_VIEW_MIN_LOD_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_IMAGE_VIEW_MIN_LOD_FEATURES_EXT")
-                }
-                Self::IMAGE_VIEW_MIN_LOD_CREATE_INFO_EXT => {
-                    Some("IMAGE_VIEW_MIN_LOD_CREATE_INFO_EXT")
-                }
-                Self::LAYER_SETTINGS_CREATE_INFO_EXT => Some("LAYER_SETTINGS_CREATE_INFO_EXT"),
-                Self::PHYSICAL_DEVICE_LEGACY_DITHERING_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_LEGACY_DITHERING_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_LEGACY_VERTEX_ATTRIBUTES_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_LEGACY_VERTEX_ATTRIBUTES_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_LEGACY_VERTEX_ATTRIBUTES_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_LEGACY_VERTEX_ATTRIBUTES_PROPERTIES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_MAP_MEMORY_PLACED_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_MAP_MEMORY_PLACED_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_MAP_MEMORY_PLACED_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_MAP_MEMORY_PLACED_PROPERTIES_EXT")
-                }
-                Self::MEMORY_MAP_PLACED_INFO_EXT => Some("MEMORY_MAP_PLACED_INFO_EXT"),
-                Self::PHYSICAL_DEVICE_MEMORY_BUDGET_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_MEMORY_BUDGET_PROPERTIES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_EXT")
-                }
-                Self::DECOMPRESS_MEMORY_INFO_EXT => Some("DECOMPRESS_MEMORY_INFO_EXT"),
-                Self::PHYSICAL_DEVICE_MEMORY_PRIORITY_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_MEMORY_PRIORITY_FEATURES_EXT")
-                }
-                Self::MEMORY_PRIORITY_ALLOCATE_INFO_EXT => {
-                    Some("MEMORY_PRIORITY_ALLOCATE_INFO_EXT")
-                }
-                Self::PHYSICAL_DEVICE_MESH_SHADER_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_MESH_SHADER_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_EXT")
-                }
-                Self::EXPORT_METAL_OBJECT_CREATE_INFO_EXT => {
-                    Some("EXPORT_METAL_OBJECT_CREATE_INFO_EXT")
-                }
-                Self::EXPORT_METAL_OBJECTS_INFO_EXT => Some("EXPORT_METAL_OBJECTS_INFO_EXT"),
-                Self::EXPORT_METAL_DEVICE_INFO_EXT => Some("EXPORT_METAL_DEVICE_INFO_EXT"),
-                Self::EXPORT_METAL_COMMAND_QUEUE_INFO_EXT => {
-                    Some("EXPORT_METAL_COMMAND_QUEUE_INFO_EXT")
-                }
-                Self::EXPORT_METAL_BUFFER_INFO_EXT => Some("EXPORT_METAL_BUFFER_INFO_EXT"),
-                Self::IMPORT_METAL_BUFFER_INFO_EXT => Some("IMPORT_METAL_BUFFER_INFO_EXT"),
-                Self::EXPORT_METAL_TEXTURE_INFO_EXT => Some("EXPORT_METAL_TEXTURE_INFO_EXT"),
-                Self::IMPORT_METAL_TEXTURE_INFO_EXT => Some("IMPORT_METAL_TEXTURE_INFO_EXT"),
-                Self::EXPORT_METAL_IO_SURFACE_INFO_EXT => Some("EXPORT_METAL_IO_SURFACE_INFO_EXT"),
-                Self::IMPORT_METAL_IO_SURFACE_INFO_EXT => Some("IMPORT_METAL_IO_SURFACE_INFO_EXT"),
-                Self::EXPORT_METAL_SHARED_EVENT_INFO_EXT => {
-                    Some("EXPORT_METAL_SHARED_EVENT_INFO_EXT")
-                }
-                Self::IMPORT_METAL_SHARED_EVENT_INFO_EXT => {
-                    Some("IMPORT_METAL_SHARED_EVENT_INFO_EXT")
-                }
-                Self::METAL_SURFACE_CREATE_INFO_EXT => Some("METAL_SURFACE_CREATE_INFO_EXT"),
-                Self::PHYSICAL_DEVICE_MULTI_DRAW_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_MULTI_DRAW_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_MULTI_DRAW_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_MULTI_DRAW_PROPERTIES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_FEATURES_EXT")
-                }
-                Self::SUBPASS_RESOLVE_PERFORMANCE_QUERY_EXT => {
-                    Some("SUBPASS_RESOLVE_PERFORMANCE_QUERY_EXT")
-                }
-                Self::MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_INFO_EXT => {
-                    Some("MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_INFO_EXT")
-                }
-                Self::PHYSICAL_DEVICE_MULTISAMPLED_RENDER_TO_SWAPCHAIN_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_MULTISAMPLED_RENDER_TO_SWAPCHAIN_FEATURES_EXT")
-                }
-                Self::SWAPCHAIN_FLAGS_SURFACE_CAPABILITIES_EXT => {
-                    Some("SWAPCHAIN_FLAGS_SURFACE_CAPABILITIES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT")
-                }
-                Self::MUTABLE_DESCRIPTOR_TYPE_CREATE_INFO_EXT => {
-                    Some("MUTABLE_DESCRIPTOR_TYPE_CREATE_INFO_EXT")
-                }
-                Self::PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_PROPERTIES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_NON_SEAMLESS_CUBE_MAP_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_NON_SEAMLESS_CUBE_MAP_FEATURES_EXT")
-                }
-                Self::MICROMAP_BUILD_INFO_EXT => Some("MICROMAP_BUILD_INFO_EXT"),
-                Self::MICROMAP_VERSION_INFO_EXT => Some("MICROMAP_VERSION_INFO_EXT"),
-                Self::COPY_MICROMAP_INFO_EXT => Some("COPY_MICROMAP_INFO_EXT"),
-                Self::COPY_MICROMAP_TO_MEMORY_INFO_EXT => Some("COPY_MICROMAP_TO_MEMORY_INFO_EXT"),
-                Self::COPY_MEMORY_TO_MICROMAP_INFO_EXT => Some("COPY_MEMORY_TO_MICROMAP_INFO_EXT"),
-                Self::PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_OPACITY_MICROMAP_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_OPACITY_MICROMAP_PROPERTIES_EXT")
-                }
-                Self::MICROMAP_CREATE_INFO_EXT => Some("MICROMAP_CREATE_INFO_EXT"),
-                Self::MICROMAP_BUILD_SIZES_INFO_EXT => Some("MICROMAP_BUILD_SIZES_INFO_EXT"),
-                Self::ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_EXT => {
-                    Some("ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_EXT")
-                }
-                Self::PHYSICAL_DEVICE_PAGEABLE_DEVICE_LOCAL_MEMORY_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_PAGEABLE_DEVICE_LOCAL_MEMORY_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_PCI_BUS_INFO_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_PCI_BUS_INFO_PROPERTIES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_DRM_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_DRM_PROPERTIES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_PIPELINE_LIBRARY_GROUP_HANDLES_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_PIPELINE_LIBRARY_GROUP_HANDLES_FEATURES_EXT")
-                }
-                Self::PIPELINE_PROPERTIES_IDENTIFIER_EXT => {
-                    Some("PIPELINE_PROPERTIES_IDENTIFIER_EXT")
-                }
-                Self::PHYSICAL_DEVICE_PIPELINE_PROPERTIES_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_PIPELINE_PROPERTIES_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_PRESENT_TIMING_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_PRESENT_TIMING_FEATURES_EXT")
-                }
-                Self::SWAPCHAIN_TIMING_PROPERTIES_EXT => Some("SWAPCHAIN_TIMING_PROPERTIES_EXT"),
-                Self::SWAPCHAIN_TIME_DOMAIN_PROPERTIES_EXT => {
-                    Some("SWAPCHAIN_TIME_DOMAIN_PROPERTIES_EXT")
-                }
-                Self::PRESENT_TIMINGS_INFO_EXT => Some("PRESENT_TIMINGS_INFO_EXT"),
-                Self::PRESENT_TIMING_INFO_EXT => Some("PRESENT_TIMING_INFO_EXT"),
-                Self::PAST_PRESENTATION_TIMING_INFO_EXT => {
-                    Some("PAST_PRESENTATION_TIMING_INFO_EXT")
-                }
-                Self::PAST_PRESENTATION_TIMING_PROPERTIES_EXT => {
-                    Some("PAST_PRESENTATION_TIMING_PROPERTIES_EXT")
-                }
-                Self::PAST_PRESENTATION_TIMING_EXT => Some("PAST_PRESENTATION_TIMING_EXT"),
-                Self::PRESENT_TIMING_SURFACE_CAPABILITIES_EXT => {
-                    Some("PRESENT_TIMING_SURFACE_CAPABILITIES_EXT")
-                }
-                Self::SWAPCHAIN_CALIBRATED_TIMESTAMP_INFO_EXT => {
-                    Some("SWAPCHAIN_CALIBRATED_TIMESTAMP_INFO_EXT")
-                }
-                Self::PHYSICAL_DEVICE_PRIMITIVE_RESTART_INDEX_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_PRIMITIVE_RESTART_INDEX_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_PRIMITIVE_TOPOLOGY_LIST_RESTART_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_PRIMITIVE_TOPOLOGY_LIST_RESTART_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_PRIMITIVES_GENERATED_QUERY_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_PRIMITIVES_GENERATED_QUERY_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_PROVOKING_VERTEX_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_PROVOKING_VERTEX_FEATURES_EXT")
-                }
-                Self::PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT => {
-                    Some("PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT")
-                }
-                Self::PHYSICAL_DEVICE_PROVOKING_VERTEX_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_PROVOKING_VERTEX_PROPERTIES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_RGBA10X6_FORMATS_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_RGBA10X6_FORMATS_FEATURES_EXT")
-                }
-                Self::SAMPLE_LOCATIONS_INFO_EXT => Some("SAMPLE_LOCATIONS_INFO_EXT"),
-                Self::RENDER_PASS_SAMPLE_LOCATIONS_BEGIN_INFO_EXT => {
-                    Some("RENDER_PASS_SAMPLE_LOCATIONS_BEGIN_INFO_EXT")
-                }
-                Self::PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT => {
-                    Some("PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT")
-                }
-                Self::PHYSICAL_DEVICE_SAMPLE_LOCATIONS_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_SAMPLE_LOCATIONS_PROPERTIES_EXT")
-                }
-                Self::MULTISAMPLE_PROPERTIES_EXT => Some("MULTISAMPLE_PROPERTIES_EXT"),
-                Self::PHYSICAL_DEVICE_SHADER_64_BIT_INDEXING_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_SHADER_64_BIT_INDEXING_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_2_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_2_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_FLOAT8_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_SHADER_FLOAT8_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_IMAGE_ATOMIC_INT64_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_SHADER_IMAGE_ATOMIC_INT64_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_LONG_VECTOR_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_SHADER_LONG_VECTOR_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_LONG_VECTOR_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_SHADER_LONG_VECTOR_PROPERTIES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_PROPERTIES_EXT")
-                }
-                Self::PIPELINE_SHADER_STAGE_MODULE_IDENTIFIER_CREATE_INFO_EXT => {
-                    Some("PIPELINE_SHADER_STAGE_MODULE_IDENTIFIER_CREATE_INFO_EXT")
-                }
-                Self::SHADER_MODULE_IDENTIFIER_EXT => Some("SHADER_MODULE_IDENTIFIER_EXT"),
-                Self::PHYSICAL_DEVICE_SHADER_OBJECT_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_SHADER_OBJECT_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_OBJECT_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_SHADER_OBJECT_PROPERTIES_EXT")
-                }
-                Self::SHADER_CREATE_INFO_EXT => Some("SHADER_CREATE_INFO_EXT"),
-                Self::VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT => {
-                    Some("VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT")
-                }
-                Self::VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT => {
-                    Some("VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_OCP_MICROSCALING_TYPES_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_SHADER_OCP_MICROSCALING_TYPES_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_REPLICATED_COMPOSITES_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_SHADER_REPLICATED_COMPOSITES_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_SPLIT_BARRIER_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_SHADER_SPLIT_BARRIER_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_SPLIT_BARRIER_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_SHADER_SPLIT_BARRIER_PROPERTIES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_SUBGROUP_PARTITIONED_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_SHADER_SUBGROUP_PARTITIONED_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_TILE_IMAGE_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_SHADER_TILE_IMAGE_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_TILE_IMAGE_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_SHADER_TILE_IMAGE_PROPERTIES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_UNIFORM_BUFFER_UNSIZED_ARRAY_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_SHADER_UNIFORM_BUFFER_UNSIZED_ARRAY_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_SUBPASS_MERGE_FEEDBACK_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_SUBPASS_MERGE_FEEDBACK_FEATURES_EXT")
-                }
-                Self::RENDER_PASS_CREATION_CONTROL_EXT => Some("RENDER_PASS_CREATION_CONTROL_EXT"),
-                Self::RENDER_PASS_CREATION_FEEDBACK_CREATE_INFO_EXT => {
-                    Some("RENDER_PASS_CREATION_FEEDBACK_CREATE_INFO_EXT")
-                }
-                Self::RENDER_PASS_SUBPASS_FEEDBACK_CREATE_INFO_EXT => {
-                    Some("RENDER_PASS_SUBPASS_FEEDBACK_CREATE_INFO_EXT")
-                }
-                Self::PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_3D_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_3D_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_TRANSFORM_FEEDBACK_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_TRANSFORM_FEEDBACK_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_TRANSFORM_FEEDBACK_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_TRANSFORM_FEEDBACK_PROPERTIES_EXT")
-                }
-                Self::PIPELINE_RASTERIZATION_STATE_STREAM_CREATE_INFO_EXT => {
-                    Some("PIPELINE_RASTERIZATION_STATE_STREAM_CREATE_INFO_EXT")
-                }
-                Self::VALIDATION_CACHE_CREATE_INFO_EXT => Some("VALIDATION_CACHE_CREATE_INFO_EXT"),
-                Self::SHADER_MODULE_VALIDATION_CACHE_CREATE_INFO_EXT => {
-                    Some("SHADER_MODULE_VALIDATION_CACHE_CREATE_INFO_EXT")
-                }
-                Self::VALIDATION_FEATURES_EXT => Some("VALIDATION_FEATURES_EXT"),
-                Self::VALIDATION_FLAGS_EXT => Some("VALIDATION_FLAGS_EXT"),
-                Self::PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES_EXT => {
-                    Some("PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_ROBUSTNESS_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_ROBUSTNESS_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_VERTEX_INPUT_DYNAMIC_STATE_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_VERTEX_INPUT_DYNAMIC_STATE_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_YCBCR_2_PLANE_444_FORMATS_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_YCBCR_2_PLANE_444_FORMATS_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_YCBCR_IMAGE_ARRAYS_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_YCBCR_IMAGE_ARRAYS_FEATURES_EXT")
-                }
-                Self::PHYSICAL_DEVICE_ZERO_INITIALIZE_DEVICE_MEMORY_FEATURES_EXT => {
-                    Some("PHYSICAL_DEVICE_ZERO_INITIALIZE_DEVICE_MEMORY_FEATURES_EXT")
-                }
-                Self::BUFFER_COLLECTION_CREATE_INFO_FUCHSIA => {
-                    Some("BUFFER_COLLECTION_CREATE_INFO_FUCHSIA")
-                }
-                Self::IMPORT_MEMORY_BUFFER_COLLECTION_FUCHSIA => {
-                    Some("IMPORT_MEMORY_BUFFER_COLLECTION_FUCHSIA")
-                }
-                Self::BUFFER_COLLECTION_IMAGE_CREATE_INFO_FUCHSIA => {
-                    Some("BUFFER_COLLECTION_IMAGE_CREATE_INFO_FUCHSIA")
-                }
-                Self::BUFFER_COLLECTION_PROPERTIES_FUCHSIA => {
-                    Some("BUFFER_COLLECTION_PROPERTIES_FUCHSIA")
-                }
-                Self::BUFFER_CONSTRAINTS_INFO_FUCHSIA => Some("BUFFER_CONSTRAINTS_INFO_FUCHSIA"),
-                Self::BUFFER_COLLECTION_BUFFER_CREATE_INFO_FUCHSIA => {
-                    Some("BUFFER_COLLECTION_BUFFER_CREATE_INFO_FUCHSIA")
-                }
-                Self::IMAGE_CONSTRAINTS_INFO_FUCHSIA => Some("IMAGE_CONSTRAINTS_INFO_FUCHSIA"),
-                Self::IMAGE_FORMAT_CONSTRAINTS_INFO_FUCHSIA => {
-                    Some("IMAGE_FORMAT_CONSTRAINTS_INFO_FUCHSIA")
-                }
-                Self::SYSMEM_COLOR_SPACE_FUCHSIA => Some("SYSMEM_COLOR_SPACE_FUCHSIA"),
-                Self::BUFFER_COLLECTION_CONSTRAINTS_INFO_FUCHSIA => {
-                    Some("BUFFER_COLLECTION_CONSTRAINTS_INFO_FUCHSIA")
-                }
-                Self::IMPORT_MEMORY_ZIRCON_HANDLE_INFO_FUCHSIA => {
-                    Some("IMPORT_MEMORY_ZIRCON_HANDLE_INFO_FUCHSIA")
-                }
-                Self::MEMORY_ZIRCON_HANDLE_PROPERTIES_FUCHSIA => {
-                    Some("MEMORY_ZIRCON_HANDLE_PROPERTIES_FUCHSIA")
-                }
-                Self::MEMORY_GET_ZIRCON_HANDLE_INFO_FUCHSIA => {
-                    Some("MEMORY_GET_ZIRCON_HANDLE_INFO_FUCHSIA")
-                }
-                Self::IMPORT_SEMAPHORE_ZIRCON_HANDLE_INFO_FUCHSIA => {
-                    Some("IMPORT_SEMAPHORE_ZIRCON_HANDLE_INFO_FUCHSIA")
-                }
-                Self::SEMAPHORE_GET_ZIRCON_HANDLE_INFO_FUCHSIA => {
-                    Some("SEMAPHORE_GET_ZIRCON_HANDLE_INFO_FUCHSIA")
-                }
-                Self::IMAGEPIPE_SURFACE_CREATE_INFO_FUCHSIA => {
-                    Some("IMAGEPIPE_SURFACE_CREATE_INFO_FUCHSIA")
-                }
-                Self::PRESENT_FRAME_TOKEN_GGP => Some("PRESENT_FRAME_TOKEN_GGP"),
-                Self::STREAM_DESCRIPTOR_SURFACE_CREATE_INFO_GGP => {
-                    Some("STREAM_DESCRIPTOR_SURFACE_CREATE_INFO_GGP")
-                }
-                Self::PRESENT_TIMES_INFO_GOOGLE => Some("PRESENT_TIMES_INFO_GOOGLE"),
-                Self::PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_FEATURES_HUAWEI => {
-                    Some("PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_FEATURES_HUAWEI")
-                }
-                Self::PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_PROPERTIES_HUAWEI => {
-                    Some("PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_PROPERTIES_HUAWEI")
-                }
-                Self::PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_VRS_FEATURES_HUAWEI => {
-                    Some("PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_VRS_FEATURES_HUAWEI")
-                }
-                Self::PHYSICAL_DEVICE_HDR_VIVID_FEATURES_HUAWEI => {
-                    Some("PHYSICAL_DEVICE_HDR_VIVID_FEATURES_HUAWEI")
-                }
-                Self::HDR_VIVID_DYNAMIC_METADATA_HUAWEI => {
-                    Some("HDR_VIVID_DYNAMIC_METADATA_HUAWEI")
-                }
-                Self::PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI => {
-                    Some("PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI")
-                }
-                Self::SUBPASS_SHADING_PIPELINE_CREATE_INFO_HUAWEI => {
-                    Some("SUBPASS_SHADING_PIPELINE_CREATE_INFO_HUAWEI")
-                }
-                Self::PHYSICAL_DEVICE_SUBPASS_SHADING_FEATURES_HUAWEI => {
-                    Some("PHYSICAL_DEVICE_SUBPASS_SHADING_FEATURES_HUAWEI")
-                }
-                Self::PHYSICAL_DEVICE_SUBPASS_SHADING_PROPERTIES_HUAWEI => {
-                    Some("PHYSICAL_DEVICE_SUBPASS_SHADING_PROPERTIES_HUAWEI")
-                }
-                Self::PHYSICAL_DEVICE_RELAXED_LINE_RASTERIZATION_FEATURES_IMG => {
-                    Some("PHYSICAL_DEVICE_RELAXED_LINE_RASTERIZATION_FEATURES_IMG")
-                }
-                Self::QUERY_POOL_PERFORMANCE_QUERY_CREATE_INFO_INTEL => {
-                    Some("QUERY_POOL_PERFORMANCE_QUERY_CREATE_INFO_INTEL")
-                }
-                Self::INITIALIZE_PERFORMANCE_API_INFO_INTEL => {
-                    Some("INITIALIZE_PERFORMANCE_API_INFO_INTEL")
-                }
-                Self::PERFORMANCE_MARKER_INFO_INTEL => Some("PERFORMANCE_MARKER_INFO_INTEL"),
-                Self::PERFORMANCE_STREAM_MARKER_INFO_INTEL => {
-                    Some("PERFORMANCE_STREAM_MARKER_INFO_INTEL")
-                }
-                Self::PERFORMANCE_OVERRIDE_INFO_INTEL => Some("PERFORMANCE_OVERRIDE_INFO_INTEL"),
-                Self::PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL => {
-                    Some("PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_INTEGER_FUNCTIONS_2_FEATURES_INTEL => {
-                    Some("PHYSICAL_DEVICE_SHADER_INTEGER_FUNCTIONS_2_FEATURES_INTEL")
-                }
-                Self::WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_KHR => {
-                    Some("WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_KHR")
-                }
-                Self::ACCELERATION_STRUCTURE_BUILD_GEOMETRY_INFO_KHR => {
-                    Some("ACCELERATION_STRUCTURE_BUILD_GEOMETRY_INFO_KHR")
-                }
-                Self::ACCELERATION_STRUCTURE_DEVICE_ADDRESS_INFO_KHR => {
-                    Some("ACCELERATION_STRUCTURE_DEVICE_ADDRESS_INFO_KHR")
-                }
-                Self::ACCELERATION_STRUCTURE_GEOMETRY_AABBS_DATA_KHR => {
-                    Some("ACCELERATION_STRUCTURE_GEOMETRY_AABBS_DATA_KHR")
-                }
-                Self::ACCELERATION_STRUCTURE_GEOMETRY_INSTANCES_DATA_KHR => {
-                    Some("ACCELERATION_STRUCTURE_GEOMETRY_INSTANCES_DATA_KHR")
-                }
-                Self::ACCELERATION_STRUCTURE_GEOMETRY_TRIANGLES_DATA_KHR => {
-                    Some("ACCELERATION_STRUCTURE_GEOMETRY_TRIANGLES_DATA_KHR")
-                }
-                Self::ACCELERATION_STRUCTURE_GEOMETRY_KHR => {
-                    Some("ACCELERATION_STRUCTURE_GEOMETRY_KHR")
-                }
-                Self::ACCELERATION_STRUCTURE_VERSION_INFO_KHR => {
-                    Some("ACCELERATION_STRUCTURE_VERSION_INFO_KHR")
-                }
-                Self::COPY_ACCELERATION_STRUCTURE_INFO_KHR => {
-                    Some("COPY_ACCELERATION_STRUCTURE_INFO_KHR")
-                }
-                Self::COPY_ACCELERATION_STRUCTURE_TO_MEMORY_INFO_KHR => {
-                    Some("COPY_ACCELERATION_STRUCTURE_TO_MEMORY_INFO_KHR")
-                }
-                Self::COPY_MEMORY_TO_ACCELERATION_STRUCTURE_INFO_KHR => {
-                    Some("COPY_MEMORY_TO_ACCELERATION_STRUCTURE_INFO_KHR")
-                }
-                Self::PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_PROPERTIES_KHR")
-                }
-                Self::ACCELERATION_STRUCTURE_CREATE_INFO_KHR => {
-                    Some("ACCELERATION_STRUCTURE_CREATE_INFO_KHR")
-                }
-                Self::ACCELERATION_STRUCTURE_BUILD_SIZES_INFO_KHR => {
-                    Some("ACCELERATION_STRUCTURE_BUILD_SIZES_INFO_KHR")
-                }
-                Self::ANDROID_SURFACE_CREATE_INFO_KHR => Some("ANDROID_SURFACE_CREATE_INFO_KHR"),
-                Self::CALIBRATED_TIMESTAMP_INFO_KHR => Some("CALIBRATED_TIMESTAMP_INFO_KHR"),
-                Self::PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_PROPERTIES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_KHR")
-                }
-                Self::COOPERATIVE_MATRIX_PROPERTIES_KHR => {
-                    Some("COOPERATIVE_MATRIX_PROPERTIES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR")
-                }
-                Self::COPY_MEMORY_INDIRECT_INFO_KHR => Some("COPY_MEMORY_INDIRECT_INFO_KHR"),
-                Self::COPY_MEMORY_TO_IMAGE_INDIRECT_INFO_KHR => {
-                    Some("COPY_MEMORY_TO_IMAGE_INDIRECT_INFO_KHR")
-                }
-                Self::PHYSICAL_DEVICE_DEPTH_CLAMP_ZERO_ONE_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_DEPTH_CLAMP_ZERO_ONE_FEATURES_KHR")
-                }
-                Self::DEVICE_MEMORY_COPY_KHR => Some("DEVICE_MEMORY_COPY_KHR"),
-                Self::COPY_DEVICE_MEMORY_INFO_KHR => Some("COPY_DEVICE_MEMORY_INFO_KHR"),
-                Self::DEVICE_MEMORY_IMAGE_COPY_KHR => Some("DEVICE_MEMORY_IMAGE_COPY_KHR"),
-                Self::COPY_DEVICE_MEMORY_IMAGE_INFO_KHR => {
-                    Some("COPY_DEVICE_MEMORY_IMAGE_INFO_KHR")
-                }
-                Self::MEMORY_RANGE_BARRIERS_INFO_KHR => Some("MEMORY_RANGE_BARRIERS_INFO_KHR"),
-                Self::MEMORY_RANGE_BARRIER_KHR => Some("MEMORY_RANGE_BARRIER_KHR"),
-                Self::PHYSICAL_DEVICE_DEVICE_ADDRESS_COMMANDS_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_DEVICE_ADDRESS_COMMANDS_FEATURES_KHR")
-                }
-                Self::BIND_INDEX_BUFFER_3_INFO_KHR => Some("BIND_INDEX_BUFFER_3_INFO_KHR"),
-                Self::BIND_VERTEX_BUFFER_3_INFO_KHR => Some("BIND_VERTEX_BUFFER_3_INFO_KHR"),
-                Self::DRAW_INDIRECT_2_INFO_KHR => Some("DRAW_INDIRECT_2_INFO_KHR"),
-                Self::DRAW_INDIRECT_COUNT_2_INFO_KHR => Some("DRAW_INDIRECT_COUNT_2_INFO_KHR"),
-                Self::DISPATCH_INDIRECT_2_INFO_KHR => Some("DISPATCH_INDIRECT_2_INFO_KHR"),
-                Self::CONDITIONAL_RENDERING_BEGIN_INFO_2_EXT => {
-                    Some("CONDITIONAL_RENDERING_BEGIN_INFO_2_EXT")
-                }
-                Self::BIND_TRANSFORM_FEEDBACK_BUFFER_2_INFO_EXT => {
-                    Some("BIND_TRANSFORM_FEEDBACK_BUFFER_2_INFO_EXT")
-                }
-                Self::MEMORY_MARKER_INFO_AMD => Some("MEMORY_MARKER_INFO_AMD"),
-                Self::ACCELERATION_STRUCTURE_CREATE_INFO_2_KHR => {
-                    Some("ACCELERATION_STRUCTURE_CREATE_INFO_2_KHR")
-                }
-                Self::PHYSICAL_DEVICE_FAULT_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_FAULT_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_FAULT_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_FAULT_PROPERTIES_KHR")
-                }
-                Self::DEVICE_FAULT_INFO_KHR => Some("DEVICE_FAULT_INFO_KHR"),
-                Self::DEVICE_FAULT_DEBUG_INFO_KHR => Some("DEVICE_FAULT_DEBUG_INFO_KHR"),
-                Self::DEVICE_GROUP_PRESENT_CAPABILITIES_KHR => {
-                    Some("DEVICE_GROUP_PRESENT_CAPABILITIES_KHR")
-                }
-                Self::IMAGE_SWAPCHAIN_CREATE_INFO_KHR => Some("IMAGE_SWAPCHAIN_CREATE_INFO_KHR"),
-                Self::BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR => {
-                    Some("BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR")
-                }
-                Self::ACQUIRE_NEXT_IMAGE_INFO_KHR => Some("ACQUIRE_NEXT_IMAGE_INFO_KHR"),
-                Self::DEVICE_GROUP_PRESENT_INFO_KHR => Some("DEVICE_GROUP_PRESENT_INFO_KHR"),
-                Self::DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR => {
-                    Some("DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR")
-                }
-                Self::DISPLAY_MODE_CREATE_INFO_KHR => Some("DISPLAY_MODE_CREATE_INFO_KHR"),
-                Self::DISPLAY_SURFACE_CREATE_INFO_KHR => Some("DISPLAY_SURFACE_CREATE_INFO_KHR"),
-                Self::DISPLAY_PRESENT_INFO_KHR => Some("DISPLAY_PRESENT_INFO_KHR"),
-                Self::FORMAT_PROPERTIES_4_KHR => Some("FORMAT_PROPERTIES_4_KHR"),
-                Self::IMAGE_CREATE_FLAGS_2_CREATE_INFO_KHR => {
-                    Some("IMAGE_CREATE_FLAGS_2_CREATE_INFO_KHR")
-                }
-                Self::IMAGE_USAGE_FLAGS_2_CREATE_INFO_KHR => {
-                    Some("IMAGE_USAGE_FLAGS_2_CREATE_INFO_KHR")
-                }
-                Self::IMAGE_VIEW_USAGE_2_CREATE_INFO_KHR => {
-                    Some("IMAGE_VIEW_USAGE_2_CREATE_INFO_KHR")
-                }
-                Self::PHYSICAL_DEVICE_EXTENDED_FLAGS_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_EXTENDED_FLAGS_FEATURES_KHR")
-                }
-                Self::IMAGE_STENCIL_USAGE_2_CREATE_INFO_KHR => {
-                    Some("IMAGE_STENCIL_USAGE_2_CREATE_INFO_KHR")
-                }
-                Self::SHARED_PRESENT_SURFACE_CAPABILITIES_2_KHR => {
-                    Some("SHARED_PRESENT_SURFACE_CAPABILITIES_2_KHR")
-                }
-                Self::IMPORT_FENCE_FD_INFO_KHR => Some("IMPORT_FENCE_FD_INFO_KHR"),
-                Self::FENCE_GET_FD_INFO_KHR => Some("FENCE_GET_FD_INFO_KHR"),
-                Self::IMPORT_FENCE_WIN32_HANDLE_INFO_KHR => {
-                    Some("IMPORT_FENCE_WIN32_HANDLE_INFO_KHR")
-                }
-                Self::EXPORT_FENCE_WIN32_HANDLE_INFO_KHR => {
-                    Some("EXPORT_FENCE_WIN32_HANDLE_INFO_KHR")
-                }
-                Self::FENCE_GET_WIN32_HANDLE_INFO_KHR => Some("FENCE_GET_WIN32_HANDLE_INFO_KHR"),
-                Self::IMPORT_MEMORY_FD_INFO_KHR => Some("IMPORT_MEMORY_FD_INFO_KHR"),
-                Self::MEMORY_FD_PROPERTIES_KHR => Some("MEMORY_FD_PROPERTIES_KHR"),
-                Self::MEMORY_GET_FD_INFO_KHR => Some("MEMORY_GET_FD_INFO_KHR"),
-                Self::IMPORT_MEMORY_WIN32_HANDLE_INFO_KHR => {
-                    Some("IMPORT_MEMORY_WIN32_HANDLE_INFO_KHR")
-                }
-                Self::EXPORT_MEMORY_WIN32_HANDLE_INFO_KHR => {
-                    Some("EXPORT_MEMORY_WIN32_HANDLE_INFO_KHR")
-                }
-                Self::MEMORY_WIN32_HANDLE_PROPERTIES_KHR => {
-                    Some("MEMORY_WIN32_HANDLE_PROPERTIES_KHR")
-                }
-                Self::MEMORY_GET_WIN32_HANDLE_INFO_KHR => Some("MEMORY_GET_WIN32_HANDLE_INFO_KHR"),
-                Self::IMPORT_SEMAPHORE_FD_INFO_KHR => Some("IMPORT_SEMAPHORE_FD_INFO_KHR"),
-                Self::SEMAPHORE_GET_FD_INFO_KHR => Some("SEMAPHORE_GET_FD_INFO_KHR"),
-                Self::IMPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR => {
-                    Some("IMPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR")
-                }
-                Self::EXPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR => {
-                    Some("EXPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR")
-                }
-                Self::D3D12_FENCE_SUBMIT_INFO_KHR => Some("D3D12_FENCE_SUBMIT_INFO_KHR"),
-                Self::SEMAPHORE_GET_WIN32_HANDLE_INFO_KHR => {
-                    Some("SEMAPHORE_GET_WIN32_HANDLE_INFO_KHR")
-                }
-                Self::PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_PROPERTIES_KHR")
-                }
-                Self::FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR => {
-                    Some("FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR")
-                }
-                Self::PIPELINE_FRAGMENT_SHADING_RATE_STATE_CREATE_INFO_KHR => {
-                    Some("PIPELINE_FRAGMENT_SHADING_RATE_STATE_CREATE_INFO_KHR")
-                }
-                Self::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_PROPERTIES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR => {
-                    Some("PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR")
-                }
-                Self::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR => {
-                    Some("RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR")
-                }
-                Self::DISPLAY_PROPERTIES_2_KHR => Some("DISPLAY_PROPERTIES_2_KHR"),
-                Self::DISPLAY_PLANE_PROPERTIES_2_KHR => Some("DISPLAY_PLANE_PROPERTIES_2_KHR"),
-                Self::DISPLAY_MODE_PROPERTIES_2_KHR => Some("DISPLAY_MODE_PROPERTIES_2_KHR"),
-                Self::DISPLAY_PLANE_INFO_2_KHR => Some("DISPLAY_PLANE_INFO_2_KHR"),
-                Self::DISPLAY_PLANE_CAPABILITIES_2_KHR => Some("DISPLAY_PLANE_CAPABILITIES_2_KHR"),
-                Self::PHYSICAL_DEVICE_SURFACE_INFO_2_KHR => {
-                    Some("PHYSICAL_DEVICE_SURFACE_INFO_2_KHR")
-                }
-                Self::SURFACE_CAPABILITIES_2_KHR => Some("SURFACE_CAPABILITIES_2_KHR"),
-                Self::SURFACE_FORMAT_2_KHR => Some("SURFACE_FORMAT_2_KHR"),
-                Self::PRESENT_REGIONS_KHR => Some("PRESENT_REGIONS_KHR"),
-                Self::PHYSICAL_DEVICE_INTERNALLY_SYNCHRONIZED_QUEUES_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_INTERNALLY_SYNCHRONIZED_QUEUES_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_MAINTENANCE_10_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_MAINTENANCE_10_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_MAINTENANCE_10_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_MAINTENANCE_10_PROPERTIES_KHR")
-                }
-                Self::RENDERING_ATTACHMENT_FLAGS_INFO_KHR => {
-                    Some("RENDERING_ATTACHMENT_FLAGS_INFO_KHR")
-                }
-                Self::RENDERING_END_INFO_KHR => Some("RENDERING_END_INFO_KHR"),
-                Self::RESOLVE_IMAGE_MODE_INFO_KHR => Some("RESOLVE_IMAGE_MODE_INFO_KHR"),
-                Self::PHYSICAL_DEVICE_MAINTENANCE_11_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_MAINTENANCE_11_FEATURES_KHR")
-                }
-                Self::QUEUE_FAMILY_OPTIMAL_IMAGE_TRANSFER_GRANULARITY_PROPERTIES_KHR => {
-                    Some("QUEUE_FAMILY_OPTIMAL_IMAGE_TRANSFER_GRANULARITY_PROPERTIES_KHR")
-                }
-                Self::SET_DESCRIPTOR_BUFFER_OFFSETS_INFO_EXT => {
-                    Some("SET_DESCRIPTOR_BUFFER_OFFSETS_INFO_EXT")
-                }
-                Self::BIND_DESCRIPTOR_BUFFER_EMBEDDED_SAMPLERS_INFO_EXT => {
-                    Some("BIND_DESCRIPTOR_BUFFER_EMBEDDED_SAMPLERS_INFO_EXT")
-                }
-                Self::PHYSICAL_DEVICE_MAINTENANCE_7_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_MAINTENANCE_7_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_MAINTENANCE_7_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_MAINTENANCE_7_PROPERTIES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_LIST_KHR => {
-                    Some("PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_LIST_KHR")
-                }
-                Self::PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_LAYERED_API_VULKAN_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_LAYERED_API_VULKAN_PROPERTIES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_MAINTENANCE_8_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_MAINTENANCE_8_FEATURES_KHR")
-                }
-                Self::MEMORY_BARRIER_ACCESS_FLAGS_3_KHR => {
-                    Some("MEMORY_BARRIER_ACCESS_FLAGS_3_KHR")
-                }
-                Self::PHYSICAL_DEVICE_MAINTENANCE_9_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_MAINTENANCE_9_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_MAINTENANCE_9_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_MAINTENANCE_9_PROPERTIES_KHR")
-                }
-                Self::QUEUE_FAMILY_OWNERSHIP_TRANSFER_PROPERTIES_KHR => {
-                    Some("QUEUE_FAMILY_OWNERSHIP_TRANSFER_PROPERTIES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_OPACITY_MICROMAP_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_OPACITY_MICROMAP_PROPERTIES_KHR")
-                }
-                Self::ACCELERATION_STRUCTURE_GEOMETRY_MICROMAP_DATA_KHR => {
-                    Some("ACCELERATION_STRUCTURE_GEOMETRY_MICROMAP_DATA_KHR")
-                }
-                Self::ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_KHR => {
-                    Some("ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_KHR")
-                }
-                Self::PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_PERFORMANCE_QUERY_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_PERFORMANCE_QUERY_PROPERTIES_KHR")
-                }
-                Self::QUERY_POOL_PERFORMANCE_CREATE_INFO_KHR => {
-                    Some("QUERY_POOL_PERFORMANCE_CREATE_INFO_KHR")
-                }
-                Self::PERFORMANCE_QUERY_SUBMIT_INFO_KHR => {
-                    Some("PERFORMANCE_QUERY_SUBMIT_INFO_KHR")
-                }
-                Self::ACQUIRE_PROFILING_LOCK_INFO_KHR => Some("ACQUIRE_PROFILING_LOCK_INFO_KHR"),
-                Self::PERFORMANCE_COUNTER_KHR => Some("PERFORMANCE_COUNTER_KHR"),
-                Self::PERFORMANCE_COUNTER_DESCRIPTION_KHR => {
-                    Some("PERFORMANCE_COUNTER_DESCRIPTION_KHR")
-                }
-                Self::PHYSICAL_DEVICE_PIPELINE_BINARY_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_PIPELINE_BINARY_FEATURES_KHR")
-                }
-                Self::PIPELINE_BINARY_CREATE_INFO_KHR => Some("PIPELINE_BINARY_CREATE_INFO_KHR"),
-                Self::PIPELINE_BINARY_INFO_KHR => Some("PIPELINE_BINARY_INFO_KHR"),
-                Self::PIPELINE_BINARY_KEY_KHR => Some("PIPELINE_BINARY_KEY_KHR"),
-                Self::PHYSICAL_DEVICE_PIPELINE_BINARY_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_PIPELINE_BINARY_PROPERTIES_KHR")
-                }
-                Self::RELEASE_CAPTURED_PIPELINE_DATA_INFO_KHR => {
-                    Some("RELEASE_CAPTURED_PIPELINE_DATA_INFO_KHR")
-                }
-                Self::PIPELINE_BINARY_DATA_INFO_KHR => Some("PIPELINE_BINARY_DATA_INFO_KHR"),
-                Self::PIPELINE_CREATE_INFO_KHR => Some("PIPELINE_CREATE_INFO_KHR"),
-                Self::DEVICE_PIPELINE_BINARY_INTERNAL_CACHE_CONTROL_KHR => {
-                    Some("DEVICE_PIPELINE_BINARY_INTERNAL_CACHE_CONTROL_KHR")
-                }
-                Self::PIPELINE_BINARY_HANDLES_INFO_KHR => Some("PIPELINE_BINARY_HANDLES_INFO_KHR"),
-                Self::PHYSICAL_DEVICE_PIPELINE_EXECUTABLE_PROPERTIES_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_PIPELINE_EXECUTABLE_PROPERTIES_FEATURES_KHR")
-                }
-                Self::PIPELINE_INFO_KHR => Some("PIPELINE_INFO_KHR"),
-                Self::PIPELINE_EXECUTABLE_PROPERTIES_KHR => {
-                    Some("PIPELINE_EXECUTABLE_PROPERTIES_KHR")
-                }
-                Self::PIPELINE_EXECUTABLE_INFO_KHR => Some("PIPELINE_EXECUTABLE_INFO_KHR"),
-                Self::PIPELINE_EXECUTABLE_STATISTIC_KHR => {
-                    Some("PIPELINE_EXECUTABLE_STATISTIC_KHR")
-                }
-                Self::PIPELINE_EXECUTABLE_INTERNAL_REPRESENTATION_KHR => {
-                    Some("PIPELINE_EXECUTABLE_INTERNAL_REPRESENTATION_KHR")
-                }
-                Self::PIPELINE_LIBRARY_CREATE_INFO_KHR => Some("PIPELINE_LIBRARY_CREATE_INFO_KHR"),
-                #[cfg(feature = "provisional")]
-                Self::PHYSICAL_DEVICE_PORTABILITY_SUBSET_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_PORTABILITY_SUBSET_FEATURES_KHR")
-                }
-                #[cfg(feature = "provisional")]
-                Self::PHYSICAL_DEVICE_PORTABILITY_SUBSET_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_PORTABILITY_SUBSET_PROPERTIES_KHR")
-                }
-                Self::PRESENT_ID_KHR => Some("PRESENT_ID_KHR"),
-                Self::PHYSICAL_DEVICE_PRESENT_ID_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_PRESENT_ID_FEATURES_KHR")
-                }
-                Self::SURFACE_CAPABILITIES_PRESENT_ID_2_KHR => {
-                    Some("SURFACE_CAPABILITIES_PRESENT_ID_2_KHR")
-                }
-                Self::PRESENT_ID_2_KHR => Some("PRESENT_ID_2_KHR"),
-                Self::PHYSICAL_DEVICE_PRESENT_ID_2_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_PRESENT_ID_2_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_PRESENT_WAIT_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_PRESENT_WAIT_FEATURES_KHR")
-                }
-                Self::SURFACE_CAPABILITIES_PRESENT_WAIT_2_KHR => {
-                    Some("SURFACE_CAPABILITIES_PRESENT_WAIT_2_KHR")
-                }
-                Self::PHYSICAL_DEVICE_PRESENT_WAIT_2_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_PRESENT_WAIT_2_FEATURES_KHR")
-                }
-                Self::PRESENT_WAIT_2_INFO_KHR => Some("PRESENT_WAIT_2_INFO_KHR"),
-                Self::PHYSICAL_DEVICE_RAY_QUERY_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_RAY_QUERY_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_RAY_TRACING_MAINTENANCE_1_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_RAY_TRACING_MAINTENANCE_1_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR")
-                }
-                Self::RAY_TRACING_PIPELINE_CREATE_INFO_KHR => {
-                    Some("RAY_TRACING_PIPELINE_CREATE_INFO_KHR")
-                }
-                Self::RAY_TRACING_SHADER_GROUP_CREATE_INFO_KHR => {
-                    Some("RAY_TRACING_SHADER_GROUP_CREATE_INFO_KHR")
-                }
-                Self::RAY_TRACING_PIPELINE_INTERFACE_CREATE_INFO_KHR => {
-                    Some("RAY_TRACING_PIPELINE_INTERFACE_CREATE_INFO_KHR")
-                }
-                Self::PHYSICAL_DEVICE_RAY_TRACING_POSITION_FETCH_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_RAY_TRACING_POSITION_FETCH_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_ROBUSTNESS_2_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_ROBUSTNESS_2_PROPERTIES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_ABORT_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_SHADER_ABORT_FEATURES_KHR")
-                }
-                Self::DEVICE_FAULT_SHADER_ABORT_MESSAGE_INFO_KHR => {
-                    Some("DEVICE_FAULT_SHADER_ABORT_MESSAGE_INFO_KHR")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_ABORT_PROPERTIES_KHR => {
-                    Some("PHYSICAL_DEVICE_SHADER_ABORT_PROPERTIES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_BFLOAT16_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_SHADER_BFLOAT16_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_CLOCK_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_SHADER_CLOCK_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_CONSTANT_DATA_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_SHADER_CONSTANT_DATA_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_FMA_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_SHADER_FMA_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_MAXIMAL_RECONVERGENCE_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_SHADER_MAXIMAL_RECONVERGENCE_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_QUAD_CONTROL_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_SHADER_QUAD_CONTROL_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_RELAXED_EXTENDED_INSTRUCTION_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_SHADER_RELAXED_EXTENDED_INSTRUCTION_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_SUBGROUP_UNIFORM_CONTROL_FLOW_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_SHADER_SUBGROUP_UNIFORM_CONTROL_FLOW_FEATURES_KHR")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_UNTYPED_POINTERS_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_SHADER_UNTYPED_POINTERS_FEATURES_KHR")
-                }
-                Self::SHARED_PRESENT_SURFACE_CAPABILITIES_KHR => {
-                    Some("SHARED_PRESENT_SURFACE_CAPABILITIES_KHR")
-                }
-                Self::SURFACE_PRESENT_MODE_KHR => Some("SURFACE_PRESENT_MODE_KHR"),
-                Self::SURFACE_PRESENT_SCALING_CAPABILITIES_KHR => {
-                    Some("SURFACE_PRESENT_SCALING_CAPABILITIES_KHR")
-                }
-                Self::SURFACE_PRESENT_MODE_COMPATIBILITY_KHR => {
-                    Some("SURFACE_PRESENT_MODE_COMPATIBILITY_KHR")
-                }
-                Self::SURFACE_PROTECTED_CAPABILITIES_KHR => {
-                    Some("SURFACE_PROTECTED_CAPABILITIES_KHR")
-                }
-                Self::SWAPCHAIN_CREATE_INFO_KHR => Some("SWAPCHAIN_CREATE_INFO_KHR"),
-                Self::PRESENT_INFO_KHR => Some("PRESENT_INFO_KHR"),
-                Self::PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR")
-                }
-                Self::SWAPCHAIN_PRESENT_FENCE_INFO_KHR => Some("SWAPCHAIN_PRESENT_FENCE_INFO_KHR"),
-                Self::SWAPCHAIN_PRESENT_MODES_CREATE_INFO_KHR => {
-                    Some("SWAPCHAIN_PRESENT_MODES_CREATE_INFO_KHR")
-                }
-                Self::SWAPCHAIN_PRESENT_MODE_INFO_KHR => Some("SWAPCHAIN_PRESENT_MODE_INFO_KHR"),
-                Self::SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_KHR => {
-                    Some("SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_KHR")
-                }
-                Self::RELEASE_SWAPCHAIN_IMAGES_INFO_KHR => {
-                    Some("RELEASE_SWAPCHAIN_IMAGES_INFO_KHR")
-                }
-                Self::PHYSICAL_DEVICE_UNIFIED_IMAGE_LAYOUTS_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_UNIFIED_IMAGE_LAYOUTS_FEATURES_KHR")
-                }
-                Self::ATTACHMENT_FEEDBACK_LOOP_INFO_EXT => {
-                    Some("ATTACHMENT_FEEDBACK_LOOP_INFO_EXT")
-                }
-                Self::VIDEO_DECODE_AV1_CAPABILITIES_KHR => {
-                    Some("VIDEO_DECODE_AV1_CAPABILITIES_KHR")
-                }
-                Self::VIDEO_DECODE_AV1_PICTURE_INFO_KHR => {
-                    Some("VIDEO_DECODE_AV1_PICTURE_INFO_KHR")
-                }
-                Self::VIDEO_DECODE_AV1_PROFILE_INFO_KHR => {
-                    Some("VIDEO_DECODE_AV1_PROFILE_INFO_KHR")
-                }
-                Self::VIDEO_DECODE_AV1_SESSION_PARAMETERS_CREATE_INFO_KHR => {
-                    Some("VIDEO_DECODE_AV1_SESSION_PARAMETERS_CREATE_INFO_KHR")
-                }
-                Self::VIDEO_DECODE_AV1_DPB_SLOT_INFO_KHR => {
-                    Some("VIDEO_DECODE_AV1_DPB_SLOT_INFO_KHR")
-                }
-                Self::VIDEO_DECODE_H264_CAPABILITIES_KHR => {
-                    Some("VIDEO_DECODE_H264_CAPABILITIES_KHR")
-                }
-                Self::VIDEO_DECODE_H264_PICTURE_INFO_KHR => {
-                    Some("VIDEO_DECODE_H264_PICTURE_INFO_KHR")
-                }
-                Self::VIDEO_DECODE_H264_PROFILE_INFO_KHR => {
-                    Some("VIDEO_DECODE_H264_PROFILE_INFO_KHR")
-                }
-                Self::VIDEO_DECODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR => {
-                    Some("VIDEO_DECODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR")
-                }
-                Self::VIDEO_DECODE_H264_SESSION_PARAMETERS_ADD_INFO_KHR => {
-                    Some("VIDEO_DECODE_H264_SESSION_PARAMETERS_ADD_INFO_KHR")
-                }
-                Self::VIDEO_DECODE_H264_DPB_SLOT_INFO_KHR => {
-                    Some("VIDEO_DECODE_H264_DPB_SLOT_INFO_KHR")
-                }
-                Self::VIDEO_DECODE_H265_CAPABILITIES_KHR => {
-                    Some("VIDEO_DECODE_H265_CAPABILITIES_KHR")
-                }
-                Self::VIDEO_DECODE_H265_SESSION_PARAMETERS_CREATE_INFO_KHR => {
-                    Some("VIDEO_DECODE_H265_SESSION_PARAMETERS_CREATE_INFO_KHR")
-                }
-                Self::VIDEO_DECODE_H265_SESSION_PARAMETERS_ADD_INFO_KHR => {
-                    Some("VIDEO_DECODE_H265_SESSION_PARAMETERS_ADD_INFO_KHR")
-                }
-                Self::VIDEO_DECODE_H265_PROFILE_INFO_KHR => {
-                    Some("VIDEO_DECODE_H265_PROFILE_INFO_KHR")
-                }
-                Self::VIDEO_DECODE_H265_PICTURE_INFO_KHR => {
-                    Some("VIDEO_DECODE_H265_PICTURE_INFO_KHR")
-                }
-                Self::VIDEO_DECODE_H265_DPB_SLOT_INFO_KHR => {
-                    Some("VIDEO_DECODE_H265_DPB_SLOT_INFO_KHR")
-                }
-                Self::VIDEO_DECODE_INFO_KHR => Some("VIDEO_DECODE_INFO_KHR"),
-                Self::VIDEO_DECODE_CAPABILITIES_KHR => Some("VIDEO_DECODE_CAPABILITIES_KHR"),
-                Self::VIDEO_DECODE_USAGE_INFO_KHR => Some("VIDEO_DECODE_USAGE_INFO_KHR"),
-                Self::PHYSICAL_DEVICE_VIDEO_DECODE_VP9_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_VIDEO_DECODE_VP9_FEATURES_KHR")
-                }
-                Self::VIDEO_DECODE_VP9_CAPABILITIES_KHR => {
-                    Some("VIDEO_DECODE_VP9_CAPABILITIES_KHR")
-                }
-                Self::VIDEO_DECODE_VP9_PICTURE_INFO_KHR => {
-                    Some("VIDEO_DECODE_VP9_PICTURE_INFO_KHR")
-                }
-                Self::VIDEO_DECODE_VP9_PROFILE_INFO_KHR => {
-                    Some("VIDEO_DECODE_VP9_PROFILE_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_AV1_CAPABILITIES_KHR => {
-                    Some("VIDEO_ENCODE_AV1_CAPABILITIES_KHR")
-                }
-                Self::VIDEO_ENCODE_AV1_SESSION_PARAMETERS_CREATE_INFO_KHR => {
-                    Some("VIDEO_ENCODE_AV1_SESSION_PARAMETERS_CREATE_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_AV1_PICTURE_INFO_KHR => {
-                    Some("VIDEO_ENCODE_AV1_PICTURE_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_AV1_DPB_SLOT_INFO_KHR => {
-                    Some("VIDEO_ENCODE_AV1_DPB_SLOT_INFO_KHR")
-                }
-                Self::PHYSICAL_DEVICE_VIDEO_ENCODE_AV1_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_VIDEO_ENCODE_AV1_FEATURES_KHR")
-                }
-                Self::VIDEO_ENCODE_AV1_PROFILE_INFO_KHR => {
-                    Some("VIDEO_ENCODE_AV1_PROFILE_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_AV1_RATE_CONTROL_INFO_KHR => {
-                    Some("VIDEO_ENCODE_AV1_RATE_CONTROL_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_AV1_RATE_CONTROL_LAYER_INFO_KHR => {
-                    Some("VIDEO_ENCODE_AV1_RATE_CONTROL_LAYER_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_AV1_QUALITY_LEVEL_PROPERTIES_KHR => {
-                    Some("VIDEO_ENCODE_AV1_QUALITY_LEVEL_PROPERTIES_KHR")
-                }
-                Self::VIDEO_ENCODE_AV1_SESSION_CREATE_INFO_KHR => {
-                    Some("VIDEO_ENCODE_AV1_SESSION_CREATE_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_AV1_GOP_REMAINING_FRAME_INFO_KHR => {
-                    Some("VIDEO_ENCODE_AV1_GOP_REMAINING_FRAME_INFO_KHR")
-                }
-                Self::PHYSICAL_DEVICE_VIDEO_ENCODE_FEEDBACK_2_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_VIDEO_ENCODE_FEEDBACK_2_FEATURES_KHR")
-                }
-                Self::VIDEO_ENCODE_FEEDBACK_2_CAPABILITIES_KHR => {
-                    Some("VIDEO_ENCODE_FEEDBACK_2_CAPABILITIES_KHR")
-                }
-                Self::QUERY_POOL_VIDEO_ENCODE_PER_PARTITION_FEEDBACK_CREATE_INFO_KHR => {
-                    Some("QUERY_POOL_VIDEO_ENCODE_PER_PARTITION_FEEDBACK_CREATE_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H264_CAPABILITIES_KHR => {
-                    Some("VIDEO_ENCODE_H264_CAPABILITIES_KHR")
-                }
-                Self::VIDEO_ENCODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H264_SESSION_PARAMETERS_ADD_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H264_SESSION_PARAMETERS_ADD_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H264_PICTURE_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H264_PICTURE_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H264_DPB_SLOT_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H264_DPB_SLOT_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H264_NALU_SLICE_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H264_NALU_SLICE_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H264_GOP_REMAINING_FRAME_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H264_GOP_REMAINING_FRAME_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H264_PROFILE_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H264_PROFILE_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H264_RATE_CONTROL_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H264_RATE_CONTROL_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H264_RATE_CONTROL_LAYER_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H264_RATE_CONTROL_LAYER_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H264_SESSION_CREATE_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H264_SESSION_CREATE_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H264_QUALITY_LEVEL_PROPERTIES_KHR => {
-                    Some("VIDEO_ENCODE_H264_QUALITY_LEVEL_PROPERTIES_KHR")
-                }
-                Self::VIDEO_ENCODE_H264_SESSION_PARAMETERS_GET_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H264_SESSION_PARAMETERS_GET_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H264_SESSION_PARAMETERS_FEEDBACK_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H264_SESSION_PARAMETERS_FEEDBACK_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H265_CAPABILITIES_KHR => {
-                    Some("VIDEO_ENCODE_H265_CAPABILITIES_KHR")
-                }
-                Self::VIDEO_ENCODE_H265_SESSION_PARAMETERS_CREATE_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H265_SESSION_PARAMETERS_CREATE_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H265_SESSION_PARAMETERS_ADD_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H265_SESSION_PARAMETERS_ADD_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H265_PICTURE_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H265_PICTURE_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H265_DPB_SLOT_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H265_DPB_SLOT_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H265_NALU_SLICE_SEGMENT_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H265_NALU_SLICE_SEGMENT_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H265_GOP_REMAINING_FRAME_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H265_GOP_REMAINING_FRAME_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H265_PROFILE_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H265_PROFILE_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H265_RATE_CONTROL_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H265_RATE_CONTROL_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H265_RATE_CONTROL_LAYER_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H265_RATE_CONTROL_LAYER_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H265_SESSION_CREATE_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H265_SESSION_CREATE_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H265_QUALITY_LEVEL_PROPERTIES_KHR => {
-                    Some("VIDEO_ENCODE_H265_QUALITY_LEVEL_PROPERTIES_KHR")
-                }
-                Self::VIDEO_ENCODE_H265_SESSION_PARAMETERS_GET_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H265_SESSION_PARAMETERS_GET_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_H265_SESSION_PARAMETERS_FEEDBACK_INFO_KHR => {
-                    Some("VIDEO_ENCODE_H265_SESSION_PARAMETERS_FEEDBACK_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_INTRA_REFRESH_CAPABILITIES_KHR => {
-                    Some("VIDEO_ENCODE_INTRA_REFRESH_CAPABILITIES_KHR")
-                }
-                Self::VIDEO_ENCODE_SESSION_INTRA_REFRESH_CREATE_INFO_KHR => {
-                    Some("VIDEO_ENCODE_SESSION_INTRA_REFRESH_CREATE_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_INTRA_REFRESH_INFO_KHR => {
-                    Some("VIDEO_ENCODE_INTRA_REFRESH_INFO_KHR")
-                }
-                Self::VIDEO_REFERENCE_INTRA_REFRESH_INFO_KHR => {
-                    Some("VIDEO_REFERENCE_INTRA_REFRESH_INFO_KHR")
-                }
-                Self::PHYSICAL_DEVICE_VIDEO_ENCODE_INTRA_REFRESH_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_VIDEO_ENCODE_INTRA_REFRESH_FEATURES_KHR")
-                }
-                Self::VIDEO_ENCODE_QUANTIZATION_MAP_CAPABILITIES_KHR => {
-                    Some("VIDEO_ENCODE_QUANTIZATION_MAP_CAPABILITIES_KHR")
-                }
-                Self::VIDEO_FORMAT_QUANTIZATION_MAP_PROPERTIES_KHR => {
-                    Some("VIDEO_FORMAT_QUANTIZATION_MAP_PROPERTIES_KHR")
-                }
-                Self::VIDEO_ENCODE_QUANTIZATION_MAP_INFO_KHR => {
-                    Some("VIDEO_ENCODE_QUANTIZATION_MAP_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_QUANTIZATION_MAP_SESSION_PARAMETERS_CREATE_INFO_KHR => {
-                    Some("VIDEO_ENCODE_QUANTIZATION_MAP_SESSION_PARAMETERS_CREATE_INFO_KHR")
-                }
-                Self::PHYSICAL_DEVICE_VIDEO_ENCODE_QUANTIZATION_MAP_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_VIDEO_ENCODE_QUANTIZATION_MAP_FEATURES_KHR")
-                }
-                Self::VIDEO_ENCODE_H264_QUANTIZATION_MAP_CAPABILITIES_KHR => {
-                    Some("VIDEO_ENCODE_H264_QUANTIZATION_MAP_CAPABILITIES_KHR")
-                }
-                Self::VIDEO_ENCODE_H265_QUANTIZATION_MAP_CAPABILITIES_KHR => {
-                    Some("VIDEO_ENCODE_H265_QUANTIZATION_MAP_CAPABILITIES_KHR")
-                }
-                Self::VIDEO_FORMAT_H265_QUANTIZATION_MAP_PROPERTIES_KHR => {
-                    Some("VIDEO_FORMAT_H265_QUANTIZATION_MAP_PROPERTIES_KHR")
-                }
-                Self::VIDEO_ENCODE_AV1_QUANTIZATION_MAP_CAPABILITIES_KHR => {
-                    Some("VIDEO_ENCODE_AV1_QUANTIZATION_MAP_CAPABILITIES_KHR")
-                }
-                Self::VIDEO_FORMAT_AV1_QUANTIZATION_MAP_PROPERTIES_KHR => {
-                    Some("VIDEO_FORMAT_AV1_QUANTIZATION_MAP_PROPERTIES_KHR")
-                }
-                Self::VIDEO_ENCODE_INFO_KHR => Some("VIDEO_ENCODE_INFO_KHR"),
-                Self::VIDEO_ENCODE_RATE_CONTROL_INFO_KHR => {
-                    Some("VIDEO_ENCODE_RATE_CONTROL_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_RATE_CONTROL_LAYER_INFO_KHR => {
-                    Some("VIDEO_ENCODE_RATE_CONTROL_LAYER_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_CAPABILITIES_KHR => Some("VIDEO_ENCODE_CAPABILITIES_KHR"),
-                Self::VIDEO_ENCODE_USAGE_INFO_KHR => Some("VIDEO_ENCODE_USAGE_INFO_KHR"),
-                Self::QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR => {
-                    Some("QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR")
-                }
-                Self::PHYSICAL_DEVICE_VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR => {
-                    Some("PHYSICAL_DEVICE_VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_QUALITY_LEVEL_PROPERTIES_KHR => {
-                    Some("VIDEO_ENCODE_QUALITY_LEVEL_PROPERTIES_KHR")
-                }
-                Self::VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR => {
-                    Some("VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_SESSION_PARAMETERS_GET_INFO_KHR => {
-                    Some("VIDEO_ENCODE_SESSION_PARAMETERS_GET_INFO_KHR")
-                }
-                Self::VIDEO_ENCODE_SESSION_PARAMETERS_FEEDBACK_INFO_KHR => {
-                    Some("VIDEO_ENCODE_SESSION_PARAMETERS_FEEDBACK_INFO_KHR")
-                }
-                Self::PHYSICAL_DEVICE_VIDEO_MAINTENANCE_1_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_VIDEO_MAINTENANCE_1_FEATURES_KHR")
-                }
-                Self::VIDEO_INLINE_QUERY_INFO_KHR => Some("VIDEO_INLINE_QUERY_INFO_KHR"),
-                Self::PHYSICAL_DEVICE_VIDEO_MAINTENANCE_2_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_VIDEO_MAINTENANCE_2_FEATURES_KHR")
-                }
-                Self::VIDEO_DECODE_H264_INLINE_SESSION_PARAMETERS_INFO_KHR => {
-                    Some("VIDEO_DECODE_H264_INLINE_SESSION_PARAMETERS_INFO_KHR")
-                }
-                Self::VIDEO_DECODE_H265_INLINE_SESSION_PARAMETERS_INFO_KHR => {
-                    Some("VIDEO_DECODE_H265_INLINE_SESSION_PARAMETERS_INFO_KHR")
-                }
-                Self::VIDEO_DECODE_AV1_INLINE_SESSION_PARAMETERS_INFO_KHR => {
-                    Some("VIDEO_DECODE_AV1_INLINE_SESSION_PARAMETERS_INFO_KHR")
-                }
-                Self::VIDEO_PROFILE_INFO_KHR => Some("VIDEO_PROFILE_INFO_KHR"),
-                Self::VIDEO_CAPABILITIES_KHR => Some("VIDEO_CAPABILITIES_KHR"),
-                Self::VIDEO_PICTURE_RESOURCE_INFO_KHR => Some("VIDEO_PICTURE_RESOURCE_INFO_KHR"),
-                Self::VIDEO_SESSION_MEMORY_REQUIREMENTS_KHR => {
-                    Some("VIDEO_SESSION_MEMORY_REQUIREMENTS_KHR")
-                }
-                Self::BIND_VIDEO_SESSION_MEMORY_INFO_KHR => {
-                    Some("BIND_VIDEO_SESSION_MEMORY_INFO_KHR")
-                }
-                Self::VIDEO_SESSION_CREATE_INFO_KHR => Some("VIDEO_SESSION_CREATE_INFO_KHR"),
-                Self::VIDEO_SESSION_PARAMETERS_CREATE_INFO_KHR => {
-                    Some("VIDEO_SESSION_PARAMETERS_CREATE_INFO_KHR")
-                }
-                Self::VIDEO_SESSION_PARAMETERS_UPDATE_INFO_KHR => {
-                    Some("VIDEO_SESSION_PARAMETERS_UPDATE_INFO_KHR")
-                }
-                Self::VIDEO_BEGIN_CODING_INFO_KHR => Some("VIDEO_BEGIN_CODING_INFO_KHR"),
-                Self::VIDEO_END_CODING_INFO_KHR => Some("VIDEO_END_CODING_INFO_KHR"),
-                Self::VIDEO_CODING_CONTROL_INFO_KHR => Some("VIDEO_CODING_CONTROL_INFO_KHR"),
-                Self::VIDEO_REFERENCE_SLOT_INFO_KHR => Some("VIDEO_REFERENCE_SLOT_INFO_KHR"),
-                Self::QUEUE_FAMILY_VIDEO_PROPERTIES_KHR => {
-                    Some("QUEUE_FAMILY_VIDEO_PROPERTIES_KHR")
-                }
-                Self::VIDEO_PROFILE_LIST_INFO_KHR => Some("VIDEO_PROFILE_LIST_INFO_KHR"),
-                Self::PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR => {
-                    Some("PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR")
-                }
-                Self::VIDEO_FORMAT_PROPERTIES_KHR => Some("VIDEO_FORMAT_PROPERTIES_KHR"),
-                Self::QUEUE_FAMILY_QUERY_RESULT_STATUS_PROPERTIES_KHR => {
-                    Some("QUEUE_FAMILY_QUERY_RESULT_STATUS_PROPERTIES_KHR")
-                }
-                Self::WAYLAND_SURFACE_CREATE_INFO_KHR => Some("WAYLAND_SURFACE_CREATE_INFO_KHR"),
-                Self::WIN32_KEYED_MUTEX_ACQUIRE_RELEASE_INFO_KHR => {
-                    Some("WIN32_KEYED_MUTEX_ACQUIRE_RELEASE_INFO_KHR")
-                }
-                Self::WIN32_SURFACE_CREATE_INFO_KHR => Some("WIN32_SURFACE_CREATE_INFO_KHR"),
-                Self::PHYSICAL_DEVICE_WORKGROUP_MEMORY_EXPLICIT_LAYOUT_FEATURES_KHR => {
-                    Some("PHYSICAL_DEVICE_WORKGROUP_MEMORY_EXPLICIT_LAYOUT_FEATURES_KHR")
-                }
-                Self::XCB_SURFACE_CREATE_INFO_KHR => Some("XCB_SURFACE_CREATE_INFO_KHR"),
-                Self::XLIB_SURFACE_CREATE_INFO_KHR => Some("XLIB_SURFACE_CREATE_INFO_KHR"),
-                Self::DIRECT_DRIVER_LOADING_INFO_LUNARG => {
-                    Some("DIRECT_DRIVER_LOADING_INFO_LUNARG")
-                }
-                Self::DIRECT_DRIVER_LOADING_LIST_LUNARG => {
-                    Some("DIRECT_DRIVER_LOADING_LIST_LUNARG")
-                }
-                Self::PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_FEATURES_MESA => {
-                    Some("PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_FEATURES_MESA")
-                }
-                Self::PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_PROPERTIES_MESA => {
-                    Some("PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_PROPERTIES_MESA")
-                }
-                Self::IMAGE_ALIGNMENT_CONTROL_CREATE_INFO_MESA => {
-                    Some("IMAGE_ALIGNMENT_CONTROL_CREATE_INFO_MESA")
-                }
-                Self::PHYSICAL_DEVICE_LAYERED_DRIVER_PROPERTIES_MSFT => {
-                    Some("PHYSICAL_DEVICE_LAYERED_DRIVER_PROPERTIES_MSFT")
-                }
-                Self::IOS_SURFACE_CREATE_INFO_MVK => Some("IOS_SURFACE_CREATE_INFO_MVK"),
-                Self::MACOS_SURFACE_CREATE_INFO_MVK => Some("MACOS_SURFACE_CREATE_INFO_MVK"),
-                Self::VI_SURFACE_CREATE_INFO_NN => Some("VI_SURFACE_CREATE_INFO_NN"),
-                Self::CU_MODULE_CREATE_INFO_NVX => Some("CU_MODULE_CREATE_INFO_NVX"),
-                Self::CU_FUNCTION_CREATE_INFO_NVX => Some("CU_FUNCTION_CREATE_INFO_NVX"),
-                Self::CU_LAUNCH_INFO_NVX => Some("CU_LAUNCH_INFO_NVX"),
-                Self::CU_MODULE_TEXTURING_MODE_CREATE_INFO_NVX => {
-                    Some("CU_MODULE_TEXTURING_MODE_CREATE_INFO_NVX")
-                }
-                Self::IMAGE_VIEW_HANDLE_INFO_NVX => Some("IMAGE_VIEW_HANDLE_INFO_NVX"),
-                Self::IMAGE_VIEW_ADDRESS_PROPERTIES_NVX => {
-                    Some("IMAGE_VIEW_ADDRESS_PROPERTIES_NVX")
-                }
-                Self::PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_ATTRIBUTES_PROPERTIES_NVX => {
-                    Some("PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_ATTRIBUTES_PROPERTIES_NVX")
-                }
-                Self::MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX => {
-                    Some("MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX")
-                }
-                Self::PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV => {
-                    Some("PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV")
-                }
-                Self::PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_PROPERTIES_NV")
-                }
-                Self::CLUSTER_ACCELERATION_STRUCTURE_CLUSTERS_BOTTOM_LEVEL_INPUT_NV => {
-                    Some("CLUSTER_ACCELERATION_STRUCTURE_CLUSTERS_BOTTOM_LEVEL_INPUT_NV")
-                }
-                Self::CLUSTER_ACCELERATION_STRUCTURE_TRIANGLE_CLUSTER_INPUT_NV => {
-                    Some("CLUSTER_ACCELERATION_STRUCTURE_TRIANGLE_CLUSTER_INPUT_NV")
-                }
-                Self::CLUSTER_ACCELERATION_STRUCTURE_MOVE_OBJECTS_INPUT_NV => {
-                    Some("CLUSTER_ACCELERATION_STRUCTURE_MOVE_OBJECTS_INPUT_NV")
-                }
-                Self::CLUSTER_ACCELERATION_STRUCTURE_INPUT_INFO_NV => {
-                    Some("CLUSTER_ACCELERATION_STRUCTURE_INPUT_INFO_NV")
-                }
-                Self::CLUSTER_ACCELERATION_STRUCTURE_COMMANDS_INFO_NV => {
-                    Some("CLUSTER_ACCELERATION_STRUCTURE_COMMANDS_INFO_NV")
-                }
-                Self::RAY_TRACING_PIPELINE_CLUSTER_ACCELERATION_STRUCTURE_CREATE_INFO_NV => {
-                    Some("RAY_TRACING_PIPELINE_CLUSTER_ACCELERATION_STRUCTURE_CREATE_INFO_NV")
-                }
-                Self::PHYSICAL_DEVICE_COMMAND_BUFFER_INHERITANCE_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_COMMAND_BUFFER_INHERITANCE_FEATURES_NV")
-                }
-                Self::COMPUTE_OCCUPANCY_PRIORITY_PARAMETERS_NV => {
-                    Some("COMPUTE_OCCUPANCY_PRIORITY_PARAMETERS_NV")
-                }
-                Self::PHYSICAL_DEVICE_COMPUTE_OCCUPANCY_PRIORITY_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_COMPUTE_OCCUPANCY_PRIORITY_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_NV")
-                }
-                Self::COOPERATIVE_MATRIX_PROPERTIES_NV => Some("COOPERATIVE_MATRIX_PROPERTIES_NV"),
-                Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_NV")
-                }
-                Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_FEATURES_NV")
-                }
-                Self::COOPERATIVE_MATRIX_FLEXIBLE_DIMENSIONS_PROPERTIES_NV => {
-                    Some("COOPERATIVE_MATRIX_FLEXIBLE_DIMENSIONS_PROPERTIES_NV")
-                }
-                Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_PROPERTIES_NV")
-                }
-                Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_DECODE_VECTOR_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_DECODE_VECTOR_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_COOPERATIVE_VECTOR_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_COOPERATIVE_VECTOR_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_COOPERATIVE_VECTOR_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_COOPERATIVE_VECTOR_PROPERTIES_NV")
-                }
-                Self::COOPERATIVE_VECTOR_PROPERTIES_NV => Some("COOPERATIVE_VECTOR_PROPERTIES_NV"),
-                Self::CONVERT_COOPERATIVE_VECTOR_MATRIX_INFO_NV => {
-                    Some("CONVERT_COOPERATIVE_VECTOR_MATRIX_INFO_NV")
-                }
-                Self::PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_CORNER_SAMPLED_IMAGE_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_CORNER_SAMPLED_IMAGE_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_COVERAGE_REDUCTION_MODE_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_COVERAGE_REDUCTION_MODE_FEATURES_NV")
-                }
-                Self::PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV => {
-                    Some("PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV")
-                }
-                Self::FRAMEBUFFER_MIXED_SAMPLES_COMBINATION_NV => {
-                    Some("FRAMEBUFFER_MIXED_SAMPLES_COMBINATION_NV")
-                }
-                #[cfg(feature = "provisional")]
-                Self::CUDA_MODULE_CREATE_INFO_NV => Some("CUDA_MODULE_CREATE_INFO_NV"),
-                #[cfg(feature = "provisional")]
-                Self::CUDA_FUNCTION_CREATE_INFO_NV => Some("CUDA_FUNCTION_CREATE_INFO_NV"),
-                #[cfg(feature = "provisional")]
-                Self::CUDA_LAUNCH_INFO_NV => Some("CUDA_LAUNCH_INFO_NV"),
-                #[cfg(feature = "provisional")]
-                Self::PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_FEATURES_NV")
-                }
-                #[cfg(feature = "provisional")]
-                Self::PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_PROPERTIES_NV")
-                }
-                Self::DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV => {
-                    Some("DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV")
-                }
-                Self::DEDICATED_ALLOCATION_BUFFER_CREATE_INFO_NV => {
-                    Some("DEDICATED_ALLOCATION_BUFFER_CREATE_INFO_NV")
-                }
-                Self::DEDICATED_ALLOCATION_MEMORY_ALLOCATE_INFO_NV => {
-                    Some("DEDICATED_ALLOCATION_MEMORY_ALLOCATE_INFO_NV")
-                }
-                Self::PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_DESCRIPTOR_POOL_OVERALLOCATION_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_DESCRIPTOR_POOL_OVERALLOCATION_FEATURES_NV")
-                }
-                Self::CHECKPOINT_DATA_NV => Some("CHECKPOINT_DATA_NV"),
-                Self::QUEUE_FAMILY_CHECKPOINT_PROPERTIES_NV => {
-                    Some("QUEUE_FAMILY_CHECKPOINT_PROPERTIES_NV")
-                }
-                Self::QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV => {
-                    Some("QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV")
-                }
-                Self::CHECKPOINT_DATA_2_NV => Some("CHECKPOINT_DATA_2_NV"),
-                Self::PHYSICAL_DEVICE_DIAGNOSTICS_CONFIG_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_DIAGNOSTICS_CONFIG_FEATURES_NV")
-                }
-                Self::DEVICE_DIAGNOSTICS_CONFIG_CREATE_INFO_NV => {
-                    Some("DEVICE_DIAGNOSTICS_CONFIG_CREATE_INFO_NV")
-                }
-                Self::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_NV")
-                }
-                Self::GRAPHICS_SHADER_GROUP_CREATE_INFO_NV => {
-                    Some("GRAPHICS_SHADER_GROUP_CREATE_INFO_NV")
-                }
-                Self::GRAPHICS_PIPELINE_SHADER_GROUPS_CREATE_INFO_NV => {
-                    Some("GRAPHICS_PIPELINE_SHADER_GROUPS_CREATE_INFO_NV")
-                }
-                Self::INDIRECT_COMMANDS_LAYOUT_TOKEN_NV => {
-                    Some("INDIRECT_COMMANDS_LAYOUT_TOKEN_NV")
-                }
-                Self::INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_NV => {
-                    Some("INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_NV")
-                }
-                Self::GENERATED_COMMANDS_INFO_NV => Some("GENERATED_COMMANDS_INFO_NV"),
-                Self::GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_NV => {
-                    Some("GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_NV")
-                }
-                Self::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV")
-                }
-                Self::COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV => {
-                    Some("COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV")
-                }
-                Self::PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV => {
-                    Some("PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV")
-                }
-                #[cfg(feature = "provisional")]
-                Self::PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_FEATURES_NV")
-                }
-                #[cfg(feature = "provisional")]
-                Self::PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_PROPERTIES_NV")
-                }
-                #[cfg(feature = "provisional")]
-                Self::ACCELERATION_STRUCTURE_TRIANGLES_DISPLACEMENT_MICROMAP_NV => {
-                    Some("ACCELERATION_STRUCTURE_TRIANGLES_DISPLACEMENT_MICROMAP_NV")
-                }
-                Self::DISPLAY_SURFACE_STEREO_CREATE_INFO_NV => {
-                    Some("DISPLAY_SURFACE_STEREO_CREATE_INFO_NV")
-                }
-                Self::DISPLAY_MODE_STEREO_PROPERTIES_NV => {
-                    Some("DISPLAY_MODE_STEREO_PROPERTIES_NV")
-                }
-                Self::PHYSICAL_DEVICE_EXTENDED_SPARSE_ADDRESS_SPACE_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_EXTENDED_SPARSE_ADDRESS_SPACE_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_EXTENDED_SPARSE_ADDRESS_SPACE_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_EXTENDED_SPARSE_ADDRESS_SPACE_PROPERTIES_NV")
-                }
-                Self::EXTERNAL_COMPUTE_QUEUE_DEVICE_CREATE_INFO_NV => {
-                    Some("EXTERNAL_COMPUTE_QUEUE_DEVICE_CREATE_INFO_NV")
-                }
-                Self::EXTERNAL_COMPUTE_QUEUE_CREATE_INFO_NV => {
-                    Some("EXTERNAL_COMPUTE_QUEUE_CREATE_INFO_NV")
-                }
-                Self::EXTERNAL_COMPUTE_QUEUE_DATA_PARAMS_NV => {
-                    Some("EXTERNAL_COMPUTE_QUEUE_DATA_PARAMS_NV")
-                }
-                Self::PHYSICAL_DEVICE_EXTERNAL_COMPUTE_QUEUE_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_EXTERNAL_COMPUTE_QUEUE_PROPERTIES_NV")
-                }
-                Self::EXTERNAL_MEMORY_IMAGE_CREATE_INFO_NV => {
-                    Some("EXTERNAL_MEMORY_IMAGE_CREATE_INFO_NV")
-                }
-                Self::EXPORT_MEMORY_ALLOCATE_INFO_NV => Some("EXPORT_MEMORY_ALLOCATE_INFO_NV"),
-                Self::MEMORY_GET_REMOTE_ADDRESS_INFO_NV => {
-                    Some("MEMORY_GET_REMOTE_ADDRESS_INFO_NV")
-                }
-                Self::PHYSICAL_DEVICE_EXTERNAL_MEMORY_RDMA_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_EXTERNAL_MEMORY_RDMA_FEATURES_NV")
-                }
-                Self::IMPORT_MEMORY_WIN32_HANDLE_INFO_NV => {
-                    Some("IMPORT_MEMORY_WIN32_HANDLE_INFO_NV")
-                }
-                Self::EXPORT_MEMORY_WIN32_HANDLE_INFO_NV => {
-                    Some("EXPORT_MEMORY_WIN32_HANDLE_INFO_NV")
-                }
-                Self::PIPELINE_COVERAGE_TO_COLOR_STATE_CREATE_INFO_NV => {
-                    Some("PIPELINE_COVERAGE_TO_COLOR_STATE_CREATE_INFO_NV")
-                }
-                Self::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_PROPERTIES_NV")
-                }
-                Self::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_FEATURES_NV")
-                }
-                Self::PIPELINE_FRAGMENT_SHADING_RATE_ENUM_STATE_CREATE_INFO_NV => {
-                    Some("PIPELINE_FRAGMENT_SHADING_RATE_ENUM_STATE_CREATE_INFO_NV")
-                }
-                Self::PIPELINE_COVERAGE_MODULATION_STATE_CREATE_INFO_NV => {
-                    Some("PIPELINE_COVERAGE_MODULATION_STATE_CREATE_INFO_NV")
-                }
-                Self::PHYSICAL_DEVICE_INHERITED_VIEWPORT_SCISSOR_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_INHERITED_VIEWPORT_SCISSOR_FEATURES_NV")
-                }
-                Self::COMMAND_BUFFER_INHERITANCE_VIEWPORT_SCISSOR_INFO_NV => {
-                    Some("COMMAND_BUFFER_INHERITANCE_VIEWPORT_SCISSOR_INFO_NV")
-                }
-                Self::PHYSICAL_DEVICE_LINEAR_COLOR_ATTACHMENT_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_LINEAR_COLOR_ATTACHMENT_FEATURES_NV")
-                }
-                Self::QUERY_LOW_LATENCY_SUPPORT_NV => Some("QUERY_LOW_LATENCY_SUPPORT_NV"),
-                Self::LATENCY_SLEEP_MODE_INFO_NV => Some("LATENCY_SLEEP_MODE_INFO_NV"),
-                Self::LATENCY_SLEEP_INFO_NV => Some("LATENCY_SLEEP_INFO_NV"),
-                Self::SET_LATENCY_MARKER_INFO_NV => Some("SET_LATENCY_MARKER_INFO_NV"),
-                Self::GET_LATENCY_MARKER_INFO_NV => Some("GET_LATENCY_MARKER_INFO_NV"),
-                Self::LATENCY_TIMINGS_FRAME_REPORT_NV => Some("LATENCY_TIMINGS_FRAME_REPORT_NV"),
-                Self::LATENCY_SUBMISSION_PRESENT_ID_NV => Some("LATENCY_SUBMISSION_PRESENT_ID_NV"),
-                Self::OUT_OF_BAND_QUEUE_TYPE_INFO_NV => Some("OUT_OF_BAND_QUEUE_TYPE_INFO_NV"),
-                Self::SWAPCHAIN_LATENCY_CREATE_INFO_NV => Some("SWAPCHAIN_LATENCY_CREATE_INFO_NV"),
-                Self::LATENCY_SURFACE_CAPABILITIES_NV => Some("LATENCY_SURFACE_CAPABILITIES_NV"),
-                Self::PHYSICAL_DEVICE_MESH_SHADER_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_MESH_SHADER_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_NV")
-                }
-                Self::PHYSICAL_DEVICE_OPTICAL_FLOW_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_OPTICAL_FLOW_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_OPTICAL_FLOW_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_OPTICAL_FLOW_PROPERTIES_NV")
-                }
-                Self::OPTICAL_FLOW_IMAGE_FORMAT_INFO_NV => {
-                    Some("OPTICAL_FLOW_IMAGE_FORMAT_INFO_NV")
-                }
-                Self::OPTICAL_FLOW_IMAGE_FORMAT_PROPERTIES_NV => {
-                    Some("OPTICAL_FLOW_IMAGE_FORMAT_PROPERTIES_NV")
-                }
-                Self::OPTICAL_FLOW_SESSION_CREATE_INFO_NV => {
-                    Some("OPTICAL_FLOW_SESSION_CREATE_INFO_NV")
-                }
-                Self::OPTICAL_FLOW_EXECUTE_INFO_NV => Some("OPTICAL_FLOW_EXECUTE_INFO_NV"),
-                Self::OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV => {
-                    Some("OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV")
-                }
-                Self::PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_PROPERTIES_NV")
-                }
-                Self::WRITE_DESCRIPTOR_SET_PARTITIONED_ACCELERATION_STRUCTURE_NV => {
-                    Some("WRITE_DESCRIPTOR_SET_PARTITIONED_ACCELERATION_STRUCTURE_NV")
-                }
-                Self::PARTITIONED_ACCELERATION_STRUCTURE_INSTANCES_INPUT_NV => {
-                    Some("PARTITIONED_ACCELERATION_STRUCTURE_INSTANCES_INPUT_NV")
-                }
-                Self::BUILD_PARTITIONED_ACCELERATION_STRUCTURE_INFO_NV => {
-                    Some("BUILD_PARTITIONED_ACCELERATION_STRUCTURE_INFO_NV")
-                }
-                Self::PARTITIONED_ACCELERATION_STRUCTURE_FLAGS_NV => {
-                    Some("PARTITIONED_ACCELERATION_STRUCTURE_FLAGS_NV")
-                }
-                Self::PHYSICAL_DEVICE_PER_STAGE_DESCRIPTOR_SET_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_PER_STAGE_DESCRIPTOR_SET_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_PRESENT_BARRIER_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_PRESENT_BARRIER_FEATURES_NV")
-                }
-                Self::SURFACE_CAPABILITIES_PRESENT_BARRIER_NV => {
-                    Some("SURFACE_CAPABILITIES_PRESENT_BARRIER_NV")
-                }
-                Self::SWAPCHAIN_PRESENT_BARRIER_CREATE_INFO_NV => {
-                    Some("SWAPCHAIN_PRESENT_BARRIER_CREATE_INFO_NV")
-                }
-                Self::SET_PRESENT_CONFIG_NV => Some("SET_PRESENT_CONFIG_NV"),
-                Self::PHYSICAL_DEVICE_PRESENT_METERING_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_PRESENT_METERING_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_PRIVATE_DATA_BASE_HANDLE_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_PRIVATE_DATA_BASE_HANDLE_FEATURES_NV")
-                }
-                Self::PUSH_CONSTANT_BANK_INFO_NV => Some("PUSH_CONSTANT_BANK_INFO_NV"),
-                Self::PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_PROPERTIES_NV")
-                }
-                Self::PHYSICAL_DEVICE_RAW_ACCESS_CHAINS_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_RAW_ACCESS_CHAINS_FEATURES_NV")
-                }
-                Self::RAY_TRACING_PIPELINE_CREATE_INFO_NV => {
-                    Some("RAY_TRACING_PIPELINE_CREATE_INFO_NV")
-                }
-                Self::ACCELERATION_STRUCTURE_CREATE_INFO_NV => {
-                    Some("ACCELERATION_STRUCTURE_CREATE_INFO_NV")
-                }
-                Self::GEOMETRY_NV => Some("GEOMETRY_NV"),
-                Self::GEOMETRY_TRIANGLES_NV => Some("GEOMETRY_TRIANGLES_NV"),
-                Self::GEOMETRY_AABB_NV => Some("GEOMETRY_AABB_NV"),
-                Self::BIND_ACCELERATION_STRUCTURE_MEMORY_INFO_NV => {
-                    Some("BIND_ACCELERATION_STRUCTURE_MEMORY_INFO_NV")
-                }
-                Self::WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_NV => {
-                    Some("WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_NV")
-                }
-                Self::ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV => {
-                    Some("ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV")
-                }
-                Self::PHYSICAL_DEVICE_RAY_TRACING_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_RAY_TRACING_PROPERTIES_NV")
-                }
-                Self::RAY_TRACING_SHADER_GROUP_CREATE_INFO_NV => {
-                    Some("RAY_TRACING_SHADER_GROUP_CREATE_INFO_NV")
-                }
-                Self::ACCELERATION_STRUCTURE_INFO_NV => Some("ACCELERATION_STRUCTURE_INFO_NV"),
-                Self::PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_NV")
-                }
-                Self::PHYSICAL_DEVICE_RAY_TRACING_LINEAR_SWEPT_SPHERES_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_RAY_TRACING_LINEAR_SWEPT_SPHERES_FEATURES_NV")
-                }
-                Self::ACCELERATION_STRUCTURE_GEOMETRY_LINEAR_SWEPT_SPHERES_DATA_NV => {
-                    Some("ACCELERATION_STRUCTURE_GEOMETRY_LINEAR_SWEPT_SPHERES_DATA_NV")
-                }
-                Self::ACCELERATION_STRUCTURE_GEOMETRY_SPHERES_DATA_NV => {
-                    Some("ACCELERATION_STRUCTURE_GEOMETRY_SPHERES_DATA_NV")
-                }
-                Self::ACCELERATION_STRUCTURE_GEOMETRY_MOTION_TRIANGLES_DATA_NV => {
-                    Some("ACCELERATION_STRUCTURE_GEOMETRY_MOTION_TRIANGLES_DATA_NV")
-                }
-                Self::PHYSICAL_DEVICE_RAY_TRACING_MOTION_BLUR_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_RAY_TRACING_MOTION_BLUR_FEATURES_NV")
-                }
-                Self::ACCELERATION_STRUCTURE_MOTION_INFO_NV => {
-                    Some("ACCELERATION_STRUCTURE_MOTION_INFO_NV")
-                }
-                Self::PHYSICAL_DEVICE_RAY_TRACING_VALIDATION_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_RAY_TRACING_VALIDATION_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_REPRESENTATIVE_FRAGMENT_TEST_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_REPRESENTATIVE_FRAGMENT_TEST_FEATURES_NV")
-                }
-                Self::PIPELINE_REPRESENTATIVE_FRAGMENT_TEST_STATE_CREATE_INFO_NV => {
-                    Some("PIPELINE_REPRESENTATIVE_FRAGMENT_TEST_STATE_CREATE_INFO_NV")
-                }
-                Self::PIPELINE_VIEWPORT_EXCLUSIVE_SCISSOR_STATE_CREATE_INFO_NV => {
-                    Some("PIPELINE_VIEWPORT_EXCLUSIVE_SCISSOR_STATE_CREATE_INFO_NV")
-                }
-                Self::PHYSICAL_DEVICE_EXCLUSIVE_SCISSOR_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_EXCLUSIVE_SCISSOR_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT16_VECTOR_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT16_VECTOR_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_IMAGE_FOOTPRINT_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_SHADER_IMAGE_FOOTPRINT_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_SM_BUILTINS_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_SHADER_SM_BUILTINS_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_SM_BUILTINS_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_SHADER_SM_BUILTINS_PROPERTIES_NV")
-                }
-                Self::PIPELINE_VIEWPORT_SHADING_RATE_IMAGE_STATE_CREATE_INFO_NV => {
-                    Some("PIPELINE_VIEWPORT_SHADING_RATE_IMAGE_STATE_CREATE_INFO_NV")
-                }
-                Self::PHYSICAL_DEVICE_SHADING_RATE_IMAGE_FEATURES_NV => {
-                    Some("PHYSICAL_DEVICE_SHADING_RATE_IMAGE_FEATURES_NV")
-                }
-                Self::PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV => {
-                    Some("PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV")
-                }
-                Self::PIPELINE_VIEWPORT_COARSE_SAMPLE_ORDER_STATE_CREATE_INFO_NV => {
-                    Some("PIPELINE_VIEWPORT_COARSE_SAMPLE_ORDER_STATE_CREATE_INFO_NV")
-                }
-                Self::PIPELINE_VIEWPORT_SWIZZLE_STATE_CREATE_INFO_NV => {
-                    Some("PIPELINE_VIEWPORT_SWIZZLE_STATE_CREATE_INFO_NV")
-                }
-                Self::WIN32_KEYED_MUTEX_ACQUIRE_RELEASE_INFO_NV => {
-                    Some("WIN32_KEYED_MUTEX_ACQUIRE_RELEASE_INFO_NV")
-                }
-                Self::NATIVE_BUFFER_USAGE_OHOS => Some("NATIVE_BUFFER_USAGE_OHOS"),
-                Self::NATIVE_BUFFER_PROPERTIES_OHOS => Some("NATIVE_BUFFER_PROPERTIES_OHOS"),
-                Self::NATIVE_BUFFER_FORMAT_PROPERTIES_OHOS => {
-                    Some("NATIVE_BUFFER_FORMAT_PROPERTIES_OHOS")
-                }
-                Self::IMPORT_NATIVE_BUFFER_INFO_OHOS => Some("IMPORT_NATIVE_BUFFER_INFO_OHOS"),
-                Self::MEMORY_GET_NATIVE_BUFFER_INFO_OHOS => {
-                    Some("MEMORY_GET_NATIVE_BUFFER_INFO_OHOS")
-                }
-                Self::EXTERNAL_FORMAT_OHOS => Some("EXTERNAL_FORMAT_OHOS"),
-                Self::SURFACE_CREATE_INFO_OHOS => Some("SURFACE_CREATE_INFO_OHOS"),
-                Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_CONVERSION_FEATURES_QCOM => {
-                    Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_CONVERSION_FEATURES_QCOM")
-                }
-                Self::PHYSICAL_DEVICE_DATA_GRAPH_MODEL_FEATURES_QCOM => {
-                    Some("PHYSICAL_DEVICE_DATA_GRAPH_MODEL_FEATURES_QCOM")
-                }
-                Self::DATA_GRAPH_PIPELINE_BUILTIN_MODEL_CREATE_INFO_QCOM => {
-                    Some("DATA_GRAPH_PIPELINE_BUILTIN_MODEL_CREATE_INFO_QCOM")
-                }
-                Self::PHYSICAL_DEVICE_ELAPSED_TIMER_QUERY_FEATURES_QCOM => {
-                    Some("PHYSICAL_DEVICE_ELAPSED_TIMER_QUERY_FEATURES_QCOM")
-                }
-                Self::PHYSICAL_DEVICE_CUBIC_CLAMP_FEATURES_QCOM => {
-                    Some("PHYSICAL_DEVICE_CUBIC_CLAMP_FEATURES_QCOM")
-                }
-                Self::SAMPLER_CUBIC_WEIGHTS_CREATE_INFO_QCOM => {
-                    Some("SAMPLER_CUBIC_WEIGHTS_CREATE_INFO_QCOM")
-                }
-                Self::PHYSICAL_DEVICE_CUBIC_WEIGHTS_FEATURES_QCOM => {
-                    Some("PHYSICAL_DEVICE_CUBIC_WEIGHTS_FEATURES_QCOM")
-                }
-                Self::BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM => {
-                    Some("BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM")
-                }
-                Self::PHYSICAL_DEVICE_IMAGE_PROCESSING_FEATURES_QCOM => {
-                    Some("PHYSICAL_DEVICE_IMAGE_PROCESSING_FEATURES_QCOM")
-                }
-                Self::PHYSICAL_DEVICE_IMAGE_PROCESSING_PROPERTIES_QCOM => {
-                    Some("PHYSICAL_DEVICE_IMAGE_PROCESSING_PROPERTIES_QCOM")
-                }
-                Self::IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM => {
-                    Some("IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM")
-                }
-                Self::PHYSICAL_DEVICE_IMAGE_PROCESSING_2_FEATURES_QCOM => {
-                    Some("PHYSICAL_DEVICE_IMAGE_PROCESSING_2_FEATURES_QCOM")
-                }
-                Self::PHYSICAL_DEVICE_IMAGE_PROCESSING_2_PROPERTIES_QCOM => {
-                    Some("PHYSICAL_DEVICE_IMAGE_PROCESSING_2_PROPERTIES_QCOM")
-                }
-                Self::SAMPLER_BLOCK_MATCH_WINDOW_CREATE_INFO_QCOM => {
-                    Some("SAMPLER_BLOCK_MATCH_WINDOW_CREATE_INFO_QCOM")
-                }
-                Self::PHYSICAL_DEVICE_IMAGE_PROCESSING_3_FEATURES_QCOM => {
-                    Some("PHYSICAL_DEVICE_IMAGE_PROCESSING_3_FEATURES_QCOM")
-                }
-                Self::PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_RENDER_AREAS_FEATURES_QCOM => {
-                    Some("PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_RENDER_AREAS_FEATURES_QCOM")
-                }
-                Self::MULTIVIEW_PER_VIEW_RENDER_AREAS_RENDER_PASS_BEGIN_INFO_QCOM => {
-                    Some("MULTIVIEW_PER_VIEW_RENDER_AREAS_RENDER_PASS_BEGIN_INFO_QCOM")
-                }
-                Self::PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_VIEWPORTS_FEATURES_QCOM => {
-                    Some("PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_VIEWPORTS_FEATURES_QCOM")
-                }
-                Self::PERF_HINT_INFO_QCOM => Some("PERF_HINT_INFO_QCOM"),
-                Self::PHYSICAL_DEVICE_QUEUE_PERF_HINT_FEATURES_QCOM => {
-                    Some("PHYSICAL_DEVICE_QUEUE_PERF_HINT_FEATURES_QCOM")
-                }
-                Self::PHYSICAL_DEVICE_QUEUE_PERF_HINT_PROPERTIES_QCOM => {
-                    Some("PHYSICAL_DEVICE_QUEUE_PERF_HINT_PROPERTIES_QCOM")
-                }
-                Self::COMMAND_BUFFER_INHERITANCE_RENDER_PASS_TRANSFORM_INFO_QCOM => {
-                    Some("COMMAND_BUFFER_INHERITANCE_RENDER_PASS_TRANSFORM_INFO_QCOM")
-                }
-                Self::RENDER_PASS_TRANSFORM_BEGIN_INFO_QCOM => {
-                    Some("RENDER_PASS_TRANSFORM_BEGIN_INFO_QCOM")
-                }
-                Self::COPY_COMMAND_TRANSFORM_INFO_QCOM => Some("COPY_COMMAND_TRANSFORM_INFO_QCOM"),
-                Self::PHYSICAL_DEVICE_SHADER_MULTIPLE_WAIT_QUEUES_FEATURES_QCOM => {
-                    Some("PHYSICAL_DEVICE_SHADER_MULTIPLE_WAIT_QUEUES_FEATURES_QCOM")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_MULTIPLE_WAIT_QUEUES_PROPERTIES_QCOM => {
-                    Some("PHYSICAL_DEVICE_SHADER_MULTIPLE_WAIT_QUEUES_PROPERTIES_QCOM")
-                }
-                Self::PHYSICAL_DEVICE_TILE_MEMORY_HEAP_FEATURES_QCOM => {
-                    Some("PHYSICAL_DEVICE_TILE_MEMORY_HEAP_FEATURES_QCOM")
-                }
-                Self::PHYSICAL_DEVICE_TILE_MEMORY_HEAP_PROPERTIES_QCOM => {
-                    Some("PHYSICAL_DEVICE_TILE_MEMORY_HEAP_PROPERTIES_QCOM")
-                }
-                Self::TILE_MEMORY_REQUIREMENTS_QCOM => Some("TILE_MEMORY_REQUIREMENTS_QCOM"),
-                Self::TILE_MEMORY_BIND_INFO_QCOM => Some("TILE_MEMORY_BIND_INFO_QCOM"),
-                Self::TILE_MEMORY_SIZE_INFO_QCOM => Some("TILE_MEMORY_SIZE_INFO_QCOM"),
-                Self::PHYSICAL_DEVICE_TILE_PROPERTIES_FEATURES_QCOM => {
-                    Some("PHYSICAL_DEVICE_TILE_PROPERTIES_FEATURES_QCOM")
-                }
-                Self::TILE_PROPERTIES_QCOM => Some("TILE_PROPERTIES_QCOM"),
-                Self::PHYSICAL_DEVICE_TILE_SHADING_FEATURES_QCOM => {
-                    Some("PHYSICAL_DEVICE_TILE_SHADING_FEATURES_QCOM")
-                }
-                Self::PHYSICAL_DEVICE_TILE_SHADING_PROPERTIES_QCOM => {
-                    Some("PHYSICAL_DEVICE_TILE_SHADING_PROPERTIES_QCOM")
-                }
-                Self::RENDER_PASS_TILE_SHADING_CREATE_INFO_QCOM => {
-                    Some("RENDER_PASS_TILE_SHADING_CREATE_INFO_QCOM")
-                }
-                Self::PER_TILE_BEGIN_INFO_QCOM => Some("PER_TILE_BEGIN_INFO_QCOM"),
-                Self::PER_TILE_END_INFO_QCOM => Some("PER_TILE_END_INFO_QCOM"),
-                Self::DISPATCH_TILE_INFO_QCOM => Some("DISPATCH_TILE_INFO_QCOM"),
-                Self::PHYSICAL_DEVICE_YCBCR_DEGAMMA_FEATURES_QCOM => {
-                    Some("PHYSICAL_DEVICE_YCBCR_DEGAMMA_FEATURES_QCOM")
-                }
-                Self::SAMPLER_YCBCR_CONVERSION_YCBCR_DEGAMMA_CREATE_INFO_QCOM => {
-                    Some("SAMPLER_YCBCR_CONVERSION_YCBCR_DEGAMMA_CREATE_INFO_QCOM")
-                }
-                Self::SCREEN_BUFFER_PROPERTIES_QNX => Some("SCREEN_BUFFER_PROPERTIES_QNX"),
-                Self::SCREEN_BUFFER_FORMAT_PROPERTIES_QNX => {
-                    Some("SCREEN_BUFFER_FORMAT_PROPERTIES_QNX")
-                }
-                Self::IMPORT_SCREEN_BUFFER_INFO_QNX => Some("IMPORT_SCREEN_BUFFER_INFO_QNX"),
-                Self::EXTERNAL_FORMAT_QNX => Some("EXTERNAL_FORMAT_QNX"),
-                Self::PHYSICAL_DEVICE_EXTERNAL_MEMORY_SCREEN_BUFFER_FEATURES_QNX => {
-                    Some("PHYSICAL_DEVICE_EXTERNAL_MEMORY_SCREEN_BUFFER_FEATURES_QNX")
-                }
-                Self::SCREEN_SURFACE_CREATE_INFO_QNX => Some("SCREEN_SURFACE_CREATE_INFO_QNX"),
-                Self::PHYSICAL_DEVICE_AMIGO_PROFILING_FEATURES_SEC => {
-                    Some("PHYSICAL_DEVICE_AMIGO_PROFILING_FEATURES_SEC")
-                }
-                Self::AMIGO_PROFILING_SUBMIT_INFO_SEC => Some("AMIGO_PROFILING_SUBMIT_INFO_SEC"),
-                Self::PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC => {
-                    Some("PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC")
-                }
-                Self::PHYSICAL_DEVICE_THROTTLE_HINT_FEATURES_SEC => {
-                    Some("PHYSICAL_DEVICE_THROTTLE_HINT_FEATURES_SEC")
-                }
-                Self::THROTTLE_HINT_SUBMIT_INFO_SEC => Some("THROTTLE_HINT_SUBMIT_INFO_SEC"),
-                Self::UBM_SURFACE_CREATE_INFO_SEC => Some("UBM_SURFACE_CREATE_INFO_SEC"),
-                Self::PHYSICAL_DEVICE_DESCRIPTOR_SET_HOST_MAPPING_FEATURES_VALVE => {
-                    Some("PHYSICAL_DEVICE_DESCRIPTOR_SET_HOST_MAPPING_FEATURES_VALVE")
-                }
-                Self::DESCRIPTOR_SET_BINDING_REFERENCE_VALVE => {
-                    Some("DESCRIPTOR_SET_BINDING_REFERENCE_VALVE")
-                }
-                Self::DESCRIPTOR_SET_LAYOUT_HOST_MAPPING_INFO_VALVE => {
-                    Some("DESCRIPTOR_SET_LAYOUT_HOST_MAPPING_INFO_VALVE")
-                }
-                Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_FEATURES_VALVE => {
-                    Some("PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_FEATURES_VALVE")
-                }
-                Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_PROPERTIES_VALVE => {
-                    Some("PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_PROPERTIES_VALVE")
-                }
-                Self::PIPELINE_FRAGMENT_DENSITY_MAP_LAYERED_CREATE_INFO_VALVE => {
-                    Some("PIPELINE_FRAGMENT_DENSITY_MAP_LAYERED_CREATE_INFO_VALVE")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_MIXED_FLOAT_DOT_PRODUCT_FEATURES_VALVE => {
-                    Some("PHYSICAL_DEVICE_SHADER_MIXED_FLOAT_DOT_PRODUCT_FEATURES_VALVE")
-                }
-                Self::PHYSICAL_DEVICE_VIDEO_ENCODE_RGB_CONVERSION_FEATURES_VALVE => {
-                    Some("PHYSICAL_DEVICE_VIDEO_ENCODE_RGB_CONVERSION_FEATURES_VALVE")
-                }
-                Self::VIDEO_ENCODE_RGB_CONVERSION_CAPABILITIES_VALVE => {
-                    Some("VIDEO_ENCODE_RGB_CONVERSION_CAPABILITIES_VALVE")
-                }
-                Self::VIDEO_ENCODE_PROFILE_RGB_CONVERSION_INFO_VALVE => {
-                    Some("VIDEO_ENCODE_PROFILE_RGB_CONVERSION_INFO_VALVE")
-                }
-                Self::VIDEO_ENCODE_SESSION_RGB_CONVERSION_CREATE_INFO_VALVE => {
-                    Some("VIDEO_ENCODE_SESSION_RGB_CONVERSION_CREATE_INFO_VALVE")
-                }
-                Self::BIND_BUFFER_MEMORY_INFO => Some("BIND_BUFFER_MEMORY_INFO"),
-                Self::BIND_IMAGE_MEMORY_INFO => Some("BIND_IMAGE_MEMORY_INFO"),
-                Self::MEMORY_DEDICATED_REQUIREMENTS => Some("MEMORY_DEDICATED_REQUIREMENTS"),
-                Self::MEMORY_DEDICATED_ALLOCATE_INFO => Some("MEMORY_DEDICATED_ALLOCATE_INFO"),
-                Self::MEMORY_ALLOCATE_FLAGS_INFO => Some("MEMORY_ALLOCATE_FLAGS_INFO"),
-                Self::DEVICE_GROUP_COMMAND_BUFFER_BEGIN_INFO => {
-                    Some("DEVICE_GROUP_COMMAND_BUFFER_BEGIN_INFO")
-                }
-                Self::DEVICE_GROUP_SUBMIT_INFO => Some("DEVICE_GROUP_SUBMIT_INFO"),
-                Self::DEVICE_GROUP_BIND_SPARSE_INFO => Some("DEVICE_GROUP_BIND_SPARSE_INFO"),
-                Self::BIND_BUFFER_MEMORY_DEVICE_GROUP_INFO => {
-                    Some("BIND_BUFFER_MEMORY_DEVICE_GROUP_INFO")
-                }
-                Self::BIND_IMAGE_MEMORY_DEVICE_GROUP_INFO => {
-                    Some("BIND_IMAGE_MEMORY_DEVICE_GROUP_INFO")
-                }
-                Self::PHYSICAL_DEVICE_GROUP_PROPERTIES => Some("PHYSICAL_DEVICE_GROUP_PROPERTIES"),
-                Self::DEVICE_GROUP_DEVICE_CREATE_INFO => Some("DEVICE_GROUP_DEVICE_CREATE_INFO"),
-                Self::BUFFER_MEMORY_REQUIREMENTS_INFO_2 => {
-                    Some("BUFFER_MEMORY_REQUIREMENTS_INFO_2")
-                }
-                Self::IMAGE_MEMORY_REQUIREMENTS_INFO_2 => Some("IMAGE_MEMORY_REQUIREMENTS_INFO_2"),
-                Self::IMAGE_SPARSE_MEMORY_REQUIREMENTS_INFO_2 => {
-                    Some("IMAGE_SPARSE_MEMORY_REQUIREMENTS_INFO_2")
-                }
-                Self::MEMORY_REQUIREMENTS_2 => Some("MEMORY_REQUIREMENTS_2"),
-                Self::SPARSE_IMAGE_MEMORY_REQUIREMENTS_2 => {
-                    Some("SPARSE_IMAGE_MEMORY_REQUIREMENTS_2")
-                }
-                Self::PHYSICAL_DEVICE_FEATURES_2 => Some("PHYSICAL_DEVICE_FEATURES_2"),
-                Self::PHYSICAL_DEVICE_PROPERTIES_2 => Some("PHYSICAL_DEVICE_PROPERTIES_2"),
-                Self::FORMAT_PROPERTIES_2 => Some("FORMAT_PROPERTIES_2"),
-                Self::IMAGE_FORMAT_PROPERTIES_2 => Some("IMAGE_FORMAT_PROPERTIES_2"),
-                Self::PHYSICAL_DEVICE_IMAGE_FORMAT_INFO_2 => {
-                    Some("PHYSICAL_DEVICE_IMAGE_FORMAT_INFO_2")
-                }
-                Self::QUEUE_FAMILY_PROPERTIES_2 => Some("QUEUE_FAMILY_PROPERTIES_2"),
-                Self::PHYSICAL_DEVICE_MEMORY_PROPERTIES_2 => {
-                    Some("PHYSICAL_DEVICE_MEMORY_PROPERTIES_2")
-                }
-                Self::SPARSE_IMAGE_FORMAT_PROPERTIES_2 => Some("SPARSE_IMAGE_FORMAT_PROPERTIES_2"),
-                Self::PHYSICAL_DEVICE_SPARSE_IMAGE_FORMAT_INFO_2 => {
-                    Some("PHYSICAL_DEVICE_SPARSE_IMAGE_FORMAT_INFO_2")
-                }
-                Self::IMAGE_VIEW_USAGE_CREATE_INFO => Some("IMAGE_VIEW_USAGE_CREATE_INFO"),
-                Self::PROTECTED_SUBMIT_INFO => Some("PROTECTED_SUBMIT_INFO"),
-                Self::PHYSICAL_DEVICE_PROTECTED_MEMORY_FEATURES => {
-                    Some("PHYSICAL_DEVICE_PROTECTED_MEMORY_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_PROTECTED_MEMORY_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_PROTECTED_MEMORY_PROPERTIES")
-                }
-                Self::DEVICE_QUEUE_INFO_2 => Some("DEVICE_QUEUE_INFO_2"),
-                Self::PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO => {
-                    Some("PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO")
-                }
-                Self::EXTERNAL_IMAGE_FORMAT_PROPERTIES => Some("EXTERNAL_IMAGE_FORMAT_PROPERTIES"),
-                Self::PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO => {
-                    Some("PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO")
-                }
-                Self::EXTERNAL_BUFFER_PROPERTIES => Some("EXTERNAL_BUFFER_PROPERTIES"),
-                Self::PHYSICAL_DEVICE_ID_PROPERTIES => Some("PHYSICAL_DEVICE_ID_PROPERTIES"),
-                Self::EXTERNAL_MEMORY_BUFFER_CREATE_INFO => {
-                    Some("EXTERNAL_MEMORY_BUFFER_CREATE_INFO")
-                }
-                Self::EXTERNAL_MEMORY_IMAGE_CREATE_INFO => {
-                    Some("EXTERNAL_MEMORY_IMAGE_CREATE_INFO")
-                }
-                Self::EXPORT_MEMORY_ALLOCATE_INFO => Some("EXPORT_MEMORY_ALLOCATE_INFO"),
-                Self::PHYSICAL_DEVICE_EXTERNAL_FENCE_INFO => {
-                    Some("PHYSICAL_DEVICE_EXTERNAL_FENCE_INFO")
-                }
-                Self::EXTERNAL_FENCE_PROPERTIES => Some("EXTERNAL_FENCE_PROPERTIES"),
-                Self::EXPORT_FENCE_CREATE_INFO => Some("EXPORT_FENCE_CREATE_INFO"),
-                Self::EXPORT_SEMAPHORE_CREATE_INFO => Some("EXPORT_SEMAPHORE_CREATE_INFO"),
-                Self::PHYSICAL_DEVICE_EXTERNAL_SEMAPHORE_INFO => {
-                    Some("PHYSICAL_DEVICE_EXTERNAL_SEMAPHORE_INFO")
-                }
-                Self::EXTERNAL_SEMAPHORE_PROPERTIES => Some("EXTERNAL_SEMAPHORE_PROPERTIES"),
-                Self::PHYSICAL_DEVICE_SUBGROUP_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_SUBGROUP_PROPERTIES")
-                }
-                Self::PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES => {
-                    Some("PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES => {
-                    Some("PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES")
-                }
-                Self::DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO => {
-                    Some("DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO")
-                }
-                Self::PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES")
-                }
-                Self::DESCRIPTOR_SET_LAYOUT_SUPPORT => Some("DESCRIPTOR_SET_LAYOUT_SUPPORT"),
-                Self::SAMPLER_YCBCR_CONVERSION_CREATE_INFO => {
-                    Some("SAMPLER_YCBCR_CONVERSION_CREATE_INFO")
-                }
-                Self::SAMPLER_YCBCR_CONVERSION_INFO => Some("SAMPLER_YCBCR_CONVERSION_INFO"),
-                Self::BIND_IMAGE_PLANE_MEMORY_INFO => Some("BIND_IMAGE_PLANE_MEMORY_INFO"),
-                Self::IMAGE_PLANE_MEMORY_REQUIREMENTS_INFO => {
-                    Some("IMAGE_PLANE_MEMORY_REQUIREMENTS_INFO")
-                }
-                Self::PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES => {
-                    Some("PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES")
-                }
-                Self::SAMPLER_YCBCR_CONVERSION_IMAGE_FORMAT_PROPERTIES => {
-                    Some("SAMPLER_YCBCR_CONVERSION_IMAGE_FORMAT_PROPERTIES")
-                }
-                Self::DEVICE_GROUP_RENDER_PASS_BEGIN_INFO => {
-                    Some("DEVICE_GROUP_RENDER_PASS_BEGIN_INFO")
-                }
-                Self::PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES")
-                }
-                Self::RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO => {
-                    Some("RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO")
-                }
-                Self::PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO => {
-                    Some("PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO")
-                }
-                Self::RENDER_PASS_MULTIVIEW_CREATE_INFO => {
-                    Some("RENDER_PASS_MULTIVIEW_CREATE_INFO")
-                }
-                Self::PHYSICAL_DEVICE_MULTIVIEW_FEATURES => {
-                    Some("PHYSICAL_DEVICE_MULTIVIEW_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_DRAW_PARAMETERS_FEATURES => {
-                    Some("PHYSICAL_DEVICE_SHADER_DRAW_PARAMETERS_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_DRIVER_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_DRIVER_PROPERTIES")
-                }
-                Self::IMAGE_FORMAT_LIST_CREATE_INFO => Some("IMAGE_FORMAT_LIST_CREATE_INFO"),
-                Self::PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES => {
-                    Some("PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_HOST_QUERY_RESET_FEATURES => {
-                    Some("PHYSICAL_DEVICE_HOST_QUERY_RESET_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES => {
-                    Some("PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_PROPERTIES")
-                }
-                Self::SEMAPHORE_TYPE_CREATE_INFO => Some("SEMAPHORE_TYPE_CREATE_INFO"),
-                Self::TIMELINE_SEMAPHORE_SUBMIT_INFO => Some("TIMELINE_SEMAPHORE_SUBMIT_INFO"),
-                Self::SEMAPHORE_WAIT_INFO => Some("SEMAPHORE_WAIT_INFO"),
-                Self::SEMAPHORE_SIGNAL_INFO => Some("SEMAPHORE_SIGNAL_INFO"),
-                Self::PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES => {
-                    Some("PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES")
-                }
-                Self::BUFFER_DEVICE_ADDRESS_INFO => Some("BUFFER_DEVICE_ADDRESS_INFO"),
-                Self::BUFFER_OPAQUE_CAPTURE_ADDRESS_CREATE_INFO => {
-                    Some("BUFFER_OPAQUE_CAPTURE_ADDRESS_CREATE_INFO")
-                }
-                Self::MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO => {
-                    Some("MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO")
-                }
-                Self::DEVICE_MEMORY_OPAQUE_CAPTURE_ADDRESS_INFO => {
-                    Some("DEVICE_MEMORY_OPAQUE_CAPTURE_ADDRESS_INFO")
-                }
-                Self::PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES => {
-                    Some("PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES => {
-                    Some("PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_FLOAT16_INT8_FEATURES => {
-                    Some("PHYSICAL_DEVICE_SHADER_FLOAT16_INT8_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES")
-                }
-                Self::DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO => {
-                    Some("DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO")
-                }
-                Self::PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES => {
-                    Some("PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES")
-                }
-                Self::DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO => {
-                    Some("DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO")
-                }
-                Self::DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT => {
-                    Some("DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT")
-                }
-                Self::PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES => {
-                    Some("PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_SAMPLER_FILTER_MINMAX_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_SAMPLER_FILTER_MINMAX_PROPERTIES")
-                }
-                Self::SAMPLER_REDUCTION_MODE_CREATE_INFO => {
-                    Some("SAMPLER_REDUCTION_MODE_CREATE_INFO")
-                }
-                Self::PHYSICAL_DEVICE_UNIFORM_BUFFER_STANDARD_LAYOUT_FEATURES => {
-                    Some("PHYSICAL_DEVICE_UNIFORM_BUFFER_STANDARD_LAYOUT_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_SUBGROUP_EXTENDED_TYPES_FEATURES => {
-                    Some("PHYSICAL_DEVICE_SHADER_SUBGROUP_EXTENDED_TYPES_FEATURES")
-                }
-                Self::ATTACHMENT_DESCRIPTION_2 => Some("ATTACHMENT_DESCRIPTION_2"),
-                Self::ATTACHMENT_REFERENCE_2 => Some("ATTACHMENT_REFERENCE_2"),
-                Self::SUBPASS_DESCRIPTION_2 => Some("SUBPASS_DESCRIPTION_2"),
-                Self::SUBPASS_DEPENDENCY_2 => Some("SUBPASS_DEPENDENCY_2"),
-                Self::RENDER_PASS_CREATE_INFO_2 => Some("RENDER_PASS_CREATE_INFO_2"),
-                Self::SUBPASS_BEGIN_INFO => Some("SUBPASS_BEGIN_INFO"),
-                Self::SUBPASS_END_INFO => Some("SUBPASS_END_INFO"),
-                Self::PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES")
-                }
-                Self::SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE => {
-                    Some("SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE")
-                }
-                Self::IMAGE_STENCIL_USAGE_CREATE_INFO => Some("IMAGE_STENCIL_USAGE_CREATE_INFO"),
-                Self::PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES => {
-                    Some("PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES")
-                }
-                Self::FRAMEBUFFER_ATTACHMENTS_CREATE_INFO => {
-                    Some("FRAMEBUFFER_ATTACHMENTS_CREATE_INFO")
-                }
-                Self::FRAMEBUFFER_ATTACHMENT_IMAGE_INFO => {
-                    Some("FRAMEBUFFER_ATTACHMENT_IMAGE_INFO")
-                }
-                Self::RENDER_PASS_ATTACHMENT_BEGIN_INFO => {
-                    Some("RENDER_PASS_ATTACHMENT_BEGIN_INFO")
-                }
-                Self::PHYSICAL_DEVICE_SEPARATE_DEPTH_STENCIL_LAYOUTS_FEATURES => {
-                    Some("PHYSICAL_DEVICE_SEPARATE_DEPTH_STENCIL_LAYOUTS_FEATURES")
-                }
-                Self::ATTACHMENT_REFERENCE_STENCIL_LAYOUT => {
-                    Some("ATTACHMENT_REFERENCE_STENCIL_LAYOUT")
-                }
-                Self::ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT => {
-                    Some("ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT")
-                }
-                Self::PHYSICAL_DEVICE_VULKAN_1_1_FEATURES => {
-                    Some("PHYSICAL_DEVICE_VULKAN_1_1_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_VULKAN_1_1_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_VULKAN_1_1_PROPERTIES")
-                }
-                Self::PHYSICAL_DEVICE_VULKAN_1_2_FEATURES => {
-                    Some("PHYSICAL_DEVICE_VULKAN_1_2_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_VULKAN_1_2_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_VULKAN_1_2_PROPERTIES")
-                }
-                Self::PHYSICAL_DEVICE_TOOL_PROPERTIES => Some("PHYSICAL_DEVICE_TOOL_PROPERTIES"),
-                Self::PHYSICAL_DEVICE_PRIVATE_DATA_FEATURES => {
-                    Some("PHYSICAL_DEVICE_PRIVATE_DATA_FEATURES")
-                }
-                Self::DEVICE_PRIVATE_DATA_CREATE_INFO => Some("DEVICE_PRIVATE_DATA_CREATE_INFO"),
-                Self::PRIVATE_DATA_SLOT_CREATE_INFO => Some("PRIVATE_DATA_SLOT_CREATE_INFO"),
-                Self::MEMORY_BARRIER_2 => Some("MEMORY_BARRIER_2"),
-                Self::BUFFER_MEMORY_BARRIER_2 => Some("BUFFER_MEMORY_BARRIER_2"),
-                Self::IMAGE_MEMORY_BARRIER_2 => Some("IMAGE_MEMORY_BARRIER_2"),
-                Self::DEPENDENCY_INFO => Some("DEPENDENCY_INFO"),
-                Self::SUBMIT_INFO_2 => Some("SUBMIT_INFO_2"),
-                Self::SEMAPHORE_SUBMIT_INFO => Some("SEMAPHORE_SUBMIT_INFO"),
-                Self::COMMAND_BUFFER_SUBMIT_INFO => Some("COMMAND_BUFFER_SUBMIT_INFO"),
-                Self::PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES => {
-                    Some("PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES")
-                }
-                Self::COPY_BUFFER_INFO_2 => Some("COPY_BUFFER_INFO_2"),
-                Self::COPY_IMAGE_INFO_2 => Some("COPY_IMAGE_INFO_2"),
-                Self::COPY_BUFFER_TO_IMAGE_INFO_2 => Some("COPY_BUFFER_TO_IMAGE_INFO_2"),
-                Self::COPY_IMAGE_TO_BUFFER_INFO_2 => Some("COPY_IMAGE_TO_BUFFER_INFO_2"),
-                Self::BUFFER_COPY_2 => Some("BUFFER_COPY_2"),
-                Self::IMAGE_COPY_2 => Some("IMAGE_COPY_2"),
-                Self::BUFFER_IMAGE_COPY_2 => Some("BUFFER_IMAGE_COPY_2"),
-                Self::PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_HDR_FEATURES => {
-                    Some("PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_HDR_FEATURES")
-                }
-                Self::FORMAT_PROPERTIES_3 => Some("FORMAT_PROPERTIES_3"),
-                Self::PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES => {
-                    Some("PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES")
-                }
-                Self::DEVICE_BUFFER_MEMORY_REQUIREMENTS => {
-                    Some("DEVICE_BUFFER_MEMORY_REQUIREMENTS")
-                }
-                Self::DEVICE_IMAGE_MEMORY_REQUIREMENTS => Some("DEVICE_IMAGE_MEMORY_REQUIREMENTS"),
-                Self::PIPELINE_CREATION_FEEDBACK_CREATE_INFO => {
-                    Some("PIPELINE_CREATION_FEEDBACK_CREATE_INFO")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_TERMINATE_INVOCATION_FEATURES => {
-                    Some("PHYSICAL_DEVICE_SHADER_TERMINATE_INVOCATION_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES => {
-                    Some("PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_PIPELINE_CREATION_CACHE_CONTROL_FEATURES => {
-                    Some("PHYSICAL_DEVICE_PIPELINE_CREATION_CACHE_CONTROL_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_ZERO_INITIALIZE_WORKGROUP_MEMORY_FEATURES => {
-                    Some("PHYSICAL_DEVICE_ZERO_INITIALIZE_WORKGROUP_MEMORY_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_IMAGE_ROBUSTNESS_FEATURES => {
-                    Some("PHYSICAL_DEVICE_IMAGE_ROBUSTNESS_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_PROPERTIES")
-                }
-                Self::PIPELINE_SHADER_STAGE_REQUIRED_SUBGROUP_SIZE_CREATE_INFO => {
-                    Some("PIPELINE_SHADER_STAGE_REQUIRED_SUBGROUP_SIZE_CREATE_INFO")
-                }
-                Self::PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_FEATURES => {
-                    Some("PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_FEATURES => {
-                    Some("PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_PROPERTIES")
-                }
-                Self::WRITE_DESCRIPTOR_SET_INLINE_UNIFORM_BLOCK => {
-                    Some("WRITE_DESCRIPTOR_SET_INLINE_UNIFORM_BLOCK")
-                }
-                Self::DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO => {
-                    Some("DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_FEATURES => {
-                    Some("PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_PROPERTIES")
-                }
-                Self::PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES")
-                }
-                Self::BLIT_IMAGE_INFO_2 => Some("BLIT_IMAGE_INFO_2"),
-                Self::RESOLVE_IMAGE_INFO_2 => Some("RESOLVE_IMAGE_INFO_2"),
-                Self::IMAGE_BLIT_2 => Some("IMAGE_BLIT_2"),
-                Self::IMAGE_RESOLVE_2 => Some("IMAGE_RESOLVE_2"),
-                Self::RENDERING_INFO => Some("RENDERING_INFO"),
-                Self::RENDERING_ATTACHMENT_INFO => Some("RENDERING_ATTACHMENT_INFO"),
-                Self::PIPELINE_RENDERING_CREATE_INFO => Some("PIPELINE_RENDERING_CREATE_INFO"),
-                Self::PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES => {
-                    Some("PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES")
-                }
-                Self::COMMAND_BUFFER_INHERITANCE_RENDERING_INFO => {
-                    Some("COMMAND_BUFFER_INHERITANCE_RENDERING_INFO")
-                }
-                Self::PHYSICAL_DEVICE_VULKAN_1_3_FEATURES => {
-                    Some("PHYSICAL_DEVICE_VULKAN_1_3_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_VULKAN_1_3_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_VULKAN_1_3_PROPERTIES")
-                }
-                Self::DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO => {
-                    Some("DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO")
-                }
-                Self::PHYSICAL_DEVICE_GLOBAL_PRIORITY_QUERY_FEATURES => {
-                    Some("PHYSICAL_DEVICE_GLOBAL_PRIORITY_QUERY_FEATURES")
-                }
-                Self::QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES => {
-                    Some("QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES")
-                }
-                Self::PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES => {
-                    Some("PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES")
-                }
-                Self::MEMORY_MAP_INFO => Some("MEMORY_MAP_INFO"),
-                Self::MEMORY_UNMAP_INFO => Some("MEMORY_UNMAP_INFO"),
-                Self::PHYSICAL_DEVICE_MAINTENANCE_5_FEATURES => {
-                    Some("PHYSICAL_DEVICE_MAINTENANCE_5_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_MAINTENANCE_5_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_MAINTENANCE_5_PROPERTIES")
-                }
-                Self::DEVICE_IMAGE_SUBRESOURCE_INFO => Some("DEVICE_IMAGE_SUBRESOURCE_INFO"),
-                Self::SUBRESOURCE_LAYOUT_2 => Some("SUBRESOURCE_LAYOUT_2"),
-                Self::IMAGE_SUBRESOURCE_2 => Some("IMAGE_SUBRESOURCE_2"),
-                Self::BUFFER_USAGE_FLAGS_2_CREATE_INFO => Some("BUFFER_USAGE_FLAGS_2_CREATE_INFO"),
-                Self::PHYSICAL_DEVICE_MAINTENANCE_6_FEATURES => {
-                    Some("PHYSICAL_DEVICE_MAINTENANCE_6_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_MAINTENANCE_6_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_MAINTENANCE_6_PROPERTIES")
-                }
-                Self::BIND_MEMORY_STATUS => Some("BIND_MEMORY_STATUS"),
-                Self::PHYSICAL_DEVICE_HOST_IMAGE_COPY_FEATURES => {
-                    Some("PHYSICAL_DEVICE_HOST_IMAGE_COPY_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_HOST_IMAGE_COPY_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_HOST_IMAGE_COPY_PROPERTIES")
-                }
-                Self::MEMORY_TO_IMAGE_COPY => Some("MEMORY_TO_IMAGE_COPY"),
-                Self::IMAGE_TO_MEMORY_COPY => Some("IMAGE_TO_MEMORY_COPY"),
-                Self::COPY_IMAGE_TO_MEMORY_INFO => Some("COPY_IMAGE_TO_MEMORY_INFO"),
-                Self::COPY_MEMORY_TO_IMAGE_INFO => Some("COPY_MEMORY_TO_IMAGE_INFO"),
-                Self::HOST_IMAGE_LAYOUT_TRANSITION_INFO => {
-                    Some("HOST_IMAGE_LAYOUT_TRANSITION_INFO")
-                }
-                Self::COPY_IMAGE_TO_IMAGE_INFO => Some("COPY_IMAGE_TO_IMAGE_INFO"),
-                Self::SUBRESOURCE_HOST_MEMCPY_SIZE => Some("SUBRESOURCE_HOST_MEMCPY_SIZE"),
-                Self::HOST_IMAGE_COPY_DEVICE_PERFORMANCE_QUERY => {
-                    Some("HOST_IMAGE_COPY_DEVICE_PERFORMANCE_QUERY")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES => {
-                    Some("PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_FLOAT_CONTROLS_2_FEATURES => {
-                    Some("PHYSICAL_DEVICE_SHADER_FLOAT_CONTROLS_2_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_SHADER_EXPECT_ASSUME_FEATURES => {
-                    Some("PHYSICAL_DEVICE_SHADER_EXPECT_ASSUME_FEATURES")
-                }
-                Self::PIPELINE_CREATE_FLAGS_2_CREATE_INFO => {
-                    Some("PIPELINE_CREATE_FLAGS_2_CREATE_INFO")
-                }
-                Self::PHYSICAL_DEVICE_PUSH_DESCRIPTOR_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_PUSH_DESCRIPTOR_PROPERTIES")
-                }
-                Self::BIND_DESCRIPTOR_SETS_INFO => Some("BIND_DESCRIPTOR_SETS_INFO"),
-                Self::PUSH_CONSTANTS_INFO => Some("PUSH_CONSTANTS_INFO"),
-                Self::PUSH_DESCRIPTOR_SET_INFO => Some("PUSH_DESCRIPTOR_SET_INFO"),
-                Self::PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO => {
-                    Some("PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO")
-                }
-                Self::PHYSICAL_DEVICE_PIPELINE_PROTECTED_ACCESS_FEATURES => {
-                    Some("PHYSICAL_DEVICE_PIPELINE_PROTECTED_ACCESS_FEATURES")
-                }
-                Self::PIPELINE_ROBUSTNESS_CREATE_INFO => Some("PIPELINE_ROBUSTNESS_CREATE_INFO"),
-                Self::PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_FEATURES => {
-                    Some("PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_PROPERTIES")
-                }
-                Self::PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES => {
-                    Some("PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES")
-                }
-                Self::PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO => {
-                    Some("PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO")
-                }
-                Self::PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES")
-                }
-                Self::PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES")
-                }
-                Self::PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO => {
-                    Some("PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO")
-                }
-                Self::PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES => {
-                    Some("PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES")
-                }
-                Self::RENDERING_AREA_INFO => Some("RENDERING_AREA_INFO"),
-                Self::PHYSICAL_DEVICE_DYNAMIC_RENDERING_LOCAL_READ_FEATURES => {
-                    Some("PHYSICAL_DEVICE_DYNAMIC_RENDERING_LOCAL_READ_FEATURES")
-                }
-                Self::RENDERING_ATTACHMENT_LOCATION_INFO => {
-                    Some("RENDERING_ATTACHMENT_LOCATION_INFO")
-                }
-                Self::RENDERING_INPUT_ATTACHMENT_INDEX_INFO => {
-                    Some("RENDERING_INPUT_ATTACHMENT_INDEX_INFO")
-                }
-                Self::PHYSICAL_DEVICE_VULKAN_1_4_FEATURES => {
-                    Some("PHYSICAL_DEVICE_VULKAN_1_4_FEATURES")
-                }
-                Self::PHYSICAL_DEVICE_VULKAN_1_4_PROPERTIES => {
-                    Some("PHYSICAL_DEVICE_VULKAN_1_4_PROPERTIES")
-                }
-                _ => None,
-            };
+Self::APPLICATION_INFO => Some("APPLICATION_INFO"),
+Self::INSTANCE_CREATE_INFO => Some("INSTANCE_CREATE_INFO"),
+Self::DEVICE_QUEUE_CREATE_INFO => Some("DEVICE_QUEUE_CREATE_INFO"),
+Self::DEVICE_CREATE_INFO => Some("DEVICE_CREATE_INFO"),
+Self::SUBMIT_INFO => Some("SUBMIT_INFO"),
+Self::MEMORY_ALLOCATE_INFO => Some("MEMORY_ALLOCATE_INFO"),
+Self::MAPPED_MEMORY_RANGE => Some("MAPPED_MEMORY_RANGE"),
+Self::BIND_SPARSE_INFO => Some("BIND_SPARSE_INFO"),
+Self::FENCE_CREATE_INFO => Some("FENCE_CREATE_INFO"),
+Self::SEMAPHORE_CREATE_INFO => Some("SEMAPHORE_CREATE_INFO"),
+Self::EVENT_CREATE_INFO => Some("EVENT_CREATE_INFO"),
+Self::QUERY_POOL_CREATE_INFO => Some("QUERY_POOL_CREATE_INFO"),
+Self::BUFFER_CREATE_INFO => Some("BUFFER_CREATE_INFO"),
+Self::BUFFER_VIEW_CREATE_INFO => Some("BUFFER_VIEW_CREATE_INFO"),
+Self::IMAGE_CREATE_INFO => Some("IMAGE_CREATE_INFO"),
+Self::IMAGE_VIEW_CREATE_INFO => Some("IMAGE_VIEW_CREATE_INFO"),
+Self::SHADER_MODULE_CREATE_INFO => Some("SHADER_MODULE_CREATE_INFO"),
+Self::PIPELINE_CACHE_CREATE_INFO => Some("PIPELINE_CACHE_CREATE_INFO"),
+Self::PIPELINE_SHADER_STAGE_CREATE_INFO => Some("PIPELINE_SHADER_STAGE_CREATE_INFO"),
+Self::PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO => Some("PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO"),
+Self::PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO => Some("PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO"),
+Self::PIPELINE_TESSELLATION_STATE_CREATE_INFO => Some("PIPELINE_TESSELLATION_STATE_CREATE_INFO"),
+Self::PIPELINE_VIEWPORT_STATE_CREATE_INFO => Some("PIPELINE_VIEWPORT_STATE_CREATE_INFO"),
+Self::PIPELINE_RASTERIZATION_STATE_CREATE_INFO => Some("PIPELINE_RASTERIZATION_STATE_CREATE_INFO"),
+Self::PIPELINE_MULTISAMPLE_STATE_CREATE_INFO => Some("PIPELINE_MULTISAMPLE_STATE_CREATE_INFO"),
+Self::PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO => Some("PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO"),
+Self::PIPELINE_COLOR_BLEND_STATE_CREATE_INFO => Some("PIPELINE_COLOR_BLEND_STATE_CREATE_INFO"),
+Self::PIPELINE_DYNAMIC_STATE_CREATE_INFO => Some("PIPELINE_DYNAMIC_STATE_CREATE_INFO"),
+Self::GRAPHICS_PIPELINE_CREATE_INFO => Some("GRAPHICS_PIPELINE_CREATE_INFO"),
+Self::COMPUTE_PIPELINE_CREATE_INFO => Some("COMPUTE_PIPELINE_CREATE_INFO"),
+Self::PIPELINE_LAYOUT_CREATE_INFO => Some("PIPELINE_LAYOUT_CREATE_INFO"),
+Self::SAMPLER_CREATE_INFO => Some("SAMPLER_CREATE_INFO"),
+Self::DESCRIPTOR_SET_LAYOUT_CREATE_INFO => Some("DESCRIPTOR_SET_LAYOUT_CREATE_INFO"),
+Self::DESCRIPTOR_POOL_CREATE_INFO => Some("DESCRIPTOR_POOL_CREATE_INFO"),
+Self::DESCRIPTOR_SET_ALLOCATE_INFO => Some("DESCRIPTOR_SET_ALLOCATE_INFO"),
+Self::WRITE_DESCRIPTOR_SET => Some("WRITE_DESCRIPTOR_SET"),
+Self::COPY_DESCRIPTOR_SET => Some("COPY_DESCRIPTOR_SET"),
+Self::FRAMEBUFFER_CREATE_INFO => Some("FRAMEBUFFER_CREATE_INFO"),
+Self::RENDER_PASS_CREATE_INFO => Some("RENDER_PASS_CREATE_INFO"),
+Self::COMMAND_POOL_CREATE_INFO => Some("COMMAND_POOL_CREATE_INFO"),
+Self::COMMAND_BUFFER_ALLOCATE_INFO => Some("COMMAND_BUFFER_ALLOCATE_INFO"),
+Self::COMMAND_BUFFER_INHERITANCE_INFO => Some("COMMAND_BUFFER_INHERITANCE_INFO"),
+Self::COMMAND_BUFFER_BEGIN_INFO => Some("COMMAND_BUFFER_BEGIN_INFO"),
+Self::RENDER_PASS_BEGIN_INFO => Some("RENDER_PASS_BEGIN_INFO"),
+Self::BUFFER_MEMORY_BARRIER => Some("BUFFER_MEMORY_BARRIER"),
+Self::IMAGE_MEMORY_BARRIER => Some("IMAGE_MEMORY_BARRIER"),
+Self::MEMORY_BARRIER => Some("MEMORY_BARRIER"),
+Self::LOADER_INSTANCE_CREATE_INFO => Some("LOADER_INSTANCE_CREATE_INFO"),
+Self::LOADER_DEVICE_CREATE_INFO => Some("LOADER_DEVICE_CREATE_INFO"),
+#[cfg(feature = "provisional")]
+Self::PHYSICAL_DEVICE_DENSE_GEOMETRY_FORMAT_FEATURES_AMDX => Some("PHYSICAL_DEVICE_DENSE_GEOMETRY_FORMAT_FEATURES_AMDX"),
+#[cfg(feature = "provisional")]
+Self::ACCELERATION_STRUCTURE_DENSE_GEOMETRY_FORMAT_TRIANGLES_DATA_AMDX => Some("ACCELERATION_STRUCTURE_DENSE_GEOMETRY_FORMAT_TRIANGLES_DATA_AMDX"),
+#[cfg(feature = "provisional")]
+Self::PHYSICAL_DEVICE_SHADER_ENQUEUE_FEATURES_AMDX => Some("PHYSICAL_DEVICE_SHADER_ENQUEUE_FEATURES_AMDX"),
+#[cfg(feature = "provisional")]
+Self::PHYSICAL_DEVICE_SHADER_ENQUEUE_PROPERTIES_AMDX => Some("PHYSICAL_DEVICE_SHADER_ENQUEUE_PROPERTIES_AMDX"),
+#[cfg(feature = "provisional")]
+Self::EXECUTION_GRAPH_PIPELINE_SCRATCH_SIZE_AMDX => Some("EXECUTION_GRAPH_PIPELINE_SCRATCH_SIZE_AMDX"),
+#[cfg(feature = "provisional")]
+Self::EXECUTION_GRAPH_PIPELINE_CREATE_INFO_AMDX => Some("EXECUTION_GRAPH_PIPELINE_CREATE_INFO_AMDX"),
+#[cfg(feature = "provisional")]
+Self::PIPELINE_SHADER_STAGE_NODE_CREATE_INFO_AMDX => Some("PIPELINE_SHADER_STAGE_NODE_CREATE_INFO_AMDX"),
+Self::PHYSICAL_DEVICE_ANTI_LAG_FEATURES_AMD => Some("PHYSICAL_DEVICE_ANTI_LAG_FEATURES_AMD"),
+Self::ANTI_LAG_DATA_AMD => Some("ANTI_LAG_DATA_AMD"),
+Self::ANTI_LAG_PRESENTATION_INFO_AMD => Some("ANTI_LAG_PRESENTATION_INFO_AMD"),
+Self::PHYSICAL_DEVICE_COHERENT_MEMORY_FEATURES_AMD => Some("PHYSICAL_DEVICE_COHERENT_MEMORY_FEATURES_AMD"),
+Self::DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD => Some("DISPLAY_NATIVE_HDR_SURFACE_CAPABILITIES_AMD"),
+Self::SWAPCHAIN_DISPLAY_NATIVE_HDR_CREATE_INFO_AMD => Some("SWAPCHAIN_DISPLAY_NATIVE_HDR_CREATE_INFO_AMD"),
+Self::PHYSICAL_DEVICE_GPA_FEATURES_AMD => Some("PHYSICAL_DEVICE_GPA_FEATURES_AMD"),
+Self::PHYSICAL_DEVICE_GPA_PROPERTIES_AMD => Some("PHYSICAL_DEVICE_GPA_PROPERTIES_AMD"),
+Self::GPA_SAMPLE_BEGIN_INFO_AMD => Some("GPA_SAMPLE_BEGIN_INFO_AMD"),
+Self::GPA_SESSION_CREATE_INFO_AMD => Some("GPA_SESSION_CREATE_INFO_AMD"),
+Self::GPA_DEVICE_CLOCK_MODE_INFO_AMD => Some("GPA_DEVICE_CLOCK_MODE_INFO_AMD"),
+Self::PHYSICAL_DEVICE_GPA_PROPERTIES_2_AMD => Some("PHYSICAL_DEVICE_GPA_PROPERTIES_2_AMD"),
+Self::GPA_DEVICE_GET_CLOCK_INFO_AMD => Some("GPA_DEVICE_GET_CLOCK_INFO_AMD"),
+Self::DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD => Some("DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD"),
+Self::ATTACHMENT_SAMPLE_COUNT_INFO_AMD => Some("ATTACHMENT_SAMPLE_COUNT_INFO_AMD"),
+Self::PIPELINE_COMPILER_CONTROL_CREATE_INFO_AMD => Some("PIPELINE_COMPILER_CONTROL_CREATE_INFO_AMD"),
+Self::PIPELINE_RASTERIZATION_STATE_RASTERIZATION_ORDER_AMD => Some("PIPELINE_RASTERIZATION_STATE_RASTERIZATION_ORDER_AMD"),
+Self::PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_AMD => Some("PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_AMD"),
+Self::PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_2_AMD => Some("PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_2_AMD"),
+Self::PHYSICAL_DEVICE_SHADER_EARLY_AND_LATE_FRAGMENT_TESTS_FEATURES_AMD => Some("PHYSICAL_DEVICE_SHADER_EARLY_AND_LATE_FRAGMENT_TESTS_FEATURES_AMD"),
+Self::TEXTURE_LOD_GATHER_FORMAT_PROPERTIES_AMD => Some("TEXTURE_LOD_GATHER_FORMAT_PROPERTIES_AMD"),
+Self::PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_FEATURES_ANDROID => Some("PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_FEATURES_ANDROID"),
+Self::PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_PROPERTIES_ANDROID => Some("PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_PROPERTIES_ANDROID"),
+Self::ANDROID_HARDWARE_BUFFER_FORMAT_RESOLVE_PROPERTIES_ANDROID => Some("ANDROID_HARDWARE_BUFFER_FORMAT_RESOLVE_PROPERTIES_ANDROID"),
+Self::ANDROID_HARDWARE_BUFFER_USAGE_ANDROID => Some("ANDROID_HARDWARE_BUFFER_USAGE_ANDROID"),
+Self::ANDROID_HARDWARE_BUFFER_PROPERTIES_ANDROID => Some("ANDROID_HARDWARE_BUFFER_PROPERTIES_ANDROID"),
+Self::ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_ANDROID => Some("ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_ANDROID"),
+Self::IMPORT_ANDROID_HARDWARE_BUFFER_INFO_ANDROID => Some("IMPORT_ANDROID_HARDWARE_BUFFER_INFO_ANDROID"),
+Self::MEMORY_GET_ANDROID_HARDWARE_BUFFER_INFO_ANDROID => Some("MEMORY_GET_ANDROID_HARDWARE_BUFFER_INFO_ANDROID"),
+Self::EXTERNAL_FORMAT_ANDROID => Some("EXTERNAL_FORMAT_ANDROID"),
+Self::ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_2_ANDROID => Some("ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_2_ANDROID"),
+Self::DATA_GRAPH_PIPELINE_CREATE_INFO_ARM => Some("DATA_GRAPH_PIPELINE_CREATE_INFO_ARM"),
+Self::DATA_GRAPH_PIPELINE_SESSION_CREATE_INFO_ARM => Some("DATA_GRAPH_PIPELINE_SESSION_CREATE_INFO_ARM"),
+Self::DATA_GRAPH_PIPELINE_RESOURCE_INFO_ARM => Some("DATA_GRAPH_PIPELINE_RESOURCE_INFO_ARM"),
+Self::DATA_GRAPH_PIPELINE_CONSTANT_ARM => Some("DATA_GRAPH_PIPELINE_CONSTANT_ARM"),
+Self::DATA_GRAPH_PIPELINE_SESSION_MEMORY_REQUIREMENTS_INFO_ARM => Some("DATA_GRAPH_PIPELINE_SESSION_MEMORY_REQUIREMENTS_INFO_ARM"),
+Self::BIND_DATA_GRAPH_PIPELINE_SESSION_MEMORY_INFO_ARM => Some("BIND_DATA_GRAPH_PIPELINE_SESSION_MEMORY_INFO_ARM"),
+Self::PHYSICAL_DEVICE_DATA_GRAPH_FEATURES_ARM => Some("PHYSICAL_DEVICE_DATA_GRAPH_FEATURES_ARM"),
+Self::DATA_GRAPH_PIPELINE_SHADER_MODULE_CREATE_INFO_ARM => Some("DATA_GRAPH_PIPELINE_SHADER_MODULE_CREATE_INFO_ARM"),
+Self::DATA_GRAPH_PIPELINE_PROPERTY_QUERY_RESULT_ARM => Some("DATA_GRAPH_PIPELINE_PROPERTY_QUERY_RESULT_ARM"),
+Self::DATA_GRAPH_PIPELINE_INFO_ARM => Some("DATA_GRAPH_PIPELINE_INFO_ARM"),
+Self::DATA_GRAPH_PIPELINE_COMPILER_CONTROL_CREATE_INFO_ARM => Some("DATA_GRAPH_PIPELINE_COMPILER_CONTROL_CREATE_INFO_ARM"),
+Self::DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENTS_INFO_ARM => Some("DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENTS_INFO_ARM"),
+Self::DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENT_ARM => Some("DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENT_ARM"),
+Self::DATA_GRAPH_PIPELINE_IDENTIFIER_CREATE_INFO_ARM => Some("DATA_GRAPH_PIPELINE_IDENTIFIER_CREATE_INFO_ARM"),
+Self::DATA_GRAPH_PIPELINE_DISPATCH_INFO_ARM => Some("DATA_GRAPH_PIPELINE_DISPATCH_INFO_ARM"),
+Self::DATA_GRAPH_PROCESSING_ENGINE_CREATE_INFO_ARM => Some("DATA_GRAPH_PROCESSING_ENGINE_CREATE_INFO_ARM"),
+Self::QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_PROPERTIES_ARM => Some("QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_PROPERTIES_ARM"),
+Self::QUEUE_FAMILY_DATA_GRAPH_PROPERTIES_ARM => Some("QUEUE_FAMILY_DATA_GRAPH_PROPERTIES_ARM"),
+Self::PHYSICAL_DEVICE_QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_INFO_ARM => Some("PHYSICAL_DEVICE_QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_INFO_ARM"),
+Self::DATA_GRAPH_PIPELINE_CONSTANT_TENSOR_SEMI_STRUCTURED_SPARSITY_INFO_ARM => Some("DATA_GRAPH_PIPELINE_CONSTANT_TENSOR_SEMI_STRUCTURED_SPARSITY_INFO_ARM"),
+Self::QUEUE_FAMILY_DATA_GRAPH_TOSA_PROPERTIES_ARM => Some("QUEUE_FAMILY_DATA_GRAPH_TOSA_PROPERTIES_ARM"),
+Self::DATA_GRAPH_PIPELINE_NEURAL_STATISTICS_CREATE_INFO_ARM => Some("DATA_GRAPH_PIPELINE_NEURAL_STATISTICS_CREATE_INFO_ARM"),
+Self::DATA_GRAPH_PIPELINE_SESSION_NEURAL_STATISTICS_CREATE_INFO_ARM => Some("DATA_GRAPH_PIPELINE_SESSION_NEURAL_STATISTICS_CREATE_INFO_ARM"),
+Self::PHYSICAL_DEVICE_DATA_GRAPH_NEURAL_ACCELERATOR_STATISTICS_FEATURES_ARM => Some("PHYSICAL_DEVICE_DATA_GRAPH_NEURAL_ACCELERATOR_STATISTICS_FEATURES_ARM"),
+Self::PHYSICAL_DEVICE_DATA_GRAPH_OPTICAL_FLOW_FEATURES_ARM => Some("PHYSICAL_DEVICE_DATA_GRAPH_OPTICAL_FLOW_FEATURES_ARM"),
+Self::QUEUE_FAMILY_DATA_GRAPH_OPTICAL_FLOW_PROPERTIES_ARM => Some("QUEUE_FAMILY_DATA_GRAPH_OPTICAL_FLOW_PROPERTIES_ARM"),
+Self::DATA_GRAPH_OPTICAL_FLOW_IMAGE_FORMAT_INFO_ARM => Some("DATA_GRAPH_OPTICAL_FLOW_IMAGE_FORMAT_INFO_ARM"),
+Self::DATA_GRAPH_OPTICAL_FLOW_IMAGE_FORMAT_PROPERTIES_ARM => Some("DATA_GRAPH_OPTICAL_FLOW_IMAGE_FORMAT_PROPERTIES_ARM"),
+Self::DATA_GRAPH_PIPELINE_OPTICAL_FLOW_DISPATCH_INFO_ARM => Some("DATA_GRAPH_PIPELINE_OPTICAL_FLOW_DISPATCH_INFO_ARM"),
+Self::DATA_GRAPH_PIPELINE_OPTICAL_FLOW_CREATE_INFO_ARM => Some("DATA_GRAPH_PIPELINE_OPTICAL_FLOW_CREATE_INFO_ARM"),
+Self::DATA_GRAPH_PIPELINE_RESOURCE_INFO_IMAGE_LAYOUT_ARM => Some("DATA_GRAPH_PIPELINE_RESOURCE_INFO_IMAGE_LAYOUT_ARM"),
+Self::DATA_GRAPH_PIPELINE_SINGLE_NODE_CREATE_INFO_ARM => Some("DATA_GRAPH_PIPELINE_SINGLE_NODE_CREATE_INFO_ARM"),
+Self::DATA_GRAPH_PIPELINE_SINGLE_NODE_CONNECTION_ARM => Some("DATA_GRAPH_PIPELINE_SINGLE_NODE_CONNECTION_ARM"),
+Self::PHYSICAL_DEVICE_FORMAT_PACK_FEATURES_ARM => Some("PHYSICAL_DEVICE_FORMAT_PACK_FEATURES_ARM"),
+Self::PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_FEATURES_ARM => Some("PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_FEATURES_ARM"),
+Self::PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_PROPERTIES_ARM => Some("PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_PROPERTIES_ARM"),
+Self::PERFORMANCE_COUNTER_ARM => Some("PERFORMANCE_COUNTER_ARM"),
+Self::PERFORMANCE_COUNTER_DESCRIPTION_ARM => Some("PERFORMANCE_COUNTER_DESCRIPTION_ARM"),
+Self::RENDER_PASS_PERFORMANCE_COUNTERS_BY_REGION_BEGIN_INFO_ARM => Some("RENDER_PASS_PERFORMANCE_COUNTERS_BY_REGION_BEGIN_INFO_ARM"),
+Self::PHYSICAL_DEVICE_PIPELINE_OPACITY_MICROMAP_FEATURES_ARM => Some("PHYSICAL_DEVICE_PIPELINE_OPACITY_MICROMAP_FEATURES_ARM"),
+Self::PHYSICAL_DEVICE_RENDER_PASS_STRIPED_FEATURES_ARM => Some("PHYSICAL_DEVICE_RENDER_PASS_STRIPED_FEATURES_ARM"),
+Self::PHYSICAL_DEVICE_RENDER_PASS_STRIPED_PROPERTIES_ARM => Some("PHYSICAL_DEVICE_RENDER_PASS_STRIPED_PROPERTIES_ARM"),
+Self::RENDER_PASS_STRIPE_BEGIN_INFO_ARM => Some("RENDER_PASS_STRIPE_BEGIN_INFO_ARM"),
+Self::RENDER_PASS_STRIPE_INFO_ARM => Some("RENDER_PASS_STRIPE_INFO_ARM"),
+Self::RENDER_PASS_STRIPE_SUBMIT_INFO_ARM => Some("RENDER_PASS_STRIPE_SUBMIT_INFO_ARM"),
+Self::DEVICE_QUEUE_SHADER_CORE_CONTROL_CREATE_INFO_ARM => Some("DEVICE_QUEUE_SHADER_CORE_CONTROL_CREATE_INFO_ARM"),
+Self::PHYSICAL_DEVICE_SCHEDULING_CONTROLS_FEATURES_ARM => Some("PHYSICAL_DEVICE_SCHEDULING_CONTROLS_FEATURES_ARM"),
+Self::PHYSICAL_DEVICE_SCHEDULING_CONTROLS_PROPERTIES_ARM => Some("PHYSICAL_DEVICE_SCHEDULING_CONTROLS_PROPERTIES_ARM"),
+Self::DISPATCH_PARAMETERS_ARM => Some("DISPATCH_PARAMETERS_ARM"),
+Self::PHYSICAL_DEVICE_SCHEDULING_CONTROLS_DISPATCH_PARAMETERS_PROPERTIES_ARM => Some("PHYSICAL_DEVICE_SCHEDULING_CONTROLS_DISPATCH_PARAMETERS_PROPERTIES_ARM"),
+Self::PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_FEATURES_ARM => Some("PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_FEATURES_ARM"),
+Self::PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_PROPERTIES_ARM => Some("PHYSICAL_DEVICE_SHADER_CORE_BUILTINS_PROPERTIES_ARM"),
+Self::PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_ARM => Some("PHYSICAL_DEVICE_SHADER_CORE_PROPERTIES_ARM"),
+Self::PHYSICAL_DEVICE_SHADER_INSTRUMENTATION_FEATURES_ARM => Some("PHYSICAL_DEVICE_SHADER_INSTRUMENTATION_FEATURES_ARM"),
+Self::PHYSICAL_DEVICE_SHADER_INSTRUMENTATION_PROPERTIES_ARM => Some("PHYSICAL_DEVICE_SHADER_INSTRUMENTATION_PROPERTIES_ARM"),
+Self::SHADER_INSTRUMENTATION_CREATE_INFO_ARM => Some("SHADER_INSTRUMENTATION_CREATE_INFO_ARM"),
+Self::SHADER_INSTRUMENTATION_METRIC_DESCRIPTION_ARM => Some("SHADER_INSTRUMENTATION_METRIC_DESCRIPTION_ARM"),
+Self::TENSOR_EXPLICIT_TILING_FORMAT_PROPERTIES_ARM => Some("TENSOR_EXPLICIT_TILING_FORMAT_PROPERTIES_ARM"),
+Self::TENSOR_ROLLING_BACKING_CREATE_INFO_ARM => Some("TENSOR_ROLLING_BACKING_CREATE_INFO_ARM"),
+Self::TENSOR_CREATE_INFO_ARM => Some("TENSOR_CREATE_INFO_ARM"),
+Self::TENSOR_VIEW_CREATE_INFO_ARM => Some("TENSOR_VIEW_CREATE_INFO_ARM"),
+Self::BIND_TENSOR_MEMORY_INFO_ARM => Some("BIND_TENSOR_MEMORY_INFO_ARM"),
+Self::WRITE_DESCRIPTOR_SET_TENSOR_ARM => Some("WRITE_DESCRIPTOR_SET_TENSOR_ARM"),
+Self::PHYSICAL_DEVICE_TENSOR_PROPERTIES_ARM => Some("PHYSICAL_DEVICE_TENSOR_PROPERTIES_ARM"),
+Self::TENSOR_FORMAT_PROPERTIES_ARM => Some("TENSOR_FORMAT_PROPERTIES_ARM"),
+Self::TENSOR_DESCRIPTION_ARM => Some("TENSOR_DESCRIPTION_ARM"),
+Self::TENSOR_MEMORY_REQUIREMENTS_INFO_ARM => Some("TENSOR_MEMORY_REQUIREMENTS_INFO_ARM"),
+Self::TENSOR_MEMORY_BARRIER_ARM => Some("TENSOR_MEMORY_BARRIER_ARM"),
+Self::PHYSICAL_DEVICE_TENSOR_FEATURES_ARM => Some("PHYSICAL_DEVICE_TENSOR_FEATURES_ARM"),
+Self::DEVICE_TENSOR_MEMORY_REQUIREMENTS_ARM => Some("DEVICE_TENSOR_MEMORY_REQUIREMENTS_ARM"),
+Self::COPY_TENSOR_INFO_ARM => Some("COPY_TENSOR_INFO_ARM"),
+Self::TENSOR_COPY_ARM => Some("TENSOR_COPY_ARM"),
+Self::TENSOR_DEPENDENCY_INFO_ARM => Some("TENSOR_DEPENDENCY_INFO_ARM"),
+Self::MEMORY_DEDICATED_ALLOCATE_INFO_TENSOR_ARM => Some("MEMORY_DEDICATED_ALLOCATE_INFO_TENSOR_ARM"),
+Self::PHYSICAL_DEVICE_EXTERNAL_TENSOR_INFO_ARM => Some("PHYSICAL_DEVICE_EXTERNAL_TENSOR_INFO_ARM"),
+Self::EXTERNAL_TENSOR_PROPERTIES_ARM => Some("EXTERNAL_TENSOR_PROPERTIES_ARM"),
+Self::EXTERNAL_MEMORY_TENSOR_CREATE_INFO_ARM => Some("EXTERNAL_MEMORY_TENSOR_CREATE_INFO_ARM"),
+Self::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_FEATURES_ARM => Some("PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_FEATURES_ARM"),
+Self::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_PROPERTIES_ARM => Some("PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_PROPERTIES_ARM"),
+Self::DESCRIPTOR_GET_TENSOR_INFO_ARM => Some("DESCRIPTOR_GET_TENSOR_INFO_ARM"),
+Self::TENSOR_CAPTURE_DESCRIPTOR_DATA_INFO_ARM => Some("TENSOR_CAPTURE_DESCRIPTOR_DATA_INFO_ARM"),
+Self::TENSOR_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_ARM => Some("TENSOR_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_ARM"),
+Self::FRAME_BOUNDARY_TENSORS_ARM => Some("FRAME_BOUNDARY_TENSORS_ARM"),
+Self::PHYSICAL_DEVICE_4444_FORMATS_FEATURES_EXT => Some("PHYSICAL_DEVICE_4444_FORMATS_FEATURES_EXT"),
+Self::IMAGE_VIEW_ASTC_DECODE_MODE_EXT => Some("IMAGE_VIEW_ASTC_DECODE_MODE_EXT"),
+Self::PHYSICAL_DEVICE_ASTC_DECODE_FEATURES_EXT => Some("PHYSICAL_DEVICE_ASTC_DECODE_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_DYNAMIC_STATE_FEATURES_EXT => Some("PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_DYNAMIC_STATE_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_LAYOUT_FEATURES_EXT => Some("PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_LAYOUT_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_FEATURES_EXT => Some("PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_PROPERTIES_EXT"),
+Self::PIPELINE_COLOR_BLEND_ADVANCED_STATE_CREATE_INFO_EXT => Some("PIPELINE_COLOR_BLEND_ADVANCED_STATE_CREATE_INFO_EXT"),
+Self::PHYSICAL_DEVICE_BORDER_COLOR_SWIZZLE_FEATURES_EXT => Some("PHYSICAL_DEVICE_BORDER_COLOR_SWIZZLE_FEATURES_EXT"),
+Self::SAMPLER_BORDER_COLOR_COMPONENT_MAPPING_CREATE_INFO_EXT => Some("SAMPLER_BORDER_COLOR_COMPONENT_MAPPING_CREATE_INFO_EXT"),
+Self::PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES_EXT => Some("PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES_EXT"),
+Self::BUFFER_DEVICE_ADDRESS_CREATE_INFO_EXT => Some("BUFFER_DEVICE_ADDRESS_CREATE_INFO_EXT"),
+Self::PHYSICAL_DEVICE_COLOR_WRITE_ENABLE_FEATURES_EXT => Some("PHYSICAL_DEVICE_COLOR_WRITE_ENABLE_FEATURES_EXT"),
+Self::PIPELINE_COLOR_WRITE_CREATE_INFO_EXT => Some("PIPELINE_COLOR_WRITE_CREATE_INFO_EXT"),
+Self::COMMAND_BUFFER_INHERITANCE_CONDITIONAL_RENDERING_INFO_EXT => Some("COMMAND_BUFFER_INHERITANCE_CONDITIONAL_RENDERING_INFO_EXT"),
+Self::PHYSICAL_DEVICE_CONDITIONAL_RENDERING_FEATURES_EXT => Some("PHYSICAL_DEVICE_CONDITIONAL_RENDERING_FEATURES_EXT"),
+Self::CONDITIONAL_RENDERING_BEGIN_INFO_EXT => Some("CONDITIONAL_RENDERING_BEGIN_INFO_EXT"),
+Self::PHYSICAL_DEVICE_CONSERVATIVE_RASTERIZATION_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_CONSERVATIVE_RASTERIZATION_PROPERTIES_EXT"),
+Self::PIPELINE_RASTERIZATION_CONSERVATIVE_STATE_CREATE_INFO_EXT => Some("PIPELINE_RASTERIZATION_CONSERVATIVE_STATE_CREATE_INFO_EXT"),
+Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_MAINTENANCE_1_FEATURES_EXT => Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_MAINTENANCE_1_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_INFO_2_EXT => Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_INFO_2_EXT"),
+Self::COOPERATIVE_MATRIX_PROPERTIES_2_EXT => Some("COOPERATIVE_MATRIX_PROPERTIES_2_EXT"),
+Self::SAMPLER_CUSTOM_BORDER_COLOR_CREATE_INFO_EXT => Some("SAMPLER_CUSTOM_BORDER_COLOR_CREATE_INFO_EXT"),
+Self::PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_PROPERTIES_EXT"),
+Self::PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_FEATURES_EXT => Some("PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_CUSTOM_RESOLVE_FEATURES_EXT => Some("PHYSICAL_DEVICE_CUSTOM_RESOLVE_FEATURES_EXT"),
+Self::BEGIN_CUSTOM_RESOLVE_INFO_EXT => Some("BEGIN_CUSTOM_RESOLVE_INFO_EXT"),
+Self::CUSTOM_RESOLVE_CREATE_INFO_EXT => Some("CUSTOM_RESOLVE_CREATE_INFO_EXT"),
+Self::DEBUG_MARKER_OBJECT_NAME_INFO_EXT => Some("DEBUG_MARKER_OBJECT_NAME_INFO_EXT"),
+Self::DEBUG_MARKER_OBJECT_TAG_INFO_EXT => Some("DEBUG_MARKER_OBJECT_TAG_INFO_EXT"),
+Self::DEBUG_MARKER_MARKER_INFO_EXT => Some("DEBUG_MARKER_MARKER_INFO_EXT"),
+Self::DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT => Some("DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT"),
+Self::DEBUG_UTILS_OBJECT_NAME_INFO_EXT => Some("DEBUG_UTILS_OBJECT_NAME_INFO_EXT"),
+Self::DEBUG_UTILS_OBJECT_TAG_INFO_EXT => Some("DEBUG_UTILS_OBJECT_TAG_INFO_EXT"),
+Self::DEBUG_UTILS_LABEL_EXT => Some("DEBUG_UTILS_LABEL_EXT"),
+Self::DEBUG_UTILS_MESSENGER_CALLBACK_DATA_EXT => Some("DEBUG_UTILS_MESSENGER_CALLBACK_DATA_EXT"),
+Self::DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT => Some("DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT"),
+Self::PHYSICAL_DEVICE_DEPTH_BIAS_CONTROL_FEATURES_EXT => Some("PHYSICAL_DEVICE_DEPTH_BIAS_CONTROL_FEATURES_EXT"),
+Self::DEPTH_BIAS_INFO_EXT => Some("DEPTH_BIAS_INFO_EXT"),
+Self::DEPTH_BIAS_REPRESENTATION_INFO_EXT => Some("DEPTH_BIAS_REPRESENTATION_INFO_EXT"),
+Self::PHYSICAL_DEVICE_DEPTH_CLAMP_CONTROL_FEATURES_EXT => Some("PHYSICAL_DEVICE_DEPTH_CLAMP_CONTROL_FEATURES_EXT"),
+Self::PIPELINE_VIEWPORT_DEPTH_CLAMP_CONTROL_CREATE_INFO_EXT => Some("PIPELINE_VIEWPORT_DEPTH_CLAMP_CONTROL_CREATE_INFO_EXT"),
+Self::PHYSICAL_DEVICE_DEPTH_CLIP_CONTROL_FEATURES_EXT => Some("PHYSICAL_DEVICE_DEPTH_CLIP_CONTROL_FEATURES_EXT"),
+Self::PIPELINE_VIEWPORT_DEPTH_CLIP_CONTROL_CREATE_INFO_EXT => Some("PIPELINE_VIEWPORT_DEPTH_CLIP_CONTROL_CREATE_INFO_EXT"),
+Self::PHYSICAL_DEVICE_DEPTH_CLIP_ENABLE_FEATURES_EXT => Some("PHYSICAL_DEVICE_DEPTH_CLIP_ENABLE_FEATURES_EXT"),
+Self::PIPELINE_RASTERIZATION_DEPTH_CLIP_STATE_CREATE_INFO_EXT => Some("PIPELINE_RASTERIZATION_DEPTH_CLIP_STATE_CREATE_INFO_EXT"),
+Self::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_PROPERTIES_EXT"),
+Self::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_DENSITY_MAP_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_DENSITY_MAP_PROPERTIES_EXT"),
+Self::PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_FEATURES_EXT => Some("PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_FEATURES_EXT"),
+Self::DESCRIPTOR_ADDRESS_INFO_EXT => Some("DESCRIPTOR_ADDRESS_INFO_EXT"),
+Self::DESCRIPTOR_GET_INFO_EXT => Some("DESCRIPTOR_GET_INFO_EXT"),
+Self::BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT => Some("BUFFER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT"),
+Self::IMAGE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT => Some("IMAGE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT"),
+Self::IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT => Some("IMAGE_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_EXT"),
+Self::SAMPLER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT => Some("SAMPLER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT"),
+Self::OPAQUE_CAPTURE_DESCRIPTOR_DATA_CREATE_INFO_EXT => Some("OPAQUE_CAPTURE_DESCRIPTOR_DATA_CREATE_INFO_EXT"),
+Self::DESCRIPTOR_BUFFER_BINDING_INFO_EXT => Some("DESCRIPTOR_BUFFER_BINDING_INFO_EXT"),
+Self::DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT => Some("DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT"),
+Self::ACCELERATION_STRUCTURE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT => Some("ACCELERATION_STRUCTURE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT"),
+Self::TEXEL_BUFFER_DESCRIPTOR_INFO_EXT => Some("TEXEL_BUFFER_DESCRIPTOR_INFO_EXT"),
+Self::IMAGE_DESCRIPTOR_INFO_EXT => Some("IMAGE_DESCRIPTOR_INFO_EXT"),
+Self::RESOURCE_DESCRIPTOR_INFO_EXT => Some("RESOURCE_DESCRIPTOR_INFO_EXT"),
+Self::BIND_HEAP_INFO_EXT => Some("BIND_HEAP_INFO_EXT"),
+Self::PUSH_DATA_INFO_EXT => Some("PUSH_DATA_INFO_EXT"),
+Self::DESCRIPTOR_SET_AND_BINDING_MAPPING_EXT => Some("DESCRIPTOR_SET_AND_BINDING_MAPPING_EXT"),
+Self::SHADER_DESCRIPTOR_SET_AND_BINDING_MAPPING_INFO_EXT => Some("SHADER_DESCRIPTOR_SET_AND_BINDING_MAPPING_INFO_EXT"),
+Self::OPAQUE_CAPTURE_DATA_CREATE_INFO_EXT => Some("OPAQUE_CAPTURE_DATA_CREATE_INFO_EXT"),
+Self::PHYSICAL_DEVICE_DESCRIPTOR_HEAP_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_DESCRIPTOR_HEAP_PROPERTIES_EXT"),
+Self::PHYSICAL_DEVICE_DESCRIPTOR_HEAP_FEATURES_EXT => Some("PHYSICAL_DEVICE_DESCRIPTOR_HEAP_FEATURES_EXT"),
+Self::COMMAND_BUFFER_INHERITANCE_DESCRIPTOR_HEAP_INFO_EXT => Some("COMMAND_BUFFER_INHERITANCE_DESCRIPTOR_HEAP_INFO_EXT"),
+Self::SAMPLER_CUSTOM_BORDER_COLOR_INDEX_CREATE_INFO_EXT => Some("SAMPLER_CUSTOM_BORDER_COLOR_INDEX_CREATE_INFO_EXT"),
+Self::INDIRECT_COMMANDS_LAYOUT_PUSH_DATA_TOKEN_NV => Some("INDIRECT_COMMANDS_LAYOUT_PUSH_DATA_TOKEN_NV"),
+Self::SUBSAMPLED_IMAGE_FORMAT_PROPERTIES_EXT => Some("SUBSAMPLED_IMAGE_FORMAT_PROPERTIES_EXT"),
+Self::PHYSICAL_DEVICE_DESCRIPTOR_HEAP_TENSOR_PROPERTIES_ARM => Some("PHYSICAL_DEVICE_DESCRIPTOR_HEAP_TENSOR_PROPERTIES_ARM"),
+Self::PHYSICAL_DEVICE_ADDRESS_BINDING_REPORT_FEATURES_EXT => Some("PHYSICAL_DEVICE_ADDRESS_BINDING_REPORT_FEATURES_EXT"),
+Self::DEVICE_ADDRESS_BINDING_CALLBACK_DATA_EXT => Some("DEVICE_ADDRESS_BINDING_CALLBACK_DATA_EXT"),
+Self::PHYSICAL_DEVICE_FAULT_FEATURES_EXT => Some("PHYSICAL_DEVICE_FAULT_FEATURES_EXT"),
+Self::DEVICE_FAULT_COUNTS_EXT => Some("DEVICE_FAULT_COUNTS_EXT"),
+Self::DEVICE_FAULT_INFO_EXT => Some("DEVICE_FAULT_INFO_EXT"),
+Self::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_EXT => Some("PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_EXT"),
+Self::GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_EXT => Some("GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_EXT"),
+Self::INDIRECT_EXECUTION_SET_CREATE_INFO_EXT => Some("INDIRECT_EXECUTION_SET_CREATE_INFO_EXT"),
+Self::GENERATED_COMMANDS_INFO_EXT => Some("GENERATED_COMMANDS_INFO_EXT"),
+Self::INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_EXT => Some("INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_EXT"),
+Self::INDIRECT_COMMANDS_LAYOUT_TOKEN_EXT => Some("INDIRECT_COMMANDS_LAYOUT_TOKEN_EXT"),
+Self::WRITE_INDIRECT_EXECUTION_SET_PIPELINE_EXT => Some("WRITE_INDIRECT_EXECUTION_SET_PIPELINE_EXT"),
+Self::WRITE_INDIRECT_EXECUTION_SET_SHADER_EXT => Some("WRITE_INDIRECT_EXECUTION_SET_SHADER_EXT"),
+Self::INDIRECT_EXECUTION_SET_PIPELINE_INFO_EXT => Some("INDIRECT_EXECUTION_SET_PIPELINE_INFO_EXT"),
+Self::INDIRECT_EXECUTION_SET_SHADER_INFO_EXT => Some("INDIRECT_EXECUTION_SET_SHADER_INFO_EXT"),
+Self::INDIRECT_EXECUTION_SET_SHADER_LAYOUT_INFO_EXT => Some("INDIRECT_EXECUTION_SET_SHADER_LAYOUT_INFO_EXT"),
+Self::GENERATED_COMMANDS_PIPELINE_INFO_EXT => Some("GENERATED_COMMANDS_PIPELINE_INFO_EXT"),
+Self::GENERATED_COMMANDS_SHADER_INFO_EXT => Some("GENERATED_COMMANDS_SHADER_INFO_EXT"),
+Self::PHYSICAL_DEVICE_DEVICE_MEMORY_REPORT_FEATURES_EXT => Some("PHYSICAL_DEVICE_DEVICE_MEMORY_REPORT_FEATURES_EXT"),
+Self::DEVICE_DEVICE_MEMORY_REPORT_CREATE_INFO_EXT => Some("DEVICE_DEVICE_MEMORY_REPORT_CREATE_INFO_EXT"),
+Self::DEVICE_MEMORY_REPORT_CALLBACK_DATA_EXT => Some("DEVICE_MEMORY_REPORT_CALLBACK_DATA_EXT"),
+Self::DIRECTFB_SURFACE_CREATE_INFO_EXT => Some("DIRECTFB_SURFACE_CREATE_INFO_EXT"),
+Self::PHYSICAL_DEVICE_DISCARD_RECTANGLE_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_DISCARD_RECTANGLE_PROPERTIES_EXT"),
+Self::PIPELINE_DISCARD_RECTANGLE_STATE_CREATE_INFO_EXT => Some("PIPELINE_DISCARD_RECTANGLE_STATE_CREATE_INFO_EXT"),
+Self::DISPLAY_POWER_INFO_EXT => Some("DISPLAY_POWER_INFO_EXT"),
+Self::DEVICE_EVENT_INFO_EXT => Some("DEVICE_EVENT_INFO_EXT"),
+Self::DISPLAY_EVENT_INFO_EXT => Some("DISPLAY_EVENT_INFO_EXT"),
+Self::SWAPCHAIN_COUNTER_CREATE_INFO_EXT => Some("SWAPCHAIN_COUNTER_CREATE_INFO_EXT"),
+Self::SURFACE_CAPABILITIES_2_EXT => Some("SURFACE_CAPABILITIES_2_EXT"),
+Self::PHYSICAL_DEVICE_DYNAMIC_RENDERING_UNUSED_ATTACHMENTS_FEATURES_EXT => Some("PHYSICAL_DEVICE_DYNAMIC_RENDERING_UNUSED_ATTACHMENTS_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_FEATURES_EXT => Some("PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_2_FEATURES_EXT => Some("PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_2_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_FEATURES_EXT => Some("PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_PROPERTIES_EXT"),
+Self::EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT => Some("EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT"),
+Self::IMPORT_MEMORY_HOST_POINTER_INFO_EXT => Some("IMPORT_MEMORY_HOST_POINTER_INFO_EXT"),
+Self::MEMORY_HOST_POINTER_PROPERTIES_EXT => Some("MEMORY_HOST_POINTER_PROPERTIES_EXT"),
+Self::PHYSICAL_DEVICE_EXTERNAL_MEMORY_HOST_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_EXTERNAL_MEMORY_HOST_PROPERTIES_EXT"),
+Self::IMPORT_MEMORY_METAL_HANDLE_INFO_EXT => Some("IMPORT_MEMORY_METAL_HANDLE_INFO_EXT"),
+Self::MEMORY_METAL_HANDLE_PROPERTIES_EXT => Some("MEMORY_METAL_HANDLE_PROPERTIES_EXT"),
+Self::MEMORY_GET_METAL_HANDLE_INFO_EXT => Some("MEMORY_GET_METAL_HANDLE_INFO_EXT"),
+Self::PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT => Some("PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT"),
+Self::FILTER_CUBIC_IMAGE_VIEW_IMAGE_FORMAT_PROPERTIES_EXT => Some("FILTER_CUBIC_IMAGE_VIEW_IMAGE_FORMAT_PROPERTIES_EXT"),
+Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_FEATURES_EXT => Some("PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_PROPERTIES_EXT"),
+Self::RENDER_PASS_FRAGMENT_DENSITY_MAP_CREATE_INFO_EXT => Some("RENDER_PASS_FRAGMENT_DENSITY_MAP_CREATE_INFO_EXT"),
+Self::RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_INFO_EXT => Some("RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_INFO_EXT"),
+Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_2_FEATURES_EXT => Some("PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_2_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_2_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_2_PROPERTIES_EXT"),
+Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_EXT => Some("PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_EXT"),
+Self::RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT => Some("RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT"),
+Self::PHYSICAL_DEVICE_FRAGMENT_SHADER_INTERLOCK_FEATURES_EXT => Some("PHYSICAL_DEVICE_FRAGMENT_SHADER_INTERLOCK_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_FRAME_BOUNDARY_FEATURES_EXT => Some("PHYSICAL_DEVICE_FRAME_BOUNDARY_FEATURES_EXT"),
+Self::FRAME_BOUNDARY_EXT => Some("FRAME_BOUNDARY_EXT"),
+Self::SURFACE_FULL_SCREEN_EXCLUSIVE_INFO_EXT => Some("SURFACE_FULL_SCREEN_EXCLUSIVE_INFO_EXT"),
+Self::SURFACE_CAPABILITIES_FULL_SCREEN_EXCLUSIVE_EXT => Some("SURFACE_CAPABILITIES_FULL_SCREEN_EXCLUSIVE_EXT"),
+Self::SURFACE_FULL_SCREEN_EXCLUSIVE_WIN32_INFO_EXT => Some("SURFACE_FULL_SCREEN_EXCLUSIVE_WIN32_INFO_EXT"),
+Self::PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_FEATURES_EXT => Some("PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_PROPERTIES_EXT"),
+Self::GRAPHICS_PIPELINE_LIBRARY_CREATE_INFO_EXT => Some("GRAPHICS_PIPELINE_LIBRARY_CREATE_INFO_EXT"),
+Self::HDR_METADATA_EXT => Some("HDR_METADATA_EXT"),
+Self::HEADLESS_SURFACE_CREATE_INFO_EXT => Some("HEADLESS_SURFACE_CREATE_INFO_EXT"),
+Self::PHYSICAL_DEVICE_IMAGE_2D_VIEW_OF_3D_FEATURES_EXT => Some("PHYSICAL_DEVICE_IMAGE_2D_VIEW_OF_3D_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_FEATURES_EXT => Some("PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_FEATURES_EXT"),
+Self::IMAGE_COMPRESSION_CONTROL_EXT => Some("IMAGE_COMPRESSION_CONTROL_EXT"),
+Self::IMAGE_COMPRESSION_PROPERTIES_EXT => Some("IMAGE_COMPRESSION_PROPERTIES_EXT"),
+Self::PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_SWAPCHAIN_FEATURES_EXT => Some("PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_SWAPCHAIN_FEATURES_EXT"),
+Self::DRM_FORMAT_MODIFIER_PROPERTIES_LIST_EXT => Some("DRM_FORMAT_MODIFIER_PROPERTIES_LIST_EXT"),
+Self::PHYSICAL_DEVICE_IMAGE_DRM_FORMAT_MODIFIER_INFO_EXT => Some("PHYSICAL_DEVICE_IMAGE_DRM_FORMAT_MODIFIER_INFO_EXT"),
+Self::IMAGE_DRM_FORMAT_MODIFIER_LIST_CREATE_INFO_EXT => Some("IMAGE_DRM_FORMAT_MODIFIER_LIST_CREATE_INFO_EXT"),
+Self::IMAGE_DRM_FORMAT_MODIFIER_EXPLICIT_CREATE_INFO_EXT => Some("IMAGE_DRM_FORMAT_MODIFIER_EXPLICIT_CREATE_INFO_EXT"),
+Self::IMAGE_DRM_FORMAT_MODIFIER_PROPERTIES_EXT => Some("IMAGE_DRM_FORMAT_MODIFIER_PROPERTIES_EXT"),
+Self::DRM_FORMAT_MODIFIER_PROPERTIES_LIST_2_EXT => Some("DRM_FORMAT_MODIFIER_PROPERTIES_LIST_2_EXT"),
+Self::PHYSICAL_DEVICE_IMAGE_SLICED_VIEW_OF_3D_FEATURES_EXT => Some("PHYSICAL_DEVICE_IMAGE_SLICED_VIEW_OF_3D_FEATURES_EXT"),
+Self::IMAGE_VIEW_SLICED_CREATE_INFO_EXT => Some("IMAGE_VIEW_SLICED_CREATE_INFO_EXT"),
+Self::PHYSICAL_DEVICE_IMAGE_TILING_CONTROL_FEATURES_EXT => Some("PHYSICAL_DEVICE_IMAGE_TILING_CONTROL_FEATURES_EXT"),
+Self::IMAGE_TILING_CONTROL_CREATE_INFO_EXT => Some("IMAGE_TILING_CONTROL_CREATE_INFO_EXT"),
+Self::PHYSICAL_DEVICE_IMAGE_VIEW_MIN_LOD_FEATURES_EXT => Some("PHYSICAL_DEVICE_IMAGE_VIEW_MIN_LOD_FEATURES_EXT"),
+Self::IMAGE_VIEW_MIN_LOD_CREATE_INFO_EXT => Some("IMAGE_VIEW_MIN_LOD_CREATE_INFO_EXT"),
+Self::LAYER_SETTINGS_CREATE_INFO_EXT => Some("LAYER_SETTINGS_CREATE_INFO_EXT"),
+Self::PHYSICAL_DEVICE_LEGACY_DITHERING_FEATURES_EXT => Some("PHYSICAL_DEVICE_LEGACY_DITHERING_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_LEGACY_VERTEX_ATTRIBUTES_FEATURES_EXT => Some("PHYSICAL_DEVICE_LEGACY_VERTEX_ATTRIBUTES_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_LEGACY_VERTEX_ATTRIBUTES_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_LEGACY_VERTEX_ATTRIBUTES_PROPERTIES_EXT"),
+Self::PHYSICAL_DEVICE_MAP_MEMORY_PLACED_FEATURES_EXT => Some("PHYSICAL_DEVICE_MAP_MEMORY_PLACED_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_MAP_MEMORY_PLACED_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_MAP_MEMORY_PLACED_PROPERTIES_EXT"),
+Self::MEMORY_MAP_PLACED_INFO_EXT => Some("MEMORY_MAP_PLACED_INFO_EXT"),
+Self::PHYSICAL_DEVICE_MEMORY_BUDGET_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_MEMORY_BUDGET_PROPERTIES_EXT"),
+Self::PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_EXT => Some("PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_PROPERTIES_EXT"),
+Self::DECOMPRESS_MEMORY_INFO_EXT => Some("DECOMPRESS_MEMORY_INFO_EXT"),
+Self::PHYSICAL_DEVICE_MEMORY_PRIORITY_FEATURES_EXT => Some("PHYSICAL_DEVICE_MEMORY_PRIORITY_FEATURES_EXT"),
+Self::MEMORY_PRIORITY_ALLOCATE_INFO_EXT => Some("MEMORY_PRIORITY_ALLOCATE_INFO_EXT"),
+Self::PHYSICAL_DEVICE_MESH_SHADER_FEATURES_EXT => Some("PHYSICAL_DEVICE_MESH_SHADER_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_EXT"),
+Self::EXPORT_METAL_OBJECT_CREATE_INFO_EXT => Some("EXPORT_METAL_OBJECT_CREATE_INFO_EXT"),
+Self::EXPORT_METAL_OBJECTS_INFO_EXT => Some("EXPORT_METAL_OBJECTS_INFO_EXT"),
+Self::EXPORT_METAL_DEVICE_INFO_EXT => Some("EXPORT_METAL_DEVICE_INFO_EXT"),
+Self::EXPORT_METAL_COMMAND_QUEUE_INFO_EXT => Some("EXPORT_METAL_COMMAND_QUEUE_INFO_EXT"),
+Self::EXPORT_METAL_BUFFER_INFO_EXT => Some("EXPORT_METAL_BUFFER_INFO_EXT"),
+Self::IMPORT_METAL_BUFFER_INFO_EXT => Some("IMPORT_METAL_BUFFER_INFO_EXT"),
+Self::EXPORT_METAL_TEXTURE_INFO_EXT => Some("EXPORT_METAL_TEXTURE_INFO_EXT"),
+Self::IMPORT_METAL_TEXTURE_INFO_EXT => Some("IMPORT_METAL_TEXTURE_INFO_EXT"),
+Self::EXPORT_METAL_IO_SURFACE_INFO_EXT => Some("EXPORT_METAL_IO_SURFACE_INFO_EXT"),
+Self::IMPORT_METAL_IO_SURFACE_INFO_EXT => Some("IMPORT_METAL_IO_SURFACE_INFO_EXT"),
+Self::EXPORT_METAL_SHARED_EVENT_INFO_EXT => Some("EXPORT_METAL_SHARED_EVENT_INFO_EXT"),
+Self::IMPORT_METAL_SHARED_EVENT_INFO_EXT => Some("IMPORT_METAL_SHARED_EVENT_INFO_EXT"),
+Self::METAL_SURFACE_CREATE_INFO_EXT => Some("METAL_SURFACE_CREATE_INFO_EXT"),
+Self::PHYSICAL_DEVICE_MULTI_DRAW_FEATURES_EXT => Some("PHYSICAL_DEVICE_MULTI_DRAW_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_MULTI_DRAW_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_MULTI_DRAW_PROPERTIES_EXT"),
+Self::PHYSICAL_DEVICE_MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_FEATURES_EXT => Some("PHYSICAL_DEVICE_MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_FEATURES_EXT"),
+Self::SUBPASS_RESOLVE_PERFORMANCE_QUERY_EXT => Some("SUBPASS_RESOLVE_PERFORMANCE_QUERY_EXT"),
+Self::MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_INFO_EXT => Some("MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_INFO_EXT"),
+Self::PHYSICAL_DEVICE_MULTISAMPLED_RENDER_TO_SWAPCHAIN_FEATURES_EXT => Some("PHYSICAL_DEVICE_MULTISAMPLED_RENDER_TO_SWAPCHAIN_FEATURES_EXT"),
+Self::SWAPCHAIN_FLAGS_SURFACE_CAPABILITIES_EXT => Some("SWAPCHAIN_FLAGS_SURFACE_CAPABILITIES_EXT"),
+Self::PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT => Some("PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT"),
+Self::MUTABLE_DESCRIPTOR_TYPE_CREATE_INFO_EXT => Some("MUTABLE_DESCRIPTOR_TYPE_CREATE_INFO_EXT"),
+Self::PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_FEATURES_EXT => Some("PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_PROPERTIES_EXT"),
+Self::PHYSICAL_DEVICE_NON_SEAMLESS_CUBE_MAP_FEATURES_EXT => Some("PHYSICAL_DEVICE_NON_SEAMLESS_CUBE_MAP_FEATURES_EXT"),
+Self::MICROMAP_BUILD_INFO_EXT => Some("MICROMAP_BUILD_INFO_EXT"),
+Self::MICROMAP_VERSION_INFO_EXT => Some("MICROMAP_VERSION_INFO_EXT"),
+Self::COPY_MICROMAP_INFO_EXT => Some("COPY_MICROMAP_INFO_EXT"),
+Self::COPY_MICROMAP_TO_MEMORY_INFO_EXT => Some("COPY_MICROMAP_TO_MEMORY_INFO_EXT"),
+Self::COPY_MEMORY_TO_MICROMAP_INFO_EXT => Some("COPY_MEMORY_TO_MICROMAP_INFO_EXT"),
+Self::PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_EXT => Some("PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_OPACITY_MICROMAP_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_OPACITY_MICROMAP_PROPERTIES_EXT"),
+Self::MICROMAP_CREATE_INFO_EXT => Some("MICROMAP_CREATE_INFO_EXT"),
+Self::MICROMAP_BUILD_SIZES_INFO_EXT => Some("MICROMAP_BUILD_SIZES_INFO_EXT"),
+Self::ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_EXT => Some("ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_EXT"),
+Self::PHYSICAL_DEVICE_PAGEABLE_DEVICE_LOCAL_MEMORY_FEATURES_EXT => Some("PHYSICAL_DEVICE_PAGEABLE_DEVICE_LOCAL_MEMORY_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_PCI_BUS_INFO_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_PCI_BUS_INFO_PROPERTIES_EXT"),
+Self::PHYSICAL_DEVICE_DRM_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_DRM_PROPERTIES_EXT"),
+Self::PIPELINE_PROPERTIES_IDENTIFIER_EXT => Some("PIPELINE_PROPERTIES_IDENTIFIER_EXT"),
+Self::PHYSICAL_DEVICE_PIPELINE_PROPERTIES_FEATURES_EXT => Some("PHYSICAL_DEVICE_PIPELINE_PROPERTIES_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_PRESENT_TIMING_FEATURES_EXT => Some("PHYSICAL_DEVICE_PRESENT_TIMING_FEATURES_EXT"),
+Self::SWAPCHAIN_TIMING_PROPERTIES_EXT => Some("SWAPCHAIN_TIMING_PROPERTIES_EXT"),
+Self::SWAPCHAIN_TIME_DOMAIN_PROPERTIES_EXT => Some("SWAPCHAIN_TIME_DOMAIN_PROPERTIES_EXT"),
+Self::PRESENT_TIMINGS_INFO_EXT => Some("PRESENT_TIMINGS_INFO_EXT"),
+Self::PRESENT_TIMING_INFO_EXT => Some("PRESENT_TIMING_INFO_EXT"),
+Self::PAST_PRESENTATION_TIMING_INFO_EXT => Some("PAST_PRESENTATION_TIMING_INFO_EXT"),
+Self::PAST_PRESENTATION_TIMING_PROPERTIES_EXT => Some("PAST_PRESENTATION_TIMING_PROPERTIES_EXT"),
+Self::PAST_PRESENTATION_TIMING_EXT => Some("PAST_PRESENTATION_TIMING_EXT"),
+Self::PRESENT_TIMING_SURFACE_CAPABILITIES_EXT => Some("PRESENT_TIMING_SURFACE_CAPABILITIES_EXT"),
+Self::SWAPCHAIN_CALIBRATED_TIMESTAMP_INFO_EXT => Some("SWAPCHAIN_CALIBRATED_TIMESTAMP_INFO_EXT"),
+Self::PHYSICAL_DEVICE_PRIMITIVE_RESTART_INDEX_FEATURES_EXT => Some("PHYSICAL_DEVICE_PRIMITIVE_RESTART_INDEX_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_PRIMITIVE_TOPOLOGY_LIST_RESTART_FEATURES_EXT => Some("PHYSICAL_DEVICE_PRIMITIVE_TOPOLOGY_LIST_RESTART_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_PRIMITIVES_GENERATED_QUERY_FEATURES_EXT => Some("PHYSICAL_DEVICE_PRIMITIVES_GENERATED_QUERY_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_PROVOKING_VERTEX_FEATURES_EXT => Some("PHYSICAL_DEVICE_PROVOKING_VERTEX_FEATURES_EXT"),
+Self::PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT => Some("PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT"),
+Self::PHYSICAL_DEVICE_PROVOKING_VERTEX_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_PROVOKING_VERTEX_PROPERTIES_EXT"),
+Self::PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT => Some("PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_EXT => Some("PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_EXT"),
+Self::PHYSICAL_DEVICE_RGBA10X6_FORMATS_FEATURES_EXT => Some("PHYSICAL_DEVICE_RGBA10X6_FORMATS_FEATURES_EXT"),
+Self::SAMPLE_LOCATIONS_INFO_EXT => Some("SAMPLE_LOCATIONS_INFO_EXT"),
+Self::RENDER_PASS_SAMPLE_LOCATIONS_BEGIN_INFO_EXT => Some("RENDER_PASS_SAMPLE_LOCATIONS_BEGIN_INFO_EXT"),
+Self::PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT => Some("PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT"),
+Self::PHYSICAL_DEVICE_SAMPLE_LOCATIONS_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_SAMPLE_LOCATIONS_PROPERTIES_EXT"),
+Self::MULTISAMPLE_PROPERTIES_EXT => Some("MULTISAMPLE_PROPERTIES_EXT"),
+Self::PHYSICAL_DEVICE_SHADER_64_BIT_INDEXING_FEATURES_EXT => Some("PHYSICAL_DEVICE_SHADER_64_BIT_INDEXING_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_FEATURES_EXT => Some("PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_2_FEATURES_EXT => Some("PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_2_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_SHADER_FLOAT8_FEATURES_EXT => Some("PHYSICAL_DEVICE_SHADER_FLOAT8_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_SHADER_IMAGE_ATOMIC_INT64_FEATURES_EXT => Some("PHYSICAL_DEVICE_SHADER_IMAGE_ATOMIC_INT64_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_SHADER_LONG_VECTOR_FEATURES_EXT => Some("PHYSICAL_DEVICE_SHADER_LONG_VECTOR_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_SHADER_LONG_VECTOR_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_SHADER_LONG_VECTOR_PROPERTIES_EXT"),
+Self::PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_FEATURES_EXT => Some("PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_PROPERTIES_EXT"),
+Self::PIPELINE_SHADER_STAGE_MODULE_IDENTIFIER_CREATE_INFO_EXT => Some("PIPELINE_SHADER_STAGE_MODULE_IDENTIFIER_CREATE_INFO_EXT"),
+Self::SHADER_MODULE_IDENTIFIER_EXT => Some("SHADER_MODULE_IDENTIFIER_EXT"),
+Self::PHYSICAL_DEVICE_SHADER_OBJECT_FEATURES_EXT => Some("PHYSICAL_DEVICE_SHADER_OBJECT_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_SHADER_OBJECT_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_SHADER_OBJECT_PROPERTIES_EXT"),
+Self::SHADER_CREATE_INFO_EXT => Some("SHADER_CREATE_INFO_EXT"),
+Self::VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT => Some("VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT"),
+Self::VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT => Some("VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT"),
+Self::PHYSICAL_DEVICE_SHADER_OCP_MICROSCALING_TYPES_FEATURES_EXT => Some("PHYSICAL_DEVICE_SHADER_OCP_MICROSCALING_TYPES_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_SHADER_REPLICATED_COMPOSITES_FEATURES_EXT => Some("PHYSICAL_DEVICE_SHADER_REPLICATED_COMPOSITES_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_SHADER_SPLIT_BARRIER_FEATURES_EXT => Some("PHYSICAL_DEVICE_SHADER_SPLIT_BARRIER_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_SHADER_SPLIT_BARRIER_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_SHADER_SPLIT_BARRIER_PROPERTIES_EXT"),
+Self::PHYSICAL_DEVICE_SHADER_SUBGROUP_PARTITIONED_FEATURES_EXT => Some("PHYSICAL_DEVICE_SHADER_SUBGROUP_PARTITIONED_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_SHADER_TILE_IMAGE_FEATURES_EXT => Some("PHYSICAL_DEVICE_SHADER_TILE_IMAGE_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_SHADER_TILE_IMAGE_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_SHADER_TILE_IMAGE_PROPERTIES_EXT"),
+Self::PHYSICAL_DEVICE_SHADER_UNIFORM_BUFFER_UNSIZED_ARRAY_FEATURES_EXT => Some("PHYSICAL_DEVICE_SHADER_UNIFORM_BUFFER_UNSIZED_ARRAY_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_SUBPASS_MERGE_FEEDBACK_FEATURES_EXT => Some("PHYSICAL_DEVICE_SUBPASS_MERGE_FEEDBACK_FEATURES_EXT"),
+Self::RENDER_PASS_CREATION_CONTROL_EXT => Some("RENDER_PASS_CREATION_CONTROL_EXT"),
+Self::RENDER_PASS_CREATION_FEEDBACK_CREATE_INFO_EXT => Some("RENDER_PASS_CREATION_FEEDBACK_CREATE_INFO_EXT"),
+Self::RENDER_PASS_SUBPASS_FEEDBACK_CREATE_INFO_EXT => Some("RENDER_PASS_SUBPASS_FEEDBACK_CREATE_INFO_EXT"),
+Self::PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_FEATURES_EXT => Some("PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_3D_FEATURES_EXT => Some("PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_3D_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_TRANSFORM_FEEDBACK_FEATURES_EXT => Some("PHYSICAL_DEVICE_TRANSFORM_FEEDBACK_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_TRANSFORM_FEEDBACK_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_TRANSFORM_FEEDBACK_PROPERTIES_EXT"),
+Self::PIPELINE_RASTERIZATION_STATE_STREAM_CREATE_INFO_EXT => Some("PIPELINE_RASTERIZATION_STATE_STREAM_CREATE_INFO_EXT"),
+Self::VALIDATION_CACHE_CREATE_INFO_EXT => Some("VALIDATION_CACHE_CREATE_INFO_EXT"),
+Self::SHADER_MODULE_VALIDATION_CACHE_CREATE_INFO_EXT => Some("SHADER_MODULE_VALIDATION_CACHE_CREATE_INFO_EXT"),
+Self::VALIDATION_FEATURES_EXT => Some("VALIDATION_FEATURES_EXT"),
+Self::VALIDATION_FLAGS_EXT => Some("VALIDATION_FLAGS_EXT"),
+Self::PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES_EXT => Some("PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES_EXT"),
+Self::PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_ROBUSTNESS_FEATURES_EXT => Some("PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_ROBUSTNESS_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_VERTEX_INPUT_DYNAMIC_STATE_FEATURES_EXT => Some("PHYSICAL_DEVICE_VERTEX_INPUT_DYNAMIC_STATE_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_YCBCR_2_PLANE_444_FORMATS_FEATURES_EXT => Some("PHYSICAL_DEVICE_YCBCR_2_PLANE_444_FORMATS_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_YCBCR_IMAGE_ARRAYS_FEATURES_EXT => Some("PHYSICAL_DEVICE_YCBCR_IMAGE_ARRAYS_FEATURES_EXT"),
+Self::PHYSICAL_DEVICE_ZERO_INITIALIZE_DEVICE_MEMORY_FEATURES_EXT => Some("PHYSICAL_DEVICE_ZERO_INITIALIZE_DEVICE_MEMORY_FEATURES_EXT"),
+Self::BUFFER_COLLECTION_CREATE_INFO_FUCHSIA => Some("BUFFER_COLLECTION_CREATE_INFO_FUCHSIA"),
+Self::IMPORT_MEMORY_BUFFER_COLLECTION_FUCHSIA => Some("IMPORT_MEMORY_BUFFER_COLLECTION_FUCHSIA"),
+Self::BUFFER_COLLECTION_IMAGE_CREATE_INFO_FUCHSIA => Some("BUFFER_COLLECTION_IMAGE_CREATE_INFO_FUCHSIA"),
+Self::BUFFER_COLLECTION_PROPERTIES_FUCHSIA => Some("BUFFER_COLLECTION_PROPERTIES_FUCHSIA"),
+Self::BUFFER_CONSTRAINTS_INFO_FUCHSIA => Some("BUFFER_CONSTRAINTS_INFO_FUCHSIA"),
+Self::BUFFER_COLLECTION_BUFFER_CREATE_INFO_FUCHSIA => Some("BUFFER_COLLECTION_BUFFER_CREATE_INFO_FUCHSIA"),
+Self::IMAGE_CONSTRAINTS_INFO_FUCHSIA => Some("IMAGE_CONSTRAINTS_INFO_FUCHSIA"),
+Self::IMAGE_FORMAT_CONSTRAINTS_INFO_FUCHSIA => Some("IMAGE_FORMAT_CONSTRAINTS_INFO_FUCHSIA"),
+Self::SYSMEM_COLOR_SPACE_FUCHSIA => Some("SYSMEM_COLOR_SPACE_FUCHSIA"),
+Self::BUFFER_COLLECTION_CONSTRAINTS_INFO_FUCHSIA => Some("BUFFER_COLLECTION_CONSTRAINTS_INFO_FUCHSIA"),
+Self::IMPORT_MEMORY_ZIRCON_HANDLE_INFO_FUCHSIA => Some("IMPORT_MEMORY_ZIRCON_HANDLE_INFO_FUCHSIA"),
+Self::MEMORY_ZIRCON_HANDLE_PROPERTIES_FUCHSIA => Some("MEMORY_ZIRCON_HANDLE_PROPERTIES_FUCHSIA"),
+Self::MEMORY_GET_ZIRCON_HANDLE_INFO_FUCHSIA => Some("MEMORY_GET_ZIRCON_HANDLE_INFO_FUCHSIA"),
+Self::IMPORT_SEMAPHORE_ZIRCON_HANDLE_INFO_FUCHSIA => Some("IMPORT_SEMAPHORE_ZIRCON_HANDLE_INFO_FUCHSIA"),
+Self::SEMAPHORE_GET_ZIRCON_HANDLE_INFO_FUCHSIA => Some("SEMAPHORE_GET_ZIRCON_HANDLE_INFO_FUCHSIA"),
+Self::IMAGEPIPE_SURFACE_CREATE_INFO_FUCHSIA => Some("IMAGEPIPE_SURFACE_CREATE_INFO_FUCHSIA"),
+Self::PRESENT_FRAME_TOKEN_GGP => Some("PRESENT_FRAME_TOKEN_GGP"),
+Self::STREAM_DESCRIPTOR_SURFACE_CREATE_INFO_GGP => Some("STREAM_DESCRIPTOR_SURFACE_CREATE_INFO_GGP"),
+Self::PRESENT_TIMES_INFO_GOOGLE => Some("PRESENT_TIMES_INFO_GOOGLE"),
+Self::PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_FEATURES_HUAWEI => Some("PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_FEATURES_HUAWEI"),
+Self::PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_PROPERTIES_HUAWEI => Some("PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_PROPERTIES_HUAWEI"),
+Self::PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_VRS_FEATURES_HUAWEI => Some("PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_VRS_FEATURES_HUAWEI"),
+Self::PHYSICAL_DEVICE_HDR_VIVID_FEATURES_HUAWEI => Some("PHYSICAL_DEVICE_HDR_VIVID_FEATURES_HUAWEI"),
+Self::HDR_VIVID_DYNAMIC_METADATA_HUAWEI => Some("HDR_VIVID_DYNAMIC_METADATA_HUAWEI"),
+Self::PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI => Some("PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI"),
+Self::SUBPASS_SHADING_PIPELINE_CREATE_INFO_HUAWEI => Some("SUBPASS_SHADING_PIPELINE_CREATE_INFO_HUAWEI"),
+Self::PHYSICAL_DEVICE_SUBPASS_SHADING_FEATURES_HUAWEI => Some("PHYSICAL_DEVICE_SUBPASS_SHADING_FEATURES_HUAWEI"),
+Self::PHYSICAL_DEVICE_SUBPASS_SHADING_PROPERTIES_HUAWEI => Some("PHYSICAL_DEVICE_SUBPASS_SHADING_PROPERTIES_HUAWEI"),
+Self::PHYSICAL_DEVICE_RELAXED_LINE_RASTERIZATION_FEATURES_IMG => Some("PHYSICAL_DEVICE_RELAXED_LINE_RASTERIZATION_FEATURES_IMG"),
+Self::QUERY_POOL_PERFORMANCE_QUERY_CREATE_INFO_INTEL => Some("QUERY_POOL_PERFORMANCE_QUERY_CREATE_INFO_INTEL"),
+Self::INITIALIZE_PERFORMANCE_API_INFO_INTEL => Some("INITIALIZE_PERFORMANCE_API_INFO_INTEL"),
+Self::PERFORMANCE_MARKER_INFO_INTEL => Some("PERFORMANCE_MARKER_INFO_INTEL"),
+Self::PERFORMANCE_STREAM_MARKER_INFO_INTEL => Some("PERFORMANCE_STREAM_MARKER_INFO_INTEL"),
+Self::PERFORMANCE_OVERRIDE_INFO_INTEL => Some("PERFORMANCE_OVERRIDE_INFO_INTEL"),
+Self::PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL => Some("PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL"),
+Self::PHYSICAL_DEVICE_SHADER_INTEGER_FUNCTIONS_2_FEATURES_INTEL => Some("PHYSICAL_DEVICE_SHADER_INTEGER_FUNCTIONS_2_FEATURES_INTEL"),
+Self::WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_KHR => Some("WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_KHR"),
+Self::ACCELERATION_STRUCTURE_BUILD_GEOMETRY_INFO_KHR => Some("ACCELERATION_STRUCTURE_BUILD_GEOMETRY_INFO_KHR"),
+Self::ACCELERATION_STRUCTURE_DEVICE_ADDRESS_INFO_KHR => Some("ACCELERATION_STRUCTURE_DEVICE_ADDRESS_INFO_KHR"),
+Self::ACCELERATION_STRUCTURE_GEOMETRY_AABBS_DATA_KHR => Some("ACCELERATION_STRUCTURE_GEOMETRY_AABBS_DATA_KHR"),
+Self::ACCELERATION_STRUCTURE_GEOMETRY_INSTANCES_DATA_KHR => Some("ACCELERATION_STRUCTURE_GEOMETRY_INSTANCES_DATA_KHR"),
+Self::ACCELERATION_STRUCTURE_GEOMETRY_TRIANGLES_DATA_KHR => Some("ACCELERATION_STRUCTURE_GEOMETRY_TRIANGLES_DATA_KHR"),
+Self::ACCELERATION_STRUCTURE_GEOMETRY_KHR => Some("ACCELERATION_STRUCTURE_GEOMETRY_KHR"),
+Self::ACCELERATION_STRUCTURE_VERSION_INFO_KHR => Some("ACCELERATION_STRUCTURE_VERSION_INFO_KHR"),
+Self::COPY_ACCELERATION_STRUCTURE_INFO_KHR => Some("COPY_ACCELERATION_STRUCTURE_INFO_KHR"),
+Self::COPY_ACCELERATION_STRUCTURE_TO_MEMORY_INFO_KHR => Some("COPY_ACCELERATION_STRUCTURE_TO_MEMORY_INFO_KHR"),
+Self::COPY_MEMORY_TO_ACCELERATION_STRUCTURE_INFO_KHR => Some("COPY_MEMORY_TO_ACCELERATION_STRUCTURE_INFO_KHR"),
+Self::PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_FEATURES_KHR => Some("PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_FEATURES_KHR"),
+Self::PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_PROPERTIES_KHR => Some("PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_PROPERTIES_KHR"),
+Self::ACCELERATION_STRUCTURE_CREATE_INFO_KHR => Some("ACCELERATION_STRUCTURE_CREATE_INFO_KHR"),
+Self::ACCELERATION_STRUCTURE_BUILD_SIZES_INFO_KHR => Some("ACCELERATION_STRUCTURE_BUILD_SIZES_INFO_KHR"),
+Self::ANDROID_SURFACE_CREATE_INFO_KHR => Some("ANDROID_SURFACE_CREATE_INFO_KHR"),
+Self::CALIBRATED_TIMESTAMP_INFO_KHR => Some("CALIBRATED_TIMESTAMP_INFO_KHR"),
+Self::PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_FEATURES_KHR => Some("PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_FEATURES_KHR"),
+Self::PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_PROPERTIES_KHR => Some("PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_PROPERTIES_KHR"),
+Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_KHR => Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_KHR"),
+Self::COOPERATIVE_MATRIX_PROPERTIES_KHR => Some("COOPERATIVE_MATRIX_PROPERTIES_KHR"),
+Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_KHR => Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_KHR"),
+Self::PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_KHR => Some("PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_KHR"),
+Self::PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR => Some("PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR"),
+Self::COPY_MEMORY_INDIRECT_INFO_KHR => Some("COPY_MEMORY_INDIRECT_INFO_KHR"),
+Self::COPY_MEMORY_TO_IMAGE_INDIRECT_INFO_KHR => Some("COPY_MEMORY_TO_IMAGE_INDIRECT_INFO_KHR"),
+Self::PHYSICAL_DEVICE_DEPTH_CLAMP_ZERO_ONE_FEATURES_KHR => Some("PHYSICAL_DEVICE_DEPTH_CLAMP_ZERO_ONE_FEATURES_KHR"),
+Self::DEVICE_MEMORY_COPY_KHR => Some("DEVICE_MEMORY_COPY_KHR"),
+Self::COPY_DEVICE_MEMORY_INFO_KHR => Some("COPY_DEVICE_MEMORY_INFO_KHR"),
+Self::DEVICE_MEMORY_IMAGE_COPY_KHR => Some("DEVICE_MEMORY_IMAGE_COPY_KHR"),
+Self::COPY_DEVICE_MEMORY_IMAGE_INFO_KHR => Some("COPY_DEVICE_MEMORY_IMAGE_INFO_KHR"),
+Self::MEMORY_RANGE_BARRIERS_INFO_KHR => Some("MEMORY_RANGE_BARRIERS_INFO_KHR"),
+Self::MEMORY_RANGE_BARRIER_KHR => Some("MEMORY_RANGE_BARRIER_KHR"),
+Self::PHYSICAL_DEVICE_DEVICE_ADDRESS_COMMANDS_FEATURES_KHR => Some("PHYSICAL_DEVICE_DEVICE_ADDRESS_COMMANDS_FEATURES_KHR"),
+Self::BIND_INDEX_BUFFER_3_INFO_KHR => Some("BIND_INDEX_BUFFER_3_INFO_KHR"),
+Self::BIND_VERTEX_BUFFER_3_INFO_KHR => Some("BIND_VERTEX_BUFFER_3_INFO_KHR"),
+Self::DRAW_INDIRECT_2_INFO_KHR => Some("DRAW_INDIRECT_2_INFO_KHR"),
+Self::DRAW_INDIRECT_COUNT_2_INFO_KHR => Some("DRAW_INDIRECT_COUNT_2_INFO_KHR"),
+Self::DISPATCH_INDIRECT_2_INFO_KHR => Some("DISPATCH_INDIRECT_2_INFO_KHR"),
+Self::CONDITIONAL_RENDERING_BEGIN_INFO_2_EXT => Some("CONDITIONAL_RENDERING_BEGIN_INFO_2_EXT"),
+Self::BIND_TRANSFORM_FEEDBACK_BUFFER_2_INFO_EXT => Some("BIND_TRANSFORM_FEEDBACK_BUFFER_2_INFO_EXT"),
+Self::MEMORY_MARKER_INFO_AMD => Some("MEMORY_MARKER_INFO_AMD"),
+Self::ACCELERATION_STRUCTURE_CREATE_INFO_2_KHR => Some("ACCELERATION_STRUCTURE_CREATE_INFO_2_KHR"),
+Self::PHYSICAL_DEVICE_FAULT_FEATURES_KHR => Some("PHYSICAL_DEVICE_FAULT_FEATURES_KHR"),
+Self::PHYSICAL_DEVICE_FAULT_PROPERTIES_KHR => Some("PHYSICAL_DEVICE_FAULT_PROPERTIES_KHR"),
+Self::DEVICE_FAULT_INFO_KHR => Some("DEVICE_FAULT_INFO_KHR"),
+Self::DEVICE_FAULT_DEBUG_INFO_KHR => Some("DEVICE_FAULT_DEBUG_INFO_KHR"),
+Self::DEVICE_GROUP_PRESENT_CAPABILITIES_KHR => Some("DEVICE_GROUP_PRESENT_CAPABILITIES_KHR"),
+Self::IMAGE_SWAPCHAIN_CREATE_INFO_KHR => Some("IMAGE_SWAPCHAIN_CREATE_INFO_KHR"),
+Self::BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR => Some("BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR"),
+Self::ACQUIRE_NEXT_IMAGE_INFO_KHR => Some("ACQUIRE_NEXT_IMAGE_INFO_KHR"),
+Self::DEVICE_GROUP_PRESENT_INFO_KHR => Some("DEVICE_GROUP_PRESENT_INFO_KHR"),
+Self::DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR => Some("DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR"),
+Self::DISPLAY_MODE_CREATE_INFO_KHR => Some("DISPLAY_MODE_CREATE_INFO_KHR"),
+Self::DISPLAY_SURFACE_CREATE_INFO_KHR => Some("DISPLAY_SURFACE_CREATE_INFO_KHR"),
+Self::DISPLAY_PRESENT_INFO_KHR => Some("DISPLAY_PRESENT_INFO_KHR"),
+Self::FORMAT_PROPERTIES_4_KHR => Some("FORMAT_PROPERTIES_4_KHR"),
+Self::IMAGE_CREATE_FLAGS_2_CREATE_INFO_KHR => Some("IMAGE_CREATE_FLAGS_2_CREATE_INFO_KHR"),
+Self::IMAGE_USAGE_FLAGS_2_CREATE_INFO_KHR => Some("IMAGE_USAGE_FLAGS_2_CREATE_INFO_KHR"),
+Self::IMAGE_VIEW_USAGE_2_CREATE_INFO_KHR => Some("IMAGE_VIEW_USAGE_2_CREATE_INFO_KHR"),
+Self::PHYSICAL_DEVICE_EXTENDED_FLAGS_FEATURES_KHR => Some("PHYSICAL_DEVICE_EXTENDED_FLAGS_FEATURES_KHR"),
+Self::IMAGE_STENCIL_USAGE_2_CREATE_INFO_KHR => Some("IMAGE_STENCIL_USAGE_2_CREATE_INFO_KHR"),
+Self::SHARED_PRESENT_SURFACE_CAPABILITIES_2_KHR => Some("SHARED_PRESENT_SURFACE_CAPABILITIES_2_KHR"),
+Self::IMPORT_FENCE_FD_INFO_KHR => Some("IMPORT_FENCE_FD_INFO_KHR"),
+Self::FENCE_GET_FD_INFO_KHR => Some("FENCE_GET_FD_INFO_KHR"),
+Self::IMPORT_FENCE_WIN32_HANDLE_INFO_KHR => Some("IMPORT_FENCE_WIN32_HANDLE_INFO_KHR"),
+Self::EXPORT_FENCE_WIN32_HANDLE_INFO_KHR => Some("EXPORT_FENCE_WIN32_HANDLE_INFO_KHR"),
+Self::FENCE_GET_WIN32_HANDLE_INFO_KHR => Some("FENCE_GET_WIN32_HANDLE_INFO_KHR"),
+Self::IMPORT_MEMORY_FD_INFO_KHR => Some("IMPORT_MEMORY_FD_INFO_KHR"),
+Self::MEMORY_FD_PROPERTIES_KHR => Some("MEMORY_FD_PROPERTIES_KHR"),
+Self::MEMORY_GET_FD_INFO_KHR => Some("MEMORY_GET_FD_INFO_KHR"),
+Self::IMPORT_MEMORY_WIN32_HANDLE_INFO_KHR => Some("IMPORT_MEMORY_WIN32_HANDLE_INFO_KHR"),
+Self::EXPORT_MEMORY_WIN32_HANDLE_INFO_KHR => Some("EXPORT_MEMORY_WIN32_HANDLE_INFO_KHR"),
+Self::MEMORY_WIN32_HANDLE_PROPERTIES_KHR => Some("MEMORY_WIN32_HANDLE_PROPERTIES_KHR"),
+Self::MEMORY_GET_WIN32_HANDLE_INFO_KHR => Some("MEMORY_GET_WIN32_HANDLE_INFO_KHR"),
+Self::IMPORT_SEMAPHORE_FD_INFO_KHR => Some("IMPORT_SEMAPHORE_FD_INFO_KHR"),
+Self::SEMAPHORE_GET_FD_INFO_KHR => Some("SEMAPHORE_GET_FD_INFO_KHR"),
+Self::IMPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR => Some("IMPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR"),
+Self::EXPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR => Some("EXPORT_SEMAPHORE_WIN32_HANDLE_INFO_KHR"),
+Self::D3D12_FENCE_SUBMIT_INFO_KHR => Some("D3D12_FENCE_SUBMIT_INFO_KHR"),
+Self::SEMAPHORE_GET_WIN32_HANDLE_INFO_KHR => Some("SEMAPHORE_GET_WIN32_HANDLE_INFO_KHR"),
+Self::PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_FEATURES_KHR => Some("PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_FEATURES_KHR"),
+Self::PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_PROPERTIES_KHR => Some("PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_PROPERTIES_KHR"),
+Self::FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR => Some("FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR"),
+Self::PIPELINE_FRAGMENT_SHADING_RATE_STATE_CREATE_INFO_KHR => Some("PIPELINE_FRAGMENT_SHADING_RATE_STATE_CREATE_INFO_KHR"),
+Self::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_PROPERTIES_KHR => Some("PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_PROPERTIES_KHR"),
+Self::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_FEATURES_KHR => Some("PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_FEATURES_KHR"),
+Self::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR => Some("PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR"),
+Self::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR => Some("RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR"),
+Self::DISPLAY_PROPERTIES_2_KHR => Some("DISPLAY_PROPERTIES_2_KHR"),
+Self::DISPLAY_PLANE_PROPERTIES_2_KHR => Some("DISPLAY_PLANE_PROPERTIES_2_KHR"),
+Self::DISPLAY_MODE_PROPERTIES_2_KHR => Some("DISPLAY_MODE_PROPERTIES_2_KHR"),
+Self::DISPLAY_PLANE_INFO_2_KHR => Some("DISPLAY_PLANE_INFO_2_KHR"),
+Self::DISPLAY_PLANE_CAPABILITIES_2_KHR => Some("DISPLAY_PLANE_CAPABILITIES_2_KHR"),
+Self::PHYSICAL_DEVICE_SURFACE_INFO_2_KHR => Some("PHYSICAL_DEVICE_SURFACE_INFO_2_KHR"),
+Self::SURFACE_CAPABILITIES_2_KHR => Some("SURFACE_CAPABILITIES_2_KHR"),
+Self::SURFACE_FORMAT_2_KHR => Some("SURFACE_FORMAT_2_KHR"),
+Self::PRESENT_REGIONS_KHR => Some("PRESENT_REGIONS_KHR"),
+Self::PHYSICAL_DEVICE_INTERNALLY_SYNCHRONIZED_QUEUES_FEATURES_KHR => Some("PHYSICAL_DEVICE_INTERNALLY_SYNCHRONIZED_QUEUES_FEATURES_KHR"),
+Self::PHYSICAL_DEVICE_MAINTENANCE_10_FEATURES_KHR => Some("PHYSICAL_DEVICE_MAINTENANCE_10_FEATURES_KHR"),
+Self::PHYSICAL_DEVICE_MAINTENANCE_10_PROPERTIES_KHR => Some("PHYSICAL_DEVICE_MAINTENANCE_10_PROPERTIES_KHR"),
+Self::RENDERING_ATTACHMENT_FLAGS_INFO_KHR => Some("RENDERING_ATTACHMENT_FLAGS_INFO_KHR"),
+Self::RENDERING_END_INFO_KHR => Some("RENDERING_END_INFO_KHR"),
+Self::RESOLVE_IMAGE_MODE_INFO_KHR => Some("RESOLVE_IMAGE_MODE_INFO_KHR"),
+Self::PHYSICAL_DEVICE_MAINTENANCE_11_FEATURES_KHR => Some("PHYSICAL_DEVICE_MAINTENANCE_11_FEATURES_KHR"),
+Self::QUEUE_FAMILY_OPTIMAL_IMAGE_TRANSFER_GRANULARITY_PROPERTIES_KHR => Some("QUEUE_FAMILY_OPTIMAL_IMAGE_TRANSFER_GRANULARITY_PROPERTIES_KHR"),
+Self::SET_DESCRIPTOR_BUFFER_OFFSETS_INFO_EXT => Some("SET_DESCRIPTOR_BUFFER_OFFSETS_INFO_EXT"),
+Self::BIND_DESCRIPTOR_BUFFER_EMBEDDED_SAMPLERS_INFO_EXT => Some("BIND_DESCRIPTOR_BUFFER_EMBEDDED_SAMPLERS_INFO_EXT"),
+Self::PHYSICAL_DEVICE_MAINTENANCE_7_FEATURES_KHR => Some("PHYSICAL_DEVICE_MAINTENANCE_7_FEATURES_KHR"),
+Self::PHYSICAL_DEVICE_MAINTENANCE_7_PROPERTIES_KHR => Some("PHYSICAL_DEVICE_MAINTENANCE_7_PROPERTIES_KHR"),
+Self::PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_LIST_KHR => Some("PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_LIST_KHR"),
+Self::PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_KHR => Some("PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_KHR"),
+Self::PHYSICAL_DEVICE_LAYERED_API_VULKAN_PROPERTIES_KHR => Some("PHYSICAL_DEVICE_LAYERED_API_VULKAN_PROPERTIES_KHR"),
+Self::PHYSICAL_DEVICE_MAINTENANCE_8_FEATURES_KHR => Some("PHYSICAL_DEVICE_MAINTENANCE_8_FEATURES_KHR"),
+Self::MEMORY_BARRIER_ACCESS_FLAGS_3_KHR => Some("MEMORY_BARRIER_ACCESS_FLAGS_3_KHR"),
+Self::PHYSICAL_DEVICE_MAINTENANCE_9_FEATURES_KHR => Some("PHYSICAL_DEVICE_MAINTENANCE_9_FEATURES_KHR"),
+Self::PHYSICAL_DEVICE_MAINTENANCE_9_PROPERTIES_KHR => Some("PHYSICAL_DEVICE_MAINTENANCE_9_PROPERTIES_KHR"),
+Self::QUEUE_FAMILY_OWNERSHIP_TRANSFER_PROPERTIES_KHR => Some("QUEUE_FAMILY_OWNERSHIP_TRANSFER_PROPERTIES_KHR"),
+Self::PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_KHR => Some("PHYSICAL_DEVICE_OPACITY_MICROMAP_FEATURES_KHR"),
+Self::PHYSICAL_DEVICE_OPACITY_MICROMAP_PROPERTIES_KHR => Some("PHYSICAL_DEVICE_OPACITY_MICROMAP_PROPERTIES_KHR"),
+Self::ACCELERATION_STRUCTURE_GEOMETRY_MICROMAP_DATA_KHR => Some("ACCELERATION_STRUCTURE_GEOMETRY_MICROMAP_DATA_KHR"),
+Self::ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_KHR => Some("ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_KHR"),
+Self::PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR => Some("PHYSICAL_DEVICE_PERFORMANCE_QUERY_FEATURES_KHR"),
+Self::PHYSICAL_DEVICE_PERFORMANCE_QUERY_PROPERTIES_KHR => Some("PHYSICAL_DEVICE_PERFORMANCE_QUERY_PROPERTIES_KHR"),
+Self::QUERY_POOL_PERFORMANCE_CREATE_INFO_KHR => Some("QUERY_POOL_PERFORMANCE_CREATE_INFO_KHR"),
+Self::PERFORMANCE_QUERY_SUBMIT_INFO_KHR => Some("PERFORMANCE_QUERY_SUBMIT_INFO_KHR"),
+Self::ACQUIRE_PROFILING_LOCK_INFO_KHR => Some("ACQUIRE_PROFILING_LOCK_INFO_KHR"),
+Self::PERFORMANCE_COUNTER_KHR => Some("PERFORMANCE_COUNTER_KHR"),
+Self::PERFORMANCE_COUNTER_DESCRIPTION_KHR => Some("PERFORMANCE_COUNTER_DESCRIPTION_KHR"),
+Self::PHYSICAL_DEVICE_PIPELINE_BINARY_FEATURES_KHR => Some("PHYSICAL_DEVICE_PIPELINE_BINARY_FEATURES_KHR"),
+Self::PIPELINE_BINARY_CREATE_INFO_KHR => Some("PIPELINE_BINARY_CREATE_INFO_KHR"),
+Self::PIPELINE_BINARY_INFO_KHR => Some("PIPELINE_BINARY_INFO_KHR"),
+Self::PIPELINE_BINARY_KEY_KHR => Some("PIPELINE_BINARY_KEY_KHR"),
+Self::PHYSICAL_DEVICE_PIPELINE_BINARY_PROPERTIES_KHR => Some("PHYSICAL_DEVICE_PIPELINE_BINARY_PROPERTIES_KHR"),
+Self::RELEASE_CAPTURED_PIPELINE_DATA_INFO_KHR => Some("RELEASE_CAPTURED_PIPELINE_DATA_INFO_KHR"),
+Self::PIPELINE_BINARY_DATA_INFO_KHR => Some("PIPELINE_BINARY_DATA_INFO_KHR"),
+Self::PIPELINE_CREATE_INFO_KHR => Some("PIPELINE_CREATE_INFO_KHR"),
+Self::DEVICE_PIPELINE_BINARY_INTERNAL_CACHE_CONTROL_KHR => Some("DEVICE_PIPELINE_BINARY_INTERNAL_CACHE_CONTROL_KHR"),
+Self::PIPELINE_BINARY_HANDLES_INFO_KHR => Some("PIPELINE_BINARY_HANDLES_INFO_KHR"),
+Self::PHYSICAL_DEVICE_PIPELINE_EXECUTABLE_PROPERTIES_FEATURES_KHR => Some("PHYSICAL_DEVICE_PIPELINE_EXECUTABLE_PROPERTIES_FEATURES_KHR"),
+Self::PIPELINE_INFO_KHR => Some("PIPELINE_INFO_KHR"),
+Self::PIPELINE_EXECUTABLE_PROPERTIES_KHR => Some("PIPELINE_EXECUTABLE_PROPERTIES_KHR"),
+Self::PIPELINE_EXECUTABLE_INFO_KHR => Some("PIPELINE_EXECUTABLE_INFO_KHR"),
+Self::PIPELINE_EXECUTABLE_STATISTIC_KHR => Some("PIPELINE_EXECUTABLE_STATISTIC_KHR"),
+Self::PIPELINE_EXECUTABLE_INTERNAL_REPRESENTATION_KHR => Some("PIPELINE_EXECUTABLE_INTERNAL_REPRESENTATION_KHR"),
+Self::PIPELINE_LIBRARY_CREATE_INFO_KHR => Some("PIPELINE_LIBRARY_CREATE_INFO_KHR"),
+Self::PHYSICAL_DEVICE_PIPELINE_LIBRARY_GROUP_HANDLES_FEATURES_KHR => Some("PHYSICAL_DEVICE_PIPELINE_LIBRARY_GROUP_HANDLES_FEATURES_KHR"),
+#[cfg(feature = "provisional")]
+Self::PHYSICAL_DEVICE_PORTABILITY_SUBSET_FEATURES_KHR => Some("PHYSICAL_DEVICE_PORTABILITY_SUBSET_FEATURES_KHR"),
+#[cfg(feature = "provisional")]
+Self::PHYSICAL_DEVICE_PORTABILITY_SUBSET_PROPERTIES_KHR => Some("PHYSICAL_DEVICE_PORTABILITY_SUBSET_PROPERTIES_KHR"),
+Self::PRESENT_ID_KHR => Some("PRESENT_ID_KHR"),
+Self::PHYSICAL_DEVICE_PRESENT_ID_FEATURES_KHR => Some("PHYSICAL_DEVICE_PRESENT_ID_FEATURES_KHR"),
+Self::SURFACE_CAPABILITIES_PRESENT_ID_2_KHR => Some("SURFACE_CAPABILITIES_PRESENT_ID_2_KHR"),
+Self::PRESENT_ID_2_KHR => Some("PRESENT_ID_2_KHR"),
+Self::PHYSICAL_DEVICE_PRESENT_ID_2_FEATURES_KHR => Some("PHYSICAL_DEVICE_PRESENT_ID_2_FEATURES_KHR"),
+Self::PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_KHR => Some("PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_KHR"),
+Self::PHYSICAL_DEVICE_PRESENT_WAIT_FEATURES_KHR => Some("PHYSICAL_DEVICE_PRESENT_WAIT_FEATURES_KHR"),
+Self::SURFACE_CAPABILITIES_PRESENT_WAIT_2_KHR => Some("SURFACE_CAPABILITIES_PRESENT_WAIT_2_KHR"),
+Self::PHYSICAL_DEVICE_PRESENT_WAIT_2_FEATURES_KHR => Some("PHYSICAL_DEVICE_PRESENT_WAIT_2_FEATURES_KHR"),
+Self::PRESENT_WAIT_2_INFO_KHR => Some("PRESENT_WAIT_2_INFO_KHR"),
+Self::PHYSICAL_DEVICE_RAY_QUERY_FEATURES_KHR => Some("PHYSICAL_DEVICE_RAY_QUERY_FEATURES_KHR"),
+Self::PHYSICAL_DEVICE_RAY_TRACING_MAINTENANCE_1_FEATURES_KHR => Some("PHYSICAL_DEVICE_RAY_TRACING_MAINTENANCE_1_FEATURES_KHR"),
+Self::PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_FEATURES_KHR => Some("PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_FEATURES_KHR"),
+Self::PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR => Some("PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR"),
+Self::RAY_TRACING_PIPELINE_CREATE_INFO_KHR => Some("RAY_TRACING_PIPELINE_CREATE_INFO_KHR"),
+Self::RAY_TRACING_SHADER_GROUP_CREATE_INFO_KHR => Some("RAY_TRACING_SHADER_GROUP_CREATE_INFO_KHR"),
+Self::RAY_TRACING_PIPELINE_INTERFACE_CREATE_INFO_KHR => Some("RAY_TRACING_PIPELINE_INTERFACE_CREATE_INFO_KHR"),
+Self::PHYSICAL_DEVICE_RAY_TRACING_POSITION_FETCH_FEATURES_KHR => Some("PHYSICAL_DEVICE_RAY_TRACING_POSITION_FETCH_FEATURES_KHR"),
+Self::PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_KHR => Some("PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_KHR"),
+Self::PHYSICAL_DEVICE_ROBUSTNESS_2_PROPERTIES_KHR => Some("PHYSICAL_DEVICE_ROBUSTNESS_2_PROPERTIES_KHR"),
+Self::PHYSICAL_DEVICE_SHADER_ABORT_FEATURES_KHR => Some("PHYSICAL_DEVICE_SHADER_ABORT_FEATURES_KHR"),
+Self::DEVICE_FAULT_SHADER_ABORT_MESSAGE_INFO_KHR => Some("DEVICE_FAULT_SHADER_ABORT_MESSAGE_INFO_KHR"),
+Self::PHYSICAL_DEVICE_SHADER_ABORT_PROPERTIES_KHR => Some("PHYSICAL_DEVICE_SHADER_ABORT_PROPERTIES_KHR"),
+Self::PHYSICAL_DEVICE_SHADER_BFLOAT16_FEATURES_KHR => Some("PHYSICAL_DEVICE_SHADER_BFLOAT16_FEATURES_KHR"),
+Self::PHYSICAL_DEVICE_SHADER_CLOCK_FEATURES_KHR => Some("PHYSICAL_DEVICE_SHADER_CLOCK_FEATURES_KHR"),
+Self::PHYSICAL_DEVICE_SHADER_CONSTANT_DATA_FEATURES_KHR => Some("PHYSICAL_DEVICE_SHADER_CONSTANT_DATA_FEATURES_KHR"),
+Self::PHYSICAL_DEVICE_SHADER_FMA_FEATURES_KHR => Some("PHYSICAL_DEVICE_SHADER_FMA_FEATURES_KHR"),
+Self::PHYSICAL_DEVICE_SHADER_MAXIMAL_RECONVERGENCE_FEATURES_KHR => Some("PHYSICAL_DEVICE_SHADER_MAXIMAL_RECONVERGENCE_FEATURES_KHR"),
+Self::PHYSICAL_DEVICE_SHADER_QUAD_CONTROL_FEATURES_KHR => Some("PHYSICAL_DEVICE_SHADER_QUAD_CONTROL_FEATURES_KHR"),
+Self::PHYSICAL_DEVICE_SHADER_RELAXED_EXTENDED_INSTRUCTION_FEATURES_KHR => Some("PHYSICAL_DEVICE_SHADER_RELAXED_EXTENDED_INSTRUCTION_FEATURES_KHR"),
+Self::PHYSICAL_DEVICE_SHADER_SUBGROUP_UNIFORM_CONTROL_FLOW_FEATURES_KHR => Some("PHYSICAL_DEVICE_SHADER_SUBGROUP_UNIFORM_CONTROL_FLOW_FEATURES_KHR"),
+Self::PHYSICAL_DEVICE_SHADER_UNTYPED_POINTERS_FEATURES_KHR => Some("PHYSICAL_DEVICE_SHADER_UNTYPED_POINTERS_FEATURES_KHR"),
+Self::SHARED_PRESENT_SURFACE_CAPABILITIES_KHR => Some("SHARED_PRESENT_SURFACE_CAPABILITIES_KHR"),
+Self::SURFACE_PRESENT_MODE_KHR => Some("SURFACE_PRESENT_MODE_KHR"),
+Self::SURFACE_PRESENT_SCALING_CAPABILITIES_KHR => Some("SURFACE_PRESENT_SCALING_CAPABILITIES_KHR"),
+Self::SURFACE_PRESENT_MODE_COMPATIBILITY_KHR => Some("SURFACE_PRESENT_MODE_COMPATIBILITY_KHR"),
+Self::SURFACE_PROTECTED_CAPABILITIES_KHR => Some("SURFACE_PROTECTED_CAPABILITIES_KHR"),
+Self::SWAPCHAIN_CREATE_INFO_KHR => Some("SWAPCHAIN_CREATE_INFO_KHR"),
+Self::PRESENT_INFO_KHR => Some("PRESENT_INFO_KHR"),
+Self::PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR => Some("PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR"),
+Self::SWAPCHAIN_PRESENT_FENCE_INFO_KHR => Some("SWAPCHAIN_PRESENT_FENCE_INFO_KHR"),
+Self::SWAPCHAIN_PRESENT_MODES_CREATE_INFO_KHR => Some("SWAPCHAIN_PRESENT_MODES_CREATE_INFO_KHR"),
+Self::SWAPCHAIN_PRESENT_MODE_INFO_KHR => Some("SWAPCHAIN_PRESENT_MODE_INFO_KHR"),
+Self::SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_KHR => Some("SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_KHR"),
+Self::RELEASE_SWAPCHAIN_IMAGES_INFO_KHR => Some("RELEASE_SWAPCHAIN_IMAGES_INFO_KHR"),
+Self::PHYSICAL_DEVICE_UNIFIED_IMAGE_LAYOUTS_FEATURES_KHR => Some("PHYSICAL_DEVICE_UNIFIED_IMAGE_LAYOUTS_FEATURES_KHR"),
+Self::ATTACHMENT_FEEDBACK_LOOP_INFO_EXT => Some("ATTACHMENT_FEEDBACK_LOOP_INFO_EXT"),
+Self::VIDEO_DECODE_AV1_CAPABILITIES_KHR => Some("VIDEO_DECODE_AV1_CAPABILITIES_KHR"),
+Self::VIDEO_DECODE_AV1_PICTURE_INFO_KHR => Some("VIDEO_DECODE_AV1_PICTURE_INFO_KHR"),
+Self::VIDEO_DECODE_AV1_PROFILE_INFO_KHR => Some("VIDEO_DECODE_AV1_PROFILE_INFO_KHR"),
+Self::VIDEO_DECODE_AV1_SESSION_PARAMETERS_CREATE_INFO_KHR => Some("VIDEO_DECODE_AV1_SESSION_PARAMETERS_CREATE_INFO_KHR"),
+Self::VIDEO_DECODE_AV1_DPB_SLOT_INFO_KHR => Some("VIDEO_DECODE_AV1_DPB_SLOT_INFO_KHR"),
+Self::VIDEO_DECODE_H264_CAPABILITIES_KHR => Some("VIDEO_DECODE_H264_CAPABILITIES_KHR"),
+Self::VIDEO_DECODE_H264_PICTURE_INFO_KHR => Some("VIDEO_DECODE_H264_PICTURE_INFO_KHR"),
+Self::VIDEO_DECODE_H264_PROFILE_INFO_KHR => Some("VIDEO_DECODE_H264_PROFILE_INFO_KHR"),
+Self::VIDEO_DECODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR => Some("VIDEO_DECODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR"),
+Self::VIDEO_DECODE_H264_SESSION_PARAMETERS_ADD_INFO_KHR => Some("VIDEO_DECODE_H264_SESSION_PARAMETERS_ADD_INFO_KHR"),
+Self::VIDEO_DECODE_H264_DPB_SLOT_INFO_KHR => Some("VIDEO_DECODE_H264_DPB_SLOT_INFO_KHR"),
+Self::VIDEO_DECODE_H265_CAPABILITIES_KHR => Some("VIDEO_DECODE_H265_CAPABILITIES_KHR"),
+Self::VIDEO_DECODE_H265_SESSION_PARAMETERS_CREATE_INFO_KHR => Some("VIDEO_DECODE_H265_SESSION_PARAMETERS_CREATE_INFO_KHR"),
+Self::VIDEO_DECODE_H265_SESSION_PARAMETERS_ADD_INFO_KHR => Some("VIDEO_DECODE_H265_SESSION_PARAMETERS_ADD_INFO_KHR"),
+Self::VIDEO_DECODE_H265_PROFILE_INFO_KHR => Some("VIDEO_DECODE_H265_PROFILE_INFO_KHR"),
+Self::VIDEO_DECODE_H265_PICTURE_INFO_KHR => Some("VIDEO_DECODE_H265_PICTURE_INFO_KHR"),
+Self::VIDEO_DECODE_H265_DPB_SLOT_INFO_KHR => Some("VIDEO_DECODE_H265_DPB_SLOT_INFO_KHR"),
+Self::VIDEO_DECODE_INFO_KHR => Some("VIDEO_DECODE_INFO_KHR"),
+Self::VIDEO_DECODE_CAPABILITIES_KHR => Some("VIDEO_DECODE_CAPABILITIES_KHR"),
+Self::VIDEO_DECODE_USAGE_INFO_KHR => Some("VIDEO_DECODE_USAGE_INFO_KHR"),
+Self::PHYSICAL_DEVICE_VIDEO_DECODE_VP9_FEATURES_KHR => Some("PHYSICAL_DEVICE_VIDEO_DECODE_VP9_FEATURES_KHR"),
+Self::VIDEO_DECODE_VP9_CAPABILITIES_KHR => Some("VIDEO_DECODE_VP9_CAPABILITIES_KHR"),
+Self::VIDEO_DECODE_VP9_PICTURE_INFO_KHR => Some("VIDEO_DECODE_VP9_PICTURE_INFO_KHR"),
+Self::VIDEO_DECODE_VP9_PROFILE_INFO_KHR => Some("VIDEO_DECODE_VP9_PROFILE_INFO_KHR"),
+Self::VIDEO_ENCODE_AV1_CAPABILITIES_KHR => Some("VIDEO_ENCODE_AV1_CAPABILITIES_KHR"),
+Self::VIDEO_ENCODE_AV1_SESSION_PARAMETERS_CREATE_INFO_KHR => Some("VIDEO_ENCODE_AV1_SESSION_PARAMETERS_CREATE_INFO_KHR"),
+Self::VIDEO_ENCODE_AV1_PICTURE_INFO_KHR => Some("VIDEO_ENCODE_AV1_PICTURE_INFO_KHR"),
+Self::VIDEO_ENCODE_AV1_DPB_SLOT_INFO_KHR => Some("VIDEO_ENCODE_AV1_DPB_SLOT_INFO_KHR"),
+Self::PHYSICAL_DEVICE_VIDEO_ENCODE_AV1_FEATURES_KHR => Some("PHYSICAL_DEVICE_VIDEO_ENCODE_AV1_FEATURES_KHR"),
+Self::VIDEO_ENCODE_AV1_PROFILE_INFO_KHR => Some("VIDEO_ENCODE_AV1_PROFILE_INFO_KHR"),
+Self::VIDEO_ENCODE_AV1_RATE_CONTROL_INFO_KHR => Some("VIDEO_ENCODE_AV1_RATE_CONTROL_INFO_KHR"),
+Self::VIDEO_ENCODE_AV1_RATE_CONTROL_LAYER_INFO_KHR => Some("VIDEO_ENCODE_AV1_RATE_CONTROL_LAYER_INFO_KHR"),
+Self::VIDEO_ENCODE_AV1_QUALITY_LEVEL_PROPERTIES_KHR => Some("VIDEO_ENCODE_AV1_QUALITY_LEVEL_PROPERTIES_KHR"),
+Self::VIDEO_ENCODE_AV1_SESSION_CREATE_INFO_KHR => Some("VIDEO_ENCODE_AV1_SESSION_CREATE_INFO_KHR"),
+Self::VIDEO_ENCODE_AV1_GOP_REMAINING_FRAME_INFO_KHR => Some("VIDEO_ENCODE_AV1_GOP_REMAINING_FRAME_INFO_KHR"),
+Self::PHYSICAL_DEVICE_VIDEO_ENCODE_FEEDBACK_2_FEATURES_KHR => Some("PHYSICAL_DEVICE_VIDEO_ENCODE_FEEDBACK_2_FEATURES_KHR"),
+Self::VIDEO_ENCODE_FEEDBACK_2_CAPABILITIES_KHR => Some("VIDEO_ENCODE_FEEDBACK_2_CAPABILITIES_KHR"),
+Self::QUERY_POOL_VIDEO_ENCODE_PER_PARTITION_FEEDBACK_CREATE_INFO_KHR => Some("QUERY_POOL_VIDEO_ENCODE_PER_PARTITION_FEEDBACK_CREATE_INFO_KHR"),
+Self::VIDEO_ENCODE_H264_CAPABILITIES_KHR => Some("VIDEO_ENCODE_H264_CAPABILITIES_KHR"),
+Self::VIDEO_ENCODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR => Some("VIDEO_ENCODE_H264_SESSION_PARAMETERS_CREATE_INFO_KHR"),
+Self::VIDEO_ENCODE_H264_SESSION_PARAMETERS_ADD_INFO_KHR => Some("VIDEO_ENCODE_H264_SESSION_PARAMETERS_ADD_INFO_KHR"),
+Self::VIDEO_ENCODE_H264_PICTURE_INFO_KHR => Some("VIDEO_ENCODE_H264_PICTURE_INFO_KHR"),
+Self::VIDEO_ENCODE_H264_DPB_SLOT_INFO_KHR => Some("VIDEO_ENCODE_H264_DPB_SLOT_INFO_KHR"),
+Self::VIDEO_ENCODE_H264_NALU_SLICE_INFO_KHR => Some("VIDEO_ENCODE_H264_NALU_SLICE_INFO_KHR"),
+Self::VIDEO_ENCODE_H264_GOP_REMAINING_FRAME_INFO_KHR => Some("VIDEO_ENCODE_H264_GOP_REMAINING_FRAME_INFO_KHR"),
+Self::VIDEO_ENCODE_H264_PROFILE_INFO_KHR => Some("VIDEO_ENCODE_H264_PROFILE_INFO_KHR"),
+Self::VIDEO_ENCODE_H264_RATE_CONTROL_INFO_KHR => Some("VIDEO_ENCODE_H264_RATE_CONTROL_INFO_KHR"),
+Self::VIDEO_ENCODE_H264_RATE_CONTROL_LAYER_INFO_KHR => Some("VIDEO_ENCODE_H264_RATE_CONTROL_LAYER_INFO_KHR"),
+Self::VIDEO_ENCODE_H264_SESSION_CREATE_INFO_KHR => Some("VIDEO_ENCODE_H264_SESSION_CREATE_INFO_KHR"),
+Self::VIDEO_ENCODE_H264_QUALITY_LEVEL_PROPERTIES_KHR => Some("VIDEO_ENCODE_H264_QUALITY_LEVEL_PROPERTIES_KHR"),
+Self::VIDEO_ENCODE_H264_SESSION_PARAMETERS_GET_INFO_KHR => Some("VIDEO_ENCODE_H264_SESSION_PARAMETERS_GET_INFO_KHR"),
+Self::VIDEO_ENCODE_H264_SESSION_PARAMETERS_FEEDBACK_INFO_KHR => Some("VIDEO_ENCODE_H264_SESSION_PARAMETERS_FEEDBACK_INFO_KHR"),
+Self::VIDEO_ENCODE_H265_CAPABILITIES_KHR => Some("VIDEO_ENCODE_H265_CAPABILITIES_KHR"),
+Self::VIDEO_ENCODE_H265_SESSION_PARAMETERS_CREATE_INFO_KHR => Some("VIDEO_ENCODE_H265_SESSION_PARAMETERS_CREATE_INFO_KHR"),
+Self::VIDEO_ENCODE_H265_SESSION_PARAMETERS_ADD_INFO_KHR => Some("VIDEO_ENCODE_H265_SESSION_PARAMETERS_ADD_INFO_KHR"),
+Self::VIDEO_ENCODE_H265_PICTURE_INFO_KHR => Some("VIDEO_ENCODE_H265_PICTURE_INFO_KHR"),
+Self::VIDEO_ENCODE_H265_DPB_SLOT_INFO_KHR => Some("VIDEO_ENCODE_H265_DPB_SLOT_INFO_KHR"),
+Self::VIDEO_ENCODE_H265_NALU_SLICE_SEGMENT_INFO_KHR => Some("VIDEO_ENCODE_H265_NALU_SLICE_SEGMENT_INFO_KHR"),
+Self::VIDEO_ENCODE_H265_GOP_REMAINING_FRAME_INFO_KHR => Some("VIDEO_ENCODE_H265_GOP_REMAINING_FRAME_INFO_KHR"),
+Self::VIDEO_ENCODE_H265_PROFILE_INFO_KHR => Some("VIDEO_ENCODE_H265_PROFILE_INFO_KHR"),
+Self::VIDEO_ENCODE_H265_RATE_CONTROL_INFO_KHR => Some("VIDEO_ENCODE_H265_RATE_CONTROL_INFO_KHR"),
+Self::VIDEO_ENCODE_H265_RATE_CONTROL_LAYER_INFO_KHR => Some("VIDEO_ENCODE_H265_RATE_CONTROL_LAYER_INFO_KHR"),
+Self::VIDEO_ENCODE_H265_SESSION_CREATE_INFO_KHR => Some("VIDEO_ENCODE_H265_SESSION_CREATE_INFO_KHR"),
+Self::VIDEO_ENCODE_H265_QUALITY_LEVEL_PROPERTIES_KHR => Some("VIDEO_ENCODE_H265_QUALITY_LEVEL_PROPERTIES_KHR"),
+Self::VIDEO_ENCODE_H265_SESSION_PARAMETERS_GET_INFO_KHR => Some("VIDEO_ENCODE_H265_SESSION_PARAMETERS_GET_INFO_KHR"),
+Self::VIDEO_ENCODE_H265_SESSION_PARAMETERS_FEEDBACK_INFO_KHR => Some("VIDEO_ENCODE_H265_SESSION_PARAMETERS_FEEDBACK_INFO_KHR"),
+Self::VIDEO_ENCODE_INTRA_REFRESH_CAPABILITIES_KHR => Some("VIDEO_ENCODE_INTRA_REFRESH_CAPABILITIES_KHR"),
+Self::VIDEO_ENCODE_SESSION_INTRA_REFRESH_CREATE_INFO_KHR => Some("VIDEO_ENCODE_SESSION_INTRA_REFRESH_CREATE_INFO_KHR"),
+Self::VIDEO_ENCODE_INTRA_REFRESH_INFO_KHR => Some("VIDEO_ENCODE_INTRA_REFRESH_INFO_KHR"),
+Self::VIDEO_REFERENCE_INTRA_REFRESH_INFO_KHR => Some("VIDEO_REFERENCE_INTRA_REFRESH_INFO_KHR"),
+Self::PHYSICAL_DEVICE_VIDEO_ENCODE_INTRA_REFRESH_FEATURES_KHR => Some("PHYSICAL_DEVICE_VIDEO_ENCODE_INTRA_REFRESH_FEATURES_KHR"),
+Self::VIDEO_ENCODE_QUANTIZATION_MAP_CAPABILITIES_KHR => Some("VIDEO_ENCODE_QUANTIZATION_MAP_CAPABILITIES_KHR"),
+Self::VIDEO_FORMAT_QUANTIZATION_MAP_PROPERTIES_KHR => Some("VIDEO_FORMAT_QUANTIZATION_MAP_PROPERTIES_KHR"),
+Self::VIDEO_ENCODE_QUANTIZATION_MAP_INFO_KHR => Some("VIDEO_ENCODE_QUANTIZATION_MAP_INFO_KHR"),
+Self::VIDEO_ENCODE_QUANTIZATION_MAP_SESSION_PARAMETERS_CREATE_INFO_KHR => Some("VIDEO_ENCODE_QUANTIZATION_MAP_SESSION_PARAMETERS_CREATE_INFO_KHR"),
+Self::PHYSICAL_DEVICE_VIDEO_ENCODE_QUANTIZATION_MAP_FEATURES_KHR => Some("PHYSICAL_DEVICE_VIDEO_ENCODE_QUANTIZATION_MAP_FEATURES_KHR"),
+Self::VIDEO_ENCODE_H264_QUANTIZATION_MAP_CAPABILITIES_KHR => Some("VIDEO_ENCODE_H264_QUANTIZATION_MAP_CAPABILITIES_KHR"),
+Self::VIDEO_ENCODE_H265_QUANTIZATION_MAP_CAPABILITIES_KHR => Some("VIDEO_ENCODE_H265_QUANTIZATION_MAP_CAPABILITIES_KHR"),
+Self::VIDEO_FORMAT_H265_QUANTIZATION_MAP_PROPERTIES_KHR => Some("VIDEO_FORMAT_H265_QUANTIZATION_MAP_PROPERTIES_KHR"),
+Self::VIDEO_ENCODE_AV1_QUANTIZATION_MAP_CAPABILITIES_KHR => Some("VIDEO_ENCODE_AV1_QUANTIZATION_MAP_CAPABILITIES_KHR"),
+Self::VIDEO_FORMAT_AV1_QUANTIZATION_MAP_PROPERTIES_KHR => Some("VIDEO_FORMAT_AV1_QUANTIZATION_MAP_PROPERTIES_KHR"),
+Self::VIDEO_ENCODE_INFO_KHR => Some("VIDEO_ENCODE_INFO_KHR"),
+Self::VIDEO_ENCODE_RATE_CONTROL_INFO_KHR => Some("VIDEO_ENCODE_RATE_CONTROL_INFO_KHR"),
+Self::VIDEO_ENCODE_RATE_CONTROL_LAYER_INFO_KHR => Some("VIDEO_ENCODE_RATE_CONTROL_LAYER_INFO_KHR"),
+Self::VIDEO_ENCODE_CAPABILITIES_KHR => Some("VIDEO_ENCODE_CAPABILITIES_KHR"),
+Self::VIDEO_ENCODE_USAGE_INFO_KHR => Some("VIDEO_ENCODE_USAGE_INFO_KHR"),
+Self::QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR => Some("QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR"),
+Self::PHYSICAL_DEVICE_VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR => Some("PHYSICAL_DEVICE_VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR"),
+Self::VIDEO_ENCODE_QUALITY_LEVEL_PROPERTIES_KHR => Some("VIDEO_ENCODE_QUALITY_LEVEL_PROPERTIES_KHR"),
+Self::VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR => Some("VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR"),
+Self::VIDEO_ENCODE_SESSION_PARAMETERS_GET_INFO_KHR => Some("VIDEO_ENCODE_SESSION_PARAMETERS_GET_INFO_KHR"),
+Self::VIDEO_ENCODE_SESSION_PARAMETERS_FEEDBACK_INFO_KHR => Some("VIDEO_ENCODE_SESSION_PARAMETERS_FEEDBACK_INFO_KHR"),
+Self::PHYSICAL_DEVICE_VIDEO_MAINTENANCE_1_FEATURES_KHR => Some("PHYSICAL_DEVICE_VIDEO_MAINTENANCE_1_FEATURES_KHR"),
+Self::VIDEO_INLINE_QUERY_INFO_KHR => Some("VIDEO_INLINE_QUERY_INFO_KHR"),
+Self::PHYSICAL_DEVICE_VIDEO_MAINTENANCE_2_FEATURES_KHR => Some("PHYSICAL_DEVICE_VIDEO_MAINTENANCE_2_FEATURES_KHR"),
+Self::VIDEO_DECODE_H264_INLINE_SESSION_PARAMETERS_INFO_KHR => Some("VIDEO_DECODE_H264_INLINE_SESSION_PARAMETERS_INFO_KHR"),
+Self::VIDEO_DECODE_H265_INLINE_SESSION_PARAMETERS_INFO_KHR => Some("VIDEO_DECODE_H265_INLINE_SESSION_PARAMETERS_INFO_KHR"),
+Self::VIDEO_DECODE_AV1_INLINE_SESSION_PARAMETERS_INFO_KHR => Some("VIDEO_DECODE_AV1_INLINE_SESSION_PARAMETERS_INFO_KHR"),
+Self::VIDEO_PROFILE_INFO_KHR => Some("VIDEO_PROFILE_INFO_KHR"),
+Self::VIDEO_CAPABILITIES_KHR => Some("VIDEO_CAPABILITIES_KHR"),
+Self::VIDEO_PICTURE_RESOURCE_INFO_KHR => Some("VIDEO_PICTURE_RESOURCE_INFO_KHR"),
+Self::VIDEO_SESSION_MEMORY_REQUIREMENTS_KHR => Some("VIDEO_SESSION_MEMORY_REQUIREMENTS_KHR"),
+Self::BIND_VIDEO_SESSION_MEMORY_INFO_KHR => Some("BIND_VIDEO_SESSION_MEMORY_INFO_KHR"),
+Self::VIDEO_SESSION_CREATE_INFO_KHR => Some("VIDEO_SESSION_CREATE_INFO_KHR"),
+Self::VIDEO_SESSION_PARAMETERS_CREATE_INFO_KHR => Some("VIDEO_SESSION_PARAMETERS_CREATE_INFO_KHR"),
+Self::VIDEO_SESSION_PARAMETERS_UPDATE_INFO_KHR => Some("VIDEO_SESSION_PARAMETERS_UPDATE_INFO_KHR"),
+Self::VIDEO_BEGIN_CODING_INFO_KHR => Some("VIDEO_BEGIN_CODING_INFO_KHR"),
+Self::VIDEO_END_CODING_INFO_KHR => Some("VIDEO_END_CODING_INFO_KHR"),
+Self::VIDEO_CODING_CONTROL_INFO_KHR => Some("VIDEO_CODING_CONTROL_INFO_KHR"),
+Self::VIDEO_REFERENCE_SLOT_INFO_KHR => Some("VIDEO_REFERENCE_SLOT_INFO_KHR"),
+Self::QUEUE_FAMILY_VIDEO_PROPERTIES_KHR => Some("QUEUE_FAMILY_VIDEO_PROPERTIES_KHR"),
+Self::VIDEO_PROFILE_LIST_INFO_KHR => Some("VIDEO_PROFILE_LIST_INFO_KHR"),
+Self::PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR => Some("PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR"),
+Self::VIDEO_FORMAT_PROPERTIES_KHR => Some("VIDEO_FORMAT_PROPERTIES_KHR"),
+Self::QUEUE_FAMILY_QUERY_RESULT_STATUS_PROPERTIES_KHR => Some("QUEUE_FAMILY_QUERY_RESULT_STATUS_PROPERTIES_KHR"),
+Self::WAYLAND_SURFACE_CREATE_INFO_KHR => Some("WAYLAND_SURFACE_CREATE_INFO_KHR"),
+Self::WIN32_KEYED_MUTEX_ACQUIRE_RELEASE_INFO_KHR => Some("WIN32_KEYED_MUTEX_ACQUIRE_RELEASE_INFO_KHR"),
+Self::WIN32_SURFACE_CREATE_INFO_KHR => Some("WIN32_SURFACE_CREATE_INFO_KHR"),
+Self::PHYSICAL_DEVICE_WORKGROUP_MEMORY_EXPLICIT_LAYOUT_FEATURES_KHR => Some("PHYSICAL_DEVICE_WORKGROUP_MEMORY_EXPLICIT_LAYOUT_FEATURES_KHR"),
+Self::XCB_SURFACE_CREATE_INFO_KHR => Some("XCB_SURFACE_CREATE_INFO_KHR"),
+Self::XLIB_SURFACE_CREATE_INFO_KHR => Some("XLIB_SURFACE_CREATE_INFO_KHR"),
+Self::DIRECT_DRIVER_LOADING_INFO_LUNARG => Some("DIRECT_DRIVER_LOADING_INFO_LUNARG"),
+Self::DIRECT_DRIVER_LOADING_LIST_LUNARG => Some("DIRECT_DRIVER_LOADING_LIST_LUNARG"),
+Self::PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_FEATURES_MESA => Some("PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_FEATURES_MESA"),
+Self::PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_PROPERTIES_MESA => Some("PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_PROPERTIES_MESA"),
+Self::IMAGE_ALIGNMENT_CONTROL_CREATE_INFO_MESA => Some("IMAGE_ALIGNMENT_CONTROL_CREATE_INFO_MESA"),
+Self::PHYSICAL_DEVICE_LAYERED_DRIVER_PROPERTIES_MSFT => Some("PHYSICAL_DEVICE_LAYERED_DRIVER_PROPERTIES_MSFT"),
+Self::IOS_SURFACE_CREATE_INFO_MVK => Some("IOS_SURFACE_CREATE_INFO_MVK"),
+Self::MACOS_SURFACE_CREATE_INFO_MVK => Some("MACOS_SURFACE_CREATE_INFO_MVK"),
+Self::VI_SURFACE_CREATE_INFO_NN => Some("VI_SURFACE_CREATE_INFO_NN"),
+Self::CU_MODULE_CREATE_INFO_NVX => Some("CU_MODULE_CREATE_INFO_NVX"),
+Self::CU_FUNCTION_CREATE_INFO_NVX => Some("CU_FUNCTION_CREATE_INFO_NVX"),
+Self::CU_LAUNCH_INFO_NVX => Some("CU_LAUNCH_INFO_NVX"),
+Self::CU_MODULE_TEXTURING_MODE_CREATE_INFO_NVX => Some("CU_MODULE_TEXTURING_MODE_CREATE_INFO_NVX"),
+Self::IMAGE_VIEW_HANDLE_INFO_NVX => Some("IMAGE_VIEW_HANDLE_INFO_NVX"),
+Self::IMAGE_VIEW_ADDRESS_PROPERTIES_NVX => Some("IMAGE_VIEW_ADDRESS_PROPERTIES_NVX"),
+Self::PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_ATTRIBUTES_PROPERTIES_NVX => Some("PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_ATTRIBUTES_PROPERTIES_NVX"),
+Self::MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX => Some("MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX"),
+Self::PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV => Some("PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV"),
+Self::PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_FEATURES_NV => Some("PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_FEATURES_NV"),
+Self::PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_PROPERTIES_NV => Some("PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_PROPERTIES_NV"),
+Self::CLUSTER_ACCELERATION_STRUCTURE_CLUSTERS_BOTTOM_LEVEL_INPUT_NV => Some("CLUSTER_ACCELERATION_STRUCTURE_CLUSTERS_BOTTOM_LEVEL_INPUT_NV"),
+Self::CLUSTER_ACCELERATION_STRUCTURE_TRIANGLE_CLUSTER_INPUT_NV => Some("CLUSTER_ACCELERATION_STRUCTURE_TRIANGLE_CLUSTER_INPUT_NV"),
+Self::CLUSTER_ACCELERATION_STRUCTURE_MOVE_OBJECTS_INPUT_NV => Some("CLUSTER_ACCELERATION_STRUCTURE_MOVE_OBJECTS_INPUT_NV"),
+Self::CLUSTER_ACCELERATION_STRUCTURE_INPUT_INFO_NV => Some("CLUSTER_ACCELERATION_STRUCTURE_INPUT_INFO_NV"),
+Self::CLUSTER_ACCELERATION_STRUCTURE_COMMANDS_INFO_NV => Some("CLUSTER_ACCELERATION_STRUCTURE_COMMANDS_INFO_NV"),
+Self::RAY_TRACING_PIPELINE_CLUSTER_ACCELERATION_STRUCTURE_CREATE_INFO_NV => Some("RAY_TRACING_PIPELINE_CLUSTER_ACCELERATION_STRUCTURE_CREATE_INFO_NV"),
+Self::PHYSICAL_DEVICE_COMMAND_BUFFER_INHERITANCE_FEATURES_NV => Some("PHYSICAL_DEVICE_COMMAND_BUFFER_INHERITANCE_FEATURES_NV"),
+Self::COMPUTE_OCCUPANCY_PRIORITY_PARAMETERS_NV => Some("COMPUTE_OCCUPANCY_PRIORITY_PARAMETERS_NV"),
+Self::PHYSICAL_DEVICE_COMPUTE_OCCUPANCY_PRIORITY_FEATURES_NV => Some("PHYSICAL_DEVICE_COMPUTE_OCCUPANCY_PRIORITY_FEATURES_NV"),
+Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_NV => Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_NV"),
+Self::COOPERATIVE_MATRIX_PROPERTIES_NV => Some("COOPERATIVE_MATRIX_PROPERTIES_NV"),
+Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_NV => Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_NV"),
+Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_FEATURES_NV => Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_FEATURES_NV"),
+Self::COOPERATIVE_MATRIX_FLEXIBLE_DIMENSIONS_PROPERTIES_NV => Some("COOPERATIVE_MATRIX_FLEXIBLE_DIMENSIONS_PROPERTIES_NV"),
+Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_PROPERTIES_NV => Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_PROPERTIES_NV"),
+Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_DECODE_VECTOR_FEATURES_NV => Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_DECODE_VECTOR_FEATURES_NV"),
+Self::PHYSICAL_DEVICE_COOPERATIVE_VECTOR_FEATURES_NV => Some("PHYSICAL_DEVICE_COOPERATIVE_VECTOR_FEATURES_NV"),
+Self::PHYSICAL_DEVICE_COOPERATIVE_VECTOR_PROPERTIES_NV => Some("PHYSICAL_DEVICE_COOPERATIVE_VECTOR_PROPERTIES_NV"),
+Self::COOPERATIVE_VECTOR_PROPERTIES_NV => Some("COOPERATIVE_VECTOR_PROPERTIES_NV"),
+Self::CONVERT_COOPERATIVE_VECTOR_MATRIX_INFO_NV => Some("CONVERT_COOPERATIVE_VECTOR_MATRIX_INFO_NV"),
+Self::PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_NV => Some("PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_NV"),
+Self::PHYSICAL_DEVICE_CORNER_SAMPLED_IMAGE_FEATURES_NV => Some("PHYSICAL_DEVICE_CORNER_SAMPLED_IMAGE_FEATURES_NV"),
+Self::PHYSICAL_DEVICE_COVERAGE_REDUCTION_MODE_FEATURES_NV => Some("PHYSICAL_DEVICE_COVERAGE_REDUCTION_MODE_FEATURES_NV"),
+Self::PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV => Some("PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV"),
+Self::FRAMEBUFFER_MIXED_SAMPLES_COMBINATION_NV => Some("FRAMEBUFFER_MIXED_SAMPLES_COMBINATION_NV"),
+#[cfg(feature = "provisional")]
+Self::CUDA_MODULE_CREATE_INFO_NV => Some("CUDA_MODULE_CREATE_INFO_NV"),
+#[cfg(feature = "provisional")]
+Self::CUDA_FUNCTION_CREATE_INFO_NV => Some("CUDA_FUNCTION_CREATE_INFO_NV"),
+#[cfg(feature = "provisional")]
+Self::CUDA_LAUNCH_INFO_NV => Some("CUDA_LAUNCH_INFO_NV"),
+#[cfg(feature = "provisional")]
+Self::PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_FEATURES_NV => Some("PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_FEATURES_NV"),
+#[cfg(feature = "provisional")]
+Self::PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_PROPERTIES_NV => Some("PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_PROPERTIES_NV"),
+Self::DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV => Some("DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV"),
+Self::DEDICATED_ALLOCATION_BUFFER_CREATE_INFO_NV => Some("DEDICATED_ALLOCATION_BUFFER_CREATE_INFO_NV"),
+Self::DEDICATED_ALLOCATION_MEMORY_ALLOCATE_INFO_NV => Some("DEDICATED_ALLOCATION_MEMORY_ALLOCATE_INFO_NV"),
+Self::PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV => Some("PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV"),
+Self::PHYSICAL_DEVICE_DESCRIPTOR_POOL_OVERALLOCATION_FEATURES_NV => Some("PHYSICAL_DEVICE_DESCRIPTOR_POOL_OVERALLOCATION_FEATURES_NV"),
+Self::CHECKPOINT_DATA_NV => Some("CHECKPOINT_DATA_NV"),
+Self::QUEUE_FAMILY_CHECKPOINT_PROPERTIES_NV => Some("QUEUE_FAMILY_CHECKPOINT_PROPERTIES_NV"),
+Self::QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV => Some("QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV"),
+Self::CHECKPOINT_DATA_2_NV => Some("CHECKPOINT_DATA_2_NV"),
+Self::PHYSICAL_DEVICE_DIAGNOSTICS_CONFIG_FEATURES_NV => Some("PHYSICAL_DEVICE_DIAGNOSTICS_CONFIG_FEATURES_NV"),
+Self::DEVICE_DIAGNOSTICS_CONFIG_CREATE_INFO_NV => Some("DEVICE_DIAGNOSTICS_CONFIG_CREATE_INFO_NV"),
+Self::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_NV => Some("PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_NV"),
+Self::GRAPHICS_SHADER_GROUP_CREATE_INFO_NV => Some("GRAPHICS_SHADER_GROUP_CREATE_INFO_NV"),
+Self::GRAPHICS_PIPELINE_SHADER_GROUPS_CREATE_INFO_NV => Some("GRAPHICS_PIPELINE_SHADER_GROUPS_CREATE_INFO_NV"),
+Self::INDIRECT_COMMANDS_LAYOUT_TOKEN_NV => Some("INDIRECT_COMMANDS_LAYOUT_TOKEN_NV"),
+Self::INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_NV => Some("INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_NV"),
+Self::GENERATED_COMMANDS_INFO_NV => Some("GENERATED_COMMANDS_INFO_NV"),
+Self::GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_NV => Some("GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_NV"),
+Self::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_NV => Some("PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_NV"),
+Self::PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV => Some("PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV"),
+Self::COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV => Some("COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV"),
+Self::PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV => Some("PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV"),
+#[cfg(feature = "provisional")]
+Self::PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_FEATURES_NV => Some("PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_FEATURES_NV"),
+#[cfg(feature = "provisional")]
+Self::PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_PROPERTIES_NV => Some("PHYSICAL_DEVICE_DISPLACEMENT_MICROMAP_PROPERTIES_NV"),
+#[cfg(feature = "provisional")]
+Self::ACCELERATION_STRUCTURE_TRIANGLES_DISPLACEMENT_MICROMAP_NV => Some("ACCELERATION_STRUCTURE_TRIANGLES_DISPLACEMENT_MICROMAP_NV"),
+Self::DISPLAY_SURFACE_STEREO_CREATE_INFO_NV => Some("DISPLAY_SURFACE_STEREO_CREATE_INFO_NV"),
+Self::DISPLAY_MODE_STEREO_PROPERTIES_NV => Some("DISPLAY_MODE_STEREO_PROPERTIES_NV"),
+Self::PHYSICAL_DEVICE_EXTENDED_SPARSE_ADDRESS_SPACE_FEATURES_NV => Some("PHYSICAL_DEVICE_EXTENDED_SPARSE_ADDRESS_SPACE_FEATURES_NV"),
+Self::PHYSICAL_DEVICE_EXTENDED_SPARSE_ADDRESS_SPACE_PROPERTIES_NV => Some("PHYSICAL_DEVICE_EXTENDED_SPARSE_ADDRESS_SPACE_PROPERTIES_NV"),
+Self::EXTERNAL_COMPUTE_QUEUE_DEVICE_CREATE_INFO_NV => Some("EXTERNAL_COMPUTE_QUEUE_DEVICE_CREATE_INFO_NV"),
+Self::EXTERNAL_COMPUTE_QUEUE_CREATE_INFO_NV => Some("EXTERNAL_COMPUTE_QUEUE_CREATE_INFO_NV"),
+Self::EXTERNAL_COMPUTE_QUEUE_DATA_PARAMS_NV => Some("EXTERNAL_COMPUTE_QUEUE_DATA_PARAMS_NV"),
+Self::PHYSICAL_DEVICE_EXTERNAL_COMPUTE_QUEUE_PROPERTIES_NV => Some("PHYSICAL_DEVICE_EXTERNAL_COMPUTE_QUEUE_PROPERTIES_NV"),
+Self::EXTERNAL_MEMORY_IMAGE_CREATE_INFO_NV => Some("EXTERNAL_MEMORY_IMAGE_CREATE_INFO_NV"),
+Self::EXPORT_MEMORY_ALLOCATE_INFO_NV => Some("EXPORT_MEMORY_ALLOCATE_INFO_NV"),
+Self::MEMORY_GET_REMOTE_ADDRESS_INFO_NV => Some("MEMORY_GET_REMOTE_ADDRESS_INFO_NV"),
+Self::PHYSICAL_DEVICE_EXTERNAL_MEMORY_RDMA_FEATURES_NV => Some("PHYSICAL_DEVICE_EXTERNAL_MEMORY_RDMA_FEATURES_NV"),
+Self::IMPORT_MEMORY_WIN32_HANDLE_INFO_NV => Some("IMPORT_MEMORY_WIN32_HANDLE_INFO_NV"),
+Self::EXPORT_MEMORY_WIN32_HANDLE_INFO_NV => Some("EXPORT_MEMORY_WIN32_HANDLE_INFO_NV"),
+Self::PIPELINE_COVERAGE_TO_COLOR_STATE_CREATE_INFO_NV => Some("PIPELINE_COVERAGE_TO_COLOR_STATE_CREATE_INFO_NV"),
+Self::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_PROPERTIES_NV => Some("PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_PROPERTIES_NV"),
+Self::PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_FEATURES_NV => Some("PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_FEATURES_NV"),
+Self::PIPELINE_FRAGMENT_SHADING_RATE_ENUM_STATE_CREATE_INFO_NV => Some("PIPELINE_FRAGMENT_SHADING_RATE_ENUM_STATE_CREATE_INFO_NV"),
+Self::PIPELINE_COVERAGE_MODULATION_STATE_CREATE_INFO_NV => Some("PIPELINE_COVERAGE_MODULATION_STATE_CREATE_INFO_NV"),
+Self::PHYSICAL_DEVICE_INHERITED_VIEWPORT_SCISSOR_FEATURES_NV => Some("PHYSICAL_DEVICE_INHERITED_VIEWPORT_SCISSOR_FEATURES_NV"),
+Self::COMMAND_BUFFER_INHERITANCE_VIEWPORT_SCISSOR_INFO_NV => Some("COMMAND_BUFFER_INHERITANCE_VIEWPORT_SCISSOR_INFO_NV"),
+Self::PHYSICAL_DEVICE_LINEAR_COLOR_ATTACHMENT_FEATURES_NV => Some("PHYSICAL_DEVICE_LINEAR_COLOR_ATTACHMENT_FEATURES_NV"),
+Self::QUERY_LOW_LATENCY_SUPPORT_NV => Some("QUERY_LOW_LATENCY_SUPPORT_NV"),
+Self::LATENCY_SLEEP_MODE_INFO_NV => Some("LATENCY_SLEEP_MODE_INFO_NV"),
+Self::LATENCY_SLEEP_INFO_NV => Some("LATENCY_SLEEP_INFO_NV"),
+Self::SET_LATENCY_MARKER_INFO_NV => Some("SET_LATENCY_MARKER_INFO_NV"),
+Self::GET_LATENCY_MARKER_INFO_NV => Some("GET_LATENCY_MARKER_INFO_NV"),
+Self::LATENCY_TIMINGS_FRAME_REPORT_NV => Some("LATENCY_TIMINGS_FRAME_REPORT_NV"),
+Self::LATENCY_SUBMISSION_PRESENT_ID_NV => Some("LATENCY_SUBMISSION_PRESENT_ID_NV"),
+Self::OUT_OF_BAND_QUEUE_TYPE_INFO_NV => Some("OUT_OF_BAND_QUEUE_TYPE_INFO_NV"),
+Self::SWAPCHAIN_LATENCY_CREATE_INFO_NV => Some("SWAPCHAIN_LATENCY_CREATE_INFO_NV"),
+Self::LATENCY_SURFACE_CAPABILITIES_NV => Some("LATENCY_SURFACE_CAPABILITIES_NV"),
+Self::PHYSICAL_DEVICE_MESH_SHADER_FEATURES_NV => Some("PHYSICAL_DEVICE_MESH_SHADER_FEATURES_NV"),
+Self::PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_NV => Some("PHYSICAL_DEVICE_MESH_SHADER_PROPERTIES_NV"),
+Self::PHYSICAL_DEVICE_OPTICAL_FLOW_FEATURES_NV => Some("PHYSICAL_DEVICE_OPTICAL_FLOW_FEATURES_NV"),
+Self::PHYSICAL_DEVICE_OPTICAL_FLOW_PROPERTIES_NV => Some("PHYSICAL_DEVICE_OPTICAL_FLOW_PROPERTIES_NV"),
+Self::OPTICAL_FLOW_IMAGE_FORMAT_INFO_NV => Some("OPTICAL_FLOW_IMAGE_FORMAT_INFO_NV"),
+Self::OPTICAL_FLOW_IMAGE_FORMAT_PROPERTIES_NV => Some("OPTICAL_FLOW_IMAGE_FORMAT_PROPERTIES_NV"),
+Self::OPTICAL_FLOW_SESSION_CREATE_INFO_NV => Some("OPTICAL_FLOW_SESSION_CREATE_INFO_NV"),
+Self::OPTICAL_FLOW_EXECUTE_INFO_NV => Some("OPTICAL_FLOW_EXECUTE_INFO_NV"),
+Self::OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV => Some("OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV"),
+Self::PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_FEATURES_NV => Some("PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_FEATURES_NV"),
+Self::PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_PROPERTIES_NV => Some("PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_PROPERTIES_NV"),
+Self::WRITE_DESCRIPTOR_SET_PARTITIONED_ACCELERATION_STRUCTURE_NV => Some("WRITE_DESCRIPTOR_SET_PARTITIONED_ACCELERATION_STRUCTURE_NV"),
+Self::PARTITIONED_ACCELERATION_STRUCTURE_INSTANCES_INPUT_NV => Some("PARTITIONED_ACCELERATION_STRUCTURE_INSTANCES_INPUT_NV"),
+Self::BUILD_PARTITIONED_ACCELERATION_STRUCTURE_INFO_NV => Some("BUILD_PARTITIONED_ACCELERATION_STRUCTURE_INFO_NV"),
+Self::PARTITIONED_ACCELERATION_STRUCTURE_FLAGS_NV => Some("PARTITIONED_ACCELERATION_STRUCTURE_FLAGS_NV"),
+Self::PHYSICAL_DEVICE_PER_STAGE_DESCRIPTOR_SET_FEATURES_NV => Some("PHYSICAL_DEVICE_PER_STAGE_DESCRIPTOR_SET_FEATURES_NV"),
+Self::PHYSICAL_DEVICE_PRESENT_BARRIER_FEATURES_NV => Some("PHYSICAL_DEVICE_PRESENT_BARRIER_FEATURES_NV"),
+Self::SURFACE_CAPABILITIES_PRESENT_BARRIER_NV => Some("SURFACE_CAPABILITIES_PRESENT_BARRIER_NV"),
+Self::SWAPCHAIN_PRESENT_BARRIER_CREATE_INFO_NV => Some("SWAPCHAIN_PRESENT_BARRIER_CREATE_INFO_NV"),
+Self::SET_PRESENT_CONFIG_NV => Some("SET_PRESENT_CONFIG_NV"),
+Self::PHYSICAL_DEVICE_PRESENT_METERING_FEATURES_NV => Some("PHYSICAL_DEVICE_PRESENT_METERING_FEATURES_NV"),
+Self::PHYSICAL_DEVICE_PRIVATE_DATA_BASE_HANDLE_FEATURES_NV => Some("PHYSICAL_DEVICE_PRIVATE_DATA_BASE_HANDLE_FEATURES_NV"),
+Self::PUSH_CONSTANT_BANK_INFO_NV => Some("PUSH_CONSTANT_BANK_INFO_NV"),
+Self::PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_FEATURES_NV => Some("PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_FEATURES_NV"),
+Self::PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_PROPERTIES_NV => Some("PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_PROPERTIES_NV"),
+Self::PHYSICAL_DEVICE_RAW_ACCESS_CHAINS_FEATURES_NV => Some("PHYSICAL_DEVICE_RAW_ACCESS_CHAINS_FEATURES_NV"),
+Self::RAY_TRACING_PIPELINE_CREATE_INFO_NV => Some("RAY_TRACING_PIPELINE_CREATE_INFO_NV"),
+Self::ACCELERATION_STRUCTURE_CREATE_INFO_NV => Some("ACCELERATION_STRUCTURE_CREATE_INFO_NV"),
+Self::GEOMETRY_NV => Some("GEOMETRY_NV"),
+Self::GEOMETRY_TRIANGLES_NV => Some("GEOMETRY_TRIANGLES_NV"),
+Self::GEOMETRY_AABB_NV => Some("GEOMETRY_AABB_NV"),
+Self::BIND_ACCELERATION_STRUCTURE_MEMORY_INFO_NV => Some("BIND_ACCELERATION_STRUCTURE_MEMORY_INFO_NV"),
+Self::WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_NV => Some("WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_NV"),
+Self::ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV => Some("ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV"),
+Self::PHYSICAL_DEVICE_RAY_TRACING_PROPERTIES_NV => Some("PHYSICAL_DEVICE_RAY_TRACING_PROPERTIES_NV"),
+Self::RAY_TRACING_SHADER_GROUP_CREATE_INFO_NV => Some("RAY_TRACING_SHADER_GROUP_CREATE_INFO_NV"),
+Self::ACCELERATION_STRUCTURE_INFO_NV => Some("ACCELERATION_STRUCTURE_INFO_NV"),
+Self::PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_NV => Some("PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_NV"),
+Self::PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_NV => Some("PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_NV"),
+Self::PHYSICAL_DEVICE_RAY_TRACING_LINEAR_SWEPT_SPHERES_FEATURES_NV => Some("PHYSICAL_DEVICE_RAY_TRACING_LINEAR_SWEPT_SPHERES_FEATURES_NV"),
+Self::ACCELERATION_STRUCTURE_GEOMETRY_LINEAR_SWEPT_SPHERES_DATA_NV => Some("ACCELERATION_STRUCTURE_GEOMETRY_LINEAR_SWEPT_SPHERES_DATA_NV"),
+Self::ACCELERATION_STRUCTURE_GEOMETRY_SPHERES_DATA_NV => Some("ACCELERATION_STRUCTURE_GEOMETRY_SPHERES_DATA_NV"),
+Self::ACCELERATION_STRUCTURE_GEOMETRY_MOTION_TRIANGLES_DATA_NV => Some("ACCELERATION_STRUCTURE_GEOMETRY_MOTION_TRIANGLES_DATA_NV"),
+Self::PHYSICAL_DEVICE_RAY_TRACING_MOTION_BLUR_FEATURES_NV => Some("PHYSICAL_DEVICE_RAY_TRACING_MOTION_BLUR_FEATURES_NV"),
+Self::ACCELERATION_STRUCTURE_MOTION_INFO_NV => Some("ACCELERATION_STRUCTURE_MOTION_INFO_NV"),
+Self::PHYSICAL_DEVICE_RAY_TRACING_VALIDATION_FEATURES_NV => Some("PHYSICAL_DEVICE_RAY_TRACING_VALIDATION_FEATURES_NV"),
+Self::PHYSICAL_DEVICE_REPRESENTATIVE_FRAGMENT_TEST_FEATURES_NV => Some("PHYSICAL_DEVICE_REPRESENTATIVE_FRAGMENT_TEST_FEATURES_NV"),
+Self::PIPELINE_REPRESENTATIVE_FRAGMENT_TEST_STATE_CREATE_INFO_NV => Some("PIPELINE_REPRESENTATIVE_FRAGMENT_TEST_STATE_CREATE_INFO_NV"),
+Self::PIPELINE_VIEWPORT_EXCLUSIVE_SCISSOR_STATE_CREATE_INFO_NV => Some("PIPELINE_VIEWPORT_EXCLUSIVE_SCISSOR_STATE_CREATE_INFO_NV"),
+Self::PHYSICAL_DEVICE_EXCLUSIVE_SCISSOR_FEATURES_NV => Some("PHYSICAL_DEVICE_EXCLUSIVE_SCISSOR_FEATURES_NV"),
+Self::PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT16_VECTOR_FEATURES_NV => Some("PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT16_VECTOR_FEATURES_NV"),
+Self::PHYSICAL_DEVICE_SHADER_IMAGE_FOOTPRINT_FEATURES_NV => Some("PHYSICAL_DEVICE_SHADER_IMAGE_FOOTPRINT_FEATURES_NV"),
+Self::PHYSICAL_DEVICE_SHADER_SM_BUILTINS_FEATURES_NV => Some("PHYSICAL_DEVICE_SHADER_SM_BUILTINS_FEATURES_NV"),
+Self::PHYSICAL_DEVICE_SHADER_SM_BUILTINS_PROPERTIES_NV => Some("PHYSICAL_DEVICE_SHADER_SM_BUILTINS_PROPERTIES_NV"),
+Self::PIPELINE_VIEWPORT_SHADING_RATE_IMAGE_STATE_CREATE_INFO_NV => Some("PIPELINE_VIEWPORT_SHADING_RATE_IMAGE_STATE_CREATE_INFO_NV"),
+Self::PHYSICAL_DEVICE_SHADING_RATE_IMAGE_FEATURES_NV => Some("PHYSICAL_DEVICE_SHADING_RATE_IMAGE_FEATURES_NV"),
+Self::PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV => Some("PHYSICAL_DEVICE_SHADING_RATE_IMAGE_PROPERTIES_NV"),
+Self::PIPELINE_VIEWPORT_COARSE_SAMPLE_ORDER_STATE_CREATE_INFO_NV => Some("PIPELINE_VIEWPORT_COARSE_SAMPLE_ORDER_STATE_CREATE_INFO_NV"),
+Self::PIPELINE_VIEWPORT_SWIZZLE_STATE_CREATE_INFO_NV => Some("PIPELINE_VIEWPORT_SWIZZLE_STATE_CREATE_INFO_NV"),
+Self::WIN32_KEYED_MUTEX_ACQUIRE_RELEASE_INFO_NV => Some("WIN32_KEYED_MUTEX_ACQUIRE_RELEASE_INFO_NV"),
+Self::NATIVE_BUFFER_USAGE_OHOS => Some("NATIVE_BUFFER_USAGE_OHOS"),
+Self::NATIVE_BUFFER_PROPERTIES_OHOS => Some("NATIVE_BUFFER_PROPERTIES_OHOS"),
+Self::NATIVE_BUFFER_FORMAT_PROPERTIES_OHOS => Some("NATIVE_BUFFER_FORMAT_PROPERTIES_OHOS"),
+Self::IMPORT_NATIVE_BUFFER_INFO_OHOS => Some("IMPORT_NATIVE_BUFFER_INFO_OHOS"),
+Self::MEMORY_GET_NATIVE_BUFFER_INFO_OHOS => Some("MEMORY_GET_NATIVE_BUFFER_INFO_OHOS"),
+Self::EXTERNAL_FORMAT_OHOS => Some("EXTERNAL_FORMAT_OHOS"),
+Self::SURFACE_CREATE_INFO_OHOS => Some("SURFACE_CREATE_INFO_OHOS"),
+Self::PHYSICAL_DEVICE_COOPERATIVE_MATRIX_CONVERSION_FEATURES_QCOM => Some("PHYSICAL_DEVICE_COOPERATIVE_MATRIX_CONVERSION_FEATURES_QCOM"),
+Self::PHYSICAL_DEVICE_DATA_GRAPH_MODEL_FEATURES_QCOM => Some("PHYSICAL_DEVICE_DATA_GRAPH_MODEL_FEATURES_QCOM"),
+Self::DATA_GRAPH_PIPELINE_BUILTIN_MODEL_CREATE_INFO_QCOM => Some("DATA_GRAPH_PIPELINE_BUILTIN_MODEL_CREATE_INFO_QCOM"),
+Self::PHYSICAL_DEVICE_ELAPSED_TIMER_QUERY_FEATURES_QCOM => Some("PHYSICAL_DEVICE_ELAPSED_TIMER_QUERY_FEATURES_QCOM"),
+Self::PHYSICAL_DEVICE_CUBIC_CLAMP_FEATURES_QCOM => Some("PHYSICAL_DEVICE_CUBIC_CLAMP_FEATURES_QCOM"),
+Self::SAMPLER_CUBIC_WEIGHTS_CREATE_INFO_QCOM => Some("SAMPLER_CUBIC_WEIGHTS_CREATE_INFO_QCOM"),
+Self::PHYSICAL_DEVICE_CUBIC_WEIGHTS_FEATURES_QCOM => Some("PHYSICAL_DEVICE_CUBIC_WEIGHTS_FEATURES_QCOM"),
+Self::BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM => Some("BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM"),
+Self::PHYSICAL_DEVICE_IMAGE_PROCESSING_FEATURES_QCOM => Some("PHYSICAL_DEVICE_IMAGE_PROCESSING_FEATURES_QCOM"),
+Self::PHYSICAL_DEVICE_IMAGE_PROCESSING_PROPERTIES_QCOM => Some("PHYSICAL_DEVICE_IMAGE_PROCESSING_PROPERTIES_QCOM"),
+Self::IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM => Some("IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM"),
+Self::PHYSICAL_DEVICE_IMAGE_PROCESSING_2_FEATURES_QCOM => Some("PHYSICAL_DEVICE_IMAGE_PROCESSING_2_FEATURES_QCOM"),
+Self::PHYSICAL_DEVICE_IMAGE_PROCESSING_2_PROPERTIES_QCOM => Some("PHYSICAL_DEVICE_IMAGE_PROCESSING_2_PROPERTIES_QCOM"),
+Self::SAMPLER_BLOCK_MATCH_WINDOW_CREATE_INFO_QCOM => Some("SAMPLER_BLOCK_MATCH_WINDOW_CREATE_INFO_QCOM"),
+Self::PHYSICAL_DEVICE_IMAGE_PROCESSING_3_FEATURES_QCOM => Some("PHYSICAL_DEVICE_IMAGE_PROCESSING_3_FEATURES_QCOM"),
+Self::PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_RENDER_AREAS_FEATURES_QCOM => Some("PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_RENDER_AREAS_FEATURES_QCOM"),
+Self::MULTIVIEW_PER_VIEW_RENDER_AREAS_RENDER_PASS_BEGIN_INFO_QCOM => Some("MULTIVIEW_PER_VIEW_RENDER_AREAS_RENDER_PASS_BEGIN_INFO_QCOM"),
+Self::PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_VIEWPORTS_FEATURES_QCOM => Some("PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_VIEWPORTS_FEATURES_QCOM"),
+Self::PERF_HINT_INFO_QCOM => Some("PERF_HINT_INFO_QCOM"),
+Self::PHYSICAL_DEVICE_QUEUE_PERF_HINT_FEATURES_QCOM => Some("PHYSICAL_DEVICE_QUEUE_PERF_HINT_FEATURES_QCOM"),
+Self::PHYSICAL_DEVICE_QUEUE_PERF_HINT_PROPERTIES_QCOM => Some("PHYSICAL_DEVICE_QUEUE_PERF_HINT_PROPERTIES_QCOM"),
+Self::COMMAND_BUFFER_INHERITANCE_RENDER_PASS_TRANSFORM_INFO_QCOM => Some("COMMAND_BUFFER_INHERITANCE_RENDER_PASS_TRANSFORM_INFO_QCOM"),
+Self::RENDER_PASS_TRANSFORM_BEGIN_INFO_QCOM => Some("RENDER_PASS_TRANSFORM_BEGIN_INFO_QCOM"),
+Self::COPY_COMMAND_TRANSFORM_INFO_QCOM => Some("COPY_COMMAND_TRANSFORM_INFO_QCOM"),
+Self::PHYSICAL_DEVICE_SHADER_MULTIPLE_WAIT_QUEUES_FEATURES_QCOM => Some("PHYSICAL_DEVICE_SHADER_MULTIPLE_WAIT_QUEUES_FEATURES_QCOM"),
+Self::PHYSICAL_DEVICE_SHADER_MULTIPLE_WAIT_QUEUES_PROPERTIES_QCOM => Some("PHYSICAL_DEVICE_SHADER_MULTIPLE_WAIT_QUEUES_PROPERTIES_QCOM"),
+Self::PHYSICAL_DEVICE_TILE_MEMORY_HEAP_FEATURES_QCOM => Some("PHYSICAL_DEVICE_TILE_MEMORY_HEAP_FEATURES_QCOM"),
+Self::PHYSICAL_DEVICE_TILE_MEMORY_HEAP_PROPERTIES_QCOM => Some("PHYSICAL_DEVICE_TILE_MEMORY_HEAP_PROPERTIES_QCOM"),
+Self::TILE_MEMORY_REQUIREMENTS_QCOM => Some("TILE_MEMORY_REQUIREMENTS_QCOM"),
+Self::TILE_MEMORY_BIND_INFO_QCOM => Some("TILE_MEMORY_BIND_INFO_QCOM"),
+Self::TILE_MEMORY_SIZE_INFO_QCOM => Some("TILE_MEMORY_SIZE_INFO_QCOM"),
+Self::PHYSICAL_DEVICE_TILE_PROPERTIES_FEATURES_QCOM => Some("PHYSICAL_DEVICE_TILE_PROPERTIES_FEATURES_QCOM"),
+Self::TILE_PROPERTIES_QCOM => Some("TILE_PROPERTIES_QCOM"),
+Self::PHYSICAL_DEVICE_TILE_SHADING_FEATURES_QCOM => Some("PHYSICAL_DEVICE_TILE_SHADING_FEATURES_QCOM"),
+Self::PHYSICAL_DEVICE_TILE_SHADING_PROPERTIES_QCOM => Some("PHYSICAL_DEVICE_TILE_SHADING_PROPERTIES_QCOM"),
+Self::RENDER_PASS_TILE_SHADING_CREATE_INFO_QCOM => Some("RENDER_PASS_TILE_SHADING_CREATE_INFO_QCOM"),
+Self::PER_TILE_BEGIN_INFO_QCOM => Some("PER_TILE_BEGIN_INFO_QCOM"),
+Self::PER_TILE_END_INFO_QCOM => Some("PER_TILE_END_INFO_QCOM"),
+Self::DISPATCH_TILE_INFO_QCOM => Some("DISPATCH_TILE_INFO_QCOM"),
+Self::PHYSICAL_DEVICE_YCBCR_DEGAMMA_FEATURES_QCOM => Some("PHYSICAL_DEVICE_YCBCR_DEGAMMA_FEATURES_QCOM"),
+Self::SAMPLER_YCBCR_CONVERSION_YCBCR_DEGAMMA_CREATE_INFO_QCOM => Some("SAMPLER_YCBCR_CONVERSION_YCBCR_DEGAMMA_CREATE_INFO_QCOM"),
+Self::SCREEN_BUFFER_PROPERTIES_QNX => Some("SCREEN_BUFFER_PROPERTIES_QNX"),
+Self::SCREEN_BUFFER_FORMAT_PROPERTIES_QNX => Some("SCREEN_BUFFER_FORMAT_PROPERTIES_QNX"),
+Self::IMPORT_SCREEN_BUFFER_INFO_QNX => Some("IMPORT_SCREEN_BUFFER_INFO_QNX"),
+Self::EXTERNAL_FORMAT_QNX => Some("EXTERNAL_FORMAT_QNX"),
+Self::PHYSICAL_DEVICE_EXTERNAL_MEMORY_SCREEN_BUFFER_FEATURES_QNX => Some("PHYSICAL_DEVICE_EXTERNAL_MEMORY_SCREEN_BUFFER_FEATURES_QNX"),
+Self::SCREEN_SURFACE_CREATE_INFO_QNX => Some("SCREEN_SURFACE_CREATE_INFO_QNX"),
+Self::PHYSICAL_DEVICE_AMIGO_PROFILING_FEATURES_SEC => Some("PHYSICAL_DEVICE_AMIGO_PROFILING_FEATURES_SEC"),
+Self::AMIGO_PROFILING_SUBMIT_INFO_SEC => Some("AMIGO_PROFILING_SUBMIT_INFO_SEC"),
+Self::PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC => Some("PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC"),
+Self::PHYSICAL_DEVICE_THROTTLE_HINT_FEATURES_SEC => Some("PHYSICAL_DEVICE_THROTTLE_HINT_FEATURES_SEC"),
+Self::THROTTLE_HINT_SUBMIT_INFO_SEC => Some("THROTTLE_HINT_SUBMIT_INFO_SEC"),
+Self::UBM_SURFACE_CREATE_INFO_SEC => Some("UBM_SURFACE_CREATE_INFO_SEC"),
+Self::PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_ALLOCATION_ALIGNMENT_FEATURES_VALVE => Some("PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_ALLOCATION_ALIGNMENT_FEATURES_VALVE"),
+Self::PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_ALLOCATION_ALIGNMENT_PROPERTIES_VALVE => Some("PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_ALLOCATION_ALIGNMENT_PROPERTIES_VALVE"),
+Self::BUFFER_DEVICE_ADDRESS_ALIGNMENT_ALLOCATE_INFO_VALVE => Some("BUFFER_DEVICE_ADDRESS_ALIGNMENT_ALLOCATE_INFO_VALVE"),
+Self::PHYSICAL_DEVICE_DESCRIPTOR_SET_HOST_MAPPING_FEATURES_VALVE => Some("PHYSICAL_DEVICE_DESCRIPTOR_SET_HOST_MAPPING_FEATURES_VALVE"),
+Self::DESCRIPTOR_SET_BINDING_REFERENCE_VALVE => Some("DESCRIPTOR_SET_BINDING_REFERENCE_VALVE"),
+Self::DESCRIPTOR_SET_LAYOUT_HOST_MAPPING_INFO_VALVE => Some("DESCRIPTOR_SET_LAYOUT_HOST_MAPPING_INFO_VALVE"),
+Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_FEATURES_VALVE => Some("PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_FEATURES_VALVE"),
+Self::PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_PROPERTIES_VALVE => Some("PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_PROPERTIES_VALVE"),
+Self::PIPELINE_FRAGMENT_DENSITY_MAP_LAYERED_CREATE_INFO_VALVE => Some("PIPELINE_FRAGMENT_DENSITY_MAP_LAYERED_CREATE_INFO_VALVE"),
+Self::PHYSICAL_DEVICE_SHADER_MIXED_FLOAT_DOT_PRODUCT_FEATURES_VALVE => Some("PHYSICAL_DEVICE_SHADER_MIXED_FLOAT_DOT_PRODUCT_FEATURES_VALVE"),
+Self::PHYSICAL_DEVICE_VIDEO_ENCODE_RGB_CONVERSION_FEATURES_VALVE => Some("PHYSICAL_DEVICE_VIDEO_ENCODE_RGB_CONVERSION_FEATURES_VALVE"),
+Self::VIDEO_ENCODE_RGB_CONVERSION_CAPABILITIES_VALVE => Some("VIDEO_ENCODE_RGB_CONVERSION_CAPABILITIES_VALVE"),
+Self::VIDEO_ENCODE_PROFILE_RGB_CONVERSION_INFO_VALVE => Some("VIDEO_ENCODE_PROFILE_RGB_CONVERSION_INFO_VALVE"),
+Self::VIDEO_ENCODE_SESSION_RGB_CONVERSION_CREATE_INFO_VALVE => Some("VIDEO_ENCODE_SESSION_RGB_CONVERSION_CREATE_INFO_VALVE"),
+Self::BIND_BUFFER_MEMORY_INFO => Some("BIND_BUFFER_MEMORY_INFO"),
+Self::BIND_IMAGE_MEMORY_INFO => Some("BIND_IMAGE_MEMORY_INFO"),
+Self::MEMORY_DEDICATED_REQUIREMENTS => Some("MEMORY_DEDICATED_REQUIREMENTS"),
+Self::MEMORY_DEDICATED_ALLOCATE_INFO => Some("MEMORY_DEDICATED_ALLOCATE_INFO"),
+Self::MEMORY_ALLOCATE_FLAGS_INFO => Some("MEMORY_ALLOCATE_FLAGS_INFO"),
+Self::DEVICE_GROUP_COMMAND_BUFFER_BEGIN_INFO => Some("DEVICE_GROUP_COMMAND_BUFFER_BEGIN_INFO"),
+Self::DEVICE_GROUP_SUBMIT_INFO => Some("DEVICE_GROUP_SUBMIT_INFO"),
+Self::DEVICE_GROUP_BIND_SPARSE_INFO => Some("DEVICE_GROUP_BIND_SPARSE_INFO"),
+Self::BIND_BUFFER_MEMORY_DEVICE_GROUP_INFO => Some("BIND_BUFFER_MEMORY_DEVICE_GROUP_INFO"),
+Self::BIND_IMAGE_MEMORY_DEVICE_GROUP_INFO => Some("BIND_IMAGE_MEMORY_DEVICE_GROUP_INFO"),
+Self::PHYSICAL_DEVICE_GROUP_PROPERTIES => Some("PHYSICAL_DEVICE_GROUP_PROPERTIES"),
+Self::DEVICE_GROUP_DEVICE_CREATE_INFO => Some("DEVICE_GROUP_DEVICE_CREATE_INFO"),
+Self::BUFFER_MEMORY_REQUIREMENTS_INFO_2 => Some("BUFFER_MEMORY_REQUIREMENTS_INFO_2"),
+Self::IMAGE_MEMORY_REQUIREMENTS_INFO_2 => Some("IMAGE_MEMORY_REQUIREMENTS_INFO_2"),
+Self::IMAGE_SPARSE_MEMORY_REQUIREMENTS_INFO_2 => Some("IMAGE_SPARSE_MEMORY_REQUIREMENTS_INFO_2"),
+Self::MEMORY_REQUIREMENTS_2 => Some("MEMORY_REQUIREMENTS_2"),
+Self::SPARSE_IMAGE_MEMORY_REQUIREMENTS_2 => Some("SPARSE_IMAGE_MEMORY_REQUIREMENTS_2"),
+Self::PHYSICAL_DEVICE_FEATURES_2 => Some("PHYSICAL_DEVICE_FEATURES_2"),
+Self::PHYSICAL_DEVICE_PROPERTIES_2 => Some("PHYSICAL_DEVICE_PROPERTIES_2"),
+Self::FORMAT_PROPERTIES_2 => Some("FORMAT_PROPERTIES_2"),
+Self::IMAGE_FORMAT_PROPERTIES_2 => Some("IMAGE_FORMAT_PROPERTIES_2"),
+Self::PHYSICAL_DEVICE_IMAGE_FORMAT_INFO_2 => Some("PHYSICAL_DEVICE_IMAGE_FORMAT_INFO_2"),
+Self::QUEUE_FAMILY_PROPERTIES_2 => Some("QUEUE_FAMILY_PROPERTIES_2"),
+Self::PHYSICAL_DEVICE_MEMORY_PROPERTIES_2 => Some("PHYSICAL_DEVICE_MEMORY_PROPERTIES_2"),
+Self::SPARSE_IMAGE_FORMAT_PROPERTIES_2 => Some("SPARSE_IMAGE_FORMAT_PROPERTIES_2"),
+Self::PHYSICAL_DEVICE_SPARSE_IMAGE_FORMAT_INFO_2 => Some("PHYSICAL_DEVICE_SPARSE_IMAGE_FORMAT_INFO_2"),
+Self::IMAGE_VIEW_USAGE_CREATE_INFO => Some("IMAGE_VIEW_USAGE_CREATE_INFO"),
+Self::PROTECTED_SUBMIT_INFO => Some("PROTECTED_SUBMIT_INFO"),
+Self::PHYSICAL_DEVICE_PROTECTED_MEMORY_FEATURES => Some("PHYSICAL_DEVICE_PROTECTED_MEMORY_FEATURES"),
+Self::PHYSICAL_DEVICE_PROTECTED_MEMORY_PROPERTIES => Some("PHYSICAL_DEVICE_PROTECTED_MEMORY_PROPERTIES"),
+Self::DEVICE_QUEUE_INFO_2 => Some("DEVICE_QUEUE_INFO_2"),
+Self::PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO => Some("PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO"),
+Self::EXTERNAL_IMAGE_FORMAT_PROPERTIES => Some("EXTERNAL_IMAGE_FORMAT_PROPERTIES"),
+Self::PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO => Some("PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO"),
+Self::EXTERNAL_BUFFER_PROPERTIES => Some("EXTERNAL_BUFFER_PROPERTIES"),
+Self::PHYSICAL_DEVICE_ID_PROPERTIES => Some("PHYSICAL_DEVICE_ID_PROPERTIES"),
+Self::EXTERNAL_MEMORY_BUFFER_CREATE_INFO => Some("EXTERNAL_MEMORY_BUFFER_CREATE_INFO"),
+Self::EXTERNAL_MEMORY_IMAGE_CREATE_INFO => Some("EXTERNAL_MEMORY_IMAGE_CREATE_INFO"),
+Self::EXPORT_MEMORY_ALLOCATE_INFO => Some("EXPORT_MEMORY_ALLOCATE_INFO"),
+Self::PHYSICAL_DEVICE_EXTERNAL_FENCE_INFO => Some("PHYSICAL_DEVICE_EXTERNAL_FENCE_INFO"),
+Self::EXTERNAL_FENCE_PROPERTIES => Some("EXTERNAL_FENCE_PROPERTIES"),
+Self::EXPORT_FENCE_CREATE_INFO => Some("EXPORT_FENCE_CREATE_INFO"),
+Self::EXPORT_SEMAPHORE_CREATE_INFO => Some("EXPORT_SEMAPHORE_CREATE_INFO"),
+Self::PHYSICAL_DEVICE_EXTERNAL_SEMAPHORE_INFO => Some("PHYSICAL_DEVICE_EXTERNAL_SEMAPHORE_INFO"),
+Self::EXTERNAL_SEMAPHORE_PROPERTIES => Some("EXTERNAL_SEMAPHORE_PROPERTIES"),
+Self::PHYSICAL_DEVICE_SUBGROUP_PROPERTIES => Some("PHYSICAL_DEVICE_SUBGROUP_PROPERTIES"),
+Self::PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES => Some("PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES"),
+Self::PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES => Some("PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES"),
+Self::DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO => Some("DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO"),
+Self::PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES => Some("PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES"),
+Self::DESCRIPTOR_SET_LAYOUT_SUPPORT => Some("DESCRIPTOR_SET_LAYOUT_SUPPORT"),
+Self::SAMPLER_YCBCR_CONVERSION_CREATE_INFO => Some("SAMPLER_YCBCR_CONVERSION_CREATE_INFO"),
+Self::SAMPLER_YCBCR_CONVERSION_INFO => Some("SAMPLER_YCBCR_CONVERSION_INFO"),
+Self::BIND_IMAGE_PLANE_MEMORY_INFO => Some("BIND_IMAGE_PLANE_MEMORY_INFO"),
+Self::IMAGE_PLANE_MEMORY_REQUIREMENTS_INFO => Some("IMAGE_PLANE_MEMORY_REQUIREMENTS_INFO"),
+Self::PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES => Some("PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES"),
+Self::SAMPLER_YCBCR_CONVERSION_IMAGE_FORMAT_PROPERTIES => Some("SAMPLER_YCBCR_CONVERSION_IMAGE_FORMAT_PROPERTIES"),
+Self::DEVICE_GROUP_RENDER_PASS_BEGIN_INFO => Some("DEVICE_GROUP_RENDER_PASS_BEGIN_INFO"),
+Self::PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES => Some("PHYSICAL_DEVICE_POINT_CLIPPING_PROPERTIES"),
+Self::RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO => Some("RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO"),
+Self::PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO => Some("PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO"),
+Self::RENDER_PASS_MULTIVIEW_CREATE_INFO => Some("RENDER_PASS_MULTIVIEW_CREATE_INFO"),
+Self::PHYSICAL_DEVICE_MULTIVIEW_FEATURES => Some("PHYSICAL_DEVICE_MULTIVIEW_FEATURES"),
+Self::PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES => Some("PHYSICAL_DEVICE_MULTIVIEW_PROPERTIES"),
+Self::PHYSICAL_DEVICE_SHADER_DRAW_PARAMETERS_FEATURES => Some("PHYSICAL_DEVICE_SHADER_DRAW_PARAMETERS_FEATURES"),
+Self::PHYSICAL_DEVICE_DRIVER_PROPERTIES => Some("PHYSICAL_DEVICE_DRIVER_PROPERTIES"),
+Self::IMAGE_FORMAT_LIST_CREATE_INFO => Some("IMAGE_FORMAT_LIST_CREATE_INFO"),
+Self::PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES => Some("PHYSICAL_DEVICE_VULKAN_MEMORY_MODEL_FEATURES"),
+Self::PHYSICAL_DEVICE_HOST_QUERY_RESET_FEATURES => Some("PHYSICAL_DEVICE_HOST_QUERY_RESET_FEATURES"),
+Self::PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES => Some("PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES"),
+Self::PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_PROPERTIES => Some("PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_PROPERTIES"),
+Self::SEMAPHORE_TYPE_CREATE_INFO => Some("SEMAPHORE_TYPE_CREATE_INFO"),
+Self::TIMELINE_SEMAPHORE_SUBMIT_INFO => Some("TIMELINE_SEMAPHORE_SUBMIT_INFO"),
+Self::SEMAPHORE_WAIT_INFO => Some("SEMAPHORE_WAIT_INFO"),
+Self::SEMAPHORE_SIGNAL_INFO => Some("SEMAPHORE_SIGNAL_INFO"),
+Self::PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES => Some("PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES"),
+Self::BUFFER_DEVICE_ADDRESS_INFO => Some("BUFFER_DEVICE_ADDRESS_INFO"),
+Self::BUFFER_OPAQUE_CAPTURE_ADDRESS_CREATE_INFO => Some("BUFFER_OPAQUE_CAPTURE_ADDRESS_CREATE_INFO"),
+Self::MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO => Some("MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO"),
+Self::DEVICE_MEMORY_OPAQUE_CAPTURE_ADDRESS_INFO => Some("DEVICE_MEMORY_OPAQUE_CAPTURE_ADDRESS_INFO"),
+Self::PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES => Some("PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES"),
+Self::PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES => Some("PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES"),
+Self::PHYSICAL_DEVICE_SHADER_FLOAT16_INT8_FEATURES => Some("PHYSICAL_DEVICE_SHADER_FLOAT16_INT8_FEATURES"),
+Self::PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES => Some("PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES"),
+Self::DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO => Some("DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO"),
+Self::PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES => Some("PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES"),
+Self::PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES => Some("PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_PROPERTIES"),
+Self::DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO => Some("DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO"),
+Self::DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT => Some("DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT"),
+Self::PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES => Some("PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES"),
+Self::PHYSICAL_DEVICE_SAMPLER_FILTER_MINMAX_PROPERTIES => Some("PHYSICAL_DEVICE_SAMPLER_FILTER_MINMAX_PROPERTIES"),
+Self::SAMPLER_REDUCTION_MODE_CREATE_INFO => Some("SAMPLER_REDUCTION_MODE_CREATE_INFO"),
+Self::PHYSICAL_DEVICE_UNIFORM_BUFFER_STANDARD_LAYOUT_FEATURES => Some("PHYSICAL_DEVICE_UNIFORM_BUFFER_STANDARD_LAYOUT_FEATURES"),
+Self::PHYSICAL_DEVICE_SHADER_SUBGROUP_EXTENDED_TYPES_FEATURES => Some("PHYSICAL_DEVICE_SHADER_SUBGROUP_EXTENDED_TYPES_FEATURES"),
+Self::ATTACHMENT_DESCRIPTION_2 => Some("ATTACHMENT_DESCRIPTION_2"),
+Self::ATTACHMENT_REFERENCE_2 => Some("ATTACHMENT_REFERENCE_2"),
+Self::SUBPASS_DESCRIPTION_2 => Some("SUBPASS_DESCRIPTION_2"),
+Self::SUBPASS_DEPENDENCY_2 => Some("SUBPASS_DEPENDENCY_2"),
+Self::RENDER_PASS_CREATE_INFO_2 => Some("RENDER_PASS_CREATE_INFO_2"),
+Self::SUBPASS_BEGIN_INFO => Some("SUBPASS_BEGIN_INFO"),
+Self::SUBPASS_END_INFO => Some("SUBPASS_END_INFO"),
+Self::PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES => Some("PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES"),
+Self::SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE => Some("SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE"),
+Self::IMAGE_STENCIL_USAGE_CREATE_INFO => Some("IMAGE_STENCIL_USAGE_CREATE_INFO"),
+Self::PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES => Some("PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES"),
+Self::FRAMEBUFFER_ATTACHMENTS_CREATE_INFO => Some("FRAMEBUFFER_ATTACHMENTS_CREATE_INFO"),
+Self::FRAMEBUFFER_ATTACHMENT_IMAGE_INFO => Some("FRAMEBUFFER_ATTACHMENT_IMAGE_INFO"),
+Self::RENDER_PASS_ATTACHMENT_BEGIN_INFO => Some("RENDER_PASS_ATTACHMENT_BEGIN_INFO"),
+Self::PHYSICAL_DEVICE_SEPARATE_DEPTH_STENCIL_LAYOUTS_FEATURES => Some("PHYSICAL_DEVICE_SEPARATE_DEPTH_STENCIL_LAYOUTS_FEATURES"),
+Self::ATTACHMENT_REFERENCE_STENCIL_LAYOUT => Some("ATTACHMENT_REFERENCE_STENCIL_LAYOUT"),
+Self::ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT => Some("ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT"),
+Self::PHYSICAL_DEVICE_VULKAN_1_1_FEATURES => Some("PHYSICAL_DEVICE_VULKAN_1_1_FEATURES"),
+Self::PHYSICAL_DEVICE_VULKAN_1_1_PROPERTIES => Some("PHYSICAL_DEVICE_VULKAN_1_1_PROPERTIES"),
+Self::PHYSICAL_DEVICE_VULKAN_1_2_FEATURES => Some("PHYSICAL_DEVICE_VULKAN_1_2_FEATURES"),
+Self::PHYSICAL_DEVICE_VULKAN_1_2_PROPERTIES => Some("PHYSICAL_DEVICE_VULKAN_1_2_PROPERTIES"),
+Self::PHYSICAL_DEVICE_TOOL_PROPERTIES => Some("PHYSICAL_DEVICE_TOOL_PROPERTIES"),
+Self::PHYSICAL_DEVICE_PRIVATE_DATA_FEATURES => Some("PHYSICAL_DEVICE_PRIVATE_DATA_FEATURES"),
+Self::DEVICE_PRIVATE_DATA_CREATE_INFO => Some("DEVICE_PRIVATE_DATA_CREATE_INFO"),
+Self::PRIVATE_DATA_SLOT_CREATE_INFO => Some("PRIVATE_DATA_SLOT_CREATE_INFO"),
+Self::MEMORY_BARRIER_2 => Some("MEMORY_BARRIER_2"),
+Self::BUFFER_MEMORY_BARRIER_2 => Some("BUFFER_MEMORY_BARRIER_2"),
+Self::IMAGE_MEMORY_BARRIER_2 => Some("IMAGE_MEMORY_BARRIER_2"),
+Self::DEPENDENCY_INFO => Some("DEPENDENCY_INFO"),
+Self::SUBMIT_INFO_2 => Some("SUBMIT_INFO_2"),
+Self::SEMAPHORE_SUBMIT_INFO => Some("SEMAPHORE_SUBMIT_INFO"),
+Self::COMMAND_BUFFER_SUBMIT_INFO => Some("COMMAND_BUFFER_SUBMIT_INFO"),
+Self::PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES => Some("PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES"),
+Self::COPY_BUFFER_INFO_2 => Some("COPY_BUFFER_INFO_2"),
+Self::COPY_IMAGE_INFO_2 => Some("COPY_IMAGE_INFO_2"),
+Self::COPY_BUFFER_TO_IMAGE_INFO_2 => Some("COPY_BUFFER_TO_IMAGE_INFO_2"),
+Self::COPY_IMAGE_TO_BUFFER_INFO_2 => Some("COPY_IMAGE_TO_BUFFER_INFO_2"),
+Self::BUFFER_COPY_2 => Some("BUFFER_COPY_2"),
+Self::IMAGE_COPY_2 => Some("IMAGE_COPY_2"),
+Self::BUFFER_IMAGE_COPY_2 => Some("BUFFER_IMAGE_COPY_2"),
+Self::PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_HDR_FEATURES => Some("PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_HDR_FEATURES"),
+Self::FORMAT_PROPERTIES_3 => Some("FORMAT_PROPERTIES_3"),
+Self::PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES => Some("PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES"),
+Self::PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES => Some("PHYSICAL_DEVICE_MAINTENANCE_4_PROPERTIES"),
+Self::DEVICE_BUFFER_MEMORY_REQUIREMENTS => Some("DEVICE_BUFFER_MEMORY_REQUIREMENTS"),
+Self::DEVICE_IMAGE_MEMORY_REQUIREMENTS => Some("DEVICE_IMAGE_MEMORY_REQUIREMENTS"),
+Self::PIPELINE_CREATION_FEEDBACK_CREATE_INFO => Some("PIPELINE_CREATION_FEEDBACK_CREATE_INFO"),
+Self::PHYSICAL_DEVICE_SHADER_TERMINATE_INVOCATION_FEATURES => Some("PHYSICAL_DEVICE_SHADER_TERMINATE_INVOCATION_FEATURES"),
+Self::PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES => Some("PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES"),
+Self::PHYSICAL_DEVICE_PIPELINE_CREATION_CACHE_CONTROL_FEATURES => Some("PHYSICAL_DEVICE_PIPELINE_CREATION_CACHE_CONTROL_FEATURES"),
+Self::PHYSICAL_DEVICE_ZERO_INITIALIZE_WORKGROUP_MEMORY_FEATURES => Some("PHYSICAL_DEVICE_ZERO_INITIALIZE_WORKGROUP_MEMORY_FEATURES"),
+Self::PHYSICAL_DEVICE_IMAGE_ROBUSTNESS_FEATURES => Some("PHYSICAL_DEVICE_IMAGE_ROBUSTNESS_FEATURES"),
+Self::PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_PROPERTIES => Some("PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_PROPERTIES"),
+Self::PIPELINE_SHADER_STAGE_REQUIRED_SUBGROUP_SIZE_CREATE_INFO => Some("PIPELINE_SHADER_STAGE_REQUIRED_SUBGROUP_SIZE_CREATE_INFO"),
+Self::PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_FEATURES => Some("PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_FEATURES"),
+Self::PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_FEATURES => Some("PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_FEATURES"),
+Self::PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_PROPERTIES => Some("PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_PROPERTIES"),
+Self::WRITE_DESCRIPTOR_SET_INLINE_UNIFORM_BLOCK => Some("WRITE_DESCRIPTOR_SET_INLINE_UNIFORM_BLOCK"),
+Self::DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO => Some("DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO"),
+Self::PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_FEATURES => Some("PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_FEATURES"),
+Self::PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_PROPERTIES => Some("PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_PROPERTIES"),
+Self::PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES => Some("PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES"),
+Self::BLIT_IMAGE_INFO_2 => Some("BLIT_IMAGE_INFO_2"),
+Self::RESOLVE_IMAGE_INFO_2 => Some("RESOLVE_IMAGE_INFO_2"),
+Self::IMAGE_BLIT_2 => Some("IMAGE_BLIT_2"),
+Self::IMAGE_RESOLVE_2 => Some("IMAGE_RESOLVE_2"),
+Self::RENDERING_INFO => Some("RENDERING_INFO"),
+Self::RENDERING_ATTACHMENT_INFO => Some("RENDERING_ATTACHMENT_INFO"),
+Self::PIPELINE_RENDERING_CREATE_INFO => Some("PIPELINE_RENDERING_CREATE_INFO"),
+Self::PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES => Some("PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES"),
+Self::COMMAND_BUFFER_INHERITANCE_RENDERING_INFO => Some("COMMAND_BUFFER_INHERITANCE_RENDERING_INFO"),
+Self::PHYSICAL_DEVICE_VULKAN_1_3_FEATURES => Some("PHYSICAL_DEVICE_VULKAN_1_3_FEATURES"),
+Self::PHYSICAL_DEVICE_VULKAN_1_3_PROPERTIES => Some("PHYSICAL_DEVICE_VULKAN_1_3_PROPERTIES"),
+Self::DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO => Some("DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO"),
+Self::PHYSICAL_DEVICE_GLOBAL_PRIORITY_QUERY_FEATURES => Some("PHYSICAL_DEVICE_GLOBAL_PRIORITY_QUERY_FEATURES"),
+Self::QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES => Some("QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES"),
+Self::PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES => Some("PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES"),
+Self::MEMORY_MAP_INFO => Some("MEMORY_MAP_INFO"),
+Self::MEMORY_UNMAP_INFO => Some("MEMORY_UNMAP_INFO"),
+Self::PHYSICAL_DEVICE_MAINTENANCE_5_FEATURES => Some("PHYSICAL_DEVICE_MAINTENANCE_5_FEATURES"),
+Self::PHYSICAL_DEVICE_MAINTENANCE_5_PROPERTIES => Some("PHYSICAL_DEVICE_MAINTENANCE_5_PROPERTIES"),
+Self::DEVICE_IMAGE_SUBRESOURCE_INFO => Some("DEVICE_IMAGE_SUBRESOURCE_INFO"),
+Self::SUBRESOURCE_LAYOUT_2 => Some("SUBRESOURCE_LAYOUT_2"),
+Self::IMAGE_SUBRESOURCE_2 => Some("IMAGE_SUBRESOURCE_2"),
+Self::BUFFER_USAGE_FLAGS_2_CREATE_INFO => Some("BUFFER_USAGE_FLAGS_2_CREATE_INFO"),
+Self::PHYSICAL_DEVICE_MAINTENANCE_6_FEATURES => Some("PHYSICAL_DEVICE_MAINTENANCE_6_FEATURES"),
+Self::PHYSICAL_DEVICE_MAINTENANCE_6_PROPERTIES => Some("PHYSICAL_DEVICE_MAINTENANCE_6_PROPERTIES"),
+Self::BIND_MEMORY_STATUS => Some("BIND_MEMORY_STATUS"),
+Self::PHYSICAL_DEVICE_HOST_IMAGE_COPY_FEATURES => Some("PHYSICAL_DEVICE_HOST_IMAGE_COPY_FEATURES"),
+Self::PHYSICAL_DEVICE_HOST_IMAGE_COPY_PROPERTIES => Some("PHYSICAL_DEVICE_HOST_IMAGE_COPY_PROPERTIES"),
+Self::MEMORY_TO_IMAGE_COPY => Some("MEMORY_TO_IMAGE_COPY"),
+Self::IMAGE_TO_MEMORY_COPY => Some("IMAGE_TO_MEMORY_COPY"),
+Self::COPY_IMAGE_TO_MEMORY_INFO => Some("COPY_IMAGE_TO_MEMORY_INFO"),
+Self::COPY_MEMORY_TO_IMAGE_INFO => Some("COPY_MEMORY_TO_IMAGE_INFO"),
+Self::HOST_IMAGE_LAYOUT_TRANSITION_INFO => Some("HOST_IMAGE_LAYOUT_TRANSITION_INFO"),
+Self::COPY_IMAGE_TO_IMAGE_INFO => Some("COPY_IMAGE_TO_IMAGE_INFO"),
+Self::SUBRESOURCE_HOST_MEMCPY_SIZE => Some("SUBRESOURCE_HOST_MEMCPY_SIZE"),
+Self::HOST_IMAGE_COPY_DEVICE_PERFORMANCE_QUERY => Some("HOST_IMAGE_COPY_DEVICE_PERFORMANCE_QUERY"),
+Self::PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES => Some("PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES"),
+Self::PHYSICAL_DEVICE_SHADER_FLOAT_CONTROLS_2_FEATURES => Some("PHYSICAL_DEVICE_SHADER_FLOAT_CONTROLS_2_FEATURES"),
+Self::PHYSICAL_DEVICE_SHADER_EXPECT_ASSUME_FEATURES => Some("PHYSICAL_DEVICE_SHADER_EXPECT_ASSUME_FEATURES"),
+Self::PIPELINE_CREATE_FLAGS_2_CREATE_INFO => Some("PIPELINE_CREATE_FLAGS_2_CREATE_INFO"),
+Self::PHYSICAL_DEVICE_PUSH_DESCRIPTOR_PROPERTIES => Some("PHYSICAL_DEVICE_PUSH_DESCRIPTOR_PROPERTIES"),
+Self::BIND_DESCRIPTOR_SETS_INFO => Some("BIND_DESCRIPTOR_SETS_INFO"),
+Self::PUSH_CONSTANTS_INFO => Some("PUSH_CONSTANTS_INFO"),
+Self::PUSH_DESCRIPTOR_SET_INFO => Some("PUSH_DESCRIPTOR_SET_INFO"),
+Self::PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO => Some("PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO"),
+Self::PHYSICAL_DEVICE_PIPELINE_PROTECTED_ACCESS_FEATURES => Some("PHYSICAL_DEVICE_PIPELINE_PROTECTED_ACCESS_FEATURES"),
+Self::PIPELINE_ROBUSTNESS_CREATE_INFO => Some("PIPELINE_ROBUSTNESS_CREATE_INFO"),
+Self::PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_FEATURES => Some("PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_FEATURES"),
+Self::PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_PROPERTIES => Some("PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_PROPERTIES"),
+Self::PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES => Some("PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES"),
+Self::PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO => Some("PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO"),
+Self::PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES => Some("PHYSICAL_DEVICE_LINE_RASTERIZATION_PROPERTIES"),
+Self::PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES => Some("PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_PROPERTIES"),
+Self::PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO => Some("PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO"),
+Self::PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES => Some("PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES"),
+Self::RENDERING_AREA_INFO => Some("RENDERING_AREA_INFO"),
+Self::PHYSICAL_DEVICE_DYNAMIC_RENDERING_LOCAL_READ_FEATURES => Some("PHYSICAL_DEVICE_DYNAMIC_RENDERING_LOCAL_READ_FEATURES"),
+Self::RENDERING_ATTACHMENT_LOCATION_INFO => Some("RENDERING_ATTACHMENT_LOCATION_INFO"),
+Self::RENDERING_INPUT_ATTACHMENT_INDEX_INFO => Some("RENDERING_INPUT_ATTACHMENT_INDEX_INFO"),
+Self::PHYSICAL_DEVICE_VULKAN_1_4_FEATURES => Some("PHYSICAL_DEVICE_VULKAN_1_4_FEATURES"),
+Self::PHYSICAL_DEVICE_VULKAN_1_4_PROPERTIES => Some("PHYSICAL_DEVICE_VULKAN_1_4_PROPERTIES"),
+_ => None
+        };
             if let Some(name) = name {
                 f.write_str(name)
             } else {

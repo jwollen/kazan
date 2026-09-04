@@ -71,6 +71,7 @@ pub mod performance_query;
 pub mod pipeline_binary;
 pub mod pipeline_executable_properties;
 pub mod pipeline_library;
+pub mod pipeline_library_group_handles;
 pub mod portability_enumeration;
 pub mod portability_subset;
 pub mod present_id;
@@ -221,6 +222,7 @@ pub(super) mod defs {
     pub use pipeline_binary::defs::*;
     pub use pipeline_executable_properties::defs::*;
     pub use pipeline_library::defs::*;
+    pub use pipeline_library_group_handles::defs::*;
     #[cfg(feature = "provisional")]
     pub use portability_subset::defs::*;
     pub use present_id::defs::*;
@@ -364,6 +366,7 @@ pub(super) mod ffi {
     pub use super::pipeline_binary::ffi::*;
     pub use super::pipeline_executable_properties::ffi::*;
     pub use super::pipeline_library::ffi::*;
+    pub use super::pipeline_library_group_handles::ffi::*;
     #[cfg(feature = "provisional")]
     pub use super::portability_subset::ffi::*;
     pub use super::present_id::ffi::*;
