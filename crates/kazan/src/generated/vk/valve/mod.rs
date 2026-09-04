@@ -1,3 +1,4 @@
+pub mod buffer_device_address_allocation_alignment;
 pub mod descriptor_set_host_mapping;
 pub mod fragment_density_map_layered;
 pub mod mutable_descriptor_type;
@@ -5,6 +6,7 @@ pub mod shader_mixed_float_dot_product;
 pub mod video_encode_rgb_conversion;
 pub(super) mod defs {
     use super::*;
+    pub use buffer_device_address_allocation_alignment::defs::*;
     pub use descriptor_set_host_mapping::defs::*;
     pub use fragment_density_map_layered::defs::*;
     pub use mutable_descriptor_type::defs::*;
@@ -13,6 +15,7 @@ pub(super) mod defs {
 }
 #[cfg(feature = "ffi")]
 pub(super) mod ffi {
+    pub use super::buffer_device_address_allocation_alignment::ffi::*;
     pub use super::descriptor_set_host_mapping::ffi::*;
     pub use super::fragment_density_map_layered::ffi::*;
     pub use super::mutable_descriptor_type::ffi::*;

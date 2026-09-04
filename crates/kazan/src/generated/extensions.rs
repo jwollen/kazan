@@ -1448,6 +1448,10 @@ define_extension_set!(
             nv_compute_occupancy_priority,
             nv::compute_occupancy_priority::EXTENSION_NAME
         ),
+        (
+            khr_pipeline_library_group_handles,
+            khr::pipeline_library_group_handles::EXTENSION_NAME
+        ),
         (khr_maintenance11, khr::maintenance11::EXTENSION_NAME),
         (
             ext_cooperative_matrix_maintenance1,
@@ -1486,6 +1490,10 @@ define_extension_set!(
         (
             nv_private_data_base_handle,
             nv::private_data_base_handle::EXTENSION_NAME
+        ),
+        (
+            valve_buffer_device_address_allocation_alignment,
+            valve::buffer_device_address_allocation_alignment::EXTENSION_NAME
         ),
     ]
 );
