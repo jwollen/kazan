@@ -271,14 +271,9 @@ pub(super) mod defs {
 
     impl<'a> PipelineBinaryKeyKHR<'a> {
         #[inline]
-        pub fn key_size(mut self, key_size: u32) -> Self {
-            self.key_size = key_size;
-            self
-        }
-
-        #[inline]
-        pub fn key(mut self, key: [u8; MAX_PIPELINE_BINARY_KEY_SIZE_KHR as usize]) -> Self {
-            self.key = key;
+        pub fn key(mut self, key: &[u8]) -> Self {
+            self.key_size = key.len().try_into().unwrap();
+            self.key[..key.len()].copy_from_slice(key);
             self
         }
     }

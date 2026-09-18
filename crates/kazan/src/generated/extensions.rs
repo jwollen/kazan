@@ -1491,6 +1491,7 @@ define_extension_set!(
             nv_private_data_base_handle,
             nv::private_data_base_handle::EXTENSION_NAME
         ),
+        (intel_device_info, intel::device_info::EXTENSION_NAME),
         (
             valve_buffer_device_address_allocation_alignment,
             valve::buffer_device_address_allocation_alignment::EXTENSION_NAME
