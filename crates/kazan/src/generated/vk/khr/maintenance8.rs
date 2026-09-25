@@ -95,7 +95,8 @@ pub(super) mod defs {
     unsafe impl Extends<SubpassDependency2<'_>> for MemoryBarrierAccessFlags3KHR<'_> {}
     unsafe impl Extends<BufferMemoryBarrier2<'_>> for MemoryBarrierAccessFlags3KHR<'_> {}
     unsafe impl Extends<ImageMemoryBarrier2<'_>> for MemoryBarrierAccessFlags3KHR<'_> {}
-    unsafe impl Extends<MemoryRangeBarriersInfoKHR<'_>> for MemoryBarrierAccessFlags3KHR<'_> {}
+    unsafe impl Extends<MemoryBarrier2<'_>> for MemoryBarrierAccessFlags3KHR<'_> {}
+    unsafe impl Extends<MemoryRangeBarrierKHR<'_>> for MemoryBarrierAccessFlags3KHR<'_> {}
 
     impl Default for MemoryBarrierAccessFlags3KHR<'_> {
         fn default() -> Self {

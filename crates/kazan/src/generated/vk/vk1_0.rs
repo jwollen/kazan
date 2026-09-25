@@ -3752,6 +3752,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::COMPUTE_PIPELINE_CREATE_INFO;
     }
 
+    unsafe impl Extends<PipelineCreateInfoKHR<'_>> for ComputePipelineCreateInfo<'_> {}
+
     impl Default for ComputePipelineCreateInfo<'_> {
         fn default() -> Self {
             Self {
@@ -4834,6 +4836,8 @@ pub(super) mod defs {
     unsafe impl<'a> TaggedStructure<'a> for GraphicsPipelineCreateInfo<'a> {
         const STRUCTURE_TYPE: StructureType = StructureType::GRAPHICS_PIPELINE_CREATE_INFO;
     }
+
+    unsafe impl Extends<PipelineCreateInfoKHR<'_>> for GraphicsPipelineCreateInfo<'_> {}
 
     impl Default for GraphicsPipelineCreateInfo<'_> {
         fn default() -> Self {
