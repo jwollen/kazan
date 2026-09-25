@@ -165,6 +165,8 @@ pub(super) mod defs {
         const STRUCTURE_TYPE: StructureType = StructureType::RAY_TRACING_PIPELINE_CREATE_INFO_KHR;
     }
 
+    unsafe impl Extends<PipelineCreateInfoKHR<'_>> for RayTracingPipelineCreateInfoKHR<'_> {}
+
     impl Default for RayTracingPipelineCreateInfoKHR<'_> {
         fn default() -> Self {
             Self {

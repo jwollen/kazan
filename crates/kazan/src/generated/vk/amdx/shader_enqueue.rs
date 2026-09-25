@@ -258,6 +258,8 @@ pub(super) mod defs {
             StructureType::EXECUTION_GRAPH_PIPELINE_CREATE_INFO_AMDX;
     }
 
+    unsafe impl Extends<PipelineCreateInfoKHR<'_>> for ExecutionGraphPipelineCreateInfoAMDX<'_> {}
+
     impl Default for ExecutionGraphPipelineCreateInfoAMDX<'_> {
         fn default() -> Self {
             Self {
