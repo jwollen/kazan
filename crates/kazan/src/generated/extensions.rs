@@ -1463,6 +1463,10 @@ define_extension_set!(
         ),
         (khr_extended_flags, khr::extended_flags::EXTENSION_NAME),
         (
+            arm_cooperative_matrix_layouts,
+            arm::cooperative_matrix_layouts::EXTENSION_NAME
+        ),
+        (
             ext_shader_ocp_microscaling_types,
             ext::shader_ocp_microscaling_types::EXTENSION_NAME
         ),

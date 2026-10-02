@@ -1,3 +1,4 @@
+pub mod cooperative_matrix_layouts;
 pub mod data_graph;
 pub mod data_graph_instruction_set_tosa;
 pub mod data_graph_neural_accelerator_statistics;
@@ -15,6 +16,7 @@ pub mod tensor_controls;
 pub mod tensors;
 pub(super) mod defs {
     use super::*;
+    pub use cooperative_matrix_layouts::defs::*;
     pub use data_graph::defs::*;
     pub use data_graph_instruction_set_tosa::defs::*;
     pub use data_graph_neural_accelerator_statistics::defs::*;
@@ -33,6 +35,7 @@ pub(super) mod defs {
 }
 #[cfg(feature = "ffi")]
 pub(super) mod ffi {
+    pub use super::cooperative_matrix_layouts::ffi::*;
     pub use super::data_graph::ffi::*;
     pub use super::data_graph_instruction_set_tosa::ffi::*;
     pub use super::data_graph_neural_accelerator_statistics::ffi::*;

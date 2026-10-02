@@ -360,10 +360,10 @@ pub(super) mod defs {
         #[inline]
         pub fn device_name(
             mut self,
-            device_name: ArrayCStr<{ MAX_PHYSICAL_DEVICE_NAME_SIZE as usize }>,
-        ) -> Self {
-            self.device_name = device_name;
-            self
+            device_name: &CStr,
+        ) -> core::result::Result<Self, CStrTooLargeForStaticArray> {
+            self.device_name.write_c_str(device_name)?;
+            Ok(self)
         }
     }
 
