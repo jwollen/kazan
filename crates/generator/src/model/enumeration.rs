@@ -134,8 +134,7 @@ pub fn build_enum(analysis: &Analysis, ty: &xml::Enum) -> (EnumDef, Vec<EnumDebu
     let value_prefix = if ty.name == "VkResult" {
         "VK".to_string()
     } else {
-        let prefix = strip_vendor_suffix(ty.name, tags).to_shouty_snake_case();
-        separate_trailing_number(&prefix).to_string()
+        type_name_to_value_prefix(strip_vendor_suffix(ty.name, tags))
     };
 
     let name = if ty.name == "VkResult" {
@@ -257,12 +256,8 @@ fn build_flagbits(analysis: &Analysis, bitmask: &xml::BitMask, req: &ReqEnumData
     let tags = &analysis.registry().tags;
     let bitmask_name = normalize_ty_name(bitmask.name);
 
-    let value_prefix = {
-        let prefix = strip_vendor_suffix(bitmask.name, tags)
-            .replace("FlagBits", "")
-            .to_shouty_snake_case();
-        separate_trailing_number(&prefix).to_string()
-    };
+    let value_prefix =
+        type_name_to_value_prefix(&strip_vendor_suffix(bitmask.name, tags).replace("FlagBits", ""));
 
     // Base bits
     let mut base_bits: Vec<BitmaskBit> = bitmask
@@ -411,7 +406,7 @@ fn strip_vendor_suffix<'a>(name: &'a str, tags: &[&str]) -> &'a str {
 fn normalize_variant_name(name: &str, value_prefix: &str) -> String {
     let name = name
         .strip_prefix(value_prefix)
-        .unwrap()
+        .unwrap_or_else(|| panic!("`{name}` lacks prefix `{value_prefix}`"))
         .strip_prefix('_')
         .unwrap()
         .to_uppercase();
@@ -440,9 +435,25 @@ fn normalize_bit_name(name: &str, value_prefix: Option<&str>) -> String {
     }
 }
 
+/// Derives the value prefix (e.g. `VK_HDR_SMPTE_ST_209450_POWER_PREFERENCE`) from a type name.
+///
+/// Digits stay attached to a preceding uppercase letter (`AV1`, `H264`) but form their own word
+/// after a lowercase letter (`St209450` -> `ST_209450`) or at the end of the name (`Foo2` ->
+/// `FOO_2`). heck alone never splits between a letter and a digit.
+fn type_name_to_value_prefix(name: &str) -> String {
+    let digits_after_lowercase =
+        DIGITS_AFTER_LOWERCASE.get_or_init(|| regex::Regex::new(r"([a-z])(\d+)").unwrap());
+    let name = digits_after_lowercase.replace_all(name, "${1}_${2}_");
+    let prefix = name.to_shouty_snake_case();
+    separate_trailing_number(&prefix).into_owned()
+}
+
+static DIGITS_AFTER_LOWERCASE: OnceLock<Regex> = OnceLock::new();
+
 static TRAILING_NUMBER: OnceLock<Regex> = OnceLock::new();
 
 fn separate_trailing_number(name: &str) -> Cow<'_, str> {
-    let trailing_number = TRAILING_NUMBER.get_or_init(|| regex::Regex::new(r"(\d+)$").unwrap());
-    trailing_number.replace(name, "_$1")
+    let trailing_number =
+        TRAILING_NUMBER.get_or_init(|| regex::Regex::new(r"([^_\d])(\d+)$").unwrap());
+    trailing_number.replace(name, "${1}_${2}")
 }
