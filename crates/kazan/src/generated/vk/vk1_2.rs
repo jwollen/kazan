@@ -5879,6 +5879,12 @@ pub(super) mod defs {
         pub const APE_SOFT: Self = Self(30);
         /// Reserved for undisclosed driver project
         pub const RESERVED_31: Self = Self(31);
+        /// Apex Compute
+        pub const APEX: Self = Self(32);
+        /// nikki Vulkan-on-WebGPU implementation
+        pub const NIKKI: Self = Self(33);
+        /// momoten Vulkan-on-OpenCL implementation
+        pub const MOMOTEN: Self = Self(34);
 
         // VK_KHR_driver_properties
         pub const AMD_PROPRIETARY_KHR: Self = Self::AMD_PROPRIETARY;
@@ -5929,6 +5935,9 @@ pub(super) mod defs {
                 Self::MESA_GFXSTREAM => Some("MESA_GFXSTREAM"),
                 Self::APE_SOFT => Some("APE_SOFT"),
                 Self::RESERVED_31 => Some("RESERVED_31"),
+                Self::APEX => Some("APEX"),
+                Self::NIKKI => Some("NIKKI"),
+                Self::MOMOTEN => Some("MOMOTEN"),
                 _ => None,
             };
             if let Some(name) = name {

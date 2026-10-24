@@ -1500,5 +1500,9 @@ define_extension_set!(
             valve_buffer_device_address_allocation_alignment,
             valve::buffer_device_address_allocation_alignment::EXTENSION_NAME
         ),
+        (
+            google_hdr_smpte_st_209450_metadata,
+            google::hdr_smpte_st_209450_metadata::EXTENSION_NAME
+        ),
     ]
 );
