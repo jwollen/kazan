@@ -5885,6 +5885,8 @@ pub(super) mod defs {
         pub const NIKKI: Self = Self(33);
         /// momoten Vulkan-on-OpenCL implementation
         pub const MOMOTEN: Self = Self(34);
+        /// Aurora Silicon
+        pub const AURORA_BOREALIS: Self = Self(35);
 
         // VK_KHR_driver_properties
         pub const AMD_PROPRIETARY_KHR: Self = Self::AMD_PROPRIETARY;
@@ -5938,6 +5940,7 @@ pub(super) mod defs {
                 Self::APEX => Some("APEX"),
                 Self::NIKKI => Some("NIKKI"),
                 Self::MOMOTEN => Some("MOMOTEN"),
+                Self::AURORA_BOREALIS => Some("AURORA_BOREALIS"),
                 _ => None,
             };
             if let Some(name) = name {
