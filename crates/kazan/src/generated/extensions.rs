@@ -1483,6 +1483,7 @@ define_extension_set!(
             ext_primitive_restart_index,
             ext::primitive_restart_index::EXTENSION_NAME
         ),
+        (khr_maintenance12, khr::maintenance12::EXTENSION_NAME),
         (
             ext_image_tiling_control,
             ext::image_tiling_control::EXTENSION_NAME
