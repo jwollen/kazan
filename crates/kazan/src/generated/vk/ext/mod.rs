@@ -144,6 +144,7 @@ pub mod transform_feedback;
 pub mod validation_cache;
 pub mod validation_features;
 pub mod validation_flags;
+pub mod vertex_address_binding_unrestricted;
 pub mod vertex_attribute_divisor;
 pub mod vertex_attribute_robustness;
 pub mod vertex_input_dynamic_state;
@@ -289,6 +290,7 @@ pub(super) mod defs {
     pub use validation_cache::defs::*;
     pub use validation_features::defs::*;
     pub use validation_flags::defs::*;
+    pub use vertex_address_binding_unrestricted::defs::*;
     pub use vertex_attribute_divisor::defs::*;
     pub use vertex_attribute_robustness::defs::*;
     pub use vertex_input_dynamic_state::defs::*;
@@ -431,6 +433,7 @@ pub(super) mod ffi {
     pub use super::validation_cache::ffi::*;
     pub use super::validation_features::ffi::*;
     pub use super::validation_flags::ffi::*;
+    pub use super::vertex_address_binding_unrestricted::ffi::*;
     pub use super::vertex_attribute_divisor::ffi::*;
     pub use super::vertex_attribute_robustness::ffi::*;
     pub use super::vertex_input_dynamic_state::ffi::*;
