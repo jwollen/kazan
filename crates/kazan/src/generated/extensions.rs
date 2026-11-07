@@ -1461,6 +1461,7 @@ define_extension_set!(
             ext_shader_subgroup_partitioned,
             ext::shader_subgroup_partitioned::EXTENSION_NAME
         ),
+        (nv_internal_handle, nv::internal_handle::EXTENSION_NAME),
         (khr_extended_flags, khr::extended_flags::EXTENSION_NAME),
         (
             arm_cooperative_matrix_layouts,
@@ -1482,6 +1483,10 @@ define_extension_set!(
         (
             ext_primitive_restart_index,
             ext::primitive_restart_index::EXTENSION_NAME
+        ),
+        (
+            ext_vertex_address_binding_unrestricted,
+            ext::vertex_address_binding_unrestricted::EXTENSION_NAME
         ),
         (khr_maintenance12, khr::maintenance12::EXTENSION_NAME),
         (

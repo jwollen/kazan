@@ -35,6 +35,7 @@ pub mod framebuffer_mixed_samples;
 pub mod geometry_shader_passthrough;
 pub mod glsl_shader;
 pub mod inherited_viewport_scissor;
+pub mod internal_handle;
 pub mod linear_color_attachment;
 pub mod low_latency;
 pub mod low_latency2;
@@ -102,6 +103,7 @@ pub(super) mod defs {
     pub use fragment_shading_rate_enums::defs::*;
     pub use framebuffer_mixed_samples::defs::*;
     pub use inherited_viewport_scissor::defs::*;
+    pub use internal_handle::defs::*;
     pub use linear_color_attachment::defs::*;
     pub use low_latency::defs::*;
     pub use low_latency2::defs::*;
@@ -166,6 +168,7 @@ pub(super) mod ffi {
     pub use super::fragment_shading_rate_enums::ffi::*;
     pub use super::framebuffer_mixed_samples::ffi::*;
     pub use super::inherited_viewport_scissor::ffi::*;
+    pub use super::internal_handle::ffi::*;
     pub use super::linear_color_attachment::ffi::*;
     pub use super::low_latency::ffi::*;
     pub use super::low_latency2::ffi::*;

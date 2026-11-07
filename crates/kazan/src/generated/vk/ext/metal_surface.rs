@@ -25,7 +25,7 @@ pub(super) mod defs {
         pub s_type: StructureType,
         pub p_next: *const c_void,
         pub flags: MetalSurfaceCreateFlagsEXT,
-        pub p_layer: *const CAMetalLayer,
+        pub p_layer: *mut CAMetalLayer,
         pub _marker: PhantomData<&'a ()>,
     }
 
@@ -51,7 +51,7 @@ pub(super) mod defs {
                 s_type: Self::STRUCTURE_TYPE,
                 p_next: ptr::null(),
                 flags: Default::default(),
-                p_layer: ptr::null(),
+                p_layer: ptr::null_mut(),
                 _marker: PhantomData,
             }
         }
@@ -65,7 +65,7 @@ pub(super) mod defs {
         }
 
         #[inline]
-        pub fn layer(mut self, layer: *const CAMetalLayer) -> Self {
+        pub fn layer(mut self, layer: *mut CAMetalLayer) -> Self {
             self.p_layer = layer;
             self
         }
