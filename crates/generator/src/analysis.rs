@@ -175,6 +175,14 @@ impl Analysis {
             || self.registry.bitmask_aliases.iter().any(|a| a.name == name)
     }
 
+    /// Returns true if `ty` is a basetype that is itself a pointer typedef
+    /// (e.g. `typedef struct VkInternalObjectNV* VkInternalHandleNV`), so a
+    /// pointer to it is really a pointer-to-pointer.
+    pub fn is_opaque_pointer_typedef(&self, ty: &CType) -> bool {
+        matches!(ty, CType::Base(b) if self.registry.basetypes.iter()
+            .any(|bt| bt.name == b.name && bt.ty.is_none() && bt.is_pointer_typedef))
+    }
+
     /// Like [`Self::is_opaque_type_name`], but extracts the base name from a `CType`.
     pub fn is_opaque_type(&self, ty: &CType) -> bool {
         ctype::base_name(ty).is_some_and(|name| self.opaque_types.contains(name))

@@ -376,6 +376,8 @@ pub struct BaseType {
     pub name: &'static str,
     /// [`None`] indicates this being a platform-specific type.
     pub ty: Option<&'static str>,
+    /// True for `typedef struct Foo* Name;` style typedefs (the typedef itself is a pointer).
+    pub is_pointer_typedef: bool,
 }
 
 impl BaseType {
@@ -383,6 +385,10 @@ impl BaseType {
         BaseType {
             name: child_text(node, "name").unwrap(),
             ty: child_text(node, "type"),
+            is_pointer_typedef: node
+                .children()
+                .filter(|c| c.is_text())
+                .any(|c| c.text().is_some_and(|t| t.contains('*'))),
         }
     }
 }
