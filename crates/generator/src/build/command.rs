@@ -255,7 +255,10 @@ fn classify_param(
             }
             _ => false,
         };
-        non_const_ptr && param.len.is_none() && is_pointer_to_pointer(&param.c_decl.ty)
+        let ptr_to_ptr = is_pointer_to_pointer(&param.c_decl.ty)
+            || matches!(&param.c_decl.ty, CType::Ptr { pointee, .. }
+                if analysis.is_opaque_pointer_typedef(pointee));
+        non_const_ptr && param.len.is_none() && ptr_to_ptr
     };
 
     let is_extensible_output = is_output_param && {
