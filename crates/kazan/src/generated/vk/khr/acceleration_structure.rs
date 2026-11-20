@@ -1539,6 +1539,10 @@ pub(super) mod defs {
         pub const BOTTOM_LEVEL_KHR: Self = Self(1);
         pub const GENERIC_KHR: Self = Self(2);
 
+        // VK_AMDX_multi_level_acceleration_structure
+        #[cfg(feature = "provisional")]
+        pub const MID_LEVEL_AMDX: Self = Self(1000648000);
+
         // VK_KHR_opacity_micromap
         pub const OPACITY_MICROMAP_KHR: Self = Self(1000623000);
 
@@ -1553,6 +1557,8 @@ pub(super) mod defs {
                 Self::TOP_LEVEL_KHR => Some("TOP_LEVEL_KHR"),
                 Self::BOTTOM_LEVEL_KHR => Some("BOTTOM_LEVEL_KHR"),
                 Self::GENERIC_KHR => Some("GENERIC_KHR"),
+                #[cfg(feature = "provisional")]
+                Self::MID_LEVEL_AMDX => Some("MID_LEVEL_AMDX"),
                 Self::OPACITY_MICROMAP_KHR => Some("OPACITY_MICROMAP_KHR"),
                 _ => None,
             };

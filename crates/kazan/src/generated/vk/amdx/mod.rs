@@ -1,9 +1,12 @@
 pub mod dense_geometry_format;
+pub mod multi_level_acceleration_structure;
 pub mod shader_enqueue;
 pub(super) mod defs {
     use super::*;
     #[cfg(feature = "provisional")]
     pub use dense_geometry_format::defs::*;
+    #[cfg(feature = "provisional")]
+    pub use multi_level_acceleration_structure::defs::*;
     #[cfg(feature = "provisional")]
     pub use shader_enqueue::defs::*;
 }
@@ -11,6 +14,8 @@ pub(super) mod defs {
 pub(super) mod ffi {
     #[cfg(feature = "provisional")]
     pub use super::dense_geometry_format::ffi::*;
+    #[cfg(feature = "provisional")]
+    pub use super::multi_level_acceleration_structure::ffi::*;
     #[cfg(feature = "provisional")]
     pub use super::shader_enqueue::ffi::*;
 }
