@@ -1448,6 +1448,11 @@ define_extension_set!(
             nv_compute_occupancy_priority,
             nv::compute_occupancy_priority::EXTENSION_NAME
         ),
+        #[cfg(feature = "provisional")]
+        (
+            amdx_multi_level_acceleration_structure,
+            amdx::multi_level_acceleration_structure::EXTENSION_NAME
+        ),
         (
             khr_pipeline_library_group_handles,
             khr::pipeline_library_group_handles::EXTENSION_NAME

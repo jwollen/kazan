@@ -4096,167 +4096,51 @@ pub(super) mod defs {
     impl fmt::Debug for PipelineCreateFlags2 {
         fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             const KNOWN: &[(Flags64, &str)] = &[
-                (
-                    PipelineCreateFlagBits2::DISABLE_OPTIMIZATION.0,
-                    "DISABLE_OPTIMIZATION",
-                ),
-                (
-                    PipelineCreateFlagBits2::ALLOW_DERIVATIVES.0,
-                    "ALLOW_DERIVATIVES",
-                ),
+                (PipelineCreateFlagBits2::DISABLE_OPTIMIZATION.0, "DISABLE_OPTIMIZATION"),
+                (PipelineCreateFlagBits2::ALLOW_DERIVATIVES.0, "ALLOW_DERIVATIVES"),
                 (PipelineCreateFlagBits2::DERIVATIVE.0, "DERIVATIVE"),
-                (
-                    PipelineCreateFlagBits2::VIEW_INDEX_FROM_DEVICE_INDEX.0,
-                    "VIEW_INDEX_FROM_DEVICE_INDEX",
-                ),
+                (PipelineCreateFlagBits2::VIEW_INDEX_FROM_DEVICE_INDEX.0, "VIEW_INDEX_FROM_DEVICE_INDEX"),
                 (PipelineCreateFlagBits2::DISPATCH_BASE.0, "DISPATCH_BASE"),
-                (
-                    PipelineCreateFlagBits2::FAIL_ON_PIPELINE_COMPILE_REQUIRED.0,
-                    "FAIL_ON_PIPELINE_COMPILE_REQUIRED",
-                ),
-                (
-                    PipelineCreateFlagBits2::EARLY_RETURN_ON_FAILURE.0,
-                    "EARLY_RETURN_ON_FAILURE",
-                ),
-                (
-                    PipelineCreateFlagBits2::NO_PROTECTED_ACCESS.0,
-                    "NO_PROTECTED_ACCESS",
-                ),
-                (
-                    PipelineCreateFlagBits2::PROTECTED_ACCESS_ONLY.0,
-                    "PROTECTED_ACCESS_ONLY",
-                ),
-                #[cfg(feature = "provisional")]
-                (
-                    PipelineCreateFlagBits2::EXECUTION_GRAPH_AMDX.0,
-                    "EXECUTION_GRAPH_AMDX",
-                ),
-                (
-                    PipelineCreateFlagBits2::DISALLOW_OPACITY_MICROMAP_ARM.0,
-                    "DISALLOW_OPACITY_MICROMAP_ARM",
-                ),
-                (
-                    PipelineCreateFlagBits2::INSTRUMENT_SHADERS_ARM.0,
-                    "INSTRUMENT_SHADERS_ARM",
-                ),
-                (
-                    PipelineCreateFlagBits2::DESCRIPTOR_HEAP_EXT.0,
-                    "DESCRIPTOR_HEAP_EXT",
-                ),
-                (
-                    PipelineCreateFlagBits2::INDIRECT_BINDABLE_EXT.0,
-                    "INDIRECT_BINDABLE_EXT",
-                ),
-                (
-                    PipelineCreateFlagBits2::ENABLE_LEGACY_DITHERING_EXT.0,
-                    "ENABLE_LEGACY_DITHERING_EXT",
-                ),
-                (
-                    PipelineCreateFlagBits2::_64_INDEXING_EXT.0,
-                    "_64_INDEXING_EXT",
-                ),
-                (
-                    PipelineCreateFlagBits2::DEFER_COMPILE_NV.0,
-                    "DEFER_COMPILE_NV",
-                ),
-                (
-                    PipelineCreateFlagBits2::CAPTURE_STATISTICS_KHR.0,
-                    "CAPTURE_STATISTICS_KHR",
-                ),
-                (
-                    PipelineCreateFlagBits2::CAPTURE_INTERNAL_REPRESENTATIONS_KHR.0,
-                    "CAPTURE_INTERNAL_REPRESENTATIONS_KHR",
-                ),
-                (
-                    PipelineCreateFlagBits2::LINK_TIME_OPTIMIZATION_EXT.0,
-                    "LINK_TIME_OPTIMIZATION_EXT",
-                ),
+                (PipelineCreateFlagBits2::FAIL_ON_PIPELINE_COMPILE_REQUIRED.0, "FAIL_ON_PIPELINE_COMPILE_REQUIRED"),
+                (PipelineCreateFlagBits2::EARLY_RETURN_ON_FAILURE.0, "EARLY_RETURN_ON_FAILURE"),
+                (PipelineCreateFlagBits2::NO_PROTECTED_ACCESS.0, "NO_PROTECTED_ACCESS"),
+                (PipelineCreateFlagBits2::PROTECTED_ACCESS_ONLY.0, "PROTECTED_ACCESS_ONLY"),
+#[cfg(feature = "provisional")]
+                (PipelineCreateFlagBits2::RAY_TRACING_ALLOW_MULTI_LEVEL_ACCELERATION_STRUCTURES_AMDX.0, "RAY_TRACING_ALLOW_MULTI_LEVEL_ACCELERATION_STRUCTURES_AMDX"),
+#[cfg(feature = "provisional")]
+                (PipelineCreateFlagBits2::EXECUTION_GRAPH_AMDX.0, "EXECUTION_GRAPH_AMDX"),
+                (PipelineCreateFlagBits2::DISALLOW_OPACITY_MICROMAP_ARM.0, "DISALLOW_OPACITY_MICROMAP_ARM"),
+                (PipelineCreateFlagBits2::INSTRUMENT_SHADERS_ARM.0, "INSTRUMENT_SHADERS_ARM"),
+                (PipelineCreateFlagBits2::DESCRIPTOR_HEAP_EXT.0, "DESCRIPTOR_HEAP_EXT"),
+                (PipelineCreateFlagBits2::INDIRECT_BINDABLE_EXT.0, "INDIRECT_BINDABLE_EXT"),
+                (PipelineCreateFlagBits2::ENABLE_LEGACY_DITHERING_EXT.0, "ENABLE_LEGACY_DITHERING_EXT"),
+                (PipelineCreateFlagBits2::_64_INDEXING_EXT.0, "_64_INDEXING_EXT"),
+                (PipelineCreateFlagBits2::DEFER_COMPILE_NV.0, "DEFER_COMPILE_NV"),
+                (PipelineCreateFlagBits2::CAPTURE_STATISTICS_KHR.0, "CAPTURE_STATISTICS_KHR"),
+                (PipelineCreateFlagBits2::CAPTURE_INTERNAL_REPRESENTATIONS_KHR.0, "CAPTURE_INTERNAL_REPRESENTATIONS_KHR"),
+                (PipelineCreateFlagBits2::LINK_TIME_OPTIMIZATION_EXT.0, "LINK_TIME_OPTIMIZATION_EXT"),
                 (PipelineCreateFlagBits2::LIBRARY_KHR.0, "LIBRARY_KHR"),
-                (
-                    PipelineCreateFlagBits2::RAY_TRACING_SKIP_TRIANGLES_KHR.0,
-                    "RAY_TRACING_SKIP_TRIANGLES_KHR",
-                ),
-                (
-                    PipelineCreateFlagBits2::RAY_TRACING_SKIP_AABBS_KHR.0,
-                    "RAY_TRACING_SKIP_AABBS_KHR",
-                ),
-                (
-                    PipelineCreateFlagBits2::RAY_TRACING_NO_NULL_ANY_HIT_SHADERS_KHR.0,
-                    "RAY_TRACING_NO_NULL_ANY_HIT_SHADERS_KHR",
-                ),
-                (
-                    PipelineCreateFlagBits2::RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_KHR.0,
-                    "RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_KHR",
-                ),
-                (
-                    PipelineCreateFlagBits2::RAY_TRACING_NO_NULL_MISS_SHADERS_KHR.0,
-                    "RAY_TRACING_NO_NULL_MISS_SHADERS_KHR",
-                ),
-                (
-                    PipelineCreateFlagBits2::RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_KHR.0,
-                    "RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_KHR",
-                ),
-                (
-                    PipelineCreateFlagBits2::INDIRECT_BINDABLE_NV.0,
-                    "INDIRECT_BINDABLE_NV",
-                ),
-                (
-                    PipelineCreateFlagBits2::RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_KHR.0,
-                    "RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_KHR",
-                ),
-                (
-                    PipelineCreateFlagBits2::RAY_TRACING_ALLOW_MOTION_NV.0,
-                    "RAY_TRACING_ALLOW_MOTION_NV",
-                ),
-                (
-                    PipelineCreateFlagBits2::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0,
-                    "RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR",
-                ),
-                (
-                    PipelineCreateFlagBits2::RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT.0,
-                    "RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT",
-                ),
-                (
-                    PipelineCreateFlagBits2::RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT.0,
-                    "RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT",
-                ),
-                (
-                    PipelineCreateFlagBits2::COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT.0,
-                    "COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT",
-                ),
-                (
-                    PipelineCreateFlagBits2::DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT.0,
-                    "DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT",
-                ),
-                (
-                    PipelineCreateFlagBits2::RAY_TRACING_DISPLACEMENT_MICROMAP_NV.0,
-                    "RAY_TRACING_DISPLACEMENT_MICROMAP_NV",
-                ),
-                (
-                    PipelineCreateFlagBits2::DESCRIPTOR_BUFFER_EXT.0,
-                    "DESCRIPTOR_BUFFER_EXT",
-                ),
-                (
-                    PipelineCreateFlagBits2::RAY_TRACING_OPACITY_MICROMAP_KHR.0,
-                    "RAY_TRACING_OPACITY_MICROMAP_KHR",
-                ),
-                (
-                    PipelineCreateFlagBits2::OPACITY_MICROMAP_DISALLOW_MIXED_SPECIAL_INDEX_KHR.0,
-                    "OPACITY_MICROMAP_DISALLOW_MIXED_SPECIAL_INDEX_KHR",
-                ),
-                (
-                    PipelineCreateFlagBits2::CAPTURE_DATA_KHR.0,
-                    "CAPTURE_DATA_KHR",
-                ),
-                (
-                    PipelineCreateFlagBits2::RAY_TRACING_ALLOW_SPHERES_AND_LINEAR_SWEPT_SPHERES_NV
-                        .0,
-                    "RAY_TRACING_ALLOW_SPHERES_AND_LINEAR_SWEPT_SPHERES_NV",
-                ),
-                (
-                    PipelineCreateFlagBits2::PER_LAYER_FRAGMENT_DENSITY_VALVE.0,
-                    "PER_LAYER_FRAGMENT_DENSITY_VALVE",
-                ),
+                (PipelineCreateFlagBits2::RAY_TRACING_SKIP_TRIANGLES_KHR.0, "RAY_TRACING_SKIP_TRIANGLES_KHR"),
+                (PipelineCreateFlagBits2::RAY_TRACING_SKIP_AABBS_KHR.0, "RAY_TRACING_SKIP_AABBS_KHR"),
+                (PipelineCreateFlagBits2::RAY_TRACING_NO_NULL_ANY_HIT_SHADERS_KHR.0, "RAY_TRACING_NO_NULL_ANY_HIT_SHADERS_KHR"),
+                (PipelineCreateFlagBits2::RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_KHR.0, "RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_KHR"),
+                (PipelineCreateFlagBits2::RAY_TRACING_NO_NULL_MISS_SHADERS_KHR.0, "RAY_TRACING_NO_NULL_MISS_SHADERS_KHR"),
+                (PipelineCreateFlagBits2::RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_KHR.0, "RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_KHR"),
+                (PipelineCreateFlagBits2::INDIRECT_BINDABLE_NV.0, "INDIRECT_BINDABLE_NV"),
+                (PipelineCreateFlagBits2::RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_KHR.0, "RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_KHR"),
+                (PipelineCreateFlagBits2::RAY_TRACING_ALLOW_MOTION_NV.0, "RAY_TRACING_ALLOW_MOTION_NV"),
+                (PipelineCreateFlagBits2::RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR.0, "RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_KHR"),
+                (PipelineCreateFlagBits2::RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT.0, "RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_EXT"),
+                (PipelineCreateFlagBits2::RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT.0, "RETAIN_LINK_TIME_OPTIMIZATION_INFO_EXT"),
+                (PipelineCreateFlagBits2::COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT.0, "COLOR_ATTACHMENT_FEEDBACK_LOOP_EXT"),
+                (PipelineCreateFlagBits2::DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT.0, "DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_EXT"),
+                (PipelineCreateFlagBits2::RAY_TRACING_DISPLACEMENT_MICROMAP_NV.0, "RAY_TRACING_DISPLACEMENT_MICROMAP_NV"),
+                (PipelineCreateFlagBits2::DESCRIPTOR_BUFFER_EXT.0, "DESCRIPTOR_BUFFER_EXT"),
+                (PipelineCreateFlagBits2::RAY_TRACING_OPACITY_MICROMAP_KHR.0, "RAY_TRACING_OPACITY_MICROMAP_KHR"),
+                (PipelineCreateFlagBits2::OPACITY_MICROMAP_DISALLOW_MIXED_SPECIAL_INDEX_KHR.0, "OPACITY_MICROMAP_DISALLOW_MIXED_SPECIAL_INDEX_KHR"),
+                (PipelineCreateFlagBits2::CAPTURE_DATA_KHR.0, "CAPTURE_DATA_KHR"),
+                (PipelineCreateFlagBits2::RAY_TRACING_ALLOW_SPHERES_AND_LINEAR_SWEPT_SPHERES_NV.0, "RAY_TRACING_ALLOW_SPHERES_AND_LINEAR_SWEPT_SPHERES_NV"),
+                (PipelineCreateFlagBits2::PER_LAYER_FRAGMENT_DENSITY_VALVE.0, "PER_LAYER_FRAGMENT_DENSITY_VALVE"),
             ];
             debug_flags(f, KNOWN, self.0)
         }
@@ -4277,6 +4161,10 @@ pub(super) mod defs {
         pub const EARLY_RETURN_ON_FAILURE: Self = Self(1 << 9);
         pub const NO_PROTECTED_ACCESS: Self = Self(1 << 27);
         pub const PROTECTED_ACCESS_ONLY: Self = Self(1 << 30);
+        // VK_AMDX_multi_level_acceleration_structure
+        #[cfg(feature = "provisional")]
+        pub const RAY_TRACING_ALLOW_MULTI_LEVEL_ACCELERATION_STRUCTURES_AMDX: Self = Self(1 << 47);
+
         // VK_AMDX_shader_enqueue
         #[cfg(feature = "provisional")]
         pub const EXECUTION_GRAPH_AMDX: Self = Self(1 << 32);
@@ -4369,6 +4257,10 @@ pub(super) mod defs {
                 Self::EARLY_RETURN_ON_FAILURE => Some("EARLY_RETURN_ON_FAILURE"),
                 Self::NO_PROTECTED_ACCESS => Some("NO_PROTECTED_ACCESS"),
                 Self::PROTECTED_ACCESS_ONLY => Some("PROTECTED_ACCESS_ONLY"),
+                #[cfg(feature = "provisional")]
+                Self::RAY_TRACING_ALLOW_MULTI_LEVEL_ACCELERATION_STRUCTURES_AMDX => {
+                    Some("RAY_TRACING_ALLOW_MULTI_LEVEL_ACCELERATION_STRUCTURES_AMDX")
+                }
                 #[cfg(feature = "provisional")]
                 Self::EXECUTION_GRAPH_AMDX => Some("EXECUTION_GRAPH_AMDX"),
                 Self::DISALLOW_OPACITY_MICROMAP_ARM => Some("DISALLOW_OPACITY_MICROMAP_ARM"),
